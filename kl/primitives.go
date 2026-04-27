@@ -10,6 +10,15 @@ import (
 )
 
 var home_directory Obj
+var stinputEOF bool
+
+func ResetStinputEOF() {
+	stinputEOF = false
+}
+
+func StinputEOF() bool {
+	return stinputEOF
+}
 
 var klPrimitives = []struct {
 	name  string
@@ -384,9 +393,15 @@ func PrimReadByte(x Obj) Obj {
 		panic(MakeError("stream is closed of not opened in in mode"))
 	}
 	var buf [1]byte
-	_, err := r.Read(buf[:])
+	n, err := r.Read(buf[:])
+	if n > 0 {
+		return MakeInteger(int(buf[0]))
+	}
 	if err != nil {
 		if err == io.EOF {
+			if x == PrimValue(MakeSymbol("*stinput*")) {
+				stinputEOF = true
+			}
 			return MakeInteger(-1)
 		}
 		panic(MakeError(err.Error()))
