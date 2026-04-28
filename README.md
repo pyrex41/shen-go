@@ -12,6 +12,29 @@ Shen is a portable functional programming language by [Mark Tarver](http://markt
 
 shen-go is a port of the Shen language that runs on top of Go implementations.
 
+## Performance
+
+This fork adds two changes that materially speed up `(load ...)`:
+
+- A per-process load cache keyed by absolute path + typecheck mode, with
+  freshness derived from file size, mtime, and SHA-256 content hash.
+  Repeated loads of an unchanged file skip file I/O, byte-level parsing,
+  and `process-sexprs`. Defun side effects still replay on every load,
+  so cached reloads remain correct after global state mutation.
+- A Go-native Shen source reader that replaces the kernel's
+  `read-file-as-bytelist` + `<s-exprs>` byte-walking parser, falling
+  back to the kernel reader for the rare `($ ...)` splice form. The
+  native reader is byte-for-byte equivalent on every kernel source file
+  in `kernel/sources/`.
+
+Measured against the cross-validate kernel:
+
+| Workload                       | Before    | After    |
+| ------------------------------ | --------- | -------- |
+| `prelude.shen` first load      | ~206 ms   | ~36 ms   |
+| `prelude.shen` cached reload   | first-load cost | ~20–50 ms |
+| `check.shen` full run          | ~6–8 s    | ~1.5 s   |
+
 ## Building
 
 Make sure you have [Go installed](https://golang.org/doc/install).
