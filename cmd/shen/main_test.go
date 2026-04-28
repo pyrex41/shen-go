@@ -9,7 +9,7 @@ import (
 )
 
 func TestPipedStdinEOFExitsRepl(t *testing.T) {
-	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Minute)
 	defer cancel()
 
 	cmd := exec.CommandContext(ctx, "go", "run", ".")

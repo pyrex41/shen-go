@@ -39,6 +39,7 @@ func regist(e *kl.ControlFlow) {
 			fmt.Println("load ...fail")
 		}
 	}
+	installLoadCache()
 }
 
 var ns2_1set kl.Obj
