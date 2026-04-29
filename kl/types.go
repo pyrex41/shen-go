@@ -246,7 +246,15 @@ var symType Obj
 
 const fixnumCount = 1 << 20
 
-var addrForFixnum [fixnumCount]byte
+// addrForFixnum is the backing array for the fixnum encoding: the Obj for an
+// integer N is the address (fixnumBaseAddr + N), and reading `*o` returns the
+// `scmHead` (8 bytes on 64-bit) at that address — which is zero, matching
+// scmHeadNumber. The trailing padding lets the highest fixnum (offset
+// fixnumCount-1) safely read 8 bytes without running off the end of the
+// array. Without it, adjacent globals — including race-detector shadow
+// metadata under `-test -race` — can contain non-zero bytes that cause
+// mustNumber to spuriously panic.
+var addrForFixnum [fixnumCount + 8]byte
 
 var fixnumBaseAddr = unsafe.Pointer(&addrForFixnum[0])
 var fixnumEndAddr = unsafe.Add(fixnumBaseAddr, fixnumCount)

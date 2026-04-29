@@ -103,6 +103,78 @@ func TestLoadCacheReinstallsDefunAfterClobbering(t *testing.T) {
 	}
 }
 
+// TestLoadCacheFallsBackForDollarSplice covers the path where the native
+// reader rejects a file (here, because it contains `($ X)`) and primCachedLoad
+// falls back to the kernel `read-file`. The file should still load and its
+// effects should be visible.
+func TestLoadCacheFallsBackForDollarSplice(t *testing.T) {
+	e := initShenForLoadCacheTest(t)
+
+	probe := kl.MakeSymbol("cache-test-fallback-probe")
+	kl.PrimSet(probe, kl.MakeInteger(0))
+
+	path := filepath.Join(t.TempDir(), "splice.shen")
+	// `($ "ab")` splices to atoms `a` and `b` at top level (which the kernel
+	// reads and the kernel evaluator treats as bare symbol references — no
+	// effect). The (set ...) form after it is what we observe.
+	writeLoadCacheTestFile(t, path, "($ \"ab\")\n(set cache-test-fallback-probe 7)\n")
+
+	loadShenFile(t, e, path)
+
+	got := kl.GetInteger(kl.PrimValue(probe))
+	if got != 7 {
+		t.Fatalf("fallback path didn't run set form: probe=%d, want 7", got)
+	}
+}
+
+// TestLoadCacheConcurrentPrimitives stresses the cache lookup/store mutex by
+// hammering it from many goroutines. Run with `-race` to validate; it does
+// NOT exercise concurrent `(load ...)` calls, since the kl runtime itself is
+// not goroutine-safe.
+func TestLoadCacheConcurrentPrimitives(t *testing.T) {
+	resetLoadCache()
+	dir := t.TempDir()
+	const fileCount = 8
+	const goroutines = 16
+	const iterations = 200
+
+	paths := make([]string, fileCount)
+	for i := range paths {
+		paths[i] = filepath.Join(dir, fmt.Sprintf("concurrent-%d.shen", i))
+		if err := os.WriteFile(paths[i], []byte(fmt.Sprintf("(set probe-%d %d)\n", i, i)), 0644); err != nil {
+			t.Fatal(err)
+		}
+	}
+
+	var wg sync.WaitGroup
+	wg.Add(goroutines)
+	for g := 0; g < goroutines; g++ {
+		go func(g int) {
+			defer wg.Done()
+			for i := 0; i < iterations; i++ {
+				p := paths[(g+i)%fileCount]
+				entry, ok := lookupLoadCache(p, false)
+				if !ok {
+					storeLoadCache(entry)
+				}
+			}
+		}(g)
+	}
+	wg.Wait()
+
+	hits, misses := loadCacheStats()
+	totalOps := goroutines * iterations
+	if hits+misses != totalOps {
+		t.Fatalf("hits+misses=%d, want %d", hits+misses, totalOps)
+	}
+	// At minimum, every goroutine after the first cache fill should see at
+	// least some hits — guard against the mutex being overly aggressive and
+	// every call missing.
+	if hits == 0 {
+		t.Fatalf("expected at least some cache hits, got %d (misses=%d)", hits, misses)
+	}
+}
+
 func BenchmarkRepeatedCachedLoad(b *testing.B) {
 	e := initShenForLoadCacheTest(b)
 	counter := kl.MakeSymbol("load-cache-benchmark-counter")

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"os"
 	"path/filepath"
 	"testing"
@@ -85,6 +86,29 @@ func TestNativeReaderMatchesKernelSources(t *testing.T) {
 	}
 	if checked == 0 {
 		t.Fatal("no .shen files found in kernel/sources")
+	}
+}
+
+func TestNativeReaderRejectsDollarSplice(t *testing.T) {
+	cases := []struct {
+		name string
+		src  string
+	}{
+		{"top-level", `($ "abc")`},
+		{"nested-in-paren", `(foo ($ "ab") bar)`},
+		{"nested-in-bracket", `[($ "ab") | rest]`},
+	}
+	for _, tc := range cases {
+		t.Run(tc.name, func(t *testing.T) {
+			path := filepath.Join(t.TempDir(), "splice.shen")
+			if err := os.WriteFile(path, []byte(tc.src+"\n"), 0644); err != nil {
+				t.Fatal(err)
+			}
+			_, err := parseShenFile(path)
+			if !errors.Is(err, errReaderUnsupported) {
+				t.Fatalf("parseShenFile %q: err=%v, want errReaderUnsupported", tc.src, err)
+			}
+		})
 	}
 }
 
