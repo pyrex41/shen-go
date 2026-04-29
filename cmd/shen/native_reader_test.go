@@ -26,6 +26,7 @@ func TestNativeReaderMatchesShen(t *testing.T) {
 		{"colon-eq", "(let X := 1 X)\n"},
 		{"vector-empty", "(<>)\n"},
 		{"misc-syms", "(@p X Y) (@s S Ss) (foo? bar! baz/qux)\n"},
+		{"true-false", "(if true 1 0) (if false 1 0)\n"},
 	}
 
 	for _, tc := range cases {
@@ -102,10 +103,21 @@ func bytelistToString(e *kl.ControlFlow, bytelist kl.Obj) kl.Obj {
 }
 
 // shenObjEqual structurally compares two kl.Obj values, treating numbers,
-// strings, symbols, booleans, and nested cons cells.
+// strings, symbols, booleans, and nested cons cells. Different types compare
+// unequal — in particular the boolean False is distinct from the symbol
+// `false`, which matters for the `(intern "true"/"false")` coercion the Shen
+// reader applies.
 func shenObjEqual(a, b kl.Obj) bool {
 	if a == b {
 		return true
+	}
+	aPair, aIsPair := isPairObj(a)
+	bPair, bIsPair := isPairObj(b)
+	if aIsPair != bIsPair {
+		return false
+	}
+	if aIsPair {
+		return shenObjEqual(aPair[0], bPair[0]) && shenObjEqual(aPair[1], bPair[1])
 	}
 	if a == kl.Nil || b == kl.Nil {
 		return a == b
@@ -119,26 +131,18 @@ func shenObjEqual(a, b kl.Obj) bool {
 	if kl.IsSymbol(a) && kl.IsSymbol(b) {
 		return kl.GetSymbol(a) == kl.GetSymbol(b)
 	}
-	// Try as pairs.
-	aSlice, aOK := tryListToSlice(a)
-	bSlice, bOK := tryListToSlice(b)
-	if !aOK || !bOK {
-		return false
-	}
-	if len(aSlice) != len(bSlice) {
-		return false
-	}
-	for i := range aSlice {
-		if !shenObjEqual(aSlice[i], bSlice[i]) {
-			return false
-		}
-	}
-	return true
+	return false
 }
 
-func tryListToSlice(o kl.Obj) ([]kl.Obj, bool) {
+// isPairObj returns the (car, cdr) of a cons cell, or false if the value is
+// not a pair. We avoid `kl.ListToSlice` here because it returns an empty slice
+// for any non-pair, which makes atom/atom comparisons spuriously equal.
+func isPairObj(o kl.Obj) ([2]kl.Obj, bool) {
+	if o == kl.Nil {
+		return [2]kl.Obj{}, false
+	}
 	defer func() {
 		recover()
 	}()
-	return kl.ListToSlice(o), true
+	return [2]kl.Obj{kl.Car(o), kl.Cdr(o)}, true
 }

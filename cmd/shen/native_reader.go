@@ -151,6 +151,17 @@ func (r *shenReader) readAtom() (kl.Obj, error) {
 	if f, err := strconv.ParseFloat(s, 64); err == nil {
 		return kl.MakeNumber(f), nil
 	}
+	// Match Shen `<atom>`: a `<sym>` is `(intern <sym>)`, and `intern` maps
+	// the strings "true"/"false" to the kl boolean constants. Preserving this
+	// is load-bearing for `(if Pred ...)` where Pred is a Shen-source
+	// predicate returning literal `true`/`false` — without this, those
+	// literals stay as symbols and evalIf rejects them.
+	switch s {
+	case "true":
+		return kl.True, nil
+	case "false":
+		return kl.False, nil
+	}
 	return kl.MakeSymbol(s), nil
 }
 

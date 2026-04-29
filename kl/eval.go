@@ -83,7 +83,7 @@ func evalIf(e *ControlFlow, a, b, c Obj, env Obj) {
 		e.TailEval(c, env)
 		return
 	}
-	panic("second argument of if should be boolean")
+	panic(fmt.Sprintf("second argument of if should be boolean, got: %s (cond expr: %s)", ObjString(t), ObjString(a)))
 }
 
 func evalAnd(e *ControlFlow, a, b Obj, env Obj) {

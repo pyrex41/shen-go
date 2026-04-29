@@ -60,6 +60,24 @@ func TestLoadCacheEvaluatesCachedFormsAndInvalidatesOnChange(t *testing.T) {
 	}
 }
 
+// TestLoadCachePredicateReturnsBooleanForIf reproduces a regression where the
+// native reader emitted the symbol `false` (instead of the boolean False) for
+// the literal `false` token in a .shen file. Predicates defined as `-> true /
+// -> false` then returned a symbol, and `(if Pred ...)` would panic in
+// evalIf with "second argument of if should be boolean".
+func TestLoadCachePredicateReturnsBooleanForIf(t *testing.T) {
+	e := initShenForLoadCacheTest(t)
+
+	path := filepath.Join(t.TempDir(), "predicate.shen")
+	writeLoadCacheTestFile(t, path, "(define cache-test-pred X -> false)\n(set cache-test-result (if (cache-test-pred 1) 1 2))\n")
+
+	loadShenFile(t, e, path)
+	got := kl.GetInteger(kl.PrimValue(kl.MakeSymbol("cache-test-result")))
+	if got != 2 {
+		t.Fatalf("cache-test-result = %d, want 2 (predicate returning false should fall to else branch)", got)
+	}
+}
+
 func TestLoadCacheReinstallsDefunAfterClobbering(t *testing.T) {
 	e := initShenForLoadCacheTest(t)
 
