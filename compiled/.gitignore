@@ -1,2 +1,8 @@
 *.bc
 *.tmp
+# Scratch plugin build dirs + generated codegen output
+onefn_raw.go
+onefn-fib_raw.go
+plugintmp*/
+pluginso*/
+_in*

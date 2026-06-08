@@ -1,4 +1,4 @@
-.PHONY: all kl shen docker test certify test-all
+.PHONY: all kl shen docker test certify test-all precompile
 
 all: kl shen
 
@@ -7,6 +7,26 @@ kl:
 
 shen:
 	go build -o shen github.com/tiancaiamao/shen-go/cmd/shen
+
+# AOT-compile a whole Shen (or KL) file to a Go plugin .so, to be loaded at
+# startup with `./shen -precompiled OUT`. The .so MUST be built with the same Go
+# toolchain + module as the shen binary that loads it (both from this tree).
+#   make precompile FILE=bench/hot.shen           # -> bench/hot.so
+#   make precompile FILE=bench/hot.shen OUT=x.so  # -> x.so
+FILE ?=
+OUT  ?= $(basename $(FILE)).so
+precompile:
+	@test -n "$(FILE)" || { echo "usage: make precompile FILE=path/to/file.shen [OUT=out.so]"; exit 1; }
+	@go build -o klc ./cmd/kl
+	@rm -rf compiled/_in* compiled/plugintmp*
+	@cp "$(FILE)" compiled/_in.shen
+	@cd compiled && ../klc < precompile.kl > /tmp/shen-precompile.log 2>&1 || { cat /tmp/shen-precompile.log; exit 1; }
+	@grep -q '\[go-build-plugin\]' /tmp/shen-precompile.log || { echo "precompile failed:"; cat /tmp/shen-precompile.log; exit 1; }
+	@mkdir -p "$(dir $(OUT))"
+	@mv compiled/_in.so "$(OUT)"
+	@mv compiled/_in.fns "$(OUT).fns"
+	@rm -rf compiled/_in* compiled/plugintmp*
+	@echo "precompiled $(FILE) -> $(OUT) (+ $(OUT).fns)"
 
 shen-exe:
 	go build -o shen.exe github.com/tiancaiamao/shen-go/cmd/shen

@@ -34,6 +34,42 @@ make shen-exe
 
 This binary has no dependency, you can move it to any where you want.
 
+## Performance: compile hot files to Go (optional)
+
+By default every function runs on the bytecode VM — instant to define, ideal for
+the REPL. For hot, compute-heavy code you can instead **compile a whole file to
+native Go** ahead of time and load it at startup. The two coexist in one process:
+a precompiled function overrides only its own binding; everything else (including
+anything you type at the REPL) stays on the VM, and the two call each other freely.
+
+**1. Precompile a file (offline, ~1s per function):**
+
+```
+make precompile FILE=bench/hot.shen OUT=hot.so
+```
+
+This runs Shen → KL → IR → Go → `go build -buildmode=plugin`, emitting `hot.so`
+plus `hot.so.fns` (an arity manifest). It accepts a `.shen` or a `.kl` file.
+
+**2. Run with the compiled functions loaded at startup (~0.3s, no compile cost):**
+
+```
+./shen -precompiled hot.so        # repeatable, or comma-separated
+```
+
+The functions in the `.so` now run as compiled Go; a bad/missing `.so` just warns
+and the REPL continues on the VM. `(load-native "hot.so")` does the same from
+inside a session.
+
+Measured on this kernel (darwin/arm64): a recursion-heavy benchmark runs ~1.6–1.9×
+faster compiled than on the VM. The compiled code still uses the runtime's boxed
+values and trampoline, so it does not reach SBCL-class native speed — it is a
+precompile-the-hot-path option, not a replacement for the VM.
+
+> **Constraint:** a `.so` and the `shen` that loads it must be built from the same
+> module and Go toolchain (both from this tree). Go plugins are Linux/macOS only
+> and cannot be unloaded (redefining a function means rebuilding the `.so`).
+
 ## Testing
 
 Testing has two clearly separate tiers:
