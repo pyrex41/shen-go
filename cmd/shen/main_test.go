@@ -1,3 +1,5 @@
+// This file holds OUR OWN tests for the shen CLI — distinct from the canonical
+// Shen kernel certification suite, which lives in package ./certification.
 package main
 
 import (

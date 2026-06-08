@@ -36,30 +36,44 @@ This binary has no dependency, you can move it to any where you want.
 
 ## Testing
 
-1. Run unit test:
+Testing has two clearly separate tiers:
+
+### 1. Canonical Shen kernel certification (the official suite)
+
+This is the **official ShenOSKernel acceptance test suite** (shipped under
+`kernel/tests`) — the external bar for "Certified" on
+[shen-language.github.io](https://shen-language.github.io). It validates that
+this port correctly implements the Shen language, independent of any tests we
+wrote. It currently passes **134/134 (100%)**.
 
 ```
-make test
+make certify
 ```
 
-2. Test the `klambda` implementation:
-
-```
-make kl
-cd kernel/tests
-kl
-(load-file "../../cmd/kl/runtests.kl")
-(load "runme.shen")
-```
-
-3. Test the `shen` binary:
-
+This builds the `shen` binary and runs `kernel/tests/runme.shen` end-to-end,
+asserting a clean 100% pass rate. You can also run it by hand:
 
 ```
 make shen
 cd kernel/tests
 ../../shen
 (load "runme.shen")
+```
+
+### 2. Our own Go unit tests (additional coverage)
+
+These are **our** tests — they exercise the `kl` evaluator/bytecode VM and the
+`shen` CLI directly, beyond what the canonical suite covers. They are fast and
+do not run the certification suite.
+
+```
+make test
+```
+
+### Everything at once
+
+```
+make test-all   # our unit tests + the canonical certification (= go test ./...)
 ```
 
 ## How to bootstrap

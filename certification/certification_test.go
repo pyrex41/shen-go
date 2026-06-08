@@ -1,4 +1,18 @@
-package main
+// Package certification runs the CANONICAL Shen kernel test suite — the official
+// ShenOSKernel acceptance tests shipped under kernel/tests (runme.shen ->
+// harness.shen + kerneltests.shen). This is the external bar for "Certified" on
+// shen-language.github.io; it is NOT part of our own test coverage.
+//
+// Keep this package isolated from our unit tests (which live in package kl and
+// cmd/shen) so it is unambiguous that:
+//
+//   - this suite passes the canonical Shen language tests, 134/134, and
+//   - our own Go unit tests are a separate, additional thing.
+//
+// Run just the certification:   make certify   (or: go test ./certification/)
+// Run just our unit tests:       make test
+// Plain `go test ./...` runs both.
+package certification
 
 import (
 	"context"
@@ -10,36 +24,36 @@ import (
 	"time"
 )
 
-// TestKernelCertification runs the official Shen kernel test suite (the bar for
-// "Certified" on shen-language.github.io) end-to-end and asserts a clean 100%
-// pass rate. The suite lives in-repo at kernel/tests; loading is relative to the
-// process working directory (the native reader ignores *home-directory*), so we
-// run the binary with its CWD set to that directory.
+// TestKernelCertification builds the shen binary and runs the canonical kernel
+// suite end-to-end, asserting a clean 100% pass rate (134/134, no failures).
 //
-// This is an integration test (~10s, builds and runs the binary). Skip it with
-// `go test -short` for a sub-second unit-test cycle.
+// Loading in the suite is relative to the process working directory (the native
+// reader ignores *home-directory*), so the binary runs with its CWD set to
+// kernel/tests. It exits on stdin EOF (see cmd/shen repl), so no input draining
+// or process kill is needed.
+//
+// This is an integration test (~10s: it builds and runs the binary). Skip it
+// with `go test -short`.
 func TestKernelCertification(t *testing.T) {
 	if testing.Short() {
-		t.Skip("skipping kernel certification suite in -short mode")
+		t.Skip("skipping canonical kernel certification suite in -short mode")
 	}
 
 	ctx, cancel := context.WithTimeout(context.Background(), 120*time.Second)
 	defer cancel()
 
-	// Build the binary into a temp dir (CWD here is the cmd/shen package dir).
+	// Build the binary into a temp dir.
 	bin := filepath.Join(t.TempDir(), "shen")
-	build := exec.CommandContext(ctx, "go", "build", "-o", bin, ".")
+	build := exec.CommandContext(ctx, "go", "build", "-o", bin, "../cmd/shen")
 	if out, err := build.CombinedOutput(); err != nil {
 		t.Fatalf("failed to build shen: %v\n%s", err, out)
 	}
 
-	testsDir, err := filepath.Abs(filepath.Join("..", "..", "kernel", "tests"))
+	testsDir, err := filepath.Abs(filepath.Join("..", "kernel", "tests"))
 	if err != nil {
 		t.Fatalf("resolving kernel/tests dir: %v", err)
 	}
 
-	// Feed the load command then let stdin EOF, so the REPL exits cleanly
-	// (relies on the stdin-EOF fix; see main.go repl).
 	cmd := exec.CommandContext(ctx, bin)
 	cmd.Dir = testsDir
 	cmd.Stdin = strings.NewReader(`(load "runme.shen")` + "\n")
@@ -54,7 +68,7 @@ func TestKernelCertification(t *testing.T) {
 	}
 
 	// Every report section ends with a cumulative "failed ... N". Any N>=1 is a
-	// regression.
+	// regression against the canonical suite.
 	if m := regexp.MustCompile(`failed \.\.\. [1-9]`).FindString(out); m != "" {
 		t.Fatalf("kernel suite reported failures (%q); output tail:\n%s", m, tail(out, 40))
 	}

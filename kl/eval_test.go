@@ -1,3 +1,6 @@
+// These are OUR OWN unit tests for the kl evaluator/VM — our additional test
+// coverage, separate from the canonical Shen kernel certification suite (which
+// lives in package ./certification and runs the official ShenOSKernel tests).
 package kl
 
 import (
