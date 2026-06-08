@@ -44,6 +44,43 @@ func regist(e *kl.ControlFlow) {
 var ns2_1set kl.Obj
 var try_1catch kl.Obj
 
+// repl runs the Shen top-level loop in Go so it can exit cleanly when stdin
+// reaches EOF (e.g. piped input). The Shen-level shen.repl/shen.loop tail-calls
+// itself forever; on EOF lineread raises "error: empty stream", which the old
+// loop caught and ignored, spinning indefinitely. Here we detect that EOF via
+// the StinputEOF flag (set in kl.PrimReadByte) and return instead.
+func repl(e *kl.ControlFlow) {
+	kl.Call(e, kl.PrimFunc(symshen_4credits))
+	for {
+		kl.Call(e, kl.PrimFunc(symshen_4initialise__environment))
+		kl.Call(e, kl.PrimFunc(symshen_4prompt))
+		kl.ResetStinputEOF()
+
+		body := kl.MakeNative(func(e *kl.ControlFlow) {
+			e.TailApply(kl.PrimFunc(symshen_4read_1evaluate_1print))
+		}, 0)
+		handler := kl.MakeNative(func(e *kl.ControlFlow) {
+			err := e.Get(1)
+			if isStinputEOFError(err) {
+				e.Return(kl.Nil)
+				return
+			}
+			e.TailApply(kl.PrimFunc(symshen_4toplevel_1display_1exception), err)
+		}, 1)
+
+		kl.Try(e, body).Catch(handler)
+		if kl.StinputEOF() {
+			return
+		}
+	}
+}
+
+// isStinputEOFError reports whether err is the "empty stream" error raised by
+// lineread when *stinput* hit EOF (as opposed to a genuine user error).
+func isStinputEOFError(err kl.Obj) bool {
+	return kl.StinputEOF() && kl.GetString(kl.PrimErrorToString(err)) == "error: empty stream"
+}
+
 func main() {
 	flag.Parse()
 
@@ -57,5 +94,5 @@ func main() {
 	var e kl.ControlFlow
 	regist(&e)
 	kl.Eval(&e, kl.Cons(kl.MakeSymbol("shen.initialise"), kl.Nil))
-	kl.Eval(&e, kl.Cons(kl.MakeSymbol("shen.repl"), kl.Nil))
+	repl(&e)
 }
