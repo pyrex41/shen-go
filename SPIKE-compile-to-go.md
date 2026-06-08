@@ -72,10 +72,47 @@ latency would wreck REPL responsiveness — the design doc's original concern, n
 with numbers). If the goal is closing the gap to SBCL, the higher-leverage path is a new
 optimizing backend or further VM numeric specialization — not this pipeline as-is.
 
+## Usage (productionized: hybrid VM + AOT compile-to-Go)
+
+The spike was productionized into an opt-in **whole-file AOT** path that coexists with the
+VM. The VM remains the default for everything (REPL included); a precompiled `.so` overrides
+`.function` only for the functions it contains.
+
+**1. Precompile a whole Shen (or KL) file → a Go plugin `.so` (offline, ~1s/fn):**
+```
+make precompile FILE=bench/hot.shen OUT=hot.so
+```
+This runs the `cmd/kl` toolchain: Shen→KL (`bootstrap`) → IR (`compile-file`) → Go (`bc->go`)
+→ `go build -buildmode=plugin`. It emits `hot.so` plus `hot.so.fns` (a `NAME ARITY` manifest).
+
+**2. Run shen with the precompiled functions loaded at startup (~0.27s load, no compile):**
+```
+./shen -precompiled hot.so        # repeatable, or comma-separated
+```
+At startup (after `shen.initialise`, before the REPL) each `.so` is `plugin.Open`ed, its
+`Install` hook binds every function, and the `.fns` manifest is replayed through
+`shen.store-arity` so the functions resolve at the Shen REPL. A REPL-typed `(defun …)` is
+still VM-compiled; VM and plugin functions call each other freely. A bad/missing `.so` warns
+and the REPL continues on the VM. `(load-native "x.so")` does the same from inside a session.
+
+**Measured (S41.1, darwin/arm64):** `bench-tak(24,16,8)×20` = 3.15s plugin vs 5.02s VM
+(**1.59×**) — same Shen-`define` logic both sides. The plugin path is for hot functions you
+precompile once; it is never auto-applied to REPL defuns (the ~1s build latency stays at build
+time, not in the REPL).
+
+**Constraints:** the `.so` and the `shen` that loads it must be built from the same module +
+Go toolchain (both from this tree); Go plugins can't be unloaded (redefine = rebuild); no
+Windows. The generated Go still boxes ints + uses the trampoline, hence ~1.6–1.9× over the VM,
+not SBCL-class.
+
 ## Files
 
 - `cmd/plugintest/plugin/tak.go`, `cmd/plugintest/host/main.go` — Stage 0 ABI proof.
-- `cmd/kl/plugin.go` (+ one binding line in `cmd/kl/main.go`) — the `go-build-and-load` native.
-- `compiled/onefn.kl`, `onefn-fib.kl` — the functions compiled.
-- `compiled/spike-e2e.kl` (correctness), `compiled/spike-bench2.kl` (the benchmark).
-- Generated artifacts (`*.tmp`, `*_raw.go`, `plugintmp*/`) are gitignored.
+- `cmd/kl/plugin.go` — `go-build-plugin` (build-only, AOT), `go-build-and-load` (build+load,
+  dev), `emit-arities` (manifest); bound in `cmd/kl/main.go`.
+- `cmd/shen/plugin.go` — startup loader, `-precompiled` flag wiring, `load-native` primitive,
+  arity replay; wired in `cmd/shen/main.go`.
+- `compiled/precompile.kl` — the AOT driver; `Makefile` `precompile` target.
+- `bench/hot.shen` — sample whole-file unit (tak/fib/bench-tak).
+- `compiled/onefn.kl`, `onefn-fib.kl`, `spike-*.kl` — original spike repro/benchmark.
+- Generated artifacts (`*.tmp`, `*_raw.go`, `_in.*`, `plugintmp*/`, `pluginso*/`) are gitignored.

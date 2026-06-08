@@ -1,4 +1,6 @@
 *.so
+*.so.fns
 *.bc
 /shen
+/klc
 *.exe

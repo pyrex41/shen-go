@@ -10,9 +10,11 @@ import (
 )
 
 var pprof bool
+var precompiled precompiledFlag
 
 func init() {
 	flag.BoolVar(&pprof, "pprof", false, "enable pprof")
+	flag.Var(&precompiled, "precompiled", "path to a precompiled .so (repeatable or comma-separated); functions in it run as compiled Go instead of the VM")
 }
 
 func regist(e *kl.ControlFlow) {
@@ -91,8 +93,11 @@ func main() {
 	ns2_1set = kl.PrimFunc(kl.MakeSymbol("defun"))
 	try_1catch = kl.PrimFunc(kl.MakeSymbol("try-catch"))
 
+	kl.BindSymbolFunc(kl.MakeSymbol("load-native"), loadNative)
+
 	var e kl.ControlFlow
 	regist(&e)
 	kl.Eval(&e, kl.Cons(kl.MakeSymbol("shen.initialise"), kl.Nil))
+	loadPrecompiled(&e, precompiled)
 	repl(&e)
 }
