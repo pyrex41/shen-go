@@ -83,7 +83,9 @@ func evalIf(e *ControlFlow, a, b, c Obj, env Obj) {
 		e.TailEval(c, env)
 		return
 	}
-	panic("second argument of if should be boolean")
+	// Match the compiled VM path (OP_JUMP_FALSE), which raises a catchable
+	// Shen error so trap-error can intercept a non-boolean condition.
+	panic(MakeError("if requires a boolean"))
 }
 
 func evalAnd(e *ControlFlow, a, b Obj, env Obj) {

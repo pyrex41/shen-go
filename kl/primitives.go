@@ -10,6 +10,20 @@ import (
 )
 
 var home_directory Obj
+var stinputEOF bool
+
+// ResetStinputEOF clears the stdin-EOF flag. The REPL calls this before each
+// read so a fresh prompt starts from a clean state.
+func ResetStinputEOF() {
+	stinputEOF = false
+}
+
+// StinputEOF reports whether the last read on *stinput* hit EOF. The CLI uses
+// this to exit the top-level loop cleanly when piped input is exhausted,
+// instead of looping forever on "error: empty stream".
+func StinputEOF() bool {
+	return stinputEOF
+}
 
 var klPrimitives = []struct {
 	name  string
@@ -385,9 +399,15 @@ func PrimReadByte(x Obj) Obj {
 		panic(MakeError("stream is closed of not opened in in mode"))
 	}
 	var buf [1]byte
-	_, err := r.Read(buf[:])
+	n, err := r.Read(buf[:])
+	if n > 0 {
+		return MakeInteger(int(buf[0]))
+	}
 	if err != nil {
 		if err == io.EOF {
+			if x == PrimValue(MakeSymbol("*stinput*")) {
+				stinputEOF = true
+			}
 			return MakeInteger(-1)
 		}
 		panic(MakeError(err.Error()))

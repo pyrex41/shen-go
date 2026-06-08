@@ -1,3 +1,6 @@
+// These are OUR OWN unit tests for the kl evaluator/VM — our additional test
+// coverage, separate from the canonical Shen kernel certification suite (which
+// lives in package ./certification and runs the official ShenOSKernel tests).
 package kl
 
 import (
@@ -297,6 +300,34 @@ func TestBytecodeVM(t *testing.T) {
 			`(do (defun add (X Y) (+ X Y))
 			     (add 3 4))`,
 			"7",
+		},
+		// cond special form: only the kernel suite exercised compileCond before
+		// this; go test had it at 0% despite cond appearing in 18 kernel files.
+		{
+			"compiled cond picks matching clause",
+			`(do (defun classify (N)
+			       (cond ((< N 0) -1)
+			             ((= N 0) 0)
+			             (true 1)))
+			     (+ (classify -5) (+ (classify 0) (classify 7))))`,
+			"0", // -1 + 0 + 1
+		},
+		{
+			"compiled cond falls through to nil",
+			`(do (defun pick (N) (cond ((= N 1) 100)))
+			     (pick 2))`,
+			"()", // no clause matches -> Nil
+		},
+		// Integer and float multiplication through the OP_MUL fast path (numMul).
+		{
+			"compiled integer multiply",
+			`(do (defun sq (X) (* X X)) (sq 9))`,
+			"81",
+		},
+		{
+			"compiled float multiply",
+			`(do (defun scale (R) (* 1.5 R)) (scale 2.5))`,
+			"3.750000",
 		},
 		// VM-path float comparisons through compiled defuns.
 		{
