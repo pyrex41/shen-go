@@ -1,0 +1,1 @@
+(defun tak (X Y Z) (if (not (< Y X)) Z (tak (tak (- X 1) Y Z) (tak (- Y 1) Z X) (tak (- Z 1) X Y))))
