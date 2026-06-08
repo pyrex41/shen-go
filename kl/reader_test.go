@@ -80,3 +80,29 @@ func TestReaderMacro(t *testing.T) {
 		t.Error("fail:", ObjString(a), ObjString(b))
 	}
 }
+
+// TestReaderComment covers the extended-reader ';' line-comment branch: a
+// comment line is skipped and reading continues with the next form.
+func TestReaderComment(t *testing.T) {
+	r := NewSexpReader(strings.NewReader("; a comment\n42"), true)
+	o, err := r.Read()
+	if err != nil && err != io.EOF {
+		t.Fatal("read error", err)
+	}
+	if equal(o, MakeInteger(42)) == False {
+		t.Errorf("expected 42 after comment, got %s", ObjString(o))
+	}
+}
+
+// TestRconsForm covers RconsForm/rconsForm, which rewrites a pair structure into
+// nested (cons ...) forms.
+func TestRconsForm(t *testing.T) {
+	in := cons(MakeInteger(1), cons(MakeInteger(2), Nil))
+	if got := ObjString(RconsForm(in)); got != "(cons 1 (cons 2 ()))" {
+		t.Errorf("RconsForm: got %q, want %q", got, "(cons 1 (cons 2 ()))")
+	}
+	// An atom is returned unchanged.
+	if got := ObjString(RconsForm(MakeInteger(5))); got != "5" {
+		t.Errorf("RconsForm(atom): got %q, want 5", got)
+	}
+}
