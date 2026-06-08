@@ -240,3 +240,39 @@ func TestStrRendering(t *testing.T) {
 		t.Errorf("str procedure: got %q", got)
 	}
 }
+
+// TestPrimHash covers the native hash: deterministic, equal keys hash equal,
+// result stays in the kernel's [1, K-1] bucket-index contract, and limit<=1 is 1.
+func TestPrimHash(t *testing.T) {
+	const k = 256
+	limit := MakeInteger(k)
+
+	// Determinism + equal keys -> equal hash.
+	a := GetInteger(PrimHash(MakeString("session-token-42"), limit))
+	b := GetInteger(PrimHash(MakeString("session-token-42"), limit))
+	if a != b {
+		t.Errorf("hash not deterministic: %d vs %d", a, b)
+	}
+
+	// Range [1, K-1] for many distinct keys (offset 3+hash must fit a 3+K vector).
+	for i := 0; i < 500; i++ {
+		h := GetInteger(PrimHash(MakeString("k"+ObjString(MakeInteger(i))), limit))
+		if h < 1 || h > k-1 {
+			t.Fatalf("hash %d out of [1,%d] for key %d", h, k-1, i)
+		}
+	}
+
+	// limit <= 1 collapses to 1.
+	if GetInteger(PrimHash(MakeString("x"), MakeInteger(1))) != 1 {
+		t.Error("hash with limit 1 should be 1")
+	}
+
+	// Reasonable distribution: distinct keys shouldn't all collide.
+	seen := map[int]bool{}
+	for i := 0; i < 100; i++ {
+		seen[GetInteger(PrimHash(MakeString("distinct-"+ObjString(MakeInteger(i))), limit))] = true
+	}
+	if len(seen) < 50 {
+		t.Errorf("poor hash distribution: only %d buckets for 100 keys", len(seen))
+	}
+}

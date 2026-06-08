@@ -44,6 +44,24 @@ printf '(defun tak (X Y Z) ...) (get-time run) (tak 18 12 6) (get-time run)\n' \
 
 ---
 
+## Native `hash` (dictionaries)
+
+Per the Shen port-performance recommendations, the kernel's interpreted `hash`
+(`sys.kl`: char-code product via `shen.hashkey` + modulo-by-repeated-subtraction
+via `shen.mod`) is replaced with a native FNV-1a + true modulo (`kl.PrimHash`,
+overriding `hash` in `cmd/shen` between `regist` and `shen.initialise`). Measured
+with `bench/dict-bench.shen` (darwin/arm64, S41.1):
+
+| Workload | KL hash | native hash | speedup |
+|---|---|---|---|
+| fill 2000 short keys | 0.0136 s | 0.0027 s | 5.0× |
+| 20k short-key lookups | 0.111 s | 0.0126 s | 8.8× |
+| fill 2000 long keys (~25 chars) | 0.039 s | 0.0029 s | 13.4× |
+| 20k long-key lookups | 0.352 s | 0.0181 s | 19.4× |
+
+Hash values are not persisted, so only determinism + distribution matter; the
+canonical kernel certification (dict-heavy: packages, types, prolog) stays 134/134.
+
 ## Notes
 
 - Phase 0: fixed float comparison bug (`mustInteger` → `mustNumber` for `<`, `<=`, `>`, `>=`).

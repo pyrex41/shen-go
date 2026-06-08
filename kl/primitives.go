@@ -532,6 +532,45 @@ func PrimReadFileAsString(x Obj) Obj {
 	return MakeString(string(buf))
 }
 
+// PrimHash is a native replacement for the kernel's `hash` (sys.kl), which
+// builds a product of char codes (overflows past ~8 chars) and then takes a
+// modulo by repeated subtraction of a doubling list of multiples — slow and
+// lossy. We hash the key's string form with FNV-1a and take a true modulo.
+//
+// Hash values are never persisted across runs, so only determinism and
+// distribution matter, not matching the KL value: equal keys still land in the
+// same bucket, and unequal keys that collide are separated by assoc. The result
+// is in [1, K-1] to honour the kernel's bucket-index contract (offset = 3+hash
+// into an absvector of size 3+K), with 0 mapped to 1 exactly as the KL hash does.
+func PrimHash(v, k Obj) Obj {
+	limit := mustInteger(k)
+	if limit <= 1 {
+		return MakeInteger(1)
+	}
+	s := hashKeyString(v)
+	var h uint64 = 14695981039346656037 // FNV-1a 64-bit offset basis
+	for i := 0; i < len(s); i++ {
+		h ^= uint64(s[i])
+		h *= 1099511628211 // FNV-1a 64-bit prime
+	}
+	m := int(h % uint64(limit))
+	if m == 0 {
+		m = 1
+	}
+	return MakeInteger(m)
+}
+
+func hashKeyString(v Obj) string {
+	switch {
+	case IsString(v):
+		return GetString(v)
+	case IsSymbol(v):
+		return GetSymbol(v)
+	default:
+		return ObjString(v)
+	}
+}
+
 func PrimIsVariable(x Obj) Obj {
 	if *x != scmHeadSymbol {
 		return False

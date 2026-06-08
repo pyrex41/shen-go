@@ -97,6 +97,11 @@ func main() {
 
 	var e kl.ControlFlow
 	regist(&e)
+	// Override the kernel's interpreted `hash` (sys.kl) with the native FNV-1a
+	// version. Must come AFTER regist (which binds the kernel's hash) and BEFORE
+	// shen.initialise (which builds dictionaries): every dict must be created and
+	// queried with the same hash, so the swap has to precede the first dict op.
+	kl.BindSymbolFunc(kl.MakeSymbol("hash"), kl.MakePrimitive("hash", 2, kl.PrimHash))
 	kl.Eval(&e, kl.Cons(kl.MakeSymbol("shen.initialise"), kl.Nil))
 	loadPrecompiled(&e, precompiled)
 	repl(&e)
