@@ -70,11 +70,20 @@ do not run the certification suite.
 make test
 ```
 
+These are result-cached by Go: rerun with no source change and you'll see
+`ok ... (cached)` and a sub-second finish. The certification suite is
+intentionally **not** cached (`-count=1`) — it execs the freshly-built binary
+against `kernel/tests`, inputs Go's cache can't track, so a cached PASS could be
+stale. `make certify` always runs for real.
+
 ### Everything at once
 
 ```
-make test-all   # our unit tests + the canonical certification (= go test ./...)
+make test-all   # our unit tests (cached) + the canonical certification (always run)
 ```
+
+(Prefer `make test-all` over a bare `go test ./...`: the latter would cache the
+certification result, which can go stale against kernel or VM changes.)
 
 ## How to bootstrap
 
