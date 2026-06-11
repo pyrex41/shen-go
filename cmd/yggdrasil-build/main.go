@@ -555,14 +555,19 @@ func main() {
 	BindSymbolFunc(MakeSymbol("hash"), MakePrimitive("hash", 2, PrimHash))
 `)
 	fmt.Fprintf(&b, "\trun(&e, %q, PrimFunc(MakeSymbol(%q)))\n", m.init, m.init)
-	b.WriteString(`	storeArity := MakeSymbol("shen.store-arity")
+	if m.needsEval {
+		// The arity replay only serves runtime eval's (fn F) lookups; an
+		// eval-stripped kernel omits shen.store-arity itself.
+		b.WriteString(`	storeArity := MakeSymbol("shen.store-arity")
 	for _, fa := range userArities {
 		if res := Eval(&e, Cons(storeArity, Cons(MakeSymbol(fa.name), Cons(MakeInteger(fa.arity), Nil)))); IsError(res) {
 			fmt.Fprintf(os.Stderr, "yggdrasil: warning: store-arity %s/%d: %s\n",
 				fa.name, fa.arity, GetString(PrimErrorToString(res)))
 		}
 	}
-	for i, c := range userChunks {
+`)
+	}
+	b.WriteString(`	for i, c := range userChunks {
 		run(&e, fmt.Sprintf("user chunk %d", i), c)
 	}
 }
