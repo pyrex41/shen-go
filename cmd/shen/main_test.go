@@ -28,7 +28,7 @@ func TestPipedStdinEOFExitsRepl(t *testing.T) {
 	}
 
 	out := string(output)
-	if !strings.Contains(out, "41.1") {
+	if !strings.Contains(out, "41.2") {
 		t.Fatalf("expected version output, got:\n%s", out)
 	}
 	if strings.Contains(out, "error: empty stream") {

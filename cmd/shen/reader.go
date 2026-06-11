@@ -3,13246 +3,15595 @@ package main
 import . "github.com/tiancaiamao/shen-go/kl"
 
 var ReaderMain = MakeNative(func(__e *ControlFlow) {
-	tmp3634 := MakeNative(func(__e *ControlFlow) {
-		V2504 := __e.Get(1)
-		_ = V2504
-		tmp3635 := MakeNative(func(__e *ControlFlow) {
-			W2505 := __e.Get(1)
-			_ = W2505
-			tmp3636 := MakeNative(func(__e *ControlFlow) {
-				W2506 := __e.Get(1)
-				_ = W2506
-				tmp3637 := MakeNative(func(__e *ControlFlow) {
-					W2509 := __e.Get(1)
-					_ = W2509
-					__e.Return(W2509)
-					return
-				}, 1)
+tmp3767 := MakeNative(func(__e *ControlFlow) {
+V2528 := __e.Get(1)
+_ = V2528
+tmp3768 := MakeNative(func(__e *ControlFlow) {
+W2529 := __e.Get(1)
+_ = W2529
+tmp3769 := MakeNative(func(__e *ControlFlow) {
+W2530 := __e.Get(1)
+_ = W2530
+tmp3770 := MakeNative(func(__e *ControlFlow) {
+W2533 := __e.Get(1)
+_ = W2533
+__e.Return(W2533)
+return
+}, 1)
+
+tmp3771 := Call(__e, PrimFunc(symshen_4process_1sexprs), W2530)
+
+
+__e.TailApply(tmp3770, tmp3771)
+return
+
+
+}, 1)
+
+tmp3772 := MakeNative(func(__e *ControlFlow) {
+tmp3773 := MakeNative(func(__e *ControlFlow) {
+Z2531 := __e.Get(1)
+_ = Z2531
+__e.TailApply(PrimFunc(symshen_4_5s_1exprs_6), Z2531)
+return
+}, 1)
+
+__e.TailApply(PrimFunc(symcompile), tmp3773, W2529)
+return
 
-				tmp3638 := Call(__e, PrimFunc(symshen_4process_1sexprs), W2506)
-
-				__e.TailApply(tmp3637, tmp3638)
-				return
-
-			}, 1)
-
-			tmp3639 := MakeNative(func(__e *ControlFlow) {
-				tmp3640 := MakeNative(func(__e *ControlFlow) {
-					Z2507 := __e.Get(1)
-					_ = Z2507
-					__e.TailApply(PrimFunc(symshen_4_5s_1exprs_6), Z2507)
-					return
-				}, 1)
-
-				__e.TailApply(PrimFunc(symcompile), tmp3640, W2505)
-				return
-
-			}, 0)
-
-			tmp3641 := MakeNative(func(__e *ControlFlow) {
-				Z2508 := __e.Get(1)
-				_ = Z2508
-				tmp3642 := PrimValue(symshen_4_dresidue_d)
-
-				__e.TailApply(PrimFunc(symshen_4reader_1error), tmp3642)
-				return
-
-			}, 1)
-
-			tmp3643 := Call(__e, try_1catch, tmp3639, tmp3641)
-
-			__e.TailApply(tmp3636, tmp3643)
-			return
-
-		}, 1)
-
-		tmp3644 := PrimReadFileAsByteList(V2504)
-
-		__e.TailApply(tmp3635, tmp3644)
-		return
-
-	}, 1)
-
-	tmp3645 := Call(__e, ns2_1set, symread_1file, tmp3634)
-
-	_ = tmp3645
-
-	tmp3646 := MakeNative(func(__e *ControlFlow) {
-		V2510 := __e.Get(1)
-		_ = V2510
-		tmp3647 := PrimValue(sym_dmaximum_1print_1sequence_1size_d)
-
-		tmp3648 := Call(__e, PrimFunc(symshen_4reader_1error_1message), tmp3647, MakeNumber(0), V2510)
-
-		tmp3649 := PrimStringConcat(MakeString("reader error near here: "), tmp3648)
-
-		tmp3650 := Call(__e, PrimFunc(symshen_4proc_1nl), tmp3649)
-
-		__e.Return(PrimSimpleError(tmp3650))
-		return
-
-	}, 1)
-
-	tmp3651 := Call(__e, ns2_1set, symshen_4reader_1error, tmp3646)
-
-	_ = tmp3651
-
-	tmp3652 := MakeNative(func(__e *ControlFlow) {
-		V2518 := __e.Get(1)
-		_ = V2518
-		V2519 := __e.Get(2)
-		_ = V2519
-		V2520 := __e.Get(3)
-		_ = V2520
-		tmp3663 := PrimEqual(Nil, V2520)
-
-		if True == tmp3663 {
-			__e.Return(MakeString(""))
-			return
-		} else {
-			tmp3661 := PrimEqual(V2518, V2519)
-
-			if True == tmp3661 {
-				__e.Return(MakeString(""))
-				return
-			} else {
-				tmp3659 := PrimIsPair(V2520)
-
-				if True == tmp3659 {
-					tmp3653 := PrimHead(V2520)
-
-					tmp3654 := PrimNumberToString(tmp3653)
-
-					tmp3655 := PrimNumberAdd(V2519, MakeNumber(1))
-
-					tmp3656 := PrimTail(V2520)
-
-					tmp3657 := Call(__e, PrimFunc(symshen_4reader_1error_1message), V2518, tmp3655, tmp3656)
-
-					__e.Return(PrimStringConcat(tmp3654, tmp3657))
-					return
-
-				} else {
-					__e.TailApply(PrimFunc(symshen_4f_1error), symshen_4reader_1error_1message)
-					return
-				}
-
-			}
-
-		}
-
-	}, 3)
-
-	tmp3664 := Call(__e, ns2_1set, symshen_4reader_1error_1message, tmp3652)
-
-	_ = tmp3664
-
-	tmp3665 := MakeNative(func(__e *ControlFlow) {
-		__e.Return(PrimValue(symshen_4_dit_d))
-		return
-	}, 0)
-
-	tmp3666 := Call(__e, ns2_1set, symit, tmp3665)
-
-	_ = tmp3666
-
-	tmp3667 := MakeNative(func(__e *ControlFlow) {
-		V2521 := __e.Get(1)
-		_ = V2521
-		tmp3668 := MakeNative(func(__e *ControlFlow) {
-			W2522 := __e.Get(1)
-			_ = W2522
-			tmp3669 := MakeNative(func(__e *ControlFlow) {
-				W2523 := __e.Get(1)
-				_ = W2523
-				tmp3670 := MakeNative(func(__e *ControlFlow) {
-					W2524 := __e.Get(1)
-					_ = W2524
-					tmp3671 := MakeNative(func(__e *ControlFlow) {
-						W2525 := __e.Get(1)
-						_ = W2525
-						__e.TailApply(PrimFunc(symreverse), W2524)
-						return
-					}, 1)
-
-					tmp3672 := PrimCloseStream(W2522)
-
-					__e.TailApply(tmp3671, tmp3672)
-					return
-
-				}, 1)
-
-				tmp3673 := Call(__e, PrimFunc(symshen_4read_1file_1as_1bytelist_1help), W2522, W2523, Nil)
-
-				__e.TailApply(tmp3670, tmp3673)
-				return
-
-			}, 1)
-
-			tmp3674 := PrimReadByte(W2522)
-
-			__e.TailApply(tmp3669, tmp3674)
-			return
-
-		}, 1)
-
-		tmp3675 := PrimOpenStream(V2521, symin)
-
-		__e.TailApply(tmp3668, tmp3675)
-		return
-
-	}, 1)
-
-	tmp3676 := Call(__e, ns2_1set, symread_1file_1as_1bytelist, tmp3667)
-
-	_ = tmp3676
-
-	tmp3677 := MakeNative(func(__e *ControlFlow) {
-		V2526 := __e.Get(1)
-		_ = V2526
-		V2527 := __e.Get(2)
-		_ = V2527
-		V2528 := __e.Get(3)
-		_ = V2528
-		tmp3681 := PrimEqual(MakeNumber(-1), V2527)
-
-		if True == tmp3681 {
-			__e.Return(V2528)
-			return
-		} else {
-			tmp3678 := PrimReadByte(V2526)
-
-			tmp3679 := PrimCons(V2527, V2528)
-
-			__e.TailApply(PrimFunc(symshen_4read_1file_1as_1bytelist_1help), V2526, tmp3678, tmp3679)
-			return
-
-		}
-
-	}, 3)
-
-	tmp3682 := Call(__e, ns2_1set, symshen_4read_1file_1as_1bytelist_1help, tmp3677)
-
-	_ = tmp3682
-
-	tmp3683 := MakeNative(func(__e *ControlFlow) {
-		V2529 := __e.Get(1)
-		_ = V2529
-		tmp3684 := MakeNative(func(__e *ControlFlow) {
-			W2530 := __e.Get(1)
-			_ = W2530
-			tmp3685 := PrimReadByte(W2530)
-
-			__e.TailApply(PrimFunc(symshen_4rfas_1h), W2530, tmp3685, MakeString(""))
-			return
-
-		}, 1)
-
-		tmp3686 := PrimOpenStream(V2529, symin)
-
-		__e.TailApply(tmp3684, tmp3686)
-		return
-
-	}, 1)
-
-	tmp3687 := Call(__e, ns2_1set, symread_1file_1as_1string, tmp3683)
-
-	_ = tmp3687
-
-	tmp3688 := MakeNative(func(__e *ControlFlow) {
-		V2531 := __e.Get(1)
-		_ = V2531
-		V2532 := __e.Get(2)
-		_ = V2532
-		V2533 := __e.Get(3)
-		_ = V2533
-		tmp3694 := PrimEqual(MakeNumber(-1), V2532)
-
-		if True == tmp3694 {
-			tmp3689 := PrimCloseStream(V2531)
-
-			_ = tmp3689
-
-			__e.Return(V2533)
-			return
-
-		} else {
-			tmp3690 := PrimReadByte(V2531)
-
-			tmp3691 := PrimNumberToString(V2532)
-
-			tmp3692 := PrimStringConcat(V2533, tmp3691)
-
-			__e.TailApply(PrimFunc(symshen_4rfas_1h), V2531, tmp3690, tmp3692)
-			return
-
-		}
-
-	}, 3)
-
-	tmp3695 := Call(__e, ns2_1set, symshen_4rfas_1h, tmp3688)
-
-	_ = tmp3695
-
-	tmp3696 := MakeNative(func(__e *ControlFlow) {
-		V2534 := __e.Get(1)
-		_ = V2534
-		tmp3697 := Call(__e, PrimFunc(symread), V2534)
-
-		__e.TailApply(PrimFunc(symeval_1kl), tmp3697)
-		return
-
-	}, 1)
-
-	tmp3698 := Call(__e, ns2_1set, syminput, tmp3696)
-
-	_ = tmp3698
-
-	tmp3699 := MakeNative(func(__e *ControlFlow) {
-		V2535 := __e.Get(1)
-		_ = V2535
-		V2536 := __e.Get(2)
-		_ = V2536
-		tmp3700 := MakeNative(func(__e *ControlFlow) {
-			W2537 := __e.Get(1)
-			_ = W2537
-			tmp3701 := MakeNative(func(__e *ControlFlow) {
-				W2538 := __e.Get(1)
-				_ = W2538
-				tmp3707 := Call(__e, PrimFunc(symshen_4rectify_1type), V2535)
-
-				tmp3708 := Call(__e, PrimFunc(symshen_4typecheck), W2538, tmp3707)
-
-				tmp3709 := PrimEqual(False, tmp3708)
-
-				if True == tmp3709 {
-					tmp3702 := Call(__e, PrimFunc(symshen_4app), V2535, MakeString("\n"), symshen_4r)
-
-					tmp3703 := PrimStringConcat(MakeString(" is not of type "), tmp3702)
-
-					tmp3704 := Call(__e, PrimFunc(symshen_4app), W2538, tmp3703, symshen_4r)
-
-					tmp3705 := PrimStringConcat(MakeString("type error: "), tmp3704)
-
-					__e.Return(PrimSimpleError(tmp3705))
-					return
-
-				} else {
-					__e.TailApply(PrimFunc(symeval_1kl), W2538)
-					return
-				}
-
-			}, 1)
-
-			tmp3710 := Call(__e, PrimFunc(symread), V2536)
-
-			__e.TailApply(tmp3701, tmp3710)
-			return
-
-		}, 1)
-
-		tmp3711 := Call(__e, PrimFunc(symshen_4monotype), V2535)
-
-		__e.TailApply(tmp3700, tmp3711)
-		return
-
-	}, 2)
-
-	tmp3712 := Call(__e, ns2_1set, syminput_7, tmp3699)
-
-	_ = tmp3712
-
-	tmp3713 := MakeNative(func(__e *ControlFlow) {
-		V2539 := __e.Get(1)
-		_ = V2539
-		tmp3720 := PrimIsPair(V2539)
-
-		if True == tmp3720 {
-			tmp3714 := MakeNative(func(__e *ControlFlow) {
-				Z2540 := __e.Get(1)
-				_ = Z2540
-				__e.TailApply(PrimFunc(symshen_4monotype), Z2540)
-				return
-			}, 1)
-
-			__e.TailApply(PrimFunc(symmap), tmp3714, V2539)
-			return
-
-		} else {
-			tmp3718 := PrimIsVariable(V2539)
-
-			if True == tmp3718 {
-				tmp3715 := Call(__e, PrimFunc(symshen_4app), V2539, MakeString("\n"), symshen_4a)
-
-				tmp3716 := PrimStringConcat(MakeString("input+ expects a monotype: not "), tmp3715)
-
-				__e.Return(PrimSimpleError(tmp3716))
-				return
-
-			} else {
-				__e.Return(V2539)
-				return
-			}
-
-		}
-
-	}, 1)
-
-	tmp3721 := Call(__e, ns2_1set, symshen_4monotype, tmp3713)
-
-	_ = tmp3721
-
-	tmp3722 := MakeNative(func(__e *ControlFlow) {
-		V2541 := __e.Get(1)
-		_ = V2541
-		tmp3723 := Call(__e, PrimFunc(symshen_4my_1read_1byte), V2541)
-
-		tmp3724 := MakeNative(func(__e *ControlFlow) {
-			Z2542 := __e.Get(1)
-			_ = Z2542
-			__e.TailApply(PrimFunc(symshen_4return_2), Z2542)
-			return
-		}, 1)
-
-		__e.TailApply(PrimFunc(symshen_4read_1loop), V2541, tmp3723, Nil, tmp3724)
-		return
-
-	}, 1)
-
-	tmp3725 := Call(__e, ns2_1set, symlineread, tmp3722)
-
-	_ = tmp3725
-
-	tmp3726 := MakeNative(func(__e *ControlFlow) {
-		V2543 := __e.Get(1)
-		_ = V2543
-		tmp3727 := MakeNative(func(__e *ControlFlow) {
-			W2544 := __e.Get(1)
-			_ = W2544
-			tmp3728 := MakeNative(func(__e *ControlFlow) {
-				W2545 := __e.Get(1)
-				_ = W2545
-				tmp3729 := MakeNative(func(__e *ControlFlow) {
-					W2547 := __e.Get(1)
-					_ = W2547
-					__e.Return(W2547)
-					return
-				}, 1)
-
-				tmp3730 := Call(__e, PrimFunc(symshen_4process_1sexprs), W2545)
-
-				__e.TailApply(tmp3729, tmp3730)
-				return
-
-			}, 1)
-
-			tmp3731 := MakeNative(func(__e *ControlFlow) {
-				Z2546 := __e.Get(1)
-				_ = Z2546
-				__e.TailApply(PrimFunc(symshen_4_5s_1exprs_6), Z2546)
-				return
-			}, 1)
-
-			tmp3732 := Call(__e, PrimFunc(symcompile), tmp3731, W2544)
-
-			__e.TailApply(tmp3728, tmp3732)
-			return
-
-		}, 1)
-
-		tmp3733 := Call(__e, PrimFunc(symshen_4str_1_6bytes), V2543)
-
-		__e.TailApply(tmp3727, tmp3733)
-		return
-
-	}, 1)
-
-	tmp3734 := Call(__e, ns2_1set, symread_1from_1string, tmp3726)
-
-	_ = tmp3734
-
-	tmp3735 := MakeNative(func(__e *ControlFlow) {
-		V2548 := __e.Get(1)
-		_ = V2548
-		tmp3736 := MakeNative(func(__e *ControlFlow) {
-			W2549 := __e.Get(1)
-			_ = W2549
-			tmp3737 := MakeNative(func(__e *ControlFlow) {
-				W2550 := __e.Get(1)
-				_ = W2550
-				__e.Return(W2550)
-				return
-			}, 1)
-
-			tmp3738 := MakeNative(func(__e *ControlFlow) {
-				Z2551 := __e.Get(1)
-				_ = Z2551
-				__e.TailApply(PrimFunc(symshen_4_5s_1exprs_6), Z2551)
-				return
-			}, 1)
-
-			tmp3739 := Call(__e, PrimFunc(symcompile), tmp3738, W2549)
-
-			__e.TailApply(tmp3737, tmp3739)
-			return
-
-		}, 1)
-
-		tmp3740 := Call(__e, PrimFunc(symshen_4str_1_6bytes), V2548)
-
-		__e.TailApply(tmp3736, tmp3740)
-		return
-
-	}, 1)
-
-	tmp3741 := Call(__e, ns2_1set, symread_1from_1string_1unprocessed, tmp3735)
-
-	_ = tmp3741
-
-	tmp3742 := MakeNative(func(__e *ControlFlow) {
-		V2552 := __e.Get(1)
-		_ = V2552
-		tmp3750 := PrimEqual(MakeString(""), V2552)
-
-		if True == tmp3750 {
-			__e.Return(Nil)
-			return
-		} else {
-			tmp3748 := Call(__e, PrimFunc(symshen_4_7string_2), V2552)
-
-			if True == tmp3748 {
-				tmp3743 := Call(__e, PrimFunc(symhdstr), V2552)
-
-				tmp3744 := PrimStringToNumber(tmp3743)
-
-				tmp3745 := PrimTailString(V2552)
-
-				tmp3746 := Call(__e, PrimFunc(symshen_4str_1_6bytes), tmp3745)
-
-				__e.Return(PrimCons(tmp3744, tmp3746))
-				return
-
-			} else {
-				__e.TailApply(PrimFunc(symshen_4f_1error), symshen_4str_1_6bytes)
-				return
-			}
-
-		}
-
-	}, 1)
-
-	tmp3751 := Call(__e, ns2_1set, symshen_4str_1_6bytes, tmp3742)
-
-	_ = tmp3751
-
-	tmp3752 := MakeNative(func(__e *ControlFlow) {
-		V2553 := __e.Get(1)
-		_ = V2553
-		tmp3753 := Call(__e, PrimFunc(symshen_4my_1read_1byte), V2553)
-
-		tmp3754 := MakeNative(func(__e *ControlFlow) {
-			Z2554 := __e.Get(1)
-			_ = Z2554
-			__e.TailApply(PrimFunc(symshen_4whitespace_2), Z2554)
-			return
-		}, 1)
-
-		tmp3755 := Call(__e, PrimFunc(symshen_4read_1loop), V2553, tmp3753, Nil, tmp3754)
-
-		__e.Return(PrimHead(tmp3755))
-		return
-
-	}, 1)
-
-	tmp3756 := Call(__e, ns2_1set, symread, tmp3752)
-
-	_ = tmp3756
-
-	tmp3757 := MakeNative(func(__e *ControlFlow) {
-		V2555 := __e.Get(1)
-		_ = V2555
-		tmp3760 := Call(__e, PrimFunc(symshen_4char_1stinput_2), V2555)
-
-		if True == tmp3760 {
-			tmp3758 := Call(__e, PrimFunc(symshen_4read_1unit_1string), V2555)
-
-			__e.Return(PrimStringToNumber(tmp3758))
-			return
-
-		} else {
-			__e.Return(PrimReadByte(V2555))
-			return
-		}
-
-	}, 1)
-
-	tmp3761 := Call(__e, ns2_1set, symshen_4my_1read_1byte, tmp3757)
-
-	_ = tmp3761
-
-	tmp3762 := MakeNative(func(__e *ControlFlow) {
-		V2560 := __e.Get(1)
-		_ = V2560
-		V2561 := __e.Get(2)
-		_ = V2561
-		V2562 := __e.Get(3)
-		_ = V2562
-		V2563 := __e.Get(4)
-		_ = V2563
-		tmp3785 := PrimEqual(MakeNumber(94), V2561)
-
-		if True == tmp3785 {
-			__e.Return(PrimSimpleError(MakeString("read aborted")))
-			return
-		} else {
-			tmp3783 := PrimEqual(MakeNumber(-1), V2561)
-
-			if True == tmp3783 {
-				tmp3765 := Call(__e, PrimFunc(symempty_2), V2562)
-
-				if True == tmp3765 {
-					__e.Return(PrimSimpleError(MakeString("error: empty stream")))
-					return
-				} else {
-					tmp3763 := MakeNative(func(__e *ControlFlow) {
-						Z2564 := __e.Get(1)
-						_ = Z2564
-						__e.TailApply(PrimFunc(symshen_4_5s_1exprs_6), Z2564)
-						return
-					}, 1)
-
-					__e.TailApply(PrimFunc(symcompile), tmp3763, V2562)
-					return
-
-				}
-
-			} else {
-				tmp3781 := PrimEqual(MakeNumber(0), V2561)
-
-				if True == tmp3781 {
-					tmp3766 := Call(__e, PrimFunc(symshen_4my_1read_1byte), V2560)
-
-					__e.TailApply(PrimFunc(symshen_4read_1loop), V2560, tmp3766, V2562, V2563)
-					return
-
-				} else {
-					tmp3779 := Call(__e, V2563, V2561)
-
-					if True == tmp3779 {
-						tmp3767 := MakeNative(func(__e *ControlFlow) {
-							W2565 := __e.Get(1)
-							_ = W2565
-							tmp3773 := Call(__e, PrimFunc(symshen_4nothing_1doing_2), W2565)
-
-							if True == tmp3773 {
-								tmp3768 := Call(__e, PrimFunc(symshen_4my_1read_1byte), V2560)
-
-								tmp3769 := PrimCons(V2561, Nil)
-
-								tmp3770 := Call(__e, PrimFunc(symappend), V2562, tmp3769)
-
-								__e.TailApply(PrimFunc(symshen_4read_1loop), V2560, tmp3768, tmp3770, V2563)
-								return
-
-							} else {
-								tmp3771 := Call(__e, PrimFunc(symshen_4record_1it), V2562)
-
-								_ = tmp3771
-
-								__e.Return(W2565)
-								return
-
-							}
-
-						}, 1)
-
-						tmp3774 := Call(__e, PrimFunc(symshen_4try_1parse), V2562)
-
-						__e.TailApply(tmp3767, tmp3774)
-						return
-
-					} else {
-						tmp3775 := Call(__e, PrimFunc(symshen_4my_1read_1byte), V2560)
-
-						tmp3776 := PrimCons(V2561, Nil)
-
-						tmp3777 := Call(__e, PrimFunc(symappend), V2562, tmp3776)
-
-						__e.TailApply(PrimFunc(symshen_4read_1loop), V2560, tmp3775, tmp3777, V2563)
-						return
-
-					}
-
-				}
-
-			}
-
-		}
-
-	}, 4)
-
-	tmp3786 := Call(__e, ns2_1set, symshen_4read_1loop, tmp3762)
-
-	_ = tmp3786
-
-	tmp3787 := MakeNative(func(__e *ControlFlow) {
-		V2566 := __e.Get(1)
-		_ = V2566
-		tmp3788 := MakeNative(func(__e *ControlFlow) {
-			W2567 := __e.Get(1)
-			_ = W2567
-			tmp3790 := Call(__e, PrimFunc(symshen_4nothing_1doing_2), W2567)
-
-			if True == tmp3790 {
-				__e.Return(symshen_4i_1failed_b)
-				return
-			} else {
-				__e.TailApply(PrimFunc(symshen_4process_1sexprs), W2567)
-				return
-			}
-
-		}, 1)
-
-		tmp3791 := MakeNative(func(__e *ControlFlow) {
-			tmp3792 := MakeNative(func(__e *ControlFlow) {
-				Z2568 := __e.Get(1)
-				_ = Z2568
-				__e.TailApply(PrimFunc(symshen_4_5s_1exprs_6), Z2568)
-				return
-			}, 1)
-
-			__e.TailApply(PrimFunc(symcompile), tmp3792, V2566)
-			return
-
-		}, 0)
-
-		tmp3793 := MakeNative(func(__e *ControlFlow) {
-			Z2569 := __e.Get(1)
-			_ = Z2569
-			__e.Return(symshen_4i_1failed_b)
-			return
-		}, 1)
-
-		tmp3794 := Call(__e, try_1catch, tmp3791, tmp3793)
-
-		__e.TailApply(tmp3788, tmp3794)
-		return
-
-	}, 1)
-
-	tmp3795 := Call(__e, ns2_1set, symshen_4try_1parse, tmp3787)
-
-	_ = tmp3795
-
-	tmp3796 := MakeNative(func(__e *ControlFlow) {
-		V2572 := __e.Get(1)
-		_ = V2572
-		tmp3800 := PrimEqual(symshen_4i_1failed_b, V2572)
-
-		if True == tmp3800 {
-			__e.Return(True)
-			return
-		} else {
-			tmp3798 := PrimEqual(Nil, V2572)
-
-			if True == tmp3798 {
-				__e.Return(True)
-				return
-			} else {
-				__e.Return(False)
-				return
-			}
-
-		}
-
-	}, 1)
-
-	tmp3801 := Call(__e, ns2_1set, symshen_4nothing_1doing_2, tmp3796)
-
-	_ = tmp3801
-
-	tmp3802 := MakeNative(func(__e *ControlFlow) {
-		V2573 := __e.Get(1)
-		_ = V2573
-		tmp3803 := Call(__e, PrimFunc(symshen_4bytes_1_6string), V2573)
-
-		__e.Return(PrimSet(symshen_4_dit_d, tmp3803))
-		return
-
-	}, 1)
-
-	tmp3804 := Call(__e, ns2_1set, symshen_4record_1it, tmp3802)
-
-	_ = tmp3804
-
-	tmp3805 := MakeNative(func(__e *ControlFlow) {
-		V2574 := __e.Get(1)
-		_ = V2574
-		tmp3813 := PrimEqual(Nil, V2574)
-
-		if True == tmp3813 {
-			__e.Return(MakeString(""))
-			return
-		} else {
-			tmp3811 := PrimIsPair(V2574)
-
-			if True == tmp3811 {
-				tmp3806 := PrimHead(V2574)
-
-				tmp3807 := PrimNumberToString(tmp3806)
-
-				tmp3808 := PrimTail(V2574)
-
-				tmp3809 := Call(__e, PrimFunc(symshen_4bytes_1_6string), tmp3808)
-
-				__e.Return(PrimStringConcat(tmp3807, tmp3809))
-				return
-
-			} else {
-				__e.TailApply(PrimFunc(symshen_4f_1error), symshen_4bytes_1_6string)
-				return
-			}
-
-		}
-
-	}, 1)
-
-	tmp3814 := Call(__e, ns2_1set, symshen_4bytes_1_6string, tmp3805)
-
-	_ = tmp3814
-
-	tmp3815 := MakeNative(func(__e *ControlFlow) {
-		V2575 := __e.Get(1)
-		_ = V2575
-		tmp3816 := MakeNative(func(__e *ControlFlow) {
-			W2576 := __e.Get(1)
-			_ = W2576
-			tmp3817 := MakeNative(func(__e *ControlFlow) {
-				W2577 := __e.Get(1)
-				_ = W2577
-				tmp3818 := MakeNative(func(__e *ControlFlow) {
-					W2578 := __e.Get(1)
-					_ = W2578
-					tmp3819 := MakeNative(func(__e *ControlFlow) {
-						Z2579 := __e.Get(1)
-						_ = Z2579
-						__e.TailApply(PrimFunc(symshen_4process_1applications), Z2579, W2578)
-						return
-					}, 1)
-
-					__e.TailApply(PrimFunc(symmap), tmp3819, W2576)
-					return
-
-				}, 1)
-
-				tmp3820 := Call(__e, PrimFunc(symshen_4find_1types), W2576)
-
-				__e.TailApply(tmp3818, tmp3820)
-				return
-
-			}, 1)
-
-			tmp3821 := Call(__e, PrimFunc(symshen_4find_1arities), W2576)
-
-			__e.TailApply(tmp3817, tmp3821)
-			return
-
-		}, 1)
-
-		tmp3822 := Call(__e, PrimFunc(symshen_4unpackage_emacroexpand), V2575)
-
-		__e.TailApply(tmp3816, tmp3822)
-		return
-
-	}, 1)
-
-	tmp3823 := Call(__e, ns2_1set, symshen_4process_1sexprs, tmp3815)
-
-	_ = tmp3823
-
-	tmp3824 := MakeNative(func(__e *ControlFlow) {
-		V2580 := __e.Get(1)
-		_ = V2580
-		tmp3846 := PrimIsPair(V2580)
-
-		var ifres3837 Obj
-
-		if True == tmp3846 {
-			tmp3844 := PrimTail(V2580)
-
-			tmp3845 := PrimIsPair(tmp3844)
-
-			var ifres3839 Obj
-
-			if True == tmp3845 {
-				tmp3841 := PrimHead(V2580)
-
-				tmp3842 := PrimIntern(MakeString(":"))
-
-				tmp3843 := PrimEqual(tmp3841, tmp3842)
-
-				var ifres3840 Obj
-
-				if True == tmp3843 {
-					ifres3840 = True
-
-				} else {
-					ifres3840 = False
-
-				}
-
-				ifres3839 = ifres3840
-
-			} else {
-				ifres3839 = False
-
-			}
-
-			var ifres3838 Obj
-
-			if True == ifres3839 {
-				ifres3838 = True
-
-			} else {
-				ifres3838 = False
-
-			}
-
-			ifres3837 = ifres3838
-
-		} else {
-			ifres3837 = False
-
-		}
-
-		if True == ifres3837 {
-			tmp3825 := PrimTail(V2580)
-
-			tmp3826 := PrimHead(tmp3825)
-
-			tmp3827 := PrimTail(V2580)
-
-			tmp3828 := PrimTail(tmp3827)
-
-			tmp3829 := Call(__e, PrimFunc(symshen_4find_1types), tmp3828)
-
-			__e.Return(PrimCons(tmp3826, tmp3829))
-			return
-
-		} else {
-			tmp3835 := PrimIsPair(V2580)
-
-			if True == tmp3835 {
-				tmp3830 := PrimHead(V2580)
-
-				tmp3831 := Call(__e, PrimFunc(symshen_4find_1types), tmp3830)
-
-				tmp3832 := PrimTail(V2580)
-
-				tmp3833 := Call(__e, PrimFunc(symshen_4find_1types), tmp3832)
-
-				__e.TailApply(PrimFunc(symappend), tmp3831, tmp3833)
-				return
-
-			} else {
-				__e.Return(Nil)
-				return
-			}
-
-		}
-
-	}, 1)
-
-	tmp3847 := Call(__e, ns2_1set, symshen_4find_1types, tmp3824)
-
-	_ = tmp3847
-
-	tmp3848 := MakeNative(func(__e *ControlFlow) {
-		V2583 := __e.Get(1)
-		_ = V2583
-		tmp3897 := PrimIsPair(V2583)
-
-		var ifres3878 Obj
-
-		if True == tmp3897 {
-			tmp3895 := PrimHead(V2583)
-
-			tmp3896 := PrimEqual(symdefine, tmp3895)
-
-			var ifres3880 Obj
-
-			if True == tmp3896 {
-				tmp3893 := PrimTail(V2583)
-
-				tmp3894 := PrimIsPair(tmp3893)
-
-				var ifres3882 Obj
-
-				if True == tmp3894 {
-					tmp3890 := PrimTail(V2583)
-
-					tmp3891 := PrimTail(tmp3890)
-
-					tmp3892 := PrimIsPair(tmp3891)
-
-					var ifres3884 Obj
-
-					if True == tmp3892 {
-						tmp3886 := PrimTail(V2583)
-
-						tmp3887 := PrimTail(tmp3886)
-
-						tmp3888 := PrimHead(tmp3887)
-
-						tmp3889 := PrimEqual(sym_i, tmp3888)
-
-						var ifres3885 Obj
-
-						if True == tmp3889 {
-							ifres3885 = True
-
-						} else {
-							ifres3885 = False
-
-						}
-
-						ifres3884 = ifres3885
-
-					} else {
-						ifres3884 = False
-
-					}
-
-					var ifres3883 Obj
-
-					if True == ifres3884 {
-						ifres3883 = True
-
-					} else {
-						ifres3883 = False
-
-					}
-
-					ifres3882 = ifres3883
-
-				} else {
-					ifres3882 = False
-
-				}
-
-				var ifres3881 Obj
-
-				if True == ifres3882 {
-					ifres3881 = True
-
-				} else {
-					ifres3881 = False
-
-				}
-
-				ifres3880 = ifres3881
-
-			} else {
-				ifres3880 = False
-
-			}
-
-			var ifres3879 Obj
-
-			if True == ifres3880 {
-				ifres3879 = True
-
-			} else {
-				ifres3879 = False
-
-			}
-
-			ifres3878 = ifres3879
-
-		} else {
-			ifres3878 = False
-
-		}
-
-		if True == ifres3878 {
-			tmp3849 := PrimTail(V2583)
-
-			tmp3850 := PrimHead(tmp3849)
-
-			tmp3851 := PrimTail(V2583)
-
-			tmp3852 := PrimHead(tmp3851)
-
-			tmp3853 := PrimTail(V2583)
-
-			tmp3854 := PrimTail(tmp3853)
-
-			tmp3855 := PrimTail(tmp3854)
-
-			tmp3856 := Call(__e, PrimFunc(symshen_4find_1arity), tmp3852, MakeNumber(1), tmp3855)
-
-			__e.TailApply(PrimFunc(symshen_4store_1arity), tmp3850, tmp3856)
-			return
-
-		} else {
-			tmp3876 := PrimIsPair(V2583)
-
-			var ifres3868 Obj
-
-			if True == tmp3876 {
-				tmp3874 := PrimHead(V2583)
-
-				tmp3875 := PrimEqual(symdefine, tmp3874)
-
-				var ifres3870 Obj
-
-				if True == tmp3875 {
-					tmp3872 := PrimTail(V2583)
-
-					tmp3873 := PrimIsPair(tmp3872)
-
-					var ifres3871 Obj
-
-					if True == tmp3873 {
-						ifres3871 = True
-
-					} else {
-						ifres3871 = False
-
-					}
-
-					ifres3870 = ifres3871
-
-				} else {
-					ifres3870 = False
-
-				}
-
-				var ifres3869 Obj
-
-				if True == ifres3870 {
-					ifres3869 = True
-
-				} else {
-					ifres3869 = False
-
-				}
-
-				ifres3868 = ifres3869
-
-			} else {
-				ifres3868 = False
-
-			}
-
-			if True == ifres3868 {
-				tmp3857 := PrimTail(V2583)
-
-				tmp3858 := PrimHead(tmp3857)
-
-				tmp3859 := PrimTail(V2583)
-
-				tmp3860 := PrimHead(tmp3859)
-
-				tmp3861 := PrimTail(V2583)
-
-				tmp3862 := PrimTail(tmp3861)
-
-				tmp3863 := Call(__e, PrimFunc(symshen_4find_1arity), tmp3860, MakeNumber(0), tmp3862)
-
-				__e.TailApply(PrimFunc(symshen_4store_1arity), tmp3858, tmp3863)
-				return
-
-			} else {
-				tmp3866 := PrimIsPair(V2583)
-
-				if True == tmp3866 {
-					tmp3864 := MakeNative(func(__e *ControlFlow) {
-						Z2584 := __e.Get(1)
-						_ = Z2584
-						__e.TailApply(PrimFunc(symshen_4find_1arities), Z2584)
-						return
-					}, 1)
-
-					__e.TailApply(PrimFunc(symmap), tmp3864, V2583)
-					return
-
-				} else {
-					__e.Return(symshen_4skip)
-					return
-				}
-
-			}
-
-		}
-
-	}, 1)
-
-	tmp3898 := Call(__e, ns2_1set, symshen_4find_1arities, tmp3848)
-
-	_ = tmp3898
-
-	tmp3899 := MakeNative(func(__e *ControlFlow) {
-		V2585 := __e.Get(1)
-		_ = V2585
-		V2586 := __e.Get(2)
-		_ = V2586
-		tmp3900 := MakeNative(func(__e *ControlFlow) {
-			W2587 := __e.Get(1)
-			_ = W2587
-			tmp3911 := PrimEqual(W2587, MakeNumber(-1))
-
-			if True == tmp3911 {
-				__e.TailApply(PrimFunc(symshen_4execute_1store_1arity), V2585, V2586)
-				return
-			} else {
-				tmp3909 := PrimEqual(W2587, V2586)
-
-				if True == tmp3909 {
-					__e.Return(symshen_4skip)
-					return
-				} else {
-					tmp3907 := Call(__e, PrimFunc(symshen_4sysfunc_2), V2585)
-
-					if True == tmp3907 {
-						tmp3901 := Call(__e, PrimFunc(symshen_4app), V2585, MakeString(" is a system function\n"), symshen_4a)
-
-						__e.Return(PrimSimpleError(tmp3901))
-						return
-
-					} else {
-						tmp3902 := Call(__e, PrimFunc(symshen_4app), V2585, MakeString(" may cause errors\n"), symshen_4a)
-
-						tmp3903 := PrimStringConcat(MakeString("changing the arity of "), tmp3902)
-
-						tmp3904 := Call(__e, PrimFunc(symstoutput))
-
-						tmp3905 := Call(__e, PrimFunc(sympr), tmp3903, tmp3904)
-
-						_ = tmp3905
-
-						__e.TailApply(PrimFunc(symshen_4execute_1store_1arity), V2585, V2586)
-						return
-
-					}
-
-				}
-
-			}
-
-		}, 1)
-
-		tmp3912 := Call(__e, PrimFunc(symarity), V2585)
-
-		__e.TailApply(tmp3900, tmp3912)
-		return
-
-	}, 2)
-
-	tmp3913 := Call(__e, ns2_1set, symshen_4store_1arity, tmp3899)
-
-	_ = tmp3913
-
-	tmp3914 := MakeNative(func(__e *ControlFlow) {
-		V2588 := __e.Get(1)
-		_ = V2588
-		V2589 := __e.Get(2)
-		_ = V2589
-		tmp3919 := PrimEqual(MakeNumber(0), V2589)
-
-		if True == tmp3919 {
-			tmp3915 := PrimValue(sym_dproperty_1vector_d)
-
-			__e.TailApply(PrimFunc(symput), V2588, symarity, MakeNumber(0), tmp3915)
-			return
-
-		} else {
-			tmp3916 := PrimValue(sym_dproperty_1vector_d)
-
-			tmp3917 := Call(__e, PrimFunc(symput), V2588, symarity, V2589, tmp3916)
-
-			_ = tmp3917
-
-			__e.TailApply(PrimFunc(symshen_4update_1lambdatable), V2588, V2589)
-			return
-
-		}
-
-	}, 2)
-
-	tmp3920 := Call(__e, ns2_1set, symshen_4execute_1store_1arity, tmp3914)
-
-	_ = tmp3920
-
-	tmp3921 := MakeNative(func(__e *ControlFlow) {
-		V2590 := __e.Get(1)
-		_ = V2590
-		V2591 := __e.Get(2)
-		_ = V2591
-		tmp3922 := MakeNative(func(__e *ControlFlow) {
-			W2592 := __e.Get(1)
-			_ = W2592
-			tmp3923 := MakeNative(func(__e *ControlFlow) {
-				W2593 := __e.Get(1)
-				_ = W2593
-				__e.Return(V2591)
-				return
-			}, 1)
-
-			tmp3924 := PrimCons(V2590, W2592)
-
-			tmp3925 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp3924)
-
-			__e.TailApply(tmp3923, tmp3925)
-			return
-
-		}, 1)
-
-		tmp3926 := PrimCons(V2590, Nil)
-
-		tmp3927 := Call(__e, PrimFunc(symshen_4lambda_1function), tmp3926, V2591)
-
-		tmp3928 := Call(__e, PrimFunc(symeval_1kl), tmp3927)
-
-		__e.TailApply(tmp3922, tmp3928)
-		return
-
-	}, 2)
-
-	tmp3929 := Call(__e, ns2_1set, symshen_4update_1lambdatable, tmp3921)
-
-	_ = tmp3929
-
-	tmp3930 := MakeNative(func(__e *ControlFlow) {
-		V2596 := __e.Get(1)
-		_ = V2596
-		V2597 := __e.Get(2)
-		_ = V2597
-		tmp3948 := PrimEqual(MakeNumber(0), V2597)
-
-		if True == tmp3948 {
-			__e.Return(symshen_4skip)
-			return
-		} else {
-			tmp3946 := PrimEqual(MakeNumber(1), V2597)
-
-			if True == tmp3946 {
-				tmp3931 := MakeNative(func(__e *ControlFlow) {
-					W2598 := __e.Get(1)
-					_ = W2598
-					tmp3932 := PrimCons(W2598, Nil)
-
-					tmp3933 := Call(__e, PrimFunc(symappend), V2596, tmp3932)
-
-					tmp3934 := PrimCons(tmp3933, Nil)
-
-					tmp3935 := PrimCons(W2598, tmp3934)
-
-					__e.Return(PrimCons(symlambda, tmp3935))
-					return
-
-				}, 1)
-
-				tmp3936 := Call(__e, PrimFunc(symgensym), symY)
-
-				__e.TailApply(tmp3931, tmp3936)
-				return
-
-			} else {
-				tmp3937 := MakeNative(func(__e *ControlFlow) {
-					W2599 := __e.Get(1)
-					_ = W2599
-					tmp3938 := PrimCons(W2599, Nil)
-
-					tmp3939 := Call(__e, PrimFunc(symappend), V2596, tmp3938)
-
-					tmp3940 := PrimNumberSubtract(V2597, MakeNumber(1))
-
-					tmp3941 := Call(__e, PrimFunc(symshen_4lambda_1function), tmp3939, tmp3940)
-
-					tmp3942 := PrimCons(tmp3941, Nil)
-
-					tmp3943 := PrimCons(W2599, tmp3942)
-
-					__e.Return(PrimCons(symlambda, tmp3943))
-					return
-
-				}, 1)
-
-				tmp3944 := Call(__e, PrimFunc(symgensym), symY)
-
-				__e.TailApply(tmp3937, tmp3944)
-				return
-
-			}
-
-		}
-
-	}, 2)
-
-	tmp3949 := Call(__e, ns2_1set, symshen_4lambda_1function, tmp3930)
-
-	_ = tmp3949
-
-	tmp3950 := MakeNative(func(__e *ControlFlow) {
-		V2609 := __e.Get(1)
-		_ = V2609
-		V2610 := __e.Get(2)
-		_ = V2610
-		V2611 := __e.Get(3)
-		_ = V2611
-		tmp3973 := PrimEqual(Nil, V2611)
-
-		if True == tmp3973 {
-			tmp3951 := PrimCons(V2609, V2610)
-
-			__e.Return(PrimCons(tmp3951, Nil))
-			return
-
-		} else {
-			tmp3971 := PrimIsPair(V2611)
-
-			var ifres3962 Obj
-
-			if True == tmp3971 {
-				tmp3969 := PrimHead(V2611)
-
-				tmp3970 := PrimIsPair(tmp3969)
-
-				var ifres3964 Obj
-
-				if True == tmp3970 {
-					tmp3966 := PrimHead(V2611)
-
-					tmp3967 := PrimHead(tmp3966)
-
-					tmp3968 := PrimEqual(V2609, tmp3967)
-
-					var ifres3965 Obj
-
-					if True == tmp3968 {
-						ifres3965 = True
-
-					} else {
-						ifres3965 = False
-
-					}
-
-					ifres3964 = ifres3965
-
-				} else {
-					ifres3964 = False
-
-				}
-
-				var ifres3963 Obj
-
-				if True == ifres3964 {
-					ifres3963 = True
-
-				} else {
-					ifres3963 = False
-
-				}
-
-				ifres3962 = ifres3963
-
-			} else {
-				ifres3962 = False
-
-			}
-
-			if True == ifres3962 {
-				tmp3952 := PrimHead(V2611)
-
-				tmp3953 := PrimHead(tmp3952)
-
-				tmp3954 := PrimCons(tmp3953, V2610)
-
-				tmp3955 := PrimTail(V2611)
-
-				__e.Return(PrimCons(tmp3954, tmp3955))
-				return
-
-			} else {
-				tmp3960 := PrimIsPair(V2611)
-
-				if True == tmp3960 {
-					tmp3956 := PrimHead(V2611)
-
-					tmp3957 := PrimTail(V2611)
-
-					tmp3958 := Call(__e, PrimFunc(symshen_4assoc_1_6), V2609, V2610, tmp3957)
-
-					__e.Return(PrimCons(tmp3956, tmp3958))
-					return
-
-				} else {
-					__e.Return(PrimSimpleError(MakeString("implementation error in shen.assoc->")))
-					return
-				}
-
-			}
-
-		}
-
-	}, 3)
-
-	tmp3974 := Call(__e, ns2_1set, symshen_4assoc_1_6, tmp3950)
-
-	_ = tmp3974
-
-	tmp3975 := MakeNative(func(__e *ControlFlow) {
-		V2626 := __e.Get(1)
-		_ = V2626
-		V2627 := __e.Get(2)
-		_ = V2627
-		V2628 := __e.Get(3)
-		_ = V2628
-		tmp4022 := PrimEqual(MakeNumber(0), V2627)
-
-		var ifres4015 Obj
-
-		if True == tmp4022 {
-			tmp4021 := PrimIsPair(V2628)
-
-			var ifres4017 Obj
-
-			if True == tmp4021 {
-				tmp4019 := PrimHead(V2628)
-
-				tmp4020 := PrimEqual(tmp4019, sym_1_6)
-
-				var ifres4018 Obj
-
-				if True == tmp4020 {
-					ifres4018 = True
-
-				} else {
-					ifres4018 = False
-
-				}
-
-				ifres4017 = ifres4018
-
-			} else {
-				ifres4017 = False
-
-			}
-
-			var ifres4016 Obj
-
-			if True == ifres4017 {
-				ifres4016 = True
-
-			} else {
-				ifres4016 = False
-
-			}
-
-			ifres4015 = ifres4016
-
-		} else {
-			ifres4015 = False
-
-		}
-
-		if True == ifres4015 {
-			__e.Return(MakeNumber(0))
-			return
-		} else {
-			tmp4013 := PrimEqual(MakeNumber(0), V2627)
-
-			var ifres4006 Obj
-
-			if True == tmp4013 {
-				tmp4012 := PrimIsPair(V2628)
-
-				var ifres4008 Obj
-
-				if True == tmp4012 {
-					tmp4010 := PrimHead(V2628)
-
-					tmp4011 := PrimEqual(tmp4010, sym_5_1)
-
-					var ifres4009 Obj
-
-					if True == tmp4011 {
-						ifres4009 = True
-
-					} else {
-						ifres4009 = False
-
-					}
-
-					ifres4008 = ifres4009
-
-				} else {
-					ifres4008 = False
-
-				}
-
-				var ifres4007 Obj
-
-				if True == ifres4008 {
-					ifres4007 = True
-
-				} else {
-					ifres4007 = False
-
-				}
-
-				ifres4006 = ifres4007
-
-			} else {
-				ifres4006 = False
-
-			}
-
-			if True == ifres4006 {
-				__e.Return(MakeNumber(0))
-				return
-			} else {
-				tmp4004 := PrimEqual(MakeNumber(0), V2627)
-
-				var ifres4001 Obj
-
-				if True == tmp4004 {
-					tmp4003 := PrimIsPair(V2628)
-
-					var ifres4002 Obj
-
-					if True == tmp4003 {
-						ifres4002 = True
-
-					} else {
-						ifres4002 = False
-
-					}
-
-					ifres4001 = ifres4002
-
-				} else {
-					ifres4001 = False
-
-				}
-
-				if True == ifres4001 {
-					tmp3976 := PrimTail(V2628)
-
-					tmp3977 := Call(__e, PrimFunc(symshen_4find_1arity), V2626, MakeNumber(0), tmp3976)
-
-					__e.Return(PrimNumberAdd(MakeNumber(1), tmp3977))
-					return
-
-				} else {
-					tmp3999 := PrimEqual(MakeNumber(1), V2627)
-
-					var ifres3992 Obj
-
-					if True == tmp3999 {
-						tmp3998 := PrimIsPair(V2628)
-
-						var ifres3994 Obj
-
-						if True == tmp3998 {
-							tmp3996 := PrimHead(V2628)
-
-							tmp3997 := PrimEqual(sym_j, tmp3996)
-
-							var ifres3995 Obj
-
-							if True == tmp3997 {
-								ifres3995 = True
-
-							} else {
-								ifres3995 = False
-
-							}
-
-							ifres3994 = ifres3995
-
-						} else {
-							ifres3994 = False
-
-						}
-
-						var ifres3993 Obj
-
-						if True == ifres3994 {
-							ifres3993 = True
-
-						} else {
-							ifres3993 = False
-
-						}
-
-						ifres3992 = ifres3993
-
-					} else {
-						ifres3992 = False
-
-					}
-
-					if True == ifres3992 {
-						tmp3978 := PrimTail(V2628)
-
-						__e.TailApply(PrimFunc(symshen_4find_1arity), V2626, MakeNumber(0), tmp3978)
-						return
-
-					} else {
-						tmp3990 := PrimEqual(MakeNumber(1), V2627)
-
-						var ifres3987 Obj
-
-						if True == tmp3990 {
-							tmp3989 := PrimIsPair(V2628)
-
-							var ifres3988 Obj
-
-							if True == tmp3989 {
-								ifres3988 = True
-
-							} else {
-								ifres3988 = False
-
-							}
-
-							ifres3987 = ifres3988
-
-						} else {
-							ifres3987 = False
-
-						}
-
-						if True == ifres3987 {
-							tmp3979 := PrimTail(V2628)
-
-							__e.TailApply(PrimFunc(symshen_4find_1arity), V2626, MakeNumber(1), tmp3979)
-							return
-
-						} else {
-							tmp3985 := PrimEqual(MakeNumber(1), V2627)
-
-							if True == tmp3985 {
-								tmp3980 := Call(__e, PrimFunc(symshen_4app), V2626, MakeString(" definition: missing }\n"), symshen_4a)
-
-								tmp3981 := PrimStringConcat(MakeString("syntax error in "), tmp3980)
-
-								__e.Return(PrimSimpleError(tmp3981))
-								return
-
-							} else {
-								tmp3982 := Call(__e, PrimFunc(symshen_4app), V2626, MakeString(" definition: missing -> or <-\n"), symshen_4a)
-
-								tmp3983 := PrimStringConcat(MakeString("syntax error in "), tmp3982)
-
-								__e.Return(PrimSimpleError(tmp3983))
-								return
-
-							}
-
-						}
-
-					}
-
-				}
-
-			}
-
-		}
-
-	}, 3)
-
-	tmp4023 := Call(__e, ns2_1set, symshen_4find_1arity, tmp3975)
-
-	_ = tmp4023
-
-	tmp4024 := MakeNative(func(__e *ControlFlow) {
-		V2629 := __e.Get(1)
-		_ = V2629
-		tmp4025 := MakeNative(func(__e *ControlFlow) {
-			W2630 := __e.Get(1)
-			_ = W2630
-			tmp4270 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2630)
-
-			if True == tmp4270 {
-				tmp4026 := MakeNative(func(__e *ControlFlow) {
-					W2641 := __e.Get(1)
-					_ = W2641
-					tmp4238 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2641)
-
-					if True == tmp4238 {
-						tmp4027 := MakeNative(func(__e *ControlFlow) {
-							W2652 := __e.Get(1)
-							_ = W2652
-							tmp4220 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2652)
-
-							if True == tmp4220 {
-								tmp4028 := MakeNative(func(__e *ControlFlow) {
-									W2658 := __e.Get(1)
-									_ = W2658
-									tmp4202 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2658)
-
-									if True == tmp4202 {
-										tmp4029 := MakeNative(func(__e *ControlFlow) {
-											W2664 := __e.Get(1)
-											_ = W2664
-											tmp4184 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2664)
-
-											if True == tmp4184 {
-												tmp4030 := MakeNative(func(__e *ControlFlow) {
-													W2670 := __e.Get(1)
-													_ = W2670
-													tmp4165 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2670)
-
-													if True == tmp4165 {
-														tmp4031 := MakeNative(func(__e *ControlFlow) {
-															W2676 := __e.Get(1)
-															_ = W2676
-															tmp4140 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2676)
-
-															if True == tmp4140 {
-																tmp4032 := MakeNative(func(__e *ControlFlow) {
-																	W2684 := __e.Get(1)
-																	_ = W2684
-																	tmp4121 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2684)
-
-																	if True == tmp4121 {
-																		tmp4033 := MakeNative(func(__e *ControlFlow) {
-																			W2690 := __e.Get(1)
-																			_ = W2690
-																			tmp4102 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2690)
-
-																			if True == tmp4102 {
-																				tmp4034 := MakeNative(func(__e *ControlFlow) {
-																					W2696 := __e.Get(1)
-																					_ = W2696
-																					tmp4085 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2696)
-
-																					if True == tmp4085 {
-																						tmp4035 := MakeNative(func(__e *ControlFlow) {
-																							W2702 := __e.Get(1)
-																							_ = W2702
-																							tmp4065 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2702)
-
-																							if True == tmp4065 {
-																								tmp4036 := MakeNative(func(__e *ControlFlow) {
-																									W2709 := __e.Get(1)
-																									_ = W2709
-																									tmp4048 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2709)
-
-																									if True == tmp4048 {
-																										tmp4037 := MakeNative(func(__e *ControlFlow) {
-																											W2715 := __e.Get(1)
-																											_ = W2715
-																											tmp4039 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2715)
-
-																											if True == tmp4039 {
-																												__e.TailApply(PrimFunc(symshen_4parse_1failure))
-																												return
-																											} else {
-																												__e.Return(W2715)
-																												return
-																											}
-
-																										}, 1)
-
-																										tmp4040 := MakeNative(func(__e *ControlFlow) {
-																											W2716 := __e.Get(1)
-																											_ = W2716
-																											tmp4044 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2716)
-
-																											if True == tmp4044 {
-																												__e.TailApply(PrimFunc(symshen_4parse_1failure))
-																												return
-																											} else {
-																												tmp4041 := MakeNative(func(__e *ControlFlow) {
-																													W2717 := __e.Get(1)
-																													_ = W2717
-																													__e.TailApply(PrimFunc(symshen_4comb), W2717, Nil)
-																													return
-																												}, 1)
-
-																												tmp4042 := Call(__e, PrimFunc(symshen_4in_1_6), W2716)
-
-																												__e.TailApply(tmp4041, tmp4042)
-																												return
-
-																											}
-
-																										}, 1)
-
-																										tmp4045 := Call(__e, PrimFunc(sym_5e_6), V2629)
-
-																										tmp4046 := Call(__e, tmp4040, tmp4045)
-
-																										__e.TailApply(tmp4037, tmp4046)
-																										return
-
-																									} else {
-																										__e.Return(W2709)
-																										return
-																									}
-
-																								}, 1)
-
-																								tmp4049 := MakeNative(func(__e *ControlFlow) {
-																									W2710 := __e.Get(1)
-																									_ = W2710
-																									tmp4061 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2710)
-
-																									if True == tmp4061 {
-																										__e.TailApply(PrimFunc(symshen_4parse_1failure))
-																										return
-																									} else {
-																										tmp4050 := MakeNative(func(__e *ControlFlow) {
-																											W2711 := __e.Get(1)
-																											_ = W2711
-																											tmp4051 := MakeNative(func(__e *ControlFlow) {
-																												W2712 := __e.Get(1)
-																												_ = W2712
-																												tmp4057 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2712)
-
-																												if True == tmp4057 {
-																													__e.TailApply(PrimFunc(symshen_4parse_1failure))
-																													return
-																												} else {
-																													tmp4052 := MakeNative(func(__e *ControlFlow) {
-																														W2713 := __e.Get(1)
-																														_ = W2713
-																														tmp4053 := MakeNative(func(__e *ControlFlow) {
-																															W2714 := __e.Get(1)
-																															_ = W2714
-																															__e.TailApply(PrimFunc(symshen_4comb), W2714, W2713)
-																															return
-																														}, 1)
-
-																														tmp4054 := Call(__e, PrimFunc(symshen_4in_1_6), W2712)
-
-																														__e.TailApply(tmp4053, tmp4054)
-																														return
-
-																													}, 1)
-
-																													tmp4055 := Call(__e, PrimFunc(symshen_4_5_1out), W2712)
-
-																													__e.TailApply(tmp4052, tmp4055)
-																													return
-
-																												}
-
-																											}, 1)
-
-																											tmp4058 := Call(__e, PrimFunc(symshen_4_5s_1exprs_6), W2711)
-
-																											__e.TailApply(tmp4051, tmp4058)
-																											return
-
-																										}, 1)
-
-																										tmp4059 := Call(__e, PrimFunc(symshen_4in_1_6), W2710)
-
-																										__e.TailApply(tmp4050, tmp4059)
-																										return
-
-																									}
-
-																								}, 1)
-
-																								tmp4062 := Call(__e, PrimFunc(symshen_4_5whitespaces_6), V2629)
-
-																								tmp4063 := Call(__e, tmp4049, tmp4062)
-
-																								__e.TailApply(tmp4036, tmp4063)
-																								return
-
-																							} else {
-																								__e.Return(W2702)
-																								return
-																							}
-
-																						}, 1)
-
-																						tmp4066 := MakeNative(func(__e *ControlFlow) {
-																							W2703 := __e.Get(1)
-																							_ = W2703
-																							tmp4081 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2703)
-
-																							if True == tmp4081 {
-																								__e.TailApply(PrimFunc(symshen_4parse_1failure))
-																								return
-																							} else {
-																								tmp4067 := MakeNative(func(__e *ControlFlow) {
-																									W2704 := __e.Get(1)
-																									_ = W2704
-																									tmp4068 := MakeNative(func(__e *ControlFlow) {
-																										W2705 := __e.Get(1)
-																										_ = W2705
-																										tmp4069 := MakeNative(func(__e *ControlFlow) {
-																											W2706 := __e.Get(1)
-																											_ = W2706
-																											tmp4076 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2706)
-
-																											if True == tmp4076 {
-																												__e.TailApply(PrimFunc(symshen_4parse_1failure))
-																												return
-																											} else {
-																												tmp4070 := MakeNative(func(__e *ControlFlow) {
-																													W2707 := __e.Get(1)
-																													_ = W2707
-																													tmp4071 := MakeNative(func(__e *ControlFlow) {
-																														W2708 := __e.Get(1)
-																														_ = W2708
-																														tmp4072 := PrimCons(W2704, W2707)
-
-																														__e.TailApply(PrimFunc(symshen_4comb), W2708, tmp4072)
-																														return
-
-																													}, 1)
-
-																													tmp4073 := Call(__e, PrimFunc(symshen_4in_1_6), W2706)
-
-																													__e.TailApply(tmp4071, tmp4073)
-																													return
-
-																												}, 1)
-
-																												tmp4074 := Call(__e, PrimFunc(symshen_4_5_1out), W2706)
-
-																												__e.TailApply(tmp4070, tmp4074)
-																												return
-
-																											}
-
-																										}, 1)
-
-																										tmp4077 := Call(__e, PrimFunc(symshen_4_5s_1exprs_6), W2705)
-
-																										__e.TailApply(tmp4069, tmp4077)
-																										return
-
-																									}, 1)
-
-																									tmp4078 := Call(__e, PrimFunc(symshen_4in_1_6), W2703)
-
-																									__e.TailApply(tmp4068, tmp4078)
-																									return
-
-																								}, 1)
-
-																								tmp4079 := Call(__e, PrimFunc(symshen_4_5_1out), W2703)
-
-																								__e.TailApply(tmp4067, tmp4079)
-																								return
-
-																							}
-
-																						}, 1)
-
-																						tmp4082 := Call(__e, PrimFunc(symshen_4_5atom_6), V2629)
-
-																						tmp4083 := Call(__e, tmp4066, tmp4082)
-
-																						__e.TailApply(tmp4035, tmp4083)
-																						return
-
-																					} else {
-																						__e.Return(W2696)
-																						return
-																					}
-
-																				}, 1)
-
-																				tmp4086 := MakeNative(func(__e *ControlFlow) {
-																					W2697 := __e.Get(1)
-																					_ = W2697
-																					tmp4098 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2697)
-
-																					if True == tmp4098 {
-																						__e.TailApply(PrimFunc(symshen_4parse_1failure))
-																						return
-																					} else {
-																						tmp4087 := MakeNative(func(__e *ControlFlow) {
-																							W2698 := __e.Get(1)
-																							_ = W2698
-																							tmp4088 := MakeNative(func(__e *ControlFlow) {
-																								W2699 := __e.Get(1)
-																								_ = W2699
-																								tmp4094 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2699)
-
-																								if True == tmp4094 {
-																									__e.TailApply(PrimFunc(symshen_4parse_1failure))
-																									return
-																								} else {
-																									tmp4089 := MakeNative(func(__e *ControlFlow) {
-																										W2700 := __e.Get(1)
-																										_ = W2700
-																										tmp4090 := MakeNative(func(__e *ControlFlow) {
-																											W2701 := __e.Get(1)
-																											_ = W2701
-																											__e.TailApply(PrimFunc(symshen_4comb), W2701, W2700)
-																											return
-																										}, 1)
-
-																										tmp4091 := Call(__e, PrimFunc(symshen_4in_1_6), W2699)
-
-																										__e.TailApply(tmp4090, tmp4091)
-																										return
-
-																									}, 1)
-
-																									tmp4092 := Call(__e, PrimFunc(symshen_4_5_1out), W2699)
-
-																									__e.TailApply(tmp4089, tmp4092)
-																									return
-
-																								}
-
-																							}, 1)
-
-																							tmp4095 := Call(__e, PrimFunc(symshen_4_5s_1exprs_6), W2698)
-
-																							__e.TailApply(tmp4088, tmp4095)
-																							return
-
-																						}, 1)
-
-																						tmp4096 := Call(__e, PrimFunc(symshen_4in_1_6), W2697)
-
-																						__e.TailApply(tmp4087, tmp4096)
-																						return
-
-																					}
-
-																				}, 1)
-
-																				tmp4099 := Call(__e, PrimFunc(symshen_4_5comment_6), V2629)
-
-																				tmp4100 := Call(__e, tmp4086, tmp4099)
-
-																				__e.TailApply(tmp4034, tmp4100)
-																				return
-
-																			} else {
-																				__e.Return(W2690)
-																				return
-																			}
-
-																		}, 1)
-
-																		tmp4103 := MakeNative(func(__e *ControlFlow) {
-																			W2691 := __e.Get(1)
-																			_ = W2691
-																			tmp4117 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2691)
-
-																			if True == tmp4117 {
-																				__e.TailApply(PrimFunc(symshen_4parse_1failure))
-																				return
-																			} else {
-																				tmp4104 := MakeNative(func(__e *ControlFlow) {
-																					W2692 := __e.Get(1)
-																					_ = W2692
-																					tmp4105 := MakeNative(func(__e *ControlFlow) {
-																						W2693 := __e.Get(1)
-																						_ = W2693
-																						tmp4113 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2693)
-
-																						if True == tmp4113 {
-																							__e.TailApply(PrimFunc(symshen_4parse_1failure))
-																							return
-																						} else {
-																							tmp4106 := MakeNative(func(__e *ControlFlow) {
-																								W2694 := __e.Get(1)
-																								_ = W2694
-																								tmp4107 := MakeNative(func(__e *ControlFlow) {
-																									W2695 := __e.Get(1)
-																									_ = W2695
-																									tmp4108 := PrimIntern(MakeString(","))
-
-																									tmp4109 := PrimCons(tmp4108, W2694)
-
-																									__e.TailApply(PrimFunc(symshen_4comb), W2695, tmp4109)
-																									return
-
-																								}, 1)
-
-																								tmp4110 := Call(__e, PrimFunc(symshen_4in_1_6), W2693)
-
-																								__e.TailApply(tmp4107, tmp4110)
-																								return
-
-																							}, 1)
-
-																							tmp4111 := Call(__e, PrimFunc(symshen_4_5_1out), W2693)
-
-																							__e.TailApply(tmp4106, tmp4111)
-																							return
-
-																						}
-
-																					}, 1)
-
-																					tmp4114 := Call(__e, PrimFunc(symshen_4_5s_1exprs_6), W2692)
-
-																					__e.TailApply(tmp4105, tmp4114)
-																					return
-
-																				}, 1)
-
-																				tmp4115 := Call(__e, PrimFunc(symshen_4in_1_6), W2691)
-
-																				__e.TailApply(tmp4104, tmp4115)
-																				return
-
-																			}
-
-																		}, 1)
-
-																		tmp4118 := Call(__e, PrimFunc(symshen_4_5comma_6), V2629)
-
-																		tmp4119 := Call(__e, tmp4103, tmp4118)
-
-																		__e.TailApply(tmp4033, tmp4119)
-																		return
-
-																	} else {
-																		__e.Return(W2684)
-																		return
-																	}
-
-																}, 1)
-
-																tmp4122 := MakeNative(func(__e *ControlFlow) {
-																	W2685 := __e.Get(1)
-																	_ = W2685
-																	tmp4136 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2685)
-
-																	if True == tmp4136 {
-																		__e.TailApply(PrimFunc(symshen_4parse_1failure))
-																		return
-																	} else {
-																		tmp4123 := MakeNative(func(__e *ControlFlow) {
-																			W2686 := __e.Get(1)
-																			_ = W2686
-																			tmp4124 := MakeNative(func(__e *ControlFlow) {
-																				W2687 := __e.Get(1)
-																				_ = W2687
-																				tmp4132 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2687)
-
-																				if True == tmp4132 {
-																					__e.TailApply(PrimFunc(symshen_4parse_1failure))
-																					return
-																				} else {
-																					tmp4125 := MakeNative(func(__e *ControlFlow) {
-																						W2688 := __e.Get(1)
-																						_ = W2688
-																						tmp4126 := MakeNative(func(__e *ControlFlow) {
-																							W2689 := __e.Get(1)
-																							_ = W2689
-																							tmp4127 := PrimIntern(MakeString(":"))
-
-																							tmp4128 := PrimCons(tmp4127, W2688)
-
-																							__e.TailApply(PrimFunc(symshen_4comb), W2689, tmp4128)
-																							return
-
-																						}, 1)
-
-																						tmp4129 := Call(__e, PrimFunc(symshen_4in_1_6), W2687)
-
-																						__e.TailApply(tmp4126, tmp4129)
-																						return
-
-																					}, 1)
-
-																					tmp4130 := Call(__e, PrimFunc(symshen_4_5_1out), W2687)
-
-																					__e.TailApply(tmp4125, tmp4130)
-																					return
-
-																				}
-
-																			}, 1)
-
-																			tmp4133 := Call(__e, PrimFunc(symshen_4_5s_1exprs_6), W2686)
-
-																			__e.TailApply(tmp4124, tmp4133)
-																			return
-
-																		}, 1)
-
-																		tmp4134 := Call(__e, PrimFunc(symshen_4in_1_6), W2685)
-
-																		__e.TailApply(tmp4123, tmp4134)
-																		return
-
-																	}
-
-																}, 1)
-
-																tmp4137 := Call(__e, PrimFunc(symshen_4_5colon_6), V2629)
-
-																tmp4138 := Call(__e, tmp4122, tmp4137)
-
-																__e.TailApply(tmp4032, tmp4138)
-																return
-
-															} else {
-																__e.Return(W2676)
-																return
-															}
-
-														}, 1)
-
-														tmp4141 := MakeNative(func(__e *ControlFlow) {
-															W2677 := __e.Get(1)
-															_ = W2677
-															tmp4161 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2677)
-
-															if True == tmp4161 {
-																__e.TailApply(PrimFunc(symshen_4parse_1failure))
-																return
-															} else {
-																tmp4142 := MakeNative(func(__e *ControlFlow) {
-																	W2678 := __e.Get(1)
-																	_ = W2678
-																	tmp4143 := MakeNative(func(__e *ControlFlow) {
-																		W2679 := __e.Get(1)
-																		_ = W2679
-																		tmp4157 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2679)
-
-																		if True == tmp4157 {
-																			__e.TailApply(PrimFunc(symshen_4parse_1failure))
-																			return
-																		} else {
-																			tmp4144 := MakeNative(func(__e *ControlFlow) {
-																				W2680 := __e.Get(1)
-																				_ = W2680
-																				tmp4145 := MakeNative(func(__e *ControlFlow) {
-																					W2681 := __e.Get(1)
-																					_ = W2681
-																					tmp4153 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2681)
-
-																					if True == tmp4153 {
-																						__e.TailApply(PrimFunc(symshen_4parse_1failure))
-																						return
-																					} else {
-																						tmp4146 := MakeNative(func(__e *ControlFlow) {
-																							W2682 := __e.Get(1)
-																							_ = W2682
-																							tmp4147 := MakeNative(func(__e *ControlFlow) {
-																								W2683 := __e.Get(1)
-																								_ = W2683
-																								tmp4148 := PrimIntern(MakeString(":="))
-
-																								tmp4149 := PrimCons(tmp4148, W2682)
-
-																								__e.TailApply(PrimFunc(symshen_4comb), W2683, tmp4149)
-																								return
-
-																							}, 1)
-
-																							tmp4150 := Call(__e, PrimFunc(symshen_4in_1_6), W2681)
-
-																							__e.TailApply(tmp4147, tmp4150)
-																							return
-
-																						}, 1)
-
-																						tmp4151 := Call(__e, PrimFunc(symshen_4_5_1out), W2681)
-
-																						__e.TailApply(tmp4146, tmp4151)
-																						return
-
-																					}
-
-																				}, 1)
-
-																				tmp4154 := Call(__e, PrimFunc(symshen_4_5s_1exprs_6), W2680)
-
-																				__e.TailApply(tmp4145, tmp4154)
-																				return
-
-																			}, 1)
-
-																			tmp4155 := Call(__e, PrimFunc(symshen_4in_1_6), W2679)
-
-																			__e.TailApply(tmp4144, tmp4155)
-																			return
-
-																		}
-
-																	}, 1)
-
-																	tmp4158 := Call(__e, PrimFunc(symshen_4_5equal_6), W2678)
-
-																	__e.TailApply(tmp4143, tmp4158)
-																	return
-
-																}, 1)
-
-																tmp4159 := Call(__e, PrimFunc(symshen_4in_1_6), W2677)
-
-																__e.TailApply(tmp4142, tmp4159)
-																return
-
-															}
-
-														}, 1)
-
-														tmp4162 := Call(__e, PrimFunc(symshen_4_5colon_6), V2629)
-
-														tmp4163 := Call(__e, tmp4141, tmp4162)
-
-														__e.TailApply(tmp4031, tmp4163)
-														return
-
-													} else {
-														__e.Return(W2670)
-														return
-													}
-
-												}, 1)
-
-												tmp4166 := MakeNative(func(__e *ControlFlow) {
-													W2671 := __e.Get(1)
-													_ = W2671
-													tmp4180 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2671)
-
-													if True == tmp4180 {
-														__e.TailApply(PrimFunc(symshen_4parse_1failure))
-														return
-													} else {
-														tmp4167 := MakeNative(func(__e *ControlFlow) {
-															W2672 := __e.Get(1)
-															_ = W2672
-															tmp4168 := MakeNative(func(__e *ControlFlow) {
-																W2673 := __e.Get(1)
-																_ = W2673
-																tmp4176 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2673)
-
-																if True == tmp4176 {
-																	__e.TailApply(PrimFunc(symshen_4parse_1failure))
-																	return
-																} else {
-																	tmp4169 := MakeNative(func(__e *ControlFlow) {
-																		W2674 := __e.Get(1)
-																		_ = W2674
-																		tmp4170 := MakeNative(func(__e *ControlFlow) {
-																			W2675 := __e.Get(1)
-																			_ = W2675
-																			tmp4171 := PrimIntern(MakeString(";"))
-
-																			tmp4172 := PrimCons(tmp4171, W2674)
-
-																			__e.TailApply(PrimFunc(symshen_4comb), W2675, tmp4172)
-																			return
-
-																		}, 1)
-
-																		tmp4173 := Call(__e, PrimFunc(symshen_4in_1_6), W2673)
-
-																		__e.TailApply(tmp4170, tmp4173)
-																		return
-
-																	}, 1)
-
-																	tmp4174 := Call(__e, PrimFunc(symshen_4_5_1out), W2673)
-
-																	__e.TailApply(tmp4169, tmp4174)
-																	return
-
-																}
-
-															}, 1)
-
-															tmp4177 := Call(__e, PrimFunc(symshen_4_5s_1exprs_6), W2672)
-
-															__e.TailApply(tmp4168, tmp4177)
-															return
-
-														}, 1)
-
-														tmp4178 := Call(__e, PrimFunc(symshen_4in_1_6), W2671)
-
-														__e.TailApply(tmp4167, tmp4178)
-														return
-
-													}
-
-												}, 1)
-
-												tmp4181 := Call(__e, PrimFunc(symshen_4_5semicolon_6), V2629)
-
-												tmp4182 := Call(__e, tmp4166, tmp4181)
-
-												__e.TailApply(tmp4030, tmp4182)
-												return
-
-											} else {
-												__e.Return(W2664)
-												return
-											}
-
-										}, 1)
-
-										tmp4185 := MakeNative(func(__e *ControlFlow) {
-											W2665 := __e.Get(1)
-											_ = W2665
-											tmp4198 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2665)
-
-											if True == tmp4198 {
-												__e.TailApply(PrimFunc(symshen_4parse_1failure))
-												return
-											} else {
-												tmp4186 := MakeNative(func(__e *ControlFlow) {
-													W2666 := __e.Get(1)
-													_ = W2666
-													tmp4187 := MakeNative(func(__e *ControlFlow) {
-														W2667 := __e.Get(1)
-														_ = W2667
-														tmp4194 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2667)
-
-														if True == tmp4194 {
-															__e.TailApply(PrimFunc(symshen_4parse_1failure))
-															return
-														} else {
-															tmp4188 := MakeNative(func(__e *ControlFlow) {
-																W2668 := __e.Get(1)
-																_ = W2668
-																tmp4189 := MakeNative(func(__e *ControlFlow) {
-																	W2669 := __e.Get(1)
-																	_ = W2669
-																	tmp4190 := PrimCons(symbar_b, W2668)
-
-																	__e.TailApply(PrimFunc(symshen_4comb), W2669, tmp4190)
-																	return
-
-																}, 1)
-
-																tmp4191 := Call(__e, PrimFunc(symshen_4in_1_6), W2667)
-
-																__e.TailApply(tmp4189, tmp4191)
-																return
-
-															}, 1)
-
-															tmp4192 := Call(__e, PrimFunc(symshen_4_5_1out), W2667)
-
-															__e.TailApply(tmp4188, tmp4192)
-															return
-
-														}
-
-													}, 1)
-
-													tmp4195 := Call(__e, PrimFunc(symshen_4_5s_1exprs_6), W2666)
-
-													__e.TailApply(tmp4187, tmp4195)
-													return
-
-												}, 1)
-
-												tmp4196 := Call(__e, PrimFunc(symshen_4in_1_6), W2665)
-
-												__e.TailApply(tmp4186, tmp4196)
-												return
-
-											}
-
-										}, 1)
-
-										tmp4199 := Call(__e, PrimFunc(symshen_4_5bar_6), V2629)
-
-										tmp4200 := Call(__e, tmp4185, tmp4199)
-
-										__e.TailApply(tmp4029, tmp4200)
-										return
-
-									} else {
-										__e.Return(W2658)
-										return
-									}
-
-								}, 1)
-
-								tmp4203 := MakeNative(func(__e *ControlFlow) {
-									W2659 := __e.Get(1)
-									_ = W2659
-									tmp4216 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2659)
-
-									if True == tmp4216 {
-										__e.TailApply(PrimFunc(symshen_4parse_1failure))
-										return
-									} else {
-										tmp4204 := MakeNative(func(__e *ControlFlow) {
-											W2660 := __e.Get(1)
-											_ = W2660
-											tmp4205 := MakeNative(func(__e *ControlFlow) {
-												W2661 := __e.Get(1)
-												_ = W2661
-												tmp4212 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2661)
-
-												if True == tmp4212 {
-													__e.TailApply(PrimFunc(symshen_4parse_1failure))
-													return
-												} else {
-													tmp4206 := MakeNative(func(__e *ControlFlow) {
-														W2662 := __e.Get(1)
-														_ = W2662
-														tmp4207 := MakeNative(func(__e *ControlFlow) {
-															W2663 := __e.Get(1)
-															_ = W2663
-															tmp4208 := PrimCons(sym_j, W2662)
-
-															__e.TailApply(PrimFunc(symshen_4comb), W2663, tmp4208)
-															return
-
-														}, 1)
-
-														tmp4209 := Call(__e, PrimFunc(symshen_4in_1_6), W2661)
-
-														__e.TailApply(tmp4207, tmp4209)
-														return
-
-													}, 1)
-
-													tmp4210 := Call(__e, PrimFunc(symshen_4_5_1out), W2661)
-
-													__e.TailApply(tmp4206, tmp4210)
-													return
-
-												}
-
-											}, 1)
-
-											tmp4213 := Call(__e, PrimFunc(symshen_4_5s_1exprs_6), W2660)
-
-											__e.TailApply(tmp4205, tmp4213)
-											return
-
-										}, 1)
-
-										tmp4214 := Call(__e, PrimFunc(symshen_4in_1_6), W2659)
-
-										__e.TailApply(tmp4204, tmp4214)
-										return
-
-									}
-
-								}, 1)
-
-								tmp4217 := Call(__e, PrimFunc(symshen_4_5rcurly_6), V2629)
-
-								tmp4218 := Call(__e, tmp4203, tmp4217)
-
-								__e.TailApply(tmp4028, tmp4218)
-								return
-
-							} else {
-								__e.Return(W2652)
-								return
-							}
-
-						}, 1)
-
-						tmp4221 := MakeNative(func(__e *ControlFlow) {
-							W2653 := __e.Get(1)
-							_ = W2653
-							tmp4234 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2653)
-
-							if True == tmp4234 {
-								__e.TailApply(PrimFunc(symshen_4parse_1failure))
-								return
-							} else {
-								tmp4222 := MakeNative(func(__e *ControlFlow) {
-									W2654 := __e.Get(1)
-									_ = W2654
-									tmp4223 := MakeNative(func(__e *ControlFlow) {
-										W2655 := __e.Get(1)
-										_ = W2655
-										tmp4230 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2655)
-
-										if True == tmp4230 {
-											__e.TailApply(PrimFunc(symshen_4parse_1failure))
-											return
-										} else {
-											tmp4224 := MakeNative(func(__e *ControlFlow) {
-												W2656 := __e.Get(1)
-												_ = W2656
-												tmp4225 := MakeNative(func(__e *ControlFlow) {
-													W2657 := __e.Get(1)
-													_ = W2657
-													tmp4226 := PrimCons(sym_i, W2656)
-
-													__e.TailApply(PrimFunc(symshen_4comb), W2657, tmp4226)
-													return
-
-												}, 1)
-
-												tmp4227 := Call(__e, PrimFunc(symshen_4in_1_6), W2655)
-
-												__e.TailApply(tmp4225, tmp4227)
-												return
-
-											}, 1)
-
-											tmp4228 := Call(__e, PrimFunc(symshen_4_5_1out), W2655)
-
-											__e.TailApply(tmp4224, tmp4228)
-											return
-
-										}
-
-									}, 1)
-
-									tmp4231 := Call(__e, PrimFunc(symshen_4_5s_1exprs_6), W2654)
-
-									__e.TailApply(tmp4223, tmp4231)
-									return
-
-								}, 1)
-
-								tmp4232 := Call(__e, PrimFunc(symshen_4in_1_6), W2653)
-
-								__e.TailApply(tmp4222, tmp4232)
-								return
-
-							}
-
-						}, 1)
-
-						tmp4235 := Call(__e, PrimFunc(symshen_4_5lcurly_6), V2629)
-
-						tmp4236 := Call(__e, tmp4221, tmp4235)
-
-						__e.TailApply(tmp4027, tmp4236)
-						return
-
-					} else {
-						__e.Return(W2641)
-						return
-					}
-
-				}, 1)
-
-				tmp4239 := MakeNative(func(__e *ControlFlow) {
-					W2642 := __e.Get(1)
-					_ = W2642
-					tmp4266 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2642)
-
-					if True == tmp4266 {
-						__e.TailApply(PrimFunc(symshen_4parse_1failure))
-						return
-					} else {
-						tmp4240 := MakeNative(func(__e *ControlFlow) {
-							W2643 := __e.Get(1)
-							_ = W2643
-							tmp4241 := MakeNative(func(__e *ControlFlow) {
-								W2644 := __e.Get(1)
-								_ = W2644
-								tmp4262 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2644)
-
-								if True == tmp4262 {
-									__e.TailApply(PrimFunc(symshen_4parse_1failure))
-									return
-								} else {
-									tmp4242 := MakeNative(func(__e *ControlFlow) {
-										W2645 := __e.Get(1)
-										_ = W2645
-										tmp4243 := MakeNative(func(__e *ControlFlow) {
-											W2646 := __e.Get(1)
-											_ = W2646
-											tmp4244 := MakeNative(func(__e *ControlFlow) {
-												W2647 := __e.Get(1)
-												_ = W2647
-												tmp4257 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2647)
-
-												if True == tmp4257 {
-													__e.TailApply(PrimFunc(symshen_4parse_1failure))
-													return
-												} else {
-													tmp4245 := MakeNative(func(__e *ControlFlow) {
-														W2648 := __e.Get(1)
-														_ = W2648
-														tmp4246 := MakeNative(func(__e *ControlFlow) {
-															W2649 := __e.Get(1)
-															_ = W2649
-															tmp4253 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2649)
-
-															if True == tmp4253 {
-																__e.TailApply(PrimFunc(symshen_4parse_1failure))
-																return
-															} else {
-																tmp4247 := MakeNative(func(__e *ControlFlow) {
-																	W2650 := __e.Get(1)
-																	_ = W2650
-																	tmp4248 := MakeNative(func(__e *ControlFlow) {
-																		W2651 := __e.Get(1)
-																		_ = W2651
-																		tmp4249 := Call(__e, PrimFunc(symshen_4add_1sexpr), W2645, W2650)
-
-																		__e.TailApply(PrimFunc(symshen_4comb), W2651, tmp4249)
-																		return
-
-																	}, 1)
-
-																	tmp4250 := Call(__e, PrimFunc(symshen_4in_1_6), W2649)
-
-																	__e.TailApply(tmp4248, tmp4250)
-																	return
-
-																}, 1)
-
-																tmp4251 := Call(__e, PrimFunc(symshen_4_5_1out), W2649)
-
-																__e.TailApply(tmp4247, tmp4251)
-																return
-
-															}
-
-														}, 1)
-
-														tmp4254 := Call(__e, PrimFunc(symshen_4_5s_1exprs2_6), W2648)
-
-														__e.TailApply(tmp4246, tmp4254)
-														return
-
-													}, 1)
-
-													tmp4255 := Call(__e, PrimFunc(symshen_4in_1_6), W2647)
-
-													__e.TailApply(tmp4245, tmp4255)
-													return
-
-												}
-
-											}, 1)
-
-											tmp4258 := Call(__e, PrimFunc(symshen_4_5rrb_6), W2646)
-
-											__e.TailApply(tmp4244, tmp4258)
-											return
-
-										}, 1)
-
-										tmp4259 := Call(__e, PrimFunc(symshen_4in_1_6), W2644)
-
-										__e.TailApply(tmp4243, tmp4259)
-										return
-
-									}, 1)
-
-									tmp4260 := Call(__e, PrimFunc(symshen_4_5_1out), W2644)
-
-									__e.TailApply(tmp4242, tmp4260)
-									return
-
-								}
-
-							}, 1)
-
-							tmp4263 := Call(__e, PrimFunc(symshen_4_5s_1exprs1_6), W2643)
-
-							__e.TailApply(tmp4241, tmp4263)
-							return
-
-						}, 1)
-
-						tmp4264 := Call(__e, PrimFunc(symshen_4in_1_6), W2642)
-
-						__e.TailApply(tmp4240, tmp4264)
-						return
-
-					}
-
-				}, 1)
-
-				tmp4267 := Call(__e, PrimFunc(symshen_4_5lrb_6), V2629)
-
-				tmp4268 := Call(__e, tmp4239, tmp4267)
-
-				__e.TailApply(tmp4026, tmp4268)
-				return
-
-			} else {
-				__e.Return(W2630)
-				return
-			}
-
-		}, 1)
-
-		tmp4271 := MakeNative(func(__e *ControlFlow) {
-			W2631 := __e.Get(1)
-			_ = W2631
-			tmp4299 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2631)
-
-			if True == tmp4299 {
-				__e.TailApply(PrimFunc(symshen_4parse_1failure))
-				return
-			} else {
-				tmp4272 := MakeNative(func(__e *ControlFlow) {
-					W2632 := __e.Get(1)
-					_ = W2632
-					tmp4273 := MakeNative(func(__e *ControlFlow) {
-						W2633 := __e.Get(1)
-						_ = W2633
-						tmp4295 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2633)
-
-						if True == tmp4295 {
-							__e.TailApply(PrimFunc(symshen_4parse_1failure))
-							return
-						} else {
-							tmp4274 := MakeNative(func(__e *ControlFlow) {
-								W2634 := __e.Get(1)
-								_ = W2634
-								tmp4275 := MakeNative(func(__e *ControlFlow) {
-									W2635 := __e.Get(1)
-									_ = W2635
-									tmp4276 := MakeNative(func(__e *ControlFlow) {
-										W2636 := __e.Get(1)
-										_ = W2636
-										tmp4290 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2636)
-
-										if True == tmp4290 {
-											__e.TailApply(PrimFunc(symshen_4parse_1failure))
-											return
-										} else {
-											tmp4277 := MakeNative(func(__e *ControlFlow) {
-												W2637 := __e.Get(1)
-												_ = W2637
-												tmp4278 := MakeNative(func(__e *ControlFlow) {
-													W2638 := __e.Get(1)
-													_ = W2638
-													tmp4286 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2638)
-
-													if True == tmp4286 {
-														__e.TailApply(PrimFunc(symshen_4parse_1failure))
-														return
-													} else {
-														tmp4279 := MakeNative(func(__e *ControlFlow) {
-															W2639 := __e.Get(1)
-															_ = W2639
-															tmp4280 := MakeNative(func(__e *ControlFlow) {
-																W2640 := __e.Get(1)
-																_ = W2640
-																tmp4281 := Call(__e, PrimFunc(symshen_4cons_1form), W2634)
-
-																tmp4282 := PrimCons(tmp4281, W2639)
-
-																__e.TailApply(PrimFunc(symshen_4comb), W2640, tmp4282)
-																return
-
-															}, 1)
-
-															tmp4283 := Call(__e, PrimFunc(symshen_4in_1_6), W2638)
-
-															__e.TailApply(tmp4280, tmp4283)
-															return
-
-														}, 1)
-
-														tmp4284 := Call(__e, PrimFunc(symshen_4_5_1out), W2638)
-
-														__e.TailApply(tmp4279, tmp4284)
-														return
-
-													}
-
-												}, 1)
-
-												tmp4287 := Call(__e, PrimFunc(symshen_4_5s_1exprs2_6), W2637)
-
-												__e.TailApply(tmp4278, tmp4287)
-												return
-
-											}, 1)
-
-											tmp4288 := Call(__e, PrimFunc(symshen_4in_1_6), W2636)
-
-											__e.TailApply(tmp4277, tmp4288)
-											return
-
-										}
-
-									}, 1)
-
-									tmp4291 := Call(__e, PrimFunc(symshen_4_5rsb_6), W2635)
-
-									__e.TailApply(tmp4276, tmp4291)
-									return
-
-								}, 1)
-
-								tmp4292 := Call(__e, PrimFunc(symshen_4in_1_6), W2633)
-
-								__e.TailApply(tmp4275, tmp4292)
-								return
-
-							}, 1)
-
-							tmp4293 := Call(__e, PrimFunc(symshen_4_5_1out), W2633)
-
-							__e.TailApply(tmp4274, tmp4293)
-							return
-
-						}
-
-					}, 1)
-
-					tmp4296 := Call(__e, PrimFunc(symshen_4_5s_1exprs1_6), W2632)
-
-					__e.TailApply(tmp4273, tmp4296)
-					return
-
-				}, 1)
-
-				tmp4297 := Call(__e, PrimFunc(symshen_4in_1_6), W2631)
-
-				__e.TailApply(tmp4272, tmp4297)
-				return
-
-			}
-
-		}, 1)
-
-		tmp4300 := Call(__e, PrimFunc(symshen_4_5lsb_6), V2629)
-
-		tmp4301 := Call(__e, tmp4271, tmp4300)
-
-		__e.TailApply(tmp4025, tmp4301)
-		return
-
-	}, 1)
-
-	tmp4302 := Call(__e, ns2_1set, symshen_4_5s_1exprs_6, tmp4024)
-
-	_ = tmp4302
-
-	tmp4303 := MakeNative(func(__e *ControlFlow) {
-		V2718 := __e.Get(1)
-		_ = V2718
-		V2719 := __e.Get(2)
-		_ = V2719
-		tmp4321 := PrimIsPair(V2718)
-
-		var ifres4308 Obj
-
-		if True == tmp4321 {
-			tmp4319 := PrimHead(V2718)
-
-			tmp4320 := PrimEqual(sym_3, tmp4319)
-
-			var ifres4310 Obj
-
-			if True == tmp4320 {
-				tmp4317 := PrimTail(V2718)
-
-				tmp4318 := PrimIsPair(tmp4317)
-
-				var ifres4312 Obj
-
-				if True == tmp4318 {
-					tmp4314 := PrimTail(V2718)
-
-					tmp4315 := PrimTail(tmp4314)
-
-					tmp4316 := PrimEqual(Nil, tmp4315)
-
-					var ifres4313 Obj
-
-					if True == tmp4316 {
-						ifres4313 = True
-
-					} else {
-						ifres4313 = False
-
-					}
-
-					ifres4312 = ifres4313
-
-				} else {
-					ifres4312 = False
-
-				}
-
-				var ifres4311 Obj
-
-				if True == ifres4312 {
-					ifres4311 = True
-
-				} else {
-					ifres4311 = False
-
-				}
-
-				ifres4310 = ifres4311
-
-			} else {
-				ifres4310 = False
-
-			}
-
-			var ifres4309 Obj
-
-			if True == ifres4310 {
-				ifres4309 = True
-
-			} else {
-				ifres4309 = False
-
-			}
-
-			ifres4308 = ifres4309
-
-		} else {
-			ifres4308 = False
-
-		}
-
-		if True == ifres4308 {
-			tmp4304 := PrimTail(V2718)
-
-			tmp4305 := PrimHead(tmp4304)
-
-			tmp4306 := Call(__e, PrimFunc(symexplode), tmp4305)
-
-			__e.TailApply(PrimFunc(symappend), tmp4306, V2719)
-			return
-
-		} else {
-			__e.Return(PrimCons(V2718, V2719))
-			return
-		}
-
-	}, 2)
-
-	tmp4322 := Call(__e, ns2_1set, symshen_4add_1sexpr, tmp4303)
-
-	_ = tmp4322
-
-	tmp4323 := MakeNative(func(__e *ControlFlow) {
-		V2720 := __e.Get(1)
-		_ = V2720
-		tmp4324 := MakeNative(func(__e *ControlFlow) {
-			W2721 := __e.Get(1)
-			_ = W2721
-			tmp4326 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2721)
-
-			if True == tmp4326 {
-				__e.TailApply(PrimFunc(symshen_4parse_1failure))
-				return
-			} else {
-				__e.Return(W2721)
-				return
-			}
-
-		}, 1)
-
-		tmp4332 := Call(__e, PrimFunc(symshen_4hds_a_2), V2720, MakeNumber(91))
-
-		var ifres4327 Obj
-
-		if True == tmp4332 {
-			tmp4328 := MakeNative(func(__e *ControlFlow) {
-				W2722 := __e.Get(1)
-				_ = W2722
-				__e.TailApply(PrimFunc(symshen_4comb), W2722, symshen_4skip)
-				return
-			}, 1)
-
-			tmp4329 := Call(__e, PrimFunc(symtail), V2720)
-
-			tmp4330 := Call(__e, tmp4328, tmp4329)
-
-			ifres4327 = tmp4330
-
-		} else {
-			tmp4331 := Call(__e, PrimFunc(symshen_4parse_1failure))
-
-			ifres4327 = tmp4331
-
-		}
-
-		__e.TailApply(tmp4324, ifres4327)
-		return
-
-	}, 1)
-
-	tmp4333 := Call(__e, ns2_1set, symshen_4_5lsb_6, tmp4323)
-
-	_ = tmp4333
-
-	tmp4334 := MakeNative(func(__e *ControlFlow) {
-		V2723 := __e.Get(1)
-		_ = V2723
-		tmp4335 := MakeNative(func(__e *ControlFlow) {
-			W2724 := __e.Get(1)
-			_ = W2724
-			tmp4337 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2724)
-
-			if True == tmp4337 {
-				__e.TailApply(PrimFunc(symshen_4parse_1failure))
-				return
-			} else {
-				__e.Return(W2724)
-				return
-			}
-
-		}, 1)
-
-		tmp4343 := Call(__e, PrimFunc(symshen_4hds_a_2), V2723, MakeNumber(93))
-
-		var ifres4338 Obj
-
-		if True == tmp4343 {
-			tmp4339 := MakeNative(func(__e *ControlFlow) {
-				W2725 := __e.Get(1)
-				_ = W2725
-				__e.TailApply(PrimFunc(symshen_4comb), W2725, symshen_4skip)
-				return
-			}, 1)
-
-			tmp4340 := Call(__e, PrimFunc(symtail), V2723)
-
-			tmp4341 := Call(__e, tmp4339, tmp4340)
-
-			ifres4338 = tmp4341
-
-		} else {
-			tmp4342 := Call(__e, PrimFunc(symshen_4parse_1failure))
-
-			ifres4338 = tmp4342
-
-		}
-
-		__e.TailApply(tmp4335, ifres4338)
-		return
-
-	}, 1)
-
-	tmp4344 := Call(__e, ns2_1set, symshen_4_5rsb_6, tmp4334)
-
-	_ = tmp4344
-
-	tmp4345 := MakeNative(func(__e *ControlFlow) {
-		V2726 := __e.Get(1)
-		_ = V2726
-		tmp4346 := MakeNative(func(__e *ControlFlow) {
-			W2727 := __e.Get(1)
-			_ = W2727
-			tmp4348 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2727)
-
-			if True == tmp4348 {
-				__e.TailApply(PrimFunc(symshen_4parse_1failure))
-				return
-			} else {
-				__e.Return(W2727)
-				return
-			}
-
-		}, 1)
-
-		tmp4349 := MakeNative(func(__e *ControlFlow) {
-			W2728 := __e.Get(1)
-			_ = W2728
-			tmp4355 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2728)
-
-			if True == tmp4355 {
-				__e.TailApply(PrimFunc(symshen_4parse_1failure))
-				return
-			} else {
-				tmp4350 := MakeNative(func(__e *ControlFlow) {
-					W2729 := __e.Get(1)
-					_ = W2729
-					tmp4351 := MakeNative(func(__e *ControlFlow) {
-						W2730 := __e.Get(1)
-						_ = W2730
-						__e.TailApply(PrimFunc(symshen_4comb), W2730, W2729)
-						return
-					}, 1)
-
-					tmp4352 := Call(__e, PrimFunc(symshen_4in_1_6), W2728)
-
-					__e.TailApply(tmp4351, tmp4352)
-					return
-
-				}, 1)
-
-				tmp4353 := Call(__e, PrimFunc(symshen_4_5_1out), W2728)
-
-				__e.TailApply(tmp4350, tmp4353)
-				return
-
-			}
-
-		}, 1)
-
-		tmp4356 := Call(__e, PrimFunc(symshen_4_5s_1exprs_6), V2726)
-
-		tmp4357 := Call(__e, tmp4349, tmp4356)
-
-		__e.TailApply(tmp4346, tmp4357)
-		return
-
-	}, 1)
-
-	tmp4358 := Call(__e, ns2_1set, symshen_4_5s_1exprs1_6, tmp4345)
-
-	_ = tmp4358
-
-	tmp4359 := MakeNative(func(__e *ControlFlow) {
-		V2731 := __e.Get(1)
-		_ = V2731
-		tmp4360 := MakeNative(func(__e *ControlFlow) {
-			W2732 := __e.Get(1)
-			_ = W2732
-			tmp4362 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2732)
-
-			if True == tmp4362 {
-				__e.TailApply(PrimFunc(symshen_4parse_1failure))
-				return
-			} else {
-				__e.Return(W2732)
-				return
-			}
-
-		}, 1)
-
-		tmp4363 := MakeNative(func(__e *ControlFlow) {
-			W2733 := __e.Get(1)
-			_ = W2733
-			tmp4369 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2733)
-
-			if True == tmp4369 {
-				__e.TailApply(PrimFunc(symshen_4parse_1failure))
-				return
-			} else {
-				tmp4364 := MakeNative(func(__e *ControlFlow) {
-					W2734 := __e.Get(1)
-					_ = W2734
-					tmp4365 := MakeNative(func(__e *ControlFlow) {
-						W2735 := __e.Get(1)
-						_ = W2735
-						__e.TailApply(PrimFunc(symshen_4comb), W2735, W2734)
-						return
-					}, 1)
-
-					tmp4366 := Call(__e, PrimFunc(symshen_4in_1_6), W2733)
-
-					__e.TailApply(tmp4365, tmp4366)
-					return
-
-				}, 1)
-
-				tmp4367 := Call(__e, PrimFunc(symshen_4_5_1out), W2733)
-
-				__e.TailApply(tmp4364, tmp4367)
-				return
-
-			}
-
-		}, 1)
-
-		tmp4370 := Call(__e, PrimFunc(symshen_4_5s_1exprs_6), V2731)
-
-		tmp4371 := Call(__e, tmp4363, tmp4370)
-
-		__e.TailApply(tmp4360, tmp4371)
-		return
-
-	}, 1)
-
-	tmp4372 := Call(__e, ns2_1set, symshen_4_5s_1exprs2_6, tmp4359)
-
-	_ = tmp4372
-
-	tmp4373 := MakeNative(func(__e *ControlFlow) {
-		V2737 := __e.Get(1)
-		_ = V2737
-		tmp4430 := PrimEqual(Nil, V2737)
-
-		if True == tmp4430 {
-			__e.Return(Nil)
-			return
-		} else {
-			tmp4428 := PrimIsPair(V2737)
-
-			var ifres4408 Obj
-
-			if True == tmp4428 {
-				tmp4426 := PrimTail(V2737)
-
-				tmp4427 := PrimIsPair(tmp4426)
-
-				var ifres4410 Obj
-
-				if True == tmp4427 {
-					tmp4423 := PrimTail(V2737)
-
-					tmp4424 := PrimTail(tmp4423)
-
-					tmp4425 := PrimIsPair(tmp4424)
-
-					var ifres4412 Obj
-
-					if True == tmp4425 {
-						tmp4419 := PrimTail(V2737)
-
-						tmp4420 := PrimTail(tmp4419)
-
-						tmp4421 := PrimTail(tmp4420)
-
-						tmp4422 := PrimEqual(Nil, tmp4421)
-
-						var ifres4414 Obj
-
-						if True == tmp4422 {
-							tmp4416 := PrimTail(V2737)
-
-							tmp4417 := PrimHead(tmp4416)
-
-							tmp4418 := PrimEqual(tmp4417, symbar_b)
-
-							var ifres4415 Obj
-
-							if True == tmp4418 {
-								ifres4415 = True
-
-							} else {
-								ifres4415 = False
-
-							}
-
-							ifres4414 = ifres4415
-
-						} else {
-							ifres4414 = False
-
-						}
-
-						var ifres4413 Obj
-
-						if True == ifres4414 {
-							ifres4413 = True
-
-						} else {
-							ifres4413 = False
-
-						}
-
-						ifres4412 = ifres4413
-
-					} else {
-						ifres4412 = False
-
-					}
-
-					var ifres4411 Obj
-
-					if True == ifres4412 {
-						ifres4411 = True
-
-					} else {
-						ifres4411 = False
-
-					}
-
-					ifres4410 = ifres4411
-
-				} else {
-					ifres4410 = False
-
-				}
-
-				var ifres4409 Obj
-
-				if True == ifres4410 {
-					ifres4409 = True
-
-				} else {
-					ifres4409 = False
-
-				}
-
-				ifres4408 = ifres4409
-
-			} else {
-				ifres4408 = False
-
-			}
-
-			if True == ifres4408 {
-				tmp4374 := PrimHead(V2737)
-
-				tmp4375 := PrimTail(V2737)
-
-				tmp4376 := PrimTail(tmp4375)
-
-				tmp4377 := PrimCons(tmp4374, tmp4376)
-
-				__e.Return(PrimCons(symcons, tmp4377))
-				return
-
-			} else {
-				tmp4406 := PrimIsPair(V2737)
-
-				var ifres4386 Obj
-
-				if True == tmp4406 {
-					tmp4404 := PrimTail(V2737)
-
-					tmp4405 := PrimIsPair(tmp4404)
-
-					var ifres4388 Obj
-
-					if True == tmp4405 {
-						tmp4401 := PrimTail(V2737)
-
-						tmp4402 := PrimTail(tmp4401)
-
-						tmp4403 := PrimIsPair(tmp4402)
-
-						var ifres4390 Obj
-
-						if True == tmp4403 {
-							tmp4397 := PrimTail(V2737)
-
-							tmp4398 := PrimTail(tmp4397)
-
-							tmp4399 := PrimTail(tmp4398)
-
-							tmp4400 := PrimIsPair(tmp4399)
-
-							var ifres4392 Obj
-
-							if True == tmp4400 {
-								tmp4394 := PrimTail(V2737)
-
-								tmp4395 := PrimHead(tmp4394)
-
-								tmp4396 := PrimEqual(tmp4395, symbar_b)
-
-								var ifres4393 Obj
-
-								if True == tmp4396 {
-									ifres4393 = True
-
-								} else {
-									ifres4393 = False
-
-								}
-
-								ifres4392 = ifres4393
-
-							} else {
-								ifres4392 = False
-
-							}
-
-							var ifres4391 Obj
-
-							if True == ifres4392 {
-								ifres4391 = True
-
-							} else {
-								ifres4391 = False
-
-							}
-
-							ifres4390 = ifres4391
-
-						} else {
-							ifres4390 = False
-
-						}
-
-						var ifres4389 Obj
-
-						if True == ifres4390 {
-							ifres4389 = True
-
-						} else {
-							ifres4389 = False
-
-						}
-
-						ifres4388 = ifres4389
-
-					} else {
-						ifres4388 = False
-
-					}
-
-					var ifres4387 Obj
-
-					if True == ifres4388 {
-						ifres4387 = True
-
-					} else {
-						ifres4387 = False
-
-					}
-
-					ifres4386 = ifres4387
-
-				} else {
-					ifres4386 = False
-
-				}
-
-				if True == ifres4386 {
-					__e.Return(PrimSimpleError(MakeString("misapplication of |\n")))
-					return
-				} else {
-					tmp4384 := PrimIsPair(V2737)
-
-					if True == tmp4384 {
-						tmp4378 := PrimHead(V2737)
-
-						tmp4379 := PrimTail(V2737)
-
-						tmp4380 := Call(__e, PrimFunc(symshen_4cons_1form), tmp4379)
-
-						tmp4381 := PrimCons(tmp4380, Nil)
-
-						tmp4382 := PrimCons(tmp4378, tmp4381)
-
-						__e.Return(PrimCons(symcons, tmp4382))
-						return
-
-					} else {
-						__e.TailApply(PrimFunc(symshen_4f_1error), symshen_4cons_1form)
-						return
-					}
-
-				}
-
-			}
-
-		}
-
-	}, 1)
-
-	tmp4431 := Call(__e, ns2_1set, symshen_4cons_1form, tmp4373)
-
-	_ = tmp4431
-
-	tmp4432 := MakeNative(func(__e *ControlFlow) {
-		V2738 := __e.Get(1)
-		_ = V2738
-		tmp4433 := MakeNative(func(__e *ControlFlow) {
-			W2739 := __e.Get(1)
-			_ = W2739
-			tmp4435 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2739)
-
-			if True == tmp4435 {
-				__e.TailApply(PrimFunc(symshen_4parse_1failure))
-				return
-			} else {
-				__e.Return(W2739)
-				return
-			}
-
-		}, 1)
-
-		tmp4441 := Call(__e, PrimFunc(symshen_4hds_a_2), V2738, MakeNumber(40))
-
-		var ifres4436 Obj
-
-		if True == tmp4441 {
-			tmp4437 := MakeNative(func(__e *ControlFlow) {
-				W2740 := __e.Get(1)
-				_ = W2740
-				__e.TailApply(PrimFunc(symshen_4comb), W2740, symshen_4skip)
-				return
-			}, 1)
-
-			tmp4438 := Call(__e, PrimFunc(symtail), V2738)
-
-			tmp4439 := Call(__e, tmp4437, tmp4438)
-
-			ifres4436 = tmp4439
-
-		} else {
-			tmp4440 := Call(__e, PrimFunc(symshen_4parse_1failure))
-
-			ifres4436 = tmp4440
-
-		}
-
-		__e.TailApply(tmp4433, ifres4436)
-		return
-
-	}, 1)
-
-	tmp4442 := Call(__e, ns2_1set, symshen_4_5lrb_6, tmp4432)
-
-	_ = tmp4442
-
-	tmp4443 := MakeNative(func(__e *ControlFlow) {
-		V2741 := __e.Get(1)
-		_ = V2741
-		tmp4444 := MakeNative(func(__e *ControlFlow) {
-			W2742 := __e.Get(1)
-			_ = W2742
-			tmp4446 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2742)
-
-			if True == tmp4446 {
-				__e.TailApply(PrimFunc(symshen_4parse_1failure))
-				return
-			} else {
-				__e.Return(W2742)
-				return
-			}
-
-		}, 1)
-
-		tmp4452 := Call(__e, PrimFunc(symshen_4hds_a_2), V2741, MakeNumber(41))
-
-		var ifres4447 Obj
-
-		if True == tmp4452 {
-			tmp4448 := MakeNative(func(__e *ControlFlow) {
-				W2743 := __e.Get(1)
-				_ = W2743
-				__e.TailApply(PrimFunc(symshen_4comb), W2743, symshen_4skip)
-				return
-			}, 1)
-
-			tmp4449 := Call(__e, PrimFunc(symtail), V2741)
-
-			tmp4450 := Call(__e, tmp4448, tmp4449)
-
-			ifres4447 = tmp4450
-
-		} else {
-			tmp4451 := Call(__e, PrimFunc(symshen_4parse_1failure))
-
-			ifres4447 = tmp4451
-
-		}
-
-		__e.TailApply(tmp4444, ifres4447)
-		return
-
-	}, 1)
-
-	tmp4453 := Call(__e, ns2_1set, symshen_4_5rrb_6, tmp4443)
-
-	_ = tmp4453
-
-	tmp4454 := MakeNative(func(__e *ControlFlow) {
-		V2744 := __e.Get(1)
-		_ = V2744
-		tmp4455 := MakeNative(func(__e *ControlFlow) {
-			W2745 := __e.Get(1)
-			_ = W2745
-			tmp4457 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2745)
-
-			if True == tmp4457 {
-				__e.TailApply(PrimFunc(symshen_4parse_1failure))
-				return
-			} else {
-				__e.Return(W2745)
-				return
-			}
-
-		}, 1)
-
-		tmp4463 := Call(__e, PrimFunc(symshen_4hds_a_2), V2744, MakeNumber(123))
-
-		var ifres4458 Obj
-
-		if True == tmp4463 {
-			tmp4459 := MakeNative(func(__e *ControlFlow) {
-				W2746 := __e.Get(1)
-				_ = W2746
-				__e.TailApply(PrimFunc(symshen_4comb), W2746, symshen_4skip)
-				return
-			}, 1)
-
-			tmp4460 := Call(__e, PrimFunc(symtail), V2744)
-
-			tmp4461 := Call(__e, tmp4459, tmp4460)
-
-			ifres4458 = tmp4461
-
-		} else {
-			tmp4462 := Call(__e, PrimFunc(symshen_4parse_1failure))
-
-			ifres4458 = tmp4462
-
-		}
-
-		__e.TailApply(tmp4455, ifres4458)
-		return
-
-	}, 1)
-
-	tmp4464 := Call(__e, ns2_1set, symshen_4_5lcurly_6, tmp4454)
-
-	_ = tmp4464
-
-	tmp4465 := MakeNative(func(__e *ControlFlow) {
-		V2747 := __e.Get(1)
-		_ = V2747
-		tmp4466 := MakeNative(func(__e *ControlFlow) {
-			W2748 := __e.Get(1)
-			_ = W2748
-			tmp4468 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2748)
-
-			if True == tmp4468 {
-				__e.TailApply(PrimFunc(symshen_4parse_1failure))
-				return
-			} else {
-				__e.Return(W2748)
-				return
-			}
-
-		}, 1)
-
-		tmp4474 := Call(__e, PrimFunc(symshen_4hds_a_2), V2747, MakeNumber(125))
-
-		var ifres4469 Obj
-
-		if True == tmp4474 {
-			tmp4470 := MakeNative(func(__e *ControlFlow) {
-				W2749 := __e.Get(1)
-				_ = W2749
-				__e.TailApply(PrimFunc(symshen_4comb), W2749, symshen_4skip)
-				return
-			}, 1)
-
-			tmp4471 := Call(__e, PrimFunc(symtail), V2747)
-
-			tmp4472 := Call(__e, tmp4470, tmp4471)
-
-			ifres4469 = tmp4472
-
-		} else {
-			tmp4473 := Call(__e, PrimFunc(symshen_4parse_1failure))
-
-			ifres4469 = tmp4473
-
-		}
-
-		__e.TailApply(tmp4466, ifres4469)
-		return
-
-	}, 1)
-
-	tmp4475 := Call(__e, ns2_1set, symshen_4_5rcurly_6, tmp4465)
-
-	_ = tmp4475
-
-	tmp4476 := MakeNative(func(__e *ControlFlow) {
-		V2750 := __e.Get(1)
-		_ = V2750
-		tmp4477 := MakeNative(func(__e *ControlFlow) {
-			W2751 := __e.Get(1)
-			_ = W2751
-			tmp4479 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2751)
-
-			if True == tmp4479 {
-				__e.TailApply(PrimFunc(symshen_4parse_1failure))
-				return
-			} else {
-				__e.Return(W2751)
-				return
-			}
-
-		}, 1)
-
-		tmp4485 := Call(__e, PrimFunc(symshen_4hds_a_2), V2750, MakeNumber(124))
-
-		var ifres4480 Obj
-
-		if True == tmp4485 {
-			tmp4481 := MakeNative(func(__e *ControlFlow) {
-				W2752 := __e.Get(1)
-				_ = W2752
-				__e.TailApply(PrimFunc(symshen_4comb), W2752, symshen_4skip)
-				return
-			}, 1)
-
-			tmp4482 := Call(__e, PrimFunc(symtail), V2750)
-
-			tmp4483 := Call(__e, tmp4481, tmp4482)
-
-			ifres4480 = tmp4483
-
-		} else {
-			tmp4484 := Call(__e, PrimFunc(symshen_4parse_1failure))
-
-			ifres4480 = tmp4484
-
-		}
-
-		__e.TailApply(tmp4477, ifres4480)
-		return
-
-	}, 1)
-
-	tmp4486 := Call(__e, ns2_1set, symshen_4_5bar_6, tmp4476)
-
-	_ = tmp4486
-
-	tmp4487 := MakeNative(func(__e *ControlFlow) {
-		V2753 := __e.Get(1)
-		_ = V2753
-		tmp4488 := MakeNative(func(__e *ControlFlow) {
-			W2754 := __e.Get(1)
-			_ = W2754
-			tmp4490 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2754)
-
-			if True == tmp4490 {
-				__e.TailApply(PrimFunc(symshen_4parse_1failure))
-				return
-			} else {
-				__e.Return(W2754)
-				return
-			}
-
-		}, 1)
-
-		tmp4496 := Call(__e, PrimFunc(symshen_4hds_a_2), V2753, MakeNumber(59))
-
-		var ifres4491 Obj
-
-		if True == tmp4496 {
-			tmp4492 := MakeNative(func(__e *ControlFlow) {
-				W2755 := __e.Get(1)
-				_ = W2755
-				__e.TailApply(PrimFunc(symshen_4comb), W2755, symshen_4skip)
-				return
-			}, 1)
-
-			tmp4493 := Call(__e, PrimFunc(symtail), V2753)
-
-			tmp4494 := Call(__e, tmp4492, tmp4493)
-
-			ifres4491 = tmp4494
-
-		} else {
-			tmp4495 := Call(__e, PrimFunc(symshen_4parse_1failure))
-
-			ifres4491 = tmp4495
-
-		}
-
-		__e.TailApply(tmp4488, ifres4491)
-		return
-
-	}, 1)
-
-	tmp4497 := Call(__e, ns2_1set, symshen_4_5semicolon_6, tmp4487)
-
-	_ = tmp4497
-
-	tmp4498 := MakeNative(func(__e *ControlFlow) {
-		V2756 := __e.Get(1)
-		_ = V2756
-		tmp4499 := MakeNative(func(__e *ControlFlow) {
-			W2757 := __e.Get(1)
-			_ = W2757
-			tmp4501 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2757)
-
-			if True == tmp4501 {
-				__e.TailApply(PrimFunc(symshen_4parse_1failure))
-				return
-			} else {
-				__e.Return(W2757)
-				return
-			}
-
-		}, 1)
-
-		tmp4507 := Call(__e, PrimFunc(symshen_4hds_a_2), V2756, MakeNumber(58))
-
-		var ifres4502 Obj
-
-		if True == tmp4507 {
-			tmp4503 := MakeNative(func(__e *ControlFlow) {
-				W2758 := __e.Get(1)
-				_ = W2758
-				__e.TailApply(PrimFunc(symshen_4comb), W2758, symshen_4skip)
-				return
-			}, 1)
-
-			tmp4504 := Call(__e, PrimFunc(symtail), V2756)
-
-			tmp4505 := Call(__e, tmp4503, tmp4504)
-
-			ifres4502 = tmp4505
-
-		} else {
-			tmp4506 := Call(__e, PrimFunc(symshen_4parse_1failure))
-
-			ifres4502 = tmp4506
-
-		}
-
-		__e.TailApply(tmp4499, ifres4502)
-		return
-
-	}, 1)
-
-	tmp4508 := Call(__e, ns2_1set, symshen_4_5colon_6, tmp4498)
-
-	_ = tmp4508
-
-	tmp4509 := MakeNative(func(__e *ControlFlow) {
-		V2759 := __e.Get(1)
-		_ = V2759
-		tmp4510 := MakeNative(func(__e *ControlFlow) {
-			W2760 := __e.Get(1)
-			_ = W2760
-			tmp4512 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2760)
-
-			if True == tmp4512 {
-				__e.TailApply(PrimFunc(symshen_4parse_1failure))
-				return
-			} else {
-				__e.Return(W2760)
-				return
-			}
-
-		}, 1)
-
-		tmp4518 := Call(__e, PrimFunc(symshen_4hds_a_2), V2759, MakeNumber(44))
-
-		var ifres4513 Obj
-
-		if True == tmp4518 {
-			tmp4514 := MakeNative(func(__e *ControlFlow) {
-				W2761 := __e.Get(1)
-				_ = W2761
-				__e.TailApply(PrimFunc(symshen_4comb), W2761, symshen_4skip)
-				return
-			}, 1)
-
-			tmp4515 := Call(__e, PrimFunc(symtail), V2759)
-
-			tmp4516 := Call(__e, tmp4514, tmp4515)
-
-			ifres4513 = tmp4516
-
-		} else {
-			tmp4517 := Call(__e, PrimFunc(symshen_4parse_1failure))
-
-			ifres4513 = tmp4517
-
-		}
-
-		__e.TailApply(tmp4510, ifres4513)
-		return
-
-	}, 1)
-
-	tmp4519 := Call(__e, ns2_1set, symshen_4_5comma_6, tmp4509)
-
-	_ = tmp4519
-
-	tmp4520 := MakeNative(func(__e *ControlFlow) {
-		V2762 := __e.Get(1)
-		_ = V2762
-		tmp4521 := MakeNative(func(__e *ControlFlow) {
-			W2763 := __e.Get(1)
-			_ = W2763
-			tmp4523 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2763)
-
-			if True == tmp4523 {
-				__e.TailApply(PrimFunc(symshen_4parse_1failure))
-				return
-			} else {
-				__e.Return(W2763)
-				return
-			}
-
-		}, 1)
-
-		tmp4529 := Call(__e, PrimFunc(symshen_4hds_a_2), V2762, MakeNumber(61))
-
-		var ifres4524 Obj
-
-		if True == tmp4529 {
-			tmp4525 := MakeNative(func(__e *ControlFlow) {
-				W2764 := __e.Get(1)
-				_ = W2764
-				__e.TailApply(PrimFunc(symshen_4comb), W2764, symshen_4skip)
-				return
-			}, 1)
-
-			tmp4526 := Call(__e, PrimFunc(symtail), V2762)
-
-			tmp4527 := Call(__e, tmp4525, tmp4526)
-
-			ifres4524 = tmp4527
-
-		} else {
-			tmp4528 := Call(__e, PrimFunc(symshen_4parse_1failure))
-
-			ifres4524 = tmp4528
-
-		}
-
-		__e.TailApply(tmp4521, ifres4524)
-		return
-
-	}, 1)
-
-	tmp4530 := Call(__e, ns2_1set, symshen_4_5equal_6, tmp4520)
-
-	_ = tmp4530
-
-	tmp4531 := MakeNative(func(__e *ControlFlow) {
-		V2765 := __e.Get(1)
-		_ = V2765
-		tmp4532 := MakeNative(func(__e *ControlFlow) {
-			W2766 := __e.Get(1)
-			_ = W2766
-			tmp4544 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2766)
-
-			if True == tmp4544 {
-				tmp4533 := MakeNative(func(__e *ControlFlow) {
-					W2769 := __e.Get(1)
-					_ = W2769
-					tmp4535 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2769)
-
-					if True == tmp4535 {
-						__e.TailApply(PrimFunc(symshen_4parse_1failure))
-						return
-					} else {
-						__e.Return(W2769)
-						return
-					}
-
-				}, 1)
-
-				tmp4536 := MakeNative(func(__e *ControlFlow) {
-					W2770 := __e.Get(1)
-					_ = W2770
-					tmp4540 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2770)
-
-					if True == tmp4540 {
-						__e.TailApply(PrimFunc(symshen_4parse_1failure))
-						return
-					} else {
-						tmp4537 := MakeNative(func(__e *ControlFlow) {
-							W2771 := __e.Get(1)
-							_ = W2771
-							__e.TailApply(PrimFunc(symshen_4comb), W2771, symshen_4skip)
-							return
-						}, 1)
-
-						tmp4538 := Call(__e, PrimFunc(symshen_4in_1_6), W2770)
-
-						__e.TailApply(tmp4537, tmp4538)
-						return
-
-					}
-
-				}, 1)
-
-				tmp4541 := Call(__e, PrimFunc(symshen_4_5multiline_6), V2765)
-
-				tmp4542 := Call(__e, tmp4536, tmp4541)
-
-				__e.TailApply(tmp4533, tmp4542)
-				return
-
-			} else {
-				__e.Return(W2766)
-				return
-			}
-
-		}, 1)
-
-		tmp4545 := MakeNative(func(__e *ControlFlow) {
-			W2767 := __e.Get(1)
-			_ = W2767
-			tmp4549 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2767)
-
-			if True == tmp4549 {
-				__e.TailApply(PrimFunc(symshen_4parse_1failure))
-				return
-			} else {
-				tmp4546 := MakeNative(func(__e *ControlFlow) {
-					W2768 := __e.Get(1)
-					_ = W2768
-					__e.TailApply(PrimFunc(symshen_4comb), W2768, symshen_4skip)
-					return
-				}, 1)
-
-				tmp4547 := Call(__e, PrimFunc(symshen_4in_1_6), W2767)
-
-				__e.TailApply(tmp4546, tmp4547)
-				return
-
-			}
-
-		}, 1)
-
-		tmp4550 := Call(__e, PrimFunc(symshen_4_5singleline_6), V2765)
-
-		tmp4551 := Call(__e, tmp4545, tmp4550)
-
-		__e.TailApply(tmp4532, tmp4551)
-		return
-
-	}, 1)
-
-	tmp4552 := Call(__e, ns2_1set, symshen_4_5comment_6, tmp4531)
-
-	_ = tmp4552
-
-	tmp4553 := MakeNative(func(__e *ControlFlow) {
-		V2772 := __e.Get(1)
-		_ = V2772
-		tmp4554 := MakeNative(func(__e *ControlFlow) {
-			W2773 := __e.Get(1)
-			_ = W2773
-			tmp4556 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2773)
-
-			if True == tmp4556 {
-				__e.TailApply(PrimFunc(symshen_4parse_1failure))
-				return
-			} else {
-				__e.Return(W2773)
-				return
-			}
-
-		}, 1)
-
-		tmp4557 := MakeNative(func(__e *ControlFlow) {
-			W2774 := __e.Get(1)
-			_ = W2774
-			tmp4579 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2774)
-
-			if True == tmp4579 {
-				__e.TailApply(PrimFunc(symshen_4parse_1failure))
-				return
-			} else {
-				tmp4558 := MakeNative(func(__e *ControlFlow) {
-					W2775 := __e.Get(1)
-					_ = W2775
-					tmp4559 := MakeNative(func(__e *ControlFlow) {
-						W2776 := __e.Get(1)
-						_ = W2776
-						tmp4575 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2776)
-
-						if True == tmp4575 {
-							__e.TailApply(PrimFunc(symshen_4parse_1failure))
-							return
-						} else {
-							tmp4560 := MakeNative(func(__e *ControlFlow) {
-								W2777 := __e.Get(1)
-								_ = W2777
-								tmp4561 := MakeNative(func(__e *ControlFlow) {
-									W2778 := __e.Get(1)
-									_ = W2778
-									tmp4571 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2778)
-
-									if True == tmp4571 {
-										__e.TailApply(PrimFunc(symshen_4parse_1failure))
-										return
-									} else {
-										tmp4562 := MakeNative(func(__e *ControlFlow) {
-											W2779 := __e.Get(1)
-											_ = W2779
-											tmp4563 := MakeNative(func(__e *ControlFlow) {
-												W2780 := __e.Get(1)
-												_ = W2780
-												tmp4567 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2780)
-
-												if True == tmp4567 {
-													__e.TailApply(PrimFunc(symshen_4parse_1failure))
-													return
-												} else {
-													tmp4564 := MakeNative(func(__e *ControlFlow) {
-														W2781 := __e.Get(1)
-														_ = W2781
-														__e.TailApply(PrimFunc(symshen_4comb), W2781, symshen_4skip)
-														return
-													}, 1)
-
-													tmp4565 := Call(__e, PrimFunc(symshen_4in_1_6), W2780)
-
-													__e.TailApply(tmp4564, tmp4565)
-													return
-
-												}
-
-											}, 1)
-
-											tmp4568 := Call(__e, PrimFunc(symshen_4_5returns_6), W2779)
-
-											__e.TailApply(tmp4563, tmp4568)
-											return
-
-										}, 1)
-
-										tmp4569 := Call(__e, PrimFunc(symshen_4in_1_6), W2778)
-
-										__e.TailApply(tmp4562, tmp4569)
-										return
-
-									}
-
-								}, 1)
-
-								tmp4572 := Call(__e, PrimFunc(symshen_4_5shortnatters_6), W2777)
-
-								__e.TailApply(tmp4561, tmp4572)
-								return
-
-							}, 1)
-
-							tmp4573 := Call(__e, PrimFunc(symshen_4in_1_6), W2776)
-
-							__e.TailApply(tmp4560, tmp4573)
-							return
-
-						}
-
-					}, 1)
-
-					tmp4576 := Call(__e, PrimFunc(symshen_4_5backslash_6), W2775)
-
-					__e.TailApply(tmp4559, tmp4576)
-					return
-
-				}, 1)
-
-				tmp4577 := Call(__e, PrimFunc(symshen_4in_1_6), W2774)
-
-				__e.TailApply(tmp4558, tmp4577)
-				return
-
-			}
-
-		}, 1)
-
-		tmp4580 := Call(__e, PrimFunc(symshen_4_5backslash_6), V2772)
-
-		tmp4581 := Call(__e, tmp4557, tmp4580)
-
-		__e.TailApply(tmp4554, tmp4581)
-		return
-
-	}, 1)
-
-	tmp4582 := Call(__e, ns2_1set, symshen_4_5singleline_6, tmp4553)
-
-	_ = tmp4582
-
-	tmp4583 := MakeNative(func(__e *ControlFlow) {
-		V2782 := __e.Get(1)
-		_ = V2782
-		tmp4584 := MakeNative(func(__e *ControlFlow) {
-			W2783 := __e.Get(1)
-			_ = W2783
-			tmp4586 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2783)
-
-			if True == tmp4586 {
-				__e.TailApply(PrimFunc(symshen_4parse_1failure))
-				return
-			} else {
-				__e.Return(W2783)
-				return
-			}
-
-		}, 1)
-
-		tmp4592 := Call(__e, PrimFunc(symshen_4hds_a_2), V2782, MakeNumber(92))
-
-		var ifres4587 Obj
-
-		if True == tmp4592 {
-			tmp4588 := MakeNative(func(__e *ControlFlow) {
-				W2784 := __e.Get(1)
-				_ = W2784
-				__e.TailApply(PrimFunc(symshen_4comb), W2784, symshen_4skip)
-				return
-			}, 1)
-
-			tmp4589 := Call(__e, PrimFunc(symtail), V2782)
-
-			tmp4590 := Call(__e, tmp4588, tmp4589)
-
-			ifres4587 = tmp4590
-
-		} else {
-			tmp4591 := Call(__e, PrimFunc(symshen_4parse_1failure))
-
-			ifres4587 = tmp4591
-
-		}
-
-		__e.TailApply(tmp4584, ifres4587)
-		return
-
-	}, 1)
-
-	tmp4593 := Call(__e, ns2_1set, symshen_4_5backslash_6, tmp4583)
-
-	_ = tmp4593
-
-	tmp4594 := MakeNative(func(__e *ControlFlow) {
-		V2785 := __e.Get(1)
-		_ = V2785
-		tmp4595 := MakeNative(func(__e *ControlFlow) {
-			W2786 := __e.Get(1)
-			_ = W2786
-			tmp4607 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2786)
-
-			if True == tmp4607 {
-				tmp4596 := MakeNative(func(__e *ControlFlow) {
-					W2791 := __e.Get(1)
-					_ = W2791
-					tmp4598 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2791)
-
-					if True == tmp4598 {
-						__e.TailApply(PrimFunc(symshen_4parse_1failure))
-						return
-					} else {
-						__e.Return(W2791)
-						return
-					}
-
-				}, 1)
-
-				tmp4599 := MakeNative(func(__e *ControlFlow) {
-					W2792 := __e.Get(1)
-					_ = W2792
-					tmp4603 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2792)
-
-					if True == tmp4603 {
-						__e.TailApply(PrimFunc(symshen_4parse_1failure))
-						return
-					} else {
-						tmp4600 := MakeNative(func(__e *ControlFlow) {
-							W2793 := __e.Get(1)
-							_ = W2793
-							__e.TailApply(PrimFunc(symshen_4comb), W2793, symshen_4skip)
-							return
-						}, 1)
-
-						tmp4601 := Call(__e, PrimFunc(symshen_4in_1_6), W2792)
-
-						__e.TailApply(tmp4600, tmp4601)
-						return
-
-					}
-
-				}, 1)
-
-				tmp4604 := Call(__e, PrimFunc(sym_5e_6), V2785)
-
-				tmp4605 := Call(__e, tmp4599, tmp4604)
-
-				__e.TailApply(tmp4596, tmp4605)
-				return
-
-			} else {
-				__e.Return(W2786)
-				return
-			}
-
-		}, 1)
-
-		tmp4608 := MakeNative(func(__e *ControlFlow) {
-			W2787 := __e.Get(1)
-			_ = W2787
-			tmp4618 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2787)
-
-			if True == tmp4618 {
-				__e.TailApply(PrimFunc(symshen_4parse_1failure))
-				return
-			} else {
-				tmp4609 := MakeNative(func(__e *ControlFlow) {
-					W2788 := __e.Get(1)
-					_ = W2788
-					tmp4610 := MakeNative(func(__e *ControlFlow) {
-						W2789 := __e.Get(1)
-						_ = W2789
-						tmp4614 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2789)
-
-						if True == tmp4614 {
-							__e.TailApply(PrimFunc(symshen_4parse_1failure))
-							return
-						} else {
-							tmp4611 := MakeNative(func(__e *ControlFlow) {
-								W2790 := __e.Get(1)
-								_ = W2790
-								__e.TailApply(PrimFunc(symshen_4comb), W2790, symshen_4skip)
-								return
-							}, 1)
-
-							tmp4612 := Call(__e, PrimFunc(symshen_4in_1_6), W2789)
-
-							__e.TailApply(tmp4611, tmp4612)
-							return
-
-						}
-
-					}, 1)
-
-					tmp4615 := Call(__e, PrimFunc(symshen_4_5shortnatters_6), W2788)
-
-					__e.TailApply(tmp4610, tmp4615)
-					return
-
-				}, 1)
-
-				tmp4616 := Call(__e, PrimFunc(symshen_4in_1_6), W2787)
-
-				__e.TailApply(tmp4609, tmp4616)
-				return
-
-			}
-
-		}, 1)
-
-		tmp4619 := Call(__e, PrimFunc(symshen_4_5shortnatter_6), V2785)
-
-		tmp4620 := Call(__e, tmp4608, tmp4619)
-
-		__e.TailApply(tmp4595, tmp4620)
-		return
-
-	}, 1)
-
-	tmp4621 := Call(__e, ns2_1set, symshen_4_5shortnatters_6, tmp4594)
-
-	_ = tmp4621
-
-	tmp4622 := MakeNative(func(__e *ControlFlow) {
-		V2794 := __e.Get(1)
-		_ = V2794
-		tmp4623 := MakeNative(func(__e *ControlFlow) {
-			W2795 := __e.Get(1)
-			_ = W2795
-			tmp4625 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2795)
-
-			if True == tmp4625 {
-				__e.TailApply(PrimFunc(symshen_4parse_1failure))
-				return
-			} else {
-				__e.Return(W2795)
-				return
-			}
-
-		}, 1)
-
-		tmp4636 := PrimIsPair(V2794)
-
-		var ifres4626 Obj
-
-		if True == tmp4636 {
-			tmp4627 := MakeNative(func(__e *ControlFlow) {
-				W2796 := __e.Get(1)
-				_ = W2796
-				tmp4628 := MakeNative(func(__e *ControlFlow) {
-					W2797 := __e.Get(1)
-					_ = W2797
-					tmp4630 := Call(__e, PrimFunc(symshen_4return_2), W2796)
-
-					tmp4631 := PrimNot(tmp4630)
-
-					if True == tmp4631 {
-						__e.TailApply(PrimFunc(symshen_4comb), W2797, symshen_4skip)
-						return
-					} else {
-						__e.TailApply(PrimFunc(symshen_4parse_1failure))
-						return
-					}
-
-				}, 1)
-
-				tmp4632 := Call(__e, PrimFunc(symtail), V2794)
-
-				__e.TailApply(tmp4628, tmp4632)
-				return
-
-			}, 1)
-
-			tmp4633 := Call(__e, PrimFunc(symhead), V2794)
-
-			tmp4634 := Call(__e, tmp4627, tmp4633)
-
-			ifres4626 = tmp4634
-
-		} else {
-			tmp4635 := Call(__e, PrimFunc(symshen_4parse_1failure))
-
-			ifres4626 = tmp4635
-
-		}
-
-		__e.TailApply(tmp4623, ifres4626)
-		return
-
-	}, 1)
-
-	tmp4637 := Call(__e, ns2_1set, symshen_4_5shortnatter_6, tmp4622)
-
-	_ = tmp4637
-
-	tmp4638 := MakeNative(func(__e *ControlFlow) {
-		V2798 := __e.Get(1)
-		_ = V2798
-		tmp4639 := MakeNative(func(__e *ControlFlow) {
-			W2799 := __e.Get(1)
-			_ = W2799
-			tmp4651 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2799)
-
-			if True == tmp4651 {
-				tmp4640 := MakeNative(func(__e *ControlFlow) {
-					W2804 := __e.Get(1)
-					_ = W2804
-					tmp4642 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2804)
-
-					if True == tmp4642 {
-						__e.TailApply(PrimFunc(symshen_4parse_1failure))
-						return
-					} else {
-						__e.Return(W2804)
-						return
-					}
-
-				}, 1)
-
-				tmp4643 := MakeNative(func(__e *ControlFlow) {
-					W2805 := __e.Get(1)
-					_ = W2805
-					tmp4647 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2805)
-
-					if True == tmp4647 {
-						__e.TailApply(PrimFunc(symshen_4parse_1failure))
-						return
-					} else {
-						tmp4644 := MakeNative(func(__e *ControlFlow) {
-							W2806 := __e.Get(1)
-							_ = W2806
-							__e.TailApply(PrimFunc(symshen_4comb), W2806, symshen_4skip)
-							return
-						}, 1)
-
-						tmp4645 := Call(__e, PrimFunc(symshen_4in_1_6), W2805)
-
-						__e.TailApply(tmp4644, tmp4645)
-						return
-
-					}
-
-				}, 1)
-
-				tmp4648 := Call(__e, PrimFunc(symshen_4_5return_6), V2798)
-
-				tmp4649 := Call(__e, tmp4643, tmp4648)
-
-				__e.TailApply(tmp4640, tmp4649)
-				return
-
-			} else {
-				__e.Return(W2799)
-				return
-			}
-
-		}, 1)
-
-		tmp4652 := MakeNative(func(__e *ControlFlow) {
-			W2800 := __e.Get(1)
-			_ = W2800
-			tmp4662 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2800)
-
-			if True == tmp4662 {
-				__e.TailApply(PrimFunc(symshen_4parse_1failure))
-				return
-			} else {
-				tmp4653 := MakeNative(func(__e *ControlFlow) {
-					W2801 := __e.Get(1)
-					_ = W2801
-					tmp4654 := MakeNative(func(__e *ControlFlow) {
-						W2802 := __e.Get(1)
-						_ = W2802
-						tmp4658 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2802)
-
-						if True == tmp4658 {
-							__e.TailApply(PrimFunc(symshen_4parse_1failure))
-							return
-						} else {
-							tmp4655 := MakeNative(func(__e *ControlFlow) {
-								W2803 := __e.Get(1)
-								_ = W2803
-								__e.TailApply(PrimFunc(symshen_4comb), W2803, symshen_4skip)
-								return
-							}, 1)
-
-							tmp4656 := Call(__e, PrimFunc(symshen_4in_1_6), W2802)
-
-							__e.TailApply(tmp4655, tmp4656)
-							return
-
-						}
-
-					}, 1)
-
-					tmp4659 := Call(__e, PrimFunc(symshen_4_5returns_6), W2801)
-
-					__e.TailApply(tmp4654, tmp4659)
-					return
-
-				}, 1)
-
-				tmp4660 := Call(__e, PrimFunc(symshen_4in_1_6), W2800)
-
-				__e.TailApply(tmp4653, tmp4660)
-				return
-
-			}
-
-		}, 1)
-
-		tmp4663 := Call(__e, PrimFunc(symshen_4_5return_6), V2798)
-
-		tmp4664 := Call(__e, tmp4652, tmp4663)
-
-		__e.TailApply(tmp4639, tmp4664)
-		return
-
-	}, 1)
-
-	tmp4665 := Call(__e, ns2_1set, symshen_4_5returns_6, tmp4638)
-
-	_ = tmp4665
-
-	tmp4666 := MakeNative(func(__e *ControlFlow) {
-		V2807 := __e.Get(1)
-		_ = V2807
-		tmp4667 := MakeNative(func(__e *ControlFlow) {
-			W2808 := __e.Get(1)
-			_ = W2808
-			tmp4669 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2808)
-
-			if True == tmp4669 {
-				__e.TailApply(PrimFunc(symshen_4parse_1failure))
-				return
-			} else {
-				__e.Return(W2808)
-				return
-			}
-
-		}, 1)
-
-		tmp4679 := PrimIsPair(V2807)
-
-		var ifres4670 Obj
-
-		if True == tmp4679 {
-			tmp4671 := MakeNative(func(__e *ControlFlow) {
-				W2809 := __e.Get(1)
-				_ = W2809
-				tmp4672 := MakeNative(func(__e *ControlFlow) {
-					W2810 := __e.Get(1)
-					_ = W2810
-					tmp4674 := Call(__e, PrimFunc(symshen_4return_2), W2809)
-
-					if True == tmp4674 {
-						__e.TailApply(PrimFunc(symshen_4comb), W2810, symshen_4skip)
-						return
-					} else {
-						__e.TailApply(PrimFunc(symshen_4parse_1failure))
-						return
-					}
-
-				}, 1)
-
-				tmp4675 := Call(__e, PrimFunc(symtail), V2807)
-
-				__e.TailApply(tmp4672, tmp4675)
-				return
-
-			}, 1)
-
-			tmp4676 := Call(__e, PrimFunc(symhead), V2807)
-
-			tmp4677 := Call(__e, tmp4671, tmp4676)
-
-			ifres4670 = tmp4677
-
-		} else {
-			tmp4678 := Call(__e, PrimFunc(symshen_4parse_1failure))
-
-			ifres4670 = tmp4678
-
-		}
-
-		__e.TailApply(tmp4667, ifres4670)
-		return
-
-	}, 1)
-
-	tmp4680 := Call(__e, ns2_1set, symshen_4_5return_6, tmp4666)
-
-	_ = tmp4680
-
-	tmp4681 := MakeNative(func(__e *ControlFlow) {
-		V2811 := __e.Get(1)
-		_ = V2811
-		tmp4682 := PrimCons(MakeNumber(13), Nil)
-
-		tmp4683 := PrimCons(MakeNumber(10), tmp4682)
-
-		tmp4684 := PrimCons(MakeNumber(9), tmp4683)
-
-		__e.TailApply(PrimFunc(symelement_2), V2811, tmp4684)
-		return
-
-	}, 1)
-
-	tmp4685 := Call(__e, ns2_1set, symshen_4return_2, tmp4681)
-
-	_ = tmp4685
-
-	tmp4686 := MakeNative(func(__e *ControlFlow) {
-		V2812 := __e.Get(1)
-		_ = V2812
-		tmp4687 := MakeNative(func(__e *ControlFlow) {
-			W2813 := __e.Get(1)
-			_ = W2813
-			tmp4689 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2813)
-
-			if True == tmp4689 {
-				__e.TailApply(PrimFunc(symshen_4parse_1failure))
-				return
-			} else {
-				__e.Return(W2813)
-				return
-			}
-
-		}, 1)
-
-		tmp4690 := MakeNative(func(__e *ControlFlow) {
-			W2814 := __e.Get(1)
-			_ = W2814
-			tmp4706 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2814)
-
-			if True == tmp4706 {
-				__e.TailApply(PrimFunc(symshen_4parse_1failure))
-				return
-			} else {
-				tmp4691 := MakeNative(func(__e *ControlFlow) {
-					W2815 := __e.Get(1)
-					_ = W2815
-					tmp4692 := MakeNative(func(__e *ControlFlow) {
-						W2816 := __e.Get(1)
-						_ = W2816
-						tmp4702 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2816)
-
-						if True == tmp4702 {
-							__e.TailApply(PrimFunc(symshen_4parse_1failure))
-							return
-						} else {
-							tmp4693 := MakeNative(func(__e *ControlFlow) {
-								W2817 := __e.Get(1)
-								_ = W2817
-								tmp4694 := MakeNative(func(__e *ControlFlow) {
-									W2818 := __e.Get(1)
-									_ = W2818
-									tmp4698 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2818)
-
-									if True == tmp4698 {
-										__e.TailApply(PrimFunc(symshen_4parse_1failure))
-										return
-									} else {
-										tmp4695 := MakeNative(func(__e *ControlFlow) {
-											W2819 := __e.Get(1)
-											_ = W2819
-											__e.TailApply(PrimFunc(symshen_4comb), W2819, symshen_4skip)
-											return
-										}, 1)
-
-										tmp4696 := Call(__e, PrimFunc(symshen_4in_1_6), W2818)
-
-										__e.TailApply(tmp4695, tmp4696)
-										return
-
-									}
-
-								}, 1)
-
-								tmp4699 := Call(__e, PrimFunc(symshen_4_5longnatter_6), W2817)
-
-								__e.TailApply(tmp4694, tmp4699)
-								return
-
-							}, 1)
-
-							tmp4700 := Call(__e, PrimFunc(symshen_4in_1_6), W2816)
-
-							__e.TailApply(tmp4693, tmp4700)
-							return
-
-						}
-
-					}, 1)
-
-					tmp4703 := Call(__e, PrimFunc(symshen_4_5times_6), W2815)
-
-					__e.TailApply(tmp4692, tmp4703)
-					return
-
-				}, 1)
-
-				tmp4704 := Call(__e, PrimFunc(symshen_4in_1_6), W2814)
-
-				__e.TailApply(tmp4691, tmp4704)
-				return
-
-			}
-
-		}, 1)
-
-		tmp4707 := Call(__e, PrimFunc(symshen_4_5backslash_6), V2812)
-
-		tmp4708 := Call(__e, tmp4690, tmp4707)
-
-		__e.TailApply(tmp4687, tmp4708)
-		return
-
-	}, 1)
-
-	tmp4709 := Call(__e, ns2_1set, symshen_4_5multiline_6, tmp4686)
-
-	_ = tmp4709
-
-	tmp4710 := MakeNative(func(__e *ControlFlow) {
-		V2820 := __e.Get(1)
-		_ = V2820
-		tmp4711 := MakeNative(func(__e *ControlFlow) {
-			W2821 := __e.Get(1)
-			_ = W2821
-			tmp4713 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2821)
-
-			if True == tmp4713 {
-				__e.TailApply(PrimFunc(symshen_4parse_1failure))
-				return
-			} else {
-				__e.Return(W2821)
-				return
-			}
-
-		}, 1)
-
-		tmp4719 := Call(__e, PrimFunc(symshen_4hds_a_2), V2820, MakeNumber(42))
-
-		var ifres4714 Obj
-
-		if True == tmp4719 {
-			tmp4715 := MakeNative(func(__e *ControlFlow) {
-				W2822 := __e.Get(1)
-				_ = W2822
-				__e.TailApply(PrimFunc(symshen_4comb), W2822, symshen_4skip)
-				return
-			}, 1)
-
-			tmp4716 := Call(__e, PrimFunc(symtail), V2820)
-
-			tmp4717 := Call(__e, tmp4715, tmp4716)
-
-			ifres4714 = tmp4717
-
-		} else {
-			tmp4718 := Call(__e, PrimFunc(symshen_4parse_1failure))
-
-			ifres4714 = tmp4718
-
-		}
-
-		__e.TailApply(tmp4711, ifres4714)
-		return
-
-	}, 1)
-
-	tmp4720 := Call(__e, ns2_1set, symshen_4_5times_6, tmp4710)
-
-	_ = tmp4720
-
-	tmp4721 := MakeNative(func(__e *ControlFlow) {
-		V2823 := __e.Get(1)
-		_ = V2823
-		tmp4722 := MakeNative(func(__e *ControlFlow) {
-			W2824 := __e.Get(1)
-			_ = W2824
-			tmp4755 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2824)
-
-			if True == tmp4755 {
-				tmp4723 := MakeNative(func(__e *ControlFlow) {
-					W2829 := __e.Get(1)
-					_ = W2829
-					tmp4740 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2829)
-
-					if True == tmp4740 {
-						tmp4724 := MakeNative(func(__e *ControlFlow) {
-							W2834 := __e.Get(1)
-							_ = W2834
-							tmp4726 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2834)
-
-							if True == tmp4726 {
-								__e.TailApply(PrimFunc(symshen_4parse_1failure))
-								return
-							} else {
-								__e.Return(W2834)
-								return
-							}
-
-						}, 1)
-
-						tmp4738 := PrimIsPair(V2823)
-
-						var ifres4727 Obj
-
-						if True == tmp4738 {
-							tmp4728 := MakeNative(func(__e *ControlFlow) {
-								W2835 := __e.Get(1)
-								_ = W2835
-								tmp4729 := MakeNative(func(__e *ControlFlow) {
-									W2836 := __e.Get(1)
-									_ = W2836
-									tmp4733 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2836)
-
-									if True == tmp4733 {
-										__e.TailApply(PrimFunc(symshen_4parse_1failure))
-										return
-									} else {
-										tmp4730 := MakeNative(func(__e *ControlFlow) {
-											W2837 := __e.Get(1)
-											_ = W2837
-											__e.TailApply(PrimFunc(symshen_4comb), W2837, symshen_4skip)
-											return
-										}, 1)
-
-										tmp4731 := Call(__e, PrimFunc(symshen_4in_1_6), W2836)
-
-										__e.TailApply(tmp4730, tmp4731)
-										return
-
-									}
-
-								}, 1)
-
-								tmp4734 := Call(__e, PrimFunc(symshen_4_5longnatter_6), W2835)
-
-								__e.TailApply(tmp4729, tmp4734)
-								return
-
-							}, 1)
-
-							tmp4735 := Call(__e, PrimFunc(symtail), V2823)
-
-							tmp4736 := Call(__e, tmp4728, tmp4735)
-
-							ifres4727 = tmp4736
-
-						} else {
-							tmp4737 := Call(__e, PrimFunc(symshen_4parse_1failure))
-
-							ifres4727 = tmp4737
-
-						}
-
-						__e.TailApply(tmp4724, ifres4727)
-						return
-
-					} else {
-						__e.Return(W2829)
-						return
-					}
-
-				}, 1)
-
-				tmp4741 := MakeNative(func(__e *ControlFlow) {
-					W2830 := __e.Get(1)
-					_ = W2830
-					tmp4751 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2830)
-
-					if True == tmp4751 {
-						__e.TailApply(PrimFunc(symshen_4parse_1failure))
-						return
-					} else {
-						tmp4742 := MakeNative(func(__e *ControlFlow) {
-							W2831 := __e.Get(1)
-							_ = W2831
-							tmp4743 := MakeNative(func(__e *ControlFlow) {
-								W2832 := __e.Get(1)
-								_ = W2832
-								tmp4747 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2832)
-
-								if True == tmp4747 {
-									__e.TailApply(PrimFunc(symshen_4parse_1failure))
-									return
-								} else {
-									tmp4744 := MakeNative(func(__e *ControlFlow) {
-										W2833 := __e.Get(1)
-										_ = W2833
-										__e.TailApply(PrimFunc(symshen_4comb), W2833, symshen_4skip)
-										return
-									}, 1)
-
-									tmp4745 := Call(__e, PrimFunc(symshen_4in_1_6), W2832)
-
-									__e.TailApply(tmp4744, tmp4745)
-									return
-
-								}
-
-							}, 1)
-
-							tmp4748 := Call(__e, PrimFunc(symshen_4_5backslash_6), W2831)
-
-							__e.TailApply(tmp4743, tmp4748)
-							return
-
-						}, 1)
-
-						tmp4749 := Call(__e, PrimFunc(symshen_4in_1_6), W2830)
-
-						__e.TailApply(tmp4742, tmp4749)
-						return
-
-					}
-
-				}, 1)
-
-				tmp4752 := Call(__e, PrimFunc(symshen_4_5times_6), V2823)
-
-				tmp4753 := Call(__e, tmp4741, tmp4752)
-
-				__e.TailApply(tmp4723, tmp4753)
-				return
-
-			} else {
-				__e.Return(W2824)
-				return
-			}
-
-		}, 1)
-
-		tmp4756 := MakeNative(func(__e *ControlFlow) {
-			W2825 := __e.Get(1)
-			_ = W2825
-			tmp4766 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2825)
-
-			if True == tmp4766 {
-				__e.TailApply(PrimFunc(symshen_4parse_1failure))
-				return
-			} else {
-				tmp4757 := MakeNative(func(__e *ControlFlow) {
-					W2826 := __e.Get(1)
-					_ = W2826
-					tmp4758 := MakeNative(func(__e *ControlFlow) {
-						W2827 := __e.Get(1)
-						_ = W2827
-						tmp4762 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2827)
-
-						if True == tmp4762 {
-							__e.TailApply(PrimFunc(symshen_4parse_1failure))
-							return
-						} else {
-							tmp4759 := MakeNative(func(__e *ControlFlow) {
-								W2828 := __e.Get(1)
-								_ = W2828
-								__e.TailApply(PrimFunc(symshen_4comb), W2828, symshen_4skip)
-								return
-							}, 1)
-
-							tmp4760 := Call(__e, PrimFunc(symshen_4in_1_6), W2827)
-
-							__e.TailApply(tmp4759, tmp4760)
-							return
-
-						}
-
-					}, 1)
-
-					tmp4763 := Call(__e, PrimFunc(symshen_4_5longnatter_6), W2826)
-
-					__e.TailApply(tmp4758, tmp4763)
-					return
-
-				}, 1)
-
-				tmp4764 := Call(__e, PrimFunc(symshen_4in_1_6), W2825)
-
-				__e.TailApply(tmp4757, tmp4764)
-				return
-
-			}
-
-		}, 1)
-
-		tmp4767 := Call(__e, PrimFunc(symshen_4_5comment_6), V2823)
-
-		tmp4768 := Call(__e, tmp4756, tmp4767)
-
-		__e.TailApply(tmp4722, tmp4768)
-		return
-
-	}, 1)
-
-	tmp4769 := Call(__e, ns2_1set, symshen_4_5longnatter_6, tmp4721)
-
-	_ = tmp4769
-
-	tmp4770 := MakeNative(func(__e *ControlFlow) {
-		V2838 := __e.Get(1)
-		_ = V2838
-		tmp4771 := MakeNative(func(__e *ControlFlow) {
-			W2839 := __e.Get(1)
-			_ = W2839
-			tmp4802 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2839)
-
-			if True == tmp4802 {
-				tmp4772 := MakeNative(func(__e *ControlFlow) {
-					W2843 := __e.Get(1)
-					_ = W2843
-					tmp4791 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2843)
-
-					if True == tmp4791 {
-						tmp4773 := MakeNative(func(__e *ControlFlow) {
-							W2847 := __e.Get(1)
-							_ = W2847
-							tmp4775 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2847)
-
-							if True == tmp4775 {
-								__e.TailApply(PrimFunc(symshen_4parse_1failure))
-								return
-							} else {
-								__e.Return(W2847)
-								return
-							}
-
-						}, 1)
-
-						tmp4776 := MakeNative(func(__e *ControlFlow) {
-							W2848 := __e.Get(1)
-							_ = W2848
-							tmp4787 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2848)
-
-							if True == tmp4787 {
-								__e.TailApply(PrimFunc(symshen_4parse_1failure))
-								return
-							} else {
-								tmp4777 := MakeNative(func(__e *ControlFlow) {
-									W2849 := __e.Get(1)
-									_ = W2849
-									tmp4778 := MakeNative(func(__e *ControlFlow) {
-										W2850 := __e.Get(1)
-										_ = W2850
-										tmp4783 := PrimEqual(W2849, MakeString("<>"))
-
-										var ifres4779 Obj
-
-										if True == tmp4783 {
-											tmp4780 := PrimCons(MakeNumber(0), Nil)
-
-											tmp4781 := PrimCons(symvector, tmp4780)
-
-											ifres4779 = tmp4781
-
-										} else {
-											tmp4782 := PrimIntern(W2849)
-
-											ifres4779 = tmp4782
-
-										}
-
-										__e.TailApply(PrimFunc(symshen_4comb), W2850, ifres4779)
-										return
-
-									}, 1)
-
-									tmp4784 := Call(__e, PrimFunc(symshen_4in_1_6), W2848)
-
-									__e.TailApply(tmp4778, tmp4784)
-									return
-
-								}, 1)
-
-								tmp4785 := Call(__e, PrimFunc(symshen_4_5_1out), W2848)
-
-								__e.TailApply(tmp4777, tmp4785)
-								return
-
-							}
-
-						}, 1)
-
-						tmp4788 := Call(__e, PrimFunc(symshen_4_5sym_6), V2838)
-
-						tmp4789 := Call(__e, tmp4776, tmp4788)
-
-						__e.TailApply(tmp4773, tmp4789)
-						return
-
-					} else {
-						__e.Return(W2843)
-						return
-					}
-
-				}, 1)
-
-				tmp4792 := MakeNative(func(__e *ControlFlow) {
-					W2844 := __e.Get(1)
-					_ = W2844
-					tmp4798 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2844)
-
-					if True == tmp4798 {
-						__e.TailApply(PrimFunc(symshen_4parse_1failure))
-						return
-					} else {
-						tmp4793 := MakeNative(func(__e *ControlFlow) {
-							W2845 := __e.Get(1)
-							_ = W2845
-							tmp4794 := MakeNative(func(__e *ControlFlow) {
-								W2846 := __e.Get(1)
-								_ = W2846
-								__e.TailApply(PrimFunc(symshen_4comb), W2846, W2845)
-								return
-							}, 1)
-
-							tmp4795 := Call(__e, PrimFunc(symshen_4in_1_6), W2844)
-
-							__e.TailApply(tmp4794, tmp4795)
-							return
-
-						}, 1)
-
-						tmp4796 := Call(__e, PrimFunc(symshen_4_5_1out), W2844)
-
-						__e.TailApply(tmp4793, tmp4796)
-						return
-
-					}
-
-				}, 1)
-
-				tmp4799 := Call(__e, PrimFunc(symshen_4_5number_6), V2838)
-
-				tmp4800 := Call(__e, tmp4792, tmp4799)
-
-				__e.TailApply(tmp4772, tmp4800)
-				return
-
-			} else {
-				__e.Return(W2839)
-				return
-			}
-
-		}, 1)
-
-		tmp4803 := MakeNative(func(__e *ControlFlow) {
-			W2840 := __e.Get(1)
-			_ = W2840
-			tmp4809 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2840)
-
-			if True == tmp4809 {
-				__e.TailApply(PrimFunc(symshen_4parse_1failure))
-				return
-			} else {
-				tmp4804 := MakeNative(func(__e *ControlFlow) {
-					W2841 := __e.Get(1)
-					_ = W2841
-					tmp4805 := MakeNative(func(__e *ControlFlow) {
-						W2842 := __e.Get(1)
-						_ = W2842
-						__e.TailApply(PrimFunc(symshen_4comb), W2842, W2841)
-						return
-					}, 1)
-
-					tmp4806 := Call(__e, PrimFunc(symshen_4in_1_6), W2840)
-
-					__e.TailApply(tmp4805, tmp4806)
-					return
-
-				}, 1)
-
-				tmp4807 := Call(__e, PrimFunc(symshen_4_5_1out), W2840)
-
-				__e.TailApply(tmp4804, tmp4807)
-				return
-
-			}
-
-		}, 1)
-
-		tmp4810 := Call(__e, PrimFunc(symshen_4_5str_6), V2838)
-
-		tmp4811 := Call(__e, tmp4803, tmp4810)
-
-		__e.TailApply(tmp4771, tmp4811)
-		return
-
-	}, 1)
-
-	tmp4812 := Call(__e, ns2_1set, symshen_4_5atom_6, tmp4770)
-
-	_ = tmp4812
-
-	tmp4813 := MakeNative(func(__e *ControlFlow) {
-		V2851 := __e.Get(1)
-		_ = V2851
-		tmp4814 := MakeNative(func(__e *ControlFlow) {
-			W2852 := __e.Get(1)
-			_ = W2852
-			tmp4816 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2852)
-
-			if True == tmp4816 {
-				__e.TailApply(PrimFunc(symshen_4parse_1failure))
-				return
-			} else {
-				__e.Return(W2852)
-				return
-			}
-
-		}, 1)
-
-		tmp4817 := MakeNative(func(__e *ControlFlow) {
-			W2853 := __e.Get(1)
-			_ = W2853
-			tmp4832 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2853)
-
-			if True == tmp4832 {
-				__e.TailApply(PrimFunc(symshen_4parse_1failure))
-				return
-			} else {
-				tmp4818 := MakeNative(func(__e *ControlFlow) {
-					W2854 := __e.Get(1)
-					_ = W2854
-					tmp4819 := MakeNative(func(__e *ControlFlow) {
-						W2855 := __e.Get(1)
-						_ = W2855
-						tmp4820 := MakeNative(func(__e *ControlFlow) {
-							W2856 := __e.Get(1)
-							_ = W2856
-							tmp4827 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2856)
-
-							if True == tmp4827 {
-								__e.TailApply(PrimFunc(symshen_4parse_1failure))
-								return
-							} else {
-								tmp4821 := MakeNative(func(__e *ControlFlow) {
-									W2857 := __e.Get(1)
-									_ = W2857
-									tmp4822 := MakeNative(func(__e *ControlFlow) {
-										W2858 := __e.Get(1)
-										_ = W2858
-										tmp4823 := PrimStringConcat(W2854, W2857)
-
-										__e.TailApply(PrimFunc(symshen_4comb), W2858, tmp4823)
-										return
-
-									}, 1)
-
-									tmp4824 := Call(__e, PrimFunc(symshen_4in_1_6), W2856)
-
-									__e.TailApply(tmp4822, tmp4824)
-									return
-
-								}, 1)
-
-								tmp4825 := Call(__e, PrimFunc(symshen_4_5_1out), W2856)
-
-								__e.TailApply(tmp4821, tmp4825)
-								return
-
-							}
-
-						}, 1)
-
-						tmp4828 := Call(__e, PrimFunc(symshen_4_5alphanums_6), W2855)
-
-						__e.TailApply(tmp4820, tmp4828)
-						return
-
-					}, 1)
-
-					tmp4829 := Call(__e, PrimFunc(symshen_4in_1_6), W2853)
-
-					__e.TailApply(tmp4819, tmp4829)
-					return
-
-				}, 1)
-
-				tmp4830 := Call(__e, PrimFunc(symshen_4_5_1out), W2853)
-
-				__e.TailApply(tmp4818, tmp4830)
-				return
-
-			}
-
-		}, 1)
-
-		tmp4833 := Call(__e, PrimFunc(symshen_4_5alpha_6), V2851)
-
-		tmp4834 := Call(__e, tmp4817, tmp4833)
-
-		__e.TailApply(tmp4814, tmp4834)
-		return
-
-	}, 1)
-
-	tmp4835 := Call(__e, ns2_1set, symshen_4_5sym_6, tmp4813)
-
-	_ = tmp4835
-
-	tmp4836 := MakeNative(func(__e *ControlFlow) {
-		V2859 := __e.Get(1)
-		_ = V2859
-		tmp4837 := MakeNative(func(__e *ControlFlow) {
-			W2860 := __e.Get(1)
-			_ = W2860
-			tmp4839 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2860)
-
-			if True == tmp4839 {
-				__e.TailApply(PrimFunc(symshen_4parse_1failure))
-				return
-			} else {
-				__e.Return(W2860)
-				return
-			}
-
-		}, 1)
-
-		tmp4850 := PrimIsPair(V2859)
-
-		var ifres4840 Obj
-
-		if True == tmp4850 {
-			tmp4841 := MakeNative(func(__e *ControlFlow) {
-				W2861 := __e.Get(1)
-				_ = W2861
-				tmp4842 := MakeNative(func(__e *ControlFlow) {
-					W2862 := __e.Get(1)
-					_ = W2862
-					tmp4845 := Call(__e, PrimFunc(symshen_4alpha_2), W2861)
-
-					if True == tmp4845 {
-						tmp4843 := PrimNumberToString(W2861)
-
-						__e.TailApply(PrimFunc(symshen_4comb), W2862, tmp4843)
-						return
-
-					} else {
-						__e.TailApply(PrimFunc(symshen_4parse_1failure))
-						return
-					}
-
-				}, 1)
-
-				tmp4846 := Call(__e, PrimFunc(symtail), V2859)
-
-				__e.TailApply(tmp4842, tmp4846)
-				return
-
-			}, 1)
-
-			tmp4847 := Call(__e, PrimFunc(symhead), V2859)
-
-			tmp4848 := Call(__e, tmp4841, tmp4847)
-
-			ifres4840 = tmp4848
-
-		} else {
-			tmp4849 := Call(__e, PrimFunc(symshen_4parse_1failure))
-
-			ifres4840 = tmp4849
-
-		}
-
-		__e.TailApply(tmp4837, ifres4840)
-		return
-
-	}, 1)
-
-	tmp4851 := Call(__e, ns2_1set, symshen_4_5alpha_6, tmp4836)
-
-	_ = tmp4851
-
-	tmp4852 := MakeNative(func(__e *ControlFlow) {
-		V2863 := __e.Get(1)
-		_ = V2863
-		tmp4859 := Call(__e, PrimFunc(symshen_4lowercase_2), V2863)
-
-		if True == tmp4859 {
-			__e.Return(True)
-			return
-		} else {
-			tmp4857 := Call(__e, PrimFunc(symshen_4uppercase_2), V2863)
-
-			var ifres4854 Obj
-
-			if True == tmp4857 {
-				ifres4854 = True
-
-			} else {
-				tmp4856 := Call(__e, PrimFunc(symshen_4misc_2), V2863)
-
-				var ifres4855 Obj
-
-				if True == tmp4856 {
-					ifres4855 = True
-
-				} else {
-					ifres4855 = False
-
-				}
-
-				ifres4854 = ifres4855
-
-			}
-
-			if True == ifres4854 {
-				__e.Return(True)
-				return
-			} else {
-				__e.Return(False)
-				return
-			}
-
-		}
-
-	}, 1)
-
-	tmp4860 := Call(__e, ns2_1set, symshen_4alpha_2, tmp4852)
-
-	_ = tmp4860
-
-	tmp4861 := MakeNative(func(__e *ControlFlow) {
-		V2864 := __e.Get(1)
-		_ = V2864
-		tmp4865 := PrimGreatEqual(V2864, MakeNumber(97))
-
-		if True == tmp4865 {
-			tmp4863 := PrimLessEqual(V2864, MakeNumber(122))
-
-			if True == tmp4863 {
-				__e.Return(True)
-				return
-			} else {
-				__e.Return(False)
-				return
-			}
-
-		} else {
-			__e.Return(False)
-			return
-		}
-
-	}, 1)
-
-	tmp4866 := Call(__e, ns2_1set, symshen_4lowercase_2, tmp4861)
-
-	_ = tmp4866
-
-	tmp4867 := MakeNative(func(__e *ControlFlow) {
-		V2865 := __e.Get(1)
-		_ = V2865
-		tmp4871 := PrimGreatEqual(V2865, MakeNumber(65))
-
-		if True == tmp4871 {
-			tmp4869 := PrimLessEqual(V2865, MakeNumber(90))
-
-			if True == tmp4869 {
-				__e.Return(True)
-				return
-			} else {
-				__e.Return(False)
-				return
-			}
-
-		} else {
-			__e.Return(False)
-			return
-		}
-
-	}, 1)
-
-	tmp4872 := Call(__e, ns2_1set, symshen_4uppercase_2, tmp4867)
-
-	_ = tmp4872
-
-	tmp4873 := MakeNative(func(__e *ControlFlow) {
-		V2866 := __e.Get(1)
-		_ = V2866
-		tmp4874 := PrimCons(MakeNumber(96), Nil)
-
-		tmp4875 := PrimCons(MakeNumber(35), tmp4874)
-
-		tmp4876 := PrimCons(MakeNumber(39), tmp4875)
-
-		tmp4877 := PrimCons(MakeNumber(37), tmp4876)
-
-		tmp4878 := PrimCons(MakeNumber(38), tmp4877)
-
-		tmp4879 := PrimCons(MakeNumber(60), tmp4878)
-
-		tmp4880 := PrimCons(MakeNumber(62), tmp4879)
-
-		tmp4881 := PrimCons(MakeNumber(46), tmp4880)
-
-		tmp4882 := PrimCons(MakeNumber(126), tmp4881)
-
-		tmp4883 := PrimCons(MakeNumber(64), tmp4882)
-
-		tmp4884 := PrimCons(MakeNumber(33), tmp4883)
-
-		tmp4885 := PrimCons(MakeNumber(36), tmp4884)
-
-		tmp4886 := PrimCons(MakeNumber(63), tmp4885)
-
-		tmp4887 := PrimCons(MakeNumber(95), tmp4886)
-
-		tmp4888 := PrimCons(MakeNumber(43), tmp4887)
-
-		tmp4889 := PrimCons(MakeNumber(47), tmp4888)
-
-		tmp4890 := PrimCons(MakeNumber(42), tmp4889)
-
-		tmp4891 := PrimCons(MakeNumber(45), tmp4890)
-
-		tmp4892 := PrimCons(MakeNumber(61), tmp4891)
-
-		__e.TailApply(PrimFunc(symelement_2), V2866, tmp4892)
-		return
-
-	}, 1)
-
-	tmp4893 := Call(__e, ns2_1set, symshen_4misc_2, tmp4873)
-
-	_ = tmp4893
-
-	tmp4894 := MakeNative(func(__e *ControlFlow) {
-		V2867 := __e.Get(1)
-		_ = V2867
-		tmp4895 := MakeNative(func(__e *ControlFlow) {
-			W2868 := __e.Get(1)
-			_ = W2868
-			tmp4907 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2868)
-
-			if True == tmp4907 {
-				tmp4896 := MakeNative(func(__e *ControlFlow) {
-					W2875 := __e.Get(1)
-					_ = W2875
-					tmp4898 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2875)
-
-					if True == tmp4898 {
-						__e.TailApply(PrimFunc(symshen_4parse_1failure))
-						return
-					} else {
-						__e.Return(W2875)
-						return
-					}
-
-				}, 1)
-
-				tmp4899 := MakeNative(func(__e *ControlFlow) {
-					W2876 := __e.Get(1)
-					_ = W2876
-					tmp4903 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2876)
-
-					if True == tmp4903 {
-						__e.TailApply(PrimFunc(symshen_4parse_1failure))
-						return
-					} else {
-						tmp4900 := MakeNative(func(__e *ControlFlow) {
-							W2877 := __e.Get(1)
-							_ = W2877
-							__e.TailApply(PrimFunc(symshen_4comb), W2877, MakeString(""))
-							return
-						}, 1)
-
-						tmp4901 := Call(__e, PrimFunc(symshen_4in_1_6), W2876)
-
-						__e.TailApply(tmp4900, tmp4901)
-						return
-
-					}
-
-				}, 1)
-
-				tmp4904 := Call(__e, PrimFunc(sym_5e_6), V2867)
-
-				tmp4905 := Call(__e, tmp4899, tmp4904)
-
-				__e.TailApply(tmp4896, tmp4905)
-				return
-
-			} else {
-				__e.Return(W2868)
-				return
-			}
-
-		}, 1)
-
-		tmp4908 := MakeNative(func(__e *ControlFlow) {
-			W2869 := __e.Get(1)
-			_ = W2869
-			tmp4923 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2869)
-
-			if True == tmp4923 {
-				__e.TailApply(PrimFunc(symshen_4parse_1failure))
-				return
-			} else {
-				tmp4909 := MakeNative(func(__e *ControlFlow) {
-					W2870 := __e.Get(1)
-					_ = W2870
-					tmp4910 := MakeNative(func(__e *ControlFlow) {
-						W2871 := __e.Get(1)
-						_ = W2871
-						tmp4911 := MakeNative(func(__e *ControlFlow) {
-							W2872 := __e.Get(1)
-							_ = W2872
-							tmp4918 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2872)
-
-							if True == tmp4918 {
-								__e.TailApply(PrimFunc(symshen_4parse_1failure))
-								return
-							} else {
-								tmp4912 := MakeNative(func(__e *ControlFlow) {
-									W2873 := __e.Get(1)
-									_ = W2873
-									tmp4913 := MakeNative(func(__e *ControlFlow) {
-										W2874 := __e.Get(1)
-										_ = W2874
-										tmp4914 := PrimStringConcat(W2870, W2873)
-
-										__e.TailApply(PrimFunc(symshen_4comb), W2874, tmp4914)
-										return
-
-									}, 1)
-
-									tmp4915 := Call(__e, PrimFunc(symshen_4in_1_6), W2872)
-
-									__e.TailApply(tmp4913, tmp4915)
-									return
-
-								}, 1)
-
-								tmp4916 := Call(__e, PrimFunc(symshen_4_5_1out), W2872)
-
-								__e.TailApply(tmp4912, tmp4916)
-								return
-
-							}
-
-						}, 1)
-
-						tmp4919 := Call(__e, PrimFunc(symshen_4_5alphanums_6), W2871)
-
-						__e.TailApply(tmp4911, tmp4919)
-						return
-
-					}, 1)
-
-					tmp4920 := Call(__e, PrimFunc(symshen_4in_1_6), W2869)
-
-					__e.TailApply(tmp4910, tmp4920)
-					return
-
-				}, 1)
-
-				tmp4921 := Call(__e, PrimFunc(symshen_4_5_1out), W2869)
-
-				__e.TailApply(tmp4909, tmp4921)
-				return
-
-			}
-
-		}, 1)
-
-		tmp4924 := Call(__e, PrimFunc(symshen_4_5alphanum_6), V2867)
-
-		tmp4925 := Call(__e, tmp4908, tmp4924)
-
-		__e.TailApply(tmp4895, tmp4925)
-		return
-
-	}, 1)
-
-	tmp4926 := Call(__e, ns2_1set, symshen_4_5alphanums_6, tmp4894)
-
-	_ = tmp4926
-
-	tmp4927 := MakeNative(func(__e *ControlFlow) {
-		V2878 := __e.Get(1)
-		_ = V2878
-		tmp4928 := MakeNative(func(__e *ControlFlow) {
-			W2879 := __e.Get(1)
-			_ = W2879
-			tmp4942 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2879)
-
-			if True == tmp4942 {
-				tmp4929 := MakeNative(func(__e *ControlFlow) {
-					W2883 := __e.Get(1)
-					_ = W2883
-					tmp4931 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2883)
-
-					if True == tmp4931 {
-						__e.TailApply(PrimFunc(symshen_4parse_1failure))
-						return
-					} else {
-						__e.Return(W2883)
-						return
-					}
-
-				}, 1)
-
-				tmp4932 := MakeNative(func(__e *ControlFlow) {
-					W2884 := __e.Get(1)
-					_ = W2884
-					tmp4938 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2884)
-
-					if True == tmp4938 {
-						__e.TailApply(PrimFunc(symshen_4parse_1failure))
-						return
-					} else {
-						tmp4933 := MakeNative(func(__e *ControlFlow) {
-							W2885 := __e.Get(1)
-							_ = W2885
-							tmp4934 := MakeNative(func(__e *ControlFlow) {
-								W2886 := __e.Get(1)
-								_ = W2886
-								__e.TailApply(PrimFunc(symshen_4comb), W2886, W2885)
-								return
-							}, 1)
-
-							tmp4935 := Call(__e, PrimFunc(symshen_4in_1_6), W2884)
-
-							__e.TailApply(tmp4934, tmp4935)
-							return
-
-						}, 1)
-
-						tmp4936 := Call(__e, PrimFunc(symshen_4_5_1out), W2884)
-
-						__e.TailApply(tmp4933, tmp4936)
-						return
-
-					}
-
-				}, 1)
-
-				tmp4939 := Call(__e, PrimFunc(symshen_4_5numeral_6), V2878)
-
-				tmp4940 := Call(__e, tmp4932, tmp4939)
-
-				__e.TailApply(tmp4929, tmp4940)
-				return
-
-			} else {
-				__e.Return(W2879)
-				return
-			}
-
-		}, 1)
-
-		tmp4943 := MakeNative(func(__e *ControlFlow) {
-			W2880 := __e.Get(1)
-			_ = W2880
-			tmp4949 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2880)
-
-			if True == tmp4949 {
-				__e.TailApply(PrimFunc(symshen_4parse_1failure))
-				return
-			} else {
-				tmp4944 := MakeNative(func(__e *ControlFlow) {
-					W2881 := __e.Get(1)
-					_ = W2881
-					tmp4945 := MakeNative(func(__e *ControlFlow) {
-						W2882 := __e.Get(1)
-						_ = W2882
-						__e.TailApply(PrimFunc(symshen_4comb), W2882, W2881)
-						return
-					}, 1)
-
-					tmp4946 := Call(__e, PrimFunc(symshen_4in_1_6), W2880)
-
-					__e.TailApply(tmp4945, tmp4946)
-					return
-
-				}, 1)
-
-				tmp4947 := Call(__e, PrimFunc(symshen_4_5_1out), W2880)
-
-				__e.TailApply(tmp4944, tmp4947)
-				return
-
-			}
-
-		}, 1)
-
-		tmp4950 := Call(__e, PrimFunc(symshen_4_5alpha_6), V2878)
-
-		tmp4951 := Call(__e, tmp4943, tmp4950)
-
-		__e.TailApply(tmp4928, tmp4951)
-		return
-
-	}, 1)
-
-	tmp4952 := Call(__e, ns2_1set, symshen_4_5alphanum_6, tmp4927)
-
-	_ = tmp4952
-
-	tmp4953 := MakeNative(func(__e *ControlFlow) {
-		V2887 := __e.Get(1)
-		_ = V2887
-		tmp4954 := MakeNative(func(__e *ControlFlow) {
-			W2888 := __e.Get(1)
-			_ = W2888
-			tmp4956 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2888)
-
-			if True == tmp4956 {
-				__e.TailApply(PrimFunc(symshen_4parse_1failure))
-				return
-			} else {
-				__e.Return(W2888)
-				return
-			}
-
-		}, 1)
-
-		tmp4967 := PrimIsPair(V2887)
-
-		var ifres4957 Obj
-
-		if True == tmp4967 {
-			tmp4958 := MakeNative(func(__e *ControlFlow) {
-				W2889 := __e.Get(1)
-				_ = W2889
-				tmp4959 := MakeNative(func(__e *ControlFlow) {
-					W2890 := __e.Get(1)
-					_ = W2890
-					tmp4962 := Call(__e, PrimFunc(symshen_4digit_2), W2889)
-
-					if True == tmp4962 {
-						tmp4960 := PrimNumberToString(W2889)
-
-						__e.TailApply(PrimFunc(symshen_4comb), W2890, tmp4960)
-						return
-
-					} else {
-						__e.TailApply(PrimFunc(symshen_4parse_1failure))
-						return
-					}
-
-				}, 1)
-
-				tmp4963 := Call(__e, PrimFunc(symtail), V2887)
-
-				__e.TailApply(tmp4959, tmp4963)
-				return
-
-			}, 1)
-
-			tmp4964 := Call(__e, PrimFunc(symhead), V2887)
-
-			tmp4965 := Call(__e, tmp4958, tmp4964)
-
-			ifres4957 = tmp4965
-
-		} else {
-			tmp4966 := Call(__e, PrimFunc(symshen_4parse_1failure))
-
-			ifres4957 = tmp4966
-
-		}
-
-		__e.TailApply(tmp4954, ifres4957)
-		return
-
-	}, 1)
-
-	tmp4968 := Call(__e, ns2_1set, symshen_4_5numeral_6, tmp4953)
-
-	_ = tmp4968
-
-	tmp4969 := MakeNative(func(__e *ControlFlow) {
-		V2891 := __e.Get(1)
-		_ = V2891
-		tmp4973 := PrimGreatEqual(V2891, MakeNumber(48))
-
-		if True == tmp4973 {
-			tmp4971 := PrimLessEqual(V2891, MakeNumber(57))
-
-			if True == tmp4971 {
-				__e.Return(True)
-				return
-			} else {
-				__e.Return(False)
-				return
-			}
-
-		} else {
-			__e.Return(False)
-			return
-		}
-
-	}, 1)
-
-	tmp4974 := Call(__e, ns2_1set, symshen_4digit_2, tmp4969)
-
-	_ = tmp4974
-
-	tmp4975 := MakeNative(func(__e *ControlFlow) {
-		V2892 := __e.Get(1)
-		_ = V2892
-		tmp4976 := MakeNative(func(__e *ControlFlow) {
-			W2893 := __e.Get(1)
-			_ = W2893
-			tmp4978 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2893)
-
-			if True == tmp4978 {
-				__e.TailApply(PrimFunc(symshen_4parse_1failure))
-				return
-			} else {
-				__e.Return(W2893)
-				return
-			}
-
-		}, 1)
-
-		tmp4979 := MakeNative(func(__e *ControlFlow) {
-			W2894 := __e.Get(1)
-			_ = W2894
-			tmp4997 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2894)
-
-			if True == tmp4997 {
-				__e.TailApply(PrimFunc(symshen_4parse_1failure))
-				return
-			} else {
-				tmp4980 := MakeNative(func(__e *ControlFlow) {
-					W2895 := __e.Get(1)
-					_ = W2895
-					tmp4981 := MakeNative(func(__e *ControlFlow) {
-						W2896 := __e.Get(1)
-						_ = W2896
-						tmp4993 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2896)
-
-						if True == tmp4993 {
-							__e.TailApply(PrimFunc(symshen_4parse_1failure))
-							return
-						} else {
-							tmp4982 := MakeNative(func(__e *ControlFlow) {
-								W2897 := __e.Get(1)
-								_ = W2897
-								tmp4983 := MakeNative(func(__e *ControlFlow) {
-									W2898 := __e.Get(1)
-									_ = W2898
-									tmp4984 := MakeNative(func(__e *ControlFlow) {
-										W2899 := __e.Get(1)
-										_ = W2899
-										tmp4988 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2899)
-
-										if True == tmp4988 {
-											__e.TailApply(PrimFunc(symshen_4parse_1failure))
-											return
-										} else {
-											tmp4985 := MakeNative(func(__e *ControlFlow) {
-												W2900 := __e.Get(1)
-												_ = W2900
-												__e.TailApply(PrimFunc(symshen_4comb), W2900, W2897)
-												return
-											}, 1)
-
-											tmp4986 := Call(__e, PrimFunc(symshen_4in_1_6), W2899)
-
-											__e.TailApply(tmp4985, tmp4986)
-											return
-
-										}
-
-									}, 1)
-
-									tmp4989 := Call(__e, PrimFunc(symshen_4_5dbq_6), W2898)
-
-									__e.TailApply(tmp4984, tmp4989)
-									return
-
-								}, 1)
-
-								tmp4990 := Call(__e, PrimFunc(symshen_4in_1_6), W2896)
-
-								__e.TailApply(tmp4983, tmp4990)
-								return
-
-							}, 1)
-
-							tmp4991 := Call(__e, PrimFunc(symshen_4_5_1out), W2896)
-
-							__e.TailApply(tmp4982, tmp4991)
-							return
-
-						}
-
-					}, 1)
-
-					tmp4994 := Call(__e, PrimFunc(symshen_4_5strcontents_6), W2895)
-
-					__e.TailApply(tmp4981, tmp4994)
-					return
-
-				}, 1)
-
-				tmp4995 := Call(__e, PrimFunc(symshen_4in_1_6), W2894)
-
-				__e.TailApply(tmp4980, tmp4995)
-				return
-
-			}
-
-		}, 1)
-
-		tmp4998 := Call(__e, PrimFunc(symshen_4_5dbq_6), V2892)
-
-		tmp4999 := Call(__e, tmp4979, tmp4998)
-
-		__e.TailApply(tmp4976, tmp4999)
-		return
-
-	}, 1)
-
-	tmp5000 := Call(__e, ns2_1set, symshen_4_5str_6, tmp4975)
-
-	_ = tmp5000
-
-	tmp5001 := MakeNative(func(__e *ControlFlow) {
-		V2901 := __e.Get(1)
-		_ = V2901
-		tmp5002 := MakeNative(func(__e *ControlFlow) {
-			W2902 := __e.Get(1)
-			_ = W2902
-			tmp5004 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2902)
-
-			if True == tmp5004 {
-				__e.TailApply(PrimFunc(symshen_4parse_1failure))
-				return
-			} else {
-				__e.Return(W2902)
-				return
-			}
-
-		}, 1)
-
-		tmp5010 := Call(__e, PrimFunc(symshen_4hds_a_2), V2901, MakeNumber(34))
-
-		var ifres5005 Obj
-
-		if True == tmp5010 {
-			tmp5006 := MakeNative(func(__e *ControlFlow) {
-				W2903 := __e.Get(1)
-				_ = W2903
-				__e.TailApply(PrimFunc(symshen_4comb), W2903, symshen_4skip)
-				return
-			}, 1)
-
-			tmp5007 := Call(__e, PrimFunc(symtail), V2901)
-
-			tmp5008 := Call(__e, tmp5006, tmp5007)
-
-			ifres5005 = tmp5008
-
-		} else {
-			tmp5009 := Call(__e, PrimFunc(symshen_4parse_1failure))
-
-			ifres5005 = tmp5009
-
-		}
-
-		__e.TailApply(tmp5002, ifres5005)
-		return
-
-	}, 1)
-
-	tmp5011 := Call(__e, ns2_1set, symshen_4_5dbq_6, tmp5001)
-
-	_ = tmp5011
-
-	tmp5012 := MakeNative(func(__e *ControlFlow) {
-		V2904 := __e.Get(1)
-		_ = V2904
-		tmp5013 := MakeNative(func(__e *ControlFlow) {
-			W2905 := __e.Get(1)
-			_ = W2905
-			tmp5025 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2905)
-
-			if True == tmp5025 {
-				tmp5014 := MakeNative(func(__e *ControlFlow) {
-					W2912 := __e.Get(1)
-					_ = W2912
-					tmp5016 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2912)
-
-					if True == tmp5016 {
-						__e.TailApply(PrimFunc(symshen_4parse_1failure))
-						return
-					} else {
-						__e.Return(W2912)
-						return
-					}
-
-				}, 1)
-
-				tmp5017 := MakeNative(func(__e *ControlFlow) {
-					W2913 := __e.Get(1)
-					_ = W2913
-					tmp5021 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2913)
-
-					if True == tmp5021 {
-						__e.TailApply(PrimFunc(symshen_4parse_1failure))
-						return
-					} else {
-						tmp5018 := MakeNative(func(__e *ControlFlow) {
-							W2914 := __e.Get(1)
-							_ = W2914
-							__e.TailApply(PrimFunc(symshen_4comb), W2914, MakeString(""))
-							return
-						}, 1)
-
-						tmp5019 := Call(__e, PrimFunc(symshen_4in_1_6), W2913)
-
-						__e.TailApply(tmp5018, tmp5019)
-						return
-
-					}
-
-				}, 1)
-
-				tmp5022 := Call(__e, PrimFunc(sym_5e_6), V2904)
-
-				tmp5023 := Call(__e, tmp5017, tmp5022)
-
-				__e.TailApply(tmp5014, tmp5023)
-				return
-
-			} else {
-				__e.Return(W2905)
-				return
-			}
-
-		}, 1)
-
-		tmp5026 := MakeNative(func(__e *ControlFlow) {
-			W2906 := __e.Get(1)
-			_ = W2906
-			tmp5041 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2906)
-
-			if True == tmp5041 {
-				__e.TailApply(PrimFunc(symshen_4parse_1failure))
-				return
-			} else {
-				tmp5027 := MakeNative(func(__e *ControlFlow) {
-					W2907 := __e.Get(1)
-					_ = W2907
-					tmp5028 := MakeNative(func(__e *ControlFlow) {
-						W2908 := __e.Get(1)
-						_ = W2908
-						tmp5029 := MakeNative(func(__e *ControlFlow) {
-							W2909 := __e.Get(1)
-							_ = W2909
-							tmp5036 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2909)
-
-							if True == tmp5036 {
-								__e.TailApply(PrimFunc(symshen_4parse_1failure))
-								return
-							} else {
-								tmp5030 := MakeNative(func(__e *ControlFlow) {
-									W2910 := __e.Get(1)
-									_ = W2910
-									tmp5031 := MakeNative(func(__e *ControlFlow) {
-										W2911 := __e.Get(1)
-										_ = W2911
-										tmp5032 := PrimStringConcat(W2907, W2910)
-
-										__e.TailApply(PrimFunc(symshen_4comb), W2911, tmp5032)
-										return
-
-									}, 1)
-
-									tmp5033 := Call(__e, PrimFunc(symshen_4in_1_6), W2909)
-
-									__e.TailApply(tmp5031, tmp5033)
-									return
-
-								}, 1)
-
-								tmp5034 := Call(__e, PrimFunc(symshen_4_5_1out), W2909)
-
-								__e.TailApply(tmp5030, tmp5034)
-								return
-
-							}
-
-						}, 1)
-
-						tmp5037 := Call(__e, PrimFunc(symshen_4_5strcontents_6), W2908)
-
-						__e.TailApply(tmp5029, tmp5037)
-						return
-
-					}, 1)
-
-					tmp5038 := Call(__e, PrimFunc(symshen_4in_1_6), W2906)
-
-					__e.TailApply(tmp5028, tmp5038)
-					return
-
-				}, 1)
-
-				tmp5039 := Call(__e, PrimFunc(symshen_4_5_1out), W2906)
-
-				__e.TailApply(tmp5027, tmp5039)
-				return
-
-			}
-
-		}, 1)
-
-		tmp5042 := Call(__e, PrimFunc(symshen_4_5strc_6), V2904)
-
-		tmp5043 := Call(__e, tmp5026, tmp5042)
-
-		__e.TailApply(tmp5013, tmp5043)
-		return
-
-	}, 1)
-
-	tmp5044 := Call(__e, ns2_1set, symshen_4_5strcontents_6, tmp5012)
-
-	_ = tmp5044
-
-	tmp5045 := MakeNative(func(__e *ControlFlow) {
-		V2915 := __e.Get(1)
-		_ = V2915
-		tmp5046 := MakeNative(func(__e *ControlFlow) {
-			W2916 := __e.Get(1)
-			_ = W2916
-			tmp5060 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2916)
-
-			if True == tmp5060 {
-				tmp5047 := MakeNative(func(__e *ControlFlow) {
-					W2920 := __e.Get(1)
-					_ = W2920
-					tmp5049 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2920)
-
-					if True == tmp5049 {
-						__e.TailApply(PrimFunc(symshen_4parse_1failure))
-						return
-					} else {
-						__e.Return(W2920)
-						return
-					}
-
-				}, 1)
-
-				tmp5050 := MakeNative(func(__e *ControlFlow) {
-					W2921 := __e.Get(1)
-					_ = W2921
-					tmp5056 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2921)
-
-					if True == tmp5056 {
-						__e.TailApply(PrimFunc(symshen_4parse_1failure))
-						return
-					} else {
-						tmp5051 := MakeNative(func(__e *ControlFlow) {
-							W2922 := __e.Get(1)
-							_ = W2922
-							tmp5052 := MakeNative(func(__e *ControlFlow) {
-								W2923 := __e.Get(1)
-								_ = W2923
-								__e.TailApply(PrimFunc(symshen_4comb), W2923, W2922)
-								return
-							}, 1)
-
-							tmp5053 := Call(__e, PrimFunc(symshen_4in_1_6), W2921)
-
-							__e.TailApply(tmp5052, tmp5053)
-							return
-
-						}, 1)
-
-						tmp5054 := Call(__e, PrimFunc(symshen_4_5_1out), W2921)
-
-						__e.TailApply(tmp5051, tmp5054)
-						return
-
-					}
-
-				}, 1)
-
-				tmp5057 := Call(__e, PrimFunc(symshen_4_5notdbq_6), V2915)
-
-				tmp5058 := Call(__e, tmp5050, tmp5057)
-
-				__e.TailApply(tmp5047, tmp5058)
-				return
-
-			} else {
-				__e.Return(W2916)
-				return
-			}
-
-		}, 1)
-
-		tmp5061 := MakeNative(func(__e *ControlFlow) {
-			W2917 := __e.Get(1)
-			_ = W2917
-			tmp5067 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2917)
-
-			if True == tmp5067 {
-				__e.TailApply(PrimFunc(symshen_4parse_1failure))
-				return
-			} else {
-				tmp5062 := MakeNative(func(__e *ControlFlow) {
-					W2918 := __e.Get(1)
-					_ = W2918
-					tmp5063 := MakeNative(func(__e *ControlFlow) {
-						W2919 := __e.Get(1)
-						_ = W2919
-						__e.TailApply(PrimFunc(symshen_4comb), W2919, W2918)
-						return
-					}, 1)
-
-					tmp5064 := Call(__e, PrimFunc(symshen_4in_1_6), W2917)
-
-					__e.TailApply(tmp5063, tmp5064)
-					return
-
-				}, 1)
-
-				tmp5065 := Call(__e, PrimFunc(symshen_4_5_1out), W2917)
-
-				__e.TailApply(tmp5062, tmp5065)
-				return
-
-			}
-
-		}, 1)
-
-		tmp5068 := Call(__e, PrimFunc(symshen_4_5control_6), V2915)
-
-		tmp5069 := Call(__e, tmp5061, tmp5068)
-
-		__e.TailApply(tmp5046, tmp5069)
-		return
-
-	}, 1)
-
-	tmp5070 := Call(__e, ns2_1set, symshen_4_5strc_6, tmp5045)
-
-	_ = tmp5070
-
-	tmp5071 := MakeNative(func(__e *ControlFlow) {
-		V2924 := __e.Get(1)
-		_ = V2924
-		tmp5072 := MakeNative(func(__e *ControlFlow) {
-			W2925 := __e.Get(1)
-			_ = W2925
-			tmp5074 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2925)
-
-			if True == tmp5074 {
-				__e.TailApply(PrimFunc(symshen_4parse_1failure))
-				return
-			} else {
-				__e.Return(W2925)
-				return
-			}
-
-		}, 1)
-
-		tmp5075 := MakeNative(func(__e *ControlFlow) {
-			W2926 := __e.Get(1)
-			_ = W2926
-			tmp5100 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2926)
-
-			if True == tmp5100 {
-				__e.TailApply(PrimFunc(symshen_4parse_1failure))
-				return
-			} else {
-				tmp5076 := MakeNative(func(__e *ControlFlow) {
-					W2927 := __e.Get(1)
-					_ = W2927
-					tmp5077 := MakeNative(func(__e *ControlFlow) {
-						W2928 := __e.Get(1)
-						_ = W2928
-						tmp5096 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2928)
-
-						if True == tmp5096 {
-							__e.TailApply(PrimFunc(symshen_4parse_1failure))
-							return
-						} else {
-							tmp5078 := MakeNative(func(__e *ControlFlow) {
-								W2929 := __e.Get(1)
-								_ = W2929
-								tmp5079 := MakeNative(func(__e *ControlFlow) {
-									W2930 := __e.Get(1)
-									_ = W2930
-									tmp5092 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2930)
-
-									if True == tmp5092 {
-										__e.TailApply(PrimFunc(symshen_4parse_1failure))
-										return
-									} else {
-										tmp5080 := MakeNative(func(__e *ControlFlow) {
-											W2931 := __e.Get(1)
-											_ = W2931
-											tmp5081 := MakeNative(func(__e *ControlFlow) {
-												W2932 := __e.Get(1)
-												_ = W2932
-												tmp5082 := MakeNative(func(__e *ControlFlow) {
-													W2933 := __e.Get(1)
-													_ = W2933
-													tmp5087 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2933)
-
-													if True == tmp5087 {
-														__e.TailApply(PrimFunc(symshen_4parse_1failure))
-														return
-													} else {
-														tmp5083 := MakeNative(func(__e *ControlFlow) {
-															W2934 := __e.Get(1)
-															_ = W2934
-															tmp5084 := PrimNumberToString(W2931)
-
-															__e.TailApply(PrimFunc(symshen_4comb), W2934, tmp5084)
-															return
-
-														}, 1)
-
-														tmp5085 := Call(__e, PrimFunc(symshen_4in_1_6), W2933)
-
-														__e.TailApply(tmp5083, tmp5085)
-														return
-
-													}
-
-												}, 1)
-
-												tmp5088 := Call(__e, PrimFunc(symshen_4_5semicolon_6), W2932)
-
-												__e.TailApply(tmp5082, tmp5088)
-												return
-
-											}, 1)
-
-											tmp5089 := Call(__e, PrimFunc(symshen_4in_1_6), W2930)
-
-											__e.TailApply(tmp5081, tmp5089)
-											return
-
-										}, 1)
-
-										tmp5090 := Call(__e, PrimFunc(symshen_4_5_1out), W2930)
-
-										__e.TailApply(tmp5080, tmp5090)
-										return
-
-									}
-
-								}, 1)
-
-								tmp5093 := Call(__e, PrimFunc(symshen_4_5integer_6), W2929)
-
-								__e.TailApply(tmp5079, tmp5093)
-								return
-
-							}, 1)
-
-							tmp5094 := Call(__e, PrimFunc(symshen_4in_1_6), W2928)
-
-							__e.TailApply(tmp5078, tmp5094)
-							return
-
-						}
-
-					}, 1)
-
-					tmp5097 := Call(__e, PrimFunc(symshen_4_5hash_6), W2927)
-
-					__e.TailApply(tmp5077, tmp5097)
-					return
-
-				}, 1)
-
-				tmp5098 := Call(__e, PrimFunc(symshen_4in_1_6), W2926)
-
-				__e.TailApply(tmp5076, tmp5098)
-				return
-
-			}
-
-		}, 1)
-
-		tmp5101 := Call(__e, PrimFunc(symshen_4_5lowC_6), V2924)
-
-		tmp5102 := Call(__e, tmp5075, tmp5101)
-
-		__e.TailApply(tmp5072, tmp5102)
-		return
-
-	}, 1)
-
-	tmp5103 := Call(__e, ns2_1set, symshen_4_5control_6, tmp5071)
-
-	_ = tmp5103
-
-	tmp5104 := MakeNative(func(__e *ControlFlow) {
-		V2935 := __e.Get(1)
-		_ = V2935
-		tmp5105 := MakeNative(func(__e *ControlFlow) {
-			W2936 := __e.Get(1)
-			_ = W2936
-			tmp5107 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2936)
-
-			if True == tmp5107 {
-				__e.TailApply(PrimFunc(symshen_4parse_1failure))
-				return
-			} else {
-				__e.Return(W2936)
-				return
-			}
-
-		}, 1)
-
-		tmp5119 := PrimIsPair(V2935)
-
-		var ifres5108 Obj
-
-		if True == tmp5119 {
-			tmp5109 := MakeNative(func(__e *ControlFlow) {
-				W2937 := __e.Get(1)
-				_ = W2937
-				tmp5110 := MakeNative(func(__e *ControlFlow) {
-					W2938 := __e.Get(1)
-					_ = W2938
-					tmp5113 := PrimEqual(W2937, MakeNumber(34))
-
-					tmp5114 := PrimNot(tmp5113)
-
-					if True == tmp5114 {
-						tmp5111 := PrimNumberToString(W2937)
-
-						__e.TailApply(PrimFunc(symshen_4comb), W2938, tmp5111)
-						return
-
-					} else {
-						__e.TailApply(PrimFunc(symshen_4parse_1failure))
-						return
-					}
-
-				}, 1)
-
-				tmp5115 := Call(__e, PrimFunc(symtail), V2935)
-
-				__e.TailApply(tmp5110, tmp5115)
-				return
-
-			}, 1)
-
-			tmp5116 := Call(__e, PrimFunc(symhead), V2935)
-
-			tmp5117 := Call(__e, tmp5109, tmp5116)
-
-			ifres5108 = tmp5117
-
-		} else {
-			tmp5118 := Call(__e, PrimFunc(symshen_4parse_1failure))
-
-			ifres5108 = tmp5118
-
-		}
-
-		__e.TailApply(tmp5105, ifres5108)
-		return
-
-	}, 1)
-
-	tmp5120 := Call(__e, ns2_1set, symshen_4_5notdbq_6, tmp5104)
-
-	_ = tmp5120
-
-	tmp5121 := MakeNative(func(__e *ControlFlow) {
-		V2939 := __e.Get(1)
-		_ = V2939
-		tmp5122 := MakeNative(func(__e *ControlFlow) {
-			W2940 := __e.Get(1)
-			_ = W2940
-			tmp5124 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2940)
-
-			if True == tmp5124 {
-				__e.TailApply(PrimFunc(symshen_4parse_1failure))
-				return
-			} else {
-				__e.Return(W2940)
-				return
-			}
-
-		}, 1)
-
-		tmp5130 := Call(__e, PrimFunc(symshen_4hds_a_2), V2939, MakeNumber(99))
-
-		var ifres5125 Obj
-
-		if True == tmp5130 {
-			tmp5126 := MakeNative(func(__e *ControlFlow) {
-				W2941 := __e.Get(1)
-				_ = W2941
-				__e.TailApply(PrimFunc(symshen_4comb), W2941, symshen_4skip)
-				return
-			}, 1)
-
-			tmp5127 := Call(__e, PrimFunc(symtail), V2939)
-
-			tmp5128 := Call(__e, tmp5126, tmp5127)
-
-			ifres5125 = tmp5128
-
-		} else {
-			tmp5129 := Call(__e, PrimFunc(symshen_4parse_1failure))
-
-			ifres5125 = tmp5129
-
-		}
-
-		__e.TailApply(tmp5122, ifres5125)
-		return
-
-	}, 1)
-
-	tmp5131 := Call(__e, ns2_1set, symshen_4_5lowC_6, tmp5121)
-
-	_ = tmp5131
-
-	tmp5132 := MakeNative(func(__e *ControlFlow) {
-		V2942 := __e.Get(1)
-		_ = V2942
-		tmp5133 := MakeNative(func(__e *ControlFlow) {
-			W2943 := __e.Get(1)
-			_ = W2943
-			tmp5135 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2943)
-
-			if True == tmp5135 {
-				__e.TailApply(PrimFunc(symshen_4parse_1failure))
-				return
-			} else {
-				__e.Return(W2943)
-				return
-			}
-
-		}, 1)
-
-		tmp5141 := Call(__e, PrimFunc(symshen_4hds_a_2), V2942, MakeNumber(35))
-
-		var ifres5136 Obj
-
-		if True == tmp5141 {
-			tmp5137 := MakeNative(func(__e *ControlFlow) {
-				W2944 := __e.Get(1)
-				_ = W2944
-				__e.TailApply(PrimFunc(symshen_4comb), W2944, symshen_4skip)
-				return
-			}, 1)
-
-			tmp5138 := Call(__e, PrimFunc(symtail), V2942)
-
-			tmp5139 := Call(__e, tmp5137, tmp5138)
-
-			ifres5136 = tmp5139
-
-		} else {
-			tmp5140 := Call(__e, PrimFunc(symshen_4parse_1failure))
-
-			ifres5136 = tmp5140
-
-		}
-
-		__e.TailApply(tmp5133, ifres5136)
-		return
-
-	}, 1)
-
-	tmp5142 := Call(__e, ns2_1set, symshen_4_5hash_6, tmp5132)
-
-	_ = tmp5142
-
-	tmp5143 := MakeNative(func(__e *ControlFlow) {
-		V2945 := __e.Get(1)
-		_ = V2945
-		tmp5144 := MakeNative(func(__e *ControlFlow) {
-			W2946 := __e.Get(1)
-			_ = W2946
-			tmp5200 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2946)
-
-			if True == tmp5200 {
-				tmp5145 := MakeNative(func(__e *ControlFlow) {
-					W2952 := __e.Get(1)
-					_ = W2952
-					tmp5183 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2952)
-
-					if True == tmp5183 {
-						tmp5146 := MakeNative(func(__e *ControlFlow) {
-							W2958 := __e.Get(1)
-							_ = W2958
-							tmp5172 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2958)
-
-							if True == tmp5172 {
-								tmp5147 := MakeNative(func(__e *ControlFlow) {
-									W2962 := __e.Get(1)
-									_ = W2962
-									tmp5161 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2962)
-
-									if True == tmp5161 {
-										tmp5148 := MakeNative(func(__e *ControlFlow) {
-											W2966 := __e.Get(1)
-											_ = W2966
-											tmp5150 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2966)
-
-											if True == tmp5150 {
-												__e.TailApply(PrimFunc(symshen_4parse_1failure))
-												return
-											} else {
-												__e.Return(W2966)
-												return
-											}
-
-										}, 1)
-
-										tmp5151 := MakeNative(func(__e *ControlFlow) {
-											W2967 := __e.Get(1)
-											_ = W2967
-											tmp5157 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2967)
-
-											if True == tmp5157 {
-												__e.TailApply(PrimFunc(symshen_4parse_1failure))
-												return
-											} else {
-												tmp5152 := MakeNative(func(__e *ControlFlow) {
-													W2968 := __e.Get(1)
-													_ = W2968
-													tmp5153 := MakeNative(func(__e *ControlFlow) {
-														W2969 := __e.Get(1)
-														_ = W2969
-														__e.TailApply(PrimFunc(symshen_4comb), W2969, W2968)
-														return
-													}, 1)
-
-													tmp5154 := Call(__e, PrimFunc(symshen_4in_1_6), W2967)
-
-													__e.TailApply(tmp5153, tmp5154)
-													return
-
-												}, 1)
-
-												tmp5155 := Call(__e, PrimFunc(symshen_4_5_1out), W2967)
-
-												__e.TailApply(tmp5152, tmp5155)
-												return
-
-											}
-
-										}, 1)
-
-										tmp5158 := Call(__e, PrimFunc(symshen_4_5integer_6), V2945)
-
-										tmp5159 := Call(__e, tmp5151, tmp5158)
-
-										__e.TailApply(tmp5148, tmp5159)
-										return
-
-									} else {
-										__e.Return(W2962)
-										return
-									}
-
-								}, 1)
-
-								tmp5162 := MakeNative(func(__e *ControlFlow) {
-									W2963 := __e.Get(1)
-									_ = W2963
-									tmp5168 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2963)
-
-									if True == tmp5168 {
-										__e.TailApply(PrimFunc(symshen_4parse_1failure))
-										return
-									} else {
-										tmp5163 := MakeNative(func(__e *ControlFlow) {
-											W2964 := __e.Get(1)
-											_ = W2964
-											tmp5164 := MakeNative(func(__e *ControlFlow) {
-												W2965 := __e.Get(1)
-												_ = W2965
-												__e.TailApply(PrimFunc(symshen_4comb), W2965, W2964)
-												return
-											}, 1)
-
-											tmp5165 := Call(__e, PrimFunc(symshen_4in_1_6), W2963)
-
-											__e.TailApply(tmp5164, tmp5165)
-											return
-
-										}, 1)
-
-										tmp5166 := Call(__e, PrimFunc(symshen_4_5_1out), W2963)
-
-										__e.TailApply(tmp5163, tmp5166)
-										return
-
-									}
-
-								}, 1)
-
-								tmp5169 := Call(__e, PrimFunc(symshen_4_5float_6), V2945)
-
-								tmp5170 := Call(__e, tmp5162, tmp5169)
-
-								__e.TailApply(tmp5147, tmp5170)
-								return
-
-							} else {
-								__e.Return(W2958)
-								return
-							}
-
-						}, 1)
-
-						tmp5173 := MakeNative(func(__e *ControlFlow) {
-							W2959 := __e.Get(1)
-							_ = W2959
-							tmp5179 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2959)
-
-							if True == tmp5179 {
-								__e.TailApply(PrimFunc(symshen_4parse_1failure))
-								return
-							} else {
-								tmp5174 := MakeNative(func(__e *ControlFlow) {
-									W2960 := __e.Get(1)
-									_ = W2960
-									tmp5175 := MakeNative(func(__e *ControlFlow) {
-										W2961 := __e.Get(1)
-										_ = W2961
-										__e.TailApply(PrimFunc(symshen_4comb), W2961, W2960)
-										return
-									}, 1)
-
-									tmp5176 := Call(__e, PrimFunc(symshen_4in_1_6), W2959)
-
-									__e.TailApply(tmp5175, tmp5176)
-									return
-
-								}, 1)
-
-								tmp5177 := Call(__e, PrimFunc(symshen_4_5_1out), W2959)
-
-								__e.TailApply(tmp5174, tmp5177)
-								return
-
-							}
-
-						}, 1)
-
-						tmp5180 := Call(__e, PrimFunc(symshen_4_5e_1number_6), V2945)
-
-						tmp5181 := Call(__e, tmp5173, tmp5180)
-
-						__e.TailApply(tmp5146, tmp5181)
-						return
-
-					} else {
-						__e.Return(W2952)
-						return
-					}
-
-				}, 1)
-
-				tmp5184 := MakeNative(func(__e *ControlFlow) {
-					W2953 := __e.Get(1)
-					_ = W2953
-					tmp5196 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2953)
-
-					if True == tmp5196 {
-						__e.TailApply(PrimFunc(symshen_4parse_1failure))
-						return
-					} else {
-						tmp5185 := MakeNative(func(__e *ControlFlow) {
-							W2954 := __e.Get(1)
-							_ = W2954
-							tmp5186 := MakeNative(func(__e *ControlFlow) {
-								W2955 := __e.Get(1)
-								_ = W2955
-								tmp5192 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2955)
-
-								if True == tmp5192 {
-									__e.TailApply(PrimFunc(symshen_4parse_1failure))
-									return
-								} else {
-									tmp5187 := MakeNative(func(__e *ControlFlow) {
-										W2956 := __e.Get(1)
-										_ = W2956
-										tmp5188 := MakeNative(func(__e *ControlFlow) {
-											W2957 := __e.Get(1)
-											_ = W2957
-											__e.TailApply(PrimFunc(symshen_4comb), W2957, W2956)
-											return
-										}, 1)
-
-										tmp5189 := Call(__e, PrimFunc(symshen_4in_1_6), W2955)
-
-										__e.TailApply(tmp5188, tmp5189)
-										return
-
-									}, 1)
-
-									tmp5190 := Call(__e, PrimFunc(symshen_4_5_1out), W2955)
-
-									__e.TailApply(tmp5187, tmp5190)
-									return
-
-								}
-
-							}, 1)
-
-							tmp5193 := Call(__e, PrimFunc(symshen_4_5number_6), W2954)
-
-							__e.TailApply(tmp5186, tmp5193)
-							return
-
-						}, 1)
-
-						tmp5194 := Call(__e, PrimFunc(symshen_4in_1_6), W2953)
-
-						__e.TailApply(tmp5185, tmp5194)
-						return
-
-					}
-
-				}, 1)
-
-				tmp5197 := Call(__e, PrimFunc(symshen_4_5plus_6), V2945)
-
-				tmp5198 := Call(__e, tmp5184, tmp5197)
-
-				__e.TailApply(tmp5145, tmp5198)
-				return
-
-			} else {
-				__e.Return(W2946)
-				return
-			}
-
-		}, 1)
-
-		tmp5201 := MakeNative(func(__e *ControlFlow) {
-			W2947 := __e.Get(1)
-			_ = W2947
-			tmp5214 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2947)
-
-			if True == tmp5214 {
-				__e.TailApply(PrimFunc(symshen_4parse_1failure))
-				return
-			} else {
-				tmp5202 := MakeNative(func(__e *ControlFlow) {
-					W2948 := __e.Get(1)
-					_ = W2948
-					tmp5203 := MakeNative(func(__e *ControlFlow) {
-						W2949 := __e.Get(1)
-						_ = W2949
-						tmp5210 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2949)
-
-						if True == tmp5210 {
-							__e.TailApply(PrimFunc(symshen_4parse_1failure))
-							return
-						} else {
-							tmp5204 := MakeNative(func(__e *ControlFlow) {
-								W2950 := __e.Get(1)
-								_ = W2950
-								tmp5205 := MakeNative(func(__e *ControlFlow) {
-									W2951 := __e.Get(1)
-									_ = W2951
-									tmp5206 := PrimNumberSubtract(MakeNumber(0), W2950)
-
-									__e.TailApply(PrimFunc(symshen_4comb), W2951, tmp5206)
-									return
-
-								}, 1)
-
-								tmp5207 := Call(__e, PrimFunc(symshen_4in_1_6), W2949)
-
-								__e.TailApply(tmp5205, tmp5207)
-								return
-
-							}, 1)
-
-							tmp5208 := Call(__e, PrimFunc(symshen_4_5_1out), W2949)
-
-							__e.TailApply(tmp5204, tmp5208)
-							return
-
-						}
-
-					}, 1)
-
-					tmp5211 := Call(__e, PrimFunc(symshen_4_5number_6), W2948)
-
-					__e.TailApply(tmp5203, tmp5211)
-					return
-
-				}, 1)
-
-				tmp5212 := Call(__e, PrimFunc(symshen_4in_1_6), W2947)
-
-				__e.TailApply(tmp5202, tmp5212)
-				return
-
-			}
-
-		}, 1)
-
-		tmp5215 := Call(__e, PrimFunc(symshen_4_5minus_6), V2945)
-
-		tmp5216 := Call(__e, tmp5201, tmp5215)
-
-		__e.TailApply(tmp5144, tmp5216)
-		return
-
-	}, 1)
-
-	tmp5217 := Call(__e, ns2_1set, symshen_4_5number_6, tmp5143)
-
-	_ = tmp5217
-
-	tmp5218 := MakeNative(func(__e *ControlFlow) {
-		V2970 := __e.Get(1)
-		_ = V2970
-		tmp5219 := MakeNative(func(__e *ControlFlow) {
-			W2971 := __e.Get(1)
-			_ = W2971
-			tmp5221 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2971)
-
-			if True == tmp5221 {
-				__e.TailApply(PrimFunc(symshen_4parse_1failure))
-				return
-			} else {
-				__e.Return(W2971)
-				return
-			}
-
-		}, 1)
-
-		tmp5227 := Call(__e, PrimFunc(symshen_4hds_a_2), V2970, MakeNumber(45))
-
-		var ifres5222 Obj
-
-		if True == tmp5227 {
-			tmp5223 := MakeNative(func(__e *ControlFlow) {
-				W2972 := __e.Get(1)
-				_ = W2972
-				__e.TailApply(PrimFunc(symshen_4comb), W2972, symshen_4skip)
-				return
-			}, 1)
-
-			tmp5224 := Call(__e, PrimFunc(symtail), V2970)
-
-			tmp5225 := Call(__e, tmp5223, tmp5224)
-
-			ifres5222 = tmp5225
-
-		} else {
-			tmp5226 := Call(__e, PrimFunc(symshen_4parse_1failure))
-
-			ifres5222 = tmp5226
-
-		}
-
-		__e.TailApply(tmp5219, ifres5222)
-		return
-
-	}, 1)
-
-	tmp5228 := Call(__e, ns2_1set, symshen_4_5minus_6, tmp5218)
-
-	_ = tmp5228
-
-	tmp5229 := MakeNative(func(__e *ControlFlow) {
-		V2973 := __e.Get(1)
-		_ = V2973
-		tmp5230 := MakeNative(func(__e *ControlFlow) {
-			W2974 := __e.Get(1)
-			_ = W2974
-			tmp5232 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2974)
-
-			if True == tmp5232 {
-				__e.TailApply(PrimFunc(symshen_4parse_1failure))
-				return
-			} else {
-				__e.Return(W2974)
-				return
-			}
-
-		}, 1)
-
-		tmp5238 := Call(__e, PrimFunc(symshen_4hds_a_2), V2973, MakeNumber(43))
-
-		var ifres5233 Obj
-
-		if True == tmp5238 {
-			tmp5234 := MakeNative(func(__e *ControlFlow) {
-				W2975 := __e.Get(1)
-				_ = W2975
-				__e.TailApply(PrimFunc(symshen_4comb), W2975, symshen_4skip)
-				return
-			}, 1)
-
-			tmp5235 := Call(__e, PrimFunc(symtail), V2973)
-
-			tmp5236 := Call(__e, tmp5234, tmp5235)
-
-			ifres5233 = tmp5236
-
-		} else {
-			tmp5237 := Call(__e, PrimFunc(symshen_4parse_1failure))
-
-			ifres5233 = tmp5237
-
-		}
-
-		__e.TailApply(tmp5230, ifres5233)
-		return
-
-	}, 1)
-
-	tmp5239 := Call(__e, ns2_1set, symshen_4_5plus_6, tmp5229)
-
-	_ = tmp5239
-
-	tmp5240 := MakeNative(func(__e *ControlFlow) {
-		V2976 := __e.Get(1)
-		_ = V2976
-		tmp5241 := MakeNative(func(__e *ControlFlow) {
-			W2977 := __e.Get(1)
-			_ = W2977
-			tmp5243 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2977)
-
-			if True == tmp5243 {
-				__e.TailApply(PrimFunc(symshen_4parse_1failure))
-				return
-			} else {
-				__e.Return(W2977)
-				return
-			}
-
-		}, 1)
-
-		tmp5244 := MakeNative(func(__e *ControlFlow) {
-			W2978 := __e.Get(1)
-			_ = W2978
-			tmp5251 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2978)
-
-			if True == tmp5251 {
-				__e.TailApply(PrimFunc(symshen_4parse_1failure))
-				return
-			} else {
-				tmp5245 := MakeNative(func(__e *ControlFlow) {
-					W2979 := __e.Get(1)
-					_ = W2979
-					tmp5246 := MakeNative(func(__e *ControlFlow) {
-						W2980 := __e.Get(1)
-						_ = W2980
-						tmp5247 := Call(__e, PrimFunc(symshen_4compute_1integer), W2979)
-
-						__e.TailApply(PrimFunc(symshen_4comb), W2980, tmp5247)
-						return
-
-					}, 1)
-
-					tmp5248 := Call(__e, PrimFunc(symshen_4in_1_6), W2978)
-
-					__e.TailApply(tmp5246, tmp5248)
-					return
-
-				}, 1)
-
-				tmp5249 := Call(__e, PrimFunc(symshen_4_5_1out), W2978)
-
-				__e.TailApply(tmp5245, tmp5249)
-				return
-
-			}
-
-		}, 1)
-
-		tmp5252 := Call(__e, PrimFunc(symshen_4_5digits_6), V2976)
-
-		tmp5253 := Call(__e, tmp5244, tmp5252)
-
-		__e.TailApply(tmp5241, tmp5253)
-		return
-
-	}, 1)
-
-	tmp5254 := Call(__e, ns2_1set, symshen_4_5integer_6, tmp5240)
-
-	_ = tmp5254
-
-	tmp5255 := MakeNative(func(__e *ControlFlow) {
-		V2981 := __e.Get(1)
-		_ = V2981
-		tmp5256 := MakeNative(func(__e *ControlFlow) {
-			W2982 := __e.Get(1)
-			_ = W2982
-			tmp5271 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2982)
-
-			if True == tmp5271 {
-				tmp5257 := MakeNative(func(__e *ControlFlow) {
-					W2989 := __e.Get(1)
-					_ = W2989
-					tmp5259 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2989)
-
-					if True == tmp5259 {
-						__e.TailApply(PrimFunc(symshen_4parse_1failure))
-						return
-					} else {
-						__e.Return(W2989)
-						return
-					}
-
-				}, 1)
-
-				tmp5260 := MakeNative(func(__e *ControlFlow) {
-					W2990 := __e.Get(1)
-					_ = W2990
-					tmp5267 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2990)
-
-					if True == tmp5267 {
-						__e.TailApply(PrimFunc(symshen_4parse_1failure))
-						return
-					} else {
-						tmp5261 := MakeNative(func(__e *ControlFlow) {
-							W2991 := __e.Get(1)
-							_ = W2991
-							tmp5262 := MakeNative(func(__e *ControlFlow) {
-								W2992 := __e.Get(1)
-								_ = W2992
-								tmp5263 := PrimCons(W2991, Nil)
-
-								__e.TailApply(PrimFunc(symshen_4comb), W2992, tmp5263)
-								return
-
-							}, 1)
-
-							tmp5264 := Call(__e, PrimFunc(symshen_4in_1_6), W2990)
-
-							__e.TailApply(tmp5262, tmp5264)
-							return
-
-						}, 1)
-
-						tmp5265 := Call(__e, PrimFunc(symshen_4_5_1out), W2990)
-
-						__e.TailApply(tmp5261, tmp5265)
-						return
-
-					}
-
-				}, 1)
-
-				tmp5268 := Call(__e, PrimFunc(symshen_4_5digit_6), V2981)
-
-				tmp5269 := Call(__e, tmp5260, tmp5268)
-
-				__e.TailApply(tmp5257, tmp5269)
-				return
-
-			} else {
-				__e.Return(W2982)
-				return
-			}
-
-		}, 1)
-
-		tmp5272 := MakeNative(func(__e *ControlFlow) {
-			W2983 := __e.Get(1)
-			_ = W2983
-			tmp5287 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2983)
-
-			if True == tmp5287 {
-				__e.TailApply(PrimFunc(symshen_4parse_1failure))
-				return
-			} else {
-				tmp5273 := MakeNative(func(__e *ControlFlow) {
-					W2984 := __e.Get(1)
-					_ = W2984
-					tmp5274 := MakeNative(func(__e *ControlFlow) {
-						W2985 := __e.Get(1)
-						_ = W2985
-						tmp5275 := MakeNative(func(__e *ControlFlow) {
-							W2986 := __e.Get(1)
-							_ = W2986
-							tmp5282 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2986)
-
-							if True == tmp5282 {
-								__e.TailApply(PrimFunc(symshen_4parse_1failure))
-								return
-							} else {
-								tmp5276 := MakeNative(func(__e *ControlFlow) {
-									W2987 := __e.Get(1)
-									_ = W2987
-									tmp5277 := MakeNative(func(__e *ControlFlow) {
-										W2988 := __e.Get(1)
-										_ = W2988
-										tmp5278 := PrimCons(W2984, W2987)
-
-										__e.TailApply(PrimFunc(symshen_4comb), W2988, tmp5278)
-										return
-
-									}, 1)
-
-									tmp5279 := Call(__e, PrimFunc(symshen_4in_1_6), W2986)
-
-									__e.TailApply(tmp5277, tmp5279)
-									return
-
-								}, 1)
-
-								tmp5280 := Call(__e, PrimFunc(symshen_4_5_1out), W2986)
-
-								__e.TailApply(tmp5276, tmp5280)
-								return
-
-							}
-
-						}, 1)
-
-						tmp5283 := Call(__e, PrimFunc(symshen_4_5digits_6), W2985)
-
-						__e.TailApply(tmp5275, tmp5283)
-						return
-
-					}, 1)
-
-					tmp5284 := Call(__e, PrimFunc(symshen_4in_1_6), W2983)
-
-					__e.TailApply(tmp5274, tmp5284)
-					return
-
-				}, 1)
-
-				tmp5285 := Call(__e, PrimFunc(symshen_4_5_1out), W2983)
-
-				__e.TailApply(tmp5273, tmp5285)
-				return
-
-			}
-
-		}, 1)
-
-		tmp5288 := Call(__e, PrimFunc(symshen_4_5digit_6), V2981)
-
-		tmp5289 := Call(__e, tmp5272, tmp5288)
-
-		__e.TailApply(tmp5256, tmp5289)
-		return
-
-	}, 1)
-
-	tmp5290 := Call(__e, ns2_1set, symshen_4_5digits_6, tmp5255)
-
-	_ = tmp5290
-
-	tmp5291 := MakeNative(func(__e *ControlFlow) {
-		V2993 := __e.Get(1)
-		_ = V2993
-		tmp5292 := MakeNative(func(__e *ControlFlow) {
-			W2994 := __e.Get(1)
-			_ = W2994
-			tmp5294 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2994)
-
-			if True == tmp5294 {
-				__e.TailApply(PrimFunc(symshen_4parse_1failure))
-				return
-			} else {
-				__e.Return(W2994)
-				return
-			}
-
-		}, 1)
-
-		tmp5305 := PrimIsPair(V2993)
-
-		var ifres5295 Obj
-
-		if True == tmp5305 {
-			tmp5296 := MakeNative(func(__e *ControlFlow) {
-				W2995 := __e.Get(1)
-				_ = W2995
-				tmp5297 := MakeNative(func(__e *ControlFlow) {
-					W2996 := __e.Get(1)
-					_ = W2996
-					tmp5300 := Call(__e, PrimFunc(symshen_4digit_2), W2995)
-
-					if True == tmp5300 {
-						tmp5298 := Call(__e, PrimFunc(symshen_4byte_1_6digit), W2995)
-
-						__e.TailApply(PrimFunc(symshen_4comb), W2996, tmp5298)
-						return
-
-					} else {
-						__e.TailApply(PrimFunc(symshen_4parse_1failure))
-						return
-					}
-
-				}, 1)
-
-				tmp5301 := Call(__e, PrimFunc(symtail), V2993)
-
-				__e.TailApply(tmp5297, tmp5301)
-				return
-
-			}, 1)
-
-			tmp5302 := Call(__e, PrimFunc(symhead), V2993)
-
-			tmp5303 := Call(__e, tmp5296, tmp5302)
-
-			ifres5295 = tmp5303
-
-		} else {
-			tmp5304 := Call(__e, PrimFunc(symshen_4parse_1failure))
-
-			ifres5295 = tmp5304
-
-		}
-
-		__e.TailApply(tmp5292, ifres5295)
-		return
-
-	}, 1)
-
-	tmp5306 := Call(__e, ns2_1set, symshen_4_5digit_6, tmp5291)
-
-	_ = tmp5306
-
-	tmp5307 := MakeNative(func(__e *ControlFlow) {
-		V2997 := __e.Get(1)
-		_ = V2997
-		__e.Return(PrimNumberSubtract(V2997, MakeNumber(48)))
-		return
-	}, 1)
-
-	tmp5308 := Call(__e, ns2_1set, symshen_4byte_1_6digit, tmp5307)
-
-	_ = tmp5308
-
-	tmp5309 := MakeNative(func(__e *ControlFlow) {
-		V2998 := __e.Get(1)
-		_ = V2998
-		tmp5310 := Call(__e, PrimFunc(symreverse), V2998)
-
-		__e.TailApply(PrimFunc(symshen_4compute_1integer_1h), tmp5310, MakeNumber(0))
-		return
-
-	}, 1)
-
-	tmp5311 := Call(__e, ns2_1set, symshen_4compute_1integer, tmp5309)
-
-	_ = tmp5311
-
-	tmp5312 := MakeNative(func(__e *ControlFlow) {
-		V3001 := __e.Get(1)
-		_ = V3001
-		V3002 := __e.Get(2)
-		_ = V3002
-		tmp5322 := PrimEqual(Nil, V3001)
-
-		if True == tmp5322 {
-			__e.Return(MakeNumber(0))
-			return
-		} else {
-			tmp5320 := PrimIsPair(V3001)
-
-			if True == tmp5320 {
-				tmp5313 := Call(__e, PrimFunc(symshen_4expt), MakeNumber(10), V3002)
-
-				tmp5314 := PrimHead(V3001)
-
-				tmp5315 := PrimNumberMultiply(tmp5313, tmp5314)
-
-				tmp5316 := PrimTail(V3001)
-
-				tmp5317 := PrimNumberAdd(V3002, MakeNumber(1))
-
-				tmp5318 := Call(__e, PrimFunc(symshen_4compute_1integer_1h), tmp5316, tmp5317)
-
-				__e.Return(PrimNumberAdd(tmp5315, tmp5318))
-				return
-
-			} else {
-				__e.TailApply(PrimFunc(symshen_4f_1error), symshen_4compute_1integer_1h)
-				return
-			}
-
-		}
-
-	}, 2)
-
-	tmp5323 := Call(__e, ns2_1set, symshen_4compute_1integer_1h, tmp5312)
-
-	_ = tmp5323
-
-	tmp5324 := MakeNative(func(__e *ControlFlow) {
-		V3005 := __e.Get(1)
-		_ = V3005
-		V3006 := __e.Get(2)
-		_ = V3006
-		tmp5332 := PrimEqual(MakeNumber(0), V3006)
-
-		if True == tmp5332 {
-			__e.Return(MakeNumber(1))
-			return
-		} else {
-			tmp5330 := PrimGreatThan(V3006, MakeNumber(0))
-
-			if True == tmp5330 {
-				tmp5325 := PrimNumberSubtract(V3006, MakeNumber(1))
-
-				tmp5326 := Call(__e, PrimFunc(symshen_4expt), V3005, tmp5325)
-
-				__e.Return(PrimNumberMultiply(V3005, tmp5326))
-				return
-
-			} else {
-				tmp5327 := PrimNumberAdd(V3006, MakeNumber(1))
-
-				tmp5328 := Call(__e, PrimFunc(symshen_4expt), V3005, tmp5327)
-
-				__e.Return(PrimNumberDivide(tmp5328, V3005))
-				return
-
-			}
-
-		}
-
-	}, 2)
-
-	tmp5333 := Call(__e, ns2_1set, symshen_4expt, tmp5324)
-
-	_ = tmp5333
-
-	tmp5334 := MakeNative(func(__e *ControlFlow) {
-		V3007 := __e.Get(1)
-		_ = V3007
-		tmp5335 := MakeNative(func(__e *ControlFlow) {
-			W3008 := __e.Get(1)
-			_ = W3008
-			tmp5355 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W3008)
-
-			if True == tmp5355 {
-				tmp5336 := MakeNative(func(__e *ControlFlow) {
-					W3017 := __e.Get(1)
-					_ = W3017
-					tmp5338 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W3017)
-
-					if True == tmp5338 {
-						__e.TailApply(PrimFunc(symshen_4parse_1failure))
-						return
-					} else {
-						__e.Return(W3017)
-						return
-					}
-
-				}, 1)
-
-				tmp5339 := MakeNative(func(__e *ControlFlow) {
-					W3018 := __e.Get(1)
-					_ = W3018
-					tmp5351 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W3018)
-
-					if True == tmp5351 {
-						__e.TailApply(PrimFunc(symshen_4parse_1failure))
-						return
-					} else {
-						tmp5340 := MakeNative(func(__e *ControlFlow) {
-							W3019 := __e.Get(1)
-							_ = W3019
-							tmp5341 := MakeNative(func(__e *ControlFlow) {
-								W3020 := __e.Get(1)
-								_ = W3020
-								tmp5347 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W3020)
-
-								if True == tmp5347 {
-									__e.TailApply(PrimFunc(symshen_4parse_1failure))
-									return
-								} else {
-									tmp5342 := MakeNative(func(__e *ControlFlow) {
-										W3021 := __e.Get(1)
-										_ = W3021
-										tmp5343 := MakeNative(func(__e *ControlFlow) {
-											W3022 := __e.Get(1)
-											_ = W3022
-											__e.TailApply(PrimFunc(symshen_4comb), W3022, W3021)
-											return
-										}, 1)
-
-										tmp5344 := Call(__e, PrimFunc(symshen_4in_1_6), W3020)
-
-										__e.TailApply(tmp5343, tmp5344)
-										return
-
-									}, 1)
-
-									tmp5345 := Call(__e, PrimFunc(symshen_4_5_1out), W3020)
-
-									__e.TailApply(tmp5342, tmp5345)
-									return
-
-								}
-
-							}, 1)
-
-							tmp5348 := Call(__e, PrimFunc(symshen_4_5fraction_6), W3019)
-
-							__e.TailApply(tmp5341, tmp5348)
-							return
-
-						}, 1)
-
-						tmp5349 := Call(__e, PrimFunc(symshen_4in_1_6), W3018)
-
-						__e.TailApply(tmp5340, tmp5349)
-						return
-
-					}
-
-				}, 1)
-
-				tmp5352 := Call(__e, PrimFunc(symshen_4_5stop_6), V3007)
-
-				tmp5353 := Call(__e, tmp5339, tmp5352)
-
-				__e.TailApply(tmp5336, tmp5353)
-				return
-
-			} else {
-				__e.Return(W3008)
-				return
-			}
-
-		}, 1)
-
-		tmp5356 := MakeNative(func(__e *ControlFlow) {
-			W3009 := __e.Get(1)
-			_ = W3009
-			tmp5377 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W3009)
-
-			if True == tmp5377 {
-				__e.TailApply(PrimFunc(symshen_4parse_1failure))
-				return
-			} else {
-				tmp5357 := MakeNative(func(__e *ControlFlow) {
-					W3010 := __e.Get(1)
-					_ = W3010
-					tmp5358 := MakeNative(func(__e *ControlFlow) {
-						W3011 := __e.Get(1)
-						_ = W3011
-						tmp5359 := MakeNative(func(__e *ControlFlow) {
-							W3012 := __e.Get(1)
-							_ = W3012
-							tmp5372 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W3012)
-
-							if True == tmp5372 {
-								__e.TailApply(PrimFunc(symshen_4parse_1failure))
-								return
-							} else {
-								tmp5360 := MakeNative(func(__e *ControlFlow) {
-									W3013 := __e.Get(1)
-									_ = W3013
-									tmp5361 := MakeNative(func(__e *ControlFlow) {
-										W3014 := __e.Get(1)
-										_ = W3014
-										tmp5368 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W3014)
-
-										if True == tmp5368 {
-											__e.TailApply(PrimFunc(symshen_4parse_1failure))
-											return
-										} else {
-											tmp5362 := MakeNative(func(__e *ControlFlow) {
-												W3015 := __e.Get(1)
-												_ = W3015
-												tmp5363 := MakeNative(func(__e *ControlFlow) {
-													W3016 := __e.Get(1)
-													_ = W3016
-													tmp5364 := PrimNumberAdd(W3010, W3015)
-
-													__e.TailApply(PrimFunc(symshen_4comb), W3016, tmp5364)
-													return
-
-												}, 1)
-
-												tmp5365 := Call(__e, PrimFunc(symshen_4in_1_6), W3014)
-
-												__e.TailApply(tmp5363, tmp5365)
-												return
-
-											}, 1)
-
-											tmp5366 := Call(__e, PrimFunc(symshen_4_5_1out), W3014)
-
-											__e.TailApply(tmp5362, tmp5366)
-											return
-
-										}
-
-									}, 1)
-
-									tmp5369 := Call(__e, PrimFunc(symshen_4_5fraction_6), W3013)
-
-									__e.TailApply(tmp5361, tmp5369)
-									return
-
-								}, 1)
-
-								tmp5370 := Call(__e, PrimFunc(symshen_4in_1_6), W3012)
-
-								__e.TailApply(tmp5360, tmp5370)
-								return
-
-							}
-
-						}, 1)
-
-						tmp5373 := Call(__e, PrimFunc(symshen_4_5stop_6), W3011)
-
-						__e.TailApply(tmp5359, tmp5373)
-						return
-
-					}, 1)
-
-					tmp5374 := Call(__e, PrimFunc(symshen_4in_1_6), W3009)
-
-					__e.TailApply(tmp5358, tmp5374)
-					return
-
-				}, 1)
-
-				tmp5375 := Call(__e, PrimFunc(symshen_4_5_1out), W3009)
-
-				__e.TailApply(tmp5357, tmp5375)
-				return
-
-			}
-
-		}, 1)
-
-		tmp5378 := Call(__e, PrimFunc(symshen_4_5integer_6), V3007)
-
-		tmp5379 := Call(__e, tmp5356, tmp5378)
-
-		__e.TailApply(tmp5335, tmp5379)
-		return
-
-	}, 1)
-
-	tmp5380 := Call(__e, ns2_1set, symshen_4_5float_6, tmp5334)
-
-	_ = tmp5380
-
-	tmp5381 := MakeNative(func(__e *ControlFlow) {
-		V3023 := __e.Get(1)
-		_ = V3023
-		tmp5382 := MakeNative(func(__e *ControlFlow) {
-			W3024 := __e.Get(1)
-			_ = W3024
-			tmp5384 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W3024)
-
-			if True == tmp5384 {
-				__e.TailApply(PrimFunc(symshen_4parse_1failure))
-				return
-			} else {
-				__e.Return(W3024)
-				return
-			}
-
-		}, 1)
-
-		tmp5390 := Call(__e, PrimFunc(symshen_4hds_a_2), V3023, MakeNumber(46))
-
-		var ifres5385 Obj
-
-		if True == tmp5390 {
-			tmp5386 := MakeNative(func(__e *ControlFlow) {
-				W3025 := __e.Get(1)
-				_ = W3025
-				__e.TailApply(PrimFunc(symshen_4comb), W3025, symshen_4skip)
-				return
-			}, 1)
-
-			tmp5387 := Call(__e, PrimFunc(symtail), V3023)
-
-			tmp5388 := Call(__e, tmp5386, tmp5387)
-
-			ifres5385 = tmp5388
-
-		} else {
-			tmp5389 := Call(__e, PrimFunc(symshen_4parse_1failure))
-
-			ifres5385 = tmp5389
-
-		}
-
-		__e.TailApply(tmp5382, ifres5385)
-		return
-
-	}, 1)
-
-	tmp5391 := Call(__e, ns2_1set, symshen_4_5stop_6, tmp5381)
-
-	_ = tmp5391
-
-	tmp5392 := MakeNative(func(__e *ControlFlow) {
-		V3026 := __e.Get(1)
-		_ = V3026
-		tmp5393 := MakeNative(func(__e *ControlFlow) {
-			W3027 := __e.Get(1)
-			_ = W3027
-			tmp5395 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W3027)
-
-			if True == tmp5395 {
-				__e.TailApply(PrimFunc(symshen_4parse_1failure))
-				return
-			} else {
-				__e.Return(W3027)
-				return
-			}
-
-		}, 1)
-
-		tmp5396 := MakeNative(func(__e *ControlFlow) {
-			W3028 := __e.Get(1)
-			_ = W3028
-			tmp5403 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W3028)
-
-			if True == tmp5403 {
-				__e.TailApply(PrimFunc(symshen_4parse_1failure))
-				return
-			} else {
-				tmp5397 := MakeNative(func(__e *ControlFlow) {
-					W3029 := __e.Get(1)
-					_ = W3029
-					tmp5398 := MakeNative(func(__e *ControlFlow) {
-						W3030 := __e.Get(1)
-						_ = W3030
-						tmp5399 := Call(__e, PrimFunc(symshen_4compute_1fraction), W3029)
-
-						__e.TailApply(PrimFunc(symshen_4comb), W3030, tmp5399)
-						return
-
-					}, 1)
-
-					tmp5400 := Call(__e, PrimFunc(symshen_4in_1_6), W3028)
-
-					__e.TailApply(tmp5398, tmp5400)
-					return
-
-				}, 1)
-
-				tmp5401 := Call(__e, PrimFunc(symshen_4_5_1out), W3028)
-
-				__e.TailApply(tmp5397, tmp5401)
-				return
-
-			}
-
-		}, 1)
-
-		tmp5404 := Call(__e, PrimFunc(symshen_4_5digits_6), V3026)
-
-		tmp5405 := Call(__e, tmp5396, tmp5404)
-
-		__e.TailApply(tmp5393, tmp5405)
-		return
-
-	}, 1)
-
-	tmp5406 := Call(__e, ns2_1set, symshen_4_5fraction_6, tmp5392)
-
-	_ = tmp5406
-
-	tmp5407 := MakeNative(func(__e *ControlFlow) {
-		V3031 := __e.Get(1)
-		_ = V3031
-		__e.TailApply(PrimFunc(symshen_4compute_1fraction_1h), V3031, MakeNumber(-1))
-		return
-	}, 1)
-
-	tmp5408 := Call(__e, ns2_1set, symshen_4compute_1fraction, tmp5407)
-
-	_ = tmp5408
-
-	tmp5409 := MakeNative(func(__e *ControlFlow) {
-		V3034 := __e.Get(1)
-		_ = V3034
-		V3035 := __e.Get(2)
-		_ = V3035
-		tmp5419 := PrimEqual(Nil, V3034)
-
-		if True == tmp5419 {
-			__e.Return(MakeNumber(0))
-			return
-		} else {
-			tmp5417 := PrimIsPair(V3034)
-
-			if True == tmp5417 {
-				tmp5410 := Call(__e, PrimFunc(symshen_4expt), MakeNumber(10), V3035)
-
-				tmp5411 := PrimHead(V3034)
-
-				tmp5412 := PrimNumberMultiply(tmp5410, tmp5411)
-
-				tmp5413 := PrimTail(V3034)
-
-				tmp5414 := PrimNumberSubtract(V3035, MakeNumber(1))
-
-				tmp5415 := Call(__e, PrimFunc(symshen_4compute_1fraction_1h), tmp5413, tmp5414)
-
-				__e.Return(PrimNumberAdd(tmp5412, tmp5415))
-				return
-
-			} else {
-				__e.TailApply(PrimFunc(symshen_4f_1error), symshen_4compute_1fraction_1h)
-				return
-			}
-
-		}
-
-	}, 2)
-
-	tmp5420 := Call(__e, ns2_1set, symshen_4compute_1fraction_1h, tmp5409)
-
-	_ = tmp5420
-
-	tmp5421 := MakeNative(func(__e *ControlFlow) {
-		V3036 := __e.Get(1)
-		_ = V3036
-		tmp5422 := MakeNative(func(__e *ControlFlow) {
-			W3037 := __e.Get(1)
-			_ = W3037
-			tmp5451 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W3037)
-
-			if True == tmp5451 {
-				tmp5423 := MakeNative(func(__e *ControlFlow) {
-					W3046 := __e.Get(1)
-					_ = W3046
-					tmp5425 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W3046)
-
-					if True == tmp5425 {
-						__e.TailApply(PrimFunc(symshen_4parse_1failure))
-						return
-					} else {
-						__e.Return(W3046)
-						return
-					}
-
-				}, 1)
-
-				tmp5426 := MakeNative(func(__e *ControlFlow) {
-					W3047 := __e.Get(1)
-					_ = W3047
-					tmp5447 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W3047)
-
-					if True == tmp5447 {
-						__e.TailApply(PrimFunc(symshen_4parse_1failure))
-						return
-					} else {
-						tmp5427 := MakeNative(func(__e *ControlFlow) {
-							W3048 := __e.Get(1)
-							_ = W3048
-							tmp5428 := MakeNative(func(__e *ControlFlow) {
-								W3049 := __e.Get(1)
-								_ = W3049
-								tmp5429 := MakeNative(func(__e *ControlFlow) {
-									W3050 := __e.Get(1)
-									_ = W3050
-									tmp5442 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W3050)
-
-									if True == tmp5442 {
-										__e.TailApply(PrimFunc(symshen_4parse_1failure))
-										return
-									} else {
-										tmp5430 := MakeNative(func(__e *ControlFlow) {
-											W3051 := __e.Get(1)
-											_ = W3051
-											tmp5431 := MakeNative(func(__e *ControlFlow) {
-												W3052 := __e.Get(1)
-												_ = W3052
-												tmp5438 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W3052)
-
-												if True == tmp5438 {
-													__e.TailApply(PrimFunc(symshen_4parse_1failure))
-													return
-												} else {
-													tmp5432 := MakeNative(func(__e *ControlFlow) {
-														W3053 := __e.Get(1)
-														_ = W3053
-														tmp5433 := MakeNative(func(__e *ControlFlow) {
-															W3054 := __e.Get(1)
-															_ = W3054
-															tmp5434 := Call(__e, PrimFunc(symshen_4compute_1E), W3048, W3053)
-
-															__e.TailApply(PrimFunc(symshen_4comb), W3054, tmp5434)
-															return
-
-														}, 1)
-
-														tmp5435 := Call(__e, PrimFunc(symshen_4in_1_6), W3052)
-
-														__e.TailApply(tmp5433, tmp5435)
-														return
-
-													}, 1)
-
-													tmp5436 := Call(__e, PrimFunc(symshen_4_5_1out), W3052)
-
-													__e.TailApply(tmp5432, tmp5436)
-													return
-
-												}
-
-											}, 1)
-
-											tmp5439 := Call(__e, PrimFunc(symshen_4_5log10_6), W3051)
-
-											__e.TailApply(tmp5431, tmp5439)
-											return
-
-										}, 1)
-
-										tmp5440 := Call(__e, PrimFunc(symshen_4in_1_6), W3050)
-
-										__e.TailApply(tmp5430, tmp5440)
-										return
-
-									}
-
-								}, 1)
-
-								tmp5443 := Call(__e, PrimFunc(symshen_4_5lowE_6), W3049)
-
-								__e.TailApply(tmp5429, tmp5443)
-								return
-
-							}, 1)
-
-							tmp5444 := Call(__e, PrimFunc(symshen_4in_1_6), W3047)
-
-							__e.TailApply(tmp5428, tmp5444)
-							return
-
-						}, 1)
-
-						tmp5445 := Call(__e, PrimFunc(symshen_4_5_1out), W3047)
-
-						__e.TailApply(tmp5427, tmp5445)
-						return
-
-					}
-
-				}, 1)
-
-				tmp5448 := Call(__e, PrimFunc(symshen_4_5integer_6), V3036)
-
-				tmp5449 := Call(__e, tmp5426, tmp5448)
-
-				__e.TailApply(tmp5423, tmp5449)
-				return
-
-			} else {
-				__e.Return(W3037)
-				return
-			}
-
-		}, 1)
-
-		tmp5452 := MakeNative(func(__e *ControlFlow) {
-			W3038 := __e.Get(1)
-			_ = W3038
-			tmp5473 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W3038)
-
-			if True == tmp5473 {
-				__e.TailApply(PrimFunc(symshen_4parse_1failure))
-				return
-			} else {
-				tmp5453 := MakeNative(func(__e *ControlFlow) {
-					W3039 := __e.Get(1)
-					_ = W3039
-					tmp5454 := MakeNative(func(__e *ControlFlow) {
-						W3040 := __e.Get(1)
-						_ = W3040
-						tmp5455 := MakeNative(func(__e *ControlFlow) {
-							W3041 := __e.Get(1)
-							_ = W3041
-							tmp5468 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W3041)
-
-							if True == tmp5468 {
-								__e.TailApply(PrimFunc(symshen_4parse_1failure))
-								return
-							} else {
-								tmp5456 := MakeNative(func(__e *ControlFlow) {
-									W3042 := __e.Get(1)
-									_ = W3042
-									tmp5457 := MakeNative(func(__e *ControlFlow) {
-										W3043 := __e.Get(1)
-										_ = W3043
-										tmp5464 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W3043)
-
-										if True == tmp5464 {
-											__e.TailApply(PrimFunc(symshen_4parse_1failure))
-											return
-										} else {
-											tmp5458 := MakeNative(func(__e *ControlFlow) {
-												W3044 := __e.Get(1)
-												_ = W3044
-												tmp5459 := MakeNative(func(__e *ControlFlow) {
-													W3045 := __e.Get(1)
-													_ = W3045
-													tmp5460 := Call(__e, PrimFunc(symshen_4compute_1E), W3039, W3044)
-
-													__e.TailApply(PrimFunc(symshen_4comb), W3045, tmp5460)
-													return
-
-												}, 1)
-
-												tmp5461 := Call(__e, PrimFunc(symshen_4in_1_6), W3043)
-
-												__e.TailApply(tmp5459, tmp5461)
-												return
-
-											}, 1)
-
-											tmp5462 := Call(__e, PrimFunc(symshen_4_5_1out), W3043)
-
-											__e.TailApply(tmp5458, tmp5462)
-											return
-
-										}
-
-									}, 1)
-
-									tmp5465 := Call(__e, PrimFunc(symshen_4_5log10_6), W3042)
-
-									__e.TailApply(tmp5457, tmp5465)
-									return
-
-								}, 1)
-
-								tmp5466 := Call(__e, PrimFunc(symshen_4in_1_6), W3041)
-
-								__e.TailApply(tmp5456, tmp5466)
-								return
-
-							}
-
-						}, 1)
-
-						tmp5469 := Call(__e, PrimFunc(symshen_4_5lowE_6), W3040)
-
-						__e.TailApply(tmp5455, tmp5469)
-						return
-
-					}, 1)
-
-					tmp5470 := Call(__e, PrimFunc(symshen_4in_1_6), W3038)
-
-					__e.TailApply(tmp5454, tmp5470)
-					return
-
-				}, 1)
-
-				tmp5471 := Call(__e, PrimFunc(symshen_4_5_1out), W3038)
-
-				__e.TailApply(tmp5453, tmp5471)
-				return
-
-			}
-
-		}, 1)
-
-		tmp5474 := Call(__e, PrimFunc(symshen_4_5float_6), V3036)
-
-		tmp5475 := Call(__e, tmp5452, tmp5474)
-
-		__e.TailApply(tmp5422, tmp5475)
-		return
-
-	}, 1)
-
-	tmp5476 := Call(__e, ns2_1set, symshen_4_5e_1number_6, tmp5421)
-
-	_ = tmp5476
-
-	tmp5477 := MakeNative(func(__e *ControlFlow) {
-		V3055 := __e.Get(1)
-		_ = V3055
-		tmp5478 := MakeNative(func(__e *ControlFlow) {
-			W3056 := __e.Get(1)
-			_ = W3056
-			tmp5511 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W3056)
-
-			if True == tmp5511 {
-				tmp5479 := MakeNative(func(__e *ControlFlow) {
-					W3062 := __e.Get(1)
-					_ = W3062
-					tmp5493 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W3062)
-
-					if True == tmp5493 {
-						tmp5480 := MakeNative(func(__e *ControlFlow) {
-							W3068 := __e.Get(1)
-							_ = W3068
-							tmp5482 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W3068)
-
-							if True == tmp5482 {
-								__e.TailApply(PrimFunc(symshen_4parse_1failure))
-								return
-							} else {
-								__e.Return(W3068)
-								return
-							}
-
-						}, 1)
-
-						tmp5483 := MakeNative(func(__e *ControlFlow) {
-							W3069 := __e.Get(1)
-							_ = W3069
-							tmp5489 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W3069)
-
-							if True == tmp5489 {
-								__e.TailApply(PrimFunc(symshen_4parse_1failure))
-								return
-							} else {
-								tmp5484 := MakeNative(func(__e *ControlFlow) {
-									W3070 := __e.Get(1)
-									_ = W3070
-									tmp5485 := MakeNative(func(__e *ControlFlow) {
-										W3071 := __e.Get(1)
-										_ = W3071
-										__e.TailApply(PrimFunc(symshen_4comb), W3071, W3070)
-										return
-									}, 1)
-
-									tmp5486 := Call(__e, PrimFunc(symshen_4in_1_6), W3069)
-
-									__e.TailApply(tmp5485, tmp5486)
-									return
-
-								}, 1)
-
-								tmp5487 := Call(__e, PrimFunc(symshen_4_5_1out), W3069)
-
-								__e.TailApply(tmp5484, tmp5487)
-								return
-
-							}
-
-						}, 1)
-
-						tmp5490 := Call(__e, PrimFunc(symshen_4_5integer_6), V3055)
-
-						tmp5491 := Call(__e, tmp5483, tmp5490)
-
-						__e.TailApply(tmp5480, tmp5491)
-						return
-
-					} else {
-						__e.Return(W3062)
-						return
-					}
-
-				}, 1)
-
-				tmp5494 := MakeNative(func(__e *ControlFlow) {
-					W3063 := __e.Get(1)
-					_ = W3063
-					tmp5507 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W3063)
-
-					if True == tmp5507 {
-						__e.TailApply(PrimFunc(symshen_4parse_1failure))
-						return
-					} else {
-						tmp5495 := MakeNative(func(__e *ControlFlow) {
-							W3064 := __e.Get(1)
-							_ = W3064
-							tmp5496 := MakeNative(func(__e *ControlFlow) {
-								W3065 := __e.Get(1)
-								_ = W3065
-								tmp5503 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W3065)
-
-								if True == tmp5503 {
-									__e.TailApply(PrimFunc(symshen_4parse_1failure))
-									return
-								} else {
-									tmp5497 := MakeNative(func(__e *ControlFlow) {
-										W3066 := __e.Get(1)
-										_ = W3066
-										tmp5498 := MakeNative(func(__e *ControlFlow) {
-											W3067 := __e.Get(1)
-											_ = W3067
-											tmp5499 := PrimNumberSubtract(MakeNumber(0), W3066)
-
-											__e.TailApply(PrimFunc(symshen_4comb), W3067, tmp5499)
-											return
-
-										}, 1)
-
-										tmp5500 := Call(__e, PrimFunc(symshen_4in_1_6), W3065)
-
-										__e.TailApply(tmp5498, tmp5500)
-										return
-
-									}, 1)
-
-									tmp5501 := Call(__e, PrimFunc(symshen_4_5_1out), W3065)
-
-									__e.TailApply(tmp5497, tmp5501)
-									return
-
-								}
-
-							}, 1)
-
-							tmp5504 := Call(__e, PrimFunc(symshen_4_5log10_6), W3064)
-
-							__e.TailApply(tmp5496, tmp5504)
-							return
-
-						}, 1)
-
-						tmp5505 := Call(__e, PrimFunc(symshen_4in_1_6), W3063)
-
-						__e.TailApply(tmp5495, tmp5505)
-						return
-
-					}
-
-				}, 1)
-
-				tmp5508 := Call(__e, PrimFunc(symshen_4_5minus_6), V3055)
-
-				tmp5509 := Call(__e, tmp5494, tmp5508)
-
-				__e.TailApply(tmp5479, tmp5509)
-				return
-
-			} else {
-				__e.Return(W3056)
-				return
-			}
-
-		}, 1)
-
-		tmp5512 := MakeNative(func(__e *ControlFlow) {
-			W3057 := __e.Get(1)
-			_ = W3057
-			tmp5524 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W3057)
-
-			if True == tmp5524 {
-				__e.TailApply(PrimFunc(symshen_4parse_1failure))
-				return
-			} else {
-				tmp5513 := MakeNative(func(__e *ControlFlow) {
-					W3058 := __e.Get(1)
-					_ = W3058
-					tmp5514 := MakeNative(func(__e *ControlFlow) {
-						W3059 := __e.Get(1)
-						_ = W3059
-						tmp5520 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W3059)
-
-						if True == tmp5520 {
-							__e.TailApply(PrimFunc(symshen_4parse_1failure))
-							return
-						} else {
-							tmp5515 := MakeNative(func(__e *ControlFlow) {
-								W3060 := __e.Get(1)
-								_ = W3060
-								tmp5516 := MakeNative(func(__e *ControlFlow) {
-									W3061 := __e.Get(1)
-									_ = W3061
-									__e.TailApply(PrimFunc(symshen_4comb), W3061, W3060)
-									return
-								}, 1)
-
-								tmp5517 := Call(__e, PrimFunc(symshen_4in_1_6), W3059)
-
-								__e.TailApply(tmp5516, tmp5517)
-								return
-
-							}, 1)
-
-							tmp5518 := Call(__e, PrimFunc(symshen_4_5_1out), W3059)
-
-							__e.TailApply(tmp5515, tmp5518)
-							return
-
-						}
-
-					}, 1)
-
-					tmp5521 := Call(__e, PrimFunc(symshen_4_5log10_6), W3058)
-
-					__e.TailApply(tmp5514, tmp5521)
-					return
-
-				}, 1)
-
-				tmp5522 := Call(__e, PrimFunc(symshen_4in_1_6), W3057)
-
-				__e.TailApply(tmp5513, tmp5522)
-				return
-
-			}
-
-		}, 1)
-
-		tmp5525 := Call(__e, PrimFunc(symshen_4_5plus_6), V3055)
-
-		tmp5526 := Call(__e, tmp5512, tmp5525)
-
-		__e.TailApply(tmp5478, tmp5526)
-		return
-
-	}, 1)
-
-	tmp5527 := Call(__e, ns2_1set, symshen_4_5log10_6, tmp5477)
-
-	_ = tmp5527
-
-	tmp5528 := MakeNative(func(__e *ControlFlow) {
-		V3072 := __e.Get(1)
-		_ = V3072
-		tmp5529 := MakeNative(func(__e *ControlFlow) {
-			W3073 := __e.Get(1)
-			_ = W3073
-			tmp5531 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W3073)
-
-			if True == tmp5531 {
-				__e.TailApply(PrimFunc(symshen_4parse_1failure))
-				return
-			} else {
-				__e.Return(W3073)
-				return
-			}
-
-		}, 1)
-
-		tmp5537 := Call(__e, PrimFunc(symshen_4hds_a_2), V3072, MakeNumber(101))
-
-		var ifres5532 Obj
-
-		if True == tmp5537 {
-			tmp5533 := MakeNative(func(__e *ControlFlow) {
-				W3074 := __e.Get(1)
-				_ = W3074
-				__e.TailApply(PrimFunc(symshen_4comb), W3074, symshen_4skip)
-				return
-			}, 1)
-
-			tmp5534 := Call(__e, PrimFunc(symtail), V3072)
-
-			tmp5535 := Call(__e, tmp5533, tmp5534)
-
-			ifres5532 = tmp5535
-
-		} else {
-			tmp5536 := Call(__e, PrimFunc(symshen_4parse_1failure))
-
-			ifres5532 = tmp5536
-
-		}
-
-		__e.TailApply(tmp5529, ifres5532)
-		return
-
-	}, 1)
-
-	tmp5538 := Call(__e, ns2_1set, symshen_4_5lowE_6, tmp5528)
-
-	_ = tmp5538
-
-	tmp5539 := MakeNative(func(__e *ControlFlow) {
-		V3075 := __e.Get(1)
-		_ = V3075
-		V3076 := __e.Get(2)
-		_ = V3076
-		tmp5540 := Call(__e, PrimFunc(symshen_4expt), MakeNumber(10), V3076)
-
-		__e.Return(PrimNumberMultiply(V3075, tmp5540))
-		return
-
-	}, 2)
-
-	tmp5541 := Call(__e, ns2_1set, symshen_4compute_1E, tmp5539)
-
-	_ = tmp5541
-
-	tmp5542 := MakeNative(func(__e *ControlFlow) {
-		V3077 := __e.Get(1)
-		_ = V3077
-		tmp5543 := MakeNative(func(__e *ControlFlow) {
-			W3078 := __e.Get(1)
-			_ = W3078
-			tmp5555 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W3078)
-
-			if True == tmp5555 {
-				tmp5544 := MakeNative(func(__e *ControlFlow) {
-					W3083 := __e.Get(1)
-					_ = W3083
-					tmp5546 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W3083)
-
-					if True == tmp5546 {
-						__e.TailApply(PrimFunc(symshen_4parse_1failure))
-						return
-					} else {
-						__e.Return(W3083)
-						return
-					}
-
-				}, 1)
-
-				tmp5547 := MakeNative(func(__e *ControlFlow) {
-					W3084 := __e.Get(1)
-					_ = W3084
-					tmp5551 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W3084)
-
-					if True == tmp5551 {
-						__e.TailApply(PrimFunc(symshen_4parse_1failure))
-						return
-					} else {
-						tmp5548 := MakeNative(func(__e *ControlFlow) {
-							W3085 := __e.Get(1)
-							_ = W3085
-							__e.TailApply(PrimFunc(symshen_4comb), W3085, symshen_4skip)
-							return
-						}, 1)
-
-						tmp5549 := Call(__e, PrimFunc(symshen_4in_1_6), W3084)
-
-						__e.TailApply(tmp5548, tmp5549)
-						return
-
-					}
-
-				}, 1)
-
-				tmp5552 := Call(__e, PrimFunc(symshen_4_5whitespace_6), V3077)
-
-				tmp5553 := Call(__e, tmp5547, tmp5552)
-
-				__e.TailApply(tmp5544, tmp5553)
-				return
-
-			} else {
-				__e.Return(W3078)
-				return
-			}
-
-		}, 1)
-
-		tmp5556 := MakeNative(func(__e *ControlFlow) {
-			W3079 := __e.Get(1)
-			_ = W3079
-			tmp5566 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W3079)
-
-			if True == tmp5566 {
-				__e.TailApply(PrimFunc(symshen_4parse_1failure))
-				return
-			} else {
-				tmp5557 := MakeNative(func(__e *ControlFlow) {
-					W3080 := __e.Get(1)
-					_ = W3080
-					tmp5558 := MakeNative(func(__e *ControlFlow) {
-						W3081 := __e.Get(1)
-						_ = W3081
-						tmp5562 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W3081)
-
-						if True == tmp5562 {
-							__e.TailApply(PrimFunc(symshen_4parse_1failure))
-							return
-						} else {
-							tmp5559 := MakeNative(func(__e *ControlFlow) {
-								W3082 := __e.Get(1)
-								_ = W3082
-								__e.TailApply(PrimFunc(symshen_4comb), W3082, symshen_4skip)
-								return
-							}, 1)
-
-							tmp5560 := Call(__e, PrimFunc(symshen_4in_1_6), W3081)
-
-							__e.TailApply(tmp5559, tmp5560)
-							return
-
-						}
-
-					}, 1)
-
-					tmp5563 := Call(__e, PrimFunc(symshen_4_5whitespaces_6), W3080)
-
-					__e.TailApply(tmp5558, tmp5563)
-					return
-
-				}, 1)
-
-				tmp5564 := Call(__e, PrimFunc(symshen_4in_1_6), W3079)
-
-				__e.TailApply(tmp5557, tmp5564)
-				return
-
-			}
-
-		}, 1)
-
-		tmp5567 := Call(__e, PrimFunc(symshen_4_5whitespace_6), V3077)
-
-		tmp5568 := Call(__e, tmp5556, tmp5567)
-
-		__e.TailApply(tmp5543, tmp5568)
-		return
-
-	}, 1)
-
-	tmp5569 := Call(__e, ns2_1set, symshen_4_5whitespaces_6, tmp5542)
-
-	_ = tmp5569
-
-	tmp5570 := MakeNative(func(__e *ControlFlow) {
-		V3086 := __e.Get(1)
-		_ = V3086
-		tmp5571 := MakeNative(func(__e *ControlFlow) {
-			W3087 := __e.Get(1)
-			_ = W3087
-			tmp5573 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W3087)
-
-			if True == tmp5573 {
-				__e.TailApply(PrimFunc(symshen_4parse_1failure))
-				return
-			} else {
-				__e.Return(W3087)
-				return
-			}
-
-		}, 1)
-
-		tmp5583 := PrimIsPair(V3086)
-
-		var ifres5574 Obj
-
-		if True == tmp5583 {
-			tmp5575 := MakeNative(func(__e *ControlFlow) {
-				W3088 := __e.Get(1)
-				_ = W3088
-				tmp5576 := MakeNative(func(__e *ControlFlow) {
-					W3089 := __e.Get(1)
-					_ = W3089
-					tmp5578 := Call(__e, PrimFunc(symshen_4whitespace_2), W3088)
-
-					if True == tmp5578 {
-						__e.TailApply(PrimFunc(symshen_4comb), W3089, symshen_4skip)
-						return
-					} else {
-						__e.TailApply(PrimFunc(symshen_4parse_1failure))
-						return
-					}
-
-				}, 1)
-
-				tmp5579 := Call(__e, PrimFunc(symtail), V3086)
-
-				__e.TailApply(tmp5576, tmp5579)
-				return
-
-			}, 1)
-
-			tmp5580 := Call(__e, PrimFunc(symhead), V3086)
-
-			tmp5581 := Call(__e, tmp5575, tmp5580)
-
-			ifres5574 = tmp5581
-
-		} else {
-			tmp5582 := Call(__e, PrimFunc(symshen_4parse_1failure))
-
-			ifres5574 = tmp5582
-
-		}
-
-		__e.TailApply(tmp5571, ifres5574)
-		return
-
-	}, 1)
-
-	tmp5584 := Call(__e, ns2_1set, symshen_4_5whitespace_6, tmp5570)
-
-	_ = tmp5584
-
-	tmp5585 := MakeNative(func(__e *ControlFlow) {
-		V3092 := __e.Get(1)
-		_ = V3092
-		tmp5593 := PrimEqual(MakeNumber(32), V3092)
-
-		if True == tmp5593 {
-			__e.Return(True)
-			return
-		} else {
-			tmp5591 := PrimEqual(MakeNumber(13), V3092)
-
-			if True == tmp5591 {
-				__e.Return(True)
-				return
-			} else {
-				tmp5589 := PrimEqual(MakeNumber(10), V3092)
-
-				if True == tmp5589 {
-					__e.Return(True)
-					return
-				} else {
-					tmp5587 := PrimEqual(MakeNumber(9), V3092)
-
-					if True == tmp5587 {
-						__e.Return(True)
-						return
-					} else {
-						__e.Return(False)
-						return
-					}
-
-				}
-
-			}
-
-		}
-
-	}, 1)
-
-	tmp5594 := Call(__e, ns2_1set, symshen_4whitespace_2, tmp5585)
-
-	_ = tmp5594
-
-	tmp5595 := MakeNative(func(__e *ControlFlow) {
-		V3093 := __e.Get(1)
-		_ = V3093
-		tmp5618 := PrimEqual(Nil, V3093)
-
-		if True == tmp5618 {
-			__e.Return(Nil)
-			return
-		} else {
-			tmp5616 := PrimIsPair(V3093)
-
-			var ifres5612 Obj
-
-			if True == tmp5616 {
-				tmp5614 := PrimHead(V3093)
-
-				tmp5615 := Call(__e, PrimFunc(symshen_4packaged_2), tmp5614)
-
-				var ifres5613 Obj
-
-				if True == tmp5615 {
-					ifres5613 = True
-
-				} else {
-					ifres5613 = False
-
-				}
-
-				ifres5612 = ifres5613
-
-			} else {
-				ifres5612 = False
-
-			}
-
-			if True == ifres5612 {
-				tmp5596 := PrimHead(V3093)
-
-				tmp5597 := Call(__e, PrimFunc(symshen_4unpackage), tmp5596)
-
-				tmp5598 := PrimTail(V3093)
-
-				tmp5599 := Call(__e, PrimFunc(symappend), tmp5597, tmp5598)
-
-				__e.TailApply(PrimFunc(symshen_4unpackage_emacroexpand), tmp5599)
-				return
-
-			} else {
-				tmp5610 := PrimIsPair(V3093)
-
-				if True == tmp5610 {
-					tmp5600 := MakeNative(func(__e *ControlFlow) {
-						W3094 := __e.Get(1)
-						_ = W3094
-						tmp5606 := Call(__e, PrimFunc(symshen_4packaged_2), W3094)
-
-						if True == tmp5606 {
-							tmp5601 := PrimTail(V3093)
-
-							tmp5602 := PrimCons(W3094, tmp5601)
-
-							__e.TailApply(PrimFunc(symshen_4unpackage_emacroexpand), tmp5602)
-							return
-
-						} else {
-							tmp5603 := PrimTail(V3093)
-
-							tmp5604 := Call(__e, PrimFunc(symshen_4unpackage_emacroexpand), tmp5603)
-
-							__e.Return(PrimCons(W3094, tmp5604))
-							return
-
-						}
-
-					}, 1)
-
-					tmp5607 := PrimHead(V3093)
-
-					tmp5608 := Call(__e, PrimFunc(symmacroexpand), tmp5607)
-
-					__e.TailApply(tmp5600, tmp5608)
-					return
-
-				} else {
-					__e.TailApply(PrimFunc(symshen_4f_1error), symshen_4unpackage_emacroexpand)
-					return
-				}
-
-			}
-
-		}
-
-	}, 1)
-
-	tmp5619 := Call(__e, ns2_1set, symshen_4unpackage_emacroexpand, tmp5595)
-
-	_ = tmp5619
-
-	tmp5620 := MakeNative(func(__e *ControlFlow) {
-		V3097 := __e.Get(1)
-		_ = V3097
-		tmp5635 := PrimIsPair(V3097)
-
-		var ifres5622 Obj
-
-		if True == tmp5635 {
-			tmp5633 := PrimHead(V3097)
-
-			tmp5634 := PrimEqual(sympackage, tmp5633)
-
-			var ifres5624 Obj
-
-			if True == tmp5634 {
-				tmp5631 := PrimTail(V3097)
-
-				tmp5632 := PrimIsPair(tmp5631)
-
-				var ifres5626 Obj
-
-				if True == tmp5632 {
-					tmp5628 := PrimTail(V3097)
-
-					tmp5629 := PrimTail(tmp5628)
-
-					tmp5630 := PrimIsPair(tmp5629)
-
-					var ifres5627 Obj
-
-					if True == tmp5630 {
-						ifres5627 = True
-
-					} else {
-						ifres5627 = False
-
-					}
-
-					ifres5626 = ifres5627
-
-				} else {
-					ifres5626 = False
-
-				}
-
-				var ifres5625 Obj
-
-				if True == ifres5626 {
-					ifres5625 = True
-
-				} else {
-					ifres5625 = False
-
-				}
-
-				ifres5624 = ifres5625
-
-			} else {
-				ifres5624 = False
-
-			}
-
-			var ifres5623 Obj
-
-			if True == ifres5624 {
-				ifres5623 = True
-
-			} else {
-				ifres5623 = False
-
-			}
-
-			ifres5622 = ifres5623
-
-		} else {
-			ifres5622 = False
-
-		}
-
-		if True == ifres5622 {
-			__e.Return(True)
-			return
-		} else {
-			__e.Return(False)
-			return
-		}
-
-	}, 1)
-
-	tmp5636 := Call(__e, ns2_1set, symshen_4packaged_2, tmp5620)
-
-	_ = tmp5636
-
-	tmp5637 := MakeNative(func(__e *ControlFlow) {
-		V3100 := __e.Get(1)
-		_ = V3100
-		tmp5698 := PrimIsPair(V3100)
-
-		var ifres5680 Obj
-
-		if True == tmp5698 {
-			tmp5696 := PrimHead(V3100)
-
-			tmp5697 := PrimEqual(sympackage, tmp5696)
-
-			var ifres5682 Obj
-
-			if True == tmp5697 {
-				tmp5694 := PrimTail(V3100)
-
-				tmp5695 := PrimIsPair(tmp5694)
-
-				var ifres5684 Obj
-
-				if True == tmp5695 {
-					tmp5691 := PrimTail(V3100)
-
-					tmp5692 := PrimHead(tmp5691)
-
-					tmp5693 := PrimEqual(symnull, tmp5692)
-
-					var ifres5686 Obj
-
-					if True == tmp5693 {
-						tmp5688 := PrimTail(V3100)
-
-						tmp5689 := PrimTail(tmp5688)
-
-						tmp5690 := PrimIsPair(tmp5689)
-
-						var ifres5687 Obj
-
-						if True == tmp5690 {
-							ifres5687 = True
-
-						} else {
-							ifres5687 = False
-
-						}
-
-						ifres5686 = ifres5687
-
-					} else {
-						ifres5686 = False
-
-					}
-
-					var ifres5685 Obj
-
-					if True == ifres5686 {
-						ifres5685 = True
-
-					} else {
-						ifres5685 = False
-
-					}
-
-					ifres5684 = ifres5685
-
-				} else {
-					ifres5684 = False
-
-				}
-
-				var ifres5683 Obj
-
-				if True == ifres5684 {
-					ifres5683 = True
-
-				} else {
-					ifres5683 = False
-
-				}
-
-				ifres5682 = ifres5683
-
-			} else {
-				ifres5682 = False
-
-			}
-
-			var ifres5681 Obj
-
-			if True == ifres5682 {
-				ifres5681 = True
-
-			} else {
-				ifres5681 = False
-
-			}
-
-			ifres5680 = ifres5681
-
-		} else {
-			ifres5680 = False
-
-		}
-
-		if True == ifres5680 {
-			tmp5638 := PrimTail(V3100)
-
-			tmp5639 := PrimTail(tmp5638)
-
-			__e.Return(PrimTail(tmp5639))
-			return
-
-		} else {
-			tmp5678 := PrimIsPair(V3100)
-
-			var ifres5665 Obj
-
-			if True == tmp5678 {
-				tmp5676 := PrimHead(V3100)
-
-				tmp5677 := PrimEqual(sympackage, tmp5676)
-
-				var ifres5667 Obj
-
-				if True == tmp5677 {
-					tmp5674 := PrimTail(V3100)
-
-					tmp5675 := PrimIsPair(tmp5674)
-
-					var ifres5669 Obj
-
-					if True == tmp5675 {
-						tmp5671 := PrimTail(V3100)
-
-						tmp5672 := PrimTail(tmp5671)
-
-						tmp5673 := PrimIsPair(tmp5672)
-
-						var ifres5670 Obj
-
-						if True == tmp5673 {
-							ifres5670 = True
-
-						} else {
-							ifres5670 = False
-
-						}
-
-						ifres5669 = ifres5670
-
-					} else {
-						ifres5669 = False
-
-					}
-
-					var ifres5668 Obj
-
-					if True == ifres5669 {
-						ifres5668 = True
-
-					} else {
-						ifres5668 = False
-
-					}
-
-					ifres5667 = ifres5668
-
-				} else {
-					ifres5667 = False
-
-				}
-
-				var ifres5666 Obj
-
-				if True == ifres5667 {
-					ifres5666 = True
-
-				} else {
-					ifres5666 = False
-
-				}
-
-				ifres5665 = ifres5666
-
-			} else {
-				ifres5665 = False
-
-			}
-
-			if True == ifres5665 {
-				tmp5640 := MakeNative(func(__e *ControlFlow) {
-					W3101 := __e.Get(1)
-					_ = W3101
-					tmp5641 := MakeNative(func(__e *ControlFlow) {
-						W3102 := __e.Get(1)
-						_ = W3102
-						tmp5642 := MakeNative(func(__e *ControlFlow) {
-							W3103 := __e.Get(1)
-							_ = W3103
-							tmp5643 := MakeNative(func(__e *ControlFlow) {
-								W3104 := __e.Get(1)
-								_ = W3104
-								__e.Return(W3102)
-								return
-							}, 1)
-
-							tmp5644 := PrimTail(V3100)
-
-							tmp5645 := PrimHead(tmp5644)
-
-							tmp5646 := PrimTail(V3100)
-
-							tmp5647 := PrimTail(tmp5646)
-
-							tmp5648 := PrimTail(tmp5647)
-
-							tmp5649 := Call(__e, PrimFunc(symshen_4record_1internal), tmp5645, W3101, tmp5648)
-
-							__e.TailApply(tmp5643, tmp5649)
-							return
-
-						}, 1)
-
-						tmp5650 := PrimTail(V3100)
-
-						tmp5651 := PrimHead(tmp5650)
-
-						tmp5652 := Call(__e, PrimFunc(symshen_4record_1external), tmp5651, W3101)
-
-						__e.TailApply(tmp5642, tmp5652)
-						return
-
-					}, 1)
-
-					tmp5653 := PrimTail(V3100)
-
-					tmp5654 := PrimHead(tmp5653)
-
-					tmp5655 := PrimStr(tmp5654)
-
-					tmp5656 := PrimTail(V3100)
-
-					tmp5657 := PrimTail(tmp5656)
-
-					tmp5658 := PrimTail(tmp5657)
-
-					tmp5659 := Call(__e, PrimFunc(symshen_4package_1symbols), tmp5655, W3101, tmp5658)
-
-					__e.TailApply(tmp5641, tmp5659)
-					return
-
-				}, 1)
-
-				tmp5660 := PrimTail(V3100)
-
-				tmp5661 := PrimTail(tmp5660)
-
-				tmp5662 := PrimHead(tmp5661)
-
-				tmp5663 := Call(__e, PrimFunc(symeval), tmp5662)
-
-				__e.TailApply(tmp5640, tmp5663)
-				return
-
-			} else {
-				__e.TailApply(PrimFunc(symshen_4f_1error), symshen_4unpackage)
-				return
-			}
-
-		}
-
-	}, 1)
-
-	tmp5699 := Call(__e, ns2_1set, symshen_4unpackage, tmp5637)
-
-	_ = tmp5699
-
-	tmp5700 := MakeNative(func(__e *ControlFlow) {
-		V3105 := __e.Get(1)
-		_ = V3105
-		V3106 := __e.Get(2)
-		_ = V3106
-		V3107 := __e.Get(3)
-		_ = V3107
-		tmp5701 := MakeNative(func(__e *ControlFlow) {
-			W3108 := __e.Get(1)
-			_ = W3108
-			tmp5702 := MakeNative(func(__e *ControlFlow) {
-				W3110 := __e.Get(1)
-				_ = W3110
-				tmp5703 := Call(__e, PrimFunc(symunion), W3110, W3108)
-
-				tmp5704 := PrimValue(sym_dproperty_1vector_d)
-
-				__e.TailApply(PrimFunc(symput), V3105, symshen_4internal_1symbols, tmp5703, tmp5704)
-				return
-
-			}, 1)
-
-			tmp5705 := PrimStr(V3105)
-
-			tmp5706 := Call(__e, PrimFunc(symshen_4internal_1symbols), tmp5705, V3106, V3107)
-
-			__e.TailApply(tmp5702, tmp5706)
-			return
-
-		}, 1)
-
-		tmp5707 := MakeNative(func(__e *ControlFlow) {
-			tmp5708 := PrimValue(sym_dproperty_1vector_d)
-
-			__e.TailApply(PrimFunc(symget), V3105, symshen_4internal_1symbols, tmp5708)
-			return
-
-		}, 0)
-
-		tmp5709 := MakeNative(func(__e *ControlFlow) {
-			Z3109 := __e.Get(1)
-			_ = Z3109
-			__e.Return(Nil)
-			return
-		}, 1)
-
-		tmp5710 := Call(__e, try_1catch, tmp5707, tmp5709)
-
-		__e.TailApply(tmp5701, tmp5710)
-		return
-
-	}, 3)
-
-	tmp5711 := Call(__e, ns2_1set, symshen_4record_1internal, tmp5700)
-
-	_ = tmp5711
-
-	tmp5712 := MakeNative(func(__e *ControlFlow) {
-		V3117 := __e.Get(1)
-		_ = V3117
-		V3118 := __e.Get(2)
-		_ = V3118
-		V3119 := __e.Get(3)
-		_ = V3119
-		tmp5721 := PrimIsPair(V3119)
-
-		if True == tmp5721 {
-			tmp5713 := PrimHead(V3119)
-
-			tmp5714 := Call(__e, PrimFunc(symshen_4internal_1symbols), V3117, V3118, tmp5713)
-
-			tmp5715 := PrimTail(V3119)
-
-			tmp5716 := Call(__e, PrimFunc(symshen_4internal_1symbols), V3117, V3118, tmp5715)
-
-			__e.TailApply(PrimFunc(symunion), tmp5714, tmp5716)
-			return
-
-		} else {
-			tmp5719 := Call(__e, PrimFunc(symshen_4internal_2), V3119, V3117, V3118)
-
-			if True == tmp5719 {
-				tmp5717 := Call(__e, PrimFunc(symshen_4intern_1in_1package), V3117, V3119)
-
-				__e.Return(PrimCons(tmp5717, Nil))
-				return
-
-			} else {
-				__e.Return(Nil)
-				return
-			}
-
-		}
-
-	}, 3)
-
-	tmp5722 := Call(__e, ns2_1set, symshen_4internal_1symbols, tmp5712)
-
-	_ = tmp5722
-
-	tmp5723 := MakeNative(func(__e *ControlFlow) {
-		V3120 := __e.Get(1)
-		_ = V3120
-		V3121 := __e.Get(2)
-		_ = V3121
-		tmp5724 := MakeNative(func(__e *ControlFlow) {
-			W3122 := __e.Get(1)
-			_ = W3122
-			tmp5725 := Call(__e, PrimFunc(symunion), V3121, W3122)
-
-			tmp5726 := PrimValue(sym_dproperty_1vector_d)
-
-			__e.TailApply(PrimFunc(symput), V3120, symshen_4external_1symbols, tmp5725, tmp5726)
-			return
-
-		}, 1)
-
-		tmp5727 := MakeNative(func(__e *ControlFlow) {
-			tmp5728 := PrimValue(sym_dproperty_1vector_d)
-
-			__e.TailApply(PrimFunc(symget), V3120, symshen_4external_1symbols, tmp5728)
-			return
-
-		}, 0)
-
-		tmp5729 := MakeNative(func(__e *ControlFlow) {
-			Z3123 := __e.Get(1)
-			_ = Z3123
-			__e.Return(Nil)
-			return
-		}, 1)
-
-		tmp5730 := Call(__e, try_1catch, tmp5727, tmp5729)
-
-		__e.TailApply(tmp5724, tmp5730)
-		return
-
-	}, 2)
-
-	tmp5731 := Call(__e, ns2_1set, symshen_4record_1external, tmp5723)
-
-	_ = tmp5731
-
-	tmp5732 := MakeNative(func(__e *ControlFlow) {
-		V3128 := __e.Get(1)
-		_ = V3128
-		V3129 := __e.Get(2)
-		_ = V3129
-		V3130 := __e.Get(3)
-		_ = V3130
-		tmp5737 := PrimIsPair(V3130)
-
-		if True == tmp5737 {
-			tmp5733 := MakeNative(func(__e *ControlFlow) {
-				Z3131 := __e.Get(1)
-				_ = Z3131
-				__e.TailApply(PrimFunc(symshen_4package_1symbols), V3128, V3129, Z3131)
-				return
-			}, 1)
-
-			__e.TailApply(PrimFunc(symmap), tmp5733, V3130)
-			return
-
-		} else {
-			tmp5735 := Call(__e, PrimFunc(symshen_4internal_2), V3130, V3128, V3129)
-
-			if True == tmp5735 {
-				__e.TailApply(PrimFunc(symshen_4intern_1in_1package), V3128, V3130)
-				return
-			} else {
-				__e.Return(V3130)
-				return
-			}
-
-		}
-
-	}, 3)
-
-	tmp5738 := Call(__e, ns2_1set, symshen_4package_1symbols, tmp5732)
-
-	_ = tmp5738
-
-	tmp5739 := MakeNative(func(__e *ControlFlow) {
-		V3132 := __e.Get(1)
-		_ = V3132
-		V3133 := __e.Get(2)
-		_ = V3133
-		tmp5740 := PrimStr(V3133)
-
-		tmp5741 := Call(__e, PrimFunc(sym_8s), MakeString("."), tmp5740)
-
-		tmp5742 := Call(__e, PrimFunc(sym_8s), V3132, tmp5741)
-
-		__e.Return(PrimIntern(tmp5742))
-		return
-
-	}, 2)
-
-	tmp5743 := Call(__e, ns2_1set, symshen_4intern_1in_1package, tmp5739)
-
-	_ = tmp5743
-
-	tmp5744 := MakeNative(func(__e *ControlFlow) {
-		V3134 := __e.Get(1)
-		_ = V3134
-		V3135 := __e.Get(2)
-		_ = V3135
-		V3136 := __e.Get(3)
-		_ = V3136
-		tmp5774 := Call(__e, PrimFunc(symelement_2), V3134, V3136)
-
-		tmp5775 := PrimNot(tmp5774)
-
-		if True == tmp5775 {
-			tmp5771 := Call(__e, PrimFunc(symshen_4sng_2), V3134)
-
-			tmp5772 := PrimNot(tmp5771)
-
-			var ifres5746 Obj
-
-			if True == tmp5772 {
-				tmp5769 := Call(__e, PrimFunc(symshen_4dbl_2), V3134)
-
-				tmp5770 := PrimNot(tmp5769)
-
-				var ifres5748 Obj
-
-				if True == tmp5770 {
-					tmp5768 := PrimIsSymbol(V3134)
-
-					var ifres5750 Obj
-
-					if True == tmp5768 {
-						tmp5766 := Call(__e, PrimFunc(symshen_4sysfunc_2), V3134)
-
-						tmp5767 := PrimNot(tmp5766)
-
-						var ifres5752 Obj
-
-						if True == tmp5767 {
-							tmp5764 := PrimIsVariable(V3134)
-
-							tmp5765 := PrimNot(tmp5764)
-
-							var ifres5754 Obj
-
-							if True == tmp5765 {
-								tmp5761 := PrimStr(V3134)
-
-								tmp5762 := Call(__e, PrimFunc(symshen_4internal_1to_1shen_2), tmp5761)
-
-								tmp5763 := PrimNot(tmp5762)
-
-								var ifres5756 Obj
-
-								if True == tmp5763 {
-									tmp5758 := PrimStr(V3134)
-
-									tmp5759 := Call(__e, PrimFunc(symshen_4internal_1to_1P_2), V3135, tmp5758)
-
-									tmp5760 := PrimNot(tmp5759)
-
-									var ifres5757 Obj
-
-									if True == tmp5760 {
-										ifres5757 = True
-
-									} else {
-										ifres5757 = False
-
-									}
-
-									ifres5756 = ifres5757
-
-								} else {
-									ifres5756 = False
-
-								}
-
-								var ifres5755 Obj
-
-								if True == ifres5756 {
-									ifres5755 = True
-
-								} else {
-									ifres5755 = False
-
-								}
-
-								ifres5754 = ifres5755
-
-							} else {
-								ifres5754 = False
-
-							}
-
-							var ifres5753 Obj
-
-							if True == ifres5754 {
-								ifres5753 = True
-
-							} else {
-								ifres5753 = False
-
-							}
-
-							ifres5752 = ifres5753
-
-						} else {
-							ifres5752 = False
-
-						}
-
-						var ifres5751 Obj
-
-						if True == ifres5752 {
-							ifres5751 = True
-
-						} else {
-							ifres5751 = False
-
-						}
-
-						ifres5750 = ifres5751
-
-					} else {
-						ifres5750 = False
-
-					}
-
-					var ifres5749 Obj
-
-					if True == ifres5750 {
-						ifres5749 = True
-
-					} else {
-						ifres5749 = False
-
-					}
-
-					ifres5748 = ifres5749
-
-				} else {
-					ifres5748 = False
-
-				}
-
-				var ifres5747 Obj
-
-				if True == ifres5748 {
-					ifres5747 = True
-
-				} else {
-					ifres5747 = False
-
-				}
-
-				ifres5746 = ifres5747
-
-			} else {
-				ifres5746 = False
-
-			}
-
-			if True == ifres5746 {
-				__e.Return(True)
-				return
-			} else {
-				__e.Return(False)
-				return
-			}
-
-		} else {
-			__e.Return(False)
-			return
-		}
-
-	}, 3)
-
-	tmp5776 := Call(__e, ns2_1set, symshen_4internal_2, tmp5744)
-
-	_ = tmp5776
-
-	tmp5777 := MakeNative(func(__e *ControlFlow) {
-		V3141 := __e.Get(1)
-		_ = V3141
-		tmp5831 := Call(__e, PrimFunc(symshen_4_7string_2), V3141)
-
-		var ifres5779 Obj
-
-		if True == tmp5831 {
-			tmp5829 := Call(__e, PrimFunc(symhdstr), V3141)
-
-			tmp5830 := PrimEqual(MakeString("s"), tmp5829)
-
-			var ifres5781 Obj
-
-			if True == tmp5830 {
-				tmp5827 := PrimTailString(V3141)
-
-				tmp5828 := Call(__e, PrimFunc(symshen_4_7string_2), tmp5827)
-
-				var ifres5783 Obj
-
-				if True == tmp5828 {
-					tmp5824 := PrimTailString(V3141)
-
-					tmp5825 := Call(__e, PrimFunc(symhdstr), tmp5824)
-
-					tmp5826 := PrimEqual(MakeString("h"), tmp5825)
-
-					var ifres5785 Obj
-
-					if True == tmp5826 {
-						tmp5821 := PrimTailString(V3141)
-
-						tmp5822 := PrimTailString(tmp5821)
-
-						tmp5823 := Call(__e, PrimFunc(symshen_4_7string_2), tmp5822)
-
-						var ifres5787 Obj
-
-						if True == tmp5823 {
-							tmp5817 := PrimTailString(V3141)
-
-							tmp5818 := PrimTailString(tmp5817)
-
-							tmp5819 := Call(__e, PrimFunc(symhdstr), tmp5818)
-
-							tmp5820 := PrimEqual(MakeString("e"), tmp5819)
-
-							var ifres5789 Obj
-
-							if True == tmp5820 {
-								tmp5813 := PrimTailString(V3141)
-
-								tmp5814 := PrimTailString(tmp5813)
-
-								tmp5815 := PrimTailString(tmp5814)
-
-								tmp5816 := Call(__e, PrimFunc(symshen_4_7string_2), tmp5815)
-
-								var ifres5791 Obj
-
-								if True == tmp5816 {
-									tmp5808 := PrimTailString(V3141)
-
-									tmp5809 := PrimTailString(tmp5808)
-
-									tmp5810 := PrimTailString(tmp5809)
-
-									tmp5811 := Call(__e, PrimFunc(symhdstr), tmp5810)
-
-									tmp5812 := PrimEqual(MakeString("n"), tmp5811)
-
-									var ifres5793 Obj
-
-									if True == tmp5812 {
-										tmp5803 := PrimTailString(V3141)
-
-										tmp5804 := PrimTailString(tmp5803)
-
-										tmp5805 := PrimTailString(tmp5804)
-
-										tmp5806 := PrimTailString(tmp5805)
-
-										tmp5807 := Call(__e, PrimFunc(symshen_4_7string_2), tmp5806)
-
-										var ifres5795 Obj
-
-										if True == tmp5807 {
-											tmp5797 := PrimTailString(V3141)
-
-											tmp5798 := PrimTailString(tmp5797)
-
-											tmp5799 := PrimTailString(tmp5798)
-
-											tmp5800 := PrimTailString(tmp5799)
-
-											tmp5801 := Call(__e, PrimFunc(symhdstr), tmp5800)
-
-											tmp5802 := PrimEqual(MakeString("."), tmp5801)
-
-											var ifres5796 Obj
-
-											if True == tmp5802 {
-												ifres5796 = True
-
-											} else {
-												ifres5796 = False
-
-											}
-
-											ifres5795 = ifres5796
-
-										} else {
-											ifres5795 = False
-
-										}
-
-										var ifres5794 Obj
-
-										if True == ifres5795 {
-											ifres5794 = True
-
-										} else {
-											ifres5794 = False
-
-										}
-
-										ifres5793 = ifres5794
-
-									} else {
-										ifres5793 = False
-
-									}
-
-									var ifres5792 Obj
-
-									if True == ifres5793 {
-										ifres5792 = True
-
-									} else {
-										ifres5792 = False
-
-									}
-
-									ifres5791 = ifres5792
-
-								} else {
-									ifres5791 = False
-
-								}
-
-								var ifres5790 Obj
-
-								if True == ifres5791 {
-									ifres5790 = True
-
-								} else {
-									ifres5790 = False
-
-								}
-
-								ifres5789 = ifres5790
-
-							} else {
-								ifres5789 = False
-
-							}
-
-							var ifres5788 Obj
-
-							if True == ifres5789 {
-								ifres5788 = True
-
-							} else {
-								ifres5788 = False
-
-							}
-
-							ifres5787 = ifres5788
-
-						} else {
-							ifres5787 = False
-
-						}
-
-						var ifres5786 Obj
-
-						if True == ifres5787 {
-							ifres5786 = True
-
-						} else {
-							ifres5786 = False
-
-						}
-
-						ifres5785 = ifres5786
-
-					} else {
-						ifres5785 = False
-
-					}
-
-					var ifres5784 Obj
-
-					if True == ifres5785 {
-						ifres5784 = True
-
-					} else {
-						ifres5784 = False
-
-					}
-
-					ifres5783 = ifres5784
-
-				} else {
-					ifres5783 = False
-
-				}
-
-				var ifres5782 Obj
-
-				if True == ifres5783 {
-					ifres5782 = True
-
-				} else {
-					ifres5782 = False
-
-				}
-
-				ifres5781 = ifres5782
-
-			} else {
-				ifres5781 = False
-
-			}
-
-			var ifres5780 Obj
-
-			if True == ifres5781 {
-				ifres5780 = True
-
-			} else {
-				ifres5780 = False
-
-			}
-
-			ifres5779 = ifres5780
-
-		} else {
-			ifres5779 = False
-
-		}
-
-		if True == ifres5779 {
-			__e.Return(True)
-			return
-		} else {
-			__e.Return(False)
-			return
-		}
-
-	}, 1)
-
-	tmp5832 := Call(__e, ns2_1set, symshen_4internal_1to_1shen_2, tmp5777)
-
-	_ = tmp5832
-
-	tmp5833 := MakeNative(func(__e *ControlFlow) {
-		V3142 := __e.Get(1)
-		_ = V3142
-		tmp5834 := PrimValue(sym_dproperty_1vector_d)
-
-		tmp5835 := Call(__e, PrimFunc(symget), symshen, symshen_4external_1symbols, tmp5834)
-
-		__e.TailApply(PrimFunc(symelement_2), V3142, tmp5835)
-		return
-
-	}, 1)
-
-	tmp5836 := Call(__e, ns2_1set, symshen_4sysfunc_2, tmp5833)
-
-	_ = tmp5836
-
-	tmp5837 := MakeNative(func(__e *ControlFlow) {
-		V3150 := __e.Get(1)
-		_ = V3150
-		V3151 := __e.Get(2)
-		_ = V3151
-		tmp5858 := PrimEqual(MakeString(""), V3150)
-
-		var ifres5851 Obj
-
-		if True == tmp5858 {
-			tmp5857 := Call(__e, PrimFunc(symshen_4_7string_2), V3151)
-
-			var ifres5853 Obj
-
-			if True == tmp5857 {
-				tmp5855 := Call(__e, PrimFunc(symhdstr), V3151)
-
-				tmp5856 := PrimEqual(MakeString("."), tmp5855)
-
-				var ifres5854 Obj
-
-				if True == tmp5856 {
-					ifres5854 = True
-
-				} else {
-					ifres5854 = False
-
-				}
-
-				ifres5853 = ifres5854
-
-			} else {
-				ifres5853 = False
-
-			}
-
-			var ifres5852 Obj
-
-			if True == ifres5853 {
-				ifres5852 = True
-
-			} else {
-				ifres5852 = False
-
-			}
-
-			ifres5851 = ifres5852
-
-		} else {
-			ifres5851 = False
-
-		}
-
-		if True == ifres5851 {
-			__e.Return(True)
-			return
-		} else {
-			tmp5849 := Call(__e, PrimFunc(symshen_4_7string_2), V3150)
-
-			var ifres5841 Obj
-
-			if True == tmp5849 {
-				tmp5848 := Call(__e, PrimFunc(symshen_4_7string_2), V3151)
-
-				var ifres5843 Obj
-
-				if True == tmp5848 {
-					tmp5845 := Call(__e, PrimFunc(symhdstr), V3150)
-
-					tmp5846 := Call(__e, PrimFunc(symhdstr), V3151)
-
-					tmp5847 := PrimEqual(tmp5845, tmp5846)
-
-					var ifres5844 Obj
-
-					if True == tmp5847 {
-						ifres5844 = True
-
-					} else {
-						ifres5844 = False
-
-					}
-
-					ifres5843 = ifres5844
-
-				} else {
-					ifres5843 = False
-
-				}
-
-				var ifres5842 Obj
-
-				if True == ifres5843 {
-					ifres5842 = True
-
-				} else {
-					ifres5842 = False
-
-				}
-
-				ifres5841 = ifres5842
-
-			} else {
-				ifres5841 = False
-
-			}
-
-			if True == ifres5841 {
-				tmp5838 := PrimTailString(V3150)
-
-				tmp5839 := PrimTailString(V3151)
-
-				__e.TailApply(PrimFunc(symshen_4internal_1to_1P_2), tmp5838, tmp5839)
-				return
-
-			} else {
-				__e.Return(False)
-				return
-			}
-
-		}
-
-	}, 2)
-
-	tmp5859 := Call(__e, ns2_1set, symshen_4internal_1to_1P_2, tmp5837)
-
-	_ = tmp5859
-
-	tmp5860 := MakeNative(func(__e *ControlFlow) {
-		V3154 := __e.Get(1)
-		_ = V3154
-		V3155 := __e.Get(2)
-		_ = V3155
-		tmp5881 := Call(__e, PrimFunc(symelement_2), V3154, V3155)
-
-		if True == tmp5881 {
-			__e.Return(V3154)
-			return
-		} else {
-			tmp5879 := PrimIsPair(V3154)
-
-			var ifres5875 Obj
-
-			if True == tmp5879 {
-				tmp5877 := PrimHead(V3154)
-
-				tmp5878 := PrimEqual(symcond, tmp5877)
-
-				var ifres5876 Obj
-
-				if True == tmp5878 {
-					ifres5876 = True
-
-				} else {
-					ifres5876 = False
-
-				}
-
-				ifres5875 = ifres5876
-
-			} else {
-				ifres5875 = False
-
-			}
-
-			if True == ifres5875 {
-				tmp5861 := PrimTail(V3154)
-
-				tmp5862 := Call(__e, PrimFunc(symshen_4process_1cond_1clauses), tmp5861, V3155)
-
-				__e.Return(PrimCons(symcond, tmp5862))
-				return
-
-			} else {
-				tmp5873 := PrimIsPair(V3154)
-
-				var ifres5869 Obj
-
-				if True == tmp5873 {
-					tmp5871 := PrimHead(V3154)
-
-					tmp5872 := Call(__e, PrimFunc(symshen_4non_1application_2), tmp5871)
-
-					var ifres5870 Obj
-
-					if True == tmp5872 {
-						ifres5870 = True
-
-					} else {
-						ifres5870 = False
-
-					}
-
-					ifres5869 = ifres5870
-
-				} else {
-					ifres5869 = False
-
-				}
-
-				if True == ifres5869 {
-					tmp5863 := PrimHead(V3154)
-
-					__e.TailApply(PrimFunc(symshen_4special_1case), tmp5863, V3154, V3155)
-					return
-
-				} else {
-					tmp5867 := PrimIsPair(V3154)
-
-					if True == tmp5867 {
-						tmp5864 := MakeNative(func(__e *ControlFlow) {
-							Z3156 := __e.Get(1)
-							_ = Z3156
-							__e.TailApply(PrimFunc(symshen_4process_1applications), Z3156, V3155)
-							return
-						}, 1)
-
-						tmp5865 := Call(__e, PrimFunc(symmap), tmp5864, V3154)
-
-						__e.TailApply(PrimFunc(symshen_4process_1application), tmp5865, V3155)
-						return
-
-					} else {
-						__e.Return(V3154)
-						return
-					}
-
-				}
-
-			}
-
-		}
-
-	}, 2)
-
-	tmp5882 := Call(__e, ns2_1set, symshen_4process_1applications, tmp5860)
-
-	_ = tmp5882
-
-	tmp5883 := MakeNative(func(__e *ControlFlow) {
-		V3159 := __e.Get(1)
-		_ = V3159
-		tmp5893 := PrimEqual(symdefine, V3159)
-
-		if True == tmp5893 {
-			__e.Return(True)
-			return
-		} else {
-			tmp5891 := PrimEqual(symdefun, V3159)
-
-			if True == tmp5891 {
-				__e.Return(True)
-				return
-			} else {
-				tmp5889 := PrimEqual(symsynonyms, V3159)
-
-				if True == tmp5889 {
-					__e.Return(True)
-					return
-				} else {
-					tmp5887 := Call(__e, PrimFunc(symshen_4special_2), V3159)
-
-					if True == tmp5887 {
-						__e.Return(True)
-						return
-					} else {
-						tmp5885 := Call(__e, PrimFunc(symshen_4extraspecial_2), V3159)
-
-						if True == tmp5885 {
-							__e.Return(True)
-							return
-						} else {
-							__e.Return(False)
-							return
-						}
-
-					}
-
-				}
-
-			}
-
-		}
-
-	}, 1)
-
-	tmp5894 := Call(__e, ns2_1set, symshen_4non_1application_2, tmp5883)
-
-	_ = tmp5894
-
-	tmp5895 := MakeNative(func(__e *ControlFlow) {
-		V3164 := __e.Get(1)
-		_ = V3164
-		V3165 := __e.Get(2)
-		_ = V3165
-		V3166 := __e.Get(3)
-		_ = V3166
-		tmp6137 := PrimEqual(symlambda, V3164)
-
-		var ifres6115 Obj
-
-		if True == tmp6137 {
-			tmp6136 := PrimIsPair(V3165)
-
-			var ifres6117 Obj
-
-			if True == tmp6136 {
-				tmp6134 := PrimHead(V3165)
-
-				tmp6135 := PrimEqual(symlambda, tmp6134)
-
-				var ifres6119 Obj
-
-				if True == tmp6135 {
-					tmp6132 := PrimTail(V3165)
-
-					tmp6133 := PrimIsPair(tmp6132)
-
-					var ifres6121 Obj
-
-					if True == tmp6133 {
-						tmp6129 := PrimTail(V3165)
-
-						tmp6130 := PrimTail(tmp6129)
-
-						tmp6131 := PrimIsPair(tmp6130)
-
-						var ifres6123 Obj
-
-						if True == tmp6131 {
-							tmp6125 := PrimTail(V3165)
-
-							tmp6126 := PrimTail(tmp6125)
-
-							tmp6127 := PrimTail(tmp6126)
-
-							tmp6128 := PrimEqual(Nil, tmp6127)
-
-							var ifres6124 Obj
-
-							if True == tmp6128 {
-								ifres6124 = True
-
-							} else {
-								ifres6124 = False
-
-							}
-
-							ifres6123 = ifres6124
-
-						} else {
-							ifres6123 = False
-
-						}
-
-						var ifres6122 Obj
-
-						if True == ifres6123 {
-							ifres6122 = True
-
-						} else {
-							ifres6122 = False
-
-						}
-
-						ifres6121 = ifres6122
-
-					} else {
-						ifres6121 = False
-
-					}
-
-					var ifres6120 Obj
-
-					if True == ifres6121 {
-						ifres6120 = True
-
-					} else {
-						ifres6120 = False
-
-					}
-
-					ifres6119 = ifres6120
-
-				} else {
-					ifres6119 = False
-
-				}
-
-				var ifres6118 Obj
-
-				if True == ifres6119 {
-					ifres6118 = True
-
-				} else {
-					ifres6118 = False
-
-				}
-
-				ifres6117 = ifres6118
-
-			} else {
-				ifres6117 = False
-
-			}
-
-			var ifres6116 Obj
-
-			if True == ifres6117 {
-				ifres6116 = True
-
-			} else {
-				ifres6116 = False
-
-			}
-
-			ifres6115 = ifres6116
-
-		} else {
-			ifres6115 = False
-
-		}
-
-		if True == ifres6115 {
-			tmp5896 := PrimTail(V3165)
-
-			tmp5897 := PrimHead(tmp5896)
-
-			tmp5898 := PrimTail(V3165)
-
-			tmp5899 := PrimTail(tmp5898)
-
-			tmp5900 := PrimHead(tmp5899)
-
-			tmp5901 := Call(__e, PrimFunc(symshen_4process_1applications), tmp5900, V3166)
-
-			tmp5902 := PrimCons(tmp5901, Nil)
-
-			tmp5903 := PrimCons(tmp5897, tmp5902)
-
-			__e.Return(PrimCons(symlambda, tmp5903))
-			return
-
-		} else {
-			tmp6113 := PrimEqual(symlet, V3164)
-
-			var ifres6084 Obj
-
-			if True == tmp6113 {
-				tmp6112 := PrimIsPair(V3165)
-
-				var ifres6086 Obj
-
-				if True == tmp6112 {
-					tmp6110 := PrimHead(V3165)
-
-					tmp6111 := PrimEqual(symlet, tmp6110)
-
-					var ifres6088 Obj
-
-					if True == tmp6111 {
-						tmp6108 := PrimTail(V3165)
-
-						tmp6109 := PrimIsPair(tmp6108)
-
-						var ifres6090 Obj
-
-						if True == tmp6109 {
-							tmp6105 := PrimTail(V3165)
-
-							tmp6106 := PrimTail(tmp6105)
-
-							tmp6107 := PrimIsPair(tmp6106)
-
-							var ifres6092 Obj
-
-							if True == tmp6107 {
-								tmp6101 := PrimTail(V3165)
-
-								tmp6102 := PrimTail(tmp6101)
-
-								tmp6103 := PrimTail(tmp6102)
-
-								tmp6104 := PrimIsPair(tmp6103)
-
-								var ifres6094 Obj
-
-								if True == tmp6104 {
-									tmp6096 := PrimTail(V3165)
-
-									tmp6097 := PrimTail(tmp6096)
-
-									tmp6098 := PrimTail(tmp6097)
-
-									tmp6099 := PrimTail(tmp6098)
-
-									tmp6100 := PrimEqual(Nil, tmp6099)
-
-									var ifres6095 Obj
-
-									if True == tmp6100 {
-										ifres6095 = True
-
-									} else {
-										ifres6095 = False
-
-									}
-
-									ifres6094 = ifres6095
-
-								} else {
-									ifres6094 = False
-
-								}
-
-								var ifres6093 Obj
-
-								if True == ifres6094 {
-									ifres6093 = True
-
-								} else {
-									ifres6093 = False
-
-								}
-
-								ifres6092 = ifres6093
-
-							} else {
-								ifres6092 = False
-
-							}
-
-							var ifres6091 Obj
-
-							if True == ifres6092 {
-								ifres6091 = True
-
-							} else {
-								ifres6091 = False
-
-							}
-
-							ifres6090 = ifres6091
-
-						} else {
-							ifres6090 = False
-
-						}
-
-						var ifres6089 Obj
-
-						if True == ifres6090 {
-							ifres6089 = True
-
-						} else {
-							ifres6089 = False
-
-						}
-
-						ifres6088 = ifres6089
-
-					} else {
-						ifres6088 = False
-
-					}
-
-					var ifres6087 Obj
-
-					if True == ifres6088 {
-						ifres6087 = True
-
-					} else {
-						ifres6087 = False
-
-					}
-
-					ifres6086 = ifres6087
-
-				} else {
-					ifres6086 = False
-
-				}
-
-				var ifres6085 Obj
-
-				if True == ifres6086 {
-					ifres6085 = True
-
-				} else {
-					ifres6085 = False
-
-				}
-
-				ifres6084 = ifres6085
-
-			} else {
-				ifres6084 = False
-
-			}
-
-			if True == ifres6084 {
-				tmp5904 := PrimTail(V3165)
-
-				tmp5905 := PrimHead(tmp5904)
-
-				tmp5906 := PrimTail(V3165)
-
-				tmp5907 := PrimTail(tmp5906)
-
-				tmp5908 := PrimHead(tmp5907)
-
-				tmp5909 := Call(__e, PrimFunc(symshen_4process_1applications), tmp5908, V3166)
-
-				tmp5910 := PrimTail(V3165)
-
-				tmp5911 := PrimTail(tmp5910)
-
-				tmp5912 := PrimTail(tmp5911)
-
-				tmp5913 := PrimHead(tmp5912)
-
-				tmp5914 := Call(__e, PrimFunc(symshen_4process_1applications), tmp5913, V3166)
-
-				tmp5915 := PrimCons(tmp5914, Nil)
-
-				tmp5916 := PrimCons(tmp5909, tmp5915)
-
-				tmp5917 := PrimCons(tmp5905, tmp5916)
-
-				__e.Return(PrimCons(symlet, tmp5917))
-				return
-
-			} else {
-				tmp6082 := PrimEqual(symdefun, V3164)
-
-				var ifres6053 Obj
-
-				if True == tmp6082 {
-					tmp6081 := PrimIsPair(V3165)
-
-					var ifres6055 Obj
-
-					if True == tmp6081 {
-						tmp6079 := PrimHead(V3165)
-
-						tmp6080 := PrimEqual(symdefun, tmp6079)
-
-						var ifres6057 Obj
-
-						if True == tmp6080 {
-							tmp6077 := PrimTail(V3165)
-
-							tmp6078 := PrimIsPair(tmp6077)
-
-							var ifres6059 Obj
-
-							if True == tmp6078 {
-								tmp6074 := PrimTail(V3165)
-
-								tmp6075 := PrimTail(tmp6074)
-
-								tmp6076 := PrimIsPair(tmp6075)
-
-								var ifres6061 Obj
-
-								if True == tmp6076 {
-									tmp6070 := PrimTail(V3165)
-
-									tmp6071 := PrimTail(tmp6070)
-
-									tmp6072 := PrimTail(tmp6071)
-
-									tmp6073 := PrimIsPair(tmp6072)
-
-									var ifres6063 Obj
-
-									if True == tmp6073 {
-										tmp6065 := PrimTail(V3165)
-
-										tmp6066 := PrimTail(tmp6065)
-
-										tmp6067 := PrimTail(tmp6066)
-
-										tmp6068 := PrimTail(tmp6067)
-
-										tmp6069 := PrimEqual(Nil, tmp6068)
-
-										var ifres6064 Obj
-
-										if True == tmp6069 {
-											ifres6064 = True
-
-										} else {
-											ifres6064 = False
-
-										}
-
-										ifres6063 = ifres6064
-
-									} else {
-										ifres6063 = False
-
-									}
-
-									var ifres6062 Obj
-
-									if True == ifres6063 {
-										ifres6062 = True
-
-									} else {
-										ifres6062 = False
-
-									}
-
-									ifres6061 = ifres6062
-
-								} else {
-									ifres6061 = False
-
-								}
-
-								var ifres6060 Obj
-
-								if True == ifres6061 {
-									ifres6060 = True
-
-								} else {
-									ifres6060 = False
-
-								}
-
-								ifres6059 = ifres6060
-
-							} else {
-								ifres6059 = False
-
-							}
-
-							var ifres6058 Obj
-
-							if True == ifres6059 {
-								ifres6058 = True
-
-							} else {
-								ifres6058 = False
-
-							}
-
-							ifres6057 = ifres6058
-
-						} else {
-							ifres6057 = False
-
-						}
-
-						var ifres6056 Obj
-
-						if True == ifres6057 {
-							ifres6056 = True
-
-						} else {
-							ifres6056 = False
-
-						}
-
-						ifres6055 = ifres6056
-
-					} else {
-						ifres6055 = False
-
-					}
-
-					var ifres6054 Obj
-
-					if True == ifres6055 {
-						ifres6054 = True
-
-					} else {
-						ifres6054 = False
-
-					}
-
-					ifres6053 = ifres6054
-
-				} else {
-					ifres6053 = False
-
-				}
-
-				if True == ifres6053 {
-					__e.Return(V3165)
-					return
-				} else {
-					tmp6051 := PrimEqual(symdefine, V3164)
-
-					var ifres6029 Obj
-
-					if True == tmp6051 {
-						tmp6050 := PrimIsPair(V3165)
-
-						var ifres6031 Obj
-
-						if True == tmp6050 {
-							tmp6048 := PrimHead(V3165)
-
-							tmp6049 := PrimEqual(symdefine, tmp6048)
-
-							var ifres6033 Obj
-
-							if True == tmp6049 {
-								tmp6046 := PrimTail(V3165)
-
-								tmp6047 := PrimIsPair(tmp6046)
-
-								var ifres6035 Obj
-
-								if True == tmp6047 {
-									tmp6043 := PrimTail(V3165)
-
-									tmp6044 := PrimTail(tmp6043)
-
-									tmp6045 := PrimIsPair(tmp6044)
-
-									var ifres6037 Obj
-
-									if True == tmp6045 {
-										tmp6039 := PrimTail(V3165)
-
-										tmp6040 := PrimTail(tmp6039)
-
-										tmp6041 := PrimHead(tmp6040)
-
-										tmp6042 := PrimEqual(sym_i, tmp6041)
-
-										var ifres6038 Obj
-
-										if True == tmp6042 {
-											ifres6038 = True
-
-										} else {
-											ifres6038 = False
-
-										}
-
-										ifres6037 = ifres6038
-
-									} else {
-										ifres6037 = False
-
-									}
-
-									var ifres6036 Obj
-
-									if True == ifres6037 {
-										ifres6036 = True
-
-									} else {
-										ifres6036 = False
-
-									}
-
-									ifres6035 = ifres6036
-
-								} else {
-									ifres6035 = False
-
-								}
-
-								var ifres6034 Obj
-
-								if True == ifres6035 {
-									ifres6034 = True
-
-								} else {
-									ifres6034 = False
-
-								}
-
-								ifres6033 = ifres6034
-
-							} else {
-								ifres6033 = False
-
-							}
-
-							var ifres6032 Obj
-
-							if True == ifres6033 {
-								ifres6032 = True
-
-							} else {
-								ifres6032 = False
-
-							}
-
-							ifres6031 = ifres6032
-
-						} else {
-							ifres6031 = False
-
-						}
-
-						var ifres6030 Obj
-
-						if True == ifres6031 {
-							ifres6030 = True
-
-						} else {
-							ifres6030 = False
-
-						}
-
-						ifres6029 = ifres6030
-
-					} else {
-						ifres6029 = False
-
-					}
-
-					if True == ifres6029 {
-						tmp5918 := PrimTail(V3165)
-
-						tmp5919 := PrimHead(tmp5918)
-
-						tmp5920 := PrimTail(V3165)
-
-						tmp5921 := PrimHead(tmp5920)
-
-						tmp5922 := PrimTail(V3165)
-
-						tmp5923 := PrimTail(tmp5922)
-
-						tmp5924 := PrimTail(tmp5923)
-
-						tmp5925 := Call(__e, PrimFunc(symshen_4process_1after_1type), tmp5921, tmp5924, V3166)
-
-						tmp5926 := PrimCons(sym_i, tmp5925)
-
-						tmp5927 := PrimCons(tmp5919, tmp5926)
-
-						__e.Return(PrimCons(symdefine, tmp5927))
-						return
-
-					} else {
-						tmp6027 := PrimEqual(symdefine, V3164)
-
-						var ifres6016 Obj
-
-						if True == tmp6027 {
-							tmp6026 := PrimIsPair(V3165)
-
-							var ifres6018 Obj
-
-							if True == tmp6026 {
-								tmp6024 := PrimHead(V3165)
-
-								tmp6025 := PrimEqual(symdefine, tmp6024)
-
-								var ifres6020 Obj
-
-								if True == tmp6025 {
-									tmp6022 := PrimTail(V3165)
-
-									tmp6023 := PrimIsPair(tmp6022)
-
-									var ifres6021 Obj
-
-									if True == tmp6023 {
-										ifres6021 = True
-
-									} else {
-										ifres6021 = False
-
-									}
-
-									ifres6020 = ifres6021
-
-								} else {
-									ifres6020 = False
-
-								}
-
-								var ifres6019 Obj
-
-								if True == ifres6020 {
-									ifres6019 = True
-
-								} else {
-									ifres6019 = False
-
-								}
-
-								ifres6018 = ifres6019
-
-							} else {
-								ifres6018 = False
-
-							}
-
-							var ifres6017 Obj
-
-							if True == ifres6018 {
-								ifres6017 = True
-
-							} else {
-								ifres6017 = False
-
-							}
-
-							ifres6016 = ifres6017
-
-						} else {
-							ifres6016 = False
-
-						}
-
-						if True == ifres6016 {
-							tmp5928 := PrimTail(V3165)
-
-							tmp5929 := PrimHead(tmp5928)
-
-							tmp5930 := MakeNative(func(__e *ControlFlow) {
-								Z3167 := __e.Get(1)
-								_ = Z3167
-								__e.TailApply(PrimFunc(symshen_4process_1applications), Z3167, V3166)
-								return
-							}, 1)
-
-							tmp5931 := PrimTail(V3165)
-
-							tmp5932 := PrimTail(tmp5931)
-
-							tmp5933 := Call(__e, PrimFunc(symmap), tmp5930, tmp5932)
-
-							tmp5934 := PrimCons(tmp5929, tmp5933)
-
-							__e.Return(PrimCons(symdefine, tmp5934))
-							return
-
-						} else {
-							tmp6014 := PrimEqual(symsynonyms, V3164)
-
-							if True == tmp6014 {
-								__e.Return(PrimCons(symsynonyms, V3165))
-								return
-							} else {
-								tmp6012 := PrimEqual(symtype, V3164)
-
-								var ifres5990 Obj
-
-								if True == tmp6012 {
-									tmp6011 := PrimIsPair(V3165)
-
-									var ifres5992 Obj
-
-									if True == tmp6011 {
-										tmp6009 := PrimHead(V3165)
-
-										tmp6010 := PrimEqual(symtype, tmp6009)
-
-										var ifres5994 Obj
-
-										if True == tmp6010 {
-											tmp6007 := PrimTail(V3165)
-
-											tmp6008 := PrimIsPair(tmp6007)
-
-											var ifres5996 Obj
-
-											if True == tmp6008 {
-												tmp6004 := PrimTail(V3165)
-
-												tmp6005 := PrimTail(tmp6004)
-
-												tmp6006 := PrimIsPair(tmp6005)
-
-												var ifres5998 Obj
-
-												if True == tmp6006 {
-													tmp6000 := PrimTail(V3165)
-
-													tmp6001 := PrimTail(tmp6000)
-
-													tmp6002 := PrimTail(tmp6001)
-
-													tmp6003 := PrimEqual(Nil, tmp6002)
-
-													var ifres5999 Obj
-
-													if True == tmp6003 {
-														ifres5999 = True
-
-													} else {
-														ifres5999 = False
-
-													}
-
-													ifres5998 = ifres5999
-
-												} else {
-													ifres5998 = False
-
-												}
-
-												var ifres5997 Obj
-
-												if True == ifres5998 {
-													ifres5997 = True
-
-												} else {
-													ifres5997 = False
-
-												}
-
-												ifres5996 = ifres5997
-
-											} else {
-												ifres5996 = False
-
-											}
-
-											var ifres5995 Obj
-
-											if True == ifres5996 {
-												ifres5995 = True
-
-											} else {
-												ifres5995 = False
-
-											}
-
-											ifres5994 = ifres5995
-
-										} else {
-											ifres5994 = False
-
-										}
-
-										var ifres5993 Obj
-
-										if True == ifres5994 {
-											ifres5993 = True
-
-										} else {
-											ifres5993 = False
-
-										}
-
-										ifres5992 = ifres5993
-
-									} else {
-										ifres5992 = False
-
-									}
-
-									var ifres5991 Obj
-
-									if True == ifres5992 {
-										ifres5991 = True
-
-									} else {
-										ifres5991 = False
-
-									}
-
-									ifres5990 = ifres5991
-
-								} else {
-									ifres5990 = False
-
-								}
-
-								if True == ifres5990 {
-									tmp5935 := PrimTail(V3165)
-
-									tmp5936 := PrimHead(tmp5935)
-
-									tmp5937 := Call(__e, PrimFunc(symshen_4process_1applications), tmp5936, V3166)
-
-									tmp5938 := PrimTail(V3165)
-
-									tmp5939 := PrimTail(tmp5938)
-
-									tmp5940 := PrimCons(tmp5937, tmp5939)
-
-									__e.Return(PrimCons(symtype, tmp5940))
-									return
-
-								} else {
-									tmp5988 := PrimEqual(syminput_7, V3164)
-
-									var ifres5966 Obj
-
-									if True == tmp5988 {
-										tmp5987 := PrimIsPair(V3165)
-
-										var ifres5968 Obj
-
-										if True == tmp5987 {
-											tmp5985 := PrimHead(V3165)
-
-											tmp5986 := PrimEqual(syminput_7, tmp5985)
-
-											var ifres5970 Obj
-
-											if True == tmp5986 {
-												tmp5983 := PrimTail(V3165)
-
-												tmp5984 := PrimIsPair(tmp5983)
-
-												var ifres5972 Obj
-
-												if True == tmp5984 {
-													tmp5980 := PrimTail(V3165)
-
-													tmp5981 := PrimTail(tmp5980)
-
-													tmp5982 := PrimIsPair(tmp5981)
-
-													var ifres5974 Obj
-
-													if True == tmp5982 {
-														tmp5976 := PrimTail(V3165)
-
-														tmp5977 := PrimTail(tmp5976)
-
-														tmp5978 := PrimTail(tmp5977)
-
-														tmp5979 := PrimEqual(Nil, tmp5978)
-
-														var ifres5975 Obj
-
-														if True == tmp5979 {
-															ifres5975 = True
-
-														} else {
-															ifres5975 = False
-
-														}
-
-														ifres5974 = ifres5975
-
-													} else {
-														ifres5974 = False
-
-													}
-
-													var ifres5973 Obj
-
-													if True == ifres5974 {
-														ifres5973 = True
-
-													} else {
-														ifres5973 = False
-
-													}
-
-													ifres5972 = ifres5973
-
-												} else {
-													ifres5972 = False
-
-												}
-
-												var ifres5971 Obj
-
-												if True == ifres5972 {
-													ifres5971 = True
-
-												} else {
-													ifres5971 = False
-
-												}
-
-												ifres5970 = ifres5971
-
-											} else {
-												ifres5970 = False
-
-											}
-
-											var ifres5969 Obj
-
-											if True == ifres5970 {
-												ifres5969 = True
-
-											} else {
-												ifres5969 = False
-
-											}
-
-											ifres5968 = ifres5969
-
-										} else {
-											ifres5968 = False
-
-										}
-
-										var ifres5967 Obj
-
-										if True == ifres5968 {
-											ifres5967 = True
-
-										} else {
-											ifres5967 = False
-
-										}
-
-										ifres5966 = ifres5967
-
-									} else {
-										ifres5966 = False
-
-									}
-
-									if True == ifres5966 {
-										tmp5941 := PrimTail(V3165)
-
-										tmp5942 := PrimHead(tmp5941)
-
-										tmp5943 := PrimTail(V3165)
-
-										tmp5944 := PrimTail(tmp5943)
-
-										tmp5945 := PrimHead(tmp5944)
-
-										tmp5946 := Call(__e, PrimFunc(symshen_4process_1applications), tmp5945, V3166)
-
-										tmp5947 := PrimCons(tmp5946, Nil)
-
-										tmp5948 := PrimCons(tmp5942, tmp5947)
-
-										__e.Return(PrimCons(syminput_7, tmp5948))
-										return
-
-									} else {
-										tmp5964 := PrimIsPair(V3165)
-
-										var ifres5960 Obj
-
-										if True == tmp5964 {
-											tmp5962 := PrimHead(V3165)
-
-											tmp5963 := Call(__e, PrimFunc(symshen_4special_2), tmp5962)
-
-											var ifres5961 Obj
-
-											if True == tmp5963 {
-												ifres5961 = True
-
-											} else {
-												ifres5961 = False
-
-											}
-
-											ifres5960 = ifres5961
-
-										} else {
-											ifres5960 = False
-
-										}
-
-										if True == ifres5960 {
-											tmp5949 := PrimHead(V3165)
-
-											tmp5950 := MakeNative(func(__e *ControlFlow) {
-												Z3168 := __e.Get(1)
-												_ = Z3168
-												__e.TailApply(PrimFunc(symshen_4process_1applications), Z3168, V3166)
-												return
-											}, 1)
-
-											tmp5951 := PrimTail(V3165)
-
-											tmp5952 := Call(__e, PrimFunc(symmap), tmp5950, tmp5951)
-
-											__e.Return(PrimCons(tmp5949, tmp5952))
-											return
-
-										} else {
-											tmp5958 := PrimIsPair(V3165)
-
-											var ifres5954 Obj
-
-											if True == tmp5958 {
-												tmp5956 := PrimHead(V3165)
-
-												tmp5957 := Call(__e, PrimFunc(symshen_4extraspecial_2), tmp5956)
-
-												var ifres5955 Obj
-
-												if True == tmp5957 {
-													ifres5955 = True
-
-												} else {
-													ifres5955 = False
-
-												}
-
-												ifres5954 = ifres5955
-
-											} else {
-												ifres5954 = False
-
-											}
-
-											if True == ifres5954 {
-												__e.Return(V3165)
-												return
-											} else {
-												__e.TailApply(PrimFunc(symshen_4f_1error), symshen_4special_1case)
-												return
-											}
-
-										}
-
-									}
-
-								}
-
-							}
-
-						}
-
-					}
-
-				}
-
-			}
-
-		}
-
-	}, 3)
-
-	tmp6138 := Call(__e, ns2_1set, symshen_4special_1case, tmp5895)
-
-	_ = tmp6138
-
-	tmp6139 := MakeNative(func(__e *ControlFlow) {
-		V3171 := __e.Get(1)
-		_ = V3171
-		V3172 := __e.Get(2)
-		_ = V3172
-		tmp6169 := PrimEqual(Nil, V3171)
-
-		if True == tmp6169 {
-			__e.Return(Nil)
-			return
-		} else {
-			tmp6167 := PrimIsPair(V3171)
-
-			var ifres6152 Obj
-
-			if True == tmp6167 {
-				tmp6165 := PrimHead(V3171)
-
-				tmp6166 := PrimIsPair(tmp6165)
-
-				var ifres6154 Obj
-
-				if True == tmp6166 {
-					tmp6162 := PrimHead(V3171)
-
-					tmp6163 := PrimTail(tmp6162)
-
-					tmp6164 := PrimIsPair(tmp6163)
-
-					var ifres6156 Obj
-
-					if True == tmp6164 {
-						tmp6158 := PrimHead(V3171)
-
-						tmp6159 := PrimTail(tmp6158)
-
-						tmp6160 := PrimTail(tmp6159)
-
-						tmp6161 := PrimEqual(Nil, tmp6160)
-
-						var ifres6157 Obj
-
-						if True == tmp6161 {
-							ifres6157 = True
-
-						} else {
-							ifres6157 = False
-
-						}
-
-						ifres6156 = ifres6157
-
-					} else {
-						ifres6156 = False
-
-					}
-
-					var ifres6155 Obj
-
-					if True == ifres6156 {
-						ifres6155 = True
-
-					} else {
-						ifres6155 = False
-
-					}
-
-					ifres6154 = ifres6155
-
-				} else {
-					ifres6154 = False
-
-				}
-
-				var ifres6153 Obj
-
-				if True == ifres6154 {
-					ifres6153 = True
-
-				} else {
-					ifres6153 = False
-
-				}
-
-				ifres6152 = ifres6153
-
-			} else {
-				ifres6152 = False
-
-			}
-
-			if True == ifres6152 {
-				tmp6140 := PrimHead(V3171)
-
-				tmp6141 := PrimHead(tmp6140)
-
-				tmp6142 := Call(__e, PrimFunc(symshen_4process_1applications), tmp6141, V3172)
-
-				tmp6143 := PrimHead(V3171)
-
-				tmp6144 := PrimTail(tmp6143)
-
-				tmp6145 := PrimHead(tmp6144)
-
-				tmp6146 := Call(__e, PrimFunc(symshen_4process_1applications), tmp6145, V3172)
-
-				tmp6147 := PrimCons(tmp6146, Nil)
-
-				tmp6148 := PrimCons(tmp6142, tmp6147)
-
-				tmp6149 := PrimTail(V3171)
-
-				tmp6150 := Call(__e, PrimFunc(symshen_4process_1cond_1clauses), tmp6149, V3172)
-
-				__e.Return(PrimCons(tmp6148, tmp6150))
-				return
-
-			} else {
-				__e.TailApply(PrimFunc(symshen_4f_1error), symshen_4process_1cond_1clauses)
-				return
-			}
-
-		}
-
-	}, 2)
-
-	tmp6170 := Call(__e, ns2_1set, symshen_4process_1cond_1clauses, tmp6139)
-
-	_ = tmp6170
-
-	tmp6171 := MakeNative(func(__e *ControlFlow) {
-		V3175 := __e.Get(1)
-		_ = V3175
-		V3176 := __e.Get(2)
-		_ = V3176
-		V3177 := __e.Get(3)
-		_ = V3177
-		tmp6187 := PrimIsPair(V3176)
-
-		var ifres6183 Obj
-
-		if True == tmp6187 {
-			tmp6185 := PrimHead(V3176)
-
-			tmp6186 := PrimEqual(sym_j, tmp6185)
-
-			var ifres6184 Obj
-
-			if True == tmp6186 {
-				ifres6184 = True
-
-			} else {
-				ifres6184 = False
-
-			}
-
-			ifres6183 = ifres6184
-
-		} else {
-			ifres6183 = False
-
-		}
-
-		if True == ifres6183 {
-			tmp6172 := MakeNative(func(__e *ControlFlow) {
-				Z3178 := __e.Get(1)
-				_ = Z3178
-				__e.TailApply(PrimFunc(symshen_4process_1applications), Z3178, V3177)
-				return
-			}, 1)
-
-			tmp6173 := PrimTail(V3176)
-
-			tmp6174 := Call(__e, PrimFunc(symmap), tmp6172, tmp6173)
-
-			__e.Return(PrimCons(sym_j, tmp6174))
-			return
-
-		} else {
-			tmp6181 := PrimIsPair(V3176)
-
-			if True == tmp6181 {
-				tmp6175 := PrimHead(V3176)
-
-				tmp6176 := PrimTail(V3176)
-
-				tmp6177 := Call(__e, PrimFunc(symshen_4process_1after_1type), V3175, tmp6176, V3177)
-
-				__e.Return(PrimCons(tmp6175, tmp6177))
-				return
-
-			} else {
-				tmp6178 := Call(__e, PrimFunc(symshen_4app), V3175, MakeString("\n"), symshen_4a)
-
-				tmp6179 := PrimStringConcat(MakeString("missing } in "), tmp6178)
-
-				__e.Return(PrimSimpleError(tmp6179))
-				return
-
-			}
-
-		}
-
-	}, 3)
-
-	tmp6188 := Call(__e, ns2_1set, symshen_4process_1after_1type, tmp6171)
-
-	_ = tmp6188
-
-	tmp6189 := MakeNative(func(__e *ControlFlow) {
-		V3179 := __e.Get(1)
-		_ = V3179
-		V3180 := __e.Get(2)
-		_ = V3180
-		tmp6234 := PrimIsPair(V3179)
-
-		if True == tmp6234 {
-			tmp6190 := MakeNative(func(__e *ControlFlow) {
-				W3181 := __e.Get(1)
-				_ = W3181
-				tmp6191 := MakeNative(func(__e *ControlFlow) {
-					W3182 := __e.Get(1)
-					_ = W3182
-					tmp6228 := Call(__e, PrimFunc(symelement_2), V3179, V3180)
-
-					if True == tmp6228 {
-						__e.Return(V3179)
-						return
-					} else {
-						tmp6225 := PrimHead(V3179)
-
-						tmp6226 := Call(__e, PrimFunc(symshen_4shen_1call_2), tmp6225)
-
-						if True == tmp6226 {
-							__e.Return(V3179)
-							return
-						} else {
-							tmp6223 := Call(__e, PrimFunc(symshen_4foreign_2), V3179)
-
-							if True == tmp6223 {
-								__e.TailApply(PrimFunc(symshen_4unpack_1foreign), V3179)
-								return
-							} else {
-								tmp6221 := Call(__e, PrimFunc(symshen_4fn_1call_2), V3179)
-
-								if True == tmp6221 {
-									__e.TailApply(PrimFunc(symshen_4fn_1call), V3179)
-									return
-								} else {
-									tmp6219 := Call(__e, PrimFunc(symshen_4zero_1place_2), V3179)
-
-									if True == tmp6219 {
-										__e.Return(V3179)
-										return
-									} else {
-										tmp6216 := PrimHead(V3179)
-
-										tmp6217 := Call(__e, PrimFunc(symshen_4undefined_1f_2), tmp6216, W3181)
-
-										if True == tmp6217 {
-											tmp6192 := PrimHead(V3179)
-
-											tmp6193 := PrimCons(tmp6192, Nil)
-
-											tmp6194 := PrimCons(symfn, tmp6193)
-
-											tmp6195 := PrimTail(V3179)
-
-											tmp6196 := PrimCons(tmp6194, tmp6195)
-
-											__e.TailApply(PrimFunc(symshen_4simple_1curry), tmp6196)
-											return
-
-										} else {
-											tmp6213 := PrimHead(V3179)
-
-											tmp6214 := PrimIsVariable(tmp6213)
-
-											if True == tmp6214 {
-												__e.TailApply(PrimFunc(symshen_4simple_1curry), V3179)
-												return
-											} else {
-												tmp6210 := PrimHead(V3179)
-
-												tmp6211 := Call(__e, PrimFunc(symshen_4application_2), tmp6210)
-
-												if True == tmp6211 {
-													__e.TailApply(PrimFunc(symshen_4simple_1curry), V3179)
-													return
-												} else {
-													tmp6207 := PrimHead(V3179)
-
-													tmp6208 := Call(__e, PrimFunc(symshen_4partial_1application_d_2), tmp6207, W3181, W3182)
-
-													if True == tmp6208 {
-														tmp6197 := PrimNumberSubtract(W3181, W3182)
-
-														__e.TailApply(PrimFunc(symshen_4lambda_1function), V3179, tmp6197)
-														return
-
-													} else {
-														tmp6204 := PrimHead(V3179)
-
-														tmp6205 := Call(__e, PrimFunc(symshen_4overapplication_2), tmp6204, W3181, W3182)
-
-														if True == tmp6205 {
-															tmp6198 := PrimHead(V3179)
-
-															tmp6199 := PrimCons(tmp6198, Nil)
-
-															tmp6200 := PrimCons(symfn, tmp6199)
-
-															tmp6201 := PrimTail(V3179)
-
-															tmp6202 := PrimCons(tmp6200, tmp6201)
-
-															__e.TailApply(PrimFunc(symshen_4simple_1curry), tmp6202)
-															return
-
-														} else {
-															__e.Return(V3179)
-															return
-														}
-
-													}
-
-												}
-
-											}
-
-										}
-
-									}
-
-								}
-
-							}
-
-						}
-
-					}
-
-				}, 1)
-
-				tmp6229 := PrimTail(V3179)
-
-				tmp6230 := Call(__e, PrimFunc(symlength), tmp6229)
-
-				__e.TailApply(tmp6191, tmp6230)
-				return
-
-			}, 1)
-
-			tmp6231 := PrimHead(V3179)
-
-			tmp6232 := Call(__e, PrimFunc(symarity), tmp6231)
-
-			__e.TailApply(tmp6190, tmp6232)
-			return
-
-		} else {
-			__e.TailApply(PrimFunc(symshen_4f_1error), symshen_4process_1application)
-			return
-		}
-
-	}, 2)
-
-	tmp6235 := Call(__e, ns2_1set, symshen_4process_1application, tmp6189)
-
-	_ = tmp6235
-
-	tmp6236 := MakeNative(func(__e *ControlFlow) {
-		V3183 := __e.Get(1)
-		_ = V3183
-		tmp6262 := PrimIsPair(V3183)
-
-		var ifres6242 Obj
-
-		if True == tmp6262 {
-			tmp6260 := PrimHead(V3183)
-
-			tmp6261 := PrimIsPair(tmp6260)
-
-			var ifres6244 Obj
-
-			if True == tmp6261 {
-				tmp6257 := PrimHead(V3183)
-
-				tmp6258 := PrimHead(tmp6257)
-
-				tmp6259 := PrimEqual(symforeign, tmp6258)
-
-				var ifres6246 Obj
-
-				if True == tmp6259 {
-					tmp6254 := PrimHead(V3183)
-
-					tmp6255 := PrimTail(tmp6254)
-
-					tmp6256 := PrimIsPair(tmp6255)
-
-					var ifres6248 Obj
-
-					if True == tmp6256 {
-						tmp6250 := PrimHead(V3183)
-
-						tmp6251 := PrimTail(tmp6250)
-
-						tmp6252 := PrimTail(tmp6251)
-
-						tmp6253 := PrimEqual(Nil, tmp6252)
-
-						var ifres6249 Obj
-
-						if True == tmp6253 {
-							ifres6249 = True
-
-						} else {
-							ifres6249 = False
-
-						}
-
-						ifres6248 = ifres6249
-
-					} else {
-						ifres6248 = False
-
-					}
-
-					var ifres6247 Obj
-
-					if True == ifres6248 {
-						ifres6247 = True
-
-					} else {
-						ifres6247 = False
-
-					}
-
-					ifres6246 = ifres6247
-
-				} else {
-					ifres6246 = False
-
-				}
-
-				var ifres6245 Obj
-
-				if True == ifres6246 {
-					ifres6245 = True
-
-				} else {
-					ifres6245 = False
-
-				}
-
-				ifres6244 = ifres6245
-
-			} else {
-				ifres6244 = False
-
-			}
-
-			var ifres6243 Obj
-
-			if True == ifres6244 {
-				ifres6243 = True
-
-			} else {
-				ifres6243 = False
-
-			}
-
-			ifres6242 = ifres6243
-
-		} else {
-			ifres6242 = False
-
-		}
-
-		if True == ifres6242 {
-			tmp6237 := PrimHead(V3183)
-
-			tmp6238 := PrimTail(tmp6237)
-
-			tmp6239 := PrimHead(tmp6238)
-
-			tmp6240 := PrimTail(V3183)
-
-			__e.Return(PrimCons(tmp6239, tmp6240))
-			return
-
-		} else {
-			__e.TailApply(PrimFunc(symshen_4f_1error), symshen_4unpack_1foreign)
-			return
-		}
-
-	}, 1)
-
-	tmp6263 := Call(__e, ns2_1set, symshen_4unpack_1foreign, tmp6236)
-
-	_ = tmp6263
-
-	tmp6264 := MakeNative(func(__e *ControlFlow) {
-		V3186 := __e.Get(1)
-		_ = V3186
-		tmp6286 := PrimIsPair(V3186)
-
-		var ifres6266 Obj
-
-		if True == tmp6286 {
-			tmp6284 := PrimHead(V3186)
-
-			tmp6285 := PrimIsPair(tmp6284)
-
-			var ifres6268 Obj
-
-			if True == tmp6285 {
-				tmp6281 := PrimHead(V3186)
-
-				tmp6282 := PrimHead(tmp6281)
-
-				tmp6283 := PrimEqual(symforeign, tmp6282)
-
-				var ifres6270 Obj
-
-				if True == tmp6283 {
-					tmp6278 := PrimHead(V3186)
-
-					tmp6279 := PrimTail(tmp6278)
-
-					tmp6280 := PrimIsPair(tmp6279)
-
-					var ifres6272 Obj
-
-					if True == tmp6280 {
-						tmp6274 := PrimHead(V3186)
-
-						tmp6275 := PrimTail(tmp6274)
-
-						tmp6276 := PrimTail(tmp6275)
-
-						tmp6277 := PrimEqual(Nil, tmp6276)
-
-						var ifres6273 Obj
-
-						if True == tmp6277 {
-							ifres6273 = True
-
-						} else {
-							ifres6273 = False
-
-						}
-
-						ifres6272 = ifres6273
-
-					} else {
-						ifres6272 = False
-
-					}
-
-					var ifres6271 Obj
-
-					if True == ifres6272 {
-						ifres6271 = True
-
-					} else {
-						ifres6271 = False
-
-					}
-
-					ifres6270 = ifres6271
-
-				} else {
-					ifres6270 = False
-
-				}
-
-				var ifres6269 Obj
-
-				if True == ifres6270 {
-					ifres6269 = True
-
-				} else {
-					ifres6269 = False
-
-				}
-
-				ifres6268 = ifres6269
-
-			} else {
-				ifres6268 = False
-
-			}
-
-			var ifres6267 Obj
-
-			if True == ifres6268 {
-				ifres6267 = True
-
-			} else {
-				ifres6267 = False
-
-			}
-
-			ifres6266 = ifres6267
-
-		} else {
-			ifres6266 = False
-
-		}
-
-		if True == ifres6266 {
-			__e.Return(True)
-			return
-		} else {
-			__e.Return(False)
-			return
-		}
-
-	}, 1)
-
-	tmp6287 := Call(__e, ns2_1set, symshen_4foreign_2, tmp6264)
-
-	_ = tmp6287
-
-	tmp6288 := MakeNative(func(__e *ControlFlow) {
-		V3189 := __e.Get(1)
-		_ = V3189
-		tmp6294 := PrimIsPair(V3189)
-
-		var ifres6290 Obj
-
-		if True == tmp6294 {
-			tmp6292 := PrimTail(V3189)
-
-			tmp6293 := PrimEqual(Nil, tmp6292)
-
-			var ifres6291 Obj
-
-			if True == tmp6293 {
-				ifres6291 = True
-
-			} else {
-				ifres6291 = False
-
-			}
-
-			ifres6290 = ifres6291
-
-		} else {
-			ifres6290 = False
-
-		}
-
-		if True == ifres6290 {
-			__e.Return(True)
-			return
-		} else {
-			__e.Return(False)
-			return
-		}
-
-	}, 1)
-
-	tmp6295 := Call(__e, ns2_1set, symshen_4zero_1place_2, tmp6288)
-
-	_ = tmp6295
-
-	tmp6296 := MakeNative(func(__e *ControlFlow) {
-		V3190 := __e.Get(1)
-		_ = V3190
-		tmp6301 := PrimIsSymbol(V3190)
-
-		if True == tmp6301 {
-			tmp6298 := PrimStr(V3190)
-
-			tmp6299 := Call(__e, PrimFunc(symshen_4internal_1to_1shen_2), tmp6298)
-
-			if True == tmp6299 {
-				__e.Return(True)
-				return
-			} else {
-				__e.Return(False)
-				return
-			}
-
-		} else {
-			__e.Return(False)
-			return
-		}
-
-	}, 1)
-
-	tmp6302 := Call(__e, ns2_1set, symshen_4shen_1call_2, tmp6296)
-
-	_ = tmp6302
-
-	tmp6303 := MakeNative(func(__e *ControlFlow) {
-		V3195 := __e.Get(1)
-		_ = V3195
-		tmp6333 := PrimIsPair(V3195)
-
-		var ifres6320 Obj
-
-		if True == tmp6333 {
-			tmp6331 := PrimHead(V3195)
-
-			tmp6332 := PrimEqual(symprotect, tmp6331)
-
-			var ifres6322 Obj
-
-			if True == tmp6332 {
-				tmp6329 := PrimTail(V3195)
-
-				tmp6330 := PrimIsPair(tmp6329)
-
-				var ifres6324 Obj
-
-				if True == tmp6330 {
-					tmp6326 := PrimTail(V3195)
-
-					tmp6327 := PrimTail(tmp6326)
-
-					tmp6328 := PrimEqual(Nil, tmp6327)
-
-					var ifres6325 Obj
-
-					if True == tmp6328 {
-						ifres6325 = True
-
-					} else {
-						ifres6325 = False
-
-					}
-
-					ifres6324 = ifres6325
-
-				} else {
-					ifres6324 = False
-
-				}
-
-				var ifres6323 Obj
-
-				if True == ifres6324 {
-					ifres6323 = True
-
-				} else {
-					ifres6323 = False
-
-				}
-
-				ifres6322 = ifres6323
-
-			} else {
-				ifres6322 = False
-
-			}
-
-			var ifres6321 Obj
-
-			if True == ifres6322 {
-				ifres6321 = True
-
-			} else {
-				ifres6321 = False
-
-			}
-
-			ifres6320 = ifres6321
-
-		} else {
-			ifres6320 = False
-
-		}
-
-		if True == ifres6320 {
-			__e.Return(False)
-			return
-		} else {
-			tmp6318 := PrimIsPair(V3195)
-
-			var ifres6305 Obj
-
-			if True == tmp6318 {
-				tmp6316 := PrimHead(V3195)
-
-				tmp6317 := PrimEqual(symforeign, tmp6316)
-
-				var ifres6307 Obj
-
-				if True == tmp6317 {
-					tmp6314 := PrimTail(V3195)
-
-					tmp6315 := PrimIsPair(tmp6314)
-
-					var ifres6309 Obj
-
-					if True == tmp6315 {
-						tmp6311 := PrimTail(V3195)
-
-						tmp6312 := PrimTail(tmp6311)
-
-						tmp6313 := PrimEqual(Nil, tmp6312)
-
-						var ifres6310 Obj
-
-						if True == tmp6313 {
-							ifres6310 = True
-
-						} else {
-							ifres6310 = False
-
-						}
-
-						ifres6309 = ifres6310
-
-					} else {
-						ifres6309 = False
-
-					}
-
-					var ifres6308 Obj
-
-					if True == ifres6309 {
-						ifres6308 = True
-
-					} else {
-						ifres6308 = False
-
-					}
-
-					ifres6307 = ifres6308
-
-				} else {
-					ifres6307 = False
-
-				}
-
-				var ifres6306 Obj
-
-				if True == ifres6307 {
-					ifres6306 = True
-
-				} else {
-					ifres6306 = False
-
-				}
-
-				ifres6305 = ifres6306
-
-			} else {
-				ifres6305 = False
-
-			}
-
-			if True == ifres6305 {
-				__e.Return(False)
-				return
-			} else {
-				__e.Return(PrimIsPair(V3195))
-				return
-			}
-
-		}
-
-	}, 1)
-
-	tmp6334 := Call(__e, ns2_1set, symshen_4application_2, tmp6303)
-
-	_ = tmp6334
-
-	tmp6335 := MakeNative(func(__e *ControlFlow) {
-		V3200 := __e.Get(1)
-		_ = V3200
-		V3201 := __e.Get(2)
-		_ = V3201
-		tmp6343 := PrimEqual(MakeNumber(-1), V3201)
-
-		if True == tmp6343 {
-			tmp6341 := Call(__e, PrimFunc(symshen_4lowercase_1symbol_2), V3200)
-
-			if True == tmp6341 {
-				tmp6337 := Call(__e, PrimFunc(symexternal), symshen)
-
-				tmp6338 := Call(__e, PrimFunc(symelement_2), V3200, tmp6337)
-
-				tmp6339 := PrimNot(tmp6338)
-
-				if True == tmp6339 {
-					__e.Return(True)
-					return
-				} else {
-					__e.Return(False)
-					return
-				}
-
-			} else {
-				__e.Return(False)
-				return
-			}
-
-		} else {
-			__e.Return(False)
-			return
-		}
-
-	}, 2)
-
-	tmp6344 := Call(__e, ns2_1set, symshen_4undefined_1f_2, tmp6335)
-
-	_ = tmp6344
-
-	tmp6345 := MakeNative(func(__e *ControlFlow) {
-		V3202 := __e.Get(1)
-		_ = V3202
-		tmp6350 := PrimIsSymbol(V3202)
-
-		if True == tmp6350 {
-			tmp6347 := PrimIsVariable(V3202)
-
-			tmp6348 := PrimNot(tmp6347)
-
-			if True == tmp6348 {
-				__e.Return(True)
-				return
-			} else {
-				__e.Return(False)
-				return
-			}
-
-		} else {
-			__e.Return(False)
-			return
-		}
-
-	}, 1)
-
-	tmp6351 := Call(__e, ns2_1set, symshen_4lowercase_1symbol_2, tmp6345)
-
-	_ = tmp6351
-
-	tmp6352 := MakeNative(func(__e *ControlFlow) {
-		V3203 := __e.Get(1)
-		_ = V3203
-		tmp6382 := PrimIsPair(V3203)
-
-		var ifres6373 Obj
-
-		if True == tmp6382 {
-			tmp6380 := PrimTail(V3203)
-
-			tmp6381 := PrimIsPair(tmp6380)
-
-			var ifres6375 Obj
-
-			if True == tmp6381 {
-				tmp6377 := PrimTail(V3203)
-
-				tmp6378 := PrimTail(tmp6377)
-
-				tmp6379 := PrimEqual(Nil, tmp6378)
-
-				var ifres6376 Obj
-
-				if True == tmp6379 {
-					ifres6376 = True
-
-				} else {
-					ifres6376 = False
-
-				}
-
-				ifres6375 = ifres6376
-
-			} else {
-				ifres6375 = False
-
-			}
-
-			var ifres6374 Obj
-
-			if True == ifres6375 {
-				ifres6374 = True
-
-			} else {
-				ifres6374 = False
-
-			}
-
-			ifres6373 = ifres6374
-
-		} else {
-			ifres6373 = False
-
-		}
-
-		if True == ifres6373 {
-			__e.Return(V3203)
-			return
-		} else {
-			tmp6371 := PrimIsPair(V3203)
-
-			var ifres6362 Obj
-
-			if True == tmp6371 {
-				tmp6369 := PrimTail(V3203)
-
-				tmp6370 := PrimIsPair(tmp6369)
-
-				var ifres6364 Obj
-
-				if True == tmp6370 {
-					tmp6366 := PrimTail(V3203)
-
-					tmp6367 := PrimTail(tmp6366)
-
-					tmp6368 := PrimIsPair(tmp6367)
-
-					var ifres6365 Obj
-
-					if True == tmp6368 {
-						ifres6365 = True
-
-					} else {
-						ifres6365 = False
-
-					}
-
-					ifres6364 = ifres6365
-
-				} else {
-					ifres6364 = False
-
-				}
-
-				var ifres6363 Obj
-
-				if True == ifres6364 {
-					ifres6363 = True
-
-				} else {
-					ifres6363 = False
-
-				}
-
-				ifres6362 = ifres6363
-
-			} else {
-				ifres6362 = False
-
-			}
-
-			if True == ifres6362 {
-				tmp6353 := PrimHead(V3203)
-
-				tmp6354 := PrimTail(V3203)
-
-				tmp6355 := PrimHead(tmp6354)
-
-				tmp6356 := PrimCons(tmp6355, Nil)
-
-				tmp6357 := PrimCons(tmp6353, tmp6356)
-
-				tmp6358 := PrimTail(V3203)
-
-				tmp6359 := PrimTail(tmp6358)
-
-				tmp6360 := PrimCons(tmp6357, tmp6359)
-
-				__e.TailApply(PrimFunc(symshen_4simple_1curry), tmp6360)
-				return
-
-			} else {
-				__e.Return(V3203)
-				return
-			}
-
-		}
-
-	}, 1)
-
-	tmp6383 := Call(__e, ns2_1set, symshen_4simple_1curry, tmp6352)
-
-	_ = tmp6383
-
-	tmp6384 := MakeNative(func(__e *ControlFlow) {
-		V3204 := __e.Get(1)
-		_ = V3204
-		__e.TailApply(PrimFunc(symfn), V3204)
-		return
-	}, 1)
-
-	tmp6385 := Call(__e, ns2_1set, symfunction, tmp6384)
-
-	_ = tmp6385
-
-	tmp6386 := MakeNative(func(__e *ControlFlow) {
-		V3205 := __e.Get(1)
-		_ = V3205
-		tmp6393 := Call(__e, PrimFunc(symarity), V3205)
-
-		tmp6394 := PrimEqual(tmp6393, MakeNumber(0))
-
-		if True == tmp6394 {
-			__e.TailApply(V3205)
-			return
-		} else {
-			tmp6387 := MakeNative(func(__e *ControlFlow) {
-				tmp6388 := PrimValue(sym_dproperty_1vector_d)
-
-				__e.TailApply(PrimFunc(symget), V3205, symshen_4lambda_1form, tmp6388)
-				return
-
-			}, 0)
-
-			tmp6389 := MakeNative(func(__e *ControlFlow) {
-				Z3206 := __e.Get(1)
-				_ = Z3206
-				tmp6390 := Call(__e, PrimFunc(symshen_4app), V3205, MakeString(" is undefined\n"), symshen_4a)
-
-				tmp6391 := PrimStringConcat(MakeString("fn: "), tmp6390)
-
-				__e.Return(PrimSimpleError(tmp6391))
-				return
-
-			}, 1)
-
-			__e.TailApply(try_1catch, tmp6387, tmp6389)
-			return
-
-		}
-
-	}, 1)
-
-	tmp6395 := Call(__e, ns2_1set, symfn, tmp6386)
-
-	_ = tmp6395
-
-	tmp6396 := MakeNative(func(__e *ControlFlow) {
-		V3209 := __e.Get(1)
-		_ = V3209
-		tmp6426 := PrimIsPair(V3209)
-
-		var ifres6413 Obj
-
-		if True == tmp6426 {
-			tmp6424 := PrimHead(V3209)
-
-			tmp6425 := PrimEqual(symfn, tmp6424)
-
-			var ifres6415 Obj
-
-			if True == tmp6425 {
-				tmp6422 := PrimTail(V3209)
-
-				tmp6423 := PrimIsPair(tmp6422)
-
-				var ifres6417 Obj
-
-				if True == tmp6423 {
-					tmp6419 := PrimTail(V3209)
-
-					tmp6420 := PrimTail(tmp6419)
-
-					tmp6421 := PrimEqual(Nil, tmp6420)
-
-					var ifres6418 Obj
-
-					if True == tmp6421 {
-						ifres6418 = True
-
-					} else {
-						ifres6418 = False
-
-					}
-
-					ifres6417 = ifres6418
-
-				} else {
-					ifres6417 = False
-
-				}
-
-				var ifres6416 Obj
-
-				if True == ifres6417 {
-					ifres6416 = True
-
-				} else {
-					ifres6416 = False
-
-				}
-
-				ifres6415 = ifres6416
-
-			} else {
-				ifres6415 = False
-
-			}
-
-			var ifres6414 Obj
-
-			if True == ifres6415 {
-				ifres6414 = True
-
-			} else {
-				ifres6414 = False
-
-			}
-
-			ifres6413 = ifres6414
-
-		} else {
-			ifres6413 = False
-
-		}
-
-		if True == ifres6413 {
-			__e.Return(True)
-			return
-		} else {
-			tmp6411 := PrimIsPair(V3209)
-
-			var ifres6398 Obj
-
-			if True == tmp6411 {
-				tmp6409 := PrimHead(V3209)
-
-				tmp6410 := PrimEqual(symfunction, tmp6409)
-
-				var ifres6400 Obj
-
-				if True == tmp6410 {
-					tmp6407 := PrimTail(V3209)
-
-					tmp6408 := PrimIsPair(tmp6407)
-
-					var ifres6402 Obj
-
-					if True == tmp6408 {
-						tmp6404 := PrimTail(V3209)
-
-						tmp6405 := PrimTail(tmp6404)
-
-						tmp6406 := PrimEqual(Nil, tmp6405)
-
-						var ifres6403 Obj
-
-						if True == tmp6406 {
-							ifres6403 = True
-
-						} else {
-							ifres6403 = False
-
-						}
-
-						ifres6402 = ifres6403
-
-					} else {
-						ifres6402 = False
-
-					}
-
-					var ifres6401 Obj
-
-					if True == ifres6402 {
-						ifres6401 = True
-
-					} else {
-						ifres6401 = False
-
-					}
-
-					ifres6400 = ifres6401
-
-				} else {
-					ifres6400 = False
-
-				}
-
-				var ifres6399 Obj
-
-				if True == ifres6400 {
-					ifres6399 = True
-
-				} else {
-					ifres6399 = False
-
-				}
-
-				ifres6398 = ifres6399
-
-			} else {
-				ifres6398 = False
-
-			}
-
-			if True == ifres6398 {
-				__e.Return(True)
-				return
-			} else {
-				__e.Return(False)
-				return
-			}
-
-		}
-
-	}, 1)
-
-	tmp6427 := Call(__e, ns2_1set, symshen_4fn_1call_2, tmp6396)
-
-	_ = tmp6427
-
-	tmp6428 := MakeNative(func(__e *ControlFlow) {
-		V3210 := __e.Get(1)
-		_ = V3210
-		tmp6469 := PrimIsPair(V3210)
-
-		var ifres6456 Obj
-
-		if True == tmp6469 {
-			tmp6467 := PrimHead(V3210)
-
-			tmp6468 := PrimEqual(symfunction, tmp6467)
-
-			var ifres6458 Obj
-
-			if True == tmp6468 {
-				tmp6465 := PrimTail(V3210)
-
-				tmp6466 := PrimIsPair(tmp6465)
-
-				var ifres6460 Obj
-
-				if True == tmp6466 {
-					tmp6462 := PrimTail(V3210)
-
-					tmp6463 := PrimTail(tmp6462)
-
-					tmp6464 := PrimEqual(Nil, tmp6463)
-
-					var ifres6461 Obj
-
-					if True == tmp6464 {
-						ifres6461 = True
-
-					} else {
-						ifres6461 = False
-
-					}
-
-					ifres6460 = ifres6461
-
-				} else {
-					ifres6460 = False
-
-				}
-
-				var ifres6459 Obj
-
-				if True == ifres6460 {
-					ifres6459 = True
-
-				} else {
-					ifres6459 = False
-
-				}
-
-				ifres6458 = ifres6459
-
-			} else {
-				ifres6458 = False
-
-			}
-
-			var ifres6457 Obj
-
-			if True == ifres6458 {
-				ifres6457 = True
-
-			} else {
-				ifres6457 = False
-
-			}
-
-			ifres6456 = ifres6457
-
-		} else {
-			ifres6456 = False
-
-		}
-
-		if True == ifres6456 {
-			tmp6429 := PrimTail(V3210)
-
-			tmp6430 := PrimCons(symfn, tmp6429)
-
-			__e.TailApply(PrimFunc(symshen_4fn_1call), tmp6430)
-			return
-
-		} else {
-			tmp6454 := PrimIsPair(V3210)
-
-			var ifres6441 Obj
-
-			if True == tmp6454 {
-				tmp6452 := PrimHead(V3210)
-
-				tmp6453 := PrimEqual(symfn, tmp6452)
-
-				var ifres6443 Obj
-
-				if True == tmp6453 {
-					tmp6450 := PrimTail(V3210)
-
-					tmp6451 := PrimIsPair(tmp6450)
-
-					var ifres6445 Obj
-
-					if True == tmp6451 {
-						tmp6447 := PrimTail(V3210)
-
-						tmp6448 := PrimTail(tmp6447)
-
-						tmp6449 := PrimEqual(Nil, tmp6448)
-
-						var ifres6446 Obj
-
-						if True == tmp6449 {
-							ifres6446 = True
-
-						} else {
-							ifres6446 = False
-
-						}
-
-						ifres6445 = ifres6446
-
-					} else {
-						ifres6445 = False
-
-					}
-
-					var ifres6444 Obj
-
-					if True == ifres6445 {
-						ifres6444 = True
-
-					} else {
-						ifres6444 = False
-
-					}
-
-					ifres6443 = ifres6444
-
-				} else {
-					ifres6443 = False
-
-				}
-
-				var ifres6442 Obj
-
-				if True == ifres6443 {
-					ifres6442 = True
-
-				} else {
-					ifres6442 = False
-
-				}
-
-				ifres6441 = ifres6442
-
-			} else {
-				ifres6441 = False
-
-			}
-
-			if True == ifres6441 {
-				tmp6431 := MakeNative(func(__e *ControlFlow) {
-					W3211 := __e.Get(1)
-					_ = W3211
-					tmp6436 := PrimEqual(W3211, MakeNumber(-1))
-
-					if True == tmp6436 {
-						__e.Return(V3210)
-						return
-					} else {
-						tmp6434 := PrimEqual(W3211, MakeNumber(0))
-
-						if True == tmp6434 {
-							__e.Return(PrimTail(V3210))
-							return
-						} else {
-							tmp6432 := PrimTail(V3210)
-
-							__e.TailApply(PrimFunc(symshen_4lambda_1function), tmp6432, W3211)
-							return
-
-						}
-
-					}
-
-				}, 1)
-
-				tmp6437 := PrimTail(V3210)
-
-				tmp6438 := PrimHead(tmp6437)
-
-				tmp6439 := Call(__e, PrimFunc(symarity), tmp6438)
-
-				__e.TailApply(tmp6431, tmp6439)
-				return
-
-			} else {
-				__e.TailApply(PrimFunc(symshen_4f_1error), symshen_4fn_1call)
-				return
-			}
-
-		}
-
-	}, 1)
-
-	tmp6470 := Call(__e, ns2_1set, symshen_4fn_1call, tmp6428)
-
-	_ = tmp6470
-
-	tmp6471 := MakeNative(func(__e *ControlFlow) {
-		V3212 := __e.Get(1)
-		_ = V3212
-		V3213 := __e.Get(2)
-		_ = V3213
-		V3214 := __e.Get(3)
-		_ = V3214
-		tmp6472 := MakeNative(func(__e *ControlFlow) {
-			W3215 := __e.Get(1)
-			_ = W3215
-			tmp6473 := MakeNative(func(__e *ControlFlow) {
-				W3216 := __e.Get(1)
-				_ = W3216
-				__e.Return(W3215)
-				return
-			}, 1)
-
-			var ifres6479 Obj
-
-			if True == W3215 {
-				tmp6487 := Call(__e, PrimFunc(symshen_4loading_2))
-
-				var ifres6481 Obj
-
-				if True == tmp6487 {
-					tmp6483 := PrimCons(sym_1, Nil)
-
-					tmp6484 := PrimCons(sym_7, tmp6483)
-
-					tmp6485 := Call(__e, PrimFunc(symelement_2), V3212, tmp6484)
-
-					tmp6486 := PrimNot(tmp6485)
-
-					var ifres6482 Obj
-
-					if True == tmp6486 {
-						ifres6482 = True
-
-					} else {
-						ifres6482 = False
-
-					}
-
-					ifres6481 = ifres6482
-
-				} else {
-					ifres6481 = False
-
-				}
-
-				var ifres6480 Obj
-
-				if True == ifres6481 {
-					ifres6480 = True
-
-				} else {
-					ifres6480 = False
-
-				}
-
-				ifres6479 = ifres6480
-
-			} else {
-				ifres6479 = False
-
-			}
-
-			var ifres6474 Obj
-
-			if True == ifres6479 {
-				tmp6475 := Call(__e, PrimFunc(symshen_4app), V3212, MakeString("\n"), symshen_4a)
-
-				tmp6476 := PrimStringConcat(MakeString("partial application of "), tmp6475)
-
-				tmp6477 := Call(__e, PrimFunc(symstoutput))
-
-				tmp6478 := Call(__e, PrimFunc(sympr), tmp6476, tmp6477)
-
-				ifres6474 = tmp6478
-
-			} else {
-				ifres6474 = symshen_4skip
-
-			}
-
-			__e.TailApply(tmp6473, ifres6474)
-			return
-
-		}, 1)
-
-		tmp6488 := PrimGreatThan(V3213, V3214)
-
-		__e.TailApply(tmp6472, tmp6488)
-		return
-
-	}, 3)
-
-	tmp6489 := Call(__e, ns2_1set, symshen_4partial_1application_d_2, tmp6471)
-
-	_ = tmp6489
-
-	tmp6490 := MakeNative(func(__e *ControlFlow) {
-		__e.Return(PrimValue(symshen_4_dloading_2_d))
-		return
-	}, 0)
-
-	tmp6491 := Call(__e, ns2_1set, symshen_4loading_2, tmp6490)
-
-	_ = tmp6491
-
-	tmp6492 := MakeNative(func(__e *ControlFlow) {
-		V3221 := __e.Get(1)
-		_ = V3221
-		V3222 := __e.Get(2)
-		_ = V3222
-		V3223 := __e.Get(3)
-		_ = V3223
-		tmp6510 := PrimEqual(MakeNumber(-1), V3222)
-
-		if True == tmp6510 {
-			__e.Return(False)
-			return
-		} else {
-			tmp6493 := MakeNative(func(__e *ControlFlow) {
-				W3224 := __e.Get(1)
-				_ = W3224
-				tmp6494 := MakeNative(func(__e *ControlFlow) {
-					W3225 := __e.Get(1)
-					_ = W3225
-					__e.Return(W3224)
-					return
-				}, 1)
-
-				var ifres6505 Obj
-
-				if True == W3224 {
-					tmp6507 := Call(__e, PrimFunc(symshen_4loading_2))
-
-					var ifres6506 Obj
-
-					if True == tmp6507 {
-						ifres6506 = True
-
-					} else {
-						ifres6506 = False
-
-					}
-
-					ifres6505 = ifres6506
-
-				} else {
-					ifres6505 = False
-
-				}
-
-				var ifres6495 Obj
-
-				if True == ifres6505 {
-					tmp6497 := PrimEqual(V3223, MakeNumber(1))
-
-					var ifres6496 Obj
-
-					if True == tmp6497 {
-						ifres6496 = MakeString("")
-
-					} else {
-						ifres6496 = MakeString("s")
-
-					}
-
-					tmp6498 := Call(__e, PrimFunc(symshen_4app), ifres6496, MakeString("\n"), symshen_4a)
-
-					tmp6499 := PrimStringConcat(MakeString(" argument"), tmp6498)
-
-					tmp6500 := Call(__e, PrimFunc(symshen_4app), V3223, tmp6499, symshen_4a)
-
-					tmp6501 := PrimStringConcat(MakeString(" might not like "), tmp6500)
-
-					tmp6502 := Call(__e, PrimFunc(symshen_4app), V3221, tmp6501, symshen_4a)
-
-					tmp6503 := Call(__e, PrimFunc(symstoutput))
-
-					tmp6504 := Call(__e, PrimFunc(sympr), tmp6502, tmp6503)
-
-					ifres6495 = tmp6504
-
-				} else {
-					ifres6495 = symshen_4skip
-
-				}
-
-				__e.TailApply(tmp6494, ifres6495)
-				return
-
-			}, 1)
-
-			tmp6508 := PrimLessThan(V3222, V3223)
-
-			__e.TailApply(tmp6493, tmp6508)
-			return
-
-		}
-
-	}, 3)
-
-	__e.TailApply(ns2_1set, symshen_4overapplication_2, tmp6492)
-	return
 
 }, 0)
+
+tmp3774 := MakeNative(func(__e *ControlFlow) {
+Z2532 := __e.Get(1)
+_ = Z2532
+tmp3775 := PrimValue(symshen_4_dresidue_d)
+
+__e.TailApply(PrimFunc(symshen_4reader_1error), tmp3775)
+return
+
+
+}, 1)
+
+tmp3776 := Call(__e, try_1catch, tmp3772, tmp3774)
+
+
+__e.TailApply(tmp3769, tmp3776)
+return
+
+
+}, 1)
+
+tmp3777 := PrimReadFileAsByteList(V2528)
+
+__e.TailApply(tmp3768, tmp3777)
+return
+
+
+}, 1)
+
+tmp3778 := Call(__e, ns2_1set, symread_1file, tmp3767)
+
+
+_ = tmp3778
+
+tmp3779 := MakeNative(func(__e *ControlFlow) {
+V2534 := __e.Get(1)
+_ = V2534
+tmp3780 := PrimValue(sym_dmaximum_1print_1sequence_1size_d)
+
+tmp3781 := Call(__e, PrimFunc(symshen_4reader_1error_1message), tmp3780, MakeNumber(0), V2534)
+
+
+tmp3782 := PrimStringConcat(MakeString("reader error near here: "), tmp3781)
+
+tmp3783 := Call(__e, PrimFunc(symshen_4proc_1nl), tmp3782)
+
+
+__e.Return(PrimSimpleError(tmp3783))
+return
+
+
+}, 1)
+
+tmp3784 := Call(__e, ns2_1set, symshen_4reader_1error, tmp3779)
+
+
+_ = tmp3784
+
+tmp3785 := MakeNative(func(__e *ControlFlow) {
+V2542 := __e.Get(1)
+_ = V2542
+V2543 := __e.Get(2)
+_ = V2543
+V2544 := __e.Get(3)
+_ = V2544
+tmp3796 := PrimEqual(Nil, V2544)
+
+if True == tmp3796 {
+__e.Return(MakeString(""))
+return
+} else {
+tmp3794 := PrimEqual(V2542, V2543)
+
+if True == tmp3794 {
+__e.Return(MakeString(""))
+return
+} else {
+tmp3792 := PrimIsPair(V2544)
+
+if True == tmp3792 {
+tmp3786 := PrimHead(V2544)
+
+tmp3787 := PrimNumberToString(tmp3786)
+
+tmp3788 := PrimNumberAdd(V2543, MakeNumber(1))
+
+tmp3789 := PrimTail(V2544)
+
+tmp3790 := Call(__e, PrimFunc(symshen_4reader_1error_1message), V2542, tmp3788, tmp3789)
+
+
+__e.Return(PrimStringConcat(tmp3787, tmp3790))
+return
+
+
+} else {
+__e.TailApply(PrimFunc(symshen_4f_1error), symshen_4reader_1error_1message)
+return
+}
+
+
+}
+
+
+}
+
+
+}, 3)
+
+tmp3797 := Call(__e, ns2_1set, symshen_4reader_1error_1message, tmp3785)
+
+
+_ = tmp3797
+
+tmp3798 := MakeNative(func(__e *ControlFlow) {
+__e.Return(PrimValue(symshen_4_dit_d))
+return
+}, 0)
+
+tmp3799 := Call(__e, ns2_1set, symit, tmp3798)
+
+
+_ = tmp3799
+
+tmp3800 := MakeNative(func(__e *ControlFlow) {
+V2545 := __e.Get(1)
+_ = V2545
+tmp3801 := MakeNative(func(__e *ControlFlow) {
+W2546 := __e.Get(1)
+_ = W2546
+tmp3802 := MakeNative(func(__e *ControlFlow) {
+W2547 := __e.Get(1)
+_ = W2547
+tmp3803 := MakeNative(func(__e *ControlFlow) {
+W2548 := __e.Get(1)
+_ = W2548
+tmp3804 := MakeNative(func(__e *ControlFlow) {
+W2549 := __e.Get(1)
+_ = W2549
+__e.TailApply(PrimFunc(symreverse), W2548)
+return
+}, 1)
+
+tmp3805 := PrimCloseStream(W2546)
+
+__e.TailApply(tmp3804, tmp3805)
+return
+
+
+}, 1)
+
+tmp3806 := Call(__e, PrimFunc(symshen_4read_1file_1as_1bytelist_1help), W2546, W2547, Nil)
+
+
+__e.TailApply(tmp3803, tmp3806)
+return
+
+
+}, 1)
+
+tmp3807 := PrimReadByte(W2546)
+
+__e.TailApply(tmp3802, tmp3807)
+return
+
+
+}, 1)
+
+tmp3808 := PrimOpenStream(V2545, symin)
+
+__e.TailApply(tmp3801, tmp3808)
+return
+
+
+}, 1)
+
+tmp3809 := Call(__e, ns2_1set, symread_1file_1as_1bytelist, tmp3800)
+
+
+_ = tmp3809
+
+tmp3810 := MakeNative(func(__e *ControlFlow) {
+V2550 := __e.Get(1)
+_ = V2550
+V2551 := __e.Get(2)
+_ = V2551
+V2552 := __e.Get(3)
+_ = V2552
+tmp3814 := PrimEqual(MakeNumber(-1), V2551)
+
+if True == tmp3814 {
+__e.Return(V2552)
+return
+} else {
+tmp3811 := PrimReadByte(V2550)
+
+tmp3812 := PrimCons(V2551, V2552)
+
+__e.TailApply(PrimFunc(symshen_4read_1file_1as_1bytelist_1help), V2550, tmp3811, tmp3812)
+return
+
+
+}
+
+
+}, 3)
+
+tmp3815 := Call(__e, ns2_1set, symshen_4read_1file_1as_1bytelist_1help, tmp3810)
+
+
+_ = tmp3815
+
+tmp3816 := MakeNative(func(__e *ControlFlow) {
+V2553 := __e.Get(1)
+_ = V2553
+tmp3817 := MakeNative(func(__e *ControlFlow) {
+W2554 := __e.Get(1)
+_ = W2554
+tmp3818 := PrimReadByte(W2554)
+
+__e.TailApply(PrimFunc(symshen_4rfas_1h), W2554, tmp3818, MakeString(""))
+return
+
+
+}, 1)
+
+tmp3819 := PrimOpenStream(V2553, symin)
+
+__e.TailApply(tmp3817, tmp3819)
+return
+
+
+}, 1)
+
+tmp3820 := Call(__e, ns2_1set, symread_1file_1as_1string, tmp3816)
+
+
+_ = tmp3820
+
+tmp3821 := MakeNative(func(__e *ControlFlow) {
+V2555 := __e.Get(1)
+_ = V2555
+V2556 := __e.Get(2)
+_ = V2556
+V2557 := __e.Get(3)
+_ = V2557
+tmp3827 := PrimEqual(MakeNumber(-1), V2556)
+
+if True == tmp3827 {
+tmp3822 := PrimCloseStream(V2555)
+
+_ = tmp3822
+
+__e.Return(V2557)
+return
+
+
+} else {
+tmp3823 := PrimReadByte(V2555)
+
+tmp3824 := PrimNumberToString(V2556)
+
+tmp3825 := PrimStringConcat(V2557, tmp3824)
+
+__e.TailApply(PrimFunc(symshen_4rfas_1h), V2555, tmp3823, tmp3825)
+return
+
+
+}
+
+
+}, 3)
+
+tmp3828 := Call(__e, ns2_1set, symshen_4rfas_1h, tmp3821)
+
+
+_ = tmp3828
+
+tmp3829 := MakeNative(func(__e *ControlFlow) {
+V2558 := __e.Get(1)
+_ = V2558
+tmp3830 := Call(__e, PrimFunc(symread), V2558)
+
+
+__e.TailApply(PrimFunc(symeval_1kl), tmp3830)
+return
+
+
+}, 1)
+
+tmp3831 := Call(__e, ns2_1set, syminput, tmp3829)
+
+
+_ = tmp3831
+
+tmp3832 := MakeNative(func(__e *ControlFlow) {
+V2559 := __e.Get(1)
+_ = V2559
+V2560 := __e.Get(2)
+_ = V2560
+tmp3833 := MakeNative(func(__e *ControlFlow) {
+W2561 := __e.Get(1)
+_ = W2561
+tmp3834 := MakeNative(func(__e *ControlFlow) {
+W2562 := __e.Get(1)
+_ = W2562
+tmp3840 := Call(__e, PrimFunc(symshen_4rectify_1type), V2559)
+
+
+tmp3841 := Call(__e, PrimFunc(symshen_4typecheck), W2562, tmp3840)
+
+
+tmp3842 := PrimEqual(False, tmp3841)
+
+if True == tmp3842 {
+tmp3835 := Call(__e, PrimFunc(symshen_4app), V2559, MakeString("\n"), symshen_4r)
+
+
+tmp3836 := PrimStringConcat(MakeString(" is not of type "), tmp3835)
+
+tmp3837 := Call(__e, PrimFunc(symshen_4app), W2562, tmp3836, symshen_4r)
+
+
+tmp3838 := PrimStringConcat(MakeString("type error: "), tmp3837)
+
+__e.Return(PrimSimpleError(tmp3838))
+return
+
+
+} else {
+__e.TailApply(PrimFunc(symeval_1kl), W2562)
+return
+}
+
+
+}, 1)
+
+tmp3843 := Call(__e, PrimFunc(symread), V2560)
+
+
+__e.TailApply(tmp3834, tmp3843)
+return
+
+
+}, 1)
+
+tmp3844 := Call(__e, PrimFunc(symshen_4monotype), V2559)
+
+
+__e.TailApply(tmp3833, tmp3844)
+return
+
+
+}, 2)
+
+tmp3845 := Call(__e, ns2_1set, syminput_7, tmp3832)
+
+
+_ = tmp3845
+
+tmp3846 := MakeNative(func(__e *ControlFlow) {
+V2563 := __e.Get(1)
+_ = V2563
+tmp3853 := PrimIsPair(V2563)
+
+if True == tmp3853 {
+tmp3847 := MakeNative(func(__e *ControlFlow) {
+Z2564 := __e.Get(1)
+_ = Z2564
+__e.TailApply(PrimFunc(symshen_4monotype), Z2564)
+return
+}, 1)
+
+__e.TailApply(PrimFunc(symmap), tmp3847, V2563)
+return
+
+
+} else {
+tmp3851 := PrimIsVariable(V2563)
+
+if True == tmp3851 {
+tmp3848 := Call(__e, PrimFunc(symshen_4app), V2563, MakeString("\n"), symshen_4a)
+
+
+tmp3849 := PrimStringConcat(MakeString("input+ expects a monotype: not "), tmp3848)
+
+__e.Return(PrimSimpleError(tmp3849))
+return
+
+
+} else {
+__e.Return(V2563)
+return
+}
+
+
+}
+
+
+}, 1)
+
+tmp3854 := Call(__e, ns2_1set, symshen_4monotype, tmp3846)
+
+
+_ = tmp3854
+
+tmp3855 := MakeNative(func(__e *ControlFlow) {
+V2565 := __e.Get(1)
+_ = V2565
+tmp3856 := Call(__e, PrimFunc(symshen_4my_1read_1byte), V2565)
+
+
+tmp3857 := MakeNative(func(__e *ControlFlow) {
+Z2566 := __e.Get(1)
+_ = Z2566
+__e.TailApply(PrimFunc(symshen_4return_2), Z2566)
+return
+}, 1)
+
+__e.TailApply(PrimFunc(symshen_4read_1loop), V2565, tmp3856, Nil, tmp3857)
+return
+
+
+}, 1)
+
+tmp3858 := Call(__e, ns2_1set, symlineread, tmp3855)
+
+
+_ = tmp3858
+
+tmp3859 := MakeNative(func(__e *ControlFlow) {
+V2567 := __e.Get(1)
+_ = V2567
+tmp3860 := MakeNative(func(__e *ControlFlow) {
+W2568 := __e.Get(1)
+_ = W2568
+tmp3861 := MakeNative(func(__e *ControlFlow) {
+W2569 := __e.Get(1)
+_ = W2569
+tmp3862 := MakeNative(func(__e *ControlFlow) {
+W2571 := __e.Get(1)
+_ = W2571
+__e.Return(W2571)
+return
+}, 1)
+
+tmp3863 := Call(__e, PrimFunc(symshen_4process_1sexprs), W2569)
+
+
+__e.TailApply(tmp3862, tmp3863)
+return
+
+
+}, 1)
+
+tmp3864 := MakeNative(func(__e *ControlFlow) {
+Z2570 := __e.Get(1)
+_ = Z2570
+__e.TailApply(PrimFunc(symshen_4_5s_1exprs_6), Z2570)
+return
+}, 1)
+
+tmp3865 := Call(__e, PrimFunc(symcompile), tmp3864, W2568)
+
+
+__e.TailApply(tmp3861, tmp3865)
+return
+
+
+}, 1)
+
+tmp3866 := Call(__e, PrimFunc(symshen_4str_1_6bytes), V2567)
+
+
+__e.TailApply(tmp3860, tmp3866)
+return
+
+
+}, 1)
+
+tmp3867 := Call(__e, ns2_1set, symread_1from_1string, tmp3859)
+
+
+_ = tmp3867
+
+tmp3868 := MakeNative(func(__e *ControlFlow) {
+V2572 := __e.Get(1)
+_ = V2572
+tmp3869 := MakeNative(func(__e *ControlFlow) {
+W2573 := __e.Get(1)
+_ = W2573
+tmp3870 := MakeNative(func(__e *ControlFlow) {
+W2574 := __e.Get(1)
+_ = W2574
+__e.Return(W2574)
+return
+}, 1)
+
+tmp3871 := MakeNative(func(__e *ControlFlow) {
+Z2575 := __e.Get(1)
+_ = Z2575
+__e.TailApply(PrimFunc(symshen_4_5s_1exprs_6), Z2575)
+return
+}, 1)
+
+tmp3872 := Call(__e, PrimFunc(symcompile), tmp3871, W2573)
+
+
+__e.TailApply(tmp3870, tmp3872)
+return
+
+
+}, 1)
+
+tmp3873 := Call(__e, PrimFunc(symshen_4str_1_6bytes), V2572)
+
+
+__e.TailApply(tmp3869, tmp3873)
+return
+
+
+}, 1)
+
+tmp3874 := Call(__e, ns2_1set, symread_1from_1string_1unprocessed, tmp3868)
+
+
+_ = tmp3874
+
+tmp3875 := MakeNative(func(__e *ControlFlow) {
+V2576 := __e.Get(1)
+_ = V2576
+tmp3883 := PrimEqual(MakeString(""), V2576)
+
+if True == tmp3883 {
+__e.Return(Nil)
+return
+} else {
+tmp3881 := Call(__e, PrimFunc(symshen_4_7string_2), V2576)
+
+
+if True == tmp3881 {
+tmp3876 := Call(__e, PrimFunc(symhdstr), V2576)
+
+
+tmp3877 := PrimStringToNumber(tmp3876)
+
+tmp3878 := PrimTailString(V2576)
+
+tmp3879 := Call(__e, PrimFunc(symshen_4str_1_6bytes), tmp3878)
+
+
+__e.Return(PrimCons(tmp3877, tmp3879))
+return
+
+
+} else {
+__e.TailApply(PrimFunc(symshen_4f_1error), symshen_4str_1_6bytes)
+return
+}
+
+
+}
+
+
+}, 1)
+
+tmp3884 := Call(__e, ns2_1set, symshen_4str_1_6bytes, tmp3875)
+
+
+_ = tmp3884
+
+tmp3885 := MakeNative(func(__e *ControlFlow) {
+V2577 := __e.Get(1)
+_ = V2577
+tmp3886 := Call(__e, PrimFunc(symshen_4my_1read_1byte), V2577)
+
+
+tmp3887 := MakeNative(func(__e *ControlFlow) {
+Z2578 := __e.Get(1)
+_ = Z2578
+__e.TailApply(PrimFunc(symshen_4whitespace_2), Z2578)
+return
+}, 1)
+
+tmp3888 := Call(__e, PrimFunc(symshen_4read_1loop), V2577, tmp3886, Nil, tmp3887)
+
+
+__e.Return(PrimHead(tmp3888))
+return
+
+
+}, 1)
+
+tmp3889 := Call(__e, ns2_1set, symread, tmp3885)
+
+
+_ = tmp3889
+
+tmp3890 := MakeNative(func(__e *ControlFlow) {
+V2579 := __e.Get(1)
+_ = V2579
+tmp3893 := Call(__e, PrimFunc(symshen_4char_1stinput_2), V2579)
+
+
+if True == tmp3893 {
+tmp3891 := Call(__e, PrimFunc(symshen_4read_1unit_1string), V2579)
+
+
+__e.Return(PrimStringToNumber(tmp3891))
+return
+
+
+} else {
+__e.Return(PrimReadByte(V2579))
+return
+}
+
+
+}, 1)
+
+tmp3894 := Call(__e, ns2_1set, symshen_4my_1read_1byte, tmp3890)
+
+
+_ = tmp3894
+
+tmp3895 := MakeNative(func(__e *ControlFlow) {
+V2584 := __e.Get(1)
+_ = V2584
+V2585 := __e.Get(2)
+_ = V2585
+V2586 := __e.Get(3)
+_ = V2586
+V2587 := __e.Get(4)
+_ = V2587
+tmp3918 := PrimEqual(MakeNumber(94), V2585)
+
+if True == tmp3918 {
+__e.Return(PrimSimpleError(MakeString("read aborted")))
+return
+} else {
+tmp3916 := PrimEqual(MakeNumber(-1), V2585)
+
+if True == tmp3916 {
+tmp3898 := Call(__e, PrimFunc(symempty_2), V2586)
+
+
+if True == tmp3898 {
+__e.Return(PrimSimpleError(MakeString("error: empty stream")))
+return
+} else {
+tmp3896 := MakeNative(func(__e *ControlFlow) {
+Z2588 := __e.Get(1)
+_ = Z2588
+__e.TailApply(PrimFunc(symshen_4_5s_1exprs_6), Z2588)
+return
+}, 1)
+
+__e.TailApply(PrimFunc(symcompile), tmp3896, V2586)
+return
+
+
+}
+
+
+} else {
+tmp3914 := PrimEqual(MakeNumber(0), V2585)
+
+if True == tmp3914 {
+tmp3899 := Call(__e, PrimFunc(symshen_4my_1read_1byte), V2584)
+
+
+__e.TailApply(PrimFunc(symshen_4read_1loop), V2584, tmp3899, V2586, V2587)
+return
+
+
+} else {
+tmp3912 := Call(__e, V2587, V2585)
+
+
+if True == tmp3912 {
+tmp3900 := MakeNative(func(__e *ControlFlow) {
+W2589 := __e.Get(1)
+_ = W2589
+tmp3906 := Call(__e, PrimFunc(symshen_4nothing_1doing_2), W2589)
+
+
+if True == tmp3906 {
+tmp3901 := Call(__e, PrimFunc(symshen_4my_1read_1byte), V2584)
+
+
+tmp3902 := PrimCons(V2585, Nil)
+
+tmp3903 := Call(__e, PrimFunc(symappend), V2586, tmp3902)
+
+
+__e.TailApply(PrimFunc(symshen_4read_1loop), V2584, tmp3901, tmp3903, V2587)
+return
+
+
+} else {
+tmp3904 := Call(__e, PrimFunc(symshen_4record_1it), V2586)
+
+
+_ = tmp3904
+
+__e.Return(W2589)
+return
+
+
+}
+
+
+}, 1)
+
+tmp3907 := Call(__e, PrimFunc(symshen_4try_1parse), V2586)
+
+
+__e.TailApply(tmp3900, tmp3907)
+return
+
+
+} else {
+tmp3908 := Call(__e, PrimFunc(symshen_4my_1read_1byte), V2584)
+
+
+tmp3909 := PrimCons(V2585, Nil)
+
+tmp3910 := Call(__e, PrimFunc(symappend), V2586, tmp3909)
+
+
+__e.TailApply(PrimFunc(symshen_4read_1loop), V2584, tmp3908, tmp3910, V2587)
+return
+
+
+}
+
+
+}
+
+
+}
+
+
+}
+
+
+}, 4)
+
+tmp3919 := Call(__e, ns2_1set, symshen_4read_1loop, tmp3895)
+
+
+_ = tmp3919
+
+tmp3920 := MakeNative(func(__e *ControlFlow) {
+V2590 := __e.Get(1)
+_ = V2590
+tmp3921 := MakeNative(func(__e *ControlFlow) {
+W2591 := __e.Get(1)
+_ = W2591
+tmp3923 := Call(__e, PrimFunc(symshen_4nothing_1doing_2), W2591)
+
+
+if True == tmp3923 {
+__e.Return(symshen_4i_1failed_b)
+return
+} else {
+__e.TailApply(PrimFunc(symshen_4process_1sexprs), W2591)
+return
+}
+
+
+}, 1)
+
+tmp3924 := MakeNative(func(__e *ControlFlow) {
+tmp3925 := MakeNative(func(__e *ControlFlow) {
+Z2592 := __e.Get(1)
+_ = Z2592
+__e.TailApply(PrimFunc(symshen_4_5s_1exprs_6), Z2592)
+return
+}, 1)
+
+__e.TailApply(PrimFunc(symcompile), tmp3925, V2590)
+return
+
+
+}, 0)
+
+tmp3926 := MakeNative(func(__e *ControlFlow) {
+Z2593 := __e.Get(1)
+_ = Z2593
+__e.Return(symshen_4i_1failed_b)
+return
+}, 1)
+
+tmp3927 := Call(__e, try_1catch, tmp3924, tmp3926)
+
+
+__e.TailApply(tmp3921, tmp3927)
+return
+
+
+}, 1)
+
+tmp3928 := Call(__e, ns2_1set, symshen_4try_1parse, tmp3920)
+
+
+_ = tmp3928
+
+tmp3929 := MakeNative(func(__e *ControlFlow) {
+V2596 := __e.Get(1)
+_ = V2596
+tmp3933 := PrimEqual(symshen_4i_1failed_b, V2596)
+
+if True == tmp3933 {
+__e.Return(True)
+return
+} else {
+tmp3931 := PrimEqual(Nil, V2596)
+
+if True == tmp3931 {
+__e.Return(True)
+return
+} else {
+__e.Return(False)
+return
+}
+
+
+}
+
+
+}, 1)
+
+tmp3934 := Call(__e, ns2_1set, symshen_4nothing_1doing_2, tmp3929)
+
+
+_ = tmp3934
+
+tmp3935 := MakeNative(func(__e *ControlFlow) {
+V2597 := __e.Get(1)
+_ = V2597
+tmp3936 := Call(__e, PrimFunc(symshen_4bytes_1_6string), V2597)
+
+
+__e.Return(PrimSet(symshen_4_dit_d, tmp3936))
+return
+
+
+}, 1)
+
+tmp3937 := Call(__e, ns2_1set, symshen_4record_1it, tmp3935)
+
+
+_ = tmp3937
+
+tmp3938 := MakeNative(func(__e *ControlFlow) {
+V2598 := __e.Get(1)
+_ = V2598
+tmp3946 := PrimEqual(Nil, V2598)
+
+if True == tmp3946 {
+__e.Return(MakeString(""))
+return
+} else {
+tmp3944 := PrimIsPair(V2598)
+
+if True == tmp3944 {
+tmp3939 := PrimHead(V2598)
+
+tmp3940 := PrimNumberToString(tmp3939)
+
+tmp3941 := PrimTail(V2598)
+
+tmp3942 := Call(__e, PrimFunc(symshen_4bytes_1_6string), tmp3941)
+
+
+__e.Return(PrimStringConcat(tmp3940, tmp3942))
+return
+
+
+} else {
+__e.TailApply(PrimFunc(symshen_4f_1error), symshen_4bytes_1_6string)
+return
+}
+
+
+}
+
+
+}, 1)
+
+tmp3947 := Call(__e, ns2_1set, symshen_4bytes_1_6string, tmp3938)
+
+
+_ = tmp3947
+
+tmp3948 := MakeNative(func(__e *ControlFlow) {
+V2599 := __e.Get(1)
+_ = V2599
+tmp3949 := MakeNative(func(__e *ControlFlow) {
+W2600 := __e.Get(1)
+_ = W2600
+tmp3950 := MakeNative(func(__e *ControlFlow) {
+W2601 := __e.Get(1)
+_ = W2601
+tmp3951 := MakeNative(func(__e *ControlFlow) {
+W2602 := __e.Get(1)
+_ = W2602
+tmp3952 := MakeNative(func(__e *ControlFlow) {
+Z2603 := __e.Get(1)
+_ = Z2603
+__e.TailApply(PrimFunc(symshen_4process_1applications), Z2603, W2602)
+return
+}, 1)
+
+__e.TailApply(PrimFunc(symmap), tmp3952, W2600)
+return
+
+
+}, 1)
+
+tmp3953 := Call(__e, PrimFunc(symshen_4find_1types), W2600)
+
+
+__e.TailApply(tmp3951, tmp3953)
+return
+
+
+}, 1)
+
+tmp3954 := Call(__e, PrimFunc(symshen_4find_1arities), W2600)
+
+
+__e.TailApply(tmp3950, tmp3954)
+return
+
+
+}, 1)
+
+tmp3955 := Call(__e, PrimFunc(symshen_4unpackage_emacroexpand), V2599)
+
+
+__e.TailApply(tmp3949, tmp3955)
+return
+
+
+}, 1)
+
+tmp3956 := Call(__e, ns2_1set, symshen_4process_1sexprs, tmp3948)
+
+
+_ = tmp3956
+
+tmp3957 := MakeNative(func(__e *ControlFlow) {
+V2604 := __e.Get(1)
+_ = V2604
+tmp3979 := PrimIsPair(V2604)
+
+var ifres3970 Obj
+
+if True == tmp3979 {
+tmp3977 := PrimTail(V2604)
+
+tmp3978 := PrimIsPair(tmp3977)
+
+var ifres3972 Obj
+
+if True == tmp3978 {
+tmp3974 := PrimHead(V2604)
+
+tmp3975 := PrimIntern(MakeString(":"))
+
+tmp3976 := PrimEqual(tmp3974, tmp3975)
+
+var ifres3973 Obj
+
+if True == tmp3976 {
+ifres3973 = True
+
+
+} else {
+ifres3973 = False
+
+
+}
+
+ifres3972 = ifres3973
+
+
+} else {
+ifres3972 = False
+
+
+}
+
+var ifres3971 Obj
+
+if True == ifres3972 {
+ifres3971 = True
+
+
+} else {
+ifres3971 = False
+
+
+}
+
+ifres3970 = ifres3971
+
+
+} else {
+ifres3970 = False
+
+
+}
+
+if True == ifres3970 {
+tmp3958 := PrimTail(V2604)
+
+tmp3959 := PrimHead(tmp3958)
+
+tmp3960 := PrimTail(V2604)
+
+tmp3961 := PrimTail(tmp3960)
+
+tmp3962 := Call(__e, PrimFunc(symshen_4find_1types), tmp3961)
+
+
+__e.Return(PrimCons(tmp3959, tmp3962))
+return
+
+
+} else {
+tmp3968 := PrimIsPair(V2604)
+
+if True == tmp3968 {
+tmp3963 := PrimHead(V2604)
+
+tmp3964 := Call(__e, PrimFunc(symshen_4find_1types), tmp3963)
+
+
+tmp3965 := PrimTail(V2604)
+
+tmp3966 := Call(__e, PrimFunc(symshen_4find_1types), tmp3965)
+
+
+__e.TailApply(PrimFunc(symappend), tmp3964, tmp3966)
+return
+
+
+} else {
+__e.Return(Nil)
+return
+}
+
+
+}
+
+
+}, 1)
+
+tmp3980 := Call(__e, ns2_1set, symshen_4find_1types, tmp3957)
+
+
+_ = tmp3980
+
+tmp3981 := MakeNative(func(__e *ControlFlow) {
+V2607 := __e.Get(1)
+_ = V2607
+tmp4030 := PrimIsPair(V2607)
+
+var ifres4011 Obj
+
+if True == tmp4030 {
+tmp4028 := PrimHead(V2607)
+
+tmp4029 := PrimEqual(symdefine, tmp4028)
+
+var ifres4013 Obj
+
+if True == tmp4029 {
+tmp4026 := PrimTail(V2607)
+
+tmp4027 := PrimIsPair(tmp4026)
+
+var ifres4015 Obj
+
+if True == tmp4027 {
+tmp4023 := PrimTail(V2607)
+
+tmp4024 := PrimTail(tmp4023)
+
+tmp4025 := PrimIsPair(tmp4024)
+
+var ifres4017 Obj
+
+if True == tmp4025 {
+tmp4019 := PrimTail(V2607)
+
+tmp4020 := PrimTail(tmp4019)
+
+tmp4021 := PrimHead(tmp4020)
+
+tmp4022 := PrimEqual(sym_i, tmp4021)
+
+var ifres4018 Obj
+
+if True == tmp4022 {
+ifres4018 = True
+
+
+} else {
+ifres4018 = False
+
+
+}
+
+ifres4017 = ifres4018
+
+
+} else {
+ifres4017 = False
+
+
+}
+
+var ifres4016 Obj
+
+if True == ifres4017 {
+ifres4016 = True
+
+
+} else {
+ifres4016 = False
+
+
+}
+
+ifres4015 = ifres4016
+
+
+} else {
+ifres4015 = False
+
+
+}
+
+var ifres4014 Obj
+
+if True == ifres4015 {
+ifres4014 = True
+
+
+} else {
+ifres4014 = False
+
+
+}
+
+ifres4013 = ifres4014
+
+
+} else {
+ifres4013 = False
+
+
+}
+
+var ifres4012 Obj
+
+if True == ifres4013 {
+ifres4012 = True
+
+
+} else {
+ifres4012 = False
+
+
+}
+
+ifres4011 = ifres4012
+
+
+} else {
+ifres4011 = False
+
+
+}
+
+if True == ifres4011 {
+tmp3982 := PrimTail(V2607)
+
+tmp3983 := PrimHead(tmp3982)
+
+tmp3984 := PrimTail(V2607)
+
+tmp3985 := PrimHead(tmp3984)
+
+tmp3986 := PrimTail(V2607)
+
+tmp3987 := PrimTail(tmp3986)
+
+tmp3988 := PrimTail(tmp3987)
+
+tmp3989 := Call(__e, PrimFunc(symshen_4find_1arity), tmp3985, MakeNumber(1), tmp3988)
+
+
+__e.TailApply(PrimFunc(symshen_4store_1arity), tmp3983, tmp3989)
+return
+
+
+} else {
+tmp4009 := PrimIsPair(V2607)
+
+var ifres4001 Obj
+
+if True == tmp4009 {
+tmp4007 := PrimHead(V2607)
+
+tmp4008 := PrimEqual(symdefine, tmp4007)
+
+var ifres4003 Obj
+
+if True == tmp4008 {
+tmp4005 := PrimTail(V2607)
+
+tmp4006 := PrimIsPair(tmp4005)
+
+var ifres4004 Obj
+
+if True == tmp4006 {
+ifres4004 = True
+
+
+} else {
+ifres4004 = False
+
+
+}
+
+ifres4003 = ifres4004
+
+
+} else {
+ifres4003 = False
+
+
+}
+
+var ifres4002 Obj
+
+if True == ifres4003 {
+ifres4002 = True
+
+
+} else {
+ifres4002 = False
+
+
+}
+
+ifres4001 = ifres4002
+
+
+} else {
+ifres4001 = False
+
+
+}
+
+if True == ifres4001 {
+tmp3990 := PrimTail(V2607)
+
+tmp3991 := PrimHead(tmp3990)
+
+tmp3992 := PrimTail(V2607)
+
+tmp3993 := PrimHead(tmp3992)
+
+tmp3994 := PrimTail(V2607)
+
+tmp3995 := PrimTail(tmp3994)
+
+tmp3996 := Call(__e, PrimFunc(symshen_4find_1arity), tmp3993, MakeNumber(0), tmp3995)
+
+
+__e.TailApply(PrimFunc(symshen_4store_1arity), tmp3991, tmp3996)
+return
+
+
+} else {
+tmp3999 := PrimIsPair(V2607)
+
+if True == tmp3999 {
+tmp3997 := MakeNative(func(__e *ControlFlow) {
+Z2608 := __e.Get(1)
+_ = Z2608
+__e.TailApply(PrimFunc(symshen_4find_1arities), Z2608)
+return
+}, 1)
+
+__e.TailApply(PrimFunc(symmap), tmp3997, V2607)
+return
+
+
+} else {
+__e.Return(symshen_4skip)
+return
+}
+
+
+}
+
+
+}
+
+
+}, 1)
+
+tmp4031 := Call(__e, ns2_1set, symshen_4find_1arities, tmp3981)
+
+
+_ = tmp4031
+
+tmp4032 := MakeNative(func(__e *ControlFlow) {
+V2609 := __e.Get(1)
+_ = V2609
+V2610 := __e.Get(2)
+_ = V2610
+tmp4033 := MakeNative(func(__e *ControlFlow) {
+W2611 := __e.Get(1)
+_ = W2611
+tmp4044 := PrimEqual(W2611, MakeNumber(-1))
+
+if True == tmp4044 {
+__e.TailApply(PrimFunc(symshen_4execute_1store_1arity), V2609, V2610)
+return
+} else {
+tmp4042 := PrimEqual(W2611, V2610)
+
+if True == tmp4042 {
+__e.Return(symshen_4skip)
+return
+} else {
+tmp4040 := Call(__e, PrimFunc(symshen_4sysfunc_2), V2609)
+
+
+if True == tmp4040 {
+tmp4034 := Call(__e, PrimFunc(symshen_4app), V2609, MakeString(" is a system function\n"), symshen_4a)
+
+
+__e.Return(PrimSimpleError(tmp4034))
+return
+
+
+} else {
+tmp4035 := Call(__e, PrimFunc(symshen_4app), V2609, MakeString(" may cause errors\n"), symshen_4a)
+
+
+tmp4036 := PrimStringConcat(MakeString("changing the arity of "), tmp4035)
+
+tmp4037 := Call(__e, PrimFunc(symstoutput))
+
+
+tmp4038 := Call(__e, PrimFunc(sympr), tmp4036, tmp4037)
+
+
+_ = tmp4038
+
+__e.TailApply(PrimFunc(symshen_4execute_1store_1arity), V2609, V2610)
+return
+
+
+}
+
+
+}
+
+
+}
+
+
+}, 1)
+
+tmp4045 := Call(__e, PrimFunc(symarity), V2609)
+
+
+__e.TailApply(tmp4033, tmp4045)
+return
+
+
+}, 2)
+
+tmp4046 := Call(__e, ns2_1set, symshen_4store_1arity, tmp4032)
+
+
+_ = tmp4046
+
+tmp4047 := MakeNative(func(__e *ControlFlow) {
+V2612 := __e.Get(1)
+_ = V2612
+V2613 := __e.Get(2)
+_ = V2613
+tmp4052 := PrimEqual(MakeNumber(0), V2613)
+
+if True == tmp4052 {
+tmp4048 := PrimValue(sym_dproperty_1vector_d)
+
+__e.TailApply(PrimFunc(symput), V2612, symarity, MakeNumber(0), tmp4048)
+return
+
+
+} else {
+tmp4049 := PrimValue(sym_dproperty_1vector_d)
+
+tmp4050 := Call(__e, PrimFunc(symput), V2612, symarity, V2613, tmp4049)
+
+
+_ = tmp4050
+
+__e.TailApply(PrimFunc(symshen_4update_1lambdatable), V2612, V2613)
+return
+
+
+}
+
+
+}, 2)
+
+tmp4053 := Call(__e, ns2_1set, symshen_4execute_1store_1arity, tmp4047)
+
+
+_ = tmp4053
+
+tmp4054 := MakeNative(func(__e *ControlFlow) {
+V2614 := __e.Get(1)
+_ = V2614
+V2615 := __e.Get(2)
+_ = V2615
+tmp4055 := MakeNative(func(__e *ControlFlow) {
+W2616 := __e.Get(1)
+_ = W2616
+tmp4056 := MakeNative(func(__e *ControlFlow) {
+W2617 := __e.Get(1)
+_ = W2617
+__e.Return(V2615)
+return
+}, 1)
+
+tmp4057 := PrimCons(V2614, W2616)
+
+tmp4058 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp4057)
+
+
+__e.TailApply(tmp4056, tmp4058)
+return
+
+
+}, 1)
+
+tmp4059 := PrimCons(V2614, Nil)
+
+tmp4060 := Call(__e, PrimFunc(symshen_4lambda_1function), tmp4059, V2615)
+
+
+tmp4061 := Call(__e, PrimFunc(symeval_1kl), tmp4060)
+
+
+__e.TailApply(tmp4055, tmp4061)
+return
+
+
+}, 2)
+
+tmp4062 := Call(__e, ns2_1set, symshen_4update_1lambdatable, tmp4054)
+
+
+_ = tmp4062
+
+tmp4063 := MakeNative(func(__e *ControlFlow) {
+V2620 := __e.Get(1)
+_ = V2620
+V2621 := __e.Get(2)
+_ = V2621
+tmp4081 := PrimEqual(MakeNumber(0), V2621)
+
+if True == tmp4081 {
+__e.Return(symshen_4skip)
+return
+} else {
+tmp4079 := PrimEqual(MakeNumber(1), V2621)
+
+if True == tmp4079 {
+tmp4064 := MakeNative(func(__e *ControlFlow) {
+W2622 := __e.Get(1)
+_ = W2622
+tmp4065 := PrimCons(W2622, Nil)
+
+tmp4066 := Call(__e, PrimFunc(symappend), V2620, tmp4065)
+
+
+tmp4067 := PrimCons(tmp4066, Nil)
+
+tmp4068 := PrimCons(W2622, tmp4067)
+
+__e.Return(PrimCons(symlambda, tmp4068))
+return
+
+
+}, 1)
+
+tmp4069 := Call(__e, PrimFunc(symgensym), symY)
+
+
+__e.TailApply(tmp4064, tmp4069)
+return
+
+
+} else {
+tmp4070 := MakeNative(func(__e *ControlFlow) {
+W2623 := __e.Get(1)
+_ = W2623
+tmp4071 := PrimCons(W2623, Nil)
+
+tmp4072 := Call(__e, PrimFunc(symappend), V2620, tmp4071)
+
+
+tmp4073 := PrimNumberSubtract(V2621, MakeNumber(1))
+
+tmp4074 := Call(__e, PrimFunc(symshen_4lambda_1function), tmp4072, tmp4073)
+
+
+tmp4075 := PrimCons(tmp4074, Nil)
+
+tmp4076 := PrimCons(W2623, tmp4075)
+
+__e.Return(PrimCons(symlambda, tmp4076))
+return
+
+
+}, 1)
+
+tmp4077 := Call(__e, PrimFunc(symgensym), symY)
+
+
+__e.TailApply(tmp4070, tmp4077)
+return
+
+
+}
+
+
+}
+
+
+}, 2)
+
+tmp4082 := Call(__e, ns2_1set, symshen_4lambda_1function, tmp4063)
+
+
+_ = tmp4082
+
+tmp4083 := MakeNative(func(__e *ControlFlow) {
+V2633 := __e.Get(1)
+_ = V2633
+V2634 := __e.Get(2)
+_ = V2634
+V2635 := __e.Get(3)
+_ = V2635
+tmp4106 := PrimEqual(Nil, V2635)
+
+if True == tmp4106 {
+tmp4084 := PrimCons(V2633, V2634)
+
+__e.Return(PrimCons(tmp4084, Nil))
+return
+
+
+} else {
+tmp4104 := PrimIsPair(V2635)
+
+var ifres4095 Obj
+
+if True == tmp4104 {
+tmp4102 := PrimHead(V2635)
+
+tmp4103 := PrimIsPair(tmp4102)
+
+var ifres4097 Obj
+
+if True == tmp4103 {
+tmp4099 := PrimHead(V2635)
+
+tmp4100 := PrimHead(tmp4099)
+
+tmp4101 := PrimEqual(V2633, tmp4100)
+
+var ifres4098 Obj
+
+if True == tmp4101 {
+ifres4098 = True
+
+
+} else {
+ifres4098 = False
+
+
+}
+
+ifres4097 = ifres4098
+
+
+} else {
+ifres4097 = False
+
+
+}
+
+var ifres4096 Obj
+
+if True == ifres4097 {
+ifres4096 = True
+
+
+} else {
+ifres4096 = False
+
+
+}
+
+ifres4095 = ifres4096
+
+
+} else {
+ifres4095 = False
+
+
+}
+
+if True == ifres4095 {
+tmp4085 := PrimHead(V2635)
+
+tmp4086 := PrimHead(tmp4085)
+
+tmp4087 := PrimCons(tmp4086, V2634)
+
+tmp4088 := PrimTail(V2635)
+
+__e.Return(PrimCons(tmp4087, tmp4088))
+return
+
+
+} else {
+tmp4093 := PrimIsPair(V2635)
+
+if True == tmp4093 {
+tmp4089 := PrimHead(V2635)
+
+tmp4090 := PrimTail(V2635)
+
+tmp4091 := Call(__e, PrimFunc(symshen_4assoc_1_6), V2633, V2634, tmp4090)
+
+
+__e.Return(PrimCons(tmp4089, tmp4091))
+return
+
+
+} else {
+__e.Return(PrimSimpleError(MakeString("implementation error in shen.assoc->")))
+return
+}
+
+
+}
+
+
+}
+
+
+}, 3)
+
+tmp4107 := Call(__e, ns2_1set, symshen_4assoc_1_6, tmp4083)
+
+
+_ = tmp4107
+
+tmp4108 := MakeNative(func(__e *ControlFlow) {
+V2650 := __e.Get(1)
+_ = V2650
+V2651 := __e.Get(2)
+_ = V2651
+V2652 := __e.Get(3)
+_ = V2652
+tmp4155 := PrimEqual(MakeNumber(0), V2651)
+
+var ifres4148 Obj
+
+if True == tmp4155 {
+tmp4154 := PrimIsPair(V2652)
+
+var ifres4150 Obj
+
+if True == tmp4154 {
+tmp4152 := PrimHead(V2652)
+
+tmp4153 := PrimEqual(tmp4152, sym_1_6)
+
+var ifres4151 Obj
+
+if True == tmp4153 {
+ifres4151 = True
+
+
+} else {
+ifres4151 = False
+
+
+}
+
+ifres4150 = ifres4151
+
+
+} else {
+ifres4150 = False
+
+
+}
+
+var ifres4149 Obj
+
+if True == ifres4150 {
+ifres4149 = True
+
+
+} else {
+ifres4149 = False
+
+
+}
+
+ifres4148 = ifres4149
+
+
+} else {
+ifres4148 = False
+
+
+}
+
+if True == ifres4148 {
+__e.Return(MakeNumber(0))
+return
+} else {
+tmp4146 := PrimEqual(MakeNumber(0), V2651)
+
+var ifres4139 Obj
+
+if True == tmp4146 {
+tmp4145 := PrimIsPair(V2652)
+
+var ifres4141 Obj
+
+if True == tmp4145 {
+tmp4143 := PrimHead(V2652)
+
+tmp4144 := PrimEqual(tmp4143, sym_5_1)
+
+var ifres4142 Obj
+
+if True == tmp4144 {
+ifres4142 = True
+
+
+} else {
+ifres4142 = False
+
+
+}
+
+ifres4141 = ifres4142
+
+
+} else {
+ifres4141 = False
+
+
+}
+
+var ifres4140 Obj
+
+if True == ifres4141 {
+ifres4140 = True
+
+
+} else {
+ifres4140 = False
+
+
+}
+
+ifres4139 = ifres4140
+
+
+} else {
+ifres4139 = False
+
+
+}
+
+if True == ifres4139 {
+__e.Return(MakeNumber(0))
+return
+} else {
+tmp4137 := PrimEqual(MakeNumber(0), V2651)
+
+var ifres4134 Obj
+
+if True == tmp4137 {
+tmp4136 := PrimIsPair(V2652)
+
+var ifres4135 Obj
+
+if True == tmp4136 {
+ifres4135 = True
+
+
+} else {
+ifres4135 = False
+
+
+}
+
+ifres4134 = ifres4135
+
+
+} else {
+ifres4134 = False
+
+
+}
+
+if True == ifres4134 {
+tmp4109 := PrimTail(V2652)
+
+tmp4110 := Call(__e, PrimFunc(symshen_4find_1arity), V2650, MakeNumber(0), tmp4109)
+
+
+__e.Return(PrimNumberAdd(MakeNumber(1), tmp4110))
+return
+
+
+} else {
+tmp4132 := PrimEqual(MakeNumber(1), V2651)
+
+var ifres4125 Obj
+
+if True == tmp4132 {
+tmp4131 := PrimIsPair(V2652)
+
+var ifres4127 Obj
+
+if True == tmp4131 {
+tmp4129 := PrimHead(V2652)
+
+tmp4130 := PrimEqual(sym_j, tmp4129)
+
+var ifres4128 Obj
+
+if True == tmp4130 {
+ifres4128 = True
+
+
+} else {
+ifres4128 = False
+
+
+}
+
+ifres4127 = ifres4128
+
+
+} else {
+ifres4127 = False
+
+
+}
+
+var ifres4126 Obj
+
+if True == ifres4127 {
+ifres4126 = True
+
+
+} else {
+ifres4126 = False
+
+
+}
+
+ifres4125 = ifres4126
+
+
+} else {
+ifres4125 = False
+
+
+}
+
+if True == ifres4125 {
+tmp4111 := PrimTail(V2652)
+
+__e.TailApply(PrimFunc(symshen_4find_1arity), V2650, MakeNumber(0), tmp4111)
+return
+
+
+} else {
+tmp4123 := PrimEqual(MakeNumber(1), V2651)
+
+var ifres4120 Obj
+
+if True == tmp4123 {
+tmp4122 := PrimIsPair(V2652)
+
+var ifres4121 Obj
+
+if True == tmp4122 {
+ifres4121 = True
+
+
+} else {
+ifres4121 = False
+
+
+}
+
+ifres4120 = ifres4121
+
+
+} else {
+ifres4120 = False
+
+
+}
+
+if True == ifres4120 {
+tmp4112 := PrimTail(V2652)
+
+__e.TailApply(PrimFunc(symshen_4find_1arity), V2650, MakeNumber(1), tmp4112)
+return
+
+
+} else {
+tmp4118 := PrimEqual(MakeNumber(1), V2651)
+
+if True == tmp4118 {
+tmp4113 := Call(__e, PrimFunc(symshen_4app), V2650, MakeString(" definition: missing }\n"), symshen_4a)
+
+
+tmp4114 := PrimStringConcat(MakeString("syntax error in "), tmp4113)
+
+__e.Return(PrimSimpleError(tmp4114))
+return
+
+
+} else {
+tmp4115 := Call(__e, PrimFunc(symshen_4app), V2650, MakeString(" definition: missing -> or <-\n"), symshen_4a)
+
+
+tmp4116 := PrimStringConcat(MakeString("syntax error in "), tmp4115)
+
+__e.Return(PrimSimpleError(tmp4116))
+return
+
+
+}
+
+
+}
+
+
+}
+
+
+}
+
+
+}
+
+
+}
+
+
+}, 3)
+
+tmp4156 := Call(__e, ns2_1set, symshen_4find_1arity, tmp4108)
+
+
+_ = tmp4156
+
+tmp4157 := MakeNative(func(__e *ControlFlow) {
+V2653 := __e.Get(1)
+_ = V2653
+tmp4158 := MakeNative(func(__e *ControlFlow) {
+W2654 := __e.Get(1)
+_ = W2654
+tmp4403 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2654)
+
+
+if True == tmp4403 {
+tmp4159 := MakeNative(func(__e *ControlFlow) {
+W2665 := __e.Get(1)
+_ = W2665
+tmp4371 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2665)
+
+
+if True == tmp4371 {
+tmp4160 := MakeNative(func(__e *ControlFlow) {
+W2676 := __e.Get(1)
+_ = W2676
+tmp4353 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2676)
+
+
+if True == tmp4353 {
+tmp4161 := MakeNative(func(__e *ControlFlow) {
+W2682 := __e.Get(1)
+_ = W2682
+tmp4335 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2682)
+
+
+if True == tmp4335 {
+tmp4162 := MakeNative(func(__e *ControlFlow) {
+W2688 := __e.Get(1)
+_ = W2688
+tmp4317 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2688)
+
+
+if True == tmp4317 {
+tmp4163 := MakeNative(func(__e *ControlFlow) {
+W2694 := __e.Get(1)
+_ = W2694
+tmp4298 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2694)
+
+
+if True == tmp4298 {
+tmp4164 := MakeNative(func(__e *ControlFlow) {
+W2700 := __e.Get(1)
+_ = W2700
+tmp4273 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2700)
+
+
+if True == tmp4273 {
+tmp4165 := MakeNative(func(__e *ControlFlow) {
+W2708 := __e.Get(1)
+_ = W2708
+tmp4254 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2708)
+
+
+if True == tmp4254 {
+tmp4166 := MakeNative(func(__e *ControlFlow) {
+W2714 := __e.Get(1)
+_ = W2714
+tmp4235 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2714)
+
+
+if True == tmp4235 {
+tmp4167 := MakeNative(func(__e *ControlFlow) {
+W2720 := __e.Get(1)
+_ = W2720
+tmp4218 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2720)
+
+
+if True == tmp4218 {
+tmp4168 := MakeNative(func(__e *ControlFlow) {
+W2726 := __e.Get(1)
+_ = W2726
+tmp4198 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2726)
+
+
+if True == tmp4198 {
+tmp4169 := MakeNative(func(__e *ControlFlow) {
+W2733 := __e.Get(1)
+_ = W2733
+tmp4181 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2733)
+
+
+if True == tmp4181 {
+tmp4170 := MakeNative(func(__e *ControlFlow) {
+W2739 := __e.Get(1)
+_ = W2739
+tmp4172 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2739)
+
+
+if True == tmp4172 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+__e.Return(W2739)
+return
+}
+
+
+}, 1)
+
+tmp4173 := MakeNative(func(__e *ControlFlow) {
+W2740 := __e.Get(1)
+_ = W2740
+tmp4177 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2740)
+
+
+if True == tmp4177 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp4174 := MakeNative(func(__e *ControlFlow) {
+W2741 := __e.Get(1)
+_ = W2741
+__e.TailApply(PrimFunc(symshen_4comb), W2741, Nil)
+return
+}, 1)
+
+tmp4175 := Call(__e, PrimFunc(symshen_4in_1_6), W2740)
+
+
+__e.TailApply(tmp4174, tmp4175)
+return
+
+
+}
+
+
+}, 1)
+
+tmp4178 := Call(__e, PrimFunc(sym_5e_6), V2653)
+
+
+tmp4179 := Call(__e, tmp4173, tmp4178)
+
+
+__e.TailApply(tmp4170, tmp4179)
+return
+
+
+} else {
+__e.Return(W2733)
+return
+}
+
+
+}, 1)
+
+tmp4182 := MakeNative(func(__e *ControlFlow) {
+W2734 := __e.Get(1)
+_ = W2734
+tmp4194 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2734)
+
+
+if True == tmp4194 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp4183 := MakeNative(func(__e *ControlFlow) {
+W2735 := __e.Get(1)
+_ = W2735
+tmp4184 := MakeNative(func(__e *ControlFlow) {
+W2736 := __e.Get(1)
+_ = W2736
+tmp4190 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2736)
+
+
+if True == tmp4190 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp4185 := MakeNative(func(__e *ControlFlow) {
+W2737 := __e.Get(1)
+_ = W2737
+tmp4186 := MakeNative(func(__e *ControlFlow) {
+W2738 := __e.Get(1)
+_ = W2738
+__e.TailApply(PrimFunc(symshen_4comb), W2738, W2737)
+return
+}, 1)
+
+tmp4187 := Call(__e, PrimFunc(symshen_4in_1_6), W2736)
+
+
+__e.TailApply(tmp4186, tmp4187)
+return
+
+
+}, 1)
+
+tmp4188 := Call(__e, PrimFunc(symshen_4_5_1out), W2736)
+
+
+__e.TailApply(tmp4185, tmp4188)
+return
+
+
+}
+
+
+}, 1)
+
+tmp4191 := Call(__e, PrimFunc(symshen_4_5s_1exprs_6), W2735)
+
+
+__e.TailApply(tmp4184, tmp4191)
+return
+
+
+}, 1)
+
+tmp4192 := Call(__e, PrimFunc(symshen_4in_1_6), W2734)
+
+
+__e.TailApply(tmp4183, tmp4192)
+return
+
+
+}
+
+
+}, 1)
+
+tmp4195 := Call(__e, PrimFunc(symshen_4_5whitespaces_6), V2653)
+
+
+tmp4196 := Call(__e, tmp4182, tmp4195)
+
+
+__e.TailApply(tmp4169, tmp4196)
+return
+
+
+} else {
+__e.Return(W2726)
+return
+}
+
+
+}, 1)
+
+tmp4199 := MakeNative(func(__e *ControlFlow) {
+W2727 := __e.Get(1)
+_ = W2727
+tmp4214 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2727)
+
+
+if True == tmp4214 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp4200 := MakeNative(func(__e *ControlFlow) {
+W2728 := __e.Get(1)
+_ = W2728
+tmp4201 := MakeNative(func(__e *ControlFlow) {
+W2729 := __e.Get(1)
+_ = W2729
+tmp4202 := MakeNative(func(__e *ControlFlow) {
+W2730 := __e.Get(1)
+_ = W2730
+tmp4209 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2730)
+
+
+if True == tmp4209 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp4203 := MakeNative(func(__e *ControlFlow) {
+W2731 := __e.Get(1)
+_ = W2731
+tmp4204 := MakeNative(func(__e *ControlFlow) {
+W2732 := __e.Get(1)
+_ = W2732
+tmp4205 := PrimCons(W2728, W2731)
+
+__e.TailApply(PrimFunc(symshen_4comb), W2732, tmp4205)
+return
+
+
+}, 1)
+
+tmp4206 := Call(__e, PrimFunc(symshen_4in_1_6), W2730)
+
+
+__e.TailApply(tmp4204, tmp4206)
+return
+
+
+}, 1)
+
+tmp4207 := Call(__e, PrimFunc(symshen_4_5_1out), W2730)
+
+
+__e.TailApply(tmp4203, tmp4207)
+return
+
+
+}
+
+
+}, 1)
+
+tmp4210 := Call(__e, PrimFunc(symshen_4_5s_1exprs_6), W2729)
+
+
+__e.TailApply(tmp4202, tmp4210)
+return
+
+
+}, 1)
+
+tmp4211 := Call(__e, PrimFunc(symshen_4in_1_6), W2727)
+
+
+__e.TailApply(tmp4201, tmp4211)
+return
+
+
+}, 1)
+
+tmp4212 := Call(__e, PrimFunc(symshen_4_5_1out), W2727)
+
+
+__e.TailApply(tmp4200, tmp4212)
+return
+
+
+}
+
+
+}, 1)
+
+tmp4215 := Call(__e, PrimFunc(symshen_4_5atom_6), V2653)
+
+
+tmp4216 := Call(__e, tmp4199, tmp4215)
+
+
+__e.TailApply(tmp4168, tmp4216)
+return
+
+
+} else {
+__e.Return(W2720)
+return
+}
+
+
+}, 1)
+
+tmp4219 := MakeNative(func(__e *ControlFlow) {
+W2721 := __e.Get(1)
+_ = W2721
+tmp4231 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2721)
+
+
+if True == tmp4231 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp4220 := MakeNative(func(__e *ControlFlow) {
+W2722 := __e.Get(1)
+_ = W2722
+tmp4221 := MakeNative(func(__e *ControlFlow) {
+W2723 := __e.Get(1)
+_ = W2723
+tmp4227 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2723)
+
+
+if True == tmp4227 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp4222 := MakeNative(func(__e *ControlFlow) {
+W2724 := __e.Get(1)
+_ = W2724
+tmp4223 := MakeNative(func(__e *ControlFlow) {
+W2725 := __e.Get(1)
+_ = W2725
+__e.TailApply(PrimFunc(symshen_4comb), W2725, W2724)
+return
+}, 1)
+
+tmp4224 := Call(__e, PrimFunc(symshen_4in_1_6), W2723)
+
+
+__e.TailApply(tmp4223, tmp4224)
+return
+
+
+}, 1)
+
+tmp4225 := Call(__e, PrimFunc(symshen_4_5_1out), W2723)
+
+
+__e.TailApply(tmp4222, tmp4225)
+return
+
+
+}
+
+
+}, 1)
+
+tmp4228 := Call(__e, PrimFunc(symshen_4_5s_1exprs_6), W2722)
+
+
+__e.TailApply(tmp4221, tmp4228)
+return
+
+
+}, 1)
+
+tmp4229 := Call(__e, PrimFunc(symshen_4in_1_6), W2721)
+
+
+__e.TailApply(tmp4220, tmp4229)
+return
+
+
+}
+
+
+}, 1)
+
+tmp4232 := Call(__e, PrimFunc(symshen_4_5comment_6), V2653)
+
+
+tmp4233 := Call(__e, tmp4219, tmp4232)
+
+
+__e.TailApply(tmp4167, tmp4233)
+return
+
+
+} else {
+__e.Return(W2714)
+return
+}
+
+
+}, 1)
+
+tmp4236 := MakeNative(func(__e *ControlFlow) {
+W2715 := __e.Get(1)
+_ = W2715
+tmp4250 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2715)
+
+
+if True == tmp4250 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp4237 := MakeNative(func(__e *ControlFlow) {
+W2716 := __e.Get(1)
+_ = W2716
+tmp4238 := MakeNative(func(__e *ControlFlow) {
+W2717 := __e.Get(1)
+_ = W2717
+tmp4246 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2717)
+
+
+if True == tmp4246 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp4239 := MakeNative(func(__e *ControlFlow) {
+W2718 := __e.Get(1)
+_ = W2718
+tmp4240 := MakeNative(func(__e *ControlFlow) {
+W2719 := __e.Get(1)
+_ = W2719
+tmp4241 := PrimIntern(MakeString(","))
+
+tmp4242 := PrimCons(tmp4241, W2718)
+
+__e.TailApply(PrimFunc(symshen_4comb), W2719, tmp4242)
+return
+
+
+}, 1)
+
+tmp4243 := Call(__e, PrimFunc(symshen_4in_1_6), W2717)
+
+
+__e.TailApply(tmp4240, tmp4243)
+return
+
+
+}, 1)
+
+tmp4244 := Call(__e, PrimFunc(symshen_4_5_1out), W2717)
+
+
+__e.TailApply(tmp4239, tmp4244)
+return
+
+
+}
+
+
+}, 1)
+
+tmp4247 := Call(__e, PrimFunc(symshen_4_5s_1exprs_6), W2716)
+
+
+__e.TailApply(tmp4238, tmp4247)
+return
+
+
+}, 1)
+
+tmp4248 := Call(__e, PrimFunc(symshen_4in_1_6), W2715)
+
+
+__e.TailApply(tmp4237, tmp4248)
+return
+
+
+}
+
+
+}, 1)
+
+tmp4251 := Call(__e, PrimFunc(symshen_4_5comma_6), V2653)
+
+
+tmp4252 := Call(__e, tmp4236, tmp4251)
+
+
+__e.TailApply(tmp4166, tmp4252)
+return
+
+
+} else {
+__e.Return(W2708)
+return
+}
+
+
+}, 1)
+
+tmp4255 := MakeNative(func(__e *ControlFlow) {
+W2709 := __e.Get(1)
+_ = W2709
+tmp4269 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2709)
+
+
+if True == tmp4269 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp4256 := MakeNative(func(__e *ControlFlow) {
+W2710 := __e.Get(1)
+_ = W2710
+tmp4257 := MakeNative(func(__e *ControlFlow) {
+W2711 := __e.Get(1)
+_ = W2711
+tmp4265 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2711)
+
+
+if True == tmp4265 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp4258 := MakeNative(func(__e *ControlFlow) {
+W2712 := __e.Get(1)
+_ = W2712
+tmp4259 := MakeNative(func(__e *ControlFlow) {
+W2713 := __e.Get(1)
+_ = W2713
+tmp4260 := PrimIntern(MakeString(":"))
+
+tmp4261 := PrimCons(tmp4260, W2712)
+
+__e.TailApply(PrimFunc(symshen_4comb), W2713, tmp4261)
+return
+
+
+}, 1)
+
+tmp4262 := Call(__e, PrimFunc(symshen_4in_1_6), W2711)
+
+
+__e.TailApply(tmp4259, tmp4262)
+return
+
+
+}, 1)
+
+tmp4263 := Call(__e, PrimFunc(symshen_4_5_1out), W2711)
+
+
+__e.TailApply(tmp4258, tmp4263)
+return
+
+
+}
+
+
+}, 1)
+
+tmp4266 := Call(__e, PrimFunc(symshen_4_5s_1exprs_6), W2710)
+
+
+__e.TailApply(tmp4257, tmp4266)
+return
+
+
+}, 1)
+
+tmp4267 := Call(__e, PrimFunc(symshen_4in_1_6), W2709)
+
+
+__e.TailApply(tmp4256, tmp4267)
+return
+
+
+}
+
+
+}, 1)
+
+tmp4270 := Call(__e, PrimFunc(symshen_4_5colon_6), V2653)
+
+
+tmp4271 := Call(__e, tmp4255, tmp4270)
+
+
+__e.TailApply(tmp4165, tmp4271)
+return
+
+
+} else {
+__e.Return(W2700)
+return
+}
+
+
+}, 1)
+
+tmp4274 := MakeNative(func(__e *ControlFlow) {
+W2701 := __e.Get(1)
+_ = W2701
+tmp4294 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2701)
+
+
+if True == tmp4294 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp4275 := MakeNative(func(__e *ControlFlow) {
+W2702 := __e.Get(1)
+_ = W2702
+tmp4276 := MakeNative(func(__e *ControlFlow) {
+W2703 := __e.Get(1)
+_ = W2703
+tmp4290 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2703)
+
+
+if True == tmp4290 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp4277 := MakeNative(func(__e *ControlFlow) {
+W2704 := __e.Get(1)
+_ = W2704
+tmp4278 := MakeNative(func(__e *ControlFlow) {
+W2705 := __e.Get(1)
+_ = W2705
+tmp4286 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2705)
+
+
+if True == tmp4286 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp4279 := MakeNative(func(__e *ControlFlow) {
+W2706 := __e.Get(1)
+_ = W2706
+tmp4280 := MakeNative(func(__e *ControlFlow) {
+W2707 := __e.Get(1)
+_ = W2707
+tmp4281 := PrimIntern(MakeString(":="))
+
+tmp4282 := PrimCons(tmp4281, W2706)
+
+__e.TailApply(PrimFunc(symshen_4comb), W2707, tmp4282)
+return
+
+
+}, 1)
+
+tmp4283 := Call(__e, PrimFunc(symshen_4in_1_6), W2705)
+
+
+__e.TailApply(tmp4280, tmp4283)
+return
+
+
+}, 1)
+
+tmp4284 := Call(__e, PrimFunc(symshen_4_5_1out), W2705)
+
+
+__e.TailApply(tmp4279, tmp4284)
+return
+
+
+}
+
+
+}, 1)
+
+tmp4287 := Call(__e, PrimFunc(symshen_4_5s_1exprs_6), W2704)
+
+
+__e.TailApply(tmp4278, tmp4287)
+return
+
+
+}, 1)
+
+tmp4288 := Call(__e, PrimFunc(symshen_4in_1_6), W2703)
+
+
+__e.TailApply(tmp4277, tmp4288)
+return
+
+
+}
+
+
+}, 1)
+
+tmp4291 := Call(__e, PrimFunc(symshen_4_5equal_6), W2702)
+
+
+__e.TailApply(tmp4276, tmp4291)
+return
+
+
+}, 1)
+
+tmp4292 := Call(__e, PrimFunc(symshen_4in_1_6), W2701)
+
+
+__e.TailApply(tmp4275, tmp4292)
+return
+
+
+}
+
+
+}, 1)
+
+tmp4295 := Call(__e, PrimFunc(symshen_4_5colon_6), V2653)
+
+
+tmp4296 := Call(__e, tmp4274, tmp4295)
+
+
+__e.TailApply(tmp4164, tmp4296)
+return
+
+
+} else {
+__e.Return(W2694)
+return
+}
+
+
+}, 1)
+
+tmp4299 := MakeNative(func(__e *ControlFlow) {
+W2695 := __e.Get(1)
+_ = W2695
+tmp4313 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2695)
+
+
+if True == tmp4313 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp4300 := MakeNative(func(__e *ControlFlow) {
+W2696 := __e.Get(1)
+_ = W2696
+tmp4301 := MakeNative(func(__e *ControlFlow) {
+W2697 := __e.Get(1)
+_ = W2697
+tmp4309 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2697)
+
+
+if True == tmp4309 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp4302 := MakeNative(func(__e *ControlFlow) {
+W2698 := __e.Get(1)
+_ = W2698
+tmp4303 := MakeNative(func(__e *ControlFlow) {
+W2699 := __e.Get(1)
+_ = W2699
+tmp4304 := PrimIntern(MakeString(";"))
+
+tmp4305 := PrimCons(tmp4304, W2698)
+
+__e.TailApply(PrimFunc(symshen_4comb), W2699, tmp4305)
+return
+
+
+}, 1)
+
+tmp4306 := Call(__e, PrimFunc(symshen_4in_1_6), W2697)
+
+
+__e.TailApply(tmp4303, tmp4306)
+return
+
+
+}, 1)
+
+tmp4307 := Call(__e, PrimFunc(symshen_4_5_1out), W2697)
+
+
+__e.TailApply(tmp4302, tmp4307)
+return
+
+
+}
+
+
+}, 1)
+
+tmp4310 := Call(__e, PrimFunc(symshen_4_5s_1exprs_6), W2696)
+
+
+__e.TailApply(tmp4301, tmp4310)
+return
+
+
+}, 1)
+
+tmp4311 := Call(__e, PrimFunc(symshen_4in_1_6), W2695)
+
+
+__e.TailApply(tmp4300, tmp4311)
+return
+
+
+}
+
+
+}, 1)
+
+tmp4314 := Call(__e, PrimFunc(symshen_4_5semicolon_6), V2653)
+
+
+tmp4315 := Call(__e, tmp4299, tmp4314)
+
+
+__e.TailApply(tmp4163, tmp4315)
+return
+
+
+} else {
+__e.Return(W2688)
+return
+}
+
+
+}, 1)
+
+tmp4318 := MakeNative(func(__e *ControlFlow) {
+W2689 := __e.Get(1)
+_ = W2689
+tmp4331 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2689)
+
+
+if True == tmp4331 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp4319 := MakeNative(func(__e *ControlFlow) {
+W2690 := __e.Get(1)
+_ = W2690
+tmp4320 := MakeNative(func(__e *ControlFlow) {
+W2691 := __e.Get(1)
+_ = W2691
+tmp4327 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2691)
+
+
+if True == tmp4327 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp4321 := MakeNative(func(__e *ControlFlow) {
+W2692 := __e.Get(1)
+_ = W2692
+tmp4322 := MakeNative(func(__e *ControlFlow) {
+W2693 := __e.Get(1)
+_ = W2693
+tmp4323 := PrimCons(symbar_b, W2692)
+
+__e.TailApply(PrimFunc(symshen_4comb), W2693, tmp4323)
+return
+
+
+}, 1)
+
+tmp4324 := Call(__e, PrimFunc(symshen_4in_1_6), W2691)
+
+
+__e.TailApply(tmp4322, tmp4324)
+return
+
+
+}, 1)
+
+tmp4325 := Call(__e, PrimFunc(symshen_4_5_1out), W2691)
+
+
+__e.TailApply(tmp4321, tmp4325)
+return
+
+
+}
+
+
+}, 1)
+
+tmp4328 := Call(__e, PrimFunc(symshen_4_5s_1exprs_6), W2690)
+
+
+__e.TailApply(tmp4320, tmp4328)
+return
+
+
+}, 1)
+
+tmp4329 := Call(__e, PrimFunc(symshen_4in_1_6), W2689)
+
+
+__e.TailApply(tmp4319, tmp4329)
+return
+
+
+}
+
+
+}, 1)
+
+tmp4332 := Call(__e, PrimFunc(symshen_4_5bar_6), V2653)
+
+
+tmp4333 := Call(__e, tmp4318, tmp4332)
+
+
+__e.TailApply(tmp4162, tmp4333)
+return
+
+
+} else {
+__e.Return(W2682)
+return
+}
+
+
+}, 1)
+
+tmp4336 := MakeNative(func(__e *ControlFlow) {
+W2683 := __e.Get(1)
+_ = W2683
+tmp4349 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2683)
+
+
+if True == tmp4349 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp4337 := MakeNative(func(__e *ControlFlow) {
+W2684 := __e.Get(1)
+_ = W2684
+tmp4338 := MakeNative(func(__e *ControlFlow) {
+W2685 := __e.Get(1)
+_ = W2685
+tmp4345 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2685)
+
+
+if True == tmp4345 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp4339 := MakeNative(func(__e *ControlFlow) {
+W2686 := __e.Get(1)
+_ = W2686
+tmp4340 := MakeNative(func(__e *ControlFlow) {
+W2687 := __e.Get(1)
+_ = W2687
+tmp4341 := PrimCons(sym_j, W2686)
+
+__e.TailApply(PrimFunc(symshen_4comb), W2687, tmp4341)
+return
+
+
+}, 1)
+
+tmp4342 := Call(__e, PrimFunc(symshen_4in_1_6), W2685)
+
+
+__e.TailApply(tmp4340, tmp4342)
+return
+
+
+}, 1)
+
+tmp4343 := Call(__e, PrimFunc(symshen_4_5_1out), W2685)
+
+
+__e.TailApply(tmp4339, tmp4343)
+return
+
+
+}
+
+
+}, 1)
+
+tmp4346 := Call(__e, PrimFunc(symshen_4_5s_1exprs_6), W2684)
+
+
+__e.TailApply(tmp4338, tmp4346)
+return
+
+
+}, 1)
+
+tmp4347 := Call(__e, PrimFunc(symshen_4in_1_6), W2683)
+
+
+__e.TailApply(tmp4337, tmp4347)
+return
+
+
+}
+
+
+}, 1)
+
+tmp4350 := Call(__e, PrimFunc(symshen_4_5rcurly_6), V2653)
+
+
+tmp4351 := Call(__e, tmp4336, tmp4350)
+
+
+__e.TailApply(tmp4161, tmp4351)
+return
+
+
+} else {
+__e.Return(W2676)
+return
+}
+
+
+}, 1)
+
+tmp4354 := MakeNative(func(__e *ControlFlow) {
+W2677 := __e.Get(1)
+_ = W2677
+tmp4367 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2677)
+
+
+if True == tmp4367 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp4355 := MakeNative(func(__e *ControlFlow) {
+W2678 := __e.Get(1)
+_ = W2678
+tmp4356 := MakeNative(func(__e *ControlFlow) {
+W2679 := __e.Get(1)
+_ = W2679
+tmp4363 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2679)
+
+
+if True == tmp4363 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp4357 := MakeNative(func(__e *ControlFlow) {
+W2680 := __e.Get(1)
+_ = W2680
+tmp4358 := MakeNative(func(__e *ControlFlow) {
+W2681 := __e.Get(1)
+_ = W2681
+tmp4359 := PrimCons(sym_i, W2680)
+
+__e.TailApply(PrimFunc(symshen_4comb), W2681, tmp4359)
+return
+
+
+}, 1)
+
+tmp4360 := Call(__e, PrimFunc(symshen_4in_1_6), W2679)
+
+
+__e.TailApply(tmp4358, tmp4360)
+return
+
+
+}, 1)
+
+tmp4361 := Call(__e, PrimFunc(symshen_4_5_1out), W2679)
+
+
+__e.TailApply(tmp4357, tmp4361)
+return
+
+
+}
+
+
+}, 1)
+
+tmp4364 := Call(__e, PrimFunc(symshen_4_5s_1exprs_6), W2678)
+
+
+__e.TailApply(tmp4356, tmp4364)
+return
+
+
+}, 1)
+
+tmp4365 := Call(__e, PrimFunc(symshen_4in_1_6), W2677)
+
+
+__e.TailApply(tmp4355, tmp4365)
+return
+
+
+}
+
+
+}, 1)
+
+tmp4368 := Call(__e, PrimFunc(symshen_4_5lcurly_6), V2653)
+
+
+tmp4369 := Call(__e, tmp4354, tmp4368)
+
+
+__e.TailApply(tmp4160, tmp4369)
+return
+
+
+} else {
+__e.Return(W2665)
+return
+}
+
+
+}, 1)
+
+tmp4372 := MakeNative(func(__e *ControlFlow) {
+W2666 := __e.Get(1)
+_ = W2666
+tmp4399 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2666)
+
+
+if True == tmp4399 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp4373 := MakeNative(func(__e *ControlFlow) {
+W2667 := __e.Get(1)
+_ = W2667
+tmp4374 := MakeNative(func(__e *ControlFlow) {
+W2668 := __e.Get(1)
+_ = W2668
+tmp4395 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2668)
+
+
+if True == tmp4395 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp4375 := MakeNative(func(__e *ControlFlow) {
+W2669 := __e.Get(1)
+_ = W2669
+tmp4376 := MakeNative(func(__e *ControlFlow) {
+W2670 := __e.Get(1)
+_ = W2670
+tmp4377 := MakeNative(func(__e *ControlFlow) {
+W2671 := __e.Get(1)
+_ = W2671
+tmp4390 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2671)
+
+
+if True == tmp4390 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp4378 := MakeNative(func(__e *ControlFlow) {
+W2672 := __e.Get(1)
+_ = W2672
+tmp4379 := MakeNative(func(__e *ControlFlow) {
+W2673 := __e.Get(1)
+_ = W2673
+tmp4386 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2673)
+
+
+if True == tmp4386 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp4380 := MakeNative(func(__e *ControlFlow) {
+W2674 := __e.Get(1)
+_ = W2674
+tmp4381 := MakeNative(func(__e *ControlFlow) {
+W2675 := __e.Get(1)
+_ = W2675
+tmp4382 := Call(__e, PrimFunc(symshen_4add_1sexpr), W2669, W2674)
+
+
+__e.TailApply(PrimFunc(symshen_4comb), W2675, tmp4382)
+return
+
+
+}, 1)
+
+tmp4383 := Call(__e, PrimFunc(symshen_4in_1_6), W2673)
+
+
+__e.TailApply(tmp4381, tmp4383)
+return
+
+
+}, 1)
+
+tmp4384 := Call(__e, PrimFunc(symshen_4_5_1out), W2673)
+
+
+__e.TailApply(tmp4380, tmp4384)
+return
+
+
+}
+
+
+}, 1)
+
+tmp4387 := Call(__e, PrimFunc(symshen_4_5s_1exprs2_6), W2672)
+
+
+__e.TailApply(tmp4379, tmp4387)
+return
+
+
+}, 1)
+
+tmp4388 := Call(__e, PrimFunc(symshen_4in_1_6), W2671)
+
+
+__e.TailApply(tmp4378, tmp4388)
+return
+
+
+}
+
+
+}, 1)
+
+tmp4391 := Call(__e, PrimFunc(symshen_4_5rrb_6), W2670)
+
+
+__e.TailApply(tmp4377, tmp4391)
+return
+
+
+}, 1)
+
+tmp4392 := Call(__e, PrimFunc(symshen_4in_1_6), W2668)
+
+
+__e.TailApply(tmp4376, tmp4392)
+return
+
+
+}, 1)
+
+tmp4393 := Call(__e, PrimFunc(symshen_4_5_1out), W2668)
+
+
+__e.TailApply(tmp4375, tmp4393)
+return
+
+
+}
+
+
+}, 1)
+
+tmp4396 := Call(__e, PrimFunc(symshen_4_5s_1exprs1_6), W2667)
+
+
+__e.TailApply(tmp4374, tmp4396)
+return
+
+
+}, 1)
+
+tmp4397 := Call(__e, PrimFunc(symshen_4in_1_6), W2666)
+
+
+__e.TailApply(tmp4373, tmp4397)
+return
+
+
+}
+
+
+}, 1)
+
+tmp4400 := Call(__e, PrimFunc(symshen_4_5lrb_6), V2653)
+
+
+tmp4401 := Call(__e, tmp4372, tmp4400)
+
+
+__e.TailApply(tmp4159, tmp4401)
+return
+
+
+} else {
+__e.Return(W2654)
+return
+}
+
+
+}, 1)
+
+tmp4404 := MakeNative(func(__e *ControlFlow) {
+W2655 := __e.Get(1)
+_ = W2655
+tmp4432 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2655)
+
+
+if True == tmp4432 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp4405 := MakeNative(func(__e *ControlFlow) {
+W2656 := __e.Get(1)
+_ = W2656
+tmp4406 := MakeNative(func(__e *ControlFlow) {
+W2657 := __e.Get(1)
+_ = W2657
+tmp4428 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2657)
+
+
+if True == tmp4428 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp4407 := MakeNative(func(__e *ControlFlow) {
+W2658 := __e.Get(1)
+_ = W2658
+tmp4408 := MakeNative(func(__e *ControlFlow) {
+W2659 := __e.Get(1)
+_ = W2659
+tmp4409 := MakeNative(func(__e *ControlFlow) {
+W2660 := __e.Get(1)
+_ = W2660
+tmp4423 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2660)
+
+
+if True == tmp4423 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp4410 := MakeNative(func(__e *ControlFlow) {
+W2661 := __e.Get(1)
+_ = W2661
+tmp4411 := MakeNative(func(__e *ControlFlow) {
+W2662 := __e.Get(1)
+_ = W2662
+tmp4419 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2662)
+
+
+if True == tmp4419 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp4412 := MakeNative(func(__e *ControlFlow) {
+W2663 := __e.Get(1)
+_ = W2663
+tmp4413 := MakeNative(func(__e *ControlFlow) {
+W2664 := __e.Get(1)
+_ = W2664
+tmp4414 := Call(__e, PrimFunc(symshen_4cons_1form), W2658)
+
+
+tmp4415 := PrimCons(tmp4414, W2663)
+
+__e.TailApply(PrimFunc(symshen_4comb), W2664, tmp4415)
+return
+
+
+}, 1)
+
+tmp4416 := Call(__e, PrimFunc(symshen_4in_1_6), W2662)
+
+
+__e.TailApply(tmp4413, tmp4416)
+return
+
+
+}, 1)
+
+tmp4417 := Call(__e, PrimFunc(symshen_4_5_1out), W2662)
+
+
+__e.TailApply(tmp4412, tmp4417)
+return
+
+
+}
+
+
+}, 1)
+
+tmp4420 := Call(__e, PrimFunc(symshen_4_5s_1exprs2_6), W2661)
+
+
+__e.TailApply(tmp4411, tmp4420)
+return
+
+
+}, 1)
+
+tmp4421 := Call(__e, PrimFunc(symshen_4in_1_6), W2660)
+
+
+__e.TailApply(tmp4410, tmp4421)
+return
+
+
+}
+
+
+}, 1)
+
+tmp4424 := Call(__e, PrimFunc(symshen_4_5rsb_6), W2659)
+
+
+__e.TailApply(tmp4409, tmp4424)
+return
+
+
+}, 1)
+
+tmp4425 := Call(__e, PrimFunc(symshen_4in_1_6), W2657)
+
+
+__e.TailApply(tmp4408, tmp4425)
+return
+
+
+}, 1)
+
+tmp4426 := Call(__e, PrimFunc(symshen_4_5_1out), W2657)
+
+
+__e.TailApply(tmp4407, tmp4426)
+return
+
+
+}
+
+
+}, 1)
+
+tmp4429 := Call(__e, PrimFunc(symshen_4_5s_1exprs1_6), W2656)
+
+
+__e.TailApply(tmp4406, tmp4429)
+return
+
+
+}, 1)
+
+tmp4430 := Call(__e, PrimFunc(symshen_4in_1_6), W2655)
+
+
+__e.TailApply(tmp4405, tmp4430)
+return
+
+
+}
+
+
+}, 1)
+
+tmp4433 := Call(__e, PrimFunc(symshen_4_5lsb_6), V2653)
+
+
+tmp4434 := Call(__e, tmp4404, tmp4433)
+
+
+__e.TailApply(tmp4158, tmp4434)
+return
+
+
+}, 1)
+
+tmp4435 := Call(__e, ns2_1set, symshen_4_5s_1exprs_6, tmp4157)
+
+
+_ = tmp4435
+
+tmp4436 := MakeNative(func(__e *ControlFlow) {
+V2742 := __e.Get(1)
+_ = V2742
+V2743 := __e.Get(2)
+_ = V2743
+tmp4454 := PrimIsPair(V2742)
+
+var ifres4441 Obj
+
+if True == tmp4454 {
+tmp4452 := PrimHead(V2742)
+
+tmp4453 := PrimEqual(sym_3, tmp4452)
+
+var ifres4443 Obj
+
+if True == tmp4453 {
+tmp4450 := PrimTail(V2742)
+
+tmp4451 := PrimIsPair(tmp4450)
+
+var ifres4445 Obj
+
+if True == tmp4451 {
+tmp4447 := PrimTail(V2742)
+
+tmp4448 := PrimTail(tmp4447)
+
+tmp4449 := PrimEqual(Nil, tmp4448)
+
+var ifres4446 Obj
+
+if True == tmp4449 {
+ifres4446 = True
+
+
+} else {
+ifres4446 = False
+
+
+}
+
+ifres4445 = ifres4446
+
+
+} else {
+ifres4445 = False
+
+
+}
+
+var ifres4444 Obj
+
+if True == ifres4445 {
+ifres4444 = True
+
+
+} else {
+ifres4444 = False
+
+
+}
+
+ifres4443 = ifres4444
+
+
+} else {
+ifres4443 = False
+
+
+}
+
+var ifres4442 Obj
+
+if True == ifres4443 {
+ifres4442 = True
+
+
+} else {
+ifres4442 = False
+
+
+}
+
+ifres4441 = ifres4442
+
+
+} else {
+ifres4441 = False
+
+
+}
+
+if True == ifres4441 {
+tmp4437 := PrimTail(V2742)
+
+tmp4438 := PrimHead(tmp4437)
+
+tmp4439 := Call(__e, PrimFunc(symexplode), tmp4438)
+
+
+__e.TailApply(PrimFunc(symappend), tmp4439, V2743)
+return
+
+
+} else {
+__e.Return(PrimCons(V2742, V2743))
+return
+}
+
+
+}, 2)
+
+tmp4455 := Call(__e, ns2_1set, symshen_4add_1sexpr, tmp4436)
+
+
+_ = tmp4455
+
+tmp4456 := MakeNative(func(__e *ControlFlow) {
+V2744 := __e.Get(1)
+_ = V2744
+tmp4457 := MakeNative(func(__e *ControlFlow) {
+W2745 := __e.Get(1)
+_ = W2745
+tmp4459 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2745)
+
+
+if True == tmp4459 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+__e.Return(W2745)
+return
+}
+
+
+}, 1)
+
+tmp4465 := Call(__e, PrimFunc(symshen_4hds_a_2), V2744, MakeNumber(91))
+
+
+var ifres4460 Obj
+
+if True == tmp4465 {
+tmp4461 := MakeNative(func(__e *ControlFlow) {
+W2746 := __e.Get(1)
+_ = W2746
+__e.TailApply(PrimFunc(symshen_4comb), W2746, symshen_4skip)
+return
+}, 1)
+
+tmp4462 := Call(__e, PrimFunc(symtail), V2744)
+
+
+tmp4463 := Call(__e, tmp4461, tmp4462)
+
+
+ifres4460 = tmp4463
+
+
+} else {
+tmp4464 := Call(__e, PrimFunc(symshen_4parse_1failure))
+
+
+ifres4460 = tmp4464
+
+
+}
+
+__e.TailApply(tmp4457, ifres4460)
+return
+
+
+}, 1)
+
+tmp4466 := Call(__e, ns2_1set, symshen_4_5lsb_6, tmp4456)
+
+
+_ = tmp4466
+
+tmp4467 := MakeNative(func(__e *ControlFlow) {
+V2747 := __e.Get(1)
+_ = V2747
+tmp4468 := MakeNative(func(__e *ControlFlow) {
+W2748 := __e.Get(1)
+_ = W2748
+tmp4470 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2748)
+
+
+if True == tmp4470 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+__e.Return(W2748)
+return
+}
+
+
+}, 1)
+
+tmp4476 := Call(__e, PrimFunc(symshen_4hds_a_2), V2747, MakeNumber(93))
+
+
+var ifres4471 Obj
+
+if True == tmp4476 {
+tmp4472 := MakeNative(func(__e *ControlFlow) {
+W2749 := __e.Get(1)
+_ = W2749
+__e.TailApply(PrimFunc(symshen_4comb), W2749, symshen_4skip)
+return
+}, 1)
+
+tmp4473 := Call(__e, PrimFunc(symtail), V2747)
+
+
+tmp4474 := Call(__e, tmp4472, tmp4473)
+
+
+ifres4471 = tmp4474
+
+
+} else {
+tmp4475 := Call(__e, PrimFunc(symshen_4parse_1failure))
+
+
+ifres4471 = tmp4475
+
+
+}
+
+__e.TailApply(tmp4468, ifres4471)
+return
+
+
+}, 1)
+
+tmp4477 := Call(__e, ns2_1set, symshen_4_5rsb_6, tmp4467)
+
+
+_ = tmp4477
+
+tmp4478 := MakeNative(func(__e *ControlFlow) {
+V2750 := __e.Get(1)
+_ = V2750
+tmp4479 := MakeNative(func(__e *ControlFlow) {
+W2751 := __e.Get(1)
+_ = W2751
+tmp4481 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2751)
+
+
+if True == tmp4481 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+__e.Return(W2751)
+return
+}
+
+
+}, 1)
+
+tmp4482 := MakeNative(func(__e *ControlFlow) {
+W2752 := __e.Get(1)
+_ = W2752
+tmp4488 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2752)
+
+
+if True == tmp4488 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp4483 := MakeNative(func(__e *ControlFlow) {
+W2753 := __e.Get(1)
+_ = W2753
+tmp4484 := MakeNative(func(__e *ControlFlow) {
+W2754 := __e.Get(1)
+_ = W2754
+__e.TailApply(PrimFunc(symshen_4comb), W2754, W2753)
+return
+}, 1)
+
+tmp4485 := Call(__e, PrimFunc(symshen_4in_1_6), W2752)
+
+
+__e.TailApply(tmp4484, tmp4485)
+return
+
+
+}, 1)
+
+tmp4486 := Call(__e, PrimFunc(symshen_4_5_1out), W2752)
+
+
+__e.TailApply(tmp4483, tmp4486)
+return
+
+
+}
+
+
+}, 1)
+
+tmp4489 := Call(__e, PrimFunc(symshen_4_5s_1exprs_6), V2750)
+
+
+tmp4490 := Call(__e, tmp4482, tmp4489)
+
+
+__e.TailApply(tmp4479, tmp4490)
+return
+
+
+}, 1)
+
+tmp4491 := Call(__e, ns2_1set, symshen_4_5s_1exprs1_6, tmp4478)
+
+
+_ = tmp4491
+
+tmp4492 := MakeNative(func(__e *ControlFlow) {
+V2755 := __e.Get(1)
+_ = V2755
+tmp4493 := MakeNative(func(__e *ControlFlow) {
+W2756 := __e.Get(1)
+_ = W2756
+tmp4495 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2756)
+
+
+if True == tmp4495 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+__e.Return(W2756)
+return
+}
+
+
+}, 1)
+
+tmp4496 := MakeNative(func(__e *ControlFlow) {
+W2757 := __e.Get(1)
+_ = W2757
+tmp4502 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2757)
+
+
+if True == tmp4502 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp4497 := MakeNative(func(__e *ControlFlow) {
+W2758 := __e.Get(1)
+_ = W2758
+tmp4498 := MakeNative(func(__e *ControlFlow) {
+W2759 := __e.Get(1)
+_ = W2759
+__e.TailApply(PrimFunc(symshen_4comb), W2759, W2758)
+return
+}, 1)
+
+tmp4499 := Call(__e, PrimFunc(symshen_4in_1_6), W2757)
+
+
+__e.TailApply(tmp4498, tmp4499)
+return
+
+
+}, 1)
+
+tmp4500 := Call(__e, PrimFunc(symshen_4_5_1out), W2757)
+
+
+__e.TailApply(tmp4497, tmp4500)
+return
+
+
+}
+
+
+}, 1)
+
+tmp4503 := Call(__e, PrimFunc(symshen_4_5s_1exprs_6), V2755)
+
+
+tmp4504 := Call(__e, tmp4496, tmp4503)
+
+
+__e.TailApply(tmp4493, tmp4504)
+return
+
+
+}, 1)
+
+tmp4505 := Call(__e, ns2_1set, symshen_4_5s_1exprs2_6, tmp4492)
+
+
+_ = tmp4505
+
+tmp4506 := MakeNative(func(__e *ControlFlow) {
+V2761 := __e.Get(1)
+_ = V2761
+tmp4563 := PrimEqual(Nil, V2761)
+
+if True == tmp4563 {
+__e.Return(Nil)
+return
+} else {
+tmp4561 := PrimIsPair(V2761)
+
+var ifres4541 Obj
+
+if True == tmp4561 {
+tmp4559 := PrimTail(V2761)
+
+tmp4560 := PrimIsPair(tmp4559)
+
+var ifres4543 Obj
+
+if True == tmp4560 {
+tmp4556 := PrimTail(V2761)
+
+tmp4557 := PrimTail(tmp4556)
+
+tmp4558 := PrimIsPair(tmp4557)
+
+var ifres4545 Obj
+
+if True == tmp4558 {
+tmp4552 := PrimTail(V2761)
+
+tmp4553 := PrimTail(tmp4552)
+
+tmp4554 := PrimTail(tmp4553)
+
+tmp4555 := PrimEqual(Nil, tmp4554)
+
+var ifres4547 Obj
+
+if True == tmp4555 {
+tmp4549 := PrimTail(V2761)
+
+tmp4550 := PrimHead(tmp4549)
+
+tmp4551 := PrimEqual(tmp4550, symbar_b)
+
+var ifres4548 Obj
+
+if True == tmp4551 {
+ifres4548 = True
+
+
+} else {
+ifres4548 = False
+
+
+}
+
+ifres4547 = ifres4548
+
+
+} else {
+ifres4547 = False
+
+
+}
+
+var ifres4546 Obj
+
+if True == ifres4547 {
+ifres4546 = True
+
+
+} else {
+ifres4546 = False
+
+
+}
+
+ifres4545 = ifres4546
+
+
+} else {
+ifres4545 = False
+
+
+}
+
+var ifres4544 Obj
+
+if True == ifres4545 {
+ifres4544 = True
+
+
+} else {
+ifres4544 = False
+
+
+}
+
+ifres4543 = ifres4544
+
+
+} else {
+ifres4543 = False
+
+
+}
+
+var ifres4542 Obj
+
+if True == ifres4543 {
+ifres4542 = True
+
+
+} else {
+ifres4542 = False
+
+
+}
+
+ifres4541 = ifres4542
+
+
+} else {
+ifres4541 = False
+
+
+}
+
+if True == ifres4541 {
+tmp4507 := PrimHead(V2761)
+
+tmp4508 := PrimTail(V2761)
+
+tmp4509 := PrimTail(tmp4508)
+
+tmp4510 := PrimCons(tmp4507, tmp4509)
+
+__e.Return(PrimCons(symcons, tmp4510))
+return
+
+
+} else {
+tmp4539 := PrimIsPair(V2761)
+
+var ifres4519 Obj
+
+if True == tmp4539 {
+tmp4537 := PrimTail(V2761)
+
+tmp4538 := PrimIsPair(tmp4537)
+
+var ifres4521 Obj
+
+if True == tmp4538 {
+tmp4534 := PrimTail(V2761)
+
+tmp4535 := PrimTail(tmp4534)
+
+tmp4536 := PrimIsPair(tmp4535)
+
+var ifres4523 Obj
+
+if True == tmp4536 {
+tmp4530 := PrimTail(V2761)
+
+tmp4531 := PrimTail(tmp4530)
+
+tmp4532 := PrimTail(tmp4531)
+
+tmp4533 := PrimIsPair(tmp4532)
+
+var ifres4525 Obj
+
+if True == tmp4533 {
+tmp4527 := PrimTail(V2761)
+
+tmp4528 := PrimHead(tmp4527)
+
+tmp4529 := PrimEqual(tmp4528, symbar_b)
+
+var ifres4526 Obj
+
+if True == tmp4529 {
+ifres4526 = True
+
+
+} else {
+ifres4526 = False
+
+
+}
+
+ifres4525 = ifres4526
+
+
+} else {
+ifres4525 = False
+
+
+}
+
+var ifres4524 Obj
+
+if True == ifres4525 {
+ifres4524 = True
+
+
+} else {
+ifres4524 = False
+
+
+}
+
+ifres4523 = ifres4524
+
+
+} else {
+ifres4523 = False
+
+
+}
+
+var ifres4522 Obj
+
+if True == ifres4523 {
+ifres4522 = True
+
+
+} else {
+ifres4522 = False
+
+
+}
+
+ifres4521 = ifres4522
+
+
+} else {
+ifres4521 = False
+
+
+}
+
+var ifres4520 Obj
+
+if True == ifres4521 {
+ifres4520 = True
+
+
+} else {
+ifres4520 = False
+
+
+}
+
+ifres4519 = ifres4520
+
+
+} else {
+ifres4519 = False
+
+
+}
+
+if True == ifres4519 {
+__e.Return(PrimSimpleError(MakeString("misapplication of |\n")))
+return
+} else {
+tmp4517 := PrimIsPair(V2761)
+
+if True == tmp4517 {
+tmp4511 := PrimHead(V2761)
+
+tmp4512 := PrimTail(V2761)
+
+tmp4513 := Call(__e, PrimFunc(symshen_4cons_1form), tmp4512)
+
+
+tmp4514 := PrimCons(tmp4513, Nil)
+
+tmp4515 := PrimCons(tmp4511, tmp4514)
+
+__e.Return(PrimCons(symcons, tmp4515))
+return
+
+
+} else {
+__e.TailApply(PrimFunc(symshen_4f_1error), symshen_4cons_1form)
+return
+}
+
+
+}
+
+
+}
+
+
+}
+
+
+}, 1)
+
+tmp4564 := Call(__e, ns2_1set, symshen_4cons_1form, tmp4506)
+
+
+_ = tmp4564
+
+tmp4565 := MakeNative(func(__e *ControlFlow) {
+V2762 := __e.Get(1)
+_ = V2762
+tmp4566 := MakeNative(func(__e *ControlFlow) {
+W2763 := __e.Get(1)
+_ = W2763
+tmp4568 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2763)
+
+
+if True == tmp4568 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+__e.Return(W2763)
+return
+}
+
+
+}, 1)
+
+tmp4574 := Call(__e, PrimFunc(symshen_4hds_a_2), V2762, MakeNumber(40))
+
+
+var ifres4569 Obj
+
+if True == tmp4574 {
+tmp4570 := MakeNative(func(__e *ControlFlow) {
+W2764 := __e.Get(1)
+_ = W2764
+__e.TailApply(PrimFunc(symshen_4comb), W2764, symshen_4skip)
+return
+}, 1)
+
+tmp4571 := Call(__e, PrimFunc(symtail), V2762)
+
+
+tmp4572 := Call(__e, tmp4570, tmp4571)
+
+
+ifres4569 = tmp4572
+
+
+} else {
+tmp4573 := Call(__e, PrimFunc(symshen_4parse_1failure))
+
+
+ifres4569 = tmp4573
+
+
+}
+
+__e.TailApply(tmp4566, ifres4569)
+return
+
+
+}, 1)
+
+tmp4575 := Call(__e, ns2_1set, symshen_4_5lrb_6, tmp4565)
+
+
+_ = tmp4575
+
+tmp4576 := MakeNative(func(__e *ControlFlow) {
+V2765 := __e.Get(1)
+_ = V2765
+tmp4577 := MakeNative(func(__e *ControlFlow) {
+W2766 := __e.Get(1)
+_ = W2766
+tmp4579 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2766)
+
+
+if True == tmp4579 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+__e.Return(W2766)
+return
+}
+
+
+}, 1)
+
+tmp4585 := Call(__e, PrimFunc(symshen_4hds_a_2), V2765, MakeNumber(41))
+
+
+var ifres4580 Obj
+
+if True == tmp4585 {
+tmp4581 := MakeNative(func(__e *ControlFlow) {
+W2767 := __e.Get(1)
+_ = W2767
+__e.TailApply(PrimFunc(symshen_4comb), W2767, symshen_4skip)
+return
+}, 1)
+
+tmp4582 := Call(__e, PrimFunc(symtail), V2765)
+
+
+tmp4583 := Call(__e, tmp4581, tmp4582)
+
+
+ifres4580 = tmp4583
+
+
+} else {
+tmp4584 := Call(__e, PrimFunc(symshen_4parse_1failure))
+
+
+ifres4580 = tmp4584
+
+
+}
+
+__e.TailApply(tmp4577, ifres4580)
+return
+
+
+}, 1)
+
+tmp4586 := Call(__e, ns2_1set, symshen_4_5rrb_6, tmp4576)
+
+
+_ = tmp4586
+
+tmp4587 := MakeNative(func(__e *ControlFlow) {
+V2768 := __e.Get(1)
+_ = V2768
+tmp4588 := MakeNative(func(__e *ControlFlow) {
+W2769 := __e.Get(1)
+_ = W2769
+tmp4590 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2769)
+
+
+if True == tmp4590 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+__e.Return(W2769)
+return
+}
+
+
+}, 1)
+
+tmp4596 := Call(__e, PrimFunc(symshen_4hds_a_2), V2768, MakeNumber(123))
+
+
+var ifres4591 Obj
+
+if True == tmp4596 {
+tmp4592 := MakeNative(func(__e *ControlFlow) {
+W2770 := __e.Get(1)
+_ = W2770
+__e.TailApply(PrimFunc(symshen_4comb), W2770, symshen_4skip)
+return
+}, 1)
+
+tmp4593 := Call(__e, PrimFunc(symtail), V2768)
+
+
+tmp4594 := Call(__e, tmp4592, tmp4593)
+
+
+ifres4591 = tmp4594
+
+
+} else {
+tmp4595 := Call(__e, PrimFunc(symshen_4parse_1failure))
+
+
+ifres4591 = tmp4595
+
+
+}
+
+__e.TailApply(tmp4588, ifres4591)
+return
+
+
+}, 1)
+
+tmp4597 := Call(__e, ns2_1set, symshen_4_5lcurly_6, tmp4587)
+
+
+_ = tmp4597
+
+tmp4598 := MakeNative(func(__e *ControlFlow) {
+V2771 := __e.Get(1)
+_ = V2771
+tmp4599 := MakeNative(func(__e *ControlFlow) {
+W2772 := __e.Get(1)
+_ = W2772
+tmp4601 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2772)
+
+
+if True == tmp4601 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+__e.Return(W2772)
+return
+}
+
+
+}, 1)
+
+tmp4607 := Call(__e, PrimFunc(symshen_4hds_a_2), V2771, MakeNumber(125))
+
+
+var ifres4602 Obj
+
+if True == tmp4607 {
+tmp4603 := MakeNative(func(__e *ControlFlow) {
+W2773 := __e.Get(1)
+_ = W2773
+__e.TailApply(PrimFunc(symshen_4comb), W2773, symshen_4skip)
+return
+}, 1)
+
+tmp4604 := Call(__e, PrimFunc(symtail), V2771)
+
+
+tmp4605 := Call(__e, tmp4603, tmp4604)
+
+
+ifres4602 = tmp4605
+
+
+} else {
+tmp4606 := Call(__e, PrimFunc(symshen_4parse_1failure))
+
+
+ifres4602 = tmp4606
+
+
+}
+
+__e.TailApply(tmp4599, ifres4602)
+return
+
+
+}, 1)
+
+tmp4608 := Call(__e, ns2_1set, symshen_4_5rcurly_6, tmp4598)
+
+
+_ = tmp4608
+
+tmp4609 := MakeNative(func(__e *ControlFlow) {
+V2774 := __e.Get(1)
+_ = V2774
+tmp4610 := MakeNative(func(__e *ControlFlow) {
+W2775 := __e.Get(1)
+_ = W2775
+tmp4612 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2775)
+
+
+if True == tmp4612 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+__e.Return(W2775)
+return
+}
+
+
+}, 1)
+
+tmp4618 := Call(__e, PrimFunc(symshen_4hds_a_2), V2774, MakeNumber(124))
+
+
+var ifres4613 Obj
+
+if True == tmp4618 {
+tmp4614 := MakeNative(func(__e *ControlFlow) {
+W2776 := __e.Get(1)
+_ = W2776
+__e.TailApply(PrimFunc(symshen_4comb), W2776, symshen_4skip)
+return
+}, 1)
+
+tmp4615 := Call(__e, PrimFunc(symtail), V2774)
+
+
+tmp4616 := Call(__e, tmp4614, tmp4615)
+
+
+ifres4613 = tmp4616
+
+
+} else {
+tmp4617 := Call(__e, PrimFunc(symshen_4parse_1failure))
+
+
+ifres4613 = tmp4617
+
+
+}
+
+__e.TailApply(tmp4610, ifres4613)
+return
+
+
+}, 1)
+
+tmp4619 := Call(__e, ns2_1set, symshen_4_5bar_6, tmp4609)
+
+
+_ = tmp4619
+
+tmp4620 := MakeNative(func(__e *ControlFlow) {
+V2777 := __e.Get(1)
+_ = V2777
+tmp4621 := MakeNative(func(__e *ControlFlow) {
+W2778 := __e.Get(1)
+_ = W2778
+tmp4623 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2778)
+
+
+if True == tmp4623 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+__e.Return(W2778)
+return
+}
+
+
+}, 1)
+
+tmp4629 := Call(__e, PrimFunc(symshen_4hds_a_2), V2777, MakeNumber(59))
+
+
+var ifres4624 Obj
+
+if True == tmp4629 {
+tmp4625 := MakeNative(func(__e *ControlFlow) {
+W2779 := __e.Get(1)
+_ = W2779
+__e.TailApply(PrimFunc(symshen_4comb), W2779, symshen_4skip)
+return
+}, 1)
+
+tmp4626 := Call(__e, PrimFunc(symtail), V2777)
+
+
+tmp4627 := Call(__e, tmp4625, tmp4626)
+
+
+ifres4624 = tmp4627
+
+
+} else {
+tmp4628 := Call(__e, PrimFunc(symshen_4parse_1failure))
+
+
+ifres4624 = tmp4628
+
+
+}
+
+__e.TailApply(tmp4621, ifres4624)
+return
+
+
+}, 1)
+
+tmp4630 := Call(__e, ns2_1set, symshen_4_5semicolon_6, tmp4620)
+
+
+_ = tmp4630
+
+tmp4631 := MakeNative(func(__e *ControlFlow) {
+V2780 := __e.Get(1)
+_ = V2780
+tmp4632 := MakeNative(func(__e *ControlFlow) {
+W2781 := __e.Get(1)
+_ = W2781
+tmp4634 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2781)
+
+
+if True == tmp4634 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+__e.Return(W2781)
+return
+}
+
+
+}, 1)
+
+tmp4640 := Call(__e, PrimFunc(symshen_4hds_a_2), V2780, MakeNumber(58))
+
+
+var ifres4635 Obj
+
+if True == tmp4640 {
+tmp4636 := MakeNative(func(__e *ControlFlow) {
+W2782 := __e.Get(1)
+_ = W2782
+__e.TailApply(PrimFunc(symshen_4comb), W2782, symshen_4skip)
+return
+}, 1)
+
+tmp4637 := Call(__e, PrimFunc(symtail), V2780)
+
+
+tmp4638 := Call(__e, tmp4636, tmp4637)
+
+
+ifres4635 = tmp4638
+
+
+} else {
+tmp4639 := Call(__e, PrimFunc(symshen_4parse_1failure))
+
+
+ifres4635 = tmp4639
+
+
+}
+
+__e.TailApply(tmp4632, ifres4635)
+return
+
+
+}, 1)
+
+tmp4641 := Call(__e, ns2_1set, symshen_4_5colon_6, tmp4631)
+
+
+_ = tmp4641
+
+tmp4642 := MakeNative(func(__e *ControlFlow) {
+V2783 := __e.Get(1)
+_ = V2783
+tmp4643 := MakeNative(func(__e *ControlFlow) {
+W2784 := __e.Get(1)
+_ = W2784
+tmp4645 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2784)
+
+
+if True == tmp4645 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+__e.Return(W2784)
+return
+}
+
+
+}, 1)
+
+tmp4651 := Call(__e, PrimFunc(symshen_4hds_a_2), V2783, MakeNumber(44))
+
+
+var ifres4646 Obj
+
+if True == tmp4651 {
+tmp4647 := MakeNative(func(__e *ControlFlow) {
+W2785 := __e.Get(1)
+_ = W2785
+__e.TailApply(PrimFunc(symshen_4comb), W2785, symshen_4skip)
+return
+}, 1)
+
+tmp4648 := Call(__e, PrimFunc(symtail), V2783)
+
+
+tmp4649 := Call(__e, tmp4647, tmp4648)
+
+
+ifres4646 = tmp4649
+
+
+} else {
+tmp4650 := Call(__e, PrimFunc(symshen_4parse_1failure))
+
+
+ifres4646 = tmp4650
+
+
+}
+
+__e.TailApply(tmp4643, ifres4646)
+return
+
+
+}, 1)
+
+tmp4652 := Call(__e, ns2_1set, symshen_4_5comma_6, tmp4642)
+
+
+_ = tmp4652
+
+tmp4653 := MakeNative(func(__e *ControlFlow) {
+V2786 := __e.Get(1)
+_ = V2786
+tmp4654 := MakeNative(func(__e *ControlFlow) {
+W2787 := __e.Get(1)
+_ = W2787
+tmp4656 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2787)
+
+
+if True == tmp4656 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+__e.Return(W2787)
+return
+}
+
+
+}, 1)
+
+tmp4662 := Call(__e, PrimFunc(symshen_4hds_a_2), V2786, MakeNumber(61))
+
+
+var ifres4657 Obj
+
+if True == tmp4662 {
+tmp4658 := MakeNative(func(__e *ControlFlow) {
+W2788 := __e.Get(1)
+_ = W2788
+__e.TailApply(PrimFunc(symshen_4comb), W2788, symshen_4skip)
+return
+}, 1)
+
+tmp4659 := Call(__e, PrimFunc(symtail), V2786)
+
+
+tmp4660 := Call(__e, tmp4658, tmp4659)
+
+
+ifres4657 = tmp4660
+
+
+} else {
+tmp4661 := Call(__e, PrimFunc(symshen_4parse_1failure))
+
+
+ifres4657 = tmp4661
+
+
+}
+
+__e.TailApply(tmp4654, ifres4657)
+return
+
+
+}, 1)
+
+tmp4663 := Call(__e, ns2_1set, symshen_4_5equal_6, tmp4653)
+
+
+_ = tmp4663
+
+tmp4664 := MakeNative(func(__e *ControlFlow) {
+V2789 := __e.Get(1)
+_ = V2789
+tmp4665 := MakeNative(func(__e *ControlFlow) {
+W2790 := __e.Get(1)
+_ = W2790
+tmp4677 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2790)
+
+
+if True == tmp4677 {
+tmp4666 := MakeNative(func(__e *ControlFlow) {
+W2793 := __e.Get(1)
+_ = W2793
+tmp4668 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2793)
+
+
+if True == tmp4668 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+__e.Return(W2793)
+return
+}
+
+
+}, 1)
+
+tmp4669 := MakeNative(func(__e *ControlFlow) {
+W2794 := __e.Get(1)
+_ = W2794
+tmp4673 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2794)
+
+
+if True == tmp4673 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp4670 := MakeNative(func(__e *ControlFlow) {
+W2795 := __e.Get(1)
+_ = W2795
+__e.TailApply(PrimFunc(symshen_4comb), W2795, symshen_4skip)
+return
+}, 1)
+
+tmp4671 := Call(__e, PrimFunc(symshen_4in_1_6), W2794)
+
+
+__e.TailApply(tmp4670, tmp4671)
+return
+
+
+}
+
+
+}, 1)
+
+tmp4674 := Call(__e, PrimFunc(symshen_4_5multiline_6), V2789)
+
+
+tmp4675 := Call(__e, tmp4669, tmp4674)
+
+
+__e.TailApply(tmp4666, tmp4675)
+return
+
+
+} else {
+__e.Return(W2790)
+return
+}
+
+
+}, 1)
+
+tmp4678 := MakeNative(func(__e *ControlFlow) {
+W2791 := __e.Get(1)
+_ = W2791
+tmp4682 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2791)
+
+
+if True == tmp4682 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp4679 := MakeNative(func(__e *ControlFlow) {
+W2792 := __e.Get(1)
+_ = W2792
+__e.TailApply(PrimFunc(symshen_4comb), W2792, symshen_4skip)
+return
+}, 1)
+
+tmp4680 := Call(__e, PrimFunc(symshen_4in_1_6), W2791)
+
+
+__e.TailApply(tmp4679, tmp4680)
+return
+
+
+}
+
+
+}, 1)
+
+tmp4683 := Call(__e, PrimFunc(symshen_4_5singleline_6), V2789)
+
+
+tmp4684 := Call(__e, tmp4678, tmp4683)
+
+
+__e.TailApply(tmp4665, tmp4684)
+return
+
+
+}, 1)
+
+tmp4685 := Call(__e, ns2_1set, symshen_4_5comment_6, tmp4664)
+
+
+_ = tmp4685
+
+tmp4686 := MakeNative(func(__e *ControlFlow) {
+V2796 := __e.Get(1)
+_ = V2796
+tmp4687 := MakeNative(func(__e *ControlFlow) {
+W2797 := __e.Get(1)
+_ = W2797
+tmp4689 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2797)
+
+
+if True == tmp4689 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+__e.Return(W2797)
+return
+}
+
+
+}, 1)
+
+tmp4690 := MakeNative(func(__e *ControlFlow) {
+W2798 := __e.Get(1)
+_ = W2798
+tmp4712 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2798)
+
+
+if True == tmp4712 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp4691 := MakeNative(func(__e *ControlFlow) {
+W2799 := __e.Get(1)
+_ = W2799
+tmp4692 := MakeNative(func(__e *ControlFlow) {
+W2800 := __e.Get(1)
+_ = W2800
+tmp4708 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2800)
+
+
+if True == tmp4708 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp4693 := MakeNative(func(__e *ControlFlow) {
+W2801 := __e.Get(1)
+_ = W2801
+tmp4694 := MakeNative(func(__e *ControlFlow) {
+W2802 := __e.Get(1)
+_ = W2802
+tmp4704 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2802)
+
+
+if True == tmp4704 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp4695 := MakeNative(func(__e *ControlFlow) {
+W2803 := __e.Get(1)
+_ = W2803
+tmp4696 := MakeNative(func(__e *ControlFlow) {
+W2804 := __e.Get(1)
+_ = W2804
+tmp4700 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2804)
+
+
+if True == tmp4700 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp4697 := MakeNative(func(__e *ControlFlow) {
+W2805 := __e.Get(1)
+_ = W2805
+__e.TailApply(PrimFunc(symshen_4comb), W2805, symshen_4skip)
+return
+}, 1)
+
+tmp4698 := Call(__e, PrimFunc(symshen_4in_1_6), W2804)
+
+
+__e.TailApply(tmp4697, tmp4698)
+return
+
+
+}
+
+
+}, 1)
+
+tmp4701 := Call(__e, PrimFunc(symshen_4_5returns_6), W2803)
+
+
+__e.TailApply(tmp4696, tmp4701)
+return
+
+
+}, 1)
+
+tmp4702 := Call(__e, PrimFunc(symshen_4in_1_6), W2802)
+
+
+__e.TailApply(tmp4695, tmp4702)
+return
+
+
+}
+
+
+}, 1)
+
+tmp4705 := Call(__e, PrimFunc(symshen_4_5shortnatters_6), W2801)
+
+
+__e.TailApply(tmp4694, tmp4705)
+return
+
+
+}, 1)
+
+tmp4706 := Call(__e, PrimFunc(symshen_4in_1_6), W2800)
+
+
+__e.TailApply(tmp4693, tmp4706)
+return
+
+
+}
+
+
+}, 1)
+
+tmp4709 := Call(__e, PrimFunc(symshen_4_5backslash_6), W2799)
+
+
+__e.TailApply(tmp4692, tmp4709)
+return
+
+
+}, 1)
+
+tmp4710 := Call(__e, PrimFunc(symshen_4in_1_6), W2798)
+
+
+__e.TailApply(tmp4691, tmp4710)
+return
+
+
+}
+
+
+}, 1)
+
+tmp4713 := Call(__e, PrimFunc(symshen_4_5backslash_6), V2796)
+
+
+tmp4714 := Call(__e, tmp4690, tmp4713)
+
+
+__e.TailApply(tmp4687, tmp4714)
+return
+
+
+}, 1)
+
+tmp4715 := Call(__e, ns2_1set, symshen_4_5singleline_6, tmp4686)
+
+
+_ = tmp4715
+
+tmp4716 := MakeNative(func(__e *ControlFlow) {
+V2806 := __e.Get(1)
+_ = V2806
+tmp4717 := MakeNative(func(__e *ControlFlow) {
+W2807 := __e.Get(1)
+_ = W2807
+tmp4719 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2807)
+
+
+if True == tmp4719 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+__e.Return(W2807)
+return
+}
+
+
+}, 1)
+
+tmp4725 := Call(__e, PrimFunc(symshen_4hds_a_2), V2806, MakeNumber(92))
+
+
+var ifres4720 Obj
+
+if True == tmp4725 {
+tmp4721 := MakeNative(func(__e *ControlFlow) {
+W2808 := __e.Get(1)
+_ = W2808
+__e.TailApply(PrimFunc(symshen_4comb), W2808, symshen_4skip)
+return
+}, 1)
+
+tmp4722 := Call(__e, PrimFunc(symtail), V2806)
+
+
+tmp4723 := Call(__e, tmp4721, tmp4722)
+
+
+ifres4720 = tmp4723
+
+
+} else {
+tmp4724 := Call(__e, PrimFunc(symshen_4parse_1failure))
+
+
+ifres4720 = tmp4724
+
+
+}
+
+__e.TailApply(tmp4717, ifres4720)
+return
+
+
+}, 1)
+
+tmp4726 := Call(__e, ns2_1set, symshen_4_5backslash_6, tmp4716)
+
+
+_ = tmp4726
+
+tmp4727 := MakeNative(func(__e *ControlFlow) {
+V2809 := __e.Get(1)
+_ = V2809
+tmp4728 := MakeNative(func(__e *ControlFlow) {
+W2810 := __e.Get(1)
+_ = W2810
+tmp4740 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2810)
+
+
+if True == tmp4740 {
+tmp4729 := MakeNative(func(__e *ControlFlow) {
+W2815 := __e.Get(1)
+_ = W2815
+tmp4731 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2815)
+
+
+if True == tmp4731 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+__e.Return(W2815)
+return
+}
+
+
+}, 1)
+
+tmp4732 := MakeNative(func(__e *ControlFlow) {
+W2816 := __e.Get(1)
+_ = W2816
+tmp4736 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2816)
+
+
+if True == tmp4736 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp4733 := MakeNative(func(__e *ControlFlow) {
+W2817 := __e.Get(1)
+_ = W2817
+__e.TailApply(PrimFunc(symshen_4comb), W2817, symshen_4skip)
+return
+}, 1)
+
+tmp4734 := Call(__e, PrimFunc(symshen_4in_1_6), W2816)
+
+
+__e.TailApply(tmp4733, tmp4734)
+return
+
+
+}
+
+
+}, 1)
+
+tmp4737 := Call(__e, PrimFunc(sym_5e_6), V2809)
+
+
+tmp4738 := Call(__e, tmp4732, tmp4737)
+
+
+__e.TailApply(tmp4729, tmp4738)
+return
+
+
+} else {
+__e.Return(W2810)
+return
+}
+
+
+}, 1)
+
+tmp4741 := MakeNative(func(__e *ControlFlow) {
+W2811 := __e.Get(1)
+_ = W2811
+tmp4751 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2811)
+
+
+if True == tmp4751 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp4742 := MakeNative(func(__e *ControlFlow) {
+W2812 := __e.Get(1)
+_ = W2812
+tmp4743 := MakeNative(func(__e *ControlFlow) {
+W2813 := __e.Get(1)
+_ = W2813
+tmp4747 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2813)
+
+
+if True == tmp4747 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp4744 := MakeNative(func(__e *ControlFlow) {
+W2814 := __e.Get(1)
+_ = W2814
+__e.TailApply(PrimFunc(symshen_4comb), W2814, symshen_4skip)
+return
+}, 1)
+
+tmp4745 := Call(__e, PrimFunc(symshen_4in_1_6), W2813)
+
+
+__e.TailApply(tmp4744, tmp4745)
+return
+
+
+}
+
+
+}, 1)
+
+tmp4748 := Call(__e, PrimFunc(symshen_4_5shortnatters_6), W2812)
+
+
+__e.TailApply(tmp4743, tmp4748)
+return
+
+
+}, 1)
+
+tmp4749 := Call(__e, PrimFunc(symshen_4in_1_6), W2811)
+
+
+__e.TailApply(tmp4742, tmp4749)
+return
+
+
+}
+
+
+}, 1)
+
+tmp4752 := Call(__e, PrimFunc(symshen_4_5shortnatter_6), V2809)
+
+
+tmp4753 := Call(__e, tmp4741, tmp4752)
+
+
+__e.TailApply(tmp4728, tmp4753)
+return
+
+
+}, 1)
+
+tmp4754 := Call(__e, ns2_1set, symshen_4_5shortnatters_6, tmp4727)
+
+
+_ = tmp4754
+
+tmp4755 := MakeNative(func(__e *ControlFlow) {
+V2818 := __e.Get(1)
+_ = V2818
+tmp4756 := MakeNative(func(__e *ControlFlow) {
+W2819 := __e.Get(1)
+_ = W2819
+tmp4758 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2819)
+
+
+if True == tmp4758 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+__e.Return(W2819)
+return
+}
+
+
+}, 1)
+
+tmp4769 := PrimIsPair(V2818)
+
+var ifres4759 Obj
+
+if True == tmp4769 {
+tmp4760 := MakeNative(func(__e *ControlFlow) {
+W2820 := __e.Get(1)
+_ = W2820
+tmp4761 := MakeNative(func(__e *ControlFlow) {
+W2821 := __e.Get(1)
+_ = W2821
+tmp4763 := Call(__e, PrimFunc(symshen_4return_2), W2820)
+
+
+tmp4764 := PrimNot(tmp4763)
+
+if True == tmp4764 {
+__e.TailApply(PrimFunc(symshen_4comb), W2821, symshen_4skip)
+return
+} else {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+}
+
+
+}, 1)
+
+tmp4765 := Call(__e, PrimFunc(symtail), V2818)
+
+
+__e.TailApply(tmp4761, tmp4765)
+return
+
+
+}, 1)
+
+tmp4766 := Call(__e, PrimFunc(symhead), V2818)
+
+
+tmp4767 := Call(__e, tmp4760, tmp4766)
+
+
+ifres4759 = tmp4767
+
+
+} else {
+tmp4768 := Call(__e, PrimFunc(symshen_4parse_1failure))
+
+
+ifres4759 = tmp4768
+
+
+}
+
+__e.TailApply(tmp4756, ifres4759)
+return
+
+
+}, 1)
+
+tmp4770 := Call(__e, ns2_1set, symshen_4_5shortnatter_6, tmp4755)
+
+
+_ = tmp4770
+
+tmp4771 := MakeNative(func(__e *ControlFlow) {
+V2822 := __e.Get(1)
+_ = V2822
+tmp4772 := MakeNative(func(__e *ControlFlow) {
+W2823 := __e.Get(1)
+_ = W2823
+tmp4784 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2823)
+
+
+if True == tmp4784 {
+tmp4773 := MakeNative(func(__e *ControlFlow) {
+W2828 := __e.Get(1)
+_ = W2828
+tmp4775 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2828)
+
+
+if True == tmp4775 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+__e.Return(W2828)
+return
+}
+
+
+}, 1)
+
+tmp4776 := MakeNative(func(__e *ControlFlow) {
+W2829 := __e.Get(1)
+_ = W2829
+tmp4780 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2829)
+
+
+if True == tmp4780 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp4777 := MakeNative(func(__e *ControlFlow) {
+W2830 := __e.Get(1)
+_ = W2830
+__e.TailApply(PrimFunc(symshen_4comb), W2830, symshen_4skip)
+return
+}, 1)
+
+tmp4778 := Call(__e, PrimFunc(symshen_4in_1_6), W2829)
+
+
+__e.TailApply(tmp4777, tmp4778)
+return
+
+
+}
+
+
+}, 1)
+
+tmp4781 := Call(__e, PrimFunc(symshen_4_5return_6), V2822)
+
+
+tmp4782 := Call(__e, tmp4776, tmp4781)
+
+
+__e.TailApply(tmp4773, tmp4782)
+return
+
+
+} else {
+__e.Return(W2823)
+return
+}
+
+
+}, 1)
+
+tmp4785 := MakeNative(func(__e *ControlFlow) {
+W2824 := __e.Get(1)
+_ = W2824
+tmp4795 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2824)
+
+
+if True == tmp4795 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp4786 := MakeNative(func(__e *ControlFlow) {
+W2825 := __e.Get(1)
+_ = W2825
+tmp4787 := MakeNative(func(__e *ControlFlow) {
+W2826 := __e.Get(1)
+_ = W2826
+tmp4791 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2826)
+
+
+if True == tmp4791 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp4788 := MakeNative(func(__e *ControlFlow) {
+W2827 := __e.Get(1)
+_ = W2827
+__e.TailApply(PrimFunc(symshen_4comb), W2827, symshen_4skip)
+return
+}, 1)
+
+tmp4789 := Call(__e, PrimFunc(symshen_4in_1_6), W2826)
+
+
+__e.TailApply(tmp4788, tmp4789)
+return
+
+
+}
+
+
+}, 1)
+
+tmp4792 := Call(__e, PrimFunc(symshen_4_5returns_6), W2825)
+
+
+__e.TailApply(tmp4787, tmp4792)
+return
+
+
+}, 1)
+
+tmp4793 := Call(__e, PrimFunc(symshen_4in_1_6), W2824)
+
+
+__e.TailApply(tmp4786, tmp4793)
+return
+
+
+}
+
+
+}, 1)
+
+tmp4796 := Call(__e, PrimFunc(symshen_4_5return_6), V2822)
+
+
+tmp4797 := Call(__e, tmp4785, tmp4796)
+
+
+__e.TailApply(tmp4772, tmp4797)
+return
+
+
+}, 1)
+
+tmp4798 := Call(__e, ns2_1set, symshen_4_5returns_6, tmp4771)
+
+
+_ = tmp4798
+
+tmp4799 := MakeNative(func(__e *ControlFlow) {
+V2831 := __e.Get(1)
+_ = V2831
+tmp4800 := MakeNative(func(__e *ControlFlow) {
+W2832 := __e.Get(1)
+_ = W2832
+tmp4802 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2832)
+
+
+if True == tmp4802 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+__e.Return(W2832)
+return
+}
+
+
+}, 1)
+
+tmp4812 := PrimIsPair(V2831)
+
+var ifres4803 Obj
+
+if True == tmp4812 {
+tmp4804 := MakeNative(func(__e *ControlFlow) {
+W2833 := __e.Get(1)
+_ = W2833
+tmp4805 := MakeNative(func(__e *ControlFlow) {
+W2834 := __e.Get(1)
+_ = W2834
+tmp4807 := Call(__e, PrimFunc(symshen_4return_2), W2833)
+
+
+if True == tmp4807 {
+__e.TailApply(PrimFunc(symshen_4comb), W2834, symshen_4skip)
+return
+} else {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+}
+
+
+}, 1)
+
+tmp4808 := Call(__e, PrimFunc(symtail), V2831)
+
+
+__e.TailApply(tmp4805, tmp4808)
+return
+
+
+}, 1)
+
+tmp4809 := Call(__e, PrimFunc(symhead), V2831)
+
+
+tmp4810 := Call(__e, tmp4804, tmp4809)
+
+
+ifres4803 = tmp4810
+
+
+} else {
+tmp4811 := Call(__e, PrimFunc(symshen_4parse_1failure))
+
+
+ifres4803 = tmp4811
+
+
+}
+
+__e.TailApply(tmp4800, ifres4803)
+return
+
+
+}, 1)
+
+tmp4813 := Call(__e, ns2_1set, symshen_4_5return_6, tmp4799)
+
+
+_ = tmp4813
+
+tmp4814 := MakeNative(func(__e *ControlFlow) {
+V2835 := __e.Get(1)
+_ = V2835
+tmp4815 := PrimCons(MakeNumber(13), Nil)
+
+tmp4816 := PrimCons(MakeNumber(10), tmp4815)
+
+tmp4817 := PrimCons(MakeNumber(9), tmp4816)
+
+__e.TailApply(PrimFunc(symelement_2), V2835, tmp4817)
+return
+
+
+}, 1)
+
+tmp4818 := Call(__e, ns2_1set, symshen_4return_2, tmp4814)
+
+
+_ = tmp4818
+
+tmp4819 := MakeNative(func(__e *ControlFlow) {
+V2836 := __e.Get(1)
+_ = V2836
+tmp4820 := MakeNative(func(__e *ControlFlow) {
+W2837 := __e.Get(1)
+_ = W2837
+tmp4822 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2837)
+
+
+if True == tmp4822 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+__e.Return(W2837)
+return
+}
+
+
+}, 1)
+
+tmp4823 := MakeNative(func(__e *ControlFlow) {
+W2838 := __e.Get(1)
+_ = W2838
+tmp4839 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2838)
+
+
+if True == tmp4839 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp4824 := MakeNative(func(__e *ControlFlow) {
+W2839 := __e.Get(1)
+_ = W2839
+tmp4825 := MakeNative(func(__e *ControlFlow) {
+W2840 := __e.Get(1)
+_ = W2840
+tmp4835 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2840)
+
+
+if True == tmp4835 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp4826 := MakeNative(func(__e *ControlFlow) {
+W2841 := __e.Get(1)
+_ = W2841
+tmp4827 := MakeNative(func(__e *ControlFlow) {
+W2842 := __e.Get(1)
+_ = W2842
+tmp4831 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2842)
+
+
+if True == tmp4831 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp4828 := MakeNative(func(__e *ControlFlow) {
+W2843 := __e.Get(1)
+_ = W2843
+__e.TailApply(PrimFunc(symshen_4comb), W2843, symshen_4skip)
+return
+}, 1)
+
+tmp4829 := Call(__e, PrimFunc(symshen_4in_1_6), W2842)
+
+
+__e.TailApply(tmp4828, tmp4829)
+return
+
+
+}
+
+
+}, 1)
+
+tmp4832 := Call(__e, PrimFunc(symshen_4_5longnatter_6), W2841)
+
+
+__e.TailApply(tmp4827, tmp4832)
+return
+
+
+}, 1)
+
+tmp4833 := Call(__e, PrimFunc(symshen_4in_1_6), W2840)
+
+
+__e.TailApply(tmp4826, tmp4833)
+return
+
+
+}
+
+
+}, 1)
+
+tmp4836 := Call(__e, PrimFunc(symshen_4_5times_6), W2839)
+
+
+__e.TailApply(tmp4825, tmp4836)
+return
+
+
+}, 1)
+
+tmp4837 := Call(__e, PrimFunc(symshen_4in_1_6), W2838)
+
+
+__e.TailApply(tmp4824, tmp4837)
+return
+
+
+}
+
+
+}, 1)
+
+tmp4840 := Call(__e, PrimFunc(symshen_4_5backslash_6), V2836)
+
+
+tmp4841 := Call(__e, tmp4823, tmp4840)
+
+
+__e.TailApply(tmp4820, tmp4841)
+return
+
+
+}, 1)
+
+tmp4842 := Call(__e, ns2_1set, symshen_4_5multiline_6, tmp4819)
+
+
+_ = tmp4842
+
+tmp4843 := MakeNative(func(__e *ControlFlow) {
+V2844 := __e.Get(1)
+_ = V2844
+tmp4844 := MakeNative(func(__e *ControlFlow) {
+W2845 := __e.Get(1)
+_ = W2845
+tmp4846 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2845)
+
+
+if True == tmp4846 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+__e.Return(W2845)
+return
+}
+
+
+}, 1)
+
+tmp4852 := Call(__e, PrimFunc(symshen_4hds_a_2), V2844, MakeNumber(42))
+
+
+var ifres4847 Obj
+
+if True == tmp4852 {
+tmp4848 := MakeNative(func(__e *ControlFlow) {
+W2846 := __e.Get(1)
+_ = W2846
+__e.TailApply(PrimFunc(symshen_4comb), W2846, symshen_4skip)
+return
+}, 1)
+
+tmp4849 := Call(__e, PrimFunc(symtail), V2844)
+
+
+tmp4850 := Call(__e, tmp4848, tmp4849)
+
+
+ifres4847 = tmp4850
+
+
+} else {
+tmp4851 := Call(__e, PrimFunc(symshen_4parse_1failure))
+
+
+ifres4847 = tmp4851
+
+
+}
+
+__e.TailApply(tmp4844, ifres4847)
+return
+
+
+}, 1)
+
+tmp4853 := Call(__e, ns2_1set, symshen_4_5times_6, tmp4843)
+
+
+_ = tmp4853
+
+tmp4854 := MakeNative(func(__e *ControlFlow) {
+V2847 := __e.Get(1)
+_ = V2847
+tmp4855 := MakeNative(func(__e *ControlFlow) {
+W2848 := __e.Get(1)
+_ = W2848
+tmp4888 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2848)
+
+
+if True == tmp4888 {
+tmp4856 := MakeNative(func(__e *ControlFlow) {
+W2853 := __e.Get(1)
+_ = W2853
+tmp4873 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2853)
+
+
+if True == tmp4873 {
+tmp4857 := MakeNative(func(__e *ControlFlow) {
+W2858 := __e.Get(1)
+_ = W2858
+tmp4859 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2858)
+
+
+if True == tmp4859 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+__e.Return(W2858)
+return
+}
+
+
+}, 1)
+
+tmp4871 := PrimIsPair(V2847)
+
+var ifres4860 Obj
+
+if True == tmp4871 {
+tmp4861 := MakeNative(func(__e *ControlFlow) {
+W2859 := __e.Get(1)
+_ = W2859
+tmp4862 := MakeNative(func(__e *ControlFlow) {
+W2860 := __e.Get(1)
+_ = W2860
+tmp4866 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2860)
+
+
+if True == tmp4866 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp4863 := MakeNative(func(__e *ControlFlow) {
+W2861 := __e.Get(1)
+_ = W2861
+__e.TailApply(PrimFunc(symshen_4comb), W2861, symshen_4skip)
+return
+}, 1)
+
+tmp4864 := Call(__e, PrimFunc(symshen_4in_1_6), W2860)
+
+
+__e.TailApply(tmp4863, tmp4864)
+return
+
+
+}
+
+
+}, 1)
+
+tmp4867 := Call(__e, PrimFunc(symshen_4_5longnatter_6), W2859)
+
+
+__e.TailApply(tmp4862, tmp4867)
+return
+
+
+}, 1)
+
+tmp4868 := Call(__e, PrimFunc(symtail), V2847)
+
+
+tmp4869 := Call(__e, tmp4861, tmp4868)
+
+
+ifres4860 = tmp4869
+
+
+} else {
+tmp4870 := Call(__e, PrimFunc(symshen_4parse_1failure))
+
+
+ifres4860 = tmp4870
+
+
+}
+
+__e.TailApply(tmp4857, ifres4860)
+return
+
+
+} else {
+__e.Return(W2853)
+return
+}
+
+
+}, 1)
+
+tmp4874 := MakeNative(func(__e *ControlFlow) {
+W2854 := __e.Get(1)
+_ = W2854
+tmp4884 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2854)
+
+
+if True == tmp4884 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp4875 := MakeNative(func(__e *ControlFlow) {
+W2855 := __e.Get(1)
+_ = W2855
+tmp4876 := MakeNative(func(__e *ControlFlow) {
+W2856 := __e.Get(1)
+_ = W2856
+tmp4880 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2856)
+
+
+if True == tmp4880 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp4877 := MakeNative(func(__e *ControlFlow) {
+W2857 := __e.Get(1)
+_ = W2857
+__e.TailApply(PrimFunc(symshen_4comb), W2857, symshen_4skip)
+return
+}, 1)
+
+tmp4878 := Call(__e, PrimFunc(symshen_4in_1_6), W2856)
+
+
+__e.TailApply(tmp4877, tmp4878)
+return
+
+
+}
+
+
+}, 1)
+
+tmp4881 := Call(__e, PrimFunc(symshen_4_5backslash_6), W2855)
+
+
+__e.TailApply(tmp4876, tmp4881)
+return
+
+
+}, 1)
+
+tmp4882 := Call(__e, PrimFunc(symshen_4in_1_6), W2854)
+
+
+__e.TailApply(tmp4875, tmp4882)
+return
+
+
+}
+
+
+}, 1)
+
+tmp4885 := Call(__e, PrimFunc(symshen_4_5times_6), V2847)
+
+
+tmp4886 := Call(__e, tmp4874, tmp4885)
+
+
+__e.TailApply(tmp4856, tmp4886)
+return
+
+
+} else {
+__e.Return(W2848)
+return
+}
+
+
+}, 1)
+
+tmp4889 := MakeNative(func(__e *ControlFlow) {
+W2849 := __e.Get(1)
+_ = W2849
+tmp4899 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2849)
+
+
+if True == tmp4899 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp4890 := MakeNative(func(__e *ControlFlow) {
+W2850 := __e.Get(1)
+_ = W2850
+tmp4891 := MakeNative(func(__e *ControlFlow) {
+W2851 := __e.Get(1)
+_ = W2851
+tmp4895 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2851)
+
+
+if True == tmp4895 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp4892 := MakeNative(func(__e *ControlFlow) {
+W2852 := __e.Get(1)
+_ = W2852
+__e.TailApply(PrimFunc(symshen_4comb), W2852, symshen_4skip)
+return
+}, 1)
+
+tmp4893 := Call(__e, PrimFunc(symshen_4in_1_6), W2851)
+
+
+__e.TailApply(tmp4892, tmp4893)
+return
+
+
+}
+
+
+}, 1)
+
+tmp4896 := Call(__e, PrimFunc(symshen_4_5longnatter_6), W2850)
+
+
+__e.TailApply(tmp4891, tmp4896)
+return
+
+
+}, 1)
+
+tmp4897 := Call(__e, PrimFunc(symshen_4in_1_6), W2849)
+
+
+__e.TailApply(tmp4890, tmp4897)
+return
+
+
+}
+
+
+}, 1)
+
+tmp4900 := Call(__e, PrimFunc(symshen_4_5comment_6), V2847)
+
+
+tmp4901 := Call(__e, tmp4889, tmp4900)
+
+
+__e.TailApply(tmp4855, tmp4901)
+return
+
+
+}, 1)
+
+tmp4902 := Call(__e, ns2_1set, symshen_4_5longnatter_6, tmp4854)
+
+
+_ = tmp4902
+
+tmp4903 := MakeNative(func(__e *ControlFlow) {
+V2862 := __e.Get(1)
+_ = V2862
+tmp4904 := MakeNative(func(__e *ControlFlow) {
+W2863 := __e.Get(1)
+_ = W2863
+tmp4935 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2863)
+
+
+if True == tmp4935 {
+tmp4905 := MakeNative(func(__e *ControlFlow) {
+W2867 := __e.Get(1)
+_ = W2867
+tmp4924 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2867)
+
+
+if True == tmp4924 {
+tmp4906 := MakeNative(func(__e *ControlFlow) {
+W2871 := __e.Get(1)
+_ = W2871
+tmp4908 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2871)
+
+
+if True == tmp4908 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+__e.Return(W2871)
+return
+}
+
+
+}, 1)
+
+tmp4909 := MakeNative(func(__e *ControlFlow) {
+W2872 := __e.Get(1)
+_ = W2872
+tmp4920 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2872)
+
+
+if True == tmp4920 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp4910 := MakeNative(func(__e *ControlFlow) {
+W2873 := __e.Get(1)
+_ = W2873
+tmp4911 := MakeNative(func(__e *ControlFlow) {
+W2874 := __e.Get(1)
+_ = W2874
+tmp4916 := PrimEqual(W2873, MakeString("<>"))
+
+var ifres4912 Obj
+
+if True == tmp4916 {
+tmp4913 := PrimCons(MakeNumber(0), Nil)
+
+tmp4914 := PrimCons(symvector, tmp4913)
+
+ifres4912 = tmp4914
+
+
+} else {
+tmp4915 := PrimIntern(W2873)
+
+ifres4912 = tmp4915
+
+
+}
+
+__e.TailApply(PrimFunc(symshen_4comb), W2874, ifres4912)
+return
+
+
+}, 1)
+
+tmp4917 := Call(__e, PrimFunc(symshen_4in_1_6), W2872)
+
+
+__e.TailApply(tmp4911, tmp4917)
+return
+
+
+}, 1)
+
+tmp4918 := Call(__e, PrimFunc(symshen_4_5_1out), W2872)
+
+
+__e.TailApply(tmp4910, tmp4918)
+return
+
+
+}
+
+
+}, 1)
+
+tmp4921 := Call(__e, PrimFunc(symshen_4_5sym_6), V2862)
+
+
+tmp4922 := Call(__e, tmp4909, tmp4921)
+
+
+__e.TailApply(tmp4906, tmp4922)
+return
+
+
+} else {
+__e.Return(W2867)
+return
+}
+
+
+}, 1)
+
+tmp4925 := MakeNative(func(__e *ControlFlow) {
+W2868 := __e.Get(1)
+_ = W2868
+tmp4931 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2868)
+
+
+if True == tmp4931 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp4926 := MakeNative(func(__e *ControlFlow) {
+W2869 := __e.Get(1)
+_ = W2869
+tmp4927 := MakeNative(func(__e *ControlFlow) {
+W2870 := __e.Get(1)
+_ = W2870
+__e.TailApply(PrimFunc(symshen_4comb), W2870, W2869)
+return
+}, 1)
+
+tmp4928 := Call(__e, PrimFunc(symshen_4in_1_6), W2868)
+
+
+__e.TailApply(tmp4927, tmp4928)
+return
+
+
+}, 1)
+
+tmp4929 := Call(__e, PrimFunc(symshen_4_5_1out), W2868)
+
+
+__e.TailApply(tmp4926, tmp4929)
+return
+
+
+}
+
+
+}, 1)
+
+tmp4932 := Call(__e, PrimFunc(symshen_4_5number_6), V2862)
+
+
+tmp4933 := Call(__e, tmp4925, tmp4932)
+
+
+__e.TailApply(tmp4905, tmp4933)
+return
+
+
+} else {
+__e.Return(W2863)
+return
+}
+
+
+}, 1)
+
+tmp4936 := MakeNative(func(__e *ControlFlow) {
+W2864 := __e.Get(1)
+_ = W2864
+tmp4942 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2864)
+
+
+if True == tmp4942 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp4937 := MakeNative(func(__e *ControlFlow) {
+W2865 := __e.Get(1)
+_ = W2865
+tmp4938 := MakeNative(func(__e *ControlFlow) {
+W2866 := __e.Get(1)
+_ = W2866
+__e.TailApply(PrimFunc(symshen_4comb), W2866, W2865)
+return
+}, 1)
+
+tmp4939 := Call(__e, PrimFunc(symshen_4in_1_6), W2864)
+
+
+__e.TailApply(tmp4938, tmp4939)
+return
+
+
+}, 1)
+
+tmp4940 := Call(__e, PrimFunc(symshen_4_5_1out), W2864)
+
+
+__e.TailApply(tmp4937, tmp4940)
+return
+
+
+}
+
+
+}, 1)
+
+tmp4943 := Call(__e, PrimFunc(symshen_4_5str_6), V2862)
+
+
+tmp4944 := Call(__e, tmp4936, tmp4943)
+
+
+__e.TailApply(tmp4904, tmp4944)
+return
+
+
+}, 1)
+
+tmp4945 := Call(__e, ns2_1set, symshen_4_5atom_6, tmp4903)
+
+
+_ = tmp4945
+
+tmp4946 := MakeNative(func(__e *ControlFlow) {
+V2875 := __e.Get(1)
+_ = V2875
+tmp4947 := MakeNative(func(__e *ControlFlow) {
+W2876 := __e.Get(1)
+_ = W2876
+tmp4949 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2876)
+
+
+if True == tmp4949 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+__e.Return(W2876)
+return
+}
+
+
+}, 1)
+
+tmp4950 := MakeNative(func(__e *ControlFlow) {
+W2877 := __e.Get(1)
+_ = W2877
+tmp4965 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2877)
+
+
+if True == tmp4965 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp4951 := MakeNative(func(__e *ControlFlow) {
+W2878 := __e.Get(1)
+_ = W2878
+tmp4952 := MakeNative(func(__e *ControlFlow) {
+W2879 := __e.Get(1)
+_ = W2879
+tmp4953 := MakeNative(func(__e *ControlFlow) {
+W2880 := __e.Get(1)
+_ = W2880
+tmp4960 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2880)
+
+
+if True == tmp4960 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp4954 := MakeNative(func(__e *ControlFlow) {
+W2881 := __e.Get(1)
+_ = W2881
+tmp4955 := MakeNative(func(__e *ControlFlow) {
+W2882 := __e.Get(1)
+_ = W2882
+tmp4956 := PrimStringConcat(W2878, W2881)
+
+__e.TailApply(PrimFunc(symshen_4comb), W2882, tmp4956)
+return
+
+
+}, 1)
+
+tmp4957 := Call(__e, PrimFunc(symshen_4in_1_6), W2880)
+
+
+__e.TailApply(tmp4955, tmp4957)
+return
+
+
+}, 1)
+
+tmp4958 := Call(__e, PrimFunc(symshen_4_5_1out), W2880)
+
+
+__e.TailApply(tmp4954, tmp4958)
+return
+
+
+}
+
+
+}, 1)
+
+tmp4961 := Call(__e, PrimFunc(symshen_4_5alphanums_6), W2879)
+
+
+__e.TailApply(tmp4953, tmp4961)
+return
+
+
+}, 1)
+
+tmp4962 := Call(__e, PrimFunc(symshen_4in_1_6), W2877)
+
+
+__e.TailApply(tmp4952, tmp4962)
+return
+
+
+}, 1)
+
+tmp4963 := Call(__e, PrimFunc(symshen_4_5_1out), W2877)
+
+
+__e.TailApply(tmp4951, tmp4963)
+return
+
+
+}
+
+
+}, 1)
+
+tmp4966 := Call(__e, PrimFunc(symshen_4_5alpha_6), V2875)
+
+
+tmp4967 := Call(__e, tmp4950, tmp4966)
+
+
+__e.TailApply(tmp4947, tmp4967)
+return
+
+
+}, 1)
+
+tmp4968 := Call(__e, ns2_1set, symshen_4_5sym_6, tmp4946)
+
+
+_ = tmp4968
+
+tmp4969 := MakeNative(func(__e *ControlFlow) {
+V2883 := __e.Get(1)
+_ = V2883
+tmp4970 := MakeNative(func(__e *ControlFlow) {
+W2884 := __e.Get(1)
+_ = W2884
+tmp4972 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2884)
+
+
+if True == tmp4972 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+__e.Return(W2884)
+return
+}
+
+
+}, 1)
+
+tmp4983 := PrimIsPair(V2883)
+
+var ifres4973 Obj
+
+if True == tmp4983 {
+tmp4974 := MakeNative(func(__e *ControlFlow) {
+W2885 := __e.Get(1)
+_ = W2885
+tmp4975 := MakeNative(func(__e *ControlFlow) {
+W2886 := __e.Get(1)
+_ = W2886
+tmp4978 := Call(__e, PrimFunc(symshen_4alpha_2), W2885)
+
+
+if True == tmp4978 {
+tmp4976 := PrimNumberToString(W2885)
+
+__e.TailApply(PrimFunc(symshen_4comb), W2886, tmp4976)
+return
+
+
+} else {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+}
+
+
+}, 1)
+
+tmp4979 := Call(__e, PrimFunc(symtail), V2883)
+
+
+__e.TailApply(tmp4975, tmp4979)
+return
+
+
+}, 1)
+
+tmp4980 := Call(__e, PrimFunc(symhead), V2883)
+
+
+tmp4981 := Call(__e, tmp4974, tmp4980)
+
+
+ifres4973 = tmp4981
+
+
+} else {
+tmp4982 := Call(__e, PrimFunc(symshen_4parse_1failure))
+
+
+ifres4973 = tmp4982
+
+
+}
+
+__e.TailApply(tmp4970, ifres4973)
+return
+
+
+}, 1)
+
+tmp4984 := Call(__e, ns2_1set, symshen_4_5alpha_6, tmp4969)
+
+
+_ = tmp4984
+
+tmp4985 := MakeNative(func(__e *ControlFlow) {
+V2887 := __e.Get(1)
+_ = V2887
+tmp4992 := Call(__e, PrimFunc(symshen_4lowercase_2), V2887)
+
+
+if True == tmp4992 {
+__e.Return(True)
+return
+} else {
+tmp4990 := Call(__e, PrimFunc(symshen_4uppercase_2), V2887)
+
+
+var ifres4987 Obj
+
+if True == tmp4990 {
+ifres4987 = True
+
+
+} else {
+tmp4989 := Call(__e, PrimFunc(symshen_4misc_2), V2887)
+
+
+var ifres4988 Obj
+
+if True == tmp4989 {
+ifres4988 = True
+
+
+} else {
+ifres4988 = False
+
+
+}
+
+ifres4987 = ifres4988
+
+
+}
+
+if True == ifres4987 {
+__e.Return(True)
+return
+} else {
+__e.Return(False)
+return
+}
+
+
+}
+
+
+}, 1)
+
+tmp4993 := Call(__e, ns2_1set, symshen_4alpha_2, tmp4985)
+
+
+_ = tmp4993
+
+tmp4994 := MakeNative(func(__e *ControlFlow) {
+V2888 := __e.Get(1)
+_ = V2888
+tmp4998 := PrimGreatEqual(V2888, MakeNumber(97))
+
+if True == tmp4998 {
+tmp4996 := PrimLessEqual(V2888, MakeNumber(122))
+
+if True == tmp4996 {
+__e.Return(True)
+return
+} else {
+__e.Return(False)
+return
+}
+
+
+} else {
+__e.Return(False)
+return
+}
+
+
+}, 1)
+
+tmp4999 := Call(__e, ns2_1set, symshen_4lowercase_2, tmp4994)
+
+
+_ = tmp4999
+
+tmp5000 := MakeNative(func(__e *ControlFlow) {
+V2889 := __e.Get(1)
+_ = V2889
+tmp5004 := PrimGreatEqual(V2889, MakeNumber(65))
+
+if True == tmp5004 {
+tmp5002 := PrimLessEqual(V2889, MakeNumber(90))
+
+if True == tmp5002 {
+__e.Return(True)
+return
+} else {
+__e.Return(False)
+return
+}
+
+
+} else {
+__e.Return(False)
+return
+}
+
+
+}, 1)
+
+tmp5005 := Call(__e, ns2_1set, symshen_4uppercase_2, tmp5000)
+
+
+_ = tmp5005
+
+tmp5006 := MakeNative(func(__e *ControlFlow) {
+V2890 := __e.Get(1)
+_ = V2890
+tmp5007 := PrimCons(MakeNumber(96), Nil)
+
+tmp5008 := PrimCons(MakeNumber(35), tmp5007)
+
+tmp5009 := PrimCons(MakeNumber(39), tmp5008)
+
+tmp5010 := PrimCons(MakeNumber(37), tmp5009)
+
+tmp5011 := PrimCons(MakeNumber(38), tmp5010)
+
+tmp5012 := PrimCons(MakeNumber(60), tmp5011)
+
+tmp5013 := PrimCons(MakeNumber(62), tmp5012)
+
+tmp5014 := PrimCons(MakeNumber(46), tmp5013)
+
+tmp5015 := PrimCons(MakeNumber(126), tmp5014)
+
+tmp5016 := PrimCons(MakeNumber(64), tmp5015)
+
+tmp5017 := PrimCons(MakeNumber(33), tmp5016)
+
+tmp5018 := PrimCons(MakeNumber(36), tmp5017)
+
+tmp5019 := PrimCons(MakeNumber(63), tmp5018)
+
+tmp5020 := PrimCons(MakeNumber(95), tmp5019)
+
+tmp5021 := PrimCons(MakeNumber(43), tmp5020)
+
+tmp5022 := PrimCons(MakeNumber(47), tmp5021)
+
+tmp5023 := PrimCons(MakeNumber(42), tmp5022)
+
+tmp5024 := PrimCons(MakeNumber(45), tmp5023)
+
+tmp5025 := PrimCons(MakeNumber(61), tmp5024)
+
+__e.TailApply(PrimFunc(symelement_2), V2890, tmp5025)
+return
+
+
+}, 1)
+
+tmp5026 := Call(__e, ns2_1set, symshen_4misc_2, tmp5006)
+
+
+_ = tmp5026
+
+tmp5027 := MakeNative(func(__e *ControlFlow) {
+V2891 := __e.Get(1)
+_ = V2891
+tmp5028 := MakeNative(func(__e *ControlFlow) {
+W2892 := __e.Get(1)
+_ = W2892
+tmp5040 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2892)
+
+
+if True == tmp5040 {
+tmp5029 := MakeNative(func(__e *ControlFlow) {
+W2899 := __e.Get(1)
+_ = W2899
+tmp5031 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2899)
+
+
+if True == tmp5031 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+__e.Return(W2899)
+return
+}
+
+
+}, 1)
+
+tmp5032 := MakeNative(func(__e *ControlFlow) {
+W2900 := __e.Get(1)
+_ = W2900
+tmp5036 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2900)
+
+
+if True == tmp5036 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp5033 := MakeNative(func(__e *ControlFlow) {
+W2901 := __e.Get(1)
+_ = W2901
+__e.TailApply(PrimFunc(symshen_4comb), W2901, MakeString(""))
+return
+}, 1)
+
+tmp5034 := Call(__e, PrimFunc(symshen_4in_1_6), W2900)
+
+
+__e.TailApply(tmp5033, tmp5034)
+return
+
+
+}
+
+
+}, 1)
+
+tmp5037 := Call(__e, PrimFunc(sym_5e_6), V2891)
+
+
+tmp5038 := Call(__e, tmp5032, tmp5037)
+
+
+__e.TailApply(tmp5029, tmp5038)
+return
+
+
+} else {
+__e.Return(W2892)
+return
+}
+
+
+}, 1)
+
+tmp5041 := MakeNative(func(__e *ControlFlow) {
+W2893 := __e.Get(1)
+_ = W2893
+tmp5056 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2893)
+
+
+if True == tmp5056 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp5042 := MakeNative(func(__e *ControlFlow) {
+W2894 := __e.Get(1)
+_ = W2894
+tmp5043 := MakeNative(func(__e *ControlFlow) {
+W2895 := __e.Get(1)
+_ = W2895
+tmp5044 := MakeNative(func(__e *ControlFlow) {
+W2896 := __e.Get(1)
+_ = W2896
+tmp5051 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2896)
+
+
+if True == tmp5051 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp5045 := MakeNative(func(__e *ControlFlow) {
+W2897 := __e.Get(1)
+_ = W2897
+tmp5046 := MakeNative(func(__e *ControlFlow) {
+W2898 := __e.Get(1)
+_ = W2898
+tmp5047 := PrimStringConcat(W2894, W2897)
+
+__e.TailApply(PrimFunc(symshen_4comb), W2898, tmp5047)
+return
+
+
+}, 1)
+
+tmp5048 := Call(__e, PrimFunc(symshen_4in_1_6), W2896)
+
+
+__e.TailApply(tmp5046, tmp5048)
+return
+
+
+}, 1)
+
+tmp5049 := Call(__e, PrimFunc(symshen_4_5_1out), W2896)
+
+
+__e.TailApply(tmp5045, tmp5049)
+return
+
+
+}
+
+
+}, 1)
+
+tmp5052 := Call(__e, PrimFunc(symshen_4_5alphanums_6), W2895)
+
+
+__e.TailApply(tmp5044, tmp5052)
+return
+
+
+}, 1)
+
+tmp5053 := Call(__e, PrimFunc(symshen_4in_1_6), W2893)
+
+
+__e.TailApply(tmp5043, tmp5053)
+return
+
+
+}, 1)
+
+tmp5054 := Call(__e, PrimFunc(symshen_4_5_1out), W2893)
+
+
+__e.TailApply(tmp5042, tmp5054)
+return
+
+
+}
+
+
+}, 1)
+
+tmp5057 := Call(__e, PrimFunc(symshen_4_5alphanum_6), V2891)
+
+
+tmp5058 := Call(__e, tmp5041, tmp5057)
+
+
+__e.TailApply(tmp5028, tmp5058)
+return
+
+
+}, 1)
+
+tmp5059 := Call(__e, ns2_1set, symshen_4_5alphanums_6, tmp5027)
+
+
+_ = tmp5059
+
+tmp5060 := MakeNative(func(__e *ControlFlow) {
+V2902 := __e.Get(1)
+_ = V2902
+tmp5061 := MakeNative(func(__e *ControlFlow) {
+W2903 := __e.Get(1)
+_ = W2903
+tmp5075 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2903)
+
+
+if True == tmp5075 {
+tmp5062 := MakeNative(func(__e *ControlFlow) {
+W2907 := __e.Get(1)
+_ = W2907
+tmp5064 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2907)
+
+
+if True == tmp5064 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+__e.Return(W2907)
+return
+}
+
+
+}, 1)
+
+tmp5065 := MakeNative(func(__e *ControlFlow) {
+W2908 := __e.Get(1)
+_ = W2908
+tmp5071 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2908)
+
+
+if True == tmp5071 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp5066 := MakeNative(func(__e *ControlFlow) {
+W2909 := __e.Get(1)
+_ = W2909
+tmp5067 := MakeNative(func(__e *ControlFlow) {
+W2910 := __e.Get(1)
+_ = W2910
+__e.TailApply(PrimFunc(symshen_4comb), W2910, W2909)
+return
+}, 1)
+
+tmp5068 := Call(__e, PrimFunc(symshen_4in_1_6), W2908)
+
+
+__e.TailApply(tmp5067, tmp5068)
+return
+
+
+}, 1)
+
+tmp5069 := Call(__e, PrimFunc(symshen_4_5_1out), W2908)
+
+
+__e.TailApply(tmp5066, tmp5069)
+return
+
+
+}
+
+
+}, 1)
+
+tmp5072 := Call(__e, PrimFunc(symshen_4_5numeral_6), V2902)
+
+
+tmp5073 := Call(__e, tmp5065, tmp5072)
+
+
+__e.TailApply(tmp5062, tmp5073)
+return
+
+
+} else {
+__e.Return(W2903)
+return
+}
+
+
+}, 1)
+
+tmp5076 := MakeNative(func(__e *ControlFlow) {
+W2904 := __e.Get(1)
+_ = W2904
+tmp5082 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2904)
+
+
+if True == tmp5082 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp5077 := MakeNative(func(__e *ControlFlow) {
+W2905 := __e.Get(1)
+_ = W2905
+tmp5078 := MakeNative(func(__e *ControlFlow) {
+W2906 := __e.Get(1)
+_ = W2906
+__e.TailApply(PrimFunc(symshen_4comb), W2906, W2905)
+return
+}, 1)
+
+tmp5079 := Call(__e, PrimFunc(symshen_4in_1_6), W2904)
+
+
+__e.TailApply(tmp5078, tmp5079)
+return
+
+
+}, 1)
+
+tmp5080 := Call(__e, PrimFunc(symshen_4_5_1out), W2904)
+
+
+__e.TailApply(tmp5077, tmp5080)
+return
+
+
+}
+
+
+}, 1)
+
+tmp5083 := Call(__e, PrimFunc(symshen_4_5alpha_6), V2902)
+
+
+tmp5084 := Call(__e, tmp5076, tmp5083)
+
+
+__e.TailApply(tmp5061, tmp5084)
+return
+
+
+}, 1)
+
+tmp5085 := Call(__e, ns2_1set, symshen_4_5alphanum_6, tmp5060)
+
+
+_ = tmp5085
+
+tmp5086 := MakeNative(func(__e *ControlFlow) {
+V2911 := __e.Get(1)
+_ = V2911
+tmp5087 := MakeNative(func(__e *ControlFlow) {
+W2912 := __e.Get(1)
+_ = W2912
+tmp5089 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2912)
+
+
+if True == tmp5089 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+__e.Return(W2912)
+return
+}
+
+
+}, 1)
+
+tmp5100 := PrimIsPair(V2911)
+
+var ifres5090 Obj
+
+if True == tmp5100 {
+tmp5091 := MakeNative(func(__e *ControlFlow) {
+W2913 := __e.Get(1)
+_ = W2913
+tmp5092 := MakeNative(func(__e *ControlFlow) {
+W2914 := __e.Get(1)
+_ = W2914
+tmp5095 := Call(__e, PrimFunc(symshen_4digit_2), W2913)
+
+
+if True == tmp5095 {
+tmp5093 := PrimNumberToString(W2913)
+
+__e.TailApply(PrimFunc(symshen_4comb), W2914, tmp5093)
+return
+
+
+} else {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+}
+
+
+}, 1)
+
+tmp5096 := Call(__e, PrimFunc(symtail), V2911)
+
+
+__e.TailApply(tmp5092, tmp5096)
+return
+
+
+}, 1)
+
+tmp5097 := Call(__e, PrimFunc(symhead), V2911)
+
+
+tmp5098 := Call(__e, tmp5091, tmp5097)
+
+
+ifres5090 = tmp5098
+
+
+} else {
+tmp5099 := Call(__e, PrimFunc(symshen_4parse_1failure))
+
+
+ifres5090 = tmp5099
+
+
+}
+
+__e.TailApply(tmp5087, ifres5090)
+return
+
+
+}, 1)
+
+tmp5101 := Call(__e, ns2_1set, symshen_4_5numeral_6, tmp5086)
+
+
+_ = tmp5101
+
+tmp5102 := MakeNative(func(__e *ControlFlow) {
+V2915 := __e.Get(1)
+_ = V2915
+tmp5106 := PrimGreatEqual(V2915, MakeNumber(48))
+
+if True == tmp5106 {
+tmp5104 := PrimLessEqual(V2915, MakeNumber(57))
+
+if True == tmp5104 {
+__e.Return(True)
+return
+} else {
+__e.Return(False)
+return
+}
+
+
+} else {
+__e.Return(False)
+return
+}
+
+
+}, 1)
+
+tmp5107 := Call(__e, ns2_1set, symshen_4digit_2, tmp5102)
+
+
+_ = tmp5107
+
+tmp5108 := MakeNative(func(__e *ControlFlow) {
+V2916 := __e.Get(1)
+_ = V2916
+tmp5109 := MakeNative(func(__e *ControlFlow) {
+W2917 := __e.Get(1)
+_ = W2917
+tmp5111 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2917)
+
+
+if True == tmp5111 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+__e.Return(W2917)
+return
+}
+
+
+}, 1)
+
+tmp5112 := MakeNative(func(__e *ControlFlow) {
+W2918 := __e.Get(1)
+_ = W2918
+tmp5130 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2918)
+
+
+if True == tmp5130 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp5113 := MakeNative(func(__e *ControlFlow) {
+W2919 := __e.Get(1)
+_ = W2919
+tmp5114 := MakeNative(func(__e *ControlFlow) {
+W2920 := __e.Get(1)
+_ = W2920
+tmp5126 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2920)
+
+
+if True == tmp5126 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp5115 := MakeNative(func(__e *ControlFlow) {
+W2921 := __e.Get(1)
+_ = W2921
+tmp5116 := MakeNative(func(__e *ControlFlow) {
+W2922 := __e.Get(1)
+_ = W2922
+tmp5117 := MakeNative(func(__e *ControlFlow) {
+W2923 := __e.Get(1)
+_ = W2923
+tmp5121 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2923)
+
+
+if True == tmp5121 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp5118 := MakeNative(func(__e *ControlFlow) {
+W2924 := __e.Get(1)
+_ = W2924
+__e.TailApply(PrimFunc(symshen_4comb), W2924, W2921)
+return
+}, 1)
+
+tmp5119 := Call(__e, PrimFunc(symshen_4in_1_6), W2923)
+
+
+__e.TailApply(tmp5118, tmp5119)
+return
+
+
+}
+
+
+}, 1)
+
+tmp5122 := Call(__e, PrimFunc(symshen_4_5dbq_6), W2922)
+
+
+__e.TailApply(tmp5117, tmp5122)
+return
+
+
+}, 1)
+
+tmp5123 := Call(__e, PrimFunc(symshen_4in_1_6), W2920)
+
+
+__e.TailApply(tmp5116, tmp5123)
+return
+
+
+}, 1)
+
+tmp5124 := Call(__e, PrimFunc(symshen_4_5_1out), W2920)
+
+
+__e.TailApply(tmp5115, tmp5124)
+return
+
+
+}
+
+
+}, 1)
+
+tmp5127 := Call(__e, PrimFunc(symshen_4_5strcontents_6), W2919)
+
+
+__e.TailApply(tmp5114, tmp5127)
+return
+
+
+}, 1)
+
+tmp5128 := Call(__e, PrimFunc(symshen_4in_1_6), W2918)
+
+
+__e.TailApply(tmp5113, tmp5128)
+return
+
+
+}
+
+
+}, 1)
+
+tmp5131 := Call(__e, PrimFunc(symshen_4_5dbq_6), V2916)
+
+
+tmp5132 := Call(__e, tmp5112, tmp5131)
+
+
+__e.TailApply(tmp5109, tmp5132)
+return
+
+
+}, 1)
+
+tmp5133 := Call(__e, ns2_1set, symshen_4_5str_6, tmp5108)
+
+
+_ = tmp5133
+
+tmp5134 := MakeNative(func(__e *ControlFlow) {
+V2925 := __e.Get(1)
+_ = V2925
+tmp5135 := MakeNative(func(__e *ControlFlow) {
+W2926 := __e.Get(1)
+_ = W2926
+tmp5137 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2926)
+
+
+if True == tmp5137 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+__e.Return(W2926)
+return
+}
+
+
+}, 1)
+
+tmp5143 := Call(__e, PrimFunc(symshen_4hds_a_2), V2925, MakeNumber(34))
+
+
+var ifres5138 Obj
+
+if True == tmp5143 {
+tmp5139 := MakeNative(func(__e *ControlFlow) {
+W2927 := __e.Get(1)
+_ = W2927
+__e.TailApply(PrimFunc(symshen_4comb), W2927, symshen_4skip)
+return
+}, 1)
+
+tmp5140 := Call(__e, PrimFunc(symtail), V2925)
+
+
+tmp5141 := Call(__e, tmp5139, tmp5140)
+
+
+ifres5138 = tmp5141
+
+
+} else {
+tmp5142 := Call(__e, PrimFunc(symshen_4parse_1failure))
+
+
+ifres5138 = tmp5142
+
+
+}
+
+__e.TailApply(tmp5135, ifres5138)
+return
+
+
+}, 1)
+
+tmp5144 := Call(__e, ns2_1set, symshen_4_5dbq_6, tmp5134)
+
+
+_ = tmp5144
+
+tmp5145 := MakeNative(func(__e *ControlFlow) {
+V2928 := __e.Get(1)
+_ = V2928
+tmp5146 := MakeNative(func(__e *ControlFlow) {
+W2929 := __e.Get(1)
+_ = W2929
+tmp5158 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2929)
+
+
+if True == tmp5158 {
+tmp5147 := MakeNative(func(__e *ControlFlow) {
+W2936 := __e.Get(1)
+_ = W2936
+tmp5149 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2936)
+
+
+if True == tmp5149 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+__e.Return(W2936)
+return
+}
+
+
+}, 1)
+
+tmp5150 := MakeNative(func(__e *ControlFlow) {
+W2937 := __e.Get(1)
+_ = W2937
+tmp5154 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2937)
+
+
+if True == tmp5154 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp5151 := MakeNative(func(__e *ControlFlow) {
+W2938 := __e.Get(1)
+_ = W2938
+__e.TailApply(PrimFunc(symshen_4comb), W2938, MakeString(""))
+return
+}, 1)
+
+tmp5152 := Call(__e, PrimFunc(symshen_4in_1_6), W2937)
+
+
+__e.TailApply(tmp5151, tmp5152)
+return
+
+
+}
+
+
+}, 1)
+
+tmp5155 := Call(__e, PrimFunc(sym_5e_6), V2928)
+
+
+tmp5156 := Call(__e, tmp5150, tmp5155)
+
+
+__e.TailApply(tmp5147, tmp5156)
+return
+
+
+} else {
+__e.Return(W2929)
+return
+}
+
+
+}, 1)
+
+tmp5159 := MakeNative(func(__e *ControlFlow) {
+W2930 := __e.Get(1)
+_ = W2930
+tmp5174 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2930)
+
+
+if True == tmp5174 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp5160 := MakeNative(func(__e *ControlFlow) {
+W2931 := __e.Get(1)
+_ = W2931
+tmp5161 := MakeNative(func(__e *ControlFlow) {
+W2932 := __e.Get(1)
+_ = W2932
+tmp5162 := MakeNative(func(__e *ControlFlow) {
+W2933 := __e.Get(1)
+_ = W2933
+tmp5169 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2933)
+
+
+if True == tmp5169 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp5163 := MakeNative(func(__e *ControlFlow) {
+W2934 := __e.Get(1)
+_ = W2934
+tmp5164 := MakeNative(func(__e *ControlFlow) {
+W2935 := __e.Get(1)
+_ = W2935
+tmp5165 := PrimStringConcat(W2931, W2934)
+
+__e.TailApply(PrimFunc(symshen_4comb), W2935, tmp5165)
+return
+
+
+}, 1)
+
+tmp5166 := Call(__e, PrimFunc(symshen_4in_1_6), W2933)
+
+
+__e.TailApply(tmp5164, tmp5166)
+return
+
+
+}, 1)
+
+tmp5167 := Call(__e, PrimFunc(symshen_4_5_1out), W2933)
+
+
+__e.TailApply(tmp5163, tmp5167)
+return
+
+
+}
+
+
+}, 1)
+
+tmp5170 := Call(__e, PrimFunc(symshen_4_5strcontents_6), W2932)
+
+
+__e.TailApply(tmp5162, tmp5170)
+return
+
+
+}, 1)
+
+tmp5171 := Call(__e, PrimFunc(symshen_4in_1_6), W2930)
+
+
+__e.TailApply(tmp5161, tmp5171)
+return
+
+
+}, 1)
+
+tmp5172 := Call(__e, PrimFunc(symshen_4_5_1out), W2930)
+
+
+__e.TailApply(tmp5160, tmp5172)
+return
+
+
+}
+
+
+}, 1)
+
+tmp5175 := Call(__e, PrimFunc(symshen_4_5strc_6), V2928)
+
+
+tmp5176 := Call(__e, tmp5159, tmp5175)
+
+
+__e.TailApply(tmp5146, tmp5176)
+return
+
+
+}, 1)
+
+tmp5177 := Call(__e, ns2_1set, symshen_4_5strcontents_6, tmp5145)
+
+
+_ = tmp5177
+
+tmp5178 := MakeNative(func(__e *ControlFlow) {
+V2939 := __e.Get(1)
+_ = V2939
+tmp5179 := MakeNative(func(__e *ControlFlow) {
+W2940 := __e.Get(1)
+_ = W2940
+tmp5193 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2940)
+
+
+if True == tmp5193 {
+tmp5180 := MakeNative(func(__e *ControlFlow) {
+W2944 := __e.Get(1)
+_ = W2944
+tmp5182 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2944)
+
+
+if True == tmp5182 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+__e.Return(W2944)
+return
+}
+
+
+}, 1)
+
+tmp5183 := MakeNative(func(__e *ControlFlow) {
+W2945 := __e.Get(1)
+_ = W2945
+tmp5189 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2945)
+
+
+if True == tmp5189 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp5184 := MakeNative(func(__e *ControlFlow) {
+W2946 := __e.Get(1)
+_ = W2946
+tmp5185 := MakeNative(func(__e *ControlFlow) {
+W2947 := __e.Get(1)
+_ = W2947
+__e.TailApply(PrimFunc(symshen_4comb), W2947, W2946)
+return
+}, 1)
+
+tmp5186 := Call(__e, PrimFunc(symshen_4in_1_6), W2945)
+
+
+__e.TailApply(tmp5185, tmp5186)
+return
+
+
+}, 1)
+
+tmp5187 := Call(__e, PrimFunc(symshen_4_5_1out), W2945)
+
+
+__e.TailApply(tmp5184, tmp5187)
+return
+
+
+}
+
+
+}, 1)
+
+tmp5190 := Call(__e, PrimFunc(symshen_4_5notdbq_6), V2939)
+
+
+tmp5191 := Call(__e, tmp5183, tmp5190)
+
+
+__e.TailApply(tmp5180, tmp5191)
+return
+
+
+} else {
+__e.Return(W2940)
+return
+}
+
+
+}, 1)
+
+tmp5194 := MakeNative(func(__e *ControlFlow) {
+W2941 := __e.Get(1)
+_ = W2941
+tmp5200 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2941)
+
+
+if True == tmp5200 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp5195 := MakeNative(func(__e *ControlFlow) {
+W2942 := __e.Get(1)
+_ = W2942
+tmp5196 := MakeNative(func(__e *ControlFlow) {
+W2943 := __e.Get(1)
+_ = W2943
+__e.TailApply(PrimFunc(symshen_4comb), W2943, W2942)
+return
+}, 1)
+
+tmp5197 := Call(__e, PrimFunc(symshen_4in_1_6), W2941)
+
+
+__e.TailApply(tmp5196, tmp5197)
+return
+
+
+}, 1)
+
+tmp5198 := Call(__e, PrimFunc(symshen_4_5_1out), W2941)
+
+
+__e.TailApply(tmp5195, tmp5198)
+return
+
+
+}
+
+
+}, 1)
+
+tmp5201 := Call(__e, PrimFunc(symshen_4_5control_6), V2939)
+
+
+tmp5202 := Call(__e, tmp5194, tmp5201)
+
+
+__e.TailApply(tmp5179, tmp5202)
+return
+
+
+}, 1)
+
+tmp5203 := Call(__e, ns2_1set, symshen_4_5strc_6, tmp5178)
+
+
+_ = tmp5203
+
+tmp5204 := MakeNative(func(__e *ControlFlow) {
+V2948 := __e.Get(1)
+_ = V2948
+tmp5205 := MakeNative(func(__e *ControlFlow) {
+W2949 := __e.Get(1)
+_ = W2949
+tmp5207 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2949)
+
+
+if True == tmp5207 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+__e.Return(W2949)
+return
+}
+
+
+}, 1)
+
+tmp5208 := MakeNative(func(__e *ControlFlow) {
+W2950 := __e.Get(1)
+_ = W2950
+tmp5233 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2950)
+
+
+if True == tmp5233 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp5209 := MakeNative(func(__e *ControlFlow) {
+W2951 := __e.Get(1)
+_ = W2951
+tmp5210 := MakeNative(func(__e *ControlFlow) {
+W2952 := __e.Get(1)
+_ = W2952
+tmp5229 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2952)
+
+
+if True == tmp5229 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp5211 := MakeNative(func(__e *ControlFlow) {
+W2953 := __e.Get(1)
+_ = W2953
+tmp5212 := MakeNative(func(__e *ControlFlow) {
+W2954 := __e.Get(1)
+_ = W2954
+tmp5225 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2954)
+
+
+if True == tmp5225 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp5213 := MakeNative(func(__e *ControlFlow) {
+W2955 := __e.Get(1)
+_ = W2955
+tmp5214 := MakeNative(func(__e *ControlFlow) {
+W2956 := __e.Get(1)
+_ = W2956
+tmp5215 := MakeNative(func(__e *ControlFlow) {
+W2957 := __e.Get(1)
+_ = W2957
+tmp5220 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2957)
+
+
+if True == tmp5220 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp5216 := MakeNative(func(__e *ControlFlow) {
+W2958 := __e.Get(1)
+_ = W2958
+tmp5217 := PrimNumberToString(W2955)
+
+__e.TailApply(PrimFunc(symshen_4comb), W2958, tmp5217)
+return
+
+
+}, 1)
+
+tmp5218 := Call(__e, PrimFunc(symshen_4in_1_6), W2957)
+
+
+__e.TailApply(tmp5216, tmp5218)
+return
+
+
+}
+
+
+}, 1)
+
+tmp5221 := Call(__e, PrimFunc(symshen_4_5semicolon_6), W2956)
+
+
+__e.TailApply(tmp5215, tmp5221)
+return
+
+
+}, 1)
+
+tmp5222 := Call(__e, PrimFunc(symshen_4in_1_6), W2954)
+
+
+__e.TailApply(tmp5214, tmp5222)
+return
+
+
+}, 1)
+
+tmp5223 := Call(__e, PrimFunc(symshen_4_5_1out), W2954)
+
+
+__e.TailApply(tmp5213, tmp5223)
+return
+
+
+}
+
+
+}, 1)
+
+tmp5226 := Call(__e, PrimFunc(symshen_4_5integer_6), W2953)
+
+
+__e.TailApply(tmp5212, tmp5226)
+return
+
+
+}, 1)
+
+tmp5227 := Call(__e, PrimFunc(symshen_4in_1_6), W2952)
+
+
+__e.TailApply(tmp5211, tmp5227)
+return
+
+
+}
+
+
+}, 1)
+
+tmp5230 := Call(__e, PrimFunc(symshen_4_5hash_6), W2951)
+
+
+__e.TailApply(tmp5210, tmp5230)
+return
+
+
+}, 1)
+
+tmp5231 := Call(__e, PrimFunc(symshen_4in_1_6), W2950)
+
+
+__e.TailApply(tmp5209, tmp5231)
+return
+
+
+}
+
+
+}, 1)
+
+tmp5234 := Call(__e, PrimFunc(symshen_4_5lowC_6), V2948)
+
+
+tmp5235 := Call(__e, tmp5208, tmp5234)
+
+
+__e.TailApply(tmp5205, tmp5235)
+return
+
+
+}, 1)
+
+tmp5236 := Call(__e, ns2_1set, symshen_4_5control_6, tmp5204)
+
+
+_ = tmp5236
+
+tmp5237 := MakeNative(func(__e *ControlFlow) {
+V2959 := __e.Get(1)
+_ = V2959
+tmp5238 := MakeNative(func(__e *ControlFlow) {
+W2960 := __e.Get(1)
+_ = W2960
+tmp5240 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2960)
+
+
+if True == tmp5240 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+__e.Return(W2960)
+return
+}
+
+
+}, 1)
+
+tmp5252 := PrimIsPair(V2959)
+
+var ifres5241 Obj
+
+if True == tmp5252 {
+tmp5242 := MakeNative(func(__e *ControlFlow) {
+W2961 := __e.Get(1)
+_ = W2961
+tmp5243 := MakeNative(func(__e *ControlFlow) {
+W2962 := __e.Get(1)
+_ = W2962
+tmp5246 := PrimEqual(W2961, MakeNumber(34))
+
+tmp5247 := PrimNot(tmp5246)
+
+if True == tmp5247 {
+tmp5244 := PrimNumberToString(W2961)
+
+__e.TailApply(PrimFunc(symshen_4comb), W2962, tmp5244)
+return
+
+
+} else {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+}
+
+
+}, 1)
+
+tmp5248 := Call(__e, PrimFunc(symtail), V2959)
+
+
+__e.TailApply(tmp5243, tmp5248)
+return
+
+
+}, 1)
+
+tmp5249 := Call(__e, PrimFunc(symhead), V2959)
+
+
+tmp5250 := Call(__e, tmp5242, tmp5249)
+
+
+ifres5241 = tmp5250
+
+
+} else {
+tmp5251 := Call(__e, PrimFunc(symshen_4parse_1failure))
+
+
+ifres5241 = tmp5251
+
+
+}
+
+__e.TailApply(tmp5238, ifres5241)
+return
+
+
+}, 1)
+
+tmp5253 := Call(__e, ns2_1set, symshen_4_5notdbq_6, tmp5237)
+
+
+_ = tmp5253
+
+tmp5254 := MakeNative(func(__e *ControlFlow) {
+V2963 := __e.Get(1)
+_ = V2963
+tmp5255 := MakeNative(func(__e *ControlFlow) {
+W2964 := __e.Get(1)
+_ = W2964
+tmp5257 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2964)
+
+
+if True == tmp5257 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+__e.Return(W2964)
+return
+}
+
+
+}, 1)
+
+tmp5263 := Call(__e, PrimFunc(symshen_4hds_a_2), V2963, MakeNumber(99))
+
+
+var ifres5258 Obj
+
+if True == tmp5263 {
+tmp5259 := MakeNative(func(__e *ControlFlow) {
+W2965 := __e.Get(1)
+_ = W2965
+__e.TailApply(PrimFunc(symshen_4comb), W2965, symshen_4skip)
+return
+}, 1)
+
+tmp5260 := Call(__e, PrimFunc(symtail), V2963)
+
+
+tmp5261 := Call(__e, tmp5259, tmp5260)
+
+
+ifres5258 = tmp5261
+
+
+} else {
+tmp5262 := Call(__e, PrimFunc(symshen_4parse_1failure))
+
+
+ifres5258 = tmp5262
+
+
+}
+
+__e.TailApply(tmp5255, ifres5258)
+return
+
+
+}, 1)
+
+tmp5264 := Call(__e, ns2_1set, symshen_4_5lowC_6, tmp5254)
+
+
+_ = tmp5264
+
+tmp5265 := MakeNative(func(__e *ControlFlow) {
+V2966 := __e.Get(1)
+_ = V2966
+tmp5266 := MakeNative(func(__e *ControlFlow) {
+W2967 := __e.Get(1)
+_ = W2967
+tmp5268 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2967)
+
+
+if True == tmp5268 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+__e.Return(W2967)
+return
+}
+
+
+}, 1)
+
+tmp5274 := Call(__e, PrimFunc(symshen_4hds_a_2), V2966, MakeNumber(35))
+
+
+var ifres5269 Obj
+
+if True == tmp5274 {
+tmp5270 := MakeNative(func(__e *ControlFlow) {
+W2968 := __e.Get(1)
+_ = W2968
+__e.TailApply(PrimFunc(symshen_4comb), W2968, symshen_4skip)
+return
+}, 1)
+
+tmp5271 := Call(__e, PrimFunc(symtail), V2966)
+
+
+tmp5272 := Call(__e, tmp5270, tmp5271)
+
+
+ifres5269 = tmp5272
+
+
+} else {
+tmp5273 := Call(__e, PrimFunc(symshen_4parse_1failure))
+
+
+ifres5269 = tmp5273
+
+
+}
+
+__e.TailApply(tmp5266, ifres5269)
+return
+
+
+}, 1)
+
+tmp5275 := Call(__e, ns2_1set, symshen_4_5hash_6, tmp5265)
+
+
+_ = tmp5275
+
+tmp5276 := MakeNative(func(__e *ControlFlow) {
+V2969 := __e.Get(1)
+_ = V2969
+tmp5277 := MakeNative(func(__e *ControlFlow) {
+W2970 := __e.Get(1)
+_ = W2970
+tmp5333 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2970)
+
+
+if True == tmp5333 {
+tmp5278 := MakeNative(func(__e *ControlFlow) {
+W2976 := __e.Get(1)
+_ = W2976
+tmp5316 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2976)
+
+
+if True == tmp5316 {
+tmp5279 := MakeNative(func(__e *ControlFlow) {
+W2982 := __e.Get(1)
+_ = W2982
+tmp5305 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2982)
+
+
+if True == tmp5305 {
+tmp5280 := MakeNative(func(__e *ControlFlow) {
+W2986 := __e.Get(1)
+_ = W2986
+tmp5294 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2986)
+
+
+if True == tmp5294 {
+tmp5281 := MakeNative(func(__e *ControlFlow) {
+W2990 := __e.Get(1)
+_ = W2990
+tmp5283 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2990)
+
+
+if True == tmp5283 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+__e.Return(W2990)
+return
+}
+
+
+}, 1)
+
+tmp5284 := MakeNative(func(__e *ControlFlow) {
+W2991 := __e.Get(1)
+_ = W2991
+tmp5290 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2991)
+
+
+if True == tmp5290 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp5285 := MakeNative(func(__e *ControlFlow) {
+W2992 := __e.Get(1)
+_ = W2992
+tmp5286 := MakeNative(func(__e *ControlFlow) {
+W2993 := __e.Get(1)
+_ = W2993
+__e.TailApply(PrimFunc(symshen_4comb), W2993, W2992)
+return
+}, 1)
+
+tmp5287 := Call(__e, PrimFunc(symshen_4in_1_6), W2991)
+
+
+__e.TailApply(tmp5286, tmp5287)
+return
+
+
+}, 1)
+
+tmp5288 := Call(__e, PrimFunc(symshen_4_5_1out), W2991)
+
+
+__e.TailApply(tmp5285, tmp5288)
+return
+
+
+}
+
+
+}, 1)
+
+tmp5291 := Call(__e, PrimFunc(symshen_4_5integer_6), V2969)
+
+
+tmp5292 := Call(__e, tmp5284, tmp5291)
+
+
+__e.TailApply(tmp5281, tmp5292)
+return
+
+
+} else {
+__e.Return(W2986)
+return
+}
+
+
+}, 1)
+
+tmp5295 := MakeNative(func(__e *ControlFlow) {
+W2987 := __e.Get(1)
+_ = W2987
+tmp5301 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2987)
+
+
+if True == tmp5301 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp5296 := MakeNative(func(__e *ControlFlow) {
+W2988 := __e.Get(1)
+_ = W2988
+tmp5297 := MakeNative(func(__e *ControlFlow) {
+W2989 := __e.Get(1)
+_ = W2989
+__e.TailApply(PrimFunc(symshen_4comb), W2989, W2988)
+return
+}, 1)
+
+tmp5298 := Call(__e, PrimFunc(symshen_4in_1_6), W2987)
+
+
+__e.TailApply(tmp5297, tmp5298)
+return
+
+
+}, 1)
+
+tmp5299 := Call(__e, PrimFunc(symshen_4_5_1out), W2987)
+
+
+__e.TailApply(tmp5296, tmp5299)
+return
+
+
+}
+
+
+}, 1)
+
+tmp5302 := Call(__e, PrimFunc(symshen_4_5float_6), V2969)
+
+
+tmp5303 := Call(__e, tmp5295, tmp5302)
+
+
+__e.TailApply(tmp5280, tmp5303)
+return
+
+
+} else {
+__e.Return(W2982)
+return
+}
+
+
+}, 1)
+
+tmp5306 := MakeNative(func(__e *ControlFlow) {
+W2983 := __e.Get(1)
+_ = W2983
+tmp5312 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2983)
+
+
+if True == tmp5312 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp5307 := MakeNative(func(__e *ControlFlow) {
+W2984 := __e.Get(1)
+_ = W2984
+tmp5308 := MakeNative(func(__e *ControlFlow) {
+W2985 := __e.Get(1)
+_ = W2985
+__e.TailApply(PrimFunc(symshen_4comb), W2985, W2984)
+return
+}, 1)
+
+tmp5309 := Call(__e, PrimFunc(symshen_4in_1_6), W2983)
+
+
+__e.TailApply(tmp5308, tmp5309)
+return
+
+
+}, 1)
+
+tmp5310 := Call(__e, PrimFunc(symshen_4_5_1out), W2983)
+
+
+__e.TailApply(tmp5307, tmp5310)
+return
+
+
+}
+
+
+}, 1)
+
+tmp5313 := Call(__e, PrimFunc(symshen_4_5e_1number_6), V2969)
+
+
+tmp5314 := Call(__e, tmp5306, tmp5313)
+
+
+__e.TailApply(tmp5279, tmp5314)
+return
+
+
+} else {
+__e.Return(W2976)
+return
+}
+
+
+}, 1)
+
+tmp5317 := MakeNative(func(__e *ControlFlow) {
+W2977 := __e.Get(1)
+_ = W2977
+tmp5329 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2977)
+
+
+if True == tmp5329 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp5318 := MakeNative(func(__e *ControlFlow) {
+W2978 := __e.Get(1)
+_ = W2978
+tmp5319 := MakeNative(func(__e *ControlFlow) {
+W2979 := __e.Get(1)
+_ = W2979
+tmp5325 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2979)
+
+
+if True == tmp5325 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp5320 := MakeNative(func(__e *ControlFlow) {
+W2980 := __e.Get(1)
+_ = W2980
+tmp5321 := MakeNative(func(__e *ControlFlow) {
+W2981 := __e.Get(1)
+_ = W2981
+__e.TailApply(PrimFunc(symshen_4comb), W2981, W2980)
+return
+}, 1)
+
+tmp5322 := Call(__e, PrimFunc(symshen_4in_1_6), W2979)
+
+
+__e.TailApply(tmp5321, tmp5322)
+return
+
+
+}, 1)
+
+tmp5323 := Call(__e, PrimFunc(symshen_4_5_1out), W2979)
+
+
+__e.TailApply(tmp5320, tmp5323)
+return
+
+
+}
+
+
+}, 1)
+
+tmp5326 := Call(__e, PrimFunc(symshen_4_5number_6), W2978)
+
+
+__e.TailApply(tmp5319, tmp5326)
+return
+
+
+}, 1)
+
+tmp5327 := Call(__e, PrimFunc(symshen_4in_1_6), W2977)
+
+
+__e.TailApply(tmp5318, tmp5327)
+return
+
+
+}
+
+
+}, 1)
+
+tmp5330 := Call(__e, PrimFunc(symshen_4_5plus_6), V2969)
+
+
+tmp5331 := Call(__e, tmp5317, tmp5330)
+
+
+__e.TailApply(tmp5278, tmp5331)
+return
+
+
+} else {
+__e.Return(W2970)
+return
+}
+
+
+}, 1)
+
+tmp5334 := MakeNative(func(__e *ControlFlow) {
+W2971 := __e.Get(1)
+_ = W2971
+tmp5347 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2971)
+
+
+if True == tmp5347 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp5335 := MakeNative(func(__e *ControlFlow) {
+W2972 := __e.Get(1)
+_ = W2972
+tmp5336 := MakeNative(func(__e *ControlFlow) {
+W2973 := __e.Get(1)
+_ = W2973
+tmp5343 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2973)
+
+
+if True == tmp5343 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp5337 := MakeNative(func(__e *ControlFlow) {
+W2974 := __e.Get(1)
+_ = W2974
+tmp5338 := MakeNative(func(__e *ControlFlow) {
+W2975 := __e.Get(1)
+_ = W2975
+tmp5339 := PrimNumberSubtract(MakeNumber(0), W2974)
+
+__e.TailApply(PrimFunc(symshen_4comb), W2975, tmp5339)
+return
+
+
+}, 1)
+
+tmp5340 := Call(__e, PrimFunc(symshen_4in_1_6), W2973)
+
+
+__e.TailApply(tmp5338, tmp5340)
+return
+
+
+}, 1)
+
+tmp5341 := Call(__e, PrimFunc(symshen_4_5_1out), W2973)
+
+
+__e.TailApply(tmp5337, tmp5341)
+return
+
+
+}
+
+
+}, 1)
+
+tmp5344 := Call(__e, PrimFunc(symshen_4_5number_6), W2972)
+
+
+__e.TailApply(tmp5336, tmp5344)
+return
+
+
+}, 1)
+
+tmp5345 := Call(__e, PrimFunc(symshen_4in_1_6), W2971)
+
+
+__e.TailApply(tmp5335, tmp5345)
+return
+
+
+}
+
+
+}, 1)
+
+tmp5348 := Call(__e, PrimFunc(symshen_4_5minus_6), V2969)
+
+
+tmp5349 := Call(__e, tmp5334, tmp5348)
+
+
+__e.TailApply(tmp5277, tmp5349)
+return
+
+
+}, 1)
+
+tmp5350 := Call(__e, ns2_1set, symshen_4_5number_6, tmp5276)
+
+
+_ = tmp5350
+
+tmp5351 := MakeNative(func(__e *ControlFlow) {
+V2994 := __e.Get(1)
+_ = V2994
+tmp5352 := MakeNative(func(__e *ControlFlow) {
+W2995 := __e.Get(1)
+_ = W2995
+tmp5354 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2995)
+
+
+if True == tmp5354 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+__e.Return(W2995)
+return
+}
+
+
+}, 1)
+
+tmp5360 := Call(__e, PrimFunc(symshen_4hds_a_2), V2994, MakeNumber(45))
+
+
+var ifres5355 Obj
+
+if True == tmp5360 {
+tmp5356 := MakeNative(func(__e *ControlFlow) {
+W2996 := __e.Get(1)
+_ = W2996
+__e.TailApply(PrimFunc(symshen_4comb), W2996, symshen_4skip)
+return
+}, 1)
+
+tmp5357 := Call(__e, PrimFunc(symtail), V2994)
+
+
+tmp5358 := Call(__e, tmp5356, tmp5357)
+
+
+ifres5355 = tmp5358
+
+
+} else {
+tmp5359 := Call(__e, PrimFunc(symshen_4parse_1failure))
+
+
+ifres5355 = tmp5359
+
+
+}
+
+__e.TailApply(tmp5352, ifres5355)
+return
+
+
+}, 1)
+
+tmp5361 := Call(__e, ns2_1set, symshen_4_5minus_6, tmp5351)
+
+
+_ = tmp5361
+
+tmp5362 := MakeNative(func(__e *ControlFlow) {
+V2997 := __e.Get(1)
+_ = V2997
+tmp5363 := MakeNative(func(__e *ControlFlow) {
+W2998 := __e.Get(1)
+_ = W2998
+tmp5365 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W2998)
+
+
+if True == tmp5365 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+__e.Return(W2998)
+return
+}
+
+
+}, 1)
+
+tmp5371 := Call(__e, PrimFunc(symshen_4hds_a_2), V2997, MakeNumber(43))
+
+
+var ifres5366 Obj
+
+if True == tmp5371 {
+tmp5367 := MakeNative(func(__e *ControlFlow) {
+W2999 := __e.Get(1)
+_ = W2999
+__e.TailApply(PrimFunc(symshen_4comb), W2999, symshen_4skip)
+return
+}, 1)
+
+tmp5368 := Call(__e, PrimFunc(symtail), V2997)
+
+
+tmp5369 := Call(__e, tmp5367, tmp5368)
+
+
+ifres5366 = tmp5369
+
+
+} else {
+tmp5370 := Call(__e, PrimFunc(symshen_4parse_1failure))
+
+
+ifres5366 = tmp5370
+
+
+}
+
+__e.TailApply(tmp5363, ifres5366)
+return
+
+
+}, 1)
+
+tmp5372 := Call(__e, ns2_1set, symshen_4_5plus_6, tmp5362)
+
+
+_ = tmp5372
+
+tmp5373 := MakeNative(func(__e *ControlFlow) {
+V3000 := __e.Get(1)
+_ = V3000
+tmp5374 := MakeNative(func(__e *ControlFlow) {
+W3001 := __e.Get(1)
+_ = W3001
+tmp5376 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W3001)
+
+
+if True == tmp5376 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+__e.Return(W3001)
+return
+}
+
+
+}, 1)
+
+tmp5377 := MakeNative(func(__e *ControlFlow) {
+W3002 := __e.Get(1)
+_ = W3002
+tmp5384 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W3002)
+
+
+if True == tmp5384 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp5378 := MakeNative(func(__e *ControlFlow) {
+W3003 := __e.Get(1)
+_ = W3003
+tmp5379 := MakeNative(func(__e *ControlFlow) {
+W3004 := __e.Get(1)
+_ = W3004
+tmp5380 := Call(__e, PrimFunc(symshen_4compute_1integer), W3003)
+
+
+__e.TailApply(PrimFunc(symshen_4comb), W3004, tmp5380)
+return
+
+
+}, 1)
+
+tmp5381 := Call(__e, PrimFunc(symshen_4in_1_6), W3002)
+
+
+__e.TailApply(tmp5379, tmp5381)
+return
+
+
+}, 1)
+
+tmp5382 := Call(__e, PrimFunc(symshen_4_5_1out), W3002)
+
+
+__e.TailApply(tmp5378, tmp5382)
+return
+
+
+}
+
+
+}, 1)
+
+tmp5385 := Call(__e, PrimFunc(symshen_4_5digits_6), V3000)
+
+
+tmp5386 := Call(__e, tmp5377, tmp5385)
+
+
+__e.TailApply(tmp5374, tmp5386)
+return
+
+
+}, 1)
+
+tmp5387 := Call(__e, ns2_1set, symshen_4_5integer_6, tmp5373)
+
+
+_ = tmp5387
+
+tmp5388 := MakeNative(func(__e *ControlFlow) {
+V3005 := __e.Get(1)
+_ = V3005
+tmp5389 := MakeNative(func(__e *ControlFlow) {
+W3006 := __e.Get(1)
+_ = W3006
+tmp5404 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W3006)
+
+
+if True == tmp5404 {
+tmp5390 := MakeNative(func(__e *ControlFlow) {
+W3013 := __e.Get(1)
+_ = W3013
+tmp5392 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W3013)
+
+
+if True == tmp5392 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+__e.Return(W3013)
+return
+}
+
+
+}, 1)
+
+tmp5393 := MakeNative(func(__e *ControlFlow) {
+W3014 := __e.Get(1)
+_ = W3014
+tmp5400 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W3014)
+
+
+if True == tmp5400 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp5394 := MakeNative(func(__e *ControlFlow) {
+W3015 := __e.Get(1)
+_ = W3015
+tmp5395 := MakeNative(func(__e *ControlFlow) {
+W3016 := __e.Get(1)
+_ = W3016
+tmp5396 := PrimCons(W3015, Nil)
+
+__e.TailApply(PrimFunc(symshen_4comb), W3016, tmp5396)
+return
+
+
+}, 1)
+
+tmp5397 := Call(__e, PrimFunc(symshen_4in_1_6), W3014)
+
+
+__e.TailApply(tmp5395, tmp5397)
+return
+
+
+}, 1)
+
+tmp5398 := Call(__e, PrimFunc(symshen_4_5_1out), W3014)
+
+
+__e.TailApply(tmp5394, tmp5398)
+return
+
+
+}
+
+
+}, 1)
+
+tmp5401 := Call(__e, PrimFunc(symshen_4_5digit_6), V3005)
+
+
+tmp5402 := Call(__e, tmp5393, tmp5401)
+
+
+__e.TailApply(tmp5390, tmp5402)
+return
+
+
+} else {
+__e.Return(W3006)
+return
+}
+
+
+}, 1)
+
+tmp5405 := MakeNative(func(__e *ControlFlow) {
+W3007 := __e.Get(1)
+_ = W3007
+tmp5420 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W3007)
+
+
+if True == tmp5420 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp5406 := MakeNative(func(__e *ControlFlow) {
+W3008 := __e.Get(1)
+_ = W3008
+tmp5407 := MakeNative(func(__e *ControlFlow) {
+W3009 := __e.Get(1)
+_ = W3009
+tmp5408 := MakeNative(func(__e *ControlFlow) {
+W3010 := __e.Get(1)
+_ = W3010
+tmp5415 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W3010)
+
+
+if True == tmp5415 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp5409 := MakeNative(func(__e *ControlFlow) {
+W3011 := __e.Get(1)
+_ = W3011
+tmp5410 := MakeNative(func(__e *ControlFlow) {
+W3012 := __e.Get(1)
+_ = W3012
+tmp5411 := PrimCons(W3008, W3011)
+
+__e.TailApply(PrimFunc(symshen_4comb), W3012, tmp5411)
+return
+
+
+}, 1)
+
+tmp5412 := Call(__e, PrimFunc(symshen_4in_1_6), W3010)
+
+
+__e.TailApply(tmp5410, tmp5412)
+return
+
+
+}, 1)
+
+tmp5413 := Call(__e, PrimFunc(symshen_4_5_1out), W3010)
+
+
+__e.TailApply(tmp5409, tmp5413)
+return
+
+
+}
+
+
+}, 1)
+
+tmp5416 := Call(__e, PrimFunc(symshen_4_5digits_6), W3009)
+
+
+__e.TailApply(tmp5408, tmp5416)
+return
+
+
+}, 1)
+
+tmp5417 := Call(__e, PrimFunc(symshen_4in_1_6), W3007)
+
+
+__e.TailApply(tmp5407, tmp5417)
+return
+
+
+}, 1)
+
+tmp5418 := Call(__e, PrimFunc(symshen_4_5_1out), W3007)
+
+
+__e.TailApply(tmp5406, tmp5418)
+return
+
+
+}
+
+
+}, 1)
+
+tmp5421 := Call(__e, PrimFunc(symshen_4_5digit_6), V3005)
+
+
+tmp5422 := Call(__e, tmp5405, tmp5421)
+
+
+__e.TailApply(tmp5389, tmp5422)
+return
+
+
+}, 1)
+
+tmp5423 := Call(__e, ns2_1set, symshen_4_5digits_6, tmp5388)
+
+
+_ = tmp5423
+
+tmp5424 := MakeNative(func(__e *ControlFlow) {
+V3017 := __e.Get(1)
+_ = V3017
+tmp5425 := MakeNative(func(__e *ControlFlow) {
+W3018 := __e.Get(1)
+_ = W3018
+tmp5427 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W3018)
+
+
+if True == tmp5427 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+__e.Return(W3018)
+return
+}
+
+
+}, 1)
+
+tmp5438 := PrimIsPair(V3017)
+
+var ifres5428 Obj
+
+if True == tmp5438 {
+tmp5429 := MakeNative(func(__e *ControlFlow) {
+W3019 := __e.Get(1)
+_ = W3019
+tmp5430 := MakeNative(func(__e *ControlFlow) {
+W3020 := __e.Get(1)
+_ = W3020
+tmp5433 := Call(__e, PrimFunc(symshen_4digit_2), W3019)
+
+
+if True == tmp5433 {
+tmp5431 := Call(__e, PrimFunc(symshen_4byte_1_6digit), W3019)
+
+
+__e.TailApply(PrimFunc(symshen_4comb), W3020, tmp5431)
+return
+
+
+} else {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+}
+
+
+}, 1)
+
+tmp5434 := Call(__e, PrimFunc(symtail), V3017)
+
+
+__e.TailApply(tmp5430, tmp5434)
+return
+
+
+}, 1)
+
+tmp5435 := Call(__e, PrimFunc(symhead), V3017)
+
+
+tmp5436 := Call(__e, tmp5429, tmp5435)
+
+
+ifres5428 = tmp5436
+
+
+} else {
+tmp5437 := Call(__e, PrimFunc(symshen_4parse_1failure))
+
+
+ifres5428 = tmp5437
+
+
+}
+
+__e.TailApply(tmp5425, ifres5428)
+return
+
+
+}, 1)
+
+tmp5439 := Call(__e, ns2_1set, symshen_4_5digit_6, tmp5424)
+
+
+_ = tmp5439
+
+tmp5440 := MakeNative(func(__e *ControlFlow) {
+V3021 := __e.Get(1)
+_ = V3021
+__e.Return(PrimNumberSubtract(V3021, MakeNumber(48)))
+return
+}, 1)
+
+tmp5441 := Call(__e, ns2_1set, symshen_4byte_1_6digit, tmp5440)
+
+
+_ = tmp5441
+
+tmp5442 := MakeNative(func(__e *ControlFlow) {
+V3022 := __e.Get(1)
+_ = V3022
+tmp5443 := Call(__e, PrimFunc(symreverse), V3022)
+
+
+__e.TailApply(PrimFunc(symshen_4compute_1integer_1h), tmp5443, MakeNumber(0))
+return
+
+
+}, 1)
+
+tmp5444 := Call(__e, ns2_1set, symshen_4compute_1integer, tmp5442)
+
+
+_ = tmp5444
+
+tmp5445 := MakeNative(func(__e *ControlFlow) {
+V3025 := __e.Get(1)
+_ = V3025
+V3026 := __e.Get(2)
+_ = V3026
+tmp5455 := PrimEqual(Nil, V3025)
+
+if True == tmp5455 {
+__e.Return(MakeNumber(0))
+return
+} else {
+tmp5453 := PrimIsPair(V3025)
+
+if True == tmp5453 {
+tmp5446 := Call(__e, PrimFunc(symshen_4expt), MakeNumber(10), V3026)
+
+
+tmp5447 := PrimHead(V3025)
+
+tmp5448 := PrimNumberMultiply(tmp5446, tmp5447)
+
+tmp5449 := PrimTail(V3025)
+
+tmp5450 := PrimNumberAdd(V3026, MakeNumber(1))
+
+tmp5451 := Call(__e, PrimFunc(symshen_4compute_1integer_1h), tmp5449, tmp5450)
+
+
+__e.Return(PrimNumberAdd(tmp5448, tmp5451))
+return
+
+
+} else {
+__e.TailApply(PrimFunc(symshen_4f_1error), symshen_4compute_1integer_1h)
+return
+}
+
+
+}
+
+
+}, 2)
+
+tmp5456 := Call(__e, ns2_1set, symshen_4compute_1integer_1h, tmp5445)
+
+
+_ = tmp5456
+
+tmp5457 := MakeNative(func(__e *ControlFlow) {
+V3029 := __e.Get(1)
+_ = V3029
+V3030 := __e.Get(2)
+_ = V3030
+tmp5465 := PrimEqual(MakeNumber(0), V3030)
+
+if True == tmp5465 {
+__e.Return(MakeNumber(1))
+return
+} else {
+tmp5463 := PrimGreatThan(V3030, MakeNumber(0))
+
+if True == tmp5463 {
+tmp5458 := PrimNumberSubtract(V3030, MakeNumber(1))
+
+tmp5459 := Call(__e, PrimFunc(symshen_4expt), V3029, tmp5458)
+
+
+__e.Return(PrimNumberMultiply(V3029, tmp5459))
+return
+
+
+} else {
+tmp5460 := PrimNumberAdd(V3030, MakeNumber(1))
+
+tmp5461 := Call(__e, PrimFunc(symshen_4expt), V3029, tmp5460)
+
+
+__e.Return(PrimNumberDivide(tmp5461, V3029))
+return
+
+
+}
+
+
+}
+
+
+}, 2)
+
+tmp5466 := Call(__e, ns2_1set, symshen_4expt, tmp5457)
+
+
+_ = tmp5466
+
+tmp5467 := MakeNative(func(__e *ControlFlow) {
+V3031 := __e.Get(1)
+_ = V3031
+tmp5468 := MakeNative(func(__e *ControlFlow) {
+W3032 := __e.Get(1)
+_ = W3032
+tmp5488 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W3032)
+
+
+if True == tmp5488 {
+tmp5469 := MakeNative(func(__e *ControlFlow) {
+W3041 := __e.Get(1)
+_ = W3041
+tmp5471 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W3041)
+
+
+if True == tmp5471 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+__e.Return(W3041)
+return
+}
+
+
+}, 1)
+
+tmp5472 := MakeNative(func(__e *ControlFlow) {
+W3042 := __e.Get(1)
+_ = W3042
+tmp5484 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W3042)
+
+
+if True == tmp5484 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp5473 := MakeNative(func(__e *ControlFlow) {
+W3043 := __e.Get(1)
+_ = W3043
+tmp5474 := MakeNative(func(__e *ControlFlow) {
+W3044 := __e.Get(1)
+_ = W3044
+tmp5480 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W3044)
+
+
+if True == tmp5480 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp5475 := MakeNative(func(__e *ControlFlow) {
+W3045 := __e.Get(1)
+_ = W3045
+tmp5476 := MakeNative(func(__e *ControlFlow) {
+W3046 := __e.Get(1)
+_ = W3046
+__e.TailApply(PrimFunc(symshen_4comb), W3046, W3045)
+return
+}, 1)
+
+tmp5477 := Call(__e, PrimFunc(symshen_4in_1_6), W3044)
+
+
+__e.TailApply(tmp5476, tmp5477)
+return
+
+
+}, 1)
+
+tmp5478 := Call(__e, PrimFunc(symshen_4_5_1out), W3044)
+
+
+__e.TailApply(tmp5475, tmp5478)
+return
+
+
+}
+
+
+}, 1)
+
+tmp5481 := Call(__e, PrimFunc(symshen_4_5fraction_6), W3043)
+
+
+__e.TailApply(tmp5474, tmp5481)
+return
+
+
+}, 1)
+
+tmp5482 := Call(__e, PrimFunc(symshen_4in_1_6), W3042)
+
+
+__e.TailApply(tmp5473, tmp5482)
+return
+
+
+}
+
+
+}, 1)
+
+tmp5485 := Call(__e, PrimFunc(symshen_4_5stop_6), V3031)
+
+
+tmp5486 := Call(__e, tmp5472, tmp5485)
+
+
+__e.TailApply(tmp5469, tmp5486)
+return
+
+
+} else {
+__e.Return(W3032)
+return
+}
+
+
+}, 1)
+
+tmp5489 := MakeNative(func(__e *ControlFlow) {
+W3033 := __e.Get(1)
+_ = W3033
+tmp5510 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W3033)
+
+
+if True == tmp5510 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp5490 := MakeNative(func(__e *ControlFlow) {
+W3034 := __e.Get(1)
+_ = W3034
+tmp5491 := MakeNative(func(__e *ControlFlow) {
+W3035 := __e.Get(1)
+_ = W3035
+tmp5492 := MakeNative(func(__e *ControlFlow) {
+W3036 := __e.Get(1)
+_ = W3036
+tmp5505 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W3036)
+
+
+if True == tmp5505 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp5493 := MakeNative(func(__e *ControlFlow) {
+W3037 := __e.Get(1)
+_ = W3037
+tmp5494 := MakeNative(func(__e *ControlFlow) {
+W3038 := __e.Get(1)
+_ = W3038
+tmp5501 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W3038)
+
+
+if True == tmp5501 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp5495 := MakeNative(func(__e *ControlFlow) {
+W3039 := __e.Get(1)
+_ = W3039
+tmp5496 := MakeNative(func(__e *ControlFlow) {
+W3040 := __e.Get(1)
+_ = W3040
+tmp5497 := PrimNumberAdd(W3034, W3039)
+
+__e.TailApply(PrimFunc(symshen_4comb), W3040, tmp5497)
+return
+
+
+}, 1)
+
+tmp5498 := Call(__e, PrimFunc(symshen_4in_1_6), W3038)
+
+
+__e.TailApply(tmp5496, tmp5498)
+return
+
+
+}, 1)
+
+tmp5499 := Call(__e, PrimFunc(symshen_4_5_1out), W3038)
+
+
+__e.TailApply(tmp5495, tmp5499)
+return
+
+
+}
+
+
+}, 1)
+
+tmp5502 := Call(__e, PrimFunc(symshen_4_5fraction_6), W3037)
+
+
+__e.TailApply(tmp5494, tmp5502)
+return
+
+
+}, 1)
+
+tmp5503 := Call(__e, PrimFunc(symshen_4in_1_6), W3036)
+
+
+__e.TailApply(tmp5493, tmp5503)
+return
+
+
+}
+
+
+}, 1)
+
+tmp5506 := Call(__e, PrimFunc(symshen_4_5stop_6), W3035)
+
+
+__e.TailApply(tmp5492, tmp5506)
+return
+
+
+}, 1)
+
+tmp5507 := Call(__e, PrimFunc(symshen_4in_1_6), W3033)
+
+
+__e.TailApply(tmp5491, tmp5507)
+return
+
+
+}, 1)
+
+tmp5508 := Call(__e, PrimFunc(symshen_4_5_1out), W3033)
+
+
+__e.TailApply(tmp5490, tmp5508)
+return
+
+
+}
+
+
+}, 1)
+
+tmp5511 := Call(__e, PrimFunc(symshen_4_5integer_6), V3031)
+
+
+tmp5512 := Call(__e, tmp5489, tmp5511)
+
+
+__e.TailApply(tmp5468, tmp5512)
+return
+
+
+}, 1)
+
+tmp5513 := Call(__e, ns2_1set, symshen_4_5float_6, tmp5467)
+
+
+_ = tmp5513
+
+tmp5514 := MakeNative(func(__e *ControlFlow) {
+V3047 := __e.Get(1)
+_ = V3047
+tmp5515 := MakeNative(func(__e *ControlFlow) {
+W3048 := __e.Get(1)
+_ = W3048
+tmp5517 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W3048)
+
+
+if True == tmp5517 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+__e.Return(W3048)
+return
+}
+
+
+}, 1)
+
+tmp5523 := Call(__e, PrimFunc(symshen_4hds_a_2), V3047, MakeNumber(46))
+
+
+var ifres5518 Obj
+
+if True == tmp5523 {
+tmp5519 := MakeNative(func(__e *ControlFlow) {
+W3049 := __e.Get(1)
+_ = W3049
+__e.TailApply(PrimFunc(symshen_4comb), W3049, symshen_4skip)
+return
+}, 1)
+
+tmp5520 := Call(__e, PrimFunc(symtail), V3047)
+
+
+tmp5521 := Call(__e, tmp5519, tmp5520)
+
+
+ifres5518 = tmp5521
+
+
+} else {
+tmp5522 := Call(__e, PrimFunc(symshen_4parse_1failure))
+
+
+ifres5518 = tmp5522
+
+
+}
+
+__e.TailApply(tmp5515, ifres5518)
+return
+
+
+}, 1)
+
+tmp5524 := Call(__e, ns2_1set, symshen_4_5stop_6, tmp5514)
+
+
+_ = tmp5524
+
+tmp5525 := MakeNative(func(__e *ControlFlow) {
+V3050 := __e.Get(1)
+_ = V3050
+tmp5526 := MakeNative(func(__e *ControlFlow) {
+W3051 := __e.Get(1)
+_ = W3051
+tmp5528 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W3051)
+
+
+if True == tmp5528 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+__e.Return(W3051)
+return
+}
+
+
+}, 1)
+
+tmp5529 := MakeNative(func(__e *ControlFlow) {
+W3052 := __e.Get(1)
+_ = W3052
+tmp5536 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W3052)
+
+
+if True == tmp5536 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp5530 := MakeNative(func(__e *ControlFlow) {
+W3053 := __e.Get(1)
+_ = W3053
+tmp5531 := MakeNative(func(__e *ControlFlow) {
+W3054 := __e.Get(1)
+_ = W3054
+tmp5532 := Call(__e, PrimFunc(symshen_4compute_1fraction), W3053)
+
+
+__e.TailApply(PrimFunc(symshen_4comb), W3054, tmp5532)
+return
+
+
+}, 1)
+
+tmp5533 := Call(__e, PrimFunc(symshen_4in_1_6), W3052)
+
+
+__e.TailApply(tmp5531, tmp5533)
+return
+
+
+}, 1)
+
+tmp5534 := Call(__e, PrimFunc(symshen_4_5_1out), W3052)
+
+
+__e.TailApply(tmp5530, tmp5534)
+return
+
+
+}
+
+
+}, 1)
+
+tmp5537 := Call(__e, PrimFunc(symshen_4_5digits_6), V3050)
+
+
+tmp5538 := Call(__e, tmp5529, tmp5537)
+
+
+__e.TailApply(tmp5526, tmp5538)
+return
+
+
+}, 1)
+
+tmp5539 := Call(__e, ns2_1set, symshen_4_5fraction_6, tmp5525)
+
+
+_ = tmp5539
+
+tmp5540 := MakeNative(func(__e *ControlFlow) {
+V3055 := __e.Get(1)
+_ = V3055
+__e.TailApply(PrimFunc(symshen_4compute_1fraction_1h), V3055, MakeNumber(-1))
+return
+}, 1)
+
+tmp5541 := Call(__e, ns2_1set, symshen_4compute_1fraction, tmp5540)
+
+
+_ = tmp5541
+
+tmp5542 := MakeNative(func(__e *ControlFlow) {
+V3058 := __e.Get(1)
+_ = V3058
+V3059 := __e.Get(2)
+_ = V3059
+tmp5552 := PrimEqual(Nil, V3058)
+
+if True == tmp5552 {
+__e.Return(MakeNumber(0))
+return
+} else {
+tmp5550 := PrimIsPair(V3058)
+
+if True == tmp5550 {
+tmp5543 := Call(__e, PrimFunc(symshen_4expt), MakeNumber(10), V3059)
+
+
+tmp5544 := PrimHead(V3058)
+
+tmp5545 := PrimNumberMultiply(tmp5543, tmp5544)
+
+tmp5546 := PrimTail(V3058)
+
+tmp5547 := PrimNumberSubtract(V3059, MakeNumber(1))
+
+tmp5548 := Call(__e, PrimFunc(symshen_4compute_1fraction_1h), tmp5546, tmp5547)
+
+
+__e.Return(PrimNumberAdd(tmp5545, tmp5548))
+return
+
+
+} else {
+__e.TailApply(PrimFunc(symshen_4f_1error), symshen_4compute_1fraction_1h)
+return
+}
+
+
+}
+
+
+}, 2)
+
+tmp5553 := Call(__e, ns2_1set, symshen_4compute_1fraction_1h, tmp5542)
+
+
+_ = tmp5553
+
+tmp5554 := MakeNative(func(__e *ControlFlow) {
+V3060 := __e.Get(1)
+_ = V3060
+tmp5555 := MakeNative(func(__e *ControlFlow) {
+W3061 := __e.Get(1)
+_ = W3061
+tmp5584 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W3061)
+
+
+if True == tmp5584 {
+tmp5556 := MakeNative(func(__e *ControlFlow) {
+W3070 := __e.Get(1)
+_ = W3070
+tmp5558 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W3070)
+
+
+if True == tmp5558 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+__e.Return(W3070)
+return
+}
+
+
+}, 1)
+
+tmp5559 := MakeNative(func(__e *ControlFlow) {
+W3071 := __e.Get(1)
+_ = W3071
+tmp5580 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W3071)
+
+
+if True == tmp5580 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp5560 := MakeNative(func(__e *ControlFlow) {
+W3072 := __e.Get(1)
+_ = W3072
+tmp5561 := MakeNative(func(__e *ControlFlow) {
+W3073 := __e.Get(1)
+_ = W3073
+tmp5562 := MakeNative(func(__e *ControlFlow) {
+W3074 := __e.Get(1)
+_ = W3074
+tmp5575 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W3074)
+
+
+if True == tmp5575 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp5563 := MakeNative(func(__e *ControlFlow) {
+W3075 := __e.Get(1)
+_ = W3075
+tmp5564 := MakeNative(func(__e *ControlFlow) {
+W3076 := __e.Get(1)
+_ = W3076
+tmp5571 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W3076)
+
+
+if True == tmp5571 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp5565 := MakeNative(func(__e *ControlFlow) {
+W3077 := __e.Get(1)
+_ = W3077
+tmp5566 := MakeNative(func(__e *ControlFlow) {
+W3078 := __e.Get(1)
+_ = W3078
+tmp5567 := Call(__e, PrimFunc(symshen_4compute_1E), W3072, W3077)
+
+
+__e.TailApply(PrimFunc(symshen_4comb), W3078, tmp5567)
+return
+
+
+}, 1)
+
+tmp5568 := Call(__e, PrimFunc(symshen_4in_1_6), W3076)
+
+
+__e.TailApply(tmp5566, tmp5568)
+return
+
+
+}, 1)
+
+tmp5569 := Call(__e, PrimFunc(symshen_4_5_1out), W3076)
+
+
+__e.TailApply(tmp5565, tmp5569)
+return
+
+
+}
+
+
+}, 1)
+
+tmp5572 := Call(__e, PrimFunc(symshen_4_5log10_6), W3075)
+
+
+__e.TailApply(tmp5564, tmp5572)
+return
+
+
+}, 1)
+
+tmp5573 := Call(__e, PrimFunc(symshen_4in_1_6), W3074)
+
+
+__e.TailApply(tmp5563, tmp5573)
+return
+
+
+}
+
+
+}, 1)
+
+tmp5576 := Call(__e, PrimFunc(symshen_4_5lowE_6), W3073)
+
+
+__e.TailApply(tmp5562, tmp5576)
+return
+
+
+}, 1)
+
+tmp5577 := Call(__e, PrimFunc(symshen_4in_1_6), W3071)
+
+
+__e.TailApply(tmp5561, tmp5577)
+return
+
+
+}, 1)
+
+tmp5578 := Call(__e, PrimFunc(symshen_4_5_1out), W3071)
+
+
+__e.TailApply(tmp5560, tmp5578)
+return
+
+
+}
+
+
+}, 1)
+
+tmp5581 := Call(__e, PrimFunc(symshen_4_5integer_6), V3060)
+
+
+tmp5582 := Call(__e, tmp5559, tmp5581)
+
+
+__e.TailApply(tmp5556, tmp5582)
+return
+
+
+} else {
+__e.Return(W3061)
+return
+}
+
+
+}, 1)
+
+tmp5585 := MakeNative(func(__e *ControlFlow) {
+W3062 := __e.Get(1)
+_ = W3062
+tmp5606 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W3062)
+
+
+if True == tmp5606 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp5586 := MakeNative(func(__e *ControlFlow) {
+W3063 := __e.Get(1)
+_ = W3063
+tmp5587 := MakeNative(func(__e *ControlFlow) {
+W3064 := __e.Get(1)
+_ = W3064
+tmp5588 := MakeNative(func(__e *ControlFlow) {
+W3065 := __e.Get(1)
+_ = W3065
+tmp5601 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W3065)
+
+
+if True == tmp5601 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp5589 := MakeNative(func(__e *ControlFlow) {
+W3066 := __e.Get(1)
+_ = W3066
+tmp5590 := MakeNative(func(__e *ControlFlow) {
+W3067 := __e.Get(1)
+_ = W3067
+tmp5597 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W3067)
+
+
+if True == tmp5597 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp5591 := MakeNative(func(__e *ControlFlow) {
+W3068 := __e.Get(1)
+_ = W3068
+tmp5592 := MakeNative(func(__e *ControlFlow) {
+W3069 := __e.Get(1)
+_ = W3069
+tmp5593 := Call(__e, PrimFunc(symshen_4compute_1E), W3063, W3068)
+
+
+__e.TailApply(PrimFunc(symshen_4comb), W3069, tmp5593)
+return
+
+
+}, 1)
+
+tmp5594 := Call(__e, PrimFunc(symshen_4in_1_6), W3067)
+
+
+__e.TailApply(tmp5592, tmp5594)
+return
+
+
+}, 1)
+
+tmp5595 := Call(__e, PrimFunc(symshen_4_5_1out), W3067)
+
+
+__e.TailApply(tmp5591, tmp5595)
+return
+
+
+}
+
+
+}, 1)
+
+tmp5598 := Call(__e, PrimFunc(symshen_4_5log10_6), W3066)
+
+
+__e.TailApply(tmp5590, tmp5598)
+return
+
+
+}, 1)
+
+tmp5599 := Call(__e, PrimFunc(symshen_4in_1_6), W3065)
+
+
+__e.TailApply(tmp5589, tmp5599)
+return
+
+
+}
+
+
+}, 1)
+
+tmp5602 := Call(__e, PrimFunc(symshen_4_5lowE_6), W3064)
+
+
+__e.TailApply(tmp5588, tmp5602)
+return
+
+
+}, 1)
+
+tmp5603 := Call(__e, PrimFunc(symshen_4in_1_6), W3062)
+
+
+__e.TailApply(tmp5587, tmp5603)
+return
+
+
+}, 1)
+
+tmp5604 := Call(__e, PrimFunc(symshen_4_5_1out), W3062)
+
+
+__e.TailApply(tmp5586, tmp5604)
+return
+
+
+}
+
+
+}, 1)
+
+tmp5607 := Call(__e, PrimFunc(symshen_4_5float_6), V3060)
+
+
+tmp5608 := Call(__e, tmp5585, tmp5607)
+
+
+__e.TailApply(tmp5555, tmp5608)
+return
+
+
+}, 1)
+
+tmp5609 := Call(__e, ns2_1set, symshen_4_5e_1number_6, tmp5554)
+
+
+_ = tmp5609
+
+tmp5610 := MakeNative(func(__e *ControlFlow) {
+V3079 := __e.Get(1)
+_ = V3079
+tmp5611 := MakeNative(func(__e *ControlFlow) {
+W3080 := __e.Get(1)
+_ = W3080
+tmp5644 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W3080)
+
+
+if True == tmp5644 {
+tmp5612 := MakeNative(func(__e *ControlFlow) {
+W3086 := __e.Get(1)
+_ = W3086
+tmp5626 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W3086)
+
+
+if True == tmp5626 {
+tmp5613 := MakeNative(func(__e *ControlFlow) {
+W3092 := __e.Get(1)
+_ = W3092
+tmp5615 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W3092)
+
+
+if True == tmp5615 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+__e.Return(W3092)
+return
+}
+
+
+}, 1)
+
+tmp5616 := MakeNative(func(__e *ControlFlow) {
+W3093 := __e.Get(1)
+_ = W3093
+tmp5622 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W3093)
+
+
+if True == tmp5622 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp5617 := MakeNative(func(__e *ControlFlow) {
+W3094 := __e.Get(1)
+_ = W3094
+tmp5618 := MakeNative(func(__e *ControlFlow) {
+W3095 := __e.Get(1)
+_ = W3095
+__e.TailApply(PrimFunc(symshen_4comb), W3095, W3094)
+return
+}, 1)
+
+tmp5619 := Call(__e, PrimFunc(symshen_4in_1_6), W3093)
+
+
+__e.TailApply(tmp5618, tmp5619)
+return
+
+
+}, 1)
+
+tmp5620 := Call(__e, PrimFunc(symshen_4_5_1out), W3093)
+
+
+__e.TailApply(tmp5617, tmp5620)
+return
+
+
+}
+
+
+}, 1)
+
+tmp5623 := Call(__e, PrimFunc(symshen_4_5integer_6), V3079)
+
+
+tmp5624 := Call(__e, tmp5616, tmp5623)
+
+
+__e.TailApply(tmp5613, tmp5624)
+return
+
+
+} else {
+__e.Return(W3086)
+return
+}
+
+
+}, 1)
+
+tmp5627 := MakeNative(func(__e *ControlFlow) {
+W3087 := __e.Get(1)
+_ = W3087
+tmp5640 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W3087)
+
+
+if True == tmp5640 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp5628 := MakeNative(func(__e *ControlFlow) {
+W3088 := __e.Get(1)
+_ = W3088
+tmp5629 := MakeNative(func(__e *ControlFlow) {
+W3089 := __e.Get(1)
+_ = W3089
+tmp5636 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W3089)
+
+
+if True == tmp5636 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp5630 := MakeNative(func(__e *ControlFlow) {
+W3090 := __e.Get(1)
+_ = W3090
+tmp5631 := MakeNative(func(__e *ControlFlow) {
+W3091 := __e.Get(1)
+_ = W3091
+tmp5632 := PrimNumberSubtract(MakeNumber(0), W3090)
+
+__e.TailApply(PrimFunc(symshen_4comb), W3091, tmp5632)
+return
+
+
+}, 1)
+
+tmp5633 := Call(__e, PrimFunc(symshen_4in_1_6), W3089)
+
+
+__e.TailApply(tmp5631, tmp5633)
+return
+
+
+}, 1)
+
+tmp5634 := Call(__e, PrimFunc(symshen_4_5_1out), W3089)
+
+
+__e.TailApply(tmp5630, tmp5634)
+return
+
+
+}
+
+
+}, 1)
+
+tmp5637 := Call(__e, PrimFunc(symshen_4_5log10_6), W3088)
+
+
+__e.TailApply(tmp5629, tmp5637)
+return
+
+
+}, 1)
+
+tmp5638 := Call(__e, PrimFunc(symshen_4in_1_6), W3087)
+
+
+__e.TailApply(tmp5628, tmp5638)
+return
+
+
+}
+
+
+}, 1)
+
+tmp5641 := Call(__e, PrimFunc(symshen_4_5minus_6), V3079)
+
+
+tmp5642 := Call(__e, tmp5627, tmp5641)
+
+
+__e.TailApply(tmp5612, tmp5642)
+return
+
+
+} else {
+__e.Return(W3080)
+return
+}
+
+
+}, 1)
+
+tmp5645 := MakeNative(func(__e *ControlFlow) {
+W3081 := __e.Get(1)
+_ = W3081
+tmp5657 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W3081)
+
+
+if True == tmp5657 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp5646 := MakeNative(func(__e *ControlFlow) {
+W3082 := __e.Get(1)
+_ = W3082
+tmp5647 := MakeNative(func(__e *ControlFlow) {
+W3083 := __e.Get(1)
+_ = W3083
+tmp5653 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W3083)
+
+
+if True == tmp5653 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp5648 := MakeNative(func(__e *ControlFlow) {
+W3084 := __e.Get(1)
+_ = W3084
+tmp5649 := MakeNative(func(__e *ControlFlow) {
+W3085 := __e.Get(1)
+_ = W3085
+__e.TailApply(PrimFunc(symshen_4comb), W3085, W3084)
+return
+}, 1)
+
+tmp5650 := Call(__e, PrimFunc(symshen_4in_1_6), W3083)
+
+
+__e.TailApply(tmp5649, tmp5650)
+return
+
+
+}, 1)
+
+tmp5651 := Call(__e, PrimFunc(symshen_4_5_1out), W3083)
+
+
+__e.TailApply(tmp5648, tmp5651)
+return
+
+
+}
+
+
+}, 1)
+
+tmp5654 := Call(__e, PrimFunc(symshen_4_5log10_6), W3082)
+
+
+__e.TailApply(tmp5647, tmp5654)
+return
+
+
+}, 1)
+
+tmp5655 := Call(__e, PrimFunc(symshen_4in_1_6), W3081)
+
+
+__e.TailApply(tmp5646, tmp5655)
+return
+
+
+}
+
+
+}, 1)
+
+tmp5658 := Call(__e, PrimFunc(symshen_4_5plus_6), V3079)
+
+
+tmp5659 := Call(__e, tmp5645, tmp5658)
+
+
+__e.TailApply(tmp5611, tmp5659)
+return
+
+
+}, 1)
+
+tmp5660 := Call(__e, ns2_1set, symshen_4_5log10_6, tmp5610)
+
+
+_ = tmp5660
+
+tmp5661 := MakeNative(func(__e *ControlFlow) {
+V3096 := __e.Get(1)
+_ = V3096
+tmp5662 := MakeNative(func(__e *ControlFlow) {
+W3097 := __e.Get(1)
+_ = W3097
+tmp5664 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W3097)
+
+
+if True == tmp5664 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+__e.Return(W3097)
+return
+}
+
+
+}, 1)
+
+tmp5670 := Call(__e, PrimFunc(symshen_4hds_a_2), V3096, MakeNumber(101))
+
+
+var ifres5665 Obj
+
+if True == tmp5670 {
+tmp5666 := MakeNative(func(__e *ControlFlow) {
+W3098 := __e.Get(1)
+_ = W3098
+__e.TailApply(PrimFunc(symshen_4comb), W3098, symshen_4skip)
+return
+}, 1)
+
+tmp5667 := Call(__e, PrimFunc(symtail), V3096)
+
+
+tmp5668 := Call(__e, tmp5666, tmp5667)
+
+
+ifres5665 = tmp5668
+
+
+} else {
+tmp5669 := Call(__e, PrimFunc(symshen_4parse_1failure))
+
+
+ifres5665 = tmp5669
+
+
+}
+
+__e.TailApply(tmp5662, ifres5665)
+return
+
+
+}, 1)
+
+tmp5671 := Call(__e, ns2_1set, symshen_4_5lowE_6, tmp5661)
+
+
+_ = tmp5671
+
+tmp5672 := MakeNative(func(__e *ControlFlow) {
+V3099 := __e.Get(1)
+_ = V3099
+V3100 := __e.Get(2)
+_ = V3100
+tmp5673 := Call(__e, PrimFunc(symshen_4expt), MakeNumber(10), V3100)
+
+
+__e.Return(PrimNumberMultiply(V3099, tmp5673))
+return
+
+
+}, 2)
+
+tmp5674 := Call(__e, ns2_1set, symshen_4compute_1E, tmp5672)
+
+
+_ = tmp5674
+
+tmp5675 := MakeNative(func(__e *ControlFlow) {
+V3101 := __e.Get(1)
+_ = V3101
+tmp5676 := MakeNative(func(__e *ControlFlow) {
+W3102 := __e.Get(1)
+_ = W3102
+tmp5688 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W3102)
+
+
+if True == tmp5688 {
+tmp5677 := MakeNative(func(__e *ControlFlow) {
+W3107 := __e.Get(1)
+_ = W3107
+tmp5679 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W3107)
+
+
+if True == tmp5679 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+__e.Return(W3107)
+return
+}
+
+
+}, 1)
+
+tmp5680 := MakeNative(func(__e *ControlFlow) {
+W3108 := __e.Get(1)
+_ = W3108
+tmp5684 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W3108)
+
+
+if True == tmp5684 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp5681 := MakeNative(func(__e *ControlFlow) {
+W3109 := __e.Get(1)
+_ = W3109
+__e.TailApply(PrimFunc(symshen_4comb), W3109, symshen_4skip)
+return
+}, 1)
+
+tmp5682 := Call(__e, PrimFunc(symshen_4in_1_6), W3108)
+
+
+__e.TailApply(tmp5681, tmp5682)
+return
+
+
+}
+
+
+}, 1)
+
+tmp5685 := Call(__e, PrimFunc(symshen_4_5whitespace_6), V3101)
+
+
+tmp5686 := Call(__e, tmp5680, tmp5685)
+
+
+__e.TailApply(tmp5677, tmp5686)
+return
+
+
+} else {
+__e.Return(W3102)
+return
+}
+
+
+}, 1)
+
+tmp5689 := MakeNative(func(__e *ControlFlow) {
+W3103 := __e.Get(1)
+_ = W3103
+tmp5699 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W3103)
+
+
+if True == tmp5699 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp5690 := MakeNative(func(__e *ControlFlow) {
+W3104 := __e.Get(1)
+_ = W3104
+tmp5691 := MakeNative(func(__e *ControlFlow) {
+W3105 := __e.Get(1)
+_ = W3105
+tmp5695 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W3105)
+
+
+if True == tmp5695 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+tmp5692 := MakeNative(func(__e *ControlFlow) {
+W3106 := __e.Get(1)
+_ = W3106
+__e.TailApply(PrimFunc(symshen_4comb), W3106, symshen_4skip)
+return
+}, 1)
+
+tmp5693 := Call(__e, PrimFunc(symshen_4in_1_6), W3105)
+
+
+__e.TailApply(tmp5692, tmp5693)
+return
+
+
+}
+
+
+}, 1)
+
+tmp5696 := Call(__e, PrimFunc(symshen_4_5whitespaces_6), W3104)
+
+
+__e.TailApply(tmp5691, tmp5696)
+return
+
+
+}, 1)
+
+tmp5697 := Call(__e, PrimFunc(symshen_4in_1_6), W3103)
+
+
+__e.TailApply(tmp5690, tmp5697)
+return
+
+
+}
+
+
+}, 1)
+
+tmp5700 := Call(__e, PrimFunc(symshen_4_5whitespace_6), V3101)
+
+
+tmp5701 := Call(__e, tmp5689, tmp5700)
+
+
+__e.TailApply(tmp5676, tmp5701)
+return
+
+
+}, 1)
+
+tmp5702 := Call(__e, ns2_1set, symshen_4_5whitespaces_6, tmp5675)
+
+
+_ = tmp5702
+
+tmp5703 := MakeNative(func(__e *ControlFlow) {
+V3110 := __e.Get(1)
+_ = V3110
+tmp5704 := MakeNative(func(__e *ControlFlow) {
+W3111 := __e.Get(1)
+_ = W3111
+tmp5706 := Call(__e, PrimFunc(symshen_4parse_1failure_2), W3111)
+
+
+if True == tmp5706 {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+} else {
+__e.Return(W3111)
+return
+}
+
+
+}, 1)
+
+tmp5716 := PrimIsPair(V3110)
+
+var ifres5707 Obj
+
+if True == tmp5716 {
+tmp5708 := MakeNative(func(__e *ControlFlow) {
+W3112 := __e.Get(1)
+_ = W3112
+tmp5709 := MakeNative(func(__e *ControlFlow) {
+W3113 := __e.Get(1)
+_ = W3113
+tmp5711 := Call(__e, PrimFunc(symshen_4whitespace_2), W3112)
+
+
+if True == tmp5711 {
+__e.TailApply(PrimFunc(symshen_4comb), W3113, symshen_4skip)
+return
+} else {
+__e.TailApply(PrimFunc(symshen_4parse_1failure))
+return
+}
+
+
+}, 1)
+
+tmp5712 := Call(__e, PrimFunc(symtail), V3110)
+
+
+__e.TailApply(tmp5709, tmp5712)
+return
+
+
+}, 1)
+
+tmp5713 := Call(__e, PrimFunc(symhead), V3110)
+
+
+tmp5714 := Call(__e, tmp5708, tmp5713)
+
+
+ifres5707 = tmp5714
+
+
+} else {
+tmp5715 := Call(__e, PrimFunc(symshen_4parse_1failure))
+
+
+ifres5707 = tmp5715
+
+
+}
+
+__e.TailApply(tmp5704, ifres5707)
+return
+
+
+}, 1)
+
+tmp5717 := Call(__e, ns2_1set, symshen_4_5whitespace_6, tmp5703)
+
+
+_ = tmp5717
+
+tmp5718 := MakeNative(func(__e *ControlFlow) {
+V3116 := __e.Get(1)
+_ = V3116
+tmp5726 := PrimEqual(MakeNumber(32), V3116)
+
+if True == tmp5726 {
+__e.Return(True)
+return
+} else {
+tmp5724 := PrimEqual(MakeNumber(13), V3116)
+
+if True == tmp5724 {
+__e.Return(True)
+return
+} else {
+tmp5722 := PrimEqual(MakeNumber(10), V3116)
+
+if True == tmp5722 {
+__e.Return(True)
+return
+} else {
+tmp5720 := PrimEqual(MakeNumber(9), V3116)
+
+if True == tmp5720 {
+__e.Return(True)
+return
+} else {
+__e.Return(False)
+return
+}
+
+
+}
+
+
+}
+
+
+}
+
+
+}, 1)
+
+tmp5727 := Call(__e, ns2_1set, symshen_4whitespace_2, tmp5718)
+
+
+_ = tmp5727
+
+tmp5728 := MakeNative(func(__e *ControlFlow) {
+V3117 := __e.Get(1)
+_ = V3117
+tmp5751 := PrimEqual(Nil, V3117)
+
+if True == tmp5751 {
+__e.Return(Nil)
+return
+} else {
+tmp5749 := PrimIsPair(V3117)
+
+var ifres5745 Obj
+
+if True == tmp5749 {
+tmp5747 := PrimHead(V3117)
+
+tmp5748 := Call(__e, PrimFunc(symshen_4packaged_2), tmp5747)
+
+
+var ifres5746 Obj
+
+if True == tmp5748 {
+ifres5746 = True
+
+
+} else {
+ifres5746 = False
+
+
+}
+
+ifres5745 = ifres5746
+
+
+} else {
+ifres5745 = False
+
+
+}
+
+if True == ifres5745 {
+tmp5729 := PrimHead(V3117)
+
+tmp5730 := Call(__e, PrimFunc(symshen_4unpackage), tmp5729)
+
+
+tmp5731 := PrimTail(V3117)
+
+tmp5732 := Call(__e, PrimFunc(symappend), tmp5730, tmp5731)
+
+
+__e.TailApply(PrimFunc(symshen_4unpackage_emacroexpand), tmp5732)
+return
+
+
+} else {
+tmp5743 := PrimIsPair(V3117)
+
+if True == tmp5743 {
+tmp5733 := MakeNative(func(__e *ControlFlow) {
+W3118 := __e.Get(1)
+_ = W3118
+tmp5739 := Call(__e, PrimFunc(symshen_4packaged_2), W3118)
+
+
+if True == tmp5739 {
+tmp5734 := PrimTail(V3117)
+
+tmp5735 := PrimCons(W3118, tmp5734)
+
+__e.TailApply(PrimFunc(symshen_4unpackage_emacroexpand), tmp5735)
+return
+
+
+} else {
+tmp5736 := PrimTail(V3117)
+
+tmp5737 := Call(__e, PrimFunc(symshen_4unpackage_emacroexpand), tmp5736)
+
+
+__e.Return(PrimCons(W3118, tmp5737))
+return
+
+
+}
+
+
+}, 1)
+
+tmp5740 := PrimHead(V3117)
+
+tmp5741 := Call(__e, PrimFunc(symmacroexpand), tmp5740)
+
+
+__e.TailApply(tmp5733, tmp5741)
+return
+
+
+} else {
+__e.TailApply(PrimFunc(symshen_4f_1error), symshen_4unpackage_emacroexpand)
+return
+}
+
+
+}
+
+
+}
+
+
+}, 1)
+
+tmp5752 := Call(__e, ns2_1set, symshen_4unpackage_emacroexpand, tmp5728)
+
+
+_ = tmp5752
+
+tmp5753 := MakeNative(func(__e *ControlFlow) {
+V3121 := __e.Get(1)
+_ = V3121
+tmp5768 := PrimIsPair(V3121)
+
+var ifres5755 Obj
+
+if True == tmp5768 {
+tmp5766 := PrimHead(V3121)
+
+tmp5767 := PrimEqual(sympackage, tmp5766)
+
+var ifres5757 Obj
+
+if True == tmp5767 {
+tmp5764 := PrimTail(V3121)
+
+tmp5765 := PrimIsPair(tmp5764)
+
+var ifres5759 Obj
+
+if True == tmp5765 {
+tmp5761 := PrimTail(V3121)
+
+tmp5762 := PrimTail(tmp5761)
+
+tmp5763 := PrimIsPair(tmp5762)
+
+var ifres5760 Obj
+
+if True == tmp5763 {
+ifres5760 = True
+
+
+} else {
+ifres5760 = False
+
+
+}
+
+ifres5759 = ifres5760
+
+
+} else {
+ifres5759 = False
+
+
+}
+
+var ifres5758 Obj
+
+if True == ifres5759 {
+ifres5758 = True
+
+
+} else {
+ifres5758 = False
+
+
+}
+
+ifres5757 = ifres5758
+
+
+} else {
+ifres5757 = False
+
+
+}
+
+var ifres5756 Obj
+
+if True == ifres5757 {
+ifres5756 = True
+
+
+} else {
+ifres5756 = False
+
+
+}
+
+ifres5755 = ifres5756
+
+
+} else {
+ifres5755 = False
+
+
+}
+
+if True == ifres5755 {
+__e.Return(True)
+return
+} else {
+__e.Return(False)
+return
+}
+
+
+}, 1)
+
+tmp5769 := Call(__e, ns2_1set, symshen_4packaged_2, tmp5753)
+
+
+_ = tmp5769
+
+tmp5770 := MakeNative(func(__e *ControlFlow) {
+V3124 := __e.Get(1)
+_ = V3124
+tmp5831 := PrimIsPair(V3124)
+
+var ifres5813 Obj
+
+if True == tmp5831 {
+tmp5829 := PrimHead(V3124)
+
+tmp5830 := PrimEqual(sympackage, tmp5829)
+
+var ifres5815 Obj
+
+if True == tmp5830 {
+tmp5827 := PrimTail(V3124)
+
+tmp5828 := PrimIsPair(tmp5827)
+
+var ifres5817 Obj
+
+if True == tmp5828 {
+tmp5824 := PrimTail(V3124)
+
+tmp5825 := PrimHead(tmp5824)
+
+tmp5826 := PrimEqual(symnull, tmp5825)
+
+var ifres5819 Obj
+
+if True == tmp5826 {
+tmp5821 := PrimTail(V3124)
+
+tmp5822 := PrimTail(tmp5821)
+
+tmp5823 := PrimIsPair(tmp5822)
+
+var ifres5820 Obj
+
+if True == tmp5823 {
+ifres5820 = True
+
+
+} else {
+ifres5820 = False
+
+
+}
+
+ifres5819 = ifres5820
+
+
+} else {
+ifres5819 = False
+
+
+}
+
+var ifres5818 Obj
+
+if True == ifres5819 {
+ifres5818 = True
+
+
+} else {
+ifres5818 = False
+
+
+}
+
+ifres5817 = ifres5818
+
+
+} else {
+ifres5817 = False
+
+
+}
+
+var ifres5816 Obj
+
+if True == ifres5817 {
+ifres5816 = True
+
+
+} else {
+ifres5816 = False
+
+
+}
+
+ifres5815 = ifres5816
+
+
+} else {
+ifres5815 = False
+
+
+}
+
+var ifres5814 Obj
+
+if True == ifres5815 {
+ifres5814 = True
+
+
+} else {
+ifres5814 = False
+
+
+}
+
+ifres5813 = ifres5814
+
+
+} else {
+ifres5813 = False
+
+
+}
+
+if True == ifres5813 {
+tmp5771 := PrimTail(V3124)
+
+tmp5772 := PrimTail(tmp5771)
+
+__e.Return(PrimTail(tmp5772))
+return
+
+
+} else {
+tmp5811 := PrimIsPair(V3124)
+
+var ifres5798 Obj
+
+if True == tmp5811 {
+tmp5809 := PrimHead(V3124)
+
+tmp5810 := PrimEqual(sympackage, tmp5809)
+
+var ifres5800 Obj
+
+if True == tmp5810 {
+tmp5807 := PrimTail(V3124)
+
+tmp5808 := PrimIsPair(tmp5807)
+
+var ifres5802 Obj
+
+if True == tmp5808 {
+tmp5804 := PrimTail(V3124)
+
+tmp5805 := PrimTail(tmp5804)
+
+tmp5806 := PrimIsPair(tmp5805)
+
+var ifres5803 Obj
+
+if True == tmp5806 {
+ifres5803 = True
+
+
+} else {
+ifres5803 = False
+
+
+}
+
+ifres5802 = ifres5803
+
+
+} else {
+ifres5802 = False
+
+
+}
+
+var ifres5801 Obj
+
+if True == ifres5802 {
+ifres5801 = True
+
+
+} else {
+ifres5801 = False
+
+
+}
+
+ifres5800 = ifres5801
+
+
+} else {
+ifres5800 = False
+
+
+}
+
+var ifres5799 Obj
+
+if True == ifres5800 {
+ifres5799 = True
+
+
+} else {
+ifres5799 = False
+
+
+}
+
+ifres5798 = ifres5799
+
+
+} else {
+ifres5798 = False
+
+
+}
+
+if True == ifres5798 {
+tmp5773 := MakeNative(func(__e *ControlFlow) {
+W3125 := __e.Get(1)
+_ = W3125
+tmp5774 := MakeNative(func(__e *ControlFlow) {
+W3126 := __e.Get(1)
+_ = W3126
+tmp5775 := MakeNative(func(__e *ControlFlow) {
+W3127 := __e.Get(1)
+_ = W3127
+tmp5776 := MakeNative(func(__e *ControlFlow) {
+W3128 := __e.Get(1)
+_ = W3128
+__e.Return(W3126)
+return
+}, 1)
+
+tmp5777 := PrimTail(V3124)
+
+tmp5778 := PrimHead(tmp5777)
+
+tmp5779 := PrimTail(V3124)
+
+tmp5780 := PrimTail(tmp5779)
+
+tmp5781 := PrimTail(tmp5780)
+
+tmp5782 := Call(__e, PrimFunc(symshen_4record_1internal), tmp5778, W3125, tmp5781)
+
+
+__e.TailApply(tmp5776, tmp5782)
+return
+
+
+}, 1)
+
+tmp5783 := PrimTail(V3124)
+
+tmp5784 := PrimHead(tmp5783)
+
+tmp5785 := Call(__e, PrimFunc(symshen_4record_1external), tmp5784, W3125)
+
+
+__e.TailApply(tmp5775, tmp5785)
+return
+
+
+}, 1)
+
+tmp5786 := PrimTail(V3124)
+
+tmp5787 := PrimHead(tmp5786)
+
+tmp5788 := PrimStr(tmp5787)
+
+tmp5789 := PrimTail(V3124)
+
+tmp5790 := PrimTail(tmp5789)
+
+tmp5791 := PrimTail(tmp5790)
+
+tmp5792 := Call(__e, PrimFunc(symshen_4package_1symbols), tmp5788, W3125, tmp5791)
+
+
+__e.TailApply(tmp5774, tmp5792)
+return
+
+
+}, 1)
+
+tmp5793 := PrimTail(V3124)
+
+tmp5794 := PrimTail(tmp5793)
+
+tmp5795 := PrimHead(tmp5794)
+
+tmp5796 := Call(__e, PrimFunc(symeval), tmp5795)
+
+
+__e.TailApply(tmp5773, tmp5796)
+return
+
+
+} else {
+__e.TailApply(PrimFunc(symshen_4f_1error), symshen_4unpackage)
+return
+}
+
+
+}
+
+
+}, 1)
+
+tmp5832 := Call(__e, ns2_1set, symshen_4unpackage, tmp5770)
+
+
+_ = tmp5832
+
+tmp5833 := MakeNative(func(__e *ControlFlow) {
+V3129 := __e.Get(1)
+_ = V3129
+V3130 := __e.Get(2)
+_ = V3130
+V3131 := __e.Get(3)
+_ = V3131
+tmp5834 := MakeNative(func(__e *ControlFlow) {
+W3132 := __e.Get(1)
+_ = W3132
+tmp5835 := MakeNative(func(__e *ControlFlow) {
+W3134 := __e.Get(1)
+_ = W3134
+tmp5836 := Call(__e, PrimFunc(symunion), W3134, W3132)
+
+
+tmp5837 := PrimValue(sym_dproperty_1vector_d)
+
+__e.TailApply(PrimFunc(symput), V3129, symshen_4internal_1symbols, tmp5836, tmp5837)
+return
+
+
+}, 1)
+
+tmp5838 := PrimStr(V3129)
+
+tmp5839 := Call(__e, PrimFunc(symshen_4internal_1symbols), tmp5838, V3130, V3131)
+
+
+__e.TailApply(tmp5835, tmp5839)
+return
+
+
+}, 1)
+
+tmp5840 := MakeNative(func(__e *ControlFlow) {
+tmp5841 := PrimValue(sym_dproperty_1vector_d)
+
+__e.TailApply(PrimFunc(symget), V3129, symshen_4internal_1symbols, tmp5841)
+return
+
+
+}, 0)
+
+tmp5842 := MakeNative(func(__e *ControlFlow) {
+Z3133 := __e.Get(1)
+_ = Z3133
+__e.Return(Nil)
+return
+}, 1)
+
+tmp5843 := Call(__e, try_1catch, tmp5840, tmp5842)
+
+
+__e.TailApply(tmp5834, tmp5843)
+return
+
+
+}, 3)
+
+tmp5844 := Call(__e, ns2_1set, symshen_4record_1internal, tmp5833)
+
+
+_ = tmp5844
+
+tmp5845 := MakeNative(func(__e *ControlFlow) {
+V3141 := __e.Get(1)
+_ = V3141
+V3142 := __e.Get(2)
+_ = V3142
+V3143 := __e.Get(3)
+_ = V3143
+tmp5854 := PrimIsPair(V3143)
+
+if True == tmp5854 {
+tmp5846 := PrimHead(V3143)
+
+tmp5847 := Call(__e, PrimFunc(symshen_4internal_1symbols), V3141, V3142, tmp5846)
+
+
+tmp5848 := PrimTail(V3143)
+
+tmp5849 := Call(__e, PrimFunc(symshen_4internal_1symbols), V3141, V3142, tmp5848)
+
+
+__e.TailApply(PrimFunc(symunion), tmp5847, tmp5849)
+return
+
+
+} else {
+tmp5852 := Call(__e, PrimFunc(symshen_4internal_2), V3143, V3141, V3142)
+
+
+if True == tmp5852 {
+tmp5850 := Call(__e, PrimFunc(symshen_4intern_1in_1package), V3141, V3143)
+
+
+__e.Return(PrimCons(tmp5850, Nil))
+return
+
+
+} else {
+__e.Return(Nil)
+return
+}
+
+
+}
+
+
+}, 3)
+
+tmp5855 := Call(__e, ns2_1set, symshen_4internal_1symbols, tmp5845)
+
+
+_ = tmp5855
+
+tmp5856 := MakeNative(func(__e *ControlFlow) {
+V3144 := __e.Get(1)
+_ = V3144
+V3145 := __e.Get(2)
+_ = V3145
+tmp5857 := MakeNative(func(__e *ControlFlow) {
+W3146 := __e.Get(1)
+_ = W3146
+tmp5858 := Call(__e, PrimFunc(symunion), V3145, W3146)
+
+
+tmp5859 := PrimValue(sym_dproperty_1vector_d)
+
+__e.TailApply(PrimFunc(symput), V3144, symshen_4external_1symbols, tmp5858, tmp5859)
+return
+
+
+}, 1)
+
+tmp5860 := MakeNative(func(__e *ControlFlow) {
+tmp5861 := PrimValue(sym_dproperty_1vector_d)
+
+__e.TailApply(PrimFunc(symget), V3144, symshen_4external_1symbols, tmp5861)
+return
+
+
+}, 0)
+
+tmp5862 := MakeNative(func(__e *ControlFlow) {
+Z3147 := __e.Get(1)
+_ = Z3147
+__e.Return(Nil)
+return
+}, 1)
+
+tmp5863 := Call(__e, try_1catch, tmp5860, tmp5862)
+
+
+__e.TailApply(tmp5857, tmp5863)
+return
+
+
+}, 2)
+
+tmp5864 := Call(__e, ns2_1set, symshen_4record_1external, tmp5856)
+
+
+_ = tmp5864
+
+tmp5865 := MakeNative(func(__e *ControlFlow) {
+V3152 := __e.Get(1)
+_ = V3152
+V3153 := __e.Get(2)
+_ = V3153
+V3154 := __e.Get(3)
+_ = V3154
+tmp5870 := PrimIsPair(V3154)
+
+if True == tmp5870 {
+tmp5866 := MakeNative(func(__e *ControlFlow) {
+Z3155 := __e.Get(1)
+_ = Z3155
+__e.TailApply(PrimFunc(symshen_4package_1symbols), V3152, V3153, Z3155)
+return
+}, 1)
+
+__e.TailApply(PrimFunc(symmap), tmp5866, V3154)
+return
+
+
+} else {
+tmp5868 := Call(__e, PrimFunc(symshen_4internal_2), V3154, V3152, V3153)
+
+
+if True == tmp5868 {
+__e.TailApply(PrimFunc(symshen_4intern_1in_1package), V3152, V3154)
+return
+} else {
+__e.Return(V3154)
+return
+}
+
+
+}
+
+
+}, 3)
+
+tmp5871 := Call(__e, ns2_1set, symshen_4package_1symbols, tmp5865)
+
+
+_ = tmp5871
+
+tmp5872 := MakeNative(func(__e *ControlFlow) {
+V3156 := __e.Get(1)
+_ = V3156
+V3157 := __e.Get(2)
+_ = V3157
+tmp5873 := PrimStr(V3157)
+
+tmp5874 := Call(__e, PrimFunc(sym_8s), MakeString("."), tmp5873)
+
+
+tmp5875 := Call(__e, PrimFunc(sym_8s), V3156, tmp5874)
+
+
+__e.Return(PrimIntern(tmp5875))
+return
+
+
+}, 2)
+
+tmp5876 := Call(__e, ns2_1set, symshen_4intern_1in_1package, tmp5872)
+
+
+_ = tmp5876
+
+tmp5877 := MakeNative(func(__e *ControlFlow) {
+V3158 := __e.Get(1)
+_ = V3158
+V3159 := __e.Get(2)
+_ = V3159
+V3160 := __e.Get(3)
+_ = V3160
+tmp5907 := Call(__e, PrimFunc(symelement_2), V3158, V3160)
+
+
+tmp5908 := PrimNot(tmp5907)
+
+if True == tmp5908 {
+tmp5904 := Call(__e, PrimFunc(symshen_4sng_2), V3158)
+
+
+tmp5905 := PrimNot(tmp5904)
+
+var ifres5879 Obj
+
+if True == tmp5905 {
+tmp5902 := Call(__e, PrimFunc(symshen_4dbl_2), V3158)
+
+
+tmp5903 := PrimNot(tmp5902)
+
+var ifres5881 Obj
+
+if True == tmp5903 {
+tmp5901 := PrimIsSymbol(V3158)
+
+var ifres5883 Obj
+
+if True == tmp5901 {
+tmp5899 := Call(__e, PrimFunc(symshen_4sysfunc_2), V3158)
+
+
+tmp5900 := PrimNot(tmp5899)
+
+var ifres5885 Obj
+
+if True == tmp5900 {
+tmp5897 := PrimIsVariable(V3158)
+
+tmp5898 := PrimNot(tmp5897)
+
+var ifres5887 Obj
+
+if True == tmp5898 {
+tmp5894 := PrimStr(V3158)
+
+tmp5895 := Call(__e, PrimFunc(symshen_4internal_1to_1shen_2), tmp5894)
+
+
+tmp5896 := PrimNot(tmp5895)
+
+var ifres5889 Obj
+
+if True == tmp5896 {
+tmp5891 := PrimStr(V3158)
+
+tmp5892 := Call(__e, PrimFunc(symshen_4internal_1to_1P_2), V3159, tmp5891)
+
+
+tmp5893 := PrimNot(tmp5892)
+
+var ifres5890 Obj
+
+if True == tmp5893 {
+ifres5890 = True
+
+
+} else {
+ifres5890 = False
+
+
+}
+
+ifres5889 = ifres5890
+
+
+} else {
+ifres5889 = False
+
+
+}
+
+var ifres5888 Obj
+
+if True == ifres5889 {
+ifres5888 = True
+
+
+} else {
+ifres5888 = False
+
+
+}
+
+ifres5887 = ifres5888
+
+
+} else {
+ifres5887 = False
+
+
+}
+
+var ifres5886 Obj
+
+if True == ifres5887 {
+ifres5886 = True
+
+
+} else {
+ifres5886 = False
+
+
+}
+
+ifres5885 = ifres5886
+
+
+} else {
+ifres5885 = False
+
+
+}
+
+var ifres5884 Obj
+
+if True == ifres5885 {
+ifres5884 = True
+
+
+} else {
+ifres5884 = False
+
+
+}
+
+ifres5883 = ifres5884
+
+
+} else {
+ifres5883 = False
+
+
+}
+
+var ifres5882 Obj
+
+if True == ifres5883 {
+ifres5882 = True
+
+
+} else {
+ifres5882 = False
+
+
+}
+
+ifres5881 = ifres5882
+
+
+} else {
+ifres5881 = False
+
+
+}
+
+var ifres5880 Obj
+
+if True == ifres5881 {
+ifres5880 = True
+
+
+} else {
+ifres5880 = False
+
+
+}
+
+ifres5879 = ifres5880
+
+
+} else {
+ifres5879 = False
+
+
+}
+
+if True == ifres5879 {
+__e.Return(True)
+return
+} else {
+__e.Return(False)
+return
+}
+
+
+} else {
+__e.Return(False)
+return
+}
+
+
+}, 3)
+
+tmp5909 := Call(__e, ns2_1set, symshen_4internal_2, tmp5877)
+
+
+_ = tmp5909
+
+tmp5910 := MakeNative(func(__e *ControlFlow) {
+V3165 := __e.Get(1)
+_ = V3165
+tmp5964 := Call(__e, PrimFunc(symshen_4_7string_2), V3165)
+
+
+var ifres5912 Obj
+
+if True == tmp5964 {
+tmp5962 := Call(__e, PrimFunc(symhdstr), V3165)
+
+
+tmp5963 := PrimEqual(MakeString("s"), tmp5962)
+
+var ifres5914 Obj
+
+if True == tmp5963 {
+tmp5960 := PrimTailString(V3165)
+
+tmp5961 := Call(__e, PrimFunc(symshen_4_7string_2), tmp5960)
+
+
+var ifres5916 Obj
+
+if True == tmp5961 {
+tmp5957 := PrimTailString(V3165)
+
+tmp5958 := Call(__e, PrimFunc(symhdstr), tmp5957)
+
+
+tmp5959 := PrimEqual(MakeString("h"), tmp5958)
+
+var ifres5918 Obj
+
+if True == tmp5959 {
+tmp5954 := PrimTailString(V3165)
+
+tmp5955 := PrimTailString(tmp5954)
+
+tmp5956 := Call(__e, PrimFunc(symshen_4_7string_2), tmp5955)
+
+
+var ifres5920 Obj
+
+if True == tmp5956 {
+tmp5950 := PrimTailString(V3165)
+
+tmp5951 := PrimTailString(tmp5950)
+
+tmp5952 := Call(__e, PrimFunc(symhdstr), tmp5951)
+
+
+tmp5953 := PrimEqual(MakeString("e"), tmp5952)
+
+var ifres5922 Obj
+
+if True == tmp5953 {
+tmp5946 := PrimTailString(V3165)
+
+tmp5947 := PrimTailString(tmp5946)
+
+tmp5948 := PrimTailString(tmp5947)
+
+tmp5949 := Call(__e, PrimFunc(symshen_4_7string_2), tmp5948)
+
+
+var ifres5924 Obj
+
+if True == tmp5949 {
+tmp5941 := PrimTailString(V3165)
+
+tmp5942 := PrimTailString(tmp5941)
+
+tmp5943 := PrimTailString(tmp5942)
+
+tmp5944 := Call(__e, PrimFunc(symhdstr), tmp5943)
+
+
+tmp5945 := PrimEqual(MakeString("n"), tmp5944)
+
+var ifres5926 Obj
+
+if True == tmp5945 {
+tmp5936 := PrimTailString(V3165)
+
+tmp5937 := PrimTailString(tmp5936)
+
+tmp5938 := PrimTailString(tmp5937)
+
+tmp5939 := PrimTailString(tmp5938)
+
+tmp5940 := Call(__e, PrimFunc(symshen_4_7string_2), tmp5939)
+
+
+var ifres5928 Obj
+
+if True == tmp5940 {
+tmp5930 := PrimTailString(V3165)
+
+tmp5931 := PrimTailString(tmp5930)
+
+tmp5932 := PrimTailString(tmp5931)
+
+tmp5933 := PrimTailString(tmp5932)
+
+tmp5934 := Call(__e, PrimFunc(symhdstr), tmp5933)
+
+
+tmp5935 := PrimEqual(MakeString("."), tmp5934)
+
+var ifres5929 Obj
+
+if True == tmp5935 {
+ifres5929 = True
+
+
+} else {
+ifres5929 = False
+
+
+}
+
+ifres5928 = ifres5929
+
+
+} else {
+ifres5928 = False
+
+
+}
+
+var ifres5927 Obj
+
+if True == ifres5928 {
+ifres5927 = True
+
+
+} else {
+ifres5927 = False
+
+
+}
+
+ifres5926 = ifres5927
+
+
+} else {
+ifres5926 = False
+
+
+}
+
+var ifres5925 Obj
+
+if True == ifres5926 {
+ifres5925 = True
+
+
+} else {
+ifres5925 = False
+
+
+}
+
+ifres5924 = ifres5925
+
+
+} else {
+ifres5924 = False
+
+
+}
+
+var ifres5923 Obj
+
+if True == ifres5924 {
+ifres5923 = True
+
+
+} else {
+ifres5923 = False
+
+
+}
+
+ifres5922 = ifres5923
+
+
+} else {
+ifres5922 = False
+
+
+}
+
+var ifres5921 Obj
+
+if True == ifres5922 {
+ifres5921 = True
+
+
+} else {
+ifres5921 = False
+
+
+}
+
+ifres5920 = ifres5921
+
+
+} else {
+ifres5920 = False
+
+
+}
+
+var ifres5919 Obj
+
+if True == ifres5920 {
+ifres5919 = True
+
+
+} else {
+ifres5919 = False
+
+
+}
+
+ifres5918 = ifres5919
+
+
+} else {
+ifres5918 = False
+
+
+}
+
+var ifres5917 Obj
+
+if True == ifres5918 {
+ifres5917 = True
+
+
+} else {
+ifres5917 = False
+
+
+}
+
+ifres5916 = ifres5917
+
+
+} else {
+ifres5916 = False
+
+
+}
+
+var ifres5915 Obj
+
+if True == ifres5916 {
+ifres5915 = True
+
+
+} else {
+ifres5915 = False
+
+
+}
+
+ifres5914 = ifres5915
+
+
+} else {
+ifres5914 = False
+
+
+}
+
+var ifres5913 Obj
+
+if True == ifres5914 {
+ifres5913 = True
+
+
+} else {
+ifres5913 = False
+
+
+}
+
+ifres5912 = ifres5913
+
+
+} else {
+ifres5912 = False
+
+
+}
+
+if True == ifres5912 {
+__e.Return(True)
+return
+} else {
+__e.Return(False)
+return
+}
+
+
+}, 1)
+
+tmp5965 := Call(__e, ns2_1set, symshen_4internal_1to_1shen_2, tmp5910)
+
+
+_ = tmp5965
+
+tmp5966 := MakeNative(func(__e *ControlFlow) {
+V3166 := __e.Get(1)
+_ = V3166
+tmp5967 := PrimValue(sym_dproperty_1vector_d)
+
+tmp5968 := Call(__e, PrimFunc(symget), symshen, symshen_4external_1symbols, tmp5967)
+
+
+__e.TailApply(PrimFunc(symelement_2), V3166, tmp5968)
+return
+
+
+}, 1)
+
+tmp5969 := Call(__e, ns2_1set, symshen_4sysfunc_2, tmp5966)
+
+
+_ = tmp5969
+
+tmp5970 := MakeNative(func(__e *ControlFlow) {
+V3174 := __e.Get(1)
+_ = V3174
+V3175 := __e.Get(2)
+_ = V3175
+tmp5991 := PrimEqual(MakeString(""), V3174)
+
+var ifres5984 Obj
+
+if True == tmp5991 {
+tmp5990 := Call(__e, PrimFunc(symshen_4_7string_2), V3175)
+
+
+var ifres5986 Obj
+
+if True == tmp5990 {
+tmp5988 := Call(__e, PrimFunc(symhdstr), V3175)
+
+
+tmp5989 := PrimEqual(MakeString("."), tmp5988)
+
+var ifres5987 Obj
+
+if True == tmp5989 {
+ifres5987 = True
+
+
+} else {
+ifres5987 = False
+
+
+}
+
+ifres5986 = ifres5987
+
+
+} else {
+ifres5986 = False
+
+
+}
+
+var ifres5985 Obj
+
+if True == ifres5986 {
+ifres5985 = True
+
+
+} else {
+ifres5985 = False
+
+
+}
+
+ifres5984 = ifres5985
+
+
+} else {
+ifres5984 = False
+
+
+}
+
+if True == ifres5984 {
+__e.Return(True)
+return
+} else {
+tmp5982 := Call(__e, PrimFunc(symshen_4_7string_2), V3174)
+
+
+var ifres5974 Obj
+
+if True == tmp5982 {
+tmp5981 := Call(__e, PrimFunc(symshen_4_7string_2), V3175)
+
+
+var ifres5976 Obj
+
+if True == tmp5981 {
+tmp5978 := Call(__e, PrimFunc(symhdstr), V3174)
+
+
+tmp5979 := Call(__e, PrimFunc(symhdstr), V3175)
+
+
+tmp5980 := PrimEqual(tmp5978, tmp5979)
+
+var ifres5977 Obj
+
+if True == tmp5980 {
+ifres5977 = True
+
+
+} else {
+ifres5977 = False
+
+
+}
+
+ifres5976 = ifres5977
+
+
+} else {
+ifres5976 = False
+
+
+}
+
+var ifres5975 Obj
+
+if True == ifres5976 {
+ifres5975 = True
+
+
+} else {
+ifres5975 = False
+
+
+}
+
+ifres5974 = ifres5975
+
+
+} else {
+ifres5974 = False
+
+
+}
+
+if True == ifres5974 {
+tmp5971 := PrimTailString(V3174)
+
+tmp5972 := PrimTailString(V3175)
+
+__e.TailApply(PrimFunc(symshen_4internal_1to_1P_2), tmp5971, tmp5972)
+return
+
+
+} else {
+__e.Return(False)
+return
+}
+
+
+}
+
+
+}, 2)
+
+tmp5992 := Call(__e, ns2_1set, symshen_4internal_1to_1P_2, tmp5970)
+
+
+_ = tmp5992
+
+tmp5993 := MakeNative(func(__e *ControlFlow) {
+V3178 := __e.Get(1)
+_ = V3178
+V3179 := __e.Get(2)
+_ = V3179
+tmp6014 := Call(__e, PrimFunc(symelement_2), V3178, V3179)
+
+
+if True == tmp6014 {
+__e.Return(V3178)
+return
+} else {
+tmp6012 := PrimIsPair(V3178)
+
+var ifres6008 Obj
+
+if True == tmp6012 {
+tmp6010 := PrimHead(V3178)
+
+tmp6011 := PrimEqual(symcond, tmp6010)
+
+var ifres6009 Obj
+
+if True == tmp6011 {
+ifres6009 = True
+
+
+} else {
+ifres6009 = False
+
+
+}
+
+ifres6008 = ifres6009
+
+
+} else {
+ifres6008 = False
+
+
+}
+
+if True == ifres6008 {
+tmp5994 := PrimTail(V3178)
+
+tmp5995 := Call(__e, PrimFunc(symshen_4process_1cond_1clauses), tmp5994, V3179)
+
+
+__e.Return(PrimCons(symcond, tmp5995))
+return
+
+
+} else {
+tmp6006 := PrimIsPair(V3178)
+
+var ifres6002 Obj
+
+if True == tmp6006 {
+tmp6004 := PrimHead(V3178)
+
+tmp6005 := Call(__e, PrimFunc(symshen_4non_1application_2), tmp6004)
+
+
+var ifres6003 Obj
+
+if True == tmp6005 {
+ifres6003 = True
+
+
+} else {
+ifres6003 = False
+
+
+}
+
+ifres6002 = ifres6003
+
+
+} else {
+ifres6002 = False
+
+
+}
+
+if True == ifres6002 {
+tmp5996 := PrimHead(V3178)
+
+__e.TailApply(PrimFunc(symshen_4special_1case), tmp5996, V3178, V3179)
+return
+
+
+} else {
+tmp6000 := PrimIsPair(V3178)
+
+if True == tmp6000 {
+tmp5997 := MakeNative(func(__e *ControlFlow) {
+Z3180 := __e.Get(1)
+_ = Z3180
+__e.TailApply(PrimFunc(symshen_4process_1applications), Z3180, V3179)
+return
+}, 1)
+
+tmp5998 := Call(__e, PrimFunc(symmap), tmp5997, V3178)
+
+
+__e.TailApply(PrimFunc(symshen_4process_1application), tmp5998, V3179)
+return
+
+
+} else {
+__e.Return(V3178)
+return
+}
+
+
+}
+
+
+}
+
+
+}
+
+
+}, 2)
+
+tmp6015 := Call(__e, ns2_1set, symshen_4process_1applications, tmp5993)
+
+
+_ = tmp6015
+
+tmp6016 := MakeNative(func(__e *ControlFlow) {
+V3183 := __e.Get(1)
+_ = V3183
+tmp6026 := PrimEqual(symdefine, V3183)
+
+if True == tmp6026 {
+__e.Return(True)
+return
+} else {
+tmp6024 := PrimEqual(symdefun, V3183)
+
+if True == tmp6024 {
+__e.Return(True)
+return
+} else {
+tmp6022 := PrimEqual(symsynonyms, V3183)
+
+if True == tmp6022 {
+__e.Return(True)
+return
+} else {
+tmp6020 := Call(__e, PrimFunc(symshen_4special_2), V3183)
+
+
+if True == tmp6020 {
+__e.Return(True)
+return
+} else {
+tmp6018 := Call(__e, PrimFunc(symshen_4extraspecial_2), V3183)
+
+
+if True == tmp6018 {
+__e.Return(True)
+return
+} else {
+__e.Return(False)
+return
+}
+
+
+}
+
+
+}
+
+
+}
+
+
+}
+
+
+}, 1)
+
+tmp6027 := Call(__e, ns2_1set, symshen_4non_1application_2, tmp6016)
+
+
+_ = tmp6027
+
+tmp6028 := MakeNative(func(__e *ControlFlow) {
+V3188 := __e.Get(1)
+_ = V3188
+V3189 := __e.Get(2)
+_ = V3189
+V3190 := __e.Get(3)
+_ = V3190
+tmp6270 := PrimEqual(symlambda, V3188)
+
+var ifres6248 Obj
+
+if True == tmp6270 {
+tmp6269 := PrimIsPair(V3189)
+
+var ifres6250 Obj
+
+if True == tmp6269 {
+tmp6267 := PrimHead(V3189)
+
+tmp6268 := PrimEqual(symlambda, tmp6267)
+
+var ifres6252 Obj
+
+if True == tmp6268 {
+tmp6265 := PrimTail(V3189)
+
+tmp6266 := PrimIsPair(tmp6265)
+
+var ifres6254 Obj
+
+if True == tmp6266 {
+tmp6262 := PrimTail(V3189)
+
+tmp6263 := PrimTail(tmp6262)
+
+tmp6264 := PrimIsPair(tmp6263)
+
+var ifres6256 Obj
+
+if True == tmp6264 {
+tmp6258 := PrimTail(V3189)
+
+tmp6259 := PrimTail(tmp6258)
+
+tmp6260 := PrimTail(tmp6259)
+
+tmp6261 := PrimEqual(Nil, tmp6260)
+
+var ifres6257 Obj
+
+if True == tmp6261 {
+ifres6257 = True
+
+
+} else {
+ifres6257 = False
+
+
+}
+
+ifres6256 = ifres6257
+
+
+} else {
+ifres6256 = False
+
+
+}
+
+var ifres6255 Obj
+
+if True == ifres6256 {
+ifres6255 = True
+
+
+} else {
+ifres6255 = False
+
+
+}
+
+ifres6254 = ifres6255
+
+
+} else {
+ifres6254 = False
+
+
+}
+
+var ifres6253 Obj
+
+if True == ifres6254 {
+ifres6253 = True
+
+
+} else {
+ifres6253 = False
+
+
+}
+
+ifres6252 = ifres6253
+
+
+} else {
+ifres6252 = False
+
+
+}
+
+var ifres6251 Obj
+
+if True == ifres6252 {
+ifres6251 = True
+
+
+} else {
+ifres6251 = False
+
+
+}
+
+ifres6250 = ifres6251
+
+
+} else {
+ifres6250 = False
+
+
+}
+
+var ifres6249 Obj
+
+if True == ifres6250 {
+ifres6249 = True
+
+
+} else {
+ifres6249 = False
+
+
+}
+
+ifres6248 = ifres6249
+
+
+} else {
+ifres6248 = False
+
+
+}
+
+if True == ifres6248 {
+tmp6029 := PrimTail(V3189)
+
+tmp6030 := PrimHead(tmp6029)
+
+tmp6031 := PrimTail(V3189)
+
+tmp6032 := PrimTail(tmp6031)
+
+tmp6033 := PrimHead(tmp6032)
+
+tmp6034 := Call(__e, PrimFunc(symshen_4process_1applications), tmp6033, V3190)
+
+
+tmp6035 := PrimCons(tmp6034, Nil)
+
+tmp6036 := PrimCons(tmp6030, tmp6035)
+
+__e.Return(PrimCons(symlambda, tmp6036))
+return
+
+
+} else {
+tmp6246 := PrimEqual(symlet, V3188)
+
+var ifres6217 Obj
+
+if True == tmp6246 {
+tmp6245 := PrimIsPair(V3189)
+
+var ifres6219 Obj
+
+if True == tmp6245 {
+tmp6243 := PrimHead(V3189)
+
+tmp6244 := PrimEqual(symlet, tmp6243)
+
+var ifres6221 Obj
+
+if True == tmp6244 {
+tmp6241 := PrimTail(V3189)
+
+tmp6242 := PrimIsPair(tmp6241)
+
+var ifres6223 Obj
+
+if True == tmp6242 {
+tmp6238 := PrimTail(V3189)
+
+tmp6239 := PrimTail(tmp6238)
+
+tmp6240 := PrimIsPair(tmp6239)
+
+var ifres6225 Obj
+
+if True == tmp6240 {
+tmp6234 := PrimTail(V3189)
+
+tmp6235 := PrimTail(tmp6234)
+
+tmp6236 := PrimTail(tmp6235)
+
+tmp6237 := PrimIsPair(tmp6236)
+
+var ifres6227 Obj
+
+if True == tmp6237 {
+tmp6229 := PrimTail(V3189)
+
+tmp6230 := PrimTail(tmp6229)
+
+tmp6231 := PrimTail(tmp6230)
+
+tmp6232 := PrimTail(tmp6231)
+
+tmp6233 := PrimEqual(Nil, tmp6232)
+
+var ifres6228 Obj
+
+if True == tmp6233 {
+ifres6228 = True
+
+
+} else {
+ifres6228 = False
+
+
+}
+
+ifres6227 = ifres6228
+
+
+} else {
+ifres6227 = False
+
+
+}
+
+var ifres6226 Obj
+
+if True == ifres6227 {
+ifres6226 = True
+
+
+} else {
+ifres6226 = False
+
+
+}
+
+ifres6225 = ifres6226
+
+
+} else {
+ifres6225 = False
+
+
+}
+
+var ifres6224 Obj
+
+if True == ifres6225 {
+ifres6224 = True
+
+
+} else {
+ifres6224 = False
+
+
+}
+
+ifres6223 = ifres6224
+
+
+} else {
+ifres6223 = False
+
+
+}
+
+var ifres6222 Obj
+
+if True == ifres6223 {
+ifres6222 = True
+
+
+} else {
+ifres6222 = False
+
+
+}
+
+ifres6221 = ifres6222
+
+
+} else {
+ifres6221 = False
+
+
+}
+
+var ifres6220 Obj
+
+if True == ifres6221 {
+ifres6220 = True
+
+
+} else {
+ifres6220 = False
+
+
+}
+
+ifres6219 = ifres6220
+
+
+} else {
+ifres6219 = False
+
+
+}
+
+var ifres6218 Obj
+
+if True == ifres6219 {
+ifres6218 = True
+
+
+} else {
+ifres6218 = False
+
+
+}
+
+ifres6217 = ifres6218
+
+
+} else {
+ifres6217 = False
+
+
+}
+
+if True == ifres6217 {
+tmp6037 := PrimTail(V3189)
+
+tmp6038 := PrimHead(tmp6037)
+
+tmp6039 := PrimTail(V3189)
+
+tmp6040 := PrimTail(tmp6039)
+
+tmp6041 := PrimHead(tmp6040)
+
+tmp6042 := Call(__e, PrimFunc(symshen_4process_1applications), tmp6041, V3190)
+
+
+tmp6043 := PrimTail(V3189)
+
+tmp6044 := PrimTail(tmp6043)
+
+tmp6045 := PrimTail(tmp6044)
+
+tmp6046 := PrimHead(tmp6045)
+
+tmp6047 := Call(__e, PrimFunc(symshen_4process_1applications), tmp6046, V3190)
+
+
+tmp6048 := PrimCons(tmp6047, Nil)
+
+tmp6049 := PrimCons(tmp6042, tmp6048)
+
+tmp6050 := PrimCons(tmp6038, tmp6049)
+
+__e.Return(PrimCons(symlet, tmp6050))
+return
+
+
+} else {
+tmp6215 := PrimEqual(symdefun, V3188)
+
+var ifres6186 Obj
+
+if True == tmp6215 {
+tmp6214 := PrimIsPair(V3189)
+
+var ifres6188 Obj
+
+if True == tmp6214 {
+tmp6212 := PrimHead(V3189)
+
+tmp6213 := PrimEqual(symdefun, tmp6212)
+
+var ifres6190 Obj
+
+if True == tmp6213 {
+tmp6210 := PrimTail(V3189)
+
+tmp6211 := PrimIsPair(tmp6210)
+
+var ifres6192 Obj
+
+if True == tmp6211 {
+tmp6207 := PrimTail(V3189)
+
+tmp6208 := PrimTail(tmp6207)
+
+tmp6209 := PrimIsPair(tmp6208)
+
+var ifres6194 Obj
+
+if True == tmp6209 {
+tmp6203 := PrimTail(V3189)
+
+tmp6204 := PrimTail(tmp6203)
+
+tmp6205 := PrimTail(tmp6204)
+
+tmp6206 := PrimIsPair(tmp6205)
+
+var ifres6196 Obj
+
+if True == tmp6206 {
+tmp6198 := PrimTail(V3189)
+
+tmp6199 := PrimTail(tmp6198)
+
+tmp6200 := PrimTail(tmp6199)
+
+tmp6201 := PrimTail(tmp6200)
+
+tmp6202 := PrimEqual(Nil, tmp6201)
+
+var ifres6197 Obj
+
+if True == tmp6202 {
+ifres6197 = True
+
+
+} else {
+ifres6197 = False
+
+
+}
+
+ifres6196 = ifres6197
+
+
+} else {
+ifres6196 = False
+
+
+}
+
+var ifres6195 Obj
+
+if True == ifres6196 {
+ifres6195 = True
+
+
+} else {
+ifres6195 = False
+
+
+}
+
+ifres6194 = ifres6195
+
+
+} else {
+ifres6194 = False
+
+
+}
+
+var ifres6193 Obj
+
+if True == ifres6194 {
+ifres6193 = True
+
+
+} else {
+ifres6193 = False
+
+
+}
+
+ifres6192 = ifres6193
+
+
+} else {
+ifres6192 = False
+
+
+}
+
+var ifres6191 Obj
+
+if True == ifres6192 {
+ifres6191 = True
+
+
+} else {
+ifres6191 = False
+
+
+}
+
+ifres6190 = ifres6191
+
+
+} else {
+ifres6190 = False
+
+
+}
+
+var ifres6189 Obj
+
+if True == ifres6190 {
+ifres6189 = True
+
+
+} else {
+ifres6189 = False
+
+
+}
+
+ifres6188 = ifres6189
+
+
+} else {
+ifres6188 = False
+
+
+}
+
+var ifres6187 Obj
+
+if True == ifres6188 {
+ifres6187 = True
+
+
+} else {
+ifres6187 = False
+
+
+}
+
+ifres6186 = ifres6187
+
+
+} else {
+ifres6186 = False
+
+
+}
+
+if True == ifres6186 {
+__e.Return(V3189)
+return
+} else {
+tmp6184 := PrimEqual(symdefine, V3188)
+
+var ifres6162 Obj
+
+if True == tmp6184 {
+tmp6183 := PrimIsPair(V3189)
+
+var ifres6164 Obj
+
+if True == tmp6183 {
+tmp6181 := PrimHead(V3189)
+
+tmp6182 := PrimEqual(symdefine, tmp6181)
+
+var ifres6166 Obj
+
+if True == tmp6182 {
+tmp6179 := PrimTail(V3189)
+
+tmp6180 := PrimIsPair(tmp6179)
+
+var ifres6168 Obj
+
+if True == tmp6180 {
+tmp6176 := PrimTail(V3189)
+
+tmp6177 := PrimTail(tmp6176)
+
+tmp6178 := PrimIsPair(tmp6177)
+
+var ifres6170 Obj
+
+if True == tmp6178 {
+tmp6172 := PrimTail(V3189)
+
+tmp6173 := PrimTail(tmp6172)
+
+tmp6174 := PrimHead(tmp6173)
+
+tmp6175 := PrimEqual(sym_i, tmp6174)
+
+var ifres6171 Obj
+
+if True == tmp6175 {
+ifres6171 = True
+
+
+} else {
+ifres6171 = False
+
+
+}
+
+ifres6170 = ifres6171
+
+
+} else {
+ifres6170 = False
+
+
+}
+
+var ifres6169 Obj
+
+if True == ifres6170 {
+ifres6169 = True
+
+
+} else {
+ifres6169 = False
+
+
+}
+
+ifres6168 = ifres6169
+
+
+} else {
+ifres6168 = False
+
+
+}
+
+var ifres6167 Obj
+
+if True == ifres6168 {
+ifres6167 = True
+
+
+} else {
+ifres6167 = False
+
+
+}
+
+ifres6166 = ifres6167
+
+
+} else {
+ifres6166 = False
+
+
+}
+
+var ifres6165 Obj
+
+if True == ifres6166 {
+ifres6165 = True
+
+
+} else {
+ifres6165 = False
+
+
+}
+
+ifres6164 = ifres6165
+
+
+} else {
+ifres6164 = False
+
+
+}
+
+var ifres6163 Obj
+
+if True == ifres6164 {
+ifres6163 = True
+
+
+} else {
+ifres6163 = False
+
+
+}
+
+ifres6162 = ifres6163
+
+
+} else {
+ifres6162 = False
+
+
+}
+
+if True == ifres6162 {
+tmp6051 := PrimTail(V3189)
+
+tmp6052 := PrimHead(tmp6051)
+
+tmp6053 := PrimTail(V3189)
+
+tmp6054 := PrimHead(tmp6053)
+
+tmp6055 := PrimTail(V3189)
+
+tmp6056 := PrimTail(tmp6055)
+
+tmp6057 := PrimTail(tmp6056)
+
+tmp6058 := Call(__e, PrimFunc(symshen_4process_1after_1type), tmp6054, tmp6057, V3190)
+
+
+tmp6059 := PrimCons(sym_i, tmp6058)
+
+tmp6060 := PrimCons(tmp6052, tmp6059)
+
+__e.Return(PrimCons(symdefine, tmp6060))
+return
+
+
+} else {
+tmp6160 := PrimEqual(symdefine, V3188)
+
+var ifres6149 Obj
+
+if True == tmp6160 {
+tmp6159 := PrimIsPair(V3189)
+
+var ifres6151 Obj
+
+if True == tmp6159 {
+tmp6157 := PrimHead(V3189)
+
+tmp6158 := PrimEqual(symdefine, tmp6157)
+
+var ifres6153 Obj
+
+if True == tmp6158 {
+tmp6155 := PrimTail(V3189)
+
+tmp6156 := PrimIsPair(tmp6155)
+
+var ifres6154 Obj
+
+if True == tmp6156 {
+ifres6154 = True
+
+
+} else {
+ifres6154 = False
+
+
+}
+
+ifres6153 = ifres6154
+
+
+} else {
+ifres6153 = False
+
+
+}
+
+var ifres6152 Obj
+
+if True == ifres6153 {
+ifres6152 = True
+
+
+} else {
+ifres6152 = False
+
+
+}
+
+ifres6151 = ifres6152
+
+
+} else {
+ifres6151 = False
+
+
+}
+
+var ifres6150 Obj
+
+if True == ifres6151 {
+ifres6150 = True
+
+
+} else {
+ifres6150 = False
+
+
+}
+
+ifres6149 = ifres6150
+
+
+} else {
+ifres6149 = False
+
+
+}
+
+if True == ifres6149 {
+tmp6061 := PrimTail(V3189)
+
+tmp6062 := PrimHead(tmp6061)
+
+tmp6063 := MakeNative(func(__e *ControlFlow) {
+Z3191 := __e.Get(1)
+_ = Z3191
+__e.TailApply(PrimFunc(symshen_4process_1applications), Z3191, V3190)
+return
+}, 1)
+
+tmp6064 := PrimTail(V3189)
+
+tmp6065 := PrimTail(tmp6064)
+
+tmp6066 := Call(__e, PrimFunc(symmap), tmp6063, tmp6065)
+
+
+tmp6067 := PrimCons(tmp6062, tmp6066)
+
+__e.Return(PrimCons(symdefine, tmp6067))
+return
+
+
+} else {
+tmp6147 := PrimEqual(symsynonyms, V3188)
+
+if True == tmp6147 {
+__e.Return(PrimCons(symsynonyms, V3189))
+return
+} else {
+tmp6145 := PrimEqual(symtype, V3188)
+
+var ifres6123 Obj
+
+if True == tmp6145 {
+tmp6144 := PrimIsPair(V3189)
+
+var ifres6125 Obj
+
+if True == tmp6144 {
+tmp6142 := PrimHead(V3189)
+
+tmp6143 := PrimEqual(symtype, tmp6142)
+
+var ifres6127 Obj
+
+if True == tmp6143 {
+tmp6140 := PrimTail(V3189)
+
+tmp6141 := PrimIsPair(tmp6140)
+
+var ifres6129 Obj
+
+if True == tmp6141 {
+tmp6137 := PrimTail(V3189)
+
+tmp6138 := PrimTail(tmp6137)
+
+tmp6139 := PrimIsPair(tmp6138)
+
+var ifres6131 Obj
+
+if True == tmp6139 {
+tmp6133 := PrimTail(V3189)
+
+tmp6134 := PrimTail(tmp6133)
+
+tmp6135 := PrimTail(tmp6134)
+
+tmp6136 := PrimEqual(Nil, tmp6135)
+
+var ifres6132 Obj
+
+if True == tmp6136 {
+ifres6132 = True
+
+
+} else {
+ifres6132 = False
+
+
+}
+
+ifres6131 = ifres6132
+
+
+} else {
+ifres6131 = False
+
+
+}
+
+var ifres6130 Obj
+
+if True == ifres6131 {
+ifres6130 = True
+
+
+} else {
+ifres6130 = False
+
+
+}
+
+ifres6129 = ifres6130
+
+
+} else {
+ifres6129 = False
+
+
+}
+
+var ifres6128 Obj
+
+if True == ifres6129 {
+ifres6128 = True
+
+
+} else {
+ifres6128 = False
+
+
+}
+
+ifres6127 = ifres6128
+
+
+} else {
+ifres6127 = False
+
+
+}
+
+var ifres6126 Obj
+
+if True == ifres6127 {
+ifres6126 = True
+
+
+} else {
+ifres6126 = False
+
+
+}
+
+ifres6125 = ifres6126
+
+
+} else {
+ifres6125 = False
+
+
+}
+
+var ifres6124 Obj
+
+if True == ifres6125 {
+ifres6124 = True
+
+
+} else {
+ifres6124 = False
+
+
+}
+
+ifres6123 = ifres6124
+
+
+} else {
+ifres6123 = False
+
+
+}
+
+if True == ifres6123 {
+tmp6068 := PrimTail(V3189)
+
+tmp6069 := PrimHead(tmp6068)
+
+tmp6070 := Call(__e, PrimFunc(symshen_4process_1applications), tmp6069, V3190)
+
+
+tmp6071 := PrimTail(V3189)
+
+tmp6072 := PrimTail(tmp6071)
+
+tmp6073 := PrimCons(tmp6070, tmp6072)
+
+__e.Return(PrimCons(symtype, tmp6073))
+return
+
+
+} else {
+tmp6121 := PrimEqual(syminput_7, V3188)
+
+var ifres6099 Obj
+
+if True == tmp6121 {
+tmp6120 := PrimIsPair(V3189)
+
+var ifres6101 Obj
+
+if True == tmp6120 {
+tmp6118 := PrimHead(V3189)
+
+tmp6119 := PrimEqual(syminput_7, tmp6118)
+
+var ifres6103 Obj
+
+if True == tmp6119 {
+tmp6116 := PrimTail(V3189)
+
+tmp6117 := PrimIsPair(tmp6116)
+
+var ifres6105 Obj
+
+if True == tmp6117 {
+tmp6113 := PrimTail(V3189)
+
+tmp6114 := PrimTail(tmp6113)
+
+tmp6115 := PrimIsPair(tmp6114)
+
+var ifres6107 Obj
+
+if True == tmp6115 {
+tmp6109 := PrimTail(V3189)
+
+tmp6110 := PrimTail(tmp6109)
+
+tmp6111 := PrimTail(tmp6110)
+
+tmp6112 := PrimEqual(Nil, tmp6111)
+
+var ifres6108 Obj
+
+if True == tmp6112 {
+ifres6108 = True
+
+
+} else {
+ifres6108 = False
+
+
+}
+
+ifres6107 = ifres6108
+
+
+} else {
+ifres6107 = False
+
+
+}
+
+var ifres6106 Obj
+
+if True == ifres6107 {
+ifres6106 = True
+
+
+} else {
+ifres6106 = False
+
+
+}
+
+ifres6105 = ifres6106
+
+
+} else {
+ifres6105 = False
+
+
+}
+
+var ifres6104 Obj
+
+if True == ifres6105 {
+ifres6104 = True
+
+
+} else {
+ifres6104 = False
+
+
+}
+
+ifres6103 = ifres6104
+
+
+} else {
+ifres6103 = False
+
+
+}
+
+var ifres6102 Obj
+
+if True == ifres6103 {
+ifres6102 = True
+
+
+} else {
+ifres6102 = False
+
+
+}
+
+ifres6101 = ifres6102
+
+
+} else {
+ifres6101 = False
+
+
+}
+
+var ifres6100 Obj
+
+if True == ifres6101 {
+ifres6100 = True
+
+
+} else {
+ifres6100 = False
+
+
+}
+
+ifres6099 = ifres6100
+
+
+} else {
+ifres6099 = False
+
+
+}
+
+if True == ifres6099 {
+tmp6074 := PrimTail(V3189)
+
+tmp6075 := PrimHead(tmp6074)
+
+tmp6076 := PrimTail(V3189)
+
+tmp6077 := PrimTail(tmp6076)
+
+tmp6078 := PrimHead(tmp6077)
+
+tmp6079 := Call(__e, PrimFunc(symshen_4process_1applications), tmp6078, V3190)
+
+
+tmp6080 := PrimCons(tmp6079, Nil)
+
+tmp6081 := PrimCons(tmp6075, tmp6080)
+
+__e.Return(PrimCons(syminput_7, tmp6081))
+return
+
+
+} else {
+tmp6097 := PrimIsPair(V3189)
+
+var ifres6093 Obj
+
+if True == tmp6097 {
+tmp6095 := PrimHead(V3189)
+
+tmp6096 := Call(__e, PrimFunc(symshen_4special_2), tmp6095)
+
+
+var ifres6094 Obj
+
+if True == tmp6096 {
+ifres6094 = True
+
+
+} else {
+ifres6094 = False
+
+
+}
+
+ifres6093 = ifres6094
+
+
+} else {
+ifres6093 = False
+
+
+}
+
+if True == ifres6093 {
+tmp6082 := PrimHead(V3189)
+
+tmp6083 := MakeNative(func(__e *ControlFlow) {
+Z3192 := __e.Get(1)
+_ = Z3192
+__e.TailApply(PrimFunc(symshen_4process_1applications), Z3192, V3190)
+return
+}, 1)
+
+tmp6084 := PrimTail(V3189)
+
+tmp6085 := Call(__e, PrimFunc(symmap), tmp6083, tmp6084)
+
+
+__e.Return(PrimCons(tmp6082, tmp6085))
+return
+
+
+} else {
+tmp6091 := PrimIsPair(V3189)
+
+var ifres6087 Obj
+
+if True == tmp6091 {
+tmp6089 := PrimHead(V3189)
+
+tmp6090 := Call(__e, PrimFunc(symshen_4extraspecial_2), tmp6089)
+
+
+var ifres6088 Obj
+
+if True == tmp6090 {
+ifres6088 = True
+
+
+} else {
+ifres6088 = False
+
+
+}
+
+ifres6087 = ifres6088
+
+
+} else {
+ifres6087 = False
+
+
+}
+
+if True == ifres6087 {
+__e.Return(V3189)
+return
+} else {
+__e.TailApply(PrimFunc(symshen_4f_1error), symshen_4special_1case)
+return
+}
+
+
+}
+
+
+}
+
+
+}
+
+
+}
+
+
+}
+
+
+}
+
+
+}
+
+
+}
+
+
+}
+
+
+}, 3)
+
+tmp6271 := Call(__e, ns2_1set, symshen_4special_1case, tmp6028)
+
+
+_ = tmp6271
+
+tmp6272 := MakeNative(func(__e *ControlFlow) {
+V3195 := __e.Get(1)
+_ = V3195
+V3196 := __e.Get(2)
+_ = V3196
+tmp6302 := PrimEqual(Nil, V3195)
+
+if True == tmp6302 {
+__e.Return(Nil)
+return
+} else {
+tmp6300 := PrimIsPair(V3195)
+
+var ifres6285 Obj
+
+if True == tmp6300 {
+tmp6298 := PrimHead(V3195)
+
+tmp6299 := PrimIsPair(tmp6298)
+
+var ifres6287 Obj
+
+if True == tmp6299 {
+tmp6295 := PrimHead(V3195)
+
+tmp6296 := PrimTail(tmp6295)
+
+tmp6297 := PrimIsPair(tmp6296)
+
+var ifres6289 Obj
+
+if True == tmp6297 {
+tmp6291 := PrimHead(V3195)
+
+tmp6292 := PrimTail(tmp6291)
+
+tmp6293 := PrimTail(tmp6292)
+
+tmp6294 := PrimEqual(Nil, tmp6293)
+
+var ifres6290 Obj
+
+if True == tmp6294 {
+ifres6290 = True
+
+
+} else {
+ifres6290 = False
+
+
+}
+
+ifres6289 = ifres6290
+
+
+} else {
+ifres6289 = False
+
+
+}
+
+var ifres6288 Obj
+
+if True == ifres6289 {
+ifres6288 = True
+
+
+} else {
+ifres6288 = False
+
+
+}
+
+ifres6287 = ifres6288
+
+
+} else {
+ifres6287 = False
+
+
+}
+
+var ifres6286 Obj
+
+if True == ifres6287 {
+ifres6286 = True
+
+
+} else {
+ifres6286 = False
+
+
+}
+
+ifres6285 = ifres6286
+
+
+} else {
+ifres6285 = False
+
+
+}
+
+if True == ifres6285 {
+tmp6273 := PrimHead(V3195)
+
+tmp6274 := PrimHead(tmp6273)
+
+tmp6275 := Call(__e, PrimFunc(symshen_4process_1applications), tmp6274, V3196)
+
+
+tmp6276 := PrimHead(V3195)
+
+tmp6277 := PrimTail(tmp6276)
+
+tmp6278 := PrimHead(tmp6277)
+
+tmp6279 := Call(__e, PrimFunc(symshen_4process_1applications), tmp6278, V3196)
+
+
+tmp6280 := PrimCons(tmp6279, Nil)
+
+tmp6281 := PrimCons(tmp6275, tmp6280)
+
+tmp6282 := PrimTail(V3195)
+
+tmp6283 := Call(__e, PrimFunc(symshen_4process_1cond_1clauses), tmp6282, V3196)
+
+
+__e.Return(PrimCons(tmp6281, tmp6283))
+return
+
+
+} else {
+__e.TailApply(PrimFunc(symshen_4f_1error), symshen_4process_1cond_1clauses)
+return
+}
+
+
+}
+
+
+}, 2)
+
+tmp6303 := Call(__e, ns2_1set, symshen_4process_1cond_1clauses, tmp6272)
+
+
+_ = tmp6303
+
+tmp6304 := MakeNative(func(__e *ControlFlow) {
+V3199 := __e.Get(1)
+_ = V3199
+V3200 := __e.Get(2)
+_ = V3200
+V3201 := __e.Get(3)
+_ = V3201
+tmp6320 := PrimIsPair(V3200)
+
+var ifres6316 Obj
+
+if True == tmp6320 {
+tmp6318 := PrimHead(V3200)
+
+tmp6319 := PrimEqual(sym_j, tmp6318)
+
+var ifres6317 Obj
+
+if True == tmp6319 {
+ifres6317 = True
+
+
+} else {
+ifres6317 = False
+
+
+}
+
+ifres6316 = ifres6317
+
+
+} else {
+ifres6316 = False
+
+
+}
+
+if True == ifres6316 {
+tmp6305 := MakeNative(func(__e *ControlFlow) {
+Z3202 := __e.Get(1)
+_ = Z3202
+__e.TailApply(PrimFunc(symshen_4process_1applications), Z3202, V3201)
+return
+}, 1)
+
+tmp6306 := PrimTail(V3200)
+
+tmp6307 := Call(__e, PrimFunc(symmap), tmp6305, tmp6306)
+
+
+__e.Return(PrimCons(sym_j, tmp6307))
+return
+
+
+} else {
+tmp6314 := PrimIsPair(V3200)
+
+if True == tmp6314 {
+tmp6308 := PrimHead(V3200)
+
+tmp6309 := PrimTail(V3200)
+
+tmp6310 := Call(__e, PrimFunc(symshen_4process_1after_1type), V3199, tmp6309, V3201)
+
+
+__e.Return(PrimCons(tmp6308, tmp6310))
+return
+
+
+} else {
+tmp6311 := Call(__e, PrimFunc(symshen_4app), V3199, MakeString("\n"), symshen_4a)
+
+
+tmp6312 := PrimStringConcat(MakeString("missing } in "), tmp6311)
+
+__e.Return(PrimSimpleError(tmp6312))
+return
+
+
+}
+
+
+}
+
+
+}, 3)
+
+tmp6321 := Call(__e, ns2_1set, symshen_4process_1after_1type, tmp6304)
+
+
+_ = tmp6321
+
+tmp6322 := MakeNative(func(__e *ControlFlow) {
+V3203 := __e.Get(1)
+_ = V3203
+V3204 := __e.Get(2)
+_ = V3204
+tmp6367 := PrimIsPair(V3203)
+
+if True == tmp6367 {
+tmp6323 := MakeNative(func(__e *ControlFlow) {
+W3205 := __e.Get(1)
+_ = W3205
+tmp6324 := MakeNative(func(__e *ControlFlow) {
+W3206 := __e.Get(1)
+_ = W3206
+tmp6361 := Call(__e, PrimFunc(symelement_2), V3203, V3204)
+
+
+if True == tmp6361 {
+__e.Return(V3203)
+return
+} else {
+tmp6358 := PrimHead(V3203)
+
+tmp6359 := Call(__e, PrimFunc(symshen_4shen_1call_2), tmp6358)
+
+
+if True == tmp6359 {
+__e.Return(V3203)
+return
+} else {
+tmp6356 := Call(__e, PrimFunc(symshen_4foreign_2), V3203)
+
+
+if True == tmp6356 {
+__e.TailApply(PrimFunc(symshen_4unpack_1foreign), V3203)
+return
+} else {
+tmp6354 := Call(__e, PrimFunc(symshen_4fn_1call_2), V3203)
+
+
+if True == tmp6354 {
+__e.TailApply(PrimFunc(symshen_4fn_1call), V3203)
+return
+} else {
+tmp6352 := Call(__e, PrimFunc(symshen_4zero_1place_2), V3203)
+
+
+if True == tmp6352 {
+__e.Return(V3203)
+return
+} else {
+tmp6349 := PrimHead(V3203)
+
+tmp6350 := Call(__e, PrimFunc(symshen_4undefined_1f_2), tmp6349, W3205)
+
+
+if True == tmp6350 {
+tmp6325 := PrimHead(V3203)
+
+tmp6326 := PrimCons(tmp6325, Nil)
+
+tmp6327 := PrimCons(symfn, tmp6326)
+
+tmp6328 := PrimTail(V3203)
+
+tmp6329 := PrimCons(tmp6327, tmp6328)
+
+__e.TailApply(PrimFunc(symshen_4simple_1curry), tmp6329)
+return
+
+
+} else {
+tmp6346 := PrimHead(V3203)
+
+tmp6347 := PrimIsVariable(tmp6346)
+
+if True == tmp6347 {
+__e.TailApply(PrimFunc(symshen_4simple_1curry), V3203)
+return
+} else {
+tmp6343 := PrimHead(V3203)
+
+tmp6344 := Call(__e, PrimFunc(symshen_4application_2), tmp6343)
+
+
+if True == tmp6344 {
+__e.TailApply(PrimFunc(symshen_4simple_1curry), V3203)
+return
+} else {
+tmp6340 := PrimHead(V3203)
+
+tmp6341 := Call(__e, PrimFunc(symshen_4partial_1application_d_2), tmp6340, W3205, W3206)
+
+
+if True == tmp6341 {
+tmp6330 := PrimNumberSubtract(W3205, W3206)
+
+__e.TailApply(PrimFunc(symshen_4lambda_1function), V3203, tmp6330)
+return
+
+
+} else {
+tmp6337 := PrimHead(V3203)
+
+tmp6338 := Call(__e, PrimFunc(symshen_4overapplication_2), tmp6337, W3205, W3206)
+
+
+if True == tmp6338 {
+tmp6331 := PrimHead(V3203)
+
+tmp6332 := PrimCons(tmp6331, Nil)
+
+tmp6333 := PrimCons(symfn, tmp6332)
+
+tmp6334 := PrimTail(V3203)
+
+tmp6335 := PrimCons(tmp6333, tmp6334)
+
+__e.TailApply(PrimFunc(symshen_4simple_1curry), tmp6335)
+return
+
+
+} else {
+__e.Return(V3203)
+return
+}
+
+
+}
+
+
+}
+
+
+}
+
+
+}
+
+
+}
+
+
+}
+
+
+}
+
+
+}
+
+
+}
+
+
+}, 1)
+
+tmp6362 := PrimTail(V3203)
+
+tmp6363 := Call(__e, PrimFunc(symlength), tmp6362)
+
+
+__e.TailApply(tmp6324, tmp6363)
+return
+
+
+}, 1)
+
+tmp6364 := PrimHead(V3203)
+
+tmp6365 := Call(__e, PrimFunc(symarity), tmp6364)
+
+
+__e.TailApply(tmp6323, tmp6365)
+return
+
+
+} else {
+__e.TailApply(PrimFunc(symshen_4f_1error), symshen_4process_1application)
+return
+}
+
+
+}, 2)
+
+tmp6368 := Call(__e, ns2_1set, symshen_4process_1application, tmp6322)
+
+
+_ = tmp6368
+
+tmp6369 := MakeNative(func(__e *ControlFlow) {
+V3207 := __e.Get(1)
+_ = V3207
+tmp6395 := PrimIsPair(V3207)
+
+var ifres6375 Obj
+
+if True == tmp6395 {
+tmp6393 := PrimHead(V3207)
+
+tmp6394 := PrimIsPair(tmp6393)
+
+var ifres6377 Obj
+
+if True == tmp6394 {
+tmp6390 := PrimHead(V3207)
+
+tmp6391 := PrimHead(tmp6390)
+
+tmp6392 := PrimEqual(symforeign, tmp6391)
+
+var ifres6379 Obj
+
+if True == tmp6392 {
+tmp6387 := PrimHead(V3207)
+
+tmp6388 := PrimTail(tmp6387)
+
+tmp6389 := PrimIsPair(tmp6388)
+
+var ifres6381 Obj
+
+if True == tmp6389 {
+tmp6383 := PrimHead(V3207)
+
+tmp6384 := PrimTail(tmp6383)
+
+tmp6385 := PrimTail(tmp6384)
+
+tmp6386 := PrimEqual(Nil, tmp6385)
+
+var ifres6382 Obj
+
+if True == tmp6386 {
+ifres6382 = True
+
+
+} else {
+ifres6382 = False
+
+
+}
+
+ifres6381 = ifres6382
+
+
+} else {
+ifres6381 = False
+
+
+}
+
+var ifres6380 Obj
+
+if True == ifres6381 {
+ifres6380 = True
+
+
+} else {
+ifres6380 = False
+
+
+}
+
+ifres6379 = ifres6380
+
+
+} else {
+ifres6379 = False
+
+
+}
+
+var ifres6378 Obj
+
+if True == ifres6379 {
+ifres6378 = True
+
+
+} else {
+ifres6378 = False
+
+
+}
+
+ifres6377 = ifres6378
+
+
+} else {
+ifres6377 = False
+
+
+}
+
+var ifres6376 Obj
+
+if True == ifres6377 {
+ifres6376 = True
+
+
+} else {
+ifres6376 = False
+
+
+}
+
+ifres6375 = ifres6376
+
+
+} else {
+ifres6375 = False
+
+
+}
+
+if True == ifres6375 {
+tmp6370 := PrimHead(V3207)
+
+tmp6371 := PrimTail(tmp6370)
+
+tmp6372 := PrimHead(tmp6371)
+
+tmp6373 := PrimTail(V3207)
+
+__e.Return(PrimCons(tmp6372, tmp6373))
+return
+
+
+} else {
+__e.TailApply(PrimFunc(symshen_4f_1error), symshen_4unpack_1foreign)
+return
+}
+
+
+}, 1)
+
+tmp6396 := Call(__e, ns2_1set, symshen_4unpack_1foreign, tmp6369)
+
+
+_ = tmp6396
+
+tmp6397 := MakeNative(func(__e *ControlFlow) {
+V3210 := __e.Get(1)
+_ = V3210
+tmp6419 := PrimIsPair(V3210)
+
+var ifres6399 Obj
+
+if True == tmp6419 {
+tmp6417 := PrimHead(V3210)
+
+tmp6418 := PrimIsPair(tmp6417)
+
+var ifres6401 Obj
+
+if True == tmp6418 {
+tmp6414 := PrimHead(V3210)
+
+tmp6415 := PrimHead(tmp6414)
+
+tmp6416 := PrimEqual(symforeign, tmp6415)
+
+var ifres6403 Obj
+
+if True == tmp6416 {
+tmp6411 := PrimHead(V3210)
+
+tmp6412 := PrimTail(tmp6411)
+
+tmp6413 := PrimIsPair(tmp6412)
+
+var ifres6405 Obj
+
+if True == tmp6413 {
+tmp6407 := PrimHead(V3210)
+
+tmp6408 := PrimTail(tmp6407)
+
+tmp6409 := PrimTail(tmp6408)
+
+tmp6410 := PrimEqual(Nil, tmp6409)
+
+var ifres6406 Obj
+
+if True == tmp6410 {
+ifres6406 = True
+
+
+} else {
+ifres6406 = False
+
+
+}
+
+ifres6405 = ifres6406
+
+
+} else {
+ifres6405 = False
+
+
+}
+
+var ifres6404 Obj
+
+if True == ifres6405 {
+ifres6404 = True
+
+
+} else {
+ifres6404 = False
+
+
+}
+
+ifres6403 = ifres6404
+
+
+} else {
+ifres6403 = False
+
+
+}
+
+var ifres6402 Obj
+
+if True == ifres6403 {
+ifres6402 = True
+
+
+} else {
+ifres6402 = False
+
+
+}
+
+ifres6401 = ifres6402
+
+
+} else {
+ifres6401 = False
+
+
+}
+
+var ifres6400 Obj
+
+if True == ifres6401 {
+ifres6400 = True
+
+
+} else {
+ifres6400 = False
+
+
+}
+
+ifres6399 = ifres6400
+
+
+} else {
+ifres6399 = False
+
+
+}
+
+if True == ifres6399 {
+__e.Return(True)
+return
+} else {
+__e.Return(False)
+return
+}
+
+
+}, 1)
+
+tmp6420 := Call(__e, ns2_1set, symshen_4foreign_2, tmp6397)
+
+
+_ = tmp6420
+
+tmp6421 := MakeNative(func(__e *ControlFlow) {
+V3213 := __e.Get(1)
+_ = V3213
+tmp6427 := PrimIsPair(V3213)
+
+var ifres6423 Obj
+
+if True == tmp6427 {
+tmp6425 := PrimTail(V3213)
+
+tmp6426 := PrimEqual(Nil, tmp6425)
+
+var ifres6424 Obj
+
+if True == tmp6426 {
+ifres6424 = True
+
+
+} else {
+ifres6424 = False
+
+
+}
+
+ifres6423 = ifres6424
+
+
+} else {
+ifres6423 = False
+
+
+}
+
+if True == ifres6423 {
+__e.Return(True)
+return
+} else {
+__e.Return(False)
+return
+}
+
+
+}, 1)
+
+tmp6428 := Call(__e, ns2_1set, symshen_4zero_1place_2, tmp6421)
+
+
+_ = tmp6428
+
+tmp6429 := MakeNative(func(__e *ControlFlow) {
+V3214 := __e.Get(1)
+_ = V3214
+tmp6434 := PrimIsSymbol(V3214)
+
+if True == tmp6434 {
+tmp6431 := PrimStr(V3214)
+
+tmp6432 := Call(__e, PrimFunc(symshen_4internal_1to_1shen_2), tmp6431)
+
+
+if True == tmp6432 {
+__e.Return(True)
+return
+} else {
+__e.Return(False)
+return
+}
+
+
+} else {
+__e.Return(False)
+return
+}
+
+
+}, 1)
+
+tmp6435 := Call(__e, ns2_1set, symshen_4shen_1call_2, tmp6429)
+
+
+_ = tmp6435
+
+tmp6436 := MakeNative(func(__e *ControlFlow) {
+V3219 := __e.Get(1)
+_ = V3219
+tmp6466 := PrimIsPair(V3219)
+
+var ifres6453 Obj
+
+if True == tmp6466 {
+tmp6464 := PrimHead(V3219)
+
+tmp6465 := PrimEqual(symprotect, tmp6464)
+
+var ifres6455 Obj
+
+if True == tmp6465 {
+tmp6462 := PrimTail(V3219)
+
+tmp6463 := PrimIsPair(tmp6462)
+
+var ifres6457 Obj
+
+if True == tmp6463 {
+tmp6459 := PrimTail(V3219)
+
+tmp6460 := PrimTail(tmp6459)
+
+tmp6461 := PrimEqual(Nil, tmp6460)
+
+var ifres6458 Obj
+
+if True == tmp6461 {
+ifres6458 = True
+
+
+} else {
+ifres6458 = False
+
+
+}
+
+ifres6457 = ifres6458
+
+
+} else {
+ifres6457 = False
+
+
+}
+
+var ifres6456 Obj
+
+if True == ifres6457 {
+ifres6456 = True
+
+
+} else {
+ifres6456 = False
+
+
+}
+
+ifres6455 = ifres6456
+
+
+} else {
+ifres6455 = False
+
+
+}
+
+var ifres6454 Obj
+
+if True == ifres6455 {
+ifres6454 = True
+
+
+} else {
+ifres6454 = False
+
+
+}
+
+ifres6453 = ifres6454
+
+
+} else {
+ifres6453 = False
+
+
+}
+
+if True == ifres6453 {
+__e.Return(False)
+return
+} else {
+tmp6451 := PrimIsPair(V3219)
+
+var ifres6438 Obj
+
+if True == tmp6451 {
+tmp6449 := PrimHead(V3219)
+
+tmp6450 := PrimEqual(symforeign, tmp6449)
+
+var ifres6440 Obj
+
+if True == tmp6450 {
+tmp6447 := PrimTail(V3219)
+
+tmp6448 := PrimIsPair(tmp6447)
+
+var ifres6442 Obj
+
+if True == tmp6448 {
+tmp6444 := PrimTail(V3219)
+
+tmp6445 := PrimTail(tmp6444)
+
+tmp6446 := PrimEqual(Nil, tmp6445)
+
+var ifres6443 Obj
+
+if True == tmp6446 {
+ifres6443 = True
+
+
+} else {
+ifres6443 = False
+
+
+}
+
+ifres6442 = ifres6443
+
+
+} else {
+ifres6442 = False
+
+
+}
+
+var ifres6441 Obj
+
+if True == ifres6442 {
+ifres6441 = True
+
+
+} else {
+ifres6441 = False
+
+
+}
+
+ifres6440 = ifres6441
+
+
+} else {
+ifres6440 = False
+
+
+}
+
+var ifres6439 Obj
+
+if True == ifres6440 {
+ifres6439 = True
+
+
+} else {
+ifres6439 = False
+
+
+}
+
+ifres6438 = ifres6439
+
+
+} else {
+ifres6438 = False
+
+
+}
+
+if True == ifres6438 {
+__e.Return(False)
+return
+} else {
+__e.Return(PrimIsPair(V3219))
+return
+}
+
+
+}
+
+
+}, 1)
+
+tmp6467 := Call(__e, ns2_1set, symshen_4application_2, tmp6436)
+
+
+_ = tmp6467
+
+tmp6468 := MakeNative(func(__e *ControlFlow) {
+V3224 := __e.Get(1)
+_ = V3224
+V3225 := __e.Get(2)
+_ = V3225
+tmp6476 := PrimEqual(MakeNumber(-1), V3225)
+
+if True == tmp6476 {
+tmp6474 := Call(__e, PrimFunc(symshen_4lowercase_1symbol_2), V3224)
+
+
+if True == tmp6474 {
+tmp6470 := Call(__e, PrimFunc(symexternal), symshen)
+
+
+tmp6471 := Call(__e, PrimFunc(symelement_2), V3224, tmp6470)
+
+
+tmp6472 := PrimNot(tmp6471)
+
+if True == tmp6472 {
+__e.Return(True)
+return
+} else {
+__e.Return(False)
+return
+}
+
+
+} else {
+__e.Return(False)
+return
+}
+
+
+} else {
+__e.Return(False)
+return
+}
+
+
+}, 2)
+
+tmp6477 := Call(__e, ns2_1set, symshen_4undefined_1f_2, tmp6468)
+
+
+_ = tmp6477
+
+tmp6478 := MakeNative(func(__e *ControlFlow) {
+V3226 := __e.Get(1)
+_ = V3226
+tmp6483 := PrimIsSymbol(V3226)
+
+if True == tmp6483 {
+tmp6480 := PrimIsVariable(V3226)
+
+tmp6481 := PrimNot(tmp6480)
+
+if True == tmp6481 {
+__e.Return(True)
+return
+} else {
+__e.Return(False)
+return
+}
+
+
+} else {
+__e.Return(False)
+return
+}
+
+
+}, 1)
+
+tmp6484 := Call(__e, ns2_1set, symshen_4lowercase_1symbol_2, tmp6478)
+
+
+_ = tmp6484
+
+tmp6485 := MakeNative(func(__e *ControlFlow) {
+V3227 := __e.Get(1)
+_ = V3227
+tmp6515 := PrimIsPair(V3227)
+
+var ifres6506 Obj
+
+if True == tmp6515 {
+tmp6513 := PrimTail(V3227)
+
+tmp6514 := PrimIsPair(tmp6513)
+
+var ifres6508 Obj
+
+if True == tmp6514 {
+tmp6510 := PrimTail(V3227)
+
+tmp6511 := PrimTail(tmp6510)
+
+tmp6512 := PrimEqual(Nil, tmp6511)
+
+var ifres6509 Obj
+
+if True == tmp6512 {
+ifres6509 = True
+
+
+} else {
+ifres6509 = False
+
+
+}
+
+ifres6508 = ifres6509
+
+
+} else {
+ifres6508 = False
+
+
+}
+
+var ifres6507 Obj
+
+if True == ifres6508 {
+ifres6507 = True
+
+
+} else {
+ifres6507 = False
+
+
+}
+
+ifres6506 = ifres6507
+
+
+} else {
+ifres6506 = False
+
+
+}
+
+if True == ifres6506 {
+__e.Return(V3227)
+return
+} else {
+tmp6504 := PrimIsPair(V3227)
+
+var ifres6495 Obj
+
+if True == tmp6504 {
+tmp6502 := PrimTail(V3227)
+
+tmp6503 := PrimIsPair(tmp6502)
+
+var ifres6497 Obj
+
+if True == tmp6503 {
+tmp6499 := PrimTail(V3227)
+
+tmp6500 := PrimTail(tmp6499)
+
+tmp6501 := PrimIsPair(tmp6500)
+
+var ifres6498 Obj
+
+if True == tmp6501 {
+ifres6498 = True
+
+
+} else {
+ifres6498 = False
+
+
+}
+
+ifres6497 = ifres6498
+
+
+} else {
+ifres6497 = False
+
+
+}
+
+var ifres6496 Obj
+
+if True == ifres6497 {
+ifres6496 = True
+
+
+} else {
+ifres6496 = False
+
+
+}
+
+ifres6495 = ifres6496
+
+
+} else {
+ifres6495 = False
+
+
+}
+
+if True == ifres6495 {
+tmp6486 := PrimHead(V3227)
+
+tmp6487 := PrimTail(V3227)
+
+tmp6488 := PrimHead(tmp6487)
+
+tmp6489 := PrimCons(tmp6488, Nil)
+
+tmp6490 := PrimCons(tmp6486, tmp6489)
+
+tmp6491 := PrimTail(V3227)
+
+tmp6492 := PrimTail(tmp6491)
+
+tmp6493 := PrimCons(tmp6490, tmp6492)
+
+__e.TailApply(PrimFunc(symshen_4simple_1curry), tmp6493)
+return
+
+
+} else {
+__e.Return(V3227)
+return
+}
+
+
+}
+
+
+}, 1)
+
+tmp6516 := Call(__e, ns2_1set, symshen_4simple_1curry, tmp6485)
+
+
+_ = tmp6516
+
+tmp6517 := MakeNative(func(__e *ControlFlow) {
+V3228 := __e.Get(1)
+_ = V3228
+__e.TailApply(PrimFunc(symfn), V3228)
+return
+}, 1)
+
+tmp6518 := Call(__e, ns2_1set, symfunction, tmp6517)
+
+
+_ = tmp6518
+
+tmp6519 := MakeNative(func(__e *ControlFlow) {
+V3229 := __e.Get(1)
+_ = V3229
+tmp6526 := Call(__e, PrimFunc(symarity), V3229)
+
+
+tmp6527 := PrimEqual(tmp6526, MakeNumber(0))
+
+if True == tmp6527 {
+__e.TailApply(V3229)
+return
+} else {
+tmp6520 := MakeNative(func(__e *ControlFlow) {
+tmp6521 := PrimValue(sym_dproperty_1vector_d)
+
+__e.TailApply(PrimFunc(symget), V3229, symshen_4lambda_1form, tmp6521)
+return
+
+
+}, 0)
+
+tmp6522 := MakeNative(func(__e *ControlFlow) {
+Z3230 := __e.Get(1)
+_ = Z3230
+tmp6523 := Call(__e, PrimFunc(symshen_4app), V3229, MakeString(" is undefined\n"), symshen_4a)
+
+
+tmp6524 := PrimStringConcat(MakeString("fn: "), tmp6523)
+
+__e.Return(PrimSimpleError(tmp6524))
+return
+
+
+}, 1)
+
+__e.TailApply(try_1catch, tmp6520, tmp6522)
+return
+
+
+}
+
+
+}, 1)
+
+tmp6528 := Call(__e, ns2_1set, symfn, tmp6519)
+
+
+_ = tmp6528
+
+tmp6529 := MakeNative(func(__e *ControlFlow) {
+V3233 := __e.Get(1)
+_ = V3233
+tmp6559 := PrimIsPair(V3233)
+
+var ifres6546 Obj
+
+if True == tmp6559 {
+tmp6557 := PrimHead(V3233)
+
+tmp6558 := PrimEqual(symfn, tmp6557)
+
+var ifres6548 Obj
+
+if True == tmp6558 {
+tmp6555 := PrimTail(V3233)
+
+tmp6556 := PrimIsPair(tmp6555)
+
+var ifres6550 Obj
+
+if True == tmp6556 {
+tmp6552 := PrimTail(V3233)
+
+tmp6553 := PrimTail(tmp6552)
+
+tmp6554 := PrimEqual(Nil, tmp6553)
+
+var ifres6551 Obj
+
+if True == tmp6554 {
+ifres6551 = True
+
+
+} else {
+ifres6551 = False
+
+
+}
+
+ifres6550 = ifres6551
+
+
+} else {
+ifres6550 = False
+
+
+}
+
+var ifres6549 Obj
+
+if True == ifres6550 {
+ifres6549 = True
+
+
+} else {
+ifres6549 = False
+
+
+}
+
+ifres6548 = ifres6549
+
+
+} else {
+ifres6548 = False
+
+
+}
+
+var ifres6547 Obj
+
+if True == ifres6548 {
+ifres6547 = True
+
+
+} else {
+ifres6547 = False
+
+
+}
+
+ifres6546 = ifres6547
+
+
+} else {
+ifres6546 = False
+
+
+}
+
+if True == ifres6546 {
+__e.Return(True)
+return
+} else {
+tmp6544 := PrimIsPair(V3233)
+
+var ifres6531 Obj
+
+if True == tmp6544 {
+tmp6542 := PrimHead(V3233)
+
+tmp6543 := PrimEqual(symfunction, tmp6542)
+
+var ifres6533 Obj
+
+if True == tmp6543 {
+tmp6540 := PrimTail(V3233)
+
+tmp6541 := PrimIsPair(tmp6540)
+
+var ifres6535 Obj
+
+if True == tmp6541 {
+tmp6537 := PrimTail(V3233)
+
+tmp6538 := PrimTail(tmp6537)
+
+tmp6539 := PrimEqual(Nil, tmp6538)
+
+var ifres6536 Obj
+
+if True == tmp6539 {
+ifres6536 = True
+
+
+} else {
+ifres6536 = False
+
+
+}
+
+ifres6535 = ifres6536
+
+
+} else {
+ifres6535 = False
+
+
+}
+
+var ifres6534 Obj
+
+if True == ifres6535 {
+ifres6534 = True
+
+
+} else {
+ifres6534 = False
+
+
+}
+
+ifres6533 = ifres6534
+
+
+} else {
+ifres6533 = False
+
+
+}
+
+var ifres6532 Obj
+
+if True == ifres6533 {
+ifres6532 = True
+
+
+} else {
+ifres6532 = False
+
+
+}
+
+ifres6531 = ifres6532
+
+
+} else {
+ifres6531 = False
+
+
+}
+
+if True == ifres6531 {
+__e.Return(True)
+return
+} else {
+__e.Return(False)
+return
+}
+
+
+}
+
+
+}, 1)
+
+tmp6560 := Call(__e, ns2_1set, symshen_4fn_1call_2, tmp6529)
+
+
+_ = tmp6560
+
+tmp6561 := MakeNative(func(__e *ControlFlow) {
+V3234 := __e.Get(1)
+_ = V3234
+tmp6602 := PrimIsPair(V3234)
+
+var ifres6589 Obj
+
+if True == tmp6602 {
+tmp6600 := PrimHead(V3234)
+
+tmp6601 := PrimEqual(symfunction, tmp6600)
+
+var ifres6591 Obj
+
+if True == tmp6601 {
+tmp6598 := PrimTail(V3234)
+
+tmp6599 := PrimIsPair(tmp6598)
+
+var ifres6593 Obj
+
+if True == tmp6599 {
+tmp6595 := PrimTail(V3234)
+
+tmp6596 := PrimTail(tmp6595)
+
+tmp6597 := PrimEqual(Nil, tmp6596)
+
+var ifres6594 Obj
+
+if True == tmp6597 {
+ifres6594 = True
+
+
+} else {
+ifres6594 = False
+
+
+}
+
+ifres6593 = ifres6594
+
+
+} else {
+ifres6593 = False
+
+
+}
+
+var ifres6592 Obj
+
+if True == ifres6593 {
+ifres6592 = True
+
+
+} else {
+ifres6592 = False
+
+
+}
+
+ifres6591 = ifres6592
+
+
+} else {
+ifres6591 = False
+
+
+}
+
+var ifres6590 Obj
+
+if True == ifres6591 {
+ifres6590 = True
+
+
+} else {
+ifres6590 = False
+
+
+}
+
+ifres6589 = ifres6590
+
+
+} else {
+ifres6589 = False
+
+
+}
+
+if True == ifres6589 {
+tmp6562 := PrimTail(V3234)
+
+tmp6563 := PrimCons(symfn, tmp6562)
+
+__e.TailApply(PrimFunc(symshen_4fn_1call), tmp6563)
+return
+
+
+} else {
+tmp6587 := PrimIsPair(V3234)
+
+var ifres6574 Obj
+
+if True == tmp6587 {
+tmp6585 := PrimHead(V3234)
+
+tmp6586 := PrimEqual(symfn, tmp6585)
+
+var ifres6576 Obj
+
+if True == tmp6586 {
+tmp6583 := PrimTail(V3234)
+
+tmp6584 := PrimIsPair(tmp6583)
+
+var ifres6578 Obj
+
+if True == tmp6584 {
+tmp6580 := PrimTail(V3234)
+
+tmp6581 := PrimTail(tmp6580)
+
+tmp6582 := PrimEqual(Nil, tmp6581)
+
+var ifres6579 Obj
+
+if True == tmp6582 {
+ifres6579 = True
+
+
+} else {
+ifres6579 = False
+
+
+}
+
+ifres6578 = ifres6579
+
+
+} else {
+ifres6578 = False
+
+
+}
+
+var ifres6577 Obj
+
+if True == ifres6578 {
+ifres6577 = True
+
+
+} else {
+ifres6577 = False
+
+
+}
+
+ifres6576 = ifres6577
+
+
+} else {
+ifres6576 = False
+
+
+}
+
+var ifres6575 Obj
+
+if True == ifres6576 {
+ifres6575 = True
+
+
+} else {
+ifres6575 = False
+
+
+}
+
+ifres6574 = ifres6575
+
+
+} else {
+ifres6574 = False
+
+
+}
+
+if True == ifres6574 {
+tmp6564 := MakeNative(func(__e *ControlFlow) {
+W3235 := __e.Get(1)
+_ = W3235
+tmp6569 := PrimEqual(W3235, MakeNumber(-1))
+
+if True == tmp6569 {
+__e.Return(V3234)
+return
+} else {
+tmp6567 := PrimEqual(W3235, MakeNumber(0))
+
+if True == tmp6567 {
+__e.Return(PrimTail(V3234))
+return
+} else {
+tmp6565 := PrimTail(V3234)
+
+__e.TailApply(PrimFunc(symshen_4lambda_1function), tmp6565, W3235)
+return
+
+
+}
+
+
+}
+
+
+}, 1)
+
+tmp6570 := PrimTail(V3234)
+
+tmp6571 := PrimHead(tmp6570)
+
+tmp6572 := Call(__e, PrimFunc(symarity), tmp6571)
+
+
+__e.TailApply(tmp6564, tmp6572)
+return
+
+
+} else {
+__e.TailApply(PrimFunc(symshen_4f_1error), symshen_4fn_1call)
+return
+}
+
+
+}
+
+
+}, 1)
+
+tmp6603 := Call(__e, ns2_1set, symshen_4fn_1call, tmp6561)
+
+
+_ = tmp6603
+
+tmp6604 := MakeNative(func(__e *ControlFlow) {
+V3236 := __e.Get(1)
+_ = V3236
+V3237 := __e.Get(2)
+_ = V3237
+V3238 := __e.Get(3)
+_ = V3238
+tmp6605 := MakeNative(func(__e *ControlFlow) {
+W3239 := __e.Get(1)
+_ = W3239
+tmp6606 := MakeNative(func(__e *ControlFlow) {
+W3240 := __e.Get(1)
+_ = W3240
+__e.Return(W3239)
+return
+}, 1)
+
+var ifres6612 Obj
+
+if True == W3239 {
+tmp6620 := Call(__e, PrimFunc(symshen_4loading_2))
+
+
+var ifres6614 Obj
+
+if True == tmp6620 {
+tmp6616 := PrimCons(sym_1, Nil)
+
+tmp6617 := PrimCons(sym_7, tmp6616)
+
+tmp6618 := Call(__e, PrimFunc(symelement_2), V3236, tmp6617)
+
+
+tmp6619 := PrimNot(tmp6618)
+
+var ifres6615 Obj
+
+if True == tmp6619 {
+ifres6615 = True
+
+
+} else {
+ifres6615 = False
+
+
+}
+
+ifres6614 = ifres6615
+
+
+} else {
+ifres6614 = False
+
+
+}
+
+var ifres6613 Obj
+
+if True == ifres6614 {
+ifres6613 = True
+
+
+} else {
+ifres6613 = False
+
+
+}
+
+ifres6612 = ifres6613
+
+
+} else {
+ifres6612 = False
+
+
+}
+
+var ifres6607 Obj
+
+if True == ifres6612 {
+tmp6608 := Call(__e, PrimFunc(symshen_4app), V3236, MakeString("\n"), symshen_4a)
+
+
+tmp6609 := PrimStringConcat(MakeString("partial application of "), tmp6608)
+
+tmp6610 := Call(__e, PrimFunc(symstoutput))
+
+
+tmp6611 := Call(__e, PrimFunc(sympr), tmp6609, tmp6610)
+
+
+ifres6607 = tmp6611
+
+
+} else {
+ifres6607 = symshen_4skip
+
+
+}
+
+__e.TailApply(tmp6606, ifres6607)
+return
+
+
+}, 1)
+
+tmp6621 := PrimGreatThan(V3237, V3238)
+
+__e.TailApply(tmp6605, tmp6621)
+return
+
+
+}, 3)
+
+tmp6622 := Call(__e, ns2_1set, symshen_4partial_1application_d_2, tmp6604)
+
+
+_ = tmp6622
+
+tmp6623 := MakeNative(func(__e *ControlFlow) {
+__e.Return(PrimValue(symshen_4_dloading_2_d))
+return
+}, 0)
+
+tmp6624 := Call(__e, ns2_1set, symshen_4loading_2, tmp6623)
+
+
+_ = tmp6624
+
+tmp6625 := MakeNative(func(__e *ControlFlow) {
+V3245 := __e.Get(1)
+_ = V3245
+V3246 := __e.Get(2)
+_ = V3246
+V3247 := __e.Get(3)
+_ = V3247
+tmp6643 := PrimEqual(MakeNumber(-1), V3246)
+
+if True == tmp6643 {
+__e.Return(False)
+return
+} else {
+tmp6626 := MakeNative(func(__e *ControlFlow) {
+W3248 := __e.Get(1)
+_ = W3248
+tmp6627 := MakeNative(func(__e *ControlFlow) {
+W3249 := __e.Get(1)
+_ = W3249
+__e.Return(W3248)
+return
+}, 1)
+
+var ifres6638 Obj
+
+if True == W3248 {
+tmp6640 := Call(__e, PrimFunc(symshen_4loading_2))
+
+
+var ifres6639 Obj
+
+if True == tmp6640 {
+ifres6639 = True
+
+
+} else {
+ifres6639 = False
+
+
+}
+
+ifres6638 = ifres6639
+
+
+} else {
+ifres6638 = False
+
+
+}
+
+var ifres6628 Obj
+
+if True == ifres6638 {
+tmp6630 := PrimEqual(V3247, MakeNumber(1))
+
+var ifres6629 Obj
+
+if True == tmp6630 {
+ifres6629 = MakeString("")
+
+
+} else {
+ifres6629 = MakeString("s")
+
+
+}
+
+tmp6631 := Call(__e, PrimFunc(symshen_4app), ifres6629, MakeString("\n"), symshen_4a)
+
+
+tmp6632 := PrimStringConcat(MakeString(" argument"), tmp6631)
+
+tmp6633 := Call(__e, PrimFunc(symshen_4app), V3247, tmp6632, symshen_4a)
+
+
+tmp6634 := PrimStringConcat(MakeString(" might not like "), tmp6633)
+
+tmp6635 := Call(__e, PrimFunc(symshen_4app), V3245, tmp6634, symshen_4a)
+
+
+tmp6636 := Call(__e, PrimFunc(symstoutput))
+
+
+tmp6637 := Call(__e, PrimFunc(sympr), tmp6635, tmp6636)
+
+
+ifres6628 = tmp6637
+
+
+} else {
+ifres6628 = symshen_4skip
+
+
+}
+
+__e.TailApply(tmp6627, ifres6628)
+return
+
+
+}, 1)
+
+tmp6641 := PrimLessThan(V3246, V3247)
+
+__e.TailApply(tmp6626, tmp6641)
+return
+
+
+}
+
+
+}, 3)
+
+__e.TailApply(ns2_1set, symshen_4overapplication_2, tmp6625)
+return
+
+
+
+
+}, 0)
+

@@ -3,13984 +3,14782 @@ package main
 import . "github.com/tiancaiamao/shen-go/kl"
 
 var InitMain = MakeNative(func(__e *ControlFlow) {
-	tmp75 := MakeNative(func(__e *ControlFlow) {
-		tmp76 := PrimSet(symshen_4_dhistory_d, Nil)
+tmp17077 := MakeNative(func(__e *ControlFlow) {
+tmp17078 := PrimSet(symshen_4_dhistory_d, Nil)
 
-		_ = tmp76
+_ = tmp17078
 
-		tmp77 := PrimSet(symshen_4_dtc_d, False)
+tmp17079 := PrimSet(symshen_4_dtc_d, False)
 
-		_ = tmp77
+_ = tmp17079
 
-		tmp78 := Call(__e, PrimFunc(symshen_4dict), MakeNumber(20000))
+tmp17080 := Call(__e, PrimFunc(symshen_4dict), MakeNumber(20000))
 
-		tmp79 := PrimSet(sym_dproperty_1vector_d, tmp78)
 
-		_ = tmp79
+tmp17081 := PrimSet(sym_dproperty_1vector_d, tmp17080)
 
-		tmp80 := MakeNative(func(__e *ControlFlow) {
-			X := __e.Get(1)
-			_ = X
-			__e.TailApply(PrimFunc(symshen_4macros), X)
-			return
-		}, 1)
+_ = tmp17081
 
-		tmp81 := PrimCons(symshen_4macros, tmp80)
+tmp17082 := MakeNative(func(__e *ControlFlow) {
+X := __e.Get(1)
+_ = X
+__e.TailApply(PrimFunc(symshen_4macros), X)
+return
+}, 1)
 
-		tmp82 := PrimCons(tmp81, Nil)
+tmp17083 := PrimCons(symshen_4macros, tmp17082)
 
-		tmp83 := PrimSet(sym_dmacros_d, tmp82)
+tmp17084 := PrimCons(tmp17083, Nil)
 
-		_ = tmp83
+tmp17085 := PrimSet(sym_dmacros_d, tmp17084)
 
-		tmp84 := PrimSet(symshen_4_dgensym_d, MakeNumber(0))
+_ = tmp17085
 
-		_ = tmp84
+tmp17086 := PrimSet(symshen_4_dgensym_d, MakeNumber(0))
 
-		tmp85 := PrimSet(symshen_4_dtracking_d, Nil)
+_ = tmp17086
 
-		_ = tmp85
+tmp17087 := PrimSet(symshen_4_dtracking_d, Nil)
 
-		tmp86 := PrimSet(symshen_4_dprofiled_d, Nil)
+_ = tmp17087
 
-		_ = tmp86
+tmp17088 := PrimSet(symshen_4_dprofiled_d, Nil)
 
-		tmp87 := PrimCons(symtype, Nil)
+_ = tmp17088
 
-		tmp88 := PrimCons(syminput_7, tmp87)
+tmp17089 := PrimCons(symtype, Nil)
 
-		tmp89 := PrimCons(symopen, tmp88)
+tmp17090 := PrimCons(syminput_7, tmp17089)
 
-		tmp90 := PrimCons(symset, tmp89)
+tmp17091 := PrimCons(symopen, tmp17090)
 
-		tmp91 := PrimCons(symwhere, tmp90)
+tmp17092 := PrimCons(symset, tmp17091)
 
-		tmp92 := PrimCons(symlet, tmp91)
+tmp17093 := PrimCons(symwhere, tmp17092)
 
-		tmp93 := PrimCons(symlambda, tmp92)
+tmp17094 := PrimCons(symlet, tmp17093)
 
-		tmp94 := PrimCons(symcons, tmp93)
+tmp17095 := PrimCons(symlambda, tmp17094)
 
-		tmp95 := PrimCons(sym_8v, tmp94)
+tmp17096 := PrimCons(symcons, tmp17095)
 
-		tmp96 := PrimCons(sym_8s, tmp95)
+tmp17097 := PrimCons(sym_8v, tmp17096)
 
-		tmp97 := PrimCons(sym_8p, tmp96)
+tmp17098 := PrimCons(sym_8s, tmp17097)
 
-		tmp98 := PrimSet(symshen_4_dspecial_d, tmp97)
+tmp17099 := PrimCons(sym_8p, tmp17098)
 
-		_ = tmp98
+tmp17100 := PrimSet(symshen_4_dspecial_d, tmp17099)
 
-		tmp99 := PrimSet(symshen_4_dextraspecial_d, Nil)
+_ = tmp17100
 
-		_ = tmp99
+tmp17101 := PrimSet(symshen_4_dextraspecial_d, Nil)
 
-		tmp100 := PrimSet(symshen_4_dspy_d, False)
+_ = tmp17101
 
-		_ = tmp100
+tmp17102 := PrimSet(symshen_4_dspy_d, False)
 
-		tmp101 := PrimSet(symshen_4_ddatatypes_d, Nil)
+_ = tmp17102
 
-		_ = tmp101
+tmp17103 := PrimSet(symshen_4_ddatatypes_d, Nil)
 
-		tmp102 := PrimSet(symshen_4_dalldatatypes_d, Nil)
+_ = tmp17103
 
-		_ = tmp102
+tmp17104 := PrimSet(symshen_4_dalldatatypes_d, Nil)
 
-		tmp103 := PrimSet(symshen_4_dshen_1type_1theory_1enabled_2_d, True)
+_ = tmp17104
 
-		_ = tmp103
+tmp17105 := PrimSet(symshen_4_dshen_1type_1theory_1enabled_2_d, True)
 
-		tmp104 := PrimSet(symshen_4_dpackage_d, symnull)
+_ = tmp17105
 
-		_ = tmp104
+tmp17106 := PrimSet(symshen_4_dpackage_d, symnull)
 
-		tmp105 := PrimSet(symshen_4_dsynonyms_d, Nil)
+_ = tmp17106
 
-		_ = tmp105
+tmp17107 := PrimSet(symshen_4_dsynonyms_d, Nil)
 
-		tmp106 := PrimSet(symshen_4_dsystem_d, Nil)
+_ = tmp17107
 
-		_ = tmp106
+tmp17108 := PrimSet(symshen_4_dsystem_d, Nil)
 
-		tmp107 := PrimSet(symshen_4_doccurs_d, True)
+_ = tmp17108
 
-		_ = tmp107
+tmp17109 := PrimSet(symshen_4_doccurs_d, True)
 
-		tmp108 := PrimSet(symshen_4_dfactorise_2_d, False)
+_ = tmp17109
 
-		_ = tmp108
+tmp17110 := PrimSet(symshen_4_dfactorise_2_d, False)
 
-		tmp109 := PrimSet(symshen_4_dmaxinferences_d, MakeNumber(1000000))
+_ = tmp17110
 
-		_ = tmp109
+tmp17111 := PrimSet(symshen_4_dmaxinferences_d, MakeNumber(1000000))
 
-		tmp110 := PrimSet(sym_dmaximum_1print_1sequence_1size_d, MakeNumber(20))
+_ = tmp17111
 
-		_ = tmp110
+tmp17112 := PrimSet(sym_dmaximum_1print_1sequence_1size_d, MakeNumber(20))
 
-		tmp111 := PrimSet(symshen_4_dcall_d, MakeNumber(0))
+_ = tmp17112
 
-		_ = tmp111
+tmp17113 := PrimSet(symshen_4_dcall_d, MakeNumber(0))
 
-		tmp112 := PrimSet(symshen_4_dinfs_d, MakeNumber(0))
+_ = tmp17113
 
-		_ = tmp112
+tmp17114 := PrimSet(symshen_4_dinfs_d, MakeNumber(0))
 
-		tmp113 := PrimSet(sym_dhush_d, False)
+_ = tmp17114
 
-		_ = tmp113
+tmp17115 := PrimSet(sym_dhush_d, False)
 
-		tmp114 := PrimSet(symshen_4_doptimise_d, False)
+_ = tmp17115
 
-		_ = tmp114
+tmp17116 := PrimSet(symshen_4_doptimise_d, False)
 
-		tmp115 := PrimSet(sym_dversion_d, MakeString("41.1"))
+_ = tmp17116
 
-		_ = tmp115
+tmp17117 := PrimSet(sym_dversion_d, MakeString("41.2"))
 
-		tmp116 := PrimSet(symshen_4_dnames_d, Nil)
+_ = tmp17117
 
-		_ = tmp116
+tmp17118 := PrimSet(symshen_4_dnames_d, Nil)
 
-		tmp117 := PrimSet(symshen_4_dstep_d, False)
+_ = tmp17118
 
-		_ = tmp117
+tmp17119 := PrimSet(symshen_4_dstep_d, False)
 
-		tmp118 := PrimSet(symshen_4_dit_d, MakeString(""))
+_ = tmp17119
 
-		_ = tmp118
+tmp17120 := PrimSet(symshen_4_dit_d, MakeString(""))
 
-		tmp119 := PrimSet(symshen_4_dresidue_d, Nil)
+_ = tmp17120
 
-		_ = tmp119
+tmp17121 := PrimSet(symshen_4_dresidue_d, Nil)
 
-		tmp120 := PrimSet(sym_dabsolute_d, Nil)
+_ = tmp17121
 
-		_ = tmp120
+tmp17122 := PrimSet(sym_dabsolute_d, Nil)
 
-		tmp121 := PrimSet(symshen_4_dprolog_1memory_d, MakeNumber(1000))
+_ = tmp17122
 
-		_ = tmp121
+tmp17123 := PrimSet(symshen_4_dprolog_1memory_d, MakeNumber(1000))
 
-		tmp122 := PrimSet(symshen_4_dloading_2_d, False)
+_ = tmp17123
 
-		_ = tmp122
+tmp17124 := PrimSet(symshen_4_dloading_2_d, False)
 
-		tmp123 := PrimSet(symshen_4_duserdefs_d, Nil)
+_ = tmp17124
 
-		_ = tmp123
+tmp17125 := PrimSet(symshen_4_duserdefs_d, Nil)
 
-		tmp124 := MakeNative(func(__e *ControlFlow) {
-			X := __e.Get(1)
-			_ = X
-			__e.Return(X)
-			return
-		}, 1)
+_ = tmp17125
 
-		tmp125 := PrimSet(symshen_4_ddemodulation_1function_d, tmp124)
+tmp17126 := MakeNative(func(__e *ControlFlow) {
+X := __e.Get(1)
+_ = X
+__e.Return(X)
+return
+}, 1)
 
-		_ = tmp125
+tmp17127 := PrimSet(symshen_4_ddemodulation_1function_d, tmp17126)
 
-		tmp128 := Call(__e, PrimFunc(symbound_2), sym_dhome_1directory_d)
+_ = tmp17127
 
-		tmp129 := PrimNot(tmp128)
+tmp17128 := PrimSet(symshen_4_dcustom_1pattern_1compiler_d, False)
 
-		var ifres126 Obj
+_ = tmp17128
 
-		if True == tmp129 {
-			tmp127 := PrimSet(sym_dhome_1directory_d, MakeString(""))
+tmp17129 := PrimSet(symshen_4_dcustom_1pattern_1reducer_d, False)
 
-			ifres126 = tmp127
+_ = tmp17129
 
-		} else {
-			ifres126 = symshen_4skip
+tmp17132 := Call(__e, PrimFunc(symbound_2), sym_dhome_1directory_d)
 
-		}
 
-		_ = ifres126
+tmp17133 := PrimNot(tmp17132)
 
-		tmp133 := Call(__e, PrimFunc(symbound_2), sym_dsterror_d)
+var ifres17130 Obj
 
-		tmp134 := PrimNot(tmp133)
+if True == tmp17133 {
+tmp17131 := PrimSet(sym_dhome_1directory_d, MakeString(""))
 
-		var ifres130 Obj
+ifres17130 = tmp17131
 
-		if True == tmp134 {
-			tmp131 := PrimValue(sym_dstoutput_d)
 
-			tmp132 := PrimSet(sym_dsterror_d, tmp131)
+} else {
+ifres17130 = symshen_4skip
 
-			ifres130 = tmp132
 
-		} else {
-			ifres130 = symshen_4skip
+}
 
-		}
+_ = ifres17130
 
-		_ = ifres130
+tmp17137 := Call(__e, PrimFunc(symbound_2), sym_dsterror_d)
 
-		tmp135 := Call(__e, PrimFunc(symprolog_1memory), MakeNumber(10000))
 
-		_ = tmp135
+tmp17138 := PrimNot(tmp17137)
 
-		tmp136 := PrimSet(symshen_4_dloading_2_d, False)
+var ifres17134 Obj
 
-		_ = tmp136
+if True == tmp17138 {
+tmp17135 := PrimValue(sym_dstoutput_d)
 
-		tmp137 := PrimCons(MakeNumber(2), Nil)
+tmp17136 := PrimSet(sym_dsterror_d, tmp17135)
 
-		tmp138 := PrimCons(sym_8s, tmp137)
+ifres17134 = tmp17136
 
-		tmp139 := PrimCons(MakeNumber(2), tmp138)
 
-		tmp140 := PrimCons(sym_8v, tmp139)
+} else {
+ifres17134 = symshen_4skip
 
-		tmp141 := PrimCons(MakeNumber(2), tmp140)
 
-		tmp142 := PrimCons(sym_8p, tmp141)
+}
 
-		tmp143 := PrimCons(MakeNumber(1), tmp142)
+_ = ifres17134
 
-		tmp144 := PrimCons(sym_5_b_6, tmp143)
+tmp17139 := Call(__e, PrimFunc(symprolog_1memory), MakeNumber(10000))
 
-		tmp145 := PrimCons(MakeNumber(1), tmp144)
 
-		tmp146 := PrimCons(sym_5end_6, tmp145)
+_ = tmp17139
 
-		tmp147 := PrimCons(MakeNumber(1), tmp146)
+tmp17140 := PrimSet(symshen_4_dloading_2_d, False)
 
-		tmp148 := PrimCons(sym_5e_6, tmp147)
+_ = tmp17140
 
-		tmp149 := PrimCons(MakeNumber(2), tmp148)
+tmp17141 := PrimCons(MakeNumber(2), Nil)
 
-		tmp150 := PrimCons(sym_a_a, tmp149)
+tmp17142 := PrimCons(sym_8s, tmp17141)
 
-		tmp151 := PrimCons(MakeNumber(2), tmp150)
+tmp17143 := PrimCons(MakeNumber(2), tmp17142)
 
-		tmp152 := PrimCons(sym_1, tmp151)
+tmp17144 := PrimCons(sym_8v, tmp17143)
 
-		tmp153 := PrimCons(MakeNumber(2), tmp152)
+tmp17145 := PrimCons(MakeNumber(2), tmp17144)
 
-		tmp154 := PrimCons(sym_c, tmp153)
+tmp17146 := PrimCons(sym_8p, tmp17145)
 
-		tmp155 := PrimCons(MakeNumber(2), tmp154)
+tmp17147 := PrimCons(MakeNumber(1), tmp17146)
 
-		tmp156 := PrimCons(sym_d, tmp155)
+tmp17148 := PrimCons(sym_5_b_6, tmp17147)
 
-		tmp157 := PrimCons(MakeNumber(2), tmp156)
+tmp17149 := PrimCons(MakeNumber(1), tmp17148)
 
-		tmp158 := PrimCons(sym_7, tmp157)
+tmp17150 := PrimCons(sym_5end_6, tmp17149)
 
-		tmp159 := PrimCons(MakeNumber(1), tmp158)
+tmp17151 := PrimCons(MakeNumber(1), tmp17150)
 
-		tmp160 := PrimCons(symy_1or_1n_2, tmp159)
+tmp17152 := PrimCons(sym_5e_6, tmp17151)
 
-		tmp161 := PrimCons(MakeNumber(2), tmp160)
+tmp17153 := PrimCons(MakeNumber(2), tmp17152)
 
-		tmp162 := PrimCons(symwrite_1to_1file, tmp161)
+tmp17154 := PrimCons(sym_a_a, tmp17153)
 
-		tmp163 := PrimCons(MakeNumber(2), tmp162)
+tmp17155 := PrimCons(MakeNumber(2), tmp17154)
 
-		tmp164 := PrimCons(symwrite_1byte, tmp163)
+tmp17156 := PrimCons(sym_1, tmp17155)
 
-		tmp165 := PrimCons(MakeNumber(5), tmp164)
+tmp17157 := PrimCons(MakeNumber(2), tmp17156)
 
-		tmp166 := PrimCons(symwhen, tmp165)
+tmp17158 := PrimCons(sym_c, tmp17157)
 
-		tmp167 := PrimCons(MakeNumber(0), tmp166)
+tmp17159 := PrimCons(MakeNumber(2), tmp17158)
 
-		tmp168 := PrimCons(symversion, tmp167)
+tmp17160 := PrimCons(sym_d, tmp17159)
 
-		tmp169 := PrimCons(MakeNumber(5), tmp168)
+tmp17161 := PrimCons(MakeNumber(2), tmp17160)
 
-		tmp170 := PrimCons(symvar_2, tmp169)
+tmp17162 := PrimCons(sym_7, tmp17161)
 
-		tmp171 := PrimCons(MakeNumber(1), tmp170)
+tmp17163 := PrimCons(MakeNumber(1), tmp17162)
 
-		tmp172 := PrimCons(symvariable_2, tmp171)
+tmp17164 := PrimCons(symy_1or_1n_2, tmp17163)
 
-		tmp173 := PrimCons(MakeNumber(1), tmp172)
+tmp17165 := PrimCons(MakeNumber(2), tmp17164)
 
-		tmp174 := PrimCons(symvalue, tmp173)
+tmp17166 := PrimCons(symwrite_1to_1file, tmp17165)
 
-		tmp175 := PrimCons(MakeNumber(3), tmp174)
+tmp17167 := PrimCons(MakeNumber(2), tmp17166)
 
-		tmp176 := PrimCons(symvector_1_6, tmp175)
+tmp17168 := PrimCons(symwrite_1byte, tmp17167)
 
-		tmp177 := PrimCons(MakeNumber(1), tmp176)
+tmp17169 := PrimCons(MakeNumber(5), tmp17168)
 
-		tmp178 := PrimCons(symvector_2, tmp177)
+tmp17170 := PrimCons(symwhen, tmp17169)
 
-		tmp179 := PrimCons(MakeNumber(1), tmp178)
+tmp17171 := PrimCons(MakeNumber(0), tmp17170)
 
-		tmp180 := PrimCons(symvector, tmp179)
+tmp17172 := PrimCons(symversion, tmp17171)
 
-		tmp181 := PrimCons(MakeNumber(0), tmp180)
+tmp17173 := PrimCons(MakeNumber(5), tmp17172)
 
-		tmp182 := PrimCons(symuserdefs, tmp181)
+tmp17174 := PrimCons(symvar_2, tmp17173)
 
-		tmp183 := PrimCons(MakeNumber(2), tmp182)
+tmp17175 := PrimCons(MakeNumber(1), tmp17174)
 
-		tmp184 := PrimCons(symupdate_1lambda_1table, tmp183)
+tmp17176 := PrimCons(symvariable_2, tmp17175)
 
-		tmp185 := PrimCons(MakeNumber(1), tmp184)
+tmp17177 := PrimCons(MakeNumber(1), tmp17176)
 
-		tmp186 := PrimCons(symundefmacro, tmp185)
+tmp17178 := PrimCons(symvalue, tmp17177)
 
-		tmp187 := PrimCons(MakeNumber(1), tmp186)
+tmp17179 := PrimCons(MakeNumber(3), tmp17178)
 
-		tmp188 := PrimCons(symuntrack, tmp187)
+tmp17180 := PrimCons(symvector_1_6, tmp17179)
 
-		tmp189 := PrimCons(MakeNumber(2), tmp188)
+tmp17181 := PrimCons(MakeNumber(1), tmp17180)
 
-		tmp190 := PrimCons(symunion, tmp189)
+tmp17182 := PrimCons(symvector_2, tmp17181)
 
-		tmp191 := PrimCons(MakeNumber(1), tmp190)
+tmp17183 := PrimCons(MakeNumber(1), tmp17182)
 
-		tmp192 := PrimCons(symunprofile, tmp191)
+tmp17184 := PrimCons(symvector, tmp17183)
 
-		tmp193 := PrimCons(MakeNumber(3), tmp192)
+tmp17185 := PrimCons(MakeNumber(0), tmp17184)
 
-		tmp194 := PrimCons(symunput, tmp193)
+tmp17186 := PrimCons(symuserdefs, tmp17185)
 
-		tmp195 := PrimCons(MakeNumber(1), tmp194)
+tmp17187 := PrimCons(MakeNumber(2), tmp17186)
 
-		tmp196 := PrimCons(symundefmacro, tmp195)
+tmp17188 := PrimCons(symupdate_1lambda_1table, tmp17187)
 
-		tmp197 := PrimCons(MakeNumber(1), tmp196)
+tmp17189 := PrimCons(MakeNumber(1), tmp17188)
 
-		tmp198 := PrimCons(symunabsolute, tmp197)
+tmp17190 := PrimCons(symundefmacro, tmp17189)
 
-		tmp199 := PrimCons(MakeNumber(5), tmp198)
+tmp17191 := PrimCons(MakeNumber(1), tmp17190)
 
-		tmp200 := PrimCons(symreturn, tmp199)
+tmp17192 := PrimCons(symuntrack, tmp17191)
 
-		tmp201 := PrimCons(MakeNumber(2), tmp200)
+tmp17193 := PrimCons(MakeNumber(2), tmp17192)
 
-		tmp202 := PrimCons(symtype, tmp201)
+tmp17194 := PrimCons(symunion, tmp17193)
 
-		tmp203 := PrimCons(MakeNumber(1), tmp202)
+tmp17195 := PrimCons(MakeNumber(1), tmp17194)
 
-		tmp204 := PrimCons(symtuple_2, tmp203)
+tmp17196 := PrimCons(symunprofile, tmp17195)
 
-		tmp205 := PrimCons(MakeNumber(2), tmp204)
+tmp17197 := PrimCons(MakeNumber(3), tmp17196)
 
-		tmp206 := PrimCons(symtrap_1error, tmp205)
+tmp17198 := PrimCons(symunput, tmp17197)
 
-		tmp207 := PrimCons(MakeNumber(0), tmp206)
+tmp17199 := PrimCons(MakeNumber(1), tmp17198)
 
-		tmp208 := PrimCons(symtracked, tmp207)
+tmp17200 := PrimCons(symundefmacro, tmp17199)
 
-		tmp209 := PrimCons(MakeNumber(1), tmp208)
+tmp17201 := PrimCons(MakeNumber(1), tmp17200)
 
-		tmp210 := PrimCons(symtrack, tmp209)
+tmp17202 := PrimCons(symunabsolute, tmp17201)
 
-		tmp211 := PrimCons(MakeNumber(1), tmp210)
+tmp17203 := PrimCons(MakeNumber(5), tmp17202)
 
-		tmp212 := PrimCons(symtlstr, tmp211)
+tmp17204 := PrimCons(symreturn, tmp17203)
 
-		tmp213 := PrimCons(MakeNumber(1), tmp212)
+tmp17205 := PrimCons(MakeNumber(2), tmp17204)
 
-		tmp214 := PrimCons(symthaw, tmp213)
+tmp17206 := PrimCons(symtype, tmp17205)
 
-		tmp215 := PrimCons(MakeNumber(0), tmp214)
+tmp17207 := PrimCons(MakeNumber(1), tmp17206)
 
-		tmp216 := PrimCons(symtc_2, tmp215)
+tmp17208 := PrimCons(symtuple_2, tmp17207)
 
-		tmp217 := PrimCons(MakeNumber(1), tmp216)
+tmp17209 := PrimCons(MakeNumber(2), tmp17208)
 
-		tmp218 := PrimCons(symtc, tmp217)
+tmp17210 := PrimCons(symtrap_1error, tmp17209)
 
-		tmp219 := PrimCons(MakeNumber(1), tmp218)
+tmp17211 := PrimCons(MakeNumber(0), tmp17210)
 
-		tmp220 := PrimCons(symtl, tmp219)
+tmp17212 := PrimCons(symtracked, tmp17211)
 
-		tmp221 := PrimCons(MakeNumber(1), tmp220)
+tmp17213 := PrimCons(MakeNumber(1), tmp17212)
 
-		tmp222 := PrimCons(symtail, tmp221)
+tmp17214 := PrimCons(symtrack, tmp17213)
 
-		tmp223 := PrimCons(MakeNumber(1), tmp222)
+tmp17215 := PrimCons(MakeNumber(1), tmp17214)
 
-		tmp224 := PrimCons(symsystemf, tmp223)
+tmp17216 := PrimCons(symtlstr, tmp17215)
 
-		tmp225 := PrimCons(MakeNumber(1), tmp224)
+tmp17217 := PrimCons(MakeNumber(1), tmp17216)
 
-		tmp226 := PrimCons(symsymbol_2, tmp225)
+tmp17218 := PrimCons(symthaw, tmp17217)
 
-		tmp227 := PrimCons(MakeNumber(1), tmp226)
+tmp17219 := PrimCons(MakeNumber(0), tmp17218)
 
-		tmp228 := PrimCons(symsum, tmp227)
+tmp17220 := PrimCons(symtc_2, tmp17219)
 
-		tmp229 := PrimCons(MakeNumber(3), tmp228)
+tmp17221 := PrimCons(MakeNumber(1), tmp17220)
 
-		tmp230 := PrimCons(symsubst, tmp229)
+tmp17222 := PrimCons(symtc, tmp17221)
 
-		tmp231 := PrimCons(MakeNumber(1), tmp230)
+tmp17223 := PrimCons(MakeNumber(1), tmp17222)
 
-		tmp232 := PrimCons(symstring_2, tmp231)
+tmp17224 := PrimCons(symtl, tmp17223)
 
-		tmp233 := PrimCons(MakeNumber(1), tmp232)
+tmp17225 := PrimCons(MakeNumber(1), tmp17224)
 
-		tmp234 := PrimCons(symstring_1_6symbol, tmp233)
+tmp17226 := PrimCons(symtail, tmp17225)
 
-		tmp235 := PrimCons(MakeNumber(1), tmp234)
+tmp17227 := PrimCons(MakeNumber(1), tmp17226)
 
-		tmp236 := PrimCons(symstring_1_6n, tmp235)
+tmp17228 := PrimCons(symsystemf, tmp17227)
 
-		tmp237 := PrimCons(MakeNumber(1), tmp236)
+tmp17229 := PrimCons(MakeNumber(1), tmp17228)
 
-		tmp238 := PrimCons(symstr, tmp237)
+tmp17230 := PrimCons(symsymbol_2, tmp17229)
 
-		tmp239 := PrimCons(MakeNumber(0), tmp238)
+tmp17231 := PrimCons(MakeNumber(1), tmp17230)
 
-		tmp240 := PrimCons(symstoutput, tmp239)
+tmp17232 := PrimCons(symsum, tmp17231)
 
-		tmp241 := PrimCons(MakeNumber(0), tmp240)
+tmp17233 := PrimCons(MakeNumber(3), tmp17232)
 
-		tmp242 := PrimCons(symstinput, tmp241)
+tmp17234 := PrimCons(symsubst, tmp17233)
 
-		tmp243 := PrimCons(MakeNumber(0), tmp242)
+tmp17235 := PrimCons(MakeNumber(1), tmp17234)
 
-		tmp244 := PrimCons(symshen_4step_2, tmp243)
+tmp17236 := PrimCons(symstring_2, tmp17235)
 
-		tmp245 := PrimCons(MakeNumber(1), tmp244)
+tmp17237 := PrimCons(MakeNumber(1), tmp17236)
 
-		tmp246 := PrimCons(symstep, tmp245)
+tmp17238 := PrimCons(symstring_1_6symbol, tmp17237)
 
-		tmp247 := PrimCons(MakeNumber(0), tmp246)
+tmp17239 := PrimCons(MakeNumber(1), tmp17238)
 
-		tmp248 := PrimCons(symshen_4spy_2, tmp247)
+tmp17240 := PrimCons(symstring_1_6n, tmp17239)
 
-		tmp249 := PrimCons(MakeNumber(1), tmp248)
+tmp17241 := PrimCons(MakeNumber(1), tmp17240)
 
-		tmp250 := PrimCons(symspy, tmp249)
+tmp17242 := PrimCons(symstr, tmp17241)
 
-		tmp251 := PrimCons(MakeNumber(2), tmp250)
+tmp17243 := PrimCons(MakeNumber(0), tmp17242)
 
-		tmp252 := PrimCons(symspecialise, tmp251)
+tmp17244 := PrimCons(symstoutput, tmp17243)
 
-		tmp253 := PrimCons(MakeNumber(1), tmp252)
+tmp17245 := PrimCons(MakeNumber(0), tmp17244)
 
-		tmp254 := PrimCons(symsnd, tmp253)
+tmp17246 := PrimCons(symstinput, tmp17245)
 
-		tmp255 := PrimCons(MakeNumber(1), tmp254)
+tmp17247 := PrimCons(MakeNumber(0), tmp17246)
 
-		tmp256 := PrimCons(symsimple_1error, tmp255)
+tmp17248 := PrimCons(symshen_4step_2, tmp17247)
 
-		tmp257 := PrimCons(MakeNumber(2), tmp256)
+tmp17249 := PrimCons(MakeNumber(1), tmp17248)
 
-		tmp258 := PrimCons(symset, tmp257)
+tmp17250 := PrimCons(symstep, tmp17249)
 
-		tmp259 := PrimCons(MakeNumber(1), tmp258)
+tmp17251 := PrimCons(MakeNumber(0), tmp17250)
 
-		tmp260 := PrimCons(symreverse, tmp259)
+tmp17252 := PrimCons(symshen_4spy_2, tmp17251)
 
-		tmp261 := PrimCons(MakeNumber(2), tmp260)
+tmp17253 := PrimCons(MakeNumber(1), tmp17252)
 
-		tmp262 := PrimCons(symremove, tmp261)
+tmp17254 := PrimCons(symspy, tmp17253)
 
-		tmp263 := PrimCons(MakeNumber(0), tmp262)
+tmp17255 := PrimCons(MakeNumber(2), tmp17254)
 
-		tmp264 := PrimCons(symrelease, tmp263)
+tmp17256 := PrimCons(symspecialise, tmp17255)
 
-		tmp265 := PrimCons(MakeNumber(1), tmp264)
+tmp17257 := PrimCons(MakeNumber(1), tmp17256)
 
-		tmp266 := PrimCons(symreceive, tmp265)
+tmp17258 := PrimCons(symsnd, tmp17257)
 
-		tmp267 := PrimCons(MakeNumber(1), tmp266)
+tmp17259 := PrimCons(MakeNumber(1), tmp17258)
 
-		tmp268 := PrimCons(symshen_4read_1unit_1string, tmp267)
+tmp17260 := PrimCons(symsimple_1error, tmp17259)
 
-		tmp269 := PrimCons(MakeNumber(1), tmp268)
+tmp17261 := PrimCons(MakeNumber(2), tmp17260)
 
-		tmp270 := PrimCons(symread_1from_1string_1unprocessed, tmp269)
+tmp17262 := PrimCons(symset, tmp17261)
 
-		tmp271 := PrimCons(MakeNumber(1), tmp270)
+tmp17263 := PrimCons(MakeNumber(1), tmp17262)
 
-		tmp272 := PrimCons(symread_1from_1string, tmp271)
+tmp17264 := PrimCons(symreverse, tmp17263)
 
-		tmp273 := PrimCons(MakeNumber(1), tmp272)
+tmp17265 := PrimCons(MakeNumber(2), tmp17264)
 
-		tmp274 := PrimCons(symread_1byte, tmp273)
+tmp17266 := PrimCons(symremove, tmp17265)
 
-		tmp275 := PrimCons(MakeNumber(1), tmp274)
+tmp17267 := PrimCons(MakeNumber(0), tmp17266)
 
-		tmp276 := PrimCons(symread, tmp275)
+tmp17268 := PrimCons(symrelease, tmp17267)
 
-		tmp277 := PrimCons(MakeNumber(1), tmp276)
+tmp17269 := PrimCons(MakeNumber(1), tmp17268)
 
-		tmp278 := PrimCons(symread_1file, tmp277)
+tmp17270 := PrimCons(symreceive, tmp17269)
 
-		tmp279 := PrimCons(MakeNumber(1), tmp278)
+tmp17271 := PrimCons(MakeNumber(1), tmp17270)
 
-		tmp280 := PrimCons(symread_1file_1as_1bytelist, tmp279)
+tmp17272 := PrimCons(symshen_4read_1unit_1string, tmp17271)
 
-		tmp281 := PrimCons(MakeNumber(1), tmp280)
+tmp17273 := PrimCons(MakeNumber(1), tmp17272)
 
-		tmp282 := PrimCons(symread_1file_1as_1string, tmp281)
+tmp17274 := PrimCons(symread_1from_1string_1unprocessed, tmp17273)
 
-		tmp283 := PrimCons(MakeNumber(4), tmp282)
+tmp17275 := PrimCons(MakeNumber(1), tmp17274)
 
-		tmp284 := PrimCons(symput, tmp283)
+tmp17276 := PrimCons(symread_1from_1string, tmp17275)
 
-		tmp285 := PrimCons(MakeNumber(1), tmp284)
+tmp17277 := PrimCons(MakeNumber(1), tmp17276)
 
-		tmp286 := PrimCons(symprotect, tmp285)
+tmp17278 := PrimCons(symread_1byte, tmp17277)
 
-		tmp287 := PrimCons(MakeNumber(1), tmp286)
+tmp17279 := PrimCons(MakeNumber(1), tmp17278)
 
-		tmp288 := PrimCons(sympreclude_1all_1but, tmp287)
+tmp17280 := PrimCons(symread, tmp17279)
 
-		tmp289 := PrimCons(MakeNumber(1), tmp288)
+tmp17281 := PrimCons(MakeNumber(1), tmp17280)
 
-		tmp290 := PrimCons(sympreclude, tmp289)
+tmp17282 := PrimCons(symread_1file, tmp17281)
 
-		tmp291 := PrimCons(MakeNumber(1), tmp290)
+tmp17283 := PrimCons(MakeNumber(1), tmp17282)
 
-		tmp292 := PrimCons(symps, tmp291)
+tmp17284 := PrimCons(symread_1file_1as_1bytelist, tmp17283)
 
-		tmp293 := PrimCons(MakeNumber(2), tmp292)
+tmp17285 := PrimCons(MakeNumber(1), tmp17284)
 
-		tmp294 := PrimCons(sympr, tmp293)
+tmp17286 := PrimCons(symread_1file_1as_1string, tmp17285)
 
-		tmp295 := PrimCons(MakeNumber(1), tmp294)
+tmp17287 := PrimCons(MakeNumber(4), tmp17286)
 
-		tmp296 := PrimCons(symprofile_1results, tmp295)
+tmp17288 := PrimCons(symput, tmp17287)
 
-		tmp297 := PrimCons(MakeNumber(1), tmp296)
+tmp17289 := PrimCons(MakeNumber(1), tmp17288)
 
-		tmp298 := PrimCons(symprolog_1memory, tmp297)
+tmp17290 := PrimCons(symprotect, tmp17289)
 
-		tmp299 := PrimCons(MakeNumber(1), tmp298)
+tmp17291 := PrimCons(MakeNumber(1), tmp17290)
 
-		tmp300 := PrimCons(symshen_4printF, tmp299)
+tmp17292 := PrimCons(sympreclude_1all_1but, tmp17291)
 
-		tmp301 := PrimCons(MakeNumber(1), tmp300)
+tmp17293 := PrimCons(MakeNumber(1), tmp17292)
 
-		tmp302 := PrimCons(symshen_4print_1freshterm, tmp301)
+tmp17294 := PrimCons(sympreclude, tmp17293)
 
-		tmp303 := PrimCons(MakeNumber(1), tmp302)
+tmp17295 := PrimCons(MakeNumber(1), tmp17294)
 
-		tmp304 := PrimCons(symshen_4print_1prolog_1vector, tmp303)
+tmp17296 := PrimCons(symps, tmp17295)
 
-		tmp305 := PrimCons(MakeNumber(1), tmp304)
+tmp17297 := PrimCons(MakeNumber(2), tmp17296)
 
-		tmp306 := PrimCons(symprofile, tmp305)
+tmp17298 := PrimCons(sympr, tmp17297)
 
-		tmp307 := PrimCons(MakeNumber(1), tmp306)
+tmp17299 := PrimCons(MakeNumber(1), tmp17298)
 
-		tmp308 := PrimCons(symprint, tmp307)
+tmp17300 := PrimCons(symprofile_1results, tmp17299)
 
-		tmp309 := PrimCons(MakeNumber(1), tmp308)
+tmp17301 := PrimCons(MakeNumber(1), tmp17300)
 
-		tmp310 := PrimCons(sympreclude_1all_1but, tmp309)
+tmp17302 := PrimCons(symprolog_1memory, tmp17301)
 
-		tmp311 := PrimCons(MakeNumber(2), tmp310)
+tmp17303 := PrimCons(MakeNumber(1), tmp17302)
 
-		tmp312 := PrimCons(sympos, tmp311)
+tmp17304 := PrimCons(symshen_4printF, tmp17303)
 
-		tmp313 := PrimCons(MakeNumber(0), tmp312)
+tmp17305 := PrimCons(MakeNumber(1), tmp17304)
 
-		tmp314 := PrimCons(symporters, tmp313)
+tmp17306 := PrimCons(symshen_4print_1freshterm, tmp17305)
 
-		tmp315 := PrimCons(MakeNumber(0), tmp314)
+tmp17307 := PrimCons(MakeNumber(1), tmp17306)
 
-		tmp316 := PrimCons(symport, tmp315)
+tmp17308 := PrimCons(symshen_4print_1prolog_1vector, tmp17307)
 
-		tmp317 := PrimCons(MakeNumber(1), tmp316)
+tmp17309 := PrimCons(MakeNumber(1), tmp17308)
 
-		tmp318 := PrimCons(sympackage_2, tmp317)
+tmp17310 := PrimCons(symprofile, tmp17309)
 
-		tmp319 := PrimCons(MakeNumber(3), tmp318)
+tmp17311 := PrimCons(MakeNumber(1), tmp17310)
 
-		tmp320 := PrimCons(sympackage, tmp319)
+tmp17312 := PrimCons(symprint, tmp17311)
 
-		tmp321 := PrimCons(MakeNumber(0), tmp320)
+tmp17313 := PrimCons(MakeNumber(1), tmp17312)
 
-		tmp322 := PrimCons(symos, tmp321)
+tmp17314 := PrimCons(sympreclude_1all_1but, tmp17313)
 
-		tmp323 := PrimCons(MakeNumber(2), tmp322)
+tmp17315 := PrimCons(MakeNumber(2), tmp17314)
 
-		tmp324 := PrimCons(symor, tmp323)
+tmp17316 := PrimCons(sympos, tmp17315)
 
-		tmp325 := PrimCons(MakeNumber(0), tmp324)
+tmp17317 := PrimCons(MakeNumber(0), tmp17316)
 
-		tmp326 := PrimCons(symoptimise_2, tmp325)
+tmp17318 := PrimCons(symporters, tmp17317)
 
-		tmp327 := PrimCons(MakeNumber(1), tmp326)
+tmp17319 := PrimCons(MakeNumber(0), tmp17318)
 
-		tmp328 := PrimCons(symoptimise, tmp327)
+tmp17320 := PrimCons(symport, tmp17319)
 
-		tmp329 := PrimCons(MakeNumber(2), tmp328)
+tmp17321 := PrimCons(MakeNumber(1), tmp17320)
 
-		tmp330 := PrimCons(symopen, tmp329)
+tmp17322 := PrimCons(sympackage_2, tmp17321)
 
-		tmp331 := PrimCons(MakeNumber(1), tmp330)
+tmp17323 := PrimCons(MakeNumber(3), tmp17322)
 
-		tmp332 := PrimCons(symoccurs_1check, tmp331)
+tmp17324 := PrimCons(sympackage, tmp17323)
 
-		tmp333 := PrimCons(MakeNumber(0), tmp332)
+tmp17325 := PrimCons(MakeNumber(0), tmp17324)
 
-		tmp334 := PrimCons(symoccurs_2, tmp333)
+tmp17326 := PrimCons(symos, tmp17325)
 
-		tmp335 := PrimCons(MakeNumber(2), tmp334)
+tmp17327 := PrimCons(MakeNumber(2), tmp17326)
 
-		tmp336 := PrimCons(symoccurrences, tmp335)
+tmp17328 := PrimCons(symor, tmp17327)
 
-		tmp337 := PrimCons(MakeNumber(1), tmp336)
+tmp17329 := PrimCons(MakeNumber(0), tmp17328)
 
-		tmp338 := PrimCons(symoccurs_1check, tmp337)
+tmp17330 := PrimCons(symoptimise_2, tmp17329)
 
-		tmp339 := PrimCons(MakeNumber(1), tmp338)
+tmp17331 := PrimCons(MakeNumber(1), tmp17330)
 
-		tmp340 := PrimCons(symnumber_2, tmp339)
+tmp17332 := PrimCons(symoptimise, tmp17331)
 
-		tmp341 := PrimCons(MakeNumber(1), tmp340)
+tmp17333 := PrimCons(MakeNumber(2), tmp17332)
 
-		tmp342 := PrimCons(symn_1_6string, tmp341)
+tmp17334 := PrimCons(symopen, tmp17333)
 
-		tmp343 := PrimCons(MakeNumber(2), tmp342)
+tmp17335 := PrimCons(MakeNumber(1), tmp17334)
 
-		tmp344 := PrimCons(symnth, tmp343)
+tmp17336 := PrimCons(symoccurs_1check, tmp17335)
 
-		tmp345 := PrimCons(MakeNumber(1), tmp344)
+tmp17337 := PrimCons(MakeNumber(0), tmp17336)
 
-		tmp346 := PrimCons(symnot, tmp345)
+tmp17338 := PrimCons(symoccurs_2, tmp17337)
 
-		tmp347 := PrimCons(MakeNumber(1), tmp346)
+tmp17339 := PrimCons(MakeNumber(2), tmp17338)
 
-		tmp348 := PrimCons(symnl, tmp347)
+tmp17340 := PrimCons(symoccurrences, tmp17339)
 
-		tmp349 := PrimCons(MakeNumber(1), tmp348)
+tmp17341 := PrimCons(MakeNumber(1), tmp17340)
 
-		tmp350 := PrimCons(symmaxinferences, tmp349)
+tmp17342 := PrimCons(symoccurs_1check, tmp17341)
 
-		tmp351 := PrimCons(MakeNumber(2), tmp350)
+tmp17343 := PrimCons(MakeNumber(1), tmp17342)
 
-		tmp352 := PrimCons(symmapcan, tmp351)
+tmp17344 := PrimCons(symnumber_2, tmp17343)
 
-		tmp353 := PrimCons(MakeNumber(2), tmp352)
+tmp17345 := PrimCons(MakeNumber(1), tmp17344)
 
-		tmp354 := PrimCons(symmap, tmp353)
+tmp17346 := PrimCons(symn_1_6string, tmp17345)
 
-		tmp355 := PrimCons(MakeNumber(1), tmp354)
+tmp17347 := PrimCons(MakeNumber(2), tmp17346)
 
-		tmp356 := PrimCons(symmacroexpand, tmp355)
+tmp17348 := PrimCons(symnth, tmp17347)
 
-		tmp357 := PrimCons(MakeNumber(1), tmp356)
+tmp17349 := PrimCons(MakeNumber(1), tmp17348)
 
-		tmp358 := PrimCons(symvector, tmp357)
+tmp17350 := PrimCons(symnot, tmp17349)
 
-		tmp359 := PrimCons(MakeNumber(2), tmp358)
+tmp17351 := PrimCons(MakeNumber(1), tmp17350)
 
-		tmp360 := PrimCons(sym_5_a, tmp359)
+tmp17352 := PrimCons(symnl, tmp17351)
 
-		tmp361 := PrimCons(MakeNumber(2), tmp360)
+tmp17353 := PrimCons(MakeNumber(1), tmp17352)
 
-		tmp362 := PrimCons(sym_5, tmp361)
+tmp17354 := PrimCons(symmaxinferences, tmp17353)
 
-		tmp363 := PrimCons(MakeNumber(1), tmp362)
+tmp17355 := PrimCons(MakeNumber(2), tmp17354)
 
-		tmp364 := PrimCons(symload, tmp363)
+tmp17356 := PrimCons(symmapcan, tmp17355)
 
-		tmp365 := PrimCons(MakeNumber(1), tmp364)
+tmp17357 := PrimCons(MakeNumber(2), tmp17356)
 
-		tmp366 := PrimCons(symlist, tmp365)
+tmp17358 := PrimCons(symmap, tmp17357)
 
-		tmp367 := PrimCons(MakeNumber(1), tmp366)
+tmp17359 := PrimCons(MakeNumber(1), tmp17358)
 
-		tmp368 := PrimCons(symlineread, tmp367)
+tmp17360 := PrimCons(symmacroexpand, tmp17359)
 
-		tmp369 := PrimCons(MakeNumber(1), tmp368)
+tmp17361 := PrimCons(MakeNumber(1), tmp17360)
 
-		tmp370 := PrimCons(symlimit, tmp369)
+tmp17362 := PrimCons(symvector, tmp17361)
 
-		tmp371 := PrimCons(MakeNumber(1), tmp370)
+tmp17363 := PrimCons(MakeNumber(2), tmp17362)
 
-		tmp372 := PrimCons(symlength, tmp371)
+tmp17364 := PrimCons(sym_5_a, tmp17363)
 
-		tmp373 := PrimCons(MakeNumber(0), tmp372)
+tmp17365 := PrimCons(MakeNumber(2), tmp17364)
 
-		tmp374 := PrimCons(symlanguage, tmp373)
+tmp17366 := PrimCons(sym_5, tmp17365)
 
-		tmp375 := PrimCons(MakeNumber(6), tmp374)
+tmp17367 := PrimCons(MakeNumber(1), tmp17366)
 
-		tmp376 := PrimCons(symis_b, tmp375)
+tmp17368 := PrimCons(symload, tmp17367)
 
-		tmp377 := PrimCons(MakeNumber(6), tmp376)
+tmp17369 := PrimCons(MakeNumber(1), tmp17368)
 
-		tmp378 := PrimCons(symis, tmp377)
+tmp17370 := PrimCons(symlist, tmp17369)
 
-		tmp379 := PrimCons(MakeNumber(0), tmp378)
+tmp17371 := PrimCons(MakeNumber(1), tmp17370)
 
-		tmp380 := PrimCons(symit, tmp379)
+tmp17372 := PrimCons(symlineread, tmp17371)
 
-		tmp381 := PrimCons(MakeNumber(1), tmp380)
+tmp17373 := PrimCons(MakeNumber(1), tmp17372)
 
-		tmp382 := PrimCons(syminternal, tmp381)
+tmp17374 := PrimCons(symlimit, tmp17373)
 
-		tmp383 := PrimCons(MakeNumber(2), tmp382)
+tmp17375 := PrimCons(MakeNumber(1), tmp17374)
 
-		tmp384 := PrimCons(symintersection, tmp383)
+tmp17376 := PrimCons(symlength, tmp17375)
 
-		tmp385 := PrimCons(MakeNumber(1), tmp384)
+tmp17377 := PrimCons(MakeNumber(0), tmp17376)
 
-		tmp386 := PrimCons(syminclude_1all_1but, tmp385)
+tmp17378 := PrimCons(symlanguage, tmp17377)
 
-		tmp387 := PrimCons(MakeNumber(0), tmp386)
+tmp17379 := PrimCons(MakeNumber(6), tmp17378)
 
-		tmp388 := PrimCons(symimplementation, tmp387)
+tmp17380 := PrimCons(symis_b, tmp17379)
 
-		tmp389 := PrimCons(MakeNumber(2), tmp388)
+tmp17381 := PrimCons(MakeNumber(6), tmp17380)
 
-		tmp390 := PrimCons(syminput_7, tmp389)
+tmp17382 := PrimCons(symis, tmp17381)
 
-		tmp391 := PrimCons(MakeNumber(1), tmp390)
+tmp17383 := PrimCons(MakeNumber(0), tmp17382)
 
-		tmp392 := PrimCons(syminput, tmp391)
+tmp17384 := PrimCons(symit, tmp17383)
 
-		tmp393 := PrimCons(MakeNumber(0), tmp392)
+tmp17385 := PrimCons(MakeNumber(1), tmp17384)
 
-		tmp394 := PrimCons(syminferences, tmp393)
+tmp17386 := PrimCons(syminternal, tmp17385)
 
-		tmp395 := PrimCons(MakeNumber(1), tmp394)
+tmp17387 := PrimCons(MakeNumber(2), tmp17386)
 
-		tmp396 := PrimCons(symintern, tmp395)
+tmp17388 := PrimCons(symintersection, tmp17387)
 
-		tmp397 := PrimCons(MakeNumber(1), tmp396)
+tmp17389 := PrimCons(MakeNumber(1), tmp17388)
 
-		tmp398 := PrimCons(syminternal, tmp397)
+tmp17390 := PrimCons(syminclude_1all_1but, tmp17389)
 
-		tmp399 := PrimCons(MakeNumber(1), tmp398)
+tmp17391 := PrimCons(MakeNumber(0), tmp17390)
 
-		tmp400 := PrimCons(syminteger_2, tmp399)
+tmp17392 := PrimCons(symimplementation, tmp17391)
 
-		tmp401 := PrimCons(MakeNumber(1), tmp400)
+tmp17393 := PrimCons(MakeNumber(2), tmp17392)
 
-		tmp402 := PrimCons(symin_1package, tmp401)
+tmp17394 := PrimCons(syminput_7, tmp17393)
 
-		tmp403 := PrimCons(MakeNumber(0), tmp402)
+tmp17395 := PrimCons(MakeNumber(1), tmp17394)
 
-		tmp404 := PrimCons(symshen_4included, tmp403)
+tmp17396 := PrimCons(syminput, tmp17395)
 
-		tmp405 := PrimCons(MakeNumber(1), tmp404)
+tmp17397 := PrimCons(MakeNumber(0), tmp17396)
 
-		tmp406 := PrimCons(syminclude, tmp405)
+tmp17398 := PrimCons(syminferences, tmp17397)
 
-		tmp407 := PrimCons(MakeNumber(3), tmp406)
+tmp17399 := PrimCons(MakeNumber(1), tmp17398)
 
-		tmp408 := PrimCons(symif, tmp407)
+tmp17400 := PrimCons(symintern, tmp17399)
 
-		tmp409 := PrimCons(MakeNumber(1), tmp408)
+tmp17401 := PrimCons(MakeNumber(1), tmp17400)
 
-		tmp410 := PrimCons(symhush, tmp409)
+tmp17402 := PrimCons(syminternal, tmp17401)
 
-		tmp411 := PrimCons(MakeNumber(0), tmp410)
+tmp17403 := PrimCons(MakeNumber(1), tmp17402)
 
-		tmp412 := PrimCons(symhush_2, tmp411)
+tmp17404 := PrimCons(syminteger_2, tmp17403)
 
-		tmp413 := PrimCons(MakeNumber(1), tmp412)
+tmp17405 := PrimCons(MakeNumber(1), tmp17404)
 
-		tmp414 := PrimCons(symhead, tmp413)
+tmp17406 := PrimCons(symin_1package, tmp17405)
 
-		tmp415 := PrimCons(MakeNumber(1), tmp414)
+tmp17407 := PrimCons(MakeNumber(0), tmp17406)
 
-		tmp416 := PrimCons(symhdstr, tmp415)
+tmp17408 := PrimCons(symshen_4included, tmp17407)
 
-		tmp417 := PrimCons(MakeNumber(1), tmp416)
+tmp17409 := PrimCons(MakeNumber(1), tmp17408)
 
-		tmp418 := PrimCons(symhdv, tmp417)
+tmp17410 := PrimCons(syminclude, tmp17409)
 
-		tmp419 := PrimCons(MakeNumber(1), tmp418)
+tmp17411 := PrimCons(MakeNumber(3), tmp17410)
 
-		tmp420 := PrimCons(symhd, tmp419)
+tmp17412 := PrimCons(symif, tmp17411)
 
-		tmp421 := PrimCons(MakeNumber(2), tmp420)
+tmp17413 := PrimCons(MakeNumber(1), tmp17412)
 
-		tmp422 := PrimCons(symhash, tmp421)
+tmp17414 := PrimCons(symhush, tmp17413)
 
-		tmp423 := PrimCons(MakeNumber(2), tmp422)
+tmp17415 := PrimCons(MakeNumber(0), tmp17414)
 
-		tmp424 := PrimCons(sym_a, tmp423)
+tmp17416 := PrimCons(symhush_2, tmp17415)
 
-		tmp425 := PrimCons(MakeNumber(2), tmp424)
+tmp17417 := PrimCons(MakeNumber(1), tmp17416)
 
-		tmp426 := PrimCons(sym_6_a, tmp425)
+tmp17418 := PrimCons(symhead, tmp17417)
 
-		tmp427 := PrimCons(MakeNumber(2), tmp426)
+tmp17419 := PrimCons(MakeNumber(1), tmp17418)
 
-		tmp428 := PrimCons(sym_6, tmp427)
+tmp17420 := PrimCons(symhdstr, tmp17419)
 
-		tmp429 := PrimCons(MakeNumber(2), tmp428)
+tmp17421 := PrimCons(MakeNumber(1), tmp17420)
 
-		tmp430 := PrimCons(sym_5_1vector, tmp429)
+tmp17422 := PrimCons(symhdv, tmp17421)
 
-		tmp431 := PrimCons(MakeNumber(2), tmp430)
+tmp17423 := PrimCons(MakeNumber(1), tmp17422)
 
-		tmp432 := PrimCons(sym_5_1address, tmp431)
+tmp17424 := PrimCons(symhd, tmp17423)
 
-		tmp433 := PrimCons(MakeNumber(3), tmp432)
+tmp17425 := PrimCons(MakeNumber(2), tmp17424)
 
-		tmp434 := PrimCons(symaddress_1_6, tmp433)
+tmp17426 := PrimCons(symhash, tmp17425)
 
-		tmp435 := PrimCons(MakeNumber(1), tmp434)
+tmp17427 := PrimCons(MakeNumber(2), tmp17426)
 
-		tmp436 := PrimCons(symget_1time, tmp435)
+tmp17428 := PrimCons(sym_a, tmp17427)
 
-		tmp437 := PrimCons(MakeNumber(3), tmp436)
+tmp17429 := PrimCons(MakeNumber(2), tmp17428)
 
-		tmp438 := PrimCons(symget, tmp437)
+tmp17430 := PrimCons(sym_6_a, tmp17429)
 
-		tmp439 := PrimCons(MakeNumber(1), tmp438)
+tmp17431 := PrimCons(MakeNumber(2), tmp17430)
 
-		tmp440 := PrimCons(symgensym, tmp439)
+tmp17432 := PrimCons(sym_6, tmp17431)
 
-		tmp441 := PrimCons(MakeNumber(1), tmp440)
+tmp17433 := PrimCons(MakeNumber(2), tmp17432)
 
-		tmp442 := PrimCons(symfunction, tmp441)
+tmp17434 := PrimCons(sym_5_1vector, tmp17433)
 
-		tmp443 := PrimCons(MakeNumber(1), tmp442)
+tmp17435 := PrimCons(MakeNumber(2), tmp17434)
 
-		tmp444 := PrimCons(symfn, tmp443)
+tmp17436 := PrimCons(sym_5_1address, tmp17435)
 
-		tmp445 := PrimCons(MakeNumber(1), tmp444)
+tmp17437 := PrimCons(MakeNumber(3), tmp17436)
 
-		tmp446 := PrimCons(symfst, tmp445)
+tmp17438 := PrimCons(symaddress_1_6, tmp17437)
 
-		tmp447 := PrimCons(MakeNumber(0), tmp446)
+tmp17439 := PrimCons(MakeNumber(1), tmp17438)
 
-		tmp448 := PrimCons(symfresh, tmp447)
+tmp17440 := PrimCons(symget_1time, tmp17439)
 
-		tmp449 := PrimCons(MakeNumber(1), tmp448)
+tmp17441 := PrimCons(MakeNumber(3), tmp17440)
 
-		tmp450 := PrimCons(symfreeze, tmp449)
+tmp17442 := PrimCons(symget, tmp17441)
 
-		tmp451 := PrimCons(MakeNumber(5), tmp450)
+tmp17443 := PrimCons(MakeNumber(1), tmp17442)
 
-		tmp452 := PrimCons(symfork, tmp451)
+tmp17444 := PrimCons(symgensym, tmp17443)
 
-		tmp453 := PrimCons(MakeNumber(1), tmp452)
+tmp17445 := PrimCons(MakeNumber(1), tmp17444)
 
-		tmp454 := PrimCons(symforeign, tmp453)
+tmp17446 := PrimCons(symfunction, tmp17445)
 
-		tmp455 := PrimCons(MakeNumber(7), tmp454)
+tmp17447 := PrimCons(MakeNumber(1), tmp17446)
 
-		tmp456 := PrimCons(symfindall, tmp455)
+tmp17448 := PrimCons(symfn, tmp17447)
 
-		tmp457 := PrimCons(MakeNumber(2), tmp456)
+tmp17449 := PrimCons(MakeNumber(1), tmp17448)
 
-		tmp458 := PrimCons(symfix, tmp457)
+tmp17450 := PrimCons(symfst, tmp17449)
 
-		tmp459 := PrimCons(MakeNumber(0), tmp458)
+tmp17451 := PrimCons(MakeNumber(0), tmp17450)
 
-		tmp460 := PrimCons(symfail, tmp459)
+tmp17452 := PrimCons(symfresh, tmp17451)
 
-		tmp461 := PrimCons(MakeNumber(2), tmp460)
+tmp17453 := PrimCons(MakeNumber(1), tmp17452)
 
-		tmp462 := PrimCons(symfail_1if, tmp461)
+tmp17454 := PrimCons(symfreeze, tmp17453)
 
-		tmp463 := PrimCons(MakeNumber(0), tmp462)
+tmp17455 := PrimCons(MakeNumber(5), tmp17454)
 
-		tmp464 := PrimCons(symfactorise_2, tmp463)
+tmp17456 := PrimCons(symfork, tmp17455)
 
-		tmp465 := PrimCons(MakeNumber(1), tmp464)
+tmp17457 := PrimCons(MakeNumber(1), tmp17456)
 
-		tmp466 := PrimCons(symfactorise, tmp465)
+tmp17458 := PrimCons(symforeign, tmp17457)
 
-		tmp467 := PrimCons(MakeNumber(1), tmp466)
+tmp17459 := PrimCons(MakeNumber(7), tmp17458)
 
-		tmp468 := PrimCons(symexternal, tmp467)
+tmp17460 := PrimCons(symfindall, tmp17459)
 
-		tmp469 := PrimCons(MakeNumber(1), tmp468)
+tmp17461 := PrimCons(MakeNumber(2), tmp17460)
 
-		tmp470 := PrimCons(symexplode, tmp469)
+tmp17462 := PrimCons(symfix, tmp17461)
 
-		tmp471 := PrimCons(MakeNumber(1), tmp470)
+tmp17463 := PrimCons(MakeNumber(0), tmp17462)
 
-		tmp472 := PrimCons(symeval_1kl, tmp471)
+tmp17464 := PrimCons(symfail, tmp17463)
 
-		tmp473 := PrimCons(MakeNumber(1), tmp472)
+tmp17465 := PrimCons(MakeNumber(2), tmp17464)
 
-		tmp474 := PrimCons(symeval, tmp473)
+tmp17466 := PrimCons(symfail_1if, tmp17465)
 
-		tmp475 := PrimCons(MakeNumber(1), tmp474)
+tmp17467 := PrimCons(MakeNumber(0), tmp17466)
 
-		tmp476 := PrimCons(symerror_1to_1string, tmp475)
+tmp17468 := PrimCons(symfactorise_2, tmp17467)
 
-		tmp477 := PrimCons(MakeNumber(1), tmp476)
+tmp17469 := PrimCons(MakeNumber(1), tmp17468)
 
-		tmp478 := PrimCons(symexternal, tmp477)
+tmp17470 := PrimCons(symfactorise, tmp17469)
 
-		tmp479 := PrimCons(MakeNumber(1), tmp478)
+tmp17471 := PrimCons(MakeNumber(1), tmp17470)
 
-		tmp480 := PrimCons(symenable_1type_1theory, tmp479)
+tmp17472 := PrimCons(symexternal, tmp17471)
 
-		tmp481 := PrimCons(MakeNumber(1), tmp480)
+tmp17473 := PrimCons(MakeNumber(1), tmp17472)
 
-		tmp482 := PrimCons(symempty_2, tmp481)
+tmp17474 := PrimCons(symexplode, tmp17473)
 
-		tmp483 := PrimCons(MakeNumber(2), tmp482)
+tmp17475 := PrimCons(MakeNumber(1), tmp17474)
 
-		tmp484 := PrimCons(symelement_2, tmp483)
+tmp17476 := PrimCons(symeval_1kl, tmp17475)
 
-		tmp485 := PrimCons(MakeNumber(2), tmp484)
+tmp17477 := PrimCons(MakeNumber(1), tmp17476)
 
-		tmp486 := PrimCons(symdo, tmp485)
+tmp17478 := PrimCons(symeval, tmp17477)
 
-		tmp487 := PrimCons(MakeNumber(2), tmp486)
+tmp17479 := PrimCons(MakeNumber(1), tmp17478)
 
-		tmp488 := PrimCons(symdifference, tmp487)
+tmp17480 := PrimCons(symerror_1to_1string, tmp17479)
 
-		tmp489 := PrimCons(MakeNumber(1), tmp488)
+tmp17481 := PrimCons(MakeNumber(1), tmp17480)
 
-		tmp490 := PrimCons(symdestroy, tmp489)
+tmp17482 := PrimCons(symexternal, tmp17481)
 
-		tmp491 := PrimCons(MakeNumber(2), tmp490)
+tmp17483 := PrimCons(MakeNumber(1), tmp17482)
 
-		tmp492 := PrimCons(symdeclare, tmp491)
+tmp17484 := PrimCons(symenable_1type_1theory, tmp17483)
 
-		tmp493 := PrimCons(MakeNumber(0), tmp492)
+tmp17485 := PrimCons(MakeNumber(1), tmp17484)
 
-		tmp494 := PrimCons(symdatatypes, tmp493)
+tmp17486 := PrimCons(symempty_2, tmp17485)
 
-		tmp495 := PrimCons(MakeNumber(1), tmp494)
+tmp17487 := PrimCons(MakeNumber(2), tmp17486)
 
-		tmp496 := PrimCons(symclose, tmp495)
+tmp17488 := PrimCons(symelement_2, tmp17487)
 
-		tmp497 := PrimCons(MakeNumber(2), tmp496)
+tmp17489 := PrimCons(MakeNumber(2), tmp17488)
 
-		tmp498 := PrimCons(symcn, tmp497)
+tmp17490 := PrimCons(symdo, tmp17489)
 
-		tmp499 := PrimCons(MakeNumber(1), tmp498)
+tmp17491 := PrimCons(MakeNumber(2), tmp17490)
 
-		tmp500 := PrimCons(symcons_2, tmp499)
+tmp17492 := PrimCons(symdifference, tmp17491)
 
-		tmp501 := PrimCons(MakeNumber(2), tmp500)
+tmp17493 := PrimCons(MakeNumber(1), tmp17492)
 
-		tmp502 := PrimCons(symcons, tmp501)
+tmp17494 := PrimCons(symdestroy, tmp17493)
 
-		tmp503 := PrimCons(MakeNumber(2), tmp502)
+tmp17495 := PrimCons(MakeNumber(2), tmp17494)
 
-		tmp504 := PrimCons(symconcat, tmp503)
+tmp17496 := PrimCons(symdeclare, tmp17495)
 
-		tmp505 := PrimCons(MakeNumber(2), tmp504)
+tmp17497 := PrimCons(MakeNumber(0), tmp17496)
 
-		tmp506 := PrimCons(symcompile, tmp505)
+tmp17498 := PrimCons(symdatatypes, tmp17497)
 
-		tmp507 := PrimCons(MakeNumber(1), tmp506)
+tmp17499 := PrimCons(MakeNumber(1), tmp17498)
 
-		tmp508 := PrimCons(symcd, tmp507)
+tmp17500 := PrimCons(symclose, tmp17499)
 
-		tmp509 := PrimCons(MakeNumber(5), tmp508)
+tmp17501 := PrimCons(MakeNumber(2), tmp17500)
 
-		tmp510 := PrimCons(symcall, tmp509)
+tmp17502 := PrimCons(symcn, tmp17501)
 
-		tmp511 := PrimCons(MakeNumber(6), tmp510)
+tmp17503 := PrimCons(MakeNumber(1), tmp17502)
 
-		tmp512 := PrimCons(symbind, tmp511)
+tmp17504 := PrimCons(symcons_2, tmp17503)
 
-		tmp513 := PrimCons(MakeNumber(1), tmp512)
+tmp17505 := PrimCons(MakeNumber(2), tmp17504)
 
-		tmp514 := PrimCons(symbound_2, tmp513)
+tmp17506 := PrimCons(symcons, tmp17505)
 
-		tmp515 := PrimCons(MakeNumber(1), tmp514)
+tmp17507 := PrimCons(MakeNumber(2), tmp17506)
 
-		tmp516 := PrimCons(symbootstrap, tmp515)
+tmp17508 := PrimCons(symconcat, tmp17507)
 
-		tmp517 := PrimCons(MakeNumber(1), tmp516)
+tmp17509 := PrimCons(MakeNumber(2), tmp17508)
 
-		tmp518 := PrimCons(symboolean_2, tmp517)
+tmp17510 := PrimCons(symcompile, tmp17509)
 
-		tmp519 := PrimCons(MakeNumber(1), tmp518)
+tmp17511 := PrimCons(MakeNumber(1), tmp17510)
 
-		tmp520 := PrimCons(symatom_2, tmp519)
+tmp17512 := PrimCons(symcd, tmp17511)
 
-		tmp521 := PrimCons(MakeNumber(2), tmp520)
+tmp17513 := PrimCons(MakeNumber(5), tmp17512)
 
-		tmp522 := PrimCons(symassoc, tmp521)
+tmp17514 := PrimCons(symcall, tmp17513)
 
-		tmp523 := PrimCons(MakeNumber(1), tmp522)
+tmp17515 := PrimCons(MakeNumber(6), tmp17514)
 
-		tmp524 := PrimCons(symarity, tmp523)
+tmp17516 := PrimCons(symbind, tmp17515)
 
-		tmp525 := PrimCons(MakeNumber(2), tmp524)
+tmp17517 := PrimCons(MakeNumber(1), tmp17516)
 
-		tmp526 := PrimCons(symappend, tmp525)
+tmp17518 := PrimCons(symbound_2, tmp17517)
 
-		tmp527 := PrimCons(MakeNumber(2), tmp526)
+tmp17519 := PrimCons(MakeNumber(1), tmp17518)
 
-		tmp528 := PrimCons(symand, tmp527)
+tmp17520 := PrimCons(symbootstrap, tmp17519)
 
-		tmp529 := PrimCons(MakeNumber(2), tmp528)
+tmp17521 := PrimCons(MakeNumber(1), tmp17520)
 
-		tmp530 := PrimCons(symadjoin, tmp529)
+tmp17522 := PrimCons(symboolean_2, tmp17521)
 
-		tmp531 := PrimCons(MakeNumber(3), tmp530)
+tmp17523 := PrimCons(MakeNumber(1), tmp17522)
 
-		tmp532 := PrimCons(symaddress_1_6, tmp531)
+tmp17524 := PrimCons(symatom_2, tmp17523)
 
-		tmp533 := PrimCons(MakeNumber(1), tmp532)
+tmp17525 := PrimCons(MakeNumber(2), tmp17524)
 
-		tmp534 := PrimCons(symabsvector, tmp533)
+tmp17526 := PrimCons(symassoc, tmp17525)
 
-		tmp535 := PrimCons(MakeNumber(1), tmp534)
+tmp17527 := PrimCons(MakeNumber(1), tmp17526)
 
-		tmp536 := PrimCons(symabsvector_2, tmp535)
+tmp17528 := PrimCons(symarity, tmp17527)
 
-		tmp537 := PrimCons(MakeNumber(1), tmp536)
+tmp17529 := PrimCons(MakeNumber(2), tmp17528)
 
-		tmp538 := PrimCons(symabsolute, tmp537)
+tmp17530 := PrimCons(symappend, tmp17529)
 
-		tmp539 := PrimCons(MakeNumber(0), tmp538)
+tmp17531 := PrimCons(MakeNumber(2), tmp17530)
 
-		tmp540 := PrimCons(symabort, tmp539)
+tmp17532 := PrimCons(symand, tmp17531)
 
-		tmp541 := Call(__e, PrimFunc(symshen_4initialise_1arity_1table), tmp540)
+tmp17533 := PrimCons(MakeNumber(2), tmp17532)
 
-		_ = tmp541
+tmp17534 := PrimCons(symadjoin, tmp17533)
 
-		tmp542 := PrimIntern(MakeString(":"))
+tmp17535 := PrimCons(MakeNumber(3), tmp17534)
 
-		tmp543 := PrimIntern(MakeString(";"))
+tmp17536 := PrimCons(symaddress_1_6, tmp17535)
 
-		tmp544 := PrimIntern(MakeString(":="))
+tmp17537 := PrimCons(MakeNumber(1), tmp17536)
 
-		tmp545 := PrimIntern(MakeString(","))
+tmp17538 := PrimCons(symabsvector, tmp17537)
 
-		tmp546 := Call(__e, PrimFunc(symvector), MakeNumber(0))
+tmp17539 := PrimCons(MakeNumber(1), tmp17538)
 
-		tmp547 := PrimIntern(MakeString("bar!"))
+tmp17540 := PrimCons(symabsvector_2, tmp17539)
 
-		tmp548 := PrimCons(symabort, Nil)
+tmp17541 := PrimCons(MakeNumber(1), tmp17540)
 
-		tmp549 := PrimCons(symabsolute, tmp548)
+tmp17542 := PrimCons(symabsolute, tmp17541)
 
-		tmp550 := PrimCons(symabsvector, tmp549)
+tmp17543 := PrimCons(MakeNumber(0), tmp17542)
 
-		tmp551 := PrimCons(symabsvector_2, tmp550)
+tmp17544 := PrimCons(symabort, tmp17543)
 
-		tmp552 := PrimCons(symaddress_1_6, tmp551)
+tmp17545 := Call(__e, PrimFunc(symshen_4initialise_1arity_1table), tmp17544)
 
-		tmp553 := PrimCons(sym_5_1address, tmp552)
 
-		tmp554 := PrimCons(symadjoin, tmp553)
+_ = tmp17545
 
-		tmp555 := PrimCons(symand, tmp554)
+tmp17546 := PrimIntern(MakeString(":"))
 
-		tmp556 := PrimCons(symappend, tmp555)
+tmp17547 := PrimIntern(MakeString(";"))
 
-		tmp557 := PrimCons(symarity, tmp556)
+tmp17548 := PrimIntern(MakeString(":="))
 
-		tmp558 := PrimCons(symassoc, tmp557)
+tmp17549 := PrimIntern(MakeString(","))
 
-		tmp559 := PrimCons(symassertz, tmp558)
+tmp17550 := Call(__e, PrimFunc(symvector), MakeNumber(0))
 
-		tmp560 := PrimCons(symasserta, tmp559)
 
-		tmp561 := PrimCons(symatom_2, tmp560)
+tmp17551 := PrimIntern(MakeString("bar!"))
 
-		tmp562 := PrimCons(tmp547, tmp561)
+tmp17552 := PrimCons(symabort, Nil)
 
-		tmp563 := PrimCons(symbootstrap, tmp562)
+tmp17553 := PrimCons(symabsolute, tmp17552)
 
-		tmp564 := PrimCons(symboolean, tmp563)
+tmp17554 := PrimCons(symabsvector, tmp17553)
 
-		tmp565 := PrimCons(symboolean_2, tmp564)
+tmp17555 := PrimCons(symabsvector_2, tmp17554)
 
-		tmp566 := PrimCons(symbound_2, tmp565)
+tmp17556 := PrimCons(symaddress_1_6, tmp17555)
 
-		tmp567 := PrimCons(symbind, tmp566)
+tmp17557 := PrimCons(sym_5_1address, tmp17556)
 
-		tmp568 := PrimCons(symclose, tmp567)
+tmp17558 := PrimCons(symadjoin, tmp17557)
 
-		tmp569 := PrimCons(symcall, tmp568)
+tmp17559 := PrimCons(symand, tmp17558)
 
-		tmp570 := PrimCons(symcases, tmp569)
+tmp17560 := PrimCons(symappend, tmp17559)
 
-		tmp571 := PrimCons(symcd, tmp570)
+tmp17561 := PrimCons(symarity, tmp17560)
 
-		tmp572 := PrimCons(symcompile, tmp571)
+tmp17562 := PrimCons(symassoc, tmp17561)
 
-		tmp573 := PrimCons(symconcat, tmp572)
+tmp17563 := PrimCons(symassertz, tmp17562)
 
-		tmp574 := PrimCons(symcond, tmp573)
+tmp17564 := PrimCons(symasserta, tmp17563)
 
-		tmp575 := PrimCons(symcons, tmp574)
+tmp17565 := PrimCons(symatom_2, tmp17564)
 
-		tmp576 := PrimCons(symcons_2, tmp575)
+tmp17566 := PrimCons(tmp17551, tmp17565)
 
-		tmp577 := PrimCons(symcn, tmp576)
+tmp17567 := PrimCons(symbootstrap, tmp17566)
 
-		tmp578 := PrimCons(symshen_4ctxt, tmp577)
+tmp17568 := PrimCons(symboolean, tmp17567)
 
-		tmp579 := PrimCons(symdatatypes, tmp578)
+tmp17569 := PrimCons(symboolean_2, tmp17568)
 
-		tmp580 := PrimCons(symdatatype, tmp579)
+tmp17570 := PrimCons(symbound_2, tmp17569)
 
-		tmp581 := PrimCons(symdeclare, tmp580)
+tmp17571 := PrimCons(symbind, tmp17570)
 
-		tmp582 := PrimCons(symdefprolog, tmp581)
+tmp17572 := PrimCons(symclose, tmp17571)
 
-		tmp583 := PrimCons(symdefcc, tmp582)
+tmp17573 := PrimCons(symcall, tmp17572)
 
-		tmp584 := PrimCons(symdefmacro, tmp583)
+tmp17574 := PrimCons(symcases, tmp17573)
 
-		tmp585 := PrimCons(symdefine, tmp584)
+tmp17575 := PrimCons(symcd, tmp17574)
 
-		tmp586 := PrimCons(symdefun, tmp585)
+tmp17576 := PrimCons(symcompile, tmp17575)
 
-		tmp587 := PrimCons(symdestroy, tmp586)
+tmp17577 := PrimCons(symconcat, tmp17576)
 
-		tmp588 := PrimCons(symdifference, tmp587)
+tmp17578 := PrimCons(symcond, tmp17577)
 
-		tmp589 := PrimCons(symdo, tmp588)
+tmp17579 := PrimCons(symcons, tmp17578)
 
-		tmp590 := PrimCons(symelement_2, tmp589)
+tmp17580 := PrimCons(symcons_2, tmp17579)
 
-		tmp591 := PrimCons(symempty_2, tmp590)
+tmp17581 := PrimCons(symcn, tmp17580)
 
-		tmp592 := PrimCons(symerror, tmp591)
+tmp17582 := PrimCons(symshen_4ctxt, tmp17581)
 
-		tmp593 := PrimCons(symerror_1to_1string, tmp592)
+tmp17583 := PrimCons(symdatatypes, tmp17582)
 
-		tmp594 := PrimCons(symeval, tmp593)
+tmp17584 := PrimCons(symdatatype, tmp17583)
 
-		tmp595 := PrimCons(symeval_1kl, tmp594)
+tmp17585 := PrimCons(symdeclare, tmp17584)
 
-		tmp596 := PrimCons(symexception, tmp595)
+tmp17586 := PrimCons(symdefprolog, tmp17585)
 
-		tmp597 := PrimCons(symexternal, tmp596)
+tmp17587 := PrimCons(symdefcc, tmp17586)
 
-		tmp598 := PrimCons(symexplode, tmp597)
+tmp17588 := PrimCons(symdefmacro, tmp17587)
 
-		tmp599 := PrimCons(symenable_1type_1theory, tmp598)
+tmp17589 := PrimCons(symdefine, tmp17588)
 
-		tmp600 := PrimCons(False, tmp599)
+tmp17590 := PrimCons(symdefun, tmp17589)
 
-		tmp601 := PrimCons(symfindall, tmp600)
+tmp17591 := PrimCons(symdestroy, tmp17590)
 
-		tmp602 := PrimCons(symfactorise, tmp601)
+tmp17592 := PrimCons(symdifference, tmp17591)
 
-		tmp603 := PrimCons(symfail_1if, tmp602)
+tmp17593 := PrimCons(symdo, tmp17592)
 
-		tmp604 := PrimCons(symfail, tmp603)
+tmp17594 := PrimCons(symelement_2, tmp17593)
 
-		tmp605 := PrimCons(symfile, tmp604)
+tmp17595 := PrimCons(symempty_2, tmp17594)
 
-		tmp606 := PrimCons(symfix, tmp605)
+tmp17596 := PrimCons(symerror, tmp17595)
 
-		tmp607 := PrimCons(symforeign, tmp606)
+tmp17597 := PrimCons(symerror_1to_1string, tmp17596)
 
-		tmp608 := PrimCons(symfork, tmp607)
+tmp17598 := PrimCons(symeval, tmp17597)
 
-		tmp609 := PrimCons(symfresh, tmp608)
+tmp17599 := PrimCons(symeval_1kl, tmp17598)
 
-		tmp610 := PrimCons(symfreeze, tmp609)
+tmp17600 := PrimCons(symexception, tmp17599)
 
-		tmp611 := PrimCons(symfst, tmp610)
+tmp17601 := PrimCons(symexternal, tmp17600)
 
-		tmp612 := PrimCons(symfunction, tmp611)
+tmp17602 := PrimCons(symexplode, tmp17601)
 
-		tmp613 := PrimCons(symfn, tmp612)
+tmp17603 := PrimCons(symenable_1type_1theory, tmp17602)
 
-		tmp614 := PrimCons(symgensym, tmp613)
+tmp17604 := PrimCons(False, tmp17603)
 
-		tmp615 := PrimCons(symget_1time, tmp614)
+tmp17605 := PrimCons(symfindall, tmp17604)
 
-		tmp616 := PrimCons(symget, tmp615)
+tmp17606 := PrimCons(symfactorise, tmp17605)
 
-		tmp617 := PrimCons(symhash, tmp616)
+tmp17607 := PrimCons(symfail_1if, tmp17606)
 
-		tmp618 := PrimCons(symhdstr, tmp617)
+tmp17608 := PrimCons(symfail, tmp17607)
 
-		tmp619 := PrimCons(symhdv, tmp618)
+tmp17609 := PrimCons(symfile, tmp17608)
 
-		tmp620 := PrimCons(symhd, tmp619)
+tmp17610 := PrimCons(symfix, tmp17609)
 
-		tmp621 := PrimCons(symhead, tmp620)
+tmp17611 := PrimCons(symforeign, tmp17610)
 
-		tmp622 := PrimCons(symif, tmp621)
+tmp17612 := PrimCons(symfork, tmp17611)
 
-		tmp623 := PrimCons(symimplementation, tmp622)
+tmp17613 := PrimCons(symfresh, tmp17612)
 
-		tmp624 := PrimCons(syminternal, tmp623)
+tmp17614 := PrimCons(symfreeze, tmp17613)
 
-		tmp625 := PrimCons(symin_1package, tmp624)
+tmp17615 := PrimCons(symfst, tmp17614)
 
-		tmp626 := PrimCons(symin, tmp625)
+tmp17616 := PrimCons(symfunction, tmp17615)
 
-		tmp627 := PrimCons(symis_b, tmp626)
+tmp17617 := PrimCons(symfn, tmp17616)
 
-		tmp628 := PrimCons(symis, tmp627)
+tmp17618 := PrimCons(symgensym, tmp17617)
 
-		tmp629 := PrimCons(symit, tmp628)
+tmp17619 := PrimCons(symget_1time, tmp17618)
 
-		tmp630 := PrimCons(syminclude_1all_1but, tmp629)
+tmp17620 := PrimCons(symget, tmp17619)
 
-		tmp631 := PrimCons(syminclude, tmp630)
+tmp17621 := PrimCons(symhash, tmp17620)
 
-		tmp632 := PrimCons(syminline, tmp631)
+tmp17622 := PrimCons(symhdstr, tmp17621)
 
-		tmp633 := PrimCons(syminput_7, tmp632)
+tmp17623 := PrimCons(symhdv, tmp17622)
 
-		tmp634 := PrimCons(syminput, tmp633)
+tmp17624 := PrimCons(symhd, tmp17623)
 
-		tmp635 := PrimCons(syminteger_2, tmp634)
+tmp17625 := PrimCons(symhead, tmp17624)
 
-		tmp636 := PrimCons(symintern, tmp635)
+tmp17626 := PrimCons(symif, tmp17625)
 
-		tmp637 := PrimCons(syminferences, tmp636)
+tmp17627 := PrimCons(symimplementation, tmp17626)
 
-		tmp638 := PrimCons(symintersection, tmp637)
+tmp17628 := PrimCons(syminternal, tmp17627)
 
-		tmp639 := PrimCons(symis, tmp638)
+tmp17629 := PrimCons(symin_1package, tmp17628)
 
-		tmp640 := PrimCons(symlanguage, tmp639)
+tmp17630 := PrimCons(symin, tmp17629)
 
-		tmp641 := PrimCons(symlambda, tmp640)
+tmp17631 := PrimCons(symis_b, tmp17630)
 
-		tmp642 := PrimCons(symlazy, tmp641)
+tmp17632 := PrimCons(symis, tmp17631)
 
-		tmp643 := PrimCons(symlet, tmp642)
+tmp17633 := PrimCons(symit, tmp17632)
 
-		tmp644 := PrimCons(symlength, tmp643)
+tmp17634 := PrimCons(syminclude_1all_1but, tmp17633)
 
-		tmp645 := PrimCons(symlimit, tmp644)
+tmp17635 := PrimCons(syminclude, tmp17634)
 
-		tmp646 := PrimCons(symlineread, tmp645)
+tmp17636 := PrimCons(syminline, tmp17635)
 
-		tmp647 := PrimCons(symlist, tmp646)
+tmp17637 := PrimCons(syminput_7, tmp17636)
 
-		tmp648 := PrimCons(symloaded, tmp647)
+tmp17638 := PrimCons(syminput, tmp17637)
 
-		tmp649 := PrimCons(symload, tmp648)
+tmp17639 := PrimCons(syminteger_2, tmp17638)
 
-		tmp650 := PrimCons(symmake_1string, tmp649)
+tmp17640 := PrimCons(symintern, tmp17639)
 
-		tmp651 := PrimCons(symmap, tmp650)
+tmp17641 := PrimCons(syminferences, tmp17640)
 
-		tmp652 := PrimCons(symmapcan, tmp651)
+tmp17642 := PrimCons(symintersection, tmp17641)
 
-		tmp653 := PrimCons(symmaxinferences, tmp652)
+tmp17643 := PrimCons(symis, tmp17642)
 
-		tmp654 := PrimCons(symmacroexpand, tmp653)
+tmp17644 := PrimCons(symlanguage, tmp17643)
 
-		tmp655 := PrimCons(symmode, tmp654)
+tmp17645 := PrimCons(symlambda, tmp17644)
 
-		tmp656 := PrimCons(symnl, tmp655)
+tmp17646 := PrimCons(symlazy, tmp17645)
 
-		tmp657 := PrimCons(symnot, tmp656)
+tmp17647 := PrimCons(symlet, tmp17646)
 
-		tmp658 := PrimCons(symnth, tmp657)
+tmp17648 := PrimCons(symlength, tmp17647)
 
-		tmp659 := PrimCons(symnull, tmp658)
+tmp17649 := PrimCons(symlimit, tmp17648)
 
-		tmp660 := PrimCons(symnumber, tmp659)
+tmp17650 := PrimCons(symlineread, tmp17649)
 
-		tmp661 := PrimCons(symnumber_2, tmp660)
+tmp17651 := PrimCons(symlist, tmp17650)
 
-		tmp662 := PrimCons(symn_1_6string, tmp661)
+tmp17652 := PrimCons(symloaded, tmp17651)
 
-		tmp663 := PrimCons(symoccurs_1check, tmp662)
+tmp17653 := PrimCons(symload, tmp17652)
 
-		tmp664 := PrimCons(symoccurrences, tmp663)
+tmp17654 := PrimCons(symmake_1string, tmp17653)
 
-		tmp665 := PrimCons(symopen, tmp664)
+tmp17655 := PrimCons(symmap, tmp17654)
 
-		tmp666 := PrimCons(symoptimise, tmp665)
+tmp17656 := PrimCons(symmapcan, tmp17655)
 
-		tmp667 := PrimCons(symor, tmp666)
+tmp17657 := PrimCons(symmaxinferences, tmp17656)
 
-		tmp668 := PrimCons(symos, tmp667)
+tmp17658 := PrimCons(symmacroexpand, tmp17657)
 
-		tmp669 := PrimCons(symout, tmp668)
+tmp17659 := PrimCons(symmode, tmp17658)
 
-		tmp670 := PrimCons(symoutput, tmp669)
+tmp17660 := PrimCons(symnl, tmp17659)
 
-		tmp671 := PrimCons(sympackage, tmp670)
+tmp17661 := PrimCons(symnot, tmp17660)
 
-		tmp672 := PrimCons(symport, tmp671)
+tmp17662 := PrimCons(symnth, tmp17661)
 
-		tmp673 := PrimCons(symporters, tmp672)
+tmp17663 := PrimCons(symnull, tmp17662)
 
-		tmp674 := PrimCons(sympos, tmp673)
+tmp17664 := PrimCons(symnumber, tmp17663)
 
-		tmp675 := PrimCons(sympr, tmp674)
+tmp17665 := PrimCons(symnumber_2, tmp17664)
 
-		tmp676 := PrimCons(symprint, tmp675)
+tmp17666 := PrimCons(symn_1_6string, tmp17665)
 
-		tmp677 := PrimCons(symprolog_1memory, tmp676)
+tmp17667 := PrimCons(symoccurs_1check, tmp17666)
 
-		tmp678 := PrimCons(symprofile, tmp677)
+tmp17668 := PrimCons(symoccurrences, tmp17667)
 
-		tmp679 := PrimCons(symprofile_1results, tmp678)
+tmp17669 := PrimCons(symopen, tmp17668)
 
-		tmp680 := PrimCons(symprotect, tmp679)
+tmp17670 := PrimCons(symoptimise, tmp17669)
 
-		tmp681 := PrimCons(symprolog_2, tmp680)
+tmp17671 := PrimCons(symor, tmp17670)
 
-		tmp682 := PrimCons(symps, tmp681)
+tmp17672 := PrimCons(symos, tmp17671)
 
-		tmp683 := PrimCons(sympreclude_1all_1but, tmp682)
+tmp17673 := PrimCons(symout, tmp17672)
 
-		tmp684 := PrimCons(sympreclude, tmp683)
+tmp17674 := PrimCons(symoutput, tmp17673)
 
-		tmp685 := PrimCons(symput, tmp684)
+tmp17675 := PrimCons(sympackage, tmp17674)
 
-		tmp686 := PrimCons(sympackage_2, tmp685)
+tmp17676 := PrimCons(symport, tmp17675)
 
-		tmp687 := PrimCons(symread_1from_1string_1unprocessed, tmp686)
+tmp17677 := PrimCons(symporters, tmp17676)
 
-		tmp688 := PrimCons(symread_1from_1string, tmp687)
+tmp17678 := PrimCons(sympos, tmp17677)
 
-		tmp689 := PrimCons(symread_1byte, tmp688)
+tmp17679 := PrimCons(sympr, tmp17678)
 
-		tmp690 := PrimCons(symread_1file_1as_1string, tmp689)
+tmp17680 := PrimCons(symprint, tmp17679)
 
-		tmp691 := PrimCons(symread_1file_1as_1bytelist, tmp690)
+tmp17681 := PrimCons(symprolog_1memory, tmp17680)
 
-		tmp692 := PrimCons(symread_1file, tmp691)
+tmp17682 := PrimCons(symprofile, tmp17681)
 
-		tmp693 := PrimCons(symreceive, tmp692)
+tmp17683 := PrimCons(symprofile_1results, tmp17682)
 
-		tmp694 := PrimCons(symread, tmp693)
+tmp17684 := PrimCons(symprotect, tmp17683)
 
-		tmp695 := PrimCons(symrelease, tmp694)
+tmp17685 := PrimCons(symprolog_2, tmp17684)
 
-		tmp696 := PrimCons(symremove, tmp695)
+tmp17686 := PrimCons(symps, tmp17685)
 
-		tmp697 := PrimCons(symretract, tmp696)
+tmp17687 := PrimCons(sympreclude_1all_1but, tmp17686)
 
-		tmp698 := PrimCons(symreverse, tmp697)
+tmp17688 := PrimCons(sympreclude, tmp17687)
 
-		tmp699 := PrimCons(symrun, tmp698)
+tmp17689 := PrimCons(symput, tmp17688)
 
-		tmp700 := PrimCons(symstr, tmp699)
+tmp17690 := PrimCons(sympackage_2, tmp17689)
 
-		tmp701 := PrimCons(symsave, tmp700)
+tmp17691 := PrimCons(symread_1from_1string_1unprocessed, tmp17690)
 
-		tmp702 := PrimCons(symset, tmp701)
+tmp17692 := PrimCons(symread_1from_1string, tmp17691)
 
-		tmp703 := PrimCons(symsimple_1error, tmp702)
+tmp17693 := PrimCons(symread_1byte, tmp17692)
 
-		tmp704 := PrimCons(symsnd, tmp703)
+tmp17694 := PrimCons(symread_1file_1as_1string, tmp17693)
 
-		tmp705 := PrimCons(symspecialise, tmp704)
+tmp17695 := PrimCons(symread_1file_1as_1bytelist, tmp17694)
 
-		tmp706 := PrimCons(symspy, tmp705)
+tmp17696 := PrimCons(symread_1file, tmp17695)
 
-		tmp707 := PrimCons(symstep, tmp706)
+tmp17697 := PrimCons(symreceive, tmp17696)
 
-		tmp708 := PrimCons(symstoutput, tmp707)
+tmp17698 := PrimCons(symread, tmp17697)
 
-		tmp709 := PrimCons(symsterror, tmp708)
+tmp17699 := PrimCons(symrelease, tmp17698)
 
-		tmp710 := PrimCons(symstinput, tmp709)
+tmp17700 := PrimCons(symremove, tmp17699)
 
-		tmp711 := PrimCons(symstring, tmp710)
+tmp17701 := PrimCons(symretract, tmp17700)
 
-		tmp712 := PrimCons(symstream, tmp711)
+tmp17702 := PrimCons(symreverse, tmp17701)
 
-		tmp713 := PrimCons(symstring_1_6n, tmp712)
+tmp17703 := PrimCons(symrun, tmp17702)
 
-		tmp714 := PrimCons(symstring_2, tmp713)
+tmp17704 := PrimCons(symstr, tmp17703)
 
-		tmp715 := PrimCons(symsubst, tmp714)
+tmp17705 := PrimCons(symsave, tmp17704)
 
-		tmp716 := PrimCons(symsum, tmp715)
+tmp17706 := PrimCons(symset, tmp17705)
 
-		tmp717 := PrimCons(symstring_1_6symbol, tmp716)
+tmp17707 := PrimCons(symsimple_1error, tmp17706)
 
-		tmp718 := PrimCons(symsymbol_2, tmp717)
+tmp17708 := PrimCons(symsnd, tmp17707)
 
-		tmp719 := PrimCons(symsymbol, tmp718)
+tmp17709 := PrimCons(symspecialise, tmp17708)
 
-		tmp720 := PrimCons(symsynonyms, tmp719)
+tmp17710 := PrimCons(symspy, tmp17709)
 
-		tmp721 := PrimCons(symsystemf, tmp720)
+tmp17711 := PrimCons(symstep, tmp17710)
 
-		tmp722 := PrimCons(symtail, tmp721)
+tmp17712 := PrimCons(symstoutput, tmp17711)
 
-		tmp723 := PrimCons(symtlv, tmp722)
+tmp17713 := PrimCons(symsterror, tmp17712)
 
-		tmp724 := PrimCons(symtlstr, tmp723)
+tmp17714 := PrimCons(symstinput, tmp17713)
 
-		tmp725 := PrimCons(symtl, tmp724)
+tmp17715 := PrimCons(symstring, tmp17714)
 
-		tmp726 := PrimCons(symtc, tmp725)
+tmp17716 := PrimCons(symstream, tmp17715)
 
-		tmp727 := PrimCons(symtc_2, tmp726)
+tmp17717 := PrimCons(symstring_1_6n, tmp17716)
 
-		tmp728 := PrimCons(symthaw, tmp727)
+tmp17718 := PrimCons(symstring_2, tmp17717)
 
-		tmp729 := PrimCons(symtime, tmp728)
+tmp17719 := PrimCons(symsubst, tmp17718)
 
-		tmp730 := PrimCons(symtrack, tmp729)
+tmp17720 := PrimCons(symsum, tmp17719)
 
-		tmp731 := PrimCons(symtrap_1error, tmp730)
+tmp17721 := PrimCons(symstring_1_6symbol, tmp17720)
 
-		tmp732 := PrimCons(True, tmp731)
+tmp17722 := PrimCons(symsymbol_2, tmp17721)
 
-		tmp733 := PrimCons(symtuple_2, tmp732)
+tmp17723 := PrimCons(symsymbol, tmp17722)
 
-		tmp734 := PrimCons(symtype, tmp733)
+tmp17724 := PrimCons(symsynonyms, tmp17723)
 
-		tmp735 := PrimCons(symreturn, tmp734)
+tmp17725 := PrimCons(symsystemf, tmp17724)
 
-		tmp736 := PrimCons(symunabsolute, tmp735)
+tmp17726 := PrimCons(symtail, tmp17725)
 
-		tmp737 := PrimCons(symundefmacro, tmp736)
+tmp17727 := PrimCons(symtlv, tmp17726)
 
-		tmp738 := PrimCons(symunprofile, tmp737)
+tmp17728 := PrimCons(symtlstr, tmp17727)
 
-		tmp739 := PrimCons(symunput, tmp738)
+tmp17729 := PrimCons(symtl, tmp17728)
 
-		tmp740 := PrimCons(symunion, tmp739)
+tmp17730 := PrimCons(symtc, tmp17729)
 
-		tmp741 := PrimCons(symshen_4unix, tmp740)
+tmp17731 := PrimCons(symtc_2, tmp17730)
 
-		tmp742 := PrimCons(symunit, tmp741)
+tmp17732 := PrimCons(symthaw, tmp17731)
 
-		tmp743 := PrimCons(symuntrack, tmp742)
+tmp17733 := PrimCons(symtime, tmp17732)
 
-		tmp744 := PrimCons(symunspecialise, tmp743)
+tmp17734 := PrimCons(symtrack, tmp17733)
 
-		tmp745 := PrimCons(symupdate_1lambda_1table, tmp744)
+tmp17735 := PrimCons(symtrap_1error, tmp17734)
 
-		tmp746 := PrimCons(symu_b, tmp745)
+tmp17736 := PrimCons(True, tmp17735)
 
-		tmp747 := PrimCons(symvector_2, tmp746)
+tmp17737 := PrimCons(symtuple_2, tmp17736)
 
-		tmp748 := PrimCons(symvector, tmp747)
+tmp17738 := PrimCons(symtype, tmp17737)
 
-		tmp749 := PrimCons(sym_5_1vector, tmp748)
+tmp17739 := PrimCons(symreturn, tmp17738)
 
-		tmp750 := PrimCons(symvector_1_6, tmp749)
+tmp17740 := PrimCons(symunabsolute, tmp17739)
 
-		tmp751 := PrimCons(symvalue, tmp750)
+tmp17741 := PrimCons(symundefmacro, tmp17740)
 
-		tmp752 := PrimCons(symvar_2, tmp751)
+tmp17742 := PrimCons(symunprofile, tmp17741)
 
-		tmp753 := PrimCons(symvariable_2, tmp752)
+tmp17743 := PrimCons(symunput, tmp17742)
 
-		tmp754 := PrimCons(symverified, tmp753)
+tmp17744 := PrimCons(symunion, tmp17743)
 
-		tmp755 := PrimCons(symversion, tmp754)
+tmp17745 := PrimCons(symshen_4unix, tmp17744)
 
-		tmp756 := PrimCons(symwarn, tmp755)
+tmp17746 := PrimCons(symunit, tmp17745)
 
-		tmp757 := PrimCons(symwhen, tmp756)
+tmp17747 := PrimCons(symuntrack, tmp17746)
 
-		tmp758 := PrimCons(symwhere, tmp757)
+tmp17748 := PrimCons(symunspecialise, tmp17747)
 
-		tmp759 := PrimCons(symwrite_1byte, tmp758)
+tmp17749 := PrimCons(symupdate_1lambda_1table, tmp17748)
 
-		tmp760 := PrimCons(symwrite_1to_1file, tmp759)
+tmp17750 := PrimCons(symu_b, tmp17749)
 
-		tmp761 := PrimCons(symy_1or_1n_2, tmp760)
+tmp17751 := PrimCons(symvector_2, tmp17750)
 
-		tmp762 := PrimCons(tmp546, tmp761)
+tmp17752 := PrimCons(symvector, tmp17751)
 
-		tmp763 := PrimCons(sym_6_6, tmp762)
+tmp17753 := PrimCons(sym_5_1vector, tmp17752)
 
-		tmp764 := PrimCons(sym_5, tmp763)
+tmp17754 := PrimCons(symvector_1_6, tmp17753)
 
-		tmp765 := PrimCons(sym_5_a, tmp764)
+tmp17755 := PrimCons(symvalue, tmp17754)
 
-		tmp766 := PrimCons(sym_7, tmp765)
+tmp17756 := PrimCons(symvar_2, tmp17755)
 
-		tmp767 := PrimCons(sym_d, tmp766)
+tmp17757 := PrimCons(symvariable_2, tmp17756)
 
-		tmp768 := PrimCons(sym_c, tmp767)
+tmp17758 := PrimCons(symverified, tmp17757)
 
-		tmp769 := PrimCons(sym_1, tmp768)
+tmp17759 := PrimCons(symversion, tmp17758)
 
-		tmp770 := PrimCons(sym_3, tmp769)
+tmp17760 := PrimCons(symwarn, tmp17759)
 
-		tmp771 := PrimCons(sym_5end_6, tmp770)
+tmp17761 := PrimCons(symwhen, tmp17760)
 
-		tmp772 := PrimCons(sym_5_b_6, tmp771)
+tmp17762 := PrimCons(symwhere, tmp17761)
 
-		tmp773 := PrimCons(sym_c_4, tmp772)
+tmp17763 := PrimCons(symwrite_1byte, tmp17762)
 
-		tmp774 := PrimCons(sym_a_a_6, tmp773)
+tmp17764 := PrimCons(symwrite_1to_1file, tmp17763)
 
-		tmp775 := PrimCons(sym_6, tmp774)
+tmp17765 := PrimCons(symy_1or_1n_2, tmp17764)
 
-		tmp776 := PrimCons(sym_6_a, tmp775)
+tmp17766 := PrimCons(tmp17550, tmp17765)
 
-		tmp777 := PrimCons(sym_a, tmp776)
+tmp17767 := PrimCons(sym_6_6, tmp17766)
 
-		tmp778 := PrimCons(sym_a_a, tmp777)
+tmp17768 := PrimCons(sym_5, tmp17767)
 
-		tmp779 := PrimCons(sym_5e_6, tmp778)
+tmp17769 := PrimCons(sym_5_a, tmp17768)
 
-		tmp780 := PrimCons(sym_1_6, tmp779)
+tmp17770 := PrimCons(sym_7, tmp17769)
 
-		tmp781 := PrimCons(sym_5_1, tmp780)
+tmp17771 := PrimCons(sym_d, tmp17770)
 
-		tmp782 := PrimCons(sym_dhush_d, tmp781)
+tmp17772 := PrimCons(sym_c, tmp17771)
 
-		tmp783 := PrimCons(sym_dporters_d, tmp782)
+tmp17773 := PrimCons(sym_1, tmp17772)
 
-		tmp784 := PrimCons(sym_dport_d, tmp783)
+tmp17774 := PrimCons(sym_3, tmp17773)
 
-		tmp785 := PrimCons(sym_8s, tmp784)
+tmp17775 := PrimCons(sym_5end_6, tmp17774)
 
-		tmp786 := PrimCons(sym_8p, tmp785)
+tmp17776 := PrimCons(sym_5_b_6, tmp17775)
 
-		tmp787 := PrimCons(sym_8v, tmp786)
+tmp17777 := PrimCons(sym_c_4, tmp17776)
 
-		tmp788 := PrimCons(sym_dproperty_1vector_d, tmp787)
+tmp17778 := PrimCons(sym_a_a_6, tmp17777)
 
-		tmp789 := PrimCons(sym_drelease_d, tmp788)
+tmp17779 := PrimCons(sym_6, tmp17778)
 
-		tmp790 := PrimCons(sym_dos_d, tmp789)
+tmp17780 := PrimCons(sym_6_a, tmp17779)
 
-		tmp791 := PrimCons(sym_dmacros_d, tmp790)
+tmp17781 := PrimCons(sym_a, tmp17780)
 
-		tmp792 := PrimCons(sym_dmaximum_1print_1sequence_1size_d, tmp791)
+tmp17782 := PrimCons(sym_a_a, tmp17781)
 
-		tmp793 := PrimCons(sym_dversion_d, tmp792)
+tmp17783 := PrimCons(sym_5e_6, tmp17782)
 
-		tmp794 := PrimCons(sym_dhome_1directory_d, tmp793)
+tmp17784 := PrimCons(sym_1_6, tmp17783)
 
-		tmp795 := PrimCons(sym_dstoutput_d, tmp794)
+tmp17785 := PrimCons(sym_5_1, tmp17784)
 
-		tmp796 := PrimCons(sym_dsterror_d, tmp795)
+tmp17786 := PrimCons(sym_dhush_d, tmp17785)
 
-		tmp797 := PrimCons(sym_dstinput_d, tmp796)
+tmp17787 := PrimCons(sym_dporters_d, tmp17786)
 
-		tmp798 := PrimCons(sym_dimplementation_d, tmp797)
+tmp17788 := PrimCons(sym_dport_d, tmp17787)
 
-		tmp799 := PrimCons(sym_dlanguage_d, tmp798)
+tmp17789 := PrimCons(sym_8s, tmp17788)
 
-		tmp800 := PrimCons(sym__, tmp799)
+tmp17790 := PrimCons(sym_8p, tmp17789)
 
-		tmp801 := PrimCons(tmp545, tmp800)
+tmp17791 := PrimCons(sym_8v, tmp17790)
 
-		tmp802 := PrimCons(tmp544, tmp801)
+tmp17792 := PrimCons(sym_dproperty_1vector_d, tmp17791)
 
-		tmp803 := PrimCons(tmp543, tmp802)
+tmp17793 := PrimCons(sym_drelease_d, tmp17792)
 
-		tmp804 := PrimCons(tmp542, tmp803)
+tmp17794 := PrimCons(sym_dos_d, tmp17793)
 
-		tmp805 := PrimCons(sym_e_e, tmp804)
+tmp17795 := PrimCons(sym_dmacros_d, tmp17794)
 
-		tmp806 := PrimCons(sym_5_1_1, tmp805)
+tmp17796 := PrimCons(sym_dmaximum_1print_1sequence_1size_d, tmp17795)
 
-		tmp807 := PrimCons(sym_1_1_6, tmp806)
+tmp17797 := PrimCons(sym_dversion_d, tmp17796)
 
-		tmp808 := PrimCons(sym_i, tmp807)
+tmp17798 := PrimCons(sym_dhome_1directory_d, tmp17797)
 
-		tmp809 := PrimCons(sym_j, tmp808)
+tmp17799 := PrimCons(sym_dstoutput_d, tmp17798)
 
-		tmp810 := PrimCons(sym_b, tmp809)
+tmp17800 := PrimCons(sym_dsterror_d, tmp17799)
 
-		tmp811 := PrimValue(sym_dproperty_1vector_d)
+tmp17801 := PrimCons(sym_dstinput_d, tmp17800)
 
-		tmp812 := Call(__e, PrimFunc(symput), symshen, symshen_4external_1symbols, tmp810, tmp811)
+tmp17802 := PrimCons(sym_dimplementation_d, tmp17801)
 
-		_ = tmp812
+tmp17803 := PrimCons(sym_dlanguage_d, tmp17802)
 
-		tmp813 := PrimAbsvector(MakeNumber(0))
+tmp17804 := PrimCons(sym__, tmp17803)
 
-		__e.Return(PrimSet(symshen_4_dempty_1absvector_d, tmp813))
-		return
+tmp17805 := PrimCons(tmp17549, tmp17804)
 
-	}, 0)
+tmp17806 := PrimCons(tmp17548, tmp17805)
 
-	tmp814 := Call(__e, ns2_1set, symshen_4initialise_1environment, tmp75)
+tmp17807 := PrimCons(tmp17547, tmp17806)
 
-	_ = tmp814
+tmp17808 := PrimCons(tmp17546, tmp17807)
 
-	tmp815 := MakeNative(func(__e *ControlFlow) {
-		tmp816 := PrimSet(symshen_4_dsigf_d, Nil)
+tmp17809 := PrimCons(sym_e_e, tmp17808)
 
-		_ = tmp816
+tmp17810 := PrimCons(sym_5_1_1, tmp17809)
 
-		tmp817 := MakeNative(func(__e *ControlFlow) {
-			V5927 := __e.Get(1)
-			_ = V5927
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B5923 := __e.Get(1)
-				_ = B5923
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L5924 := __e.Get(1)
-					_ = L5924
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key5925 := __e.Get(1)
-						_ = Key5925
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C5926 := __e.Get(1)
-							_ = C5926
-							tmp818 := MakeNative(func(__e *ControlFlow) {
-								A := __e.Get(1)
-								_ = A
-								tmp819 := PrimCons(A, Nil)
+tmp17811 := PrimCons(sym_1_1_6, tmp17810)
 
-								tmp820 := PrimCons(sym_1_1_6, tmp819)
+tmp17812 := PrimCons(sym_i, tmp17811)
 
-								tmp821 := Call(__e, PrimFunc(symis_b), V5927, tmp820, B5923, L5924, Key5925, C5926)
+tmp17813 := PrimCons(sym_j, tmp17812)
 
-								__e.TailApply(PrimFunc(symshen_4gc), B5923, tmp821)
-								return
+tmp17814 := PrimCons(sym_b, tmp17813)
 
-							}, 1)
+tmp17815 := PrimValue(sym_dproperty_1vector_d)
 
-							tmp822 := Call(__e, PrimFunc(symshen_4newpv), B5923)
+tmp17816 := Call(__e, PrimFunc(symput), symshen, symshen_4external_1symbols, tmp17814, tmp17815)
 
-							__e.TailApply(tmp818, tmp822)
-							return
 
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
+_ = tmp17816
 
-		tmp823 := PrimValue(symshen_4_dsigf_d)
+tmp17817 := PrimAbsvector(MakeNumber(0))
 
-		tmp824 := Call(__e, PrimFunc(symshen_4assoc_1_6), symabort, tmp817, tmp823)
+__e.Return(PrimSet(symshen_4_dempty_1absvector_d, tmp17817))
+return
 
-		tmp825 := PrimSet(symshen_4_dsigf_d, tmp824)
-
-		_ = tmp825
-
-		tmp826 := MakeNative(func(__e *ControlFlow) {
-			V5932 := __e.Get(1)
-			_ = V5932
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B5928 := __e.Get(1)
-				_ = B5928
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L5929 := __e.Get(1)
-					_ = L5929
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key5930 := __e.Get(1)
-						_ = Key5930
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C5931 := __e.Get(1)
-							_ = C5931
-							tmp827 := PrimCons(symstring, Nil)
-
-							tmp828 := PrimCons(symlist, tmp827)
-
-							tmp829 := PrimCons(tmp828, Nil)
-
-							tmp830 := PrimCons(sym_1_1_6, tmp829)
-
-							tmp831 := PrimCons(symstring, tmp830)
-
-							__e.TailApply(PrimFunc(symis_b), V5932, tmp831, B5928, L5929, Key5930, C5931)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp832 := PrimValue(symshen_4_dsigf_d)
-
-		tmp833 := Call(__e, PrimFunc(symshen_4assoc_1_6), symabsolute, tmp826, tmp832)
-
-		tmp834 := PrimSet(symshen_4_dsigf_d, tmp833)
-
-		_ = tmp834
-
-		tmp835 := MakeNative(func(__e *ControlFlow) {
-			V5937 := __e.Get(1)
-			_ = V5937
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B5933 := __e.Get(1)
-				_ = B5933
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L5934 := __e.Get(1)
-					_ = L5934
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key5935 := __e.Get(1)
-						_ = Key5935
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C5936 := __e.Get(1)
-							_ = C5936
-							tmp836 := MakeNative(func(__e *ControlFlow) {
-								A := __e.Get(1)
-								_ = A
-								tmp837 := PrimCons(symboolean, Nil)
-
-								tmp838 := PrimCons(sym_1_1_6, tmp837)
-
-								tmp839 := PrimCons(A, tmp838)
-
-								tmp840 := Call(__e, PrimFunc(symis_b), V5937, tmp839, B5933, L5934, Key5935, C5936)
-
-								__e.TailApply(PrimFunc(symshen_4gc), B5933, tmp840)
-								return
-
-							}, 1)
-
-							tmp841 := Call(__e, PrimFunc(symshen_4newpv), B5933)
-
-							__e.TailApply(tmp836, tmp841)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp842 := PrimValue(symshen_4_dsigf_d)
-
-		tmp843 := Call(__e, PrimFunc(symshen_4assoc_1_6), symabsvector_2, tmp835, tmp842)
-
-		tmp844 := PrimSet(symshen_4_dsigf_d, tmp843)
-
-		_ = tmp844
-
-		tmp845 := MakeNative(func(__e *ControlFlow) {
-			V5942 := __e.Get(1)
-			_ = V5942
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B5938 := __e.Get(1)
-				_ = B5938
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L5939 := __e.Get(1)
-					_ = L5939
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key5940 := __e.Get(1)
-						_ = Key5940
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C5941 := __e.Get(1)
-							_ = C5941
-							tmp846 := MakeNative(func(__e *ControlFlow) {
-								A := __e.Get(1)
-								_ = A
-								tmp847 := PrimCons(A, Nil)
-
-								tmp848 := PrimCons(symlist, tmp847)
-
-								tmp849 := PrimCons(A, Nil)
-
-								tmp850 := PrimCons(symlist, tmp849)
-
-								tmp851 := PrimCons(tmp850, Nil)
-
-								tmp852 := PrimCons(sym_1_1_6, tmp851)
-
-								tmp853 := PrimCons(tmp848, tmp852)
-
-								tmp854 := PrimCons(tmp853, Nil)
-
-								tmp855 := PrimCons(sym_1_1_6, tmp854)
-
-								tmp856 := PrimCons(A, tmp855)
-
-								tmp857 := Call(__e, PrimFunc(symis_b), V5942, tmp856, B5938, L5939, Key5940, C5941)
-
-								__e.TailApply(PrimFunc(symshen_4gc), B5938, tmp857)
-								return
-
-							}, 1)
-
-							tmp858 := Call(__e, PrimFunc(symshen_4newpv), B5938)
-
-							__e.TailApply(tmp846, tmp858)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp859 := PrimValue(symshen_4_dsigf_d)
-
-		tmp860 := Call(__e, PrimFunc(symshen_4assoc_1_6), symadjoin, tmp845, tmp859)
-
-		tmp861 := PrimSet(symshen_4_dsigf_d, tmp860)
-
-		_ = tmp861
-
-		tmp862 := MakeNative(func(__e *ControlFlow) {
-			V5947 := __e.Get(1)
-			_ = V5947
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B5943 := __e.Get(1)
-				_ = B5943
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L5944 := __e.Get(1)
-					_ = L5944
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key5945 := __e.Get(1)
-						_ = Key5945
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C5946 := __e.Get(1)
-							_ = C5946
-							tmp863 := PrimCons(symboolean, Nil)
-
-							tmp864 := PrimCons(sym_1_1_6, tmp863)
-
-							tmp865 := PrimCons(symboolean, tmp864)
-
-							tmp866 := PrimCons(tmp865, Nil)
-
-							tmp867 := PrimCons(sym_1_1_6, tmp866)
-
-							tmp868 := PrimCons(symboolean, tmp867)
-
-							__e.TailApply(PrimFunc(symis_b), V5947, tmp868, B5943, L5944, Key5945, C5946)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp869 := PrimValue(symshen_4_dsigf_d)
-
-		tmp870 := Call(__e, PrimFunc(symshen_4assoc_1_6), symand, tmp862, tmp869)
-
-		tmp871 := PrimSet(symshen_4_dsigf_d, tmp870)
-
-		_ = tmp871
-
-		tmp872 := MakeNative(func(__e *ControlFlow) {
-			V5952 := __e.Get(1)
-			_ = V5952
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B5948 := __e.Get(1)
-				_ = B5948
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L5949 := __e.Get(1)
-					_ = L5949
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key5950 := __e.Get(1)
-						_ = Key5950
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C5951 := __e.Get(1)
-							_ = C5951
-							tmp873 := MakeNative(func(__e *ControlFlow) {
-								A := __e.Get(1)
-								_ = A
-								tmp874 := PrimCons(symstring, Nil)
-
-								tmp875 := PrimCons(sym_1_1_6, tmp874)
-
-								tmp876 := PrimCons(symsymbol, tmp875)
-
-								tmp877 := PrimCons(tmp876, Nil)
-
-								tmp878 := PrimCons(sym_1_1_6, tmp877)
-
-								tmp879 := PrimCons(symstring, tmp878)
-
-								tmp880 := PrimCons(tmp879, Nil)
-
-								tmp881 := PrimCons(sym_1_1_6, tmp880)
-
-								tmp882 := PrimCons(A, tmp881)
-
-								tmp883 := Call(__e, PrimFunc(symis_b), V5952, tmp882, B5948, L5949, Key5950, C5951)
-
-								__e.TailApply(PrimFunc(symshen_4gc), B5948, tmp883)
-								return
-
-							}, 1)
-
-							tmp884 := Call(__e, PrimFunc(symshen_4newpv), B5948)
-
-							__e.TailApply(tmp873, tmp884)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp885 := PrimValue(symshen_4_dsigf_d)
-
-		tmp886 := Call(__e, PrimFunc(symshen_4assoc_1_6), symshen_4app, tmp872, tmp885)
-
-		tmp887 := PrimSet(symshen_4_dsigf_d, tmp886)
-
-		_ = tmp887
-
-		tmp888 := MakeNative(func(__e *ControlFlow) {
-			V5957 := __e.Get(1)
-			_ = V5957
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B5953 := __e.Get(1)
-				_ = B5953
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L5954 := __e.Get(1)
-					_ = L5954
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key5955 := __e.Get(1)
-						_ = Key5955
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C5956 := __e.Get(1)
-							_ = C5956
-							tmp889 := MakeNative(func(__e *ControlFlow) {
-								A := __e.Get(1)
-								_ = A
-								tmp890 := PrimCons(A, Nil)
-
-								tmp891 := PrimCons(symlist, tmp890)
-
-								tmp892 := PrimCons(A, Nil)
-
-								tmp893 := PrimCons(symlist, tmp892)
-
-								tmp894 := PrimCons(A, Nil)
-
-								tmp895 := PrimCons(symlist, tmp894)
-
-								tmp896 := PrimCons(tmp895, Nil)
-
-								tmp897 := PrimCons(sym_1_1_6, tmp896)
-
-								tmp898 := PrimCons(tmp893, tmp897)
-
-								tmp899 := PrimCons(tmp898, Nil)
-
-								tmp900 := PrimCons(sym_1_1_6, tmp899)
-
-								tmp901 := PrimCons(tmp891, tmp900)
-
-								tmp902 := Call(__e, PrimFunc(symis_b), V5957, tmp901, B5953, L5954, Key5955, C5956)
-
-								__e.TailApply(PrimFunc(symshen_4gc), B5953, tmp902)
-								return
-
-							}, 1)
-
-							tmp903 := Call(__e, PrimFunc(symshen_4newpv), B5953)
-
-							__e.TailApply(tmp889, tmp903)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp904 := PrimValue(symshen_4_dsigf_d)
-
-		tmp905 := Call(__e, PrimFunc(symshen_4assoc_1_6), symappend, tmp888, tmp904)
-
-		tmp906 := PrimSet(symshen_4_dsigf_d, tmp905)
-
-		_ = tmp906
-
-		tmp907 := MakeNative(func(__e *ControlFlow) {
-			V5962 := __e.Get(1)
-			_ = V5962
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B5958 := __e.Get(1)
-				_ = B5958
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L5959 := __e.Get(1)
-					_ = L5959
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key5960 := __e.Get(1)
-						_ = Key5960
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C5961 := __e.Get(1)
-							_ = C5961
-							tmp908 := MakeNative(func(__e *ControlFlow) {
-								A := __e.Get(1)
-								_ = A
-								tmp909 := PrimCons(symnumber, Nil)
-
-								tmp910 := PrimCons(sym_1_1_6, tmp909)
-
-								tmp911 := PrimCons(A, tmp910)
-
-								tmp912 := Call(__e, PrimFunc(symis_b), V5962, tmp911, B5958, L5959, Key5960, C5961)
-
-								__e.TailApply(PrimFunc(symshen_4gc), B5958, tmp912)
-								return
-
-							}, 1)
-
-							tmp913 := Call(__e, PrimFunc(symshen_4newpv), B5958)
-
-							__e.TailApply(tmp908, tmp913)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp914 := PrimValue(symshen_4_dsigf_d)
-
-		tmp915 := Call(__e, PrimFunc(symshen_4assoc_1_6), symarity, tmp907, tmp914)
-
-		tmp916 := PrimSet(symshen_4_dsigf_d, tmp915)
-
-		_ = tmp916
-
-		tmp917 := MakeNative(func(__e *ControlFlow) {
-			V5967 := __e.Get(1)
-			_ = V5967
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B5963 := __e.Get(1)
-				_ = B5963
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L5964 := __e.Get(1)
-					_ = L5964
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key5965 := __e.Get(1)
-						_ = Key5965
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C5966 := __e.Get(1)
-							_ = C5966
-							tmp918 := MakeNative(func(__e *ControlFlow) {
-								A := __e.Get(1)
-								_ = A
-								tmp919 := PrimCons(A, Nil)
-
-								tmp920 := PrimCons(symlist, tmp919)
-
-								tmp921 := PrimCons(tmp920, Nil)
-
-								tmp922 := PrimCons(symlist, tmp921)
-
-								tmp923 := PrimCons(A, Nil)
-
-								tmp924 := PrimCons(symlist, tmp923)
-
-								tmp925 := PrimCons(tmp924, Nil)
-
-								tmp926 := PrimCons(sym_1_1_6, tmp925)
-
-								tmp927 := PrimCons(tmp922, tmp926)
-
-								tmp928 := PrimCons(tmp927, Nil)
-
-								tmp929 := PrimCons(sym_1_1_6, tmp928)
-
-								tmp930 := PrimCons(A, tmp929)
-
-								tmp931 := Call(__e, PrimFunc(symis_b), V5967, tmp930, B5963, L5964, Key5965, C5966)
-
-								__e.TailApply(PrimFunc(symshen_4gc), B5963, tmp931)
-								return
-
-							}, 1)
-
-							tmp932 := Call(__e, PrimFunc(symshen_4newpv), B5963)
-
-							__e.TailApply(tmp918, tmp932)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp933 := PrimValue(symshen_4_dsigf_d)
-
-		tmp934 := Call(__e, PrimFunc(symshen_4assoc_1_6), symassoc, tmp917, tmp933)
-
-		tmp935 := PrimSet(symshen_4_dsigf_d, tmp934)
-
-		_ = tmp935
-
-		tmp936 := MakeNative(func(__e *ControlFlow) {
-			V5972 := __e.Get(1)
-			_ = V5972
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B5968 := __e.Get(1)
-				_ = B5968
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L5969 := __e.Get(1)
-					_ = L5969
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key5970 := __e.Get(1)
-						_ = Key5970
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C5971 := __e.Get(1)
-							_ = C5971
-							tmp937 := MakeNative(func(__e *ControlFlow) {
-								A := __e.Get(1)
-								_ = A
-								tmp938 := PrimCons(symboolean, Nil)
-
-								tmp939 := PrimCons(sym_1_1_6, tmp938)
-
-								tmp940 := PrimCons(A, tmp939)
-
-								tmp941 := Call(__e, PrimFunc(symis_b), V5972, tmp940, B5968, L5969, Key5970, C5971)
-
-								__e.TailApply(PrimFunc(symshen_4gc), B5968, tmp941)
-								return
-
-							}, 1)
-
-							tmp942 := Call(__e, PrimFunc(symshen_4newpv), B5968)
-
-							__e.TailApply(tmp937, tmp942)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp943 := PrimValue(symshen_4_dsigf_d)
-
-		tmp944 := Call(__e, PrimFunc(symshen_4assoc_1_6), symatom_2, tmp936, tmp943)
-
-		tmp945 := PrimSet(symshen_4_dsigf_d, tmp944)
-
-		_ = tmp945
-
-		tmp946 := MakeNative(func(__e *ControlFlow) {
-			V5977 := __e.Get(1)
-			_ = V5977
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B5973 := __e.Get(1)
-				_ = B5973
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L5974 := __e.Get(1)
-					_ = L5974
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key5975 := __e.Get(1)
-						_ = Key5975
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C5976 := __e.Get(1)
-							_ = C5976
-							tmp947 := MakeNative(func(__e *ControlFlow) {
-								A := __e.Get(1)
-								_ = A
-								tmp948 := PrimCons(symboolean, Nil)
-
-								tmp949 := PrimCons(sym_1_1_6, tmp948)
-
-								tmp950 := PrimCons(A, tmp949)
-
-								tmp951 := Call(__e, PrimFunc(symis_b), V5977, tmp950, B5973, L5974, Key5975, C5976)
-
-								__e.TailApply(PrimFunc(symshen_4gc), B5973, tmp951)
-								return
-
-							}, 1)
-
-							tmp952 := Call(__e, PrimFunc(symshen_4newpv), B5973)
-
-							__e.TailApply(tmp947, tmp952)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp953 := PrimValue(symshen_4_dsigf_d)
-
-		tmp954 := Call(__e, PrimFunc(symshen_4assoc_1_6), symboolean_2, tmp946, tmp953)
-
-		tmp955 := PrimSet(symshen_4_dsigf_d, tmp954)
-
-		_ = tmp955
-
-		tmp956 := MakeNative(func(__e *ControlFlow) {
-			V5982 := __e.Get(1)
-			_ = V5982
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B5978 := __e.Get(1)
-				_ = B5978
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L5979 := __e.Get(1)
-					_ = L5979
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key5980 := __e.Get(1)
-						_ = Key5980
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C5981 := __e.Get(1)
-							_ = C5981
-							tmp957 := PrimCons(symstring, Nil)
-
-							tmp958 := PrimCons(sym_1_1_6, tmp957)
-
-							tmp959 := PrimCons(symstring, tmp958)
-
-							__e.TailApply(PrimFunc(symis_b), V5982, tmp959, B5978, L5979, Key5980, C5981)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp960 := PrimValue(symshen_4_dsigf_d)
-
-		tmp961 := Call(__e, PrimFunc(symshen_4assoc_1_6), symbootstrap, tmp956, tmp960)
-
-		tmp962 := PrimSet(symshen_4_dsigf_d, tmp961)
-
-		_ = tmp962
-
-		tmp963 := MakeNative(func(__e *ControlFlow) {
-			V5987 := __e.Get(1)
-			_ = V5987
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B5983 := __e.Get(1)
-				_ = B5983
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L5984 := __e.Get(1)
-					_ = L5984
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key5985 := __e.Get(1)
-						_ = Key5985
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C5986 := __e.Get(1)
-							_ = C5986
-							tmp964 := PrimCons(symboolean, Nil)
-
-							tmp965 := PrimCons(sym_1_1_6, tmp964)
-
-							tmp966 := PrimCons(symsymbol, tmp965)
-
-							__e.TailApply(PrimFunc(symis_b), V5987, tmp966, B5983, L5984, Key5985, C5986)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp967 := PrimValue(symshen_4_dsigf_d)
-
-		tmp968 := Call(__e, PrimFunc(symshen_4assoc_1_6), symbound_2, tmp963, tmp967)
-
-		tmp969 := PrimSet(symshen_4_dsigf_d, tmp968)
-
-		_ = tmp969
-
-		tmp970 := MakeNative(func(__e *ControlFlow) {
-			V5992 := __e.Get(1)
-			_ = V5992
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B5988 := __e.Get(1)
-				_ = B5988
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L5989 := __e.Get(1)
-					_ = L5989
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key5990 := __e.Get(1)
-						_ = Key5990
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C5991 := __e.Get(1)
-							_ = C5991
-							tmp971 := MakeNative(func(__e *ControlFlow) {
-								A := __e.Get(1)
-								_ = A
-								tmp972 := PrimCons(A, Nil)
-
-								tmp973 := PrimCons(symlist, tmp972)
-
-								tmp974 := PrimCons(symboolean, Nil)
-
-								tmp975 := PrimCons(sym_1_1_6, tmp974)
-
-								tmp976 := PrimCons(tmp973, tmp975)
-
-								tmp977 := Call(__e, PrimFunc(symis_b), V5992, tmp976, B5988, L5989, Key5990, C5991)
-
-								__e.TailApply(PrimFunc(symshen_4gc), B5988, tmp977)
-								return
-
-							}, 1)
-
-							tmp978 := Call(__e, PrimFunc(symshen_4newpv), B5988)
-
-							__e.TailApply(tmp971, tmp978)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp979 := PrimValue(symshen_4_dsigf_d)
-
-		tmp980 := Call(__e, PrimFunc(symshen_4assoc_1_6), symshen_4ccons_2, tmp970, tmp979)
-
-		tmp981 := PrimSet(symshen_4_dsigf_d, tmp980)
-
-		_ = tmp981
-
-		tmp982 := MakeNative(func(__e *ControlFlow) {
-			V5997 := __e.Get(1)
-			_ = V5997
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B5993 := __e.Get(1)
-				_ = B5993
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L5994 := __e.Get(1)
-					_ = L5994
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key5995 := __e.Get(1)
-						_ = Key5995
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C5996 := __e.Get(1)
-							_ = C5996
-							tmp983 := PrimCons(symstring, Nil)
-
-							tmp984 := PrimCons(sym_1_1_6, tmp983)
-
-							tmp985 := PrimCons(symstring, tmp984)
-
-							__e.TailApply(PrimFunc(symis_b), V5997, tmp985, B5993, L5994, Key5995, C5996)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp986 := PrimValue(symshen_4_dsigf_d)
-
-		tmp987 := Call(__e, PrimFunc(symshen_4assoc_1_6), symcd, tmp982, tmp986)
-
-		tmp988 := PrimSet(symshen_4_dsigf_d, tmp987)
-
-		_ = tmp988
-
-		tmp989 := MakeNative(func(__e *ControlFlow) {
-			V6002 := __e.Get(1)
-			_ = V6002
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B5998 := __e.Get(1)
-				_ = B5998
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L5999 := __e.Get(1)
-					_ = L5999
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6000 := __e.Get(1)
-						_ = Key6000
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6001 := __e.Get(1)
-							_ = C6001
-							tmp990 := MakeNative(func(__e *ControlFlow) {
-								A := __e.Get(1)
-								_ = A
-								tmp991 := MakeNative(func(__e *ControlFlow) {
-									B := __e.Get(1)
-									_ = B
-									tmp992 := PrimCons(A, Nil)
-
-									tmp993 := PrimCons(symstream, tmp992)
-
-									tmp994 := PrimCons(B, Nil)
-
-									tmp995 := PrimCons(symlist, tmp994)
-
-									tmp996 := PrimCons(tmp995, Nil)
-
-									tmp997 := PrimCons(sym_1_1_6, tmp996)
-
-									tmp998 := PrimCons(tmp993, tmp997)
-
-									tmp999 := Call(__e, PrimFunc(symis_b), V6002, tmp998, B5998, L5999, Key6000, C6001)
-
-									__e.TailApply(PrimFunc(symshen_4gc), B5998, tmp999)
-									return
-
-								}, 1)
-
-								tmp1000 := Call(__e, PrimFunc(symshen_4newpv), B5998)
-
-								tmp1001 := Call(__e, tmp991, tmp1000)
-
-								__e.TailApply(PrimFunc(symshen_4gc), B5998, tmp1001)
-								return
-
-							}, 1)
-
-							tmp1002 := Call(__e, PrimFunc(symshen_4newpv), B5998)
-
-							__e.TailApply(tmp990, tmp1002)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp1003 := PrimValue(symshen_4_dsigf_d)
-
-		tmp1004 := Call(__e, PrimFunc(symshen_4assoc_1_6), symclose, tmp989, tmp1003)
-
-		tmp1005 := PrimSet(symshen_4_dsigf_d, tmp1004)
-
-		_ = tmp1005
-
-		tmp1006 := MakeNative(func(__e *ControlFlow) {
-			V6007 := __e.Get(1)
-			_ = V6007
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6003 := __e.Get(1)
-				_ = B6003
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6004 := __e.Get(1)
-					_ = L6004
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6005 := __e.Get(1)
-						_ = Key6005
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6006 := __e.Get(1)
-							_ = C6006
-							tmp1007 := PrimCons(symstring, Nil)
-
-							tmp1008 := PrimCons(sym_1_1_6, tmp1007)
-
-							tmp1009 := PrimCons(symstring, tmp1008)
-
-							tmp1010 := PrimCons(tmp1009, Nil)
-
-							tmp1011 := PrimCons(sym_1_1_6, tmp1010)
-
-							tmp1012 := PrimCons(symstring, tmp1011)
-
-							__e.TailApply(PrimFunc(symis_b), V6007, tmp1012, B6003, L6004, Key6005, C6006)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp1013 := PrimValue(symshen_4_dsigf_d)
-
-		tmp1014 := Call(__e, PrimFunc(symshen_4assoc_1_6), symcn, tmp1006, tmp1013)
-
-		tmp1015 := PrimSet(symshen_4_dsigf_d, tmp1014)
-
-		_ = tmp1015
-
-		tmp1016 := MakeNative(func(__e *ControlFlow) {
-			V6012 := __e.Get(1)
-			_ = V6012
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6008 := __e.Get(1)
-				_ = B6008
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6009 := __e.Get(1)
-					_ = L6009
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6010 := __e.Get(1)
-						_ = Key6010
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6011 := __e.Get(1)
-							_ = C6011
-							tmp1017 := MakeNative(func(__e *ControlFlow) {
-								A := __e.Get(1)
-								_ = A
-								tmp1018 := MakeNative(func(__e *ControlFlow) {
-									B := __e.Get(1)
-									_ = B
-									tmp1019 := PrimCons(A, Nil)
-
-									tmp1020 := PrimCons(symlist, tmp1019)
-
-									tmp1021 := PrimCons(A, Nil)
-
-									tmp1022 := PrimCons(symlist, tmp1021)
-
-									tmp1023 := PrimCons(B, Nil)
-
-									tmp1024 := PrimCons(tmp1022, tmp1023)
-
-									tmp1025 := PrimCons(symstr, tmp1024)
-
-									tmp1026 := PrimCons(tmp1025, Nil)
-
-									tmp1027 := PrimCons(sym_1_1_6, tmp1026)
-
-									tmp1028 := PrimCons(tmp1020, tmp1027)
-
-									tmp1029 := PrimCons(A, Nil)
-
-									tmp1030 := PrimCons(symlist, tmp1029)
-
-									tmp1031 := PrimCons(B, Nil)
-
-									tmp1032 := PrimCons(sym_1_1_6, tmp1031)
-
-									tmp1033 := PrimCons(tmp1030, tmp1032)
-
-									tmp1034 := PrimCons(tmp1033, Nil)
-
-									tmp1035 := PrimCons(sym_1_1_6, tmp1034)
-
-									tmp1036 := PrimCons(tmp1028, tmp1035)
-
-									tmp1037 := Call(__e, PrimFunc(symis_b), V6012, tmp1036, B6008, L6009, Key6010, C6011)
-
-									__e.TailApply(PrimFunc(symshen_4gc), B6008, tmp1037)
-									return
-
-								}, 1)
-
-								tmp1038 := Call(__e, PrimFunc(symshen_4newpv), B6008)
-
-								tmp1039 := Call(__e, tmp1018, tmp1038)
-
-								__e.TailApply(PrimFunc(symshen_4gc), B6008, tmp1039)
-								return
-
-							}, 1)
-
-							tmp1040 := Call(__e, PrimFunc(symshen_4newpv), B6008)
-
-							__e.TailApply(tmp1017, tmp1040)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp1041 := PrimValue(symshen_4_dsigf_d)
-
-		tmp1042 := Call(__e, PrimFunc(symshen_4assoc_1_6), symcompile, tmp1016, tmp1041)
-
-		tmp1043 := PrimSet(symshen_4_dsigf_d, tmp1042)
-
-		_ = tmp1043
-
-		tmp1044 := MakeNative(func(__e *ControlFlow) {
-			V6017 := __e.Get(1)
-			_ = V6017
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6013 := __e.Get(1)
-				_ = B6013
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6014 := __e.Get(1)
-					_ = L6014
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6015 := __e.Get(1)
-						_ = Key6015
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6016 := __e.Get(1)
-							_ = C6016
-							tmp1045 := MakeNative(func(__e *ControlFlow) {
-								A := __e.Get(1)
-								_ = A
-								tmp1046 := PrimCons(symboolean, Nil)
-
-								tmp1047 := PrimCons(sym_1_1_6, tmp1046)
-
-								tmp1048 := PrimCons(A, tmp1047)
-
-								tmp1049 := Call(__e, PrimFunc(symis_b), V6017, tmp1048, B6013, L6014, Key6015, C6016)
-
-								__e.TailApply(PrimFunc(symshen_4gc), B6013, tmp1049)
-								return
-
-							}, 1)
-
-							tmp1050 := Call(__e, PrimFunc(symshen_4newpv), B6013)
-
-							__e.TailApply(tmp1045, tmp1050)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp1051 := PrimValue(symshen_4_dsigf_d)
-
-		tmp1052 := Call(__e, PrimFunc(symshen_4assoc_1_6), symcons_2, tmp1044, tmp1051)
-
-		tmp1053 := PrimSet(symshen_4_dsigf_d, tmp1052)
-
-		_ = tmp1053
-
-		tmp1054 := MakeNative(func(__e *ControlFlow) {
-			V6022 := __e.Get(1)
-			_ = V6022
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6018 := __e.Get(1)
-				_ = B6018
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6019 := __e.Get(1)
-					_ = L6019
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6020 := __e.Get(1)
-						_ = Key6020
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6021 := __e.Get(1)
-							_ = C6021
-							tmp1055 := PrimCons(symsymbol, Nil)
-
-							tmp1056 := PrimCons(symlist, tmp1055)
-
-							tmp1057 := PrimCons(tmp1056, Nil)
-
-							tmp1058 := PrimCons(sym_1_1_6, tmp1057)
-
-							__e.TailApply(PrimFunc(symis_b), V6022, tmp1058, B6018, L6019, Key6020, C6021)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp1059 := PrimValue(symshen_4_dsigf_d)
-
-		tmp1060 := Call(__e, PrimFunc(symshen_4assoc_1_6), symdatatypes, tmp1054, tmp1059)
-
-		tmp1061 := PrimSet(symshen_4_dsigf_d, tmp1060)
-
-		_ = tmp1061
-
-		tmp1062 := MakeNative(func(__e *ControlFlow) {
-			V6027 := __e.Get(1)
-			_ = V6027
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6023 := __e.Get(1)
-				_ = B6023
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6024 := __e.Get(1)
-					_ = L6024
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6025 := __e.Get(1)
-						_ = Key6025
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6026 := __e.Get(1)
-							_ = C6026
-							tmp1063 := PrimCons(symsymbol, Nil)
-
-							tmp1064 := PrimCons(sym_1_1_6, tmp1063)
-
-							tmp1065 := PrimCons(symsymbol, tmp1064)
-
-							__e.TailApply(PrimFunc(symis_b), V6027, tmp1065, B6023, L6024, Key6025, C6026)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp1066 := PrimValue(symshen_4_dsigf_d)
-
-		tmp1067 := Call(__e, PrimFunc(symshen_4assoc_1_6), symdestroy, tmp1062, tmp1066)
-
-		tmp1068 := PrimSet(symshen_4_dsigf_d, tmp1067)
-
-		_ = tmp1068
-
-		tmp1069 := MakeNative(func(__e *ControlFlow) {
-			V6032 := __e.Get(1)
-			_ = V6032
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6028 := __e.Get(1)
-				_ = B6028
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6029 := __e.Get(1)
-					_ = L6029
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6030 := __e.Get(1)
-						_ = Key6030
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6031 := __e.Get(1)
-							_ = C6031
-							tmp1070 := MakeNative(func(__e *ControlFlow) {
-								A := __e.Get(1)
-								_ = A
-								tmp1071 := PrimCons(A, Nil)
-
-								tmp1072 := PrimCons(symlist, tmp1071)
-
-								tmp1073 := PrimCons(A, Nil)
-
-								tmp1074 := PrimCons(symlist, tmp1073)
-
-								tmp1075 := PrimCons(A, Nil)
-
-								tmp1076 := PrimCons(symlist, tmp1075)
-
-								tmp1077 := PrimCons(tmp1076, Nil)
-
-								tmp1078 := PrimCons(sym_1_1_6, tmp1077)
-
-								tmp1079 := PrimCons(tmp1074, tmp1078)
-
-								tmp1080 := PrimCons(tmp1079, Nil)
-
-								tmp1081 := PrimCons(sym_1_1_6, tmp1080)
-
-								tmp1082 := PrimCons(tmp1072, tmp1081)
-
-								tmp1083 := Call(__e, PrimFunc(symis_b), V6032, tmp1082, B6028, L6029, Key6030, C6031)
-
-								__e.TailApply(PrimFunc(symshen_4gc), B6028, tmp1083)
-								return
-
-							}, 1)
-
-							tmp1084 := Call(__e, PrimFunc(symshen_4newpv), B6028)
-
-							__e.TailApply(tmp1070, tmp1084)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp1085 := PrimValue(symshen_4_dsigf_d)
-
-		tmp1086 := Call(__e, PrimFunc(symshen_4assoc_1_6), symdifference, tmp1069, tmp1085)
-
-		tmp1087 := PrimSet(symshen_4_dsigf_d, tmp1086)
-
-		_ = tmp1087
-
-		tmp1088 := MakeNative(func(__e *ControlFlow) {
-			V6037 := __e.Get(1)
-			_ = V6037
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6033 := __e.Get(1)
-				_ = B6033
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6034 := __e.Get(1)
-					_ = L6034
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6035 := __e.Get(1)
-						_ = Key6035
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6036 := __e.Get(1)
-							_ = C6036
-							tmp1089 := MakeNative(func(__e *ControlFlow) {
-								A := __e.Get(1)
-								_ = A
-								tmp1090 := MakeNative(func(__e *ControlFlow) {
-									B := __e.Get(1)
-									_ = B
-									tmp1091 := PrimCons(B, Nil)
-
-									tmp1092 := PrimCons(sym_1_1_6, tmp1091)
-
-									tmp1093 := PrimCons(B, tmp1092)
-
-									tmp1094 := PrimCons(tmp1093, Nil)
-
-									tmp1095 := PrimCons(sym_1_1_6, tmp1094)
-
-									tmp1096 := PrimCons(A, tmp1095)
-
-									tmp1097 := Call(__e, PrimFunc(symis_b), V6037, tmp1096, B6033, L6034, Key6035, C6036)
-
-									__e.TailApply(PrimFunc(symshen_4gc), B6033, tmp1097)
-									return
-
-								}, 1)
-
-								tmp1098 := Call(__e, PrimFunc(symshen_4newpv), B6033)
-
-								tmp1099 := Call(__e, tmp1090, tmp1098)
-
-								__e.TailApply(PrimFunc(symshen_4gc), B6033, tmp1099)
-								return
-
-							}, 1)
-
-							tmp1100 := Call(__e, PrimFunc(symshen_4newpv), B6033)
-
-							__e.TailApply(tmp1089, tmp1100)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp1101 := PrimValue(symshen_4_dsigf_d)
-
-		tmp1102 := Call(__e, PrimFunc(symshen_4assoc_1_6), symdo, tmp1088, tmp1101)
-
-		tmp1103 := PrimSet(symshen_4_dsigf_d, tmp1102)
-
-		_ = tmp1103
-
-		tmp1104 := MakeNative(func(__e *ControlFlow) {
-			V6042 := __e.Get(1)
-			_ = V6042
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6038 := __e.Get(1)
-				_ = B6038
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6039 := __e.Get(1)
-					_ = L6039
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6040 := __e.Get(1)
-						_ = Key6040
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6041 := __e.Get(1)
-							_ = C6041
-							tmp1105 := MakeNative(func(__e *ControlFlow) {
-								A := __e.Get(1)
-								_ = A
-								tmp1106 := MakeNative(func(__e *ControlFlow) {
-									B := __e.Get(1)
-									_ = B
-									tmp1107 := PrimCons(A, Nil)
-
-									tmp1108 := PrimCons(symlist, tmp1107)
-
-									tmp1109 := PrimCons(A, Nil)
-
-									tmp1110 := PrimCons(symlist, tmp1109)
-
-									tmp1111 := PrimCons(B, Nil)
-
-									tmp1112 := PrimCons(symlist, tmp1111)
-
-									tmp1113 := PrimCons(tmp1112, Nil)
-
-									tmp1114 := PrimCons(tmp1110, tmp1113)
-
-									tmp1115 := PrimCons(symstr, tmp1114)
-
-									tmp1116 := PrimCons(tmp1115, Nil)
-
-									tmp1117 := PrimCons(sym_1_1_6, tmp1116)
-
-									tmp1118 := PrimCons(tmp1108, tmp1117)
-
-									tmp1119 := Call(__e, PrimFunc(symis_b), V6042, tmp1118, B6038, L6039, Key6040, C6041)
-
-									__e.TailApply(PrimFunc(symshen_4gc), B6038, tmp1119)
-									return
-
-								}, 1)
-
-								tmp1120 := Call(__e, PrimFunc(symshen_4newpv), B6038)
-
-								tmp1121 := Call(__e, tmp1106, tmp1120)
-
-								__e.TailApply(PrimFunc(symshen_4gc), B6038, tmp1121)
-								return
-
-							}, 1)
-
-							tmp1122 := Call(__e, PrimFunc(symshen_4newpv), B6038)
-
-							__e.TailApply(tmp1105, tmp1122)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp1123 := PrimValue(symshen_4_dsigf_d)
-
-		tmp1124 := Call(__e, PrimFunc(symshen_4assoc_1_6), sym_5e_6, tmp1104, tmp1123)
-
-		tmp1125 := PrimSet(symshen_4_dsigf_d, tmp1124)
-
-		_ = tmp1125
-
-		tmp1126 := MakeNative(func(__e *ControlFlow) {
-			V6047 := __e.Get(1)
-			_ = V6047
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6043 := __e.Get(1)
-				_ = B6043
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6044 := __e.Get(1)
-					_ = L6044
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6045 := __e.Get(1)
-						_ = Key6045
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6046 := __e.Get(1)
-							_ = C6046
-							tmp1127 := MakeNative(func(__e *ControlFlow) {
-								B := __e.Get(1)
-								_ = B
-								tmp1128 := MakeNative(func(__e *ControlFlow) {
-									A := __e.Get(1)
-									_ = A
-									tmp1129 := PrimCons(A, Nil)
-
-									tmp1130 := PrimCons(symlist, tmp1129)
-
-									tmp1131 := PrimCons(B, Nil)
-
-									tmp1132 := PrimCons(symlist, tmp1131)
-
-									tmp1133 := PrimCons(A, Nil)
-
-									tmp1134 := PrimCons(symlist, tmp1133)
-
-									tmp1135 := PrimCons(tmp1134, Nil)
-
-									tmp1136 := PrimCons(tmp1132, tmp1135)
-
-									tmp1137 := PrimCons(symstr, tmp1136)
-
-									tmp1138 := PrimCons(tmp1137, Nil)
-
-									tmp1139 := PrimCons(sym_1_1_6, tmp1138)
-
-									tmp1140 := PrimCons(tmp1130, tmp1139)
-
-									tmp1141 := Call(__e, PrimFunc(symis_b), V6047, tmp1140, B6043, L6044, Key6045, C6046)
-
-									__e.TailApply(PrimFunc(symshen_4gc), B6043, tmp1141)
-									return
-
-								}, 1)
-
-								tmp1142 := Call(__e, PrimFunc(symshen_4newpv), B6043)
-
-								tmp1143 := Call(__e, tmp1128, tmp1142)
-
-								__e.TailApply(PrimFunc(symshen_4gc), B6043, tmp1143)
-								return
-
-							}, 1)
-
-							tmp1144 := Call(__e, PrimFunc(symshen_4newpv), B6043)
-
-							__e.TailApply(tmp1127, tmp1144)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp1145 := PrimValue(symshen_4_dsigf_d)
-
-		tmp1146 := Call(__e, PrimFunc(symshen_4assoc_1_6), sym_5_b_6, tmp1126, tmp1145)
-
-		tmp1147 := PrimSet(symshen_4_dsigf_d, tmp1146)
-
-		_ = tmp1147
-
-		tmp1148 := MakeNative(func(__e *ControlFlow) {
-			V6052 := __e.Get(1)
-			_ = V6052
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6048 := __e.Get(1)
-				_ = B6048
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6049 := __e.Get(1)
-					_ = L6049
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6050 := __e.Get(1)
-						_ = Key6050
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6051 := __e.Get(1)
-							_ = C6051
-							tmp1149 := MakeNative(func(__e *ControlFlow) {
-								A := __e.Get(1)
-								_ = A
-								tmp1150 := MakeNative(func(__e *ControlFlow) {
-									B := __e.Get(1)
-									_ = B
-									tmp1151 := PrimCons(A, Nil)
-
-									tmp1152 := PrimCons(symlist, tmp1151)
-
-									tmp1153 := PrimCons(A, Nil)
-
-									tmp1154 := PrimCons(symlist, tmp1153)
-
-									tmp1155 := PrimCons(B, Nil)
-
-									tmp1156 := PrimCons(symlist, tmp1155)
-
-									tmp1157 := PrimCons(tmp1156, Nil)
-
-									tmp1158 := PrimCons(tmp1154, tmp1157)
-
-									tmp1159 := PrimCons(symstr, tmp1158)
-
-									tmp1160 := PrimCons(tmp1159, Nil)
-
-									tmp1161 := PrimCons(sym_1_1_6, tmp1160)
-
-									tmp1162 := PrimCons(tmp1152, tmp1161)
-
-									tmp1163 := Call(__e, PrimFunc(symis_b), V6052, tmp1162, B6048, L6049, Key6050, C6051)
-
-									__e.TailApply(PrimFunc(symshen_4gc), B6048, tmp1163)
-									return
-
-								}, 1)
-
-								tmp1164 := Call(__e, PrimFunc(symshen_4newpv), B6048)
-
-								tmp1165 := Call(__e, tmp1150, tmp1164)
-
-								__e.TailApply(PrimFunc(symshen_4gc), B6048, tmp1165)
-								return
-
-							}, 1)
-
-							tmp1166 := Call(__e, PrimFunc(symshen_4newpv), B6048)
-
-							__e.TailApply(tmp1149, tmp1166)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp1167 := PrimValue(symshen_4_dsigf_d)
-
-		tmp1168 := Call(__e, PrimFunc(symshen_4assoc_1_6), sym_5end_6, tmp1148, tmp1167)
-
-		tmp1169 := PrimSet(symshen_4_dsigf_d, tmp1168)
-
-		_ = tmp1169
-
-		tmp1170 := MakeNative(func(__e *ControlFlow) {
-			V6057 := __e.Get(1)
-			_ = V6057
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6053 := __e.Get(1)
-				_ = B6053
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6054 := __e.Get(1)
-					_ = L6054
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6055 := __e.Get(1)
-						_ = Key6055
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6056 := __e.Get(1)
-							_ = C6056
-							tmp1171 := MakeNative(func(__e *ControlFlow) {
-								A := __e.Get(1)
-								_ = A
-								tmp1172 := MakeNative(func(__e *ControlFlow) {
-									B := __e.Get(1)
-									_ = B
-									tmp1173 := PrimCons(A, Nil)
-
-									tmp1174 := PrimCons(symlist, tmp1173)
-
-									tmp1175 := PrimCons(B, Nil)
-
-									tmp1176 := PrimCons(tmp1174, tmp1175)
-
-									tmp1177 := PrimCons(symstr, tmp1176)
-
-									tmp1178 := PrimCons(symboolean, Nil)
-
-									tmp1179 := PrimCons(sym_1_1_6, tmp1178)
-
-									tmp1180 := PrimCons(tmp1177, tmp1179)
-
-									tmp1181 := Call(__e, PrimFunc(symis_b), V6057, tmp1180, B6053, L6054, Key6055, C6056)
-
-									__e.TailApply(PrimFunc(symshen_4gc), B6053, tmp1181)
-									return
-
-								}, 1)
-
-								tmp1182 := Call(__e, PrimFunc(symshen_4newpv), B6053)
-
-								tmp1183 := Call(__e, tmp1172, tmp1182)
-
-								__e.TailApply(PrimFunc(symshen_4gc), B6053, tmp1183)
-								return
-
-							}, 1)
-
-							tmp1184 := Call(__e, PrimFunc(symshen_4newpv), B6053)
-
-							__e.TailApply(tmp1171, tmp1184)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp1185 := PrimValue(symshen_4_dsigf_d)
-
-		tmp1186 := Call(__e, PrimFunc(symshen_4assoc_1_6), symshen_4parse_1failure_2, tmp1170, tmp1185)
-
-		tmp1187 := PrimSet(symshen_4_dsigf_d, tmp1186)
-
-		_ = tmp1187
-
-		tmp1188 := MakeNative(func(__e *ControlFlow) {
-			V6062 := __e.Get(1)
-			_ = V6062
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6058 := __e.Get(1)
-				_ = B6058
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6059 := __e.Get(1)
-					_ = L6059
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6060 := __e.Get(1)
-						_ = Key6060
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6061 := __e.Get(1)
-							_ = C6061
-							tmp1189 := MakeNative(func(__e *ControlFlow) {
-								A := __e.Get(1)
-								_ = A
-								tmp1190 := MakeNative(func(__e *ControlFlow) {
-									B := __e.Get(1)
-									_ = B
-									tmp1191 := PrimCons(A, Nil)
-
-									tmp1192 := PrimCons(symlist, tmp1191)
-
-									tmp1193 := PrimCons(B, Nil)
-
-									tmp1194 := PrimCons(tmp1192, tmp1193)
-
-									tmp1195 := PrimCons(symstr, tmp1194)
-
-									tmp1196 := PrimCons(tmp1195, Nil)
-
-									tmp1197 := PrimCons(sym_1_1_6, tmp1196)
-
-									tmp1198 := Call(__e, PrimFunc(symis_b), V6062, tmp1197, B6058, L6059, Key6060, C6061)
-
-									__e.TailApply(PrimFunc(symshen_4gc), B6058, tmp1198)
-									return
-
-								}, 1)
-
-								tmp1199 := Call(__e, PrimFunc(symshen_4newpv), B6058)
-
-								tmp1200 := Call(__e, tmp1190, tmp1199)
-
-								__e.TailApply(PrimFunc(symshen_4gc), B6058, tmp1200)
-								return
-
-							}, 1)
-
-							tmp1201 := Call(__e, PrimFunc(symshen_4newpv), B6058)
-
-							__e.TailApply(tmp1189, tmp1201)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp1202 := PrimValue(symshen_4_dsigf_d)
-
-		tmp1203 := Call(__e, PrimFunc(symshen_4assoc_1_6), symshen_4parse_1failure, tmp1188, tmp1202)
-
-		tmp1204 := PrimSet(symshen_4_dsigf_d, tmp1203)
-
-		_ = tmp1204
-
-		tmp1205 := MakeNative(func(__e *ControlFlow) {
-			V6067 := __e.Get(1)
-			_ = V6067
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6063 := __e.Get(1)
-				_ = B6063
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6064 := __e.Get(1)
-					_ = L6064
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6065 := __e.Get(1)
-						_ = Key6065
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6066 := __e.Get(1)
-							_ = C6066
-							tmp1206 := MakeNative(func(__e *ControlFlow) {
-								A := __e.Get(1)
-								_ = A
-								tmp1207 := MakeNative(func(__e *ControlFlow) {
-									B := __e.Get(1)
-									_ = B
-									tmp1208 := PrimCons(A, Nil)
-
-									tmp1209 := PrimCons(symlist, tmp1208)
-
-									tmp1210 := PrimCons(B, Nil)
-
-									tmp1211 := PrimCons(tmp1209, tmp1210)
-
-									tmp1212 := PrimCons(symstr, tmp1211)
-
-									tmp1213 := PrimCons(B, Nil)
-
-									tmp1214 := PrimCons(sym_1_1_6, tmp1213)
-
-									tmp1215 := PrimCons(tmp1212, tmp1214)
-
-									tmp1216 := Call(__e, PrimFunc(symis_b), V6067, tmp1215, B6063, L6064, Key6065, C6066)
-
-									__e.TailApply(PrimFunc(symshen_4gc), B6063, tmp1216)
-									return
-
-								}, 1)
-
-								tmp1217 := Call(__e, PrimFunc(symshen_4newpv), B6063)
-
-								tmp1218 := Call(__e, tmp1207, tmp1217)
-
-								__e.TailApply(PrimFunc(symshen_4gc), B6063, tmp1218)
-								return
-
-							}, 1)
-
-							tmp1219 := Call(__e, PrimFunc(symshen_4newpv), B6063)
-
-							__e.TailApply(tmp1206, tmp1219)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp1220 := PrimValue(symshen_4_dsigf_d)
-
-		tmp1221 := Call(__e, PrimFunc(symshen_4assoc_1_6), symshen_4_5_1out, tmp1205, tmp1220)
-
-		tmp1222 := PrimSet(symshen_4_dsigf_d, tmp1221)
-
-		_ = tmp1222
-
-		tmp1223 := MakeNative(func(__e *ControlFlow) {
-			V6072 := __e.Get(1)
-			_ = V6072
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6068 := __e.Get(1)
-				_ = B6068
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6069 := __e.Get(1)
-					_ = L6069
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6070 := __e.Get(1)
-						_ = Key6070
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6071 := __e.Get(1)
-							_ = C6071
-							tmp1224 := MakeNative(func(__e *ControlFlow) {
-								B := __e.Get(1)
-								_ = B
-								tmp1225 := MakeNative(func(__e *ControlFlow) {
-									A := __e.Get(1)
-									_ = A
-									tmp1226 := PrimCons(A, Nil)
-
-									tmp1227 := PrimCons(symlist, tmp1226)
-
-									tmp1228 := PrimCons(B, Nil)
-
-									tmp1229 := PrimCons(tmp1227, tmp1228)
-
-									tmp1230 := PrimCons(symstr, tmp1229)
-
-									tmp1231 := PrimCons(A, Nil)
-
-									tmp1232 := PrimCons(symlist, tmp1231)
-
-									tmp1233 := PrimCons(tmp1232, Nil)
-
-									tmp1234 := PrimCons(sym_1_1_6, tmp1233)
-
-									tmp1235 := PrimCons(tmp1230, tmp1234)
-
-									tmp1236 := Call(__e, PrimFunc(symis_b), V6072, tmp1235, B6068, L6069, Key6070, C6071)
-
-									__e.TailApply(PrimFunc(symshen_4gc), B6068, tmp1236)
-									return
-
-								}, 1)
-
-								tmp1237 := Call(__e, PrimFunc(symshen_4newpv), B6068)
-
-								tmp1238 := Call(__e, tmp1225, tmp1237)
-
-								__e.TailApply(PrimFunc(symshen_4gc), B6068, tmp1238)
-								return
-
-							}, 1)
-
-							tmp1239 := Call(__e, PrimFunc(symshen_4newpv), B6068)
-
-							__e.TailApply(tmp1224, tmp1239)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp1240 := PrimValue(symshen_4_dsigf_d)
-
-		tmp1241 := Call(__e, PrimFunc(symshen_4assoc_1_6), symshen_4in_1_6, tmp1223, tmp1240)
-
-		tmp1242 := PrimSet(symshen_4_dsigf_d, tmp1241)
-
-		_ = tmp1242
-
-		tmp1243 := MakeNative(func(__e *ControlFlow) {
-			V6077 := __e.Get(1)
-			_ = V6077
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6073 := __e.Get(1)
-				_ = B6073
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6074 := __e.Get(1)
-					_ = L6074
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6075 := __e.Get(1)
-						_ = Key6075
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6076 := __e.Get(1)
-							_ = C6076
-							tmp1244 := MakeNative(func(__e *ControlFlow) {
-								A := __e.Get(1)
-								_ = A
-								tmp1245 := MakeNative(func(__e *ControlFlow) {
-									B := __e.Get(1)
-									_ = B
-									tmp1246 := PrimCons(A, Nil)
-
-									tmp1247 := PrimCons(symlist, tmp1246)
-
-									tmp1248 := PrimCons(A, Nil)
-
-									tmp1249 := PrimCons(symlist, tmp1248)
-
-									tmp1250 := PrimCons(B, Nil)
-
-									tmp1251 := PrimCons(tmp1249, tmp1250)
-
-									tmp1252 := PrimCons(symstr, tmp1251)
-
-									tmp1253 := PrimCons(tmp1252, Nil)
-
-									tmp1254 := PrimCons(sym_1_1_6, tmp1253)
-
-									tmp1255 := PrimCons(B, tmp1254)
-
-									tmp1256 := PrimCons(tmp1255, Nil)
-
-									tmp1257 := PrimCons(sym_1_1_6, tmp1256)
-
-									tmp1258 := PrimCons(tmp1247, tmp1257)
-
-									tmp1259 := Call(__e, PrimFunc(symis_b), V6077, tmp1258, B6073, L6074, Key6075, C6076)
-
-									__e.TailApply(PrimFunc(symshen_4gc), B6073, tmp1259)
-									return
-
-								}, 1)
-
-								tmp1260 := Call(__e, PrimFunc(symshen_4newpv), B6073)
-
-								tmp1261 := Call(__e, tmp1245, tmp1260)
-
-								__e.TailApply(PrimFunc(symshen_4gc), B6073, tmp1261)
-								return
-
-							}, 1)
-
-							tmp1262 := Call(__e, PrimFunc(symshen_4newpv), B6073)
-
-							__e.TailApply(tmp1244, tmp1262)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp1263 := PrimValue(symshen_4_dsigf_d)
-
-		tmp1264 := Call(__e, PrimFunc(symshen_4assoc_1_6), symshen_4comb, tmp1243, tmp1263)
-
-		tmp1265 := PrimSet(symshen_4_dsigf_d, tmp1264)
-
-		_ = tmp1265
-
-		tmp1266 := MakeNative(func(__e *ControlFlow) {
-			V6082 := __e.Get(1)
-			_ = V6082
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6078 := __e.Get(1)
-				_ = B6078
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6079 := __e.Get(1)
-					_ = L6079
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6080 := __e.Get(1)
-						_ = Key6080
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6081 := __e.Get(1)
-							_ = C6081
-							tmp1267 := MakeNative(func(__e *ControlFlow) {
-								A := __e.Get(1)
-								_ = A
-								tmp1268 := PrimCons(A, Nil)
-
-								tmp1269 := PrimCons(symlist, tmp1268)
-
-								tmp1270 := PrimCons(symboolean, Nil)
-
-								tmp1271 := PrimCons(sym_1_1_6, tmp1270)
-
-								tmp1272 := PrimCons(tmp1269, tmp1271)
-
-								tmp1273 := PrimCons(tmp1272, Nil)
-
-								tmp1274 := PrimCons(sym_1_1_6, tmp1273)
-
-								tmp1275 := PrimCons(A, tmp1274)
-
-								tmp1276 := Call(__e, PrimFunc(symis_b), V6082, tmp1275, B6078, L6079, Key6080, C6081)
-
-								__e.TailApply(PrimFunc(symshen_4gc), B6078, tmp1276)
-								return
-
-							}, 1)
-
-							tmp1277 := Call(__e, PrimFunc(symshen_4newpv), B6078)
-
-							__e.TailApply(tmp1267, tmp1277)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp1278 := PrimValue(symshen_4_dsigf_d)
-
-		tmp1279 := Call(__e, PrimFunc(symshen_4assoc_1_6), symelement_2, tmp1266, tmp1278)
-
-		tmp1280 := PrimSet(symshen_4_dsigf_d, tmp1279)
-
-		_ = tmp1280
-
-		tmp1281 := MakeNative(func(__e *ControlFlow) {
-			V6087 := __e.Get(1)
-			_ = V6087
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6083 := __e.Get(1)
-				_ = B6083
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6084 := __e.Get(1)
-					_ = L6084
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6085 := __e.Get(1)
-						_ = Key6085
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6086 := __e.Get(1)
-							_ = C6086
-							tmp1282 := MakeNative(func(__e *ControlFlow) {
-								A := __e.Get(1)
-								_ = A
-								tmp1283 := PrimCons(symboolean, Nil)
-
-								tmp1284 := PrimCons(sym_1_1_6, tmp1283)
-
-								tmp1285 := PrimCons(A, tmp1284)
-
-								tmp1286 := Call(__e, PrimFunc(symis_b), V6087, tmp1285, B6083, L6084, Key6085, C6086)
-
-								__e.TailApply(PrimFunc(symshen_4gc), B6083, tmp1286)
-								return
-
-							}, 1)
-
-							tmp1287 := Call(__e, PrimFunc(symshen_4newpv), B6083)
-
-							__e.TailApply(tmp1282, tmp1287)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp1288 := PrimValue(symshen_4_dsigf_d)
-
-		tmp1289 := Call(__e, PrimFunc(symshen_4assoc_1_6), symempty_2, tmp1281, tmp1288)
-
-		tmp1290 := PrimSet(symshen_4_dsigf_d, tmp1289)
-
-		_ = tmp1290
-
-		tmp1291 := MakeNative(func(__e *ControlFlow) {
-			V6092 := __e.Get(1)
-			_ = V6092
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6088 := __e.Get(1)
-				_ = B6088
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6089 := __e.Get(1)
-					_ = L6089
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6090 := __e.Get(1)
-						_ = Key6090
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6091 := __e.Get(1)
-							_ = C6091
-							tmp1292 := PrimCons(symboolean, Nil)
-
-							tmp1293 := PrimCons(sym_1_1_6, tmp1292)
-
-							tmp1294 := PrimCons(symsymbol, tmp1293)
-
-							__e.TailApply(PrimFunc(symis_b), V6092, tmp1294, B6088, L6089, Key6090, C6091)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp1295 := PrimValue(symshen_4_dsigf_d)
-
-		tmp1296 := Call(__e, PrimFunc(symshen_4assoc_1_6), symenable_1type_1theory, tmp1291, tmp1295)
-
-		tmp1297 := PrimSet(symshen_4_dsigf_d, tmp1296)
-
-		_ = tmp1297
-
-		tmp1298 := MakeNative(func(__e *ControlFlow) {
-			V6097 := __e.Get(1)
-			_ = V6097
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6093 := __e.Get(1)
-				_ = B6093
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6094 := __e.Get(1)
-					_ = L6094
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6095 := __e.Get(1)
-						_ = Key6095
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6096 := __e.Get(1)
-							_ = C6096
-							tmp1299 := PrimCons(symsymbol, Nil)
-
-							tmp1300 := PrimCons(symlist, tmp1299)
-
-							tmp1301 := PrimCons(tmp1300, Nil)
-
-							tmp1302 := PrimCons(sym_1_1_6, tmp1301)
-
-							tmp1303 := PrimCons(symsymbol, tmp1302)
-
-							__e.TailApply(PrimFunc(symis_b), V6097, tmp1303, B6093, L6094, Key6095, C6096)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp1304 := PrimValue(symshen_4_dsigf_d)
-
-		tmp1305 := Call(__e, PrimFunc(symshen_4assoc_1_6), symexternal, tmp1298, tmp1304)
-
-		tmp1306 := PrimSet(symshen_4_dsigf_d, tmp1305)
-
-		_ = tmp1306
-
-		tmp1307 := MakeNative(func(__e *ControlFlow) {
-			V6102 := __e.Get(1)
-			_ = V6102
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6098 := __e.Get(1)
-				_ = B6098
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6099 := __e.Get(1)
-					_ = L6099
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6100 := __e.Get(1)
-						_ = Key6100
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6101 := __e.Get(1)
-							_ = C6101
-							tmp1308 := PrimCons(symstring, Nil)
-
-							tmp1309 := PrimCons(sym_1_1_6, tmp1308)
-
-							tmp1310 := PrimCons(symexception, tmp1309)
-
-							__e.TailApply(PrimFunc(symis_b), V6102, tmp1310, B6098, L6099, Key6100, C6101)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp1311 := PrimValue(symshen_4_dsigf_d)
-
-		tmp1312 := Call(__e, PrimFunc(symshen_4assoc_1_6), symerror_1to_1string, tmp1307, tmp1311)
-
-		tmp1313 := PrimSet(symshen_4_dsigf_d, tmp1312)
-
-		_ = tmp1313
-
-		tmp1314 := MakeNative(func(__e *ControlFlow) {
-			V6107 := __e.Get(1)
-			_ = V6107
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6103 := __e.Get(1)
-				_ = B6103
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6104 := __e.Get(1)
-					_ = L6104
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6105 := __e.Get(1)
-						_ = Key6105
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6106 := __e.Get(1)
-							_ = C6106
-							tmp1315 := MakeNative(func(__e *ControlFlow) {
-								A := __e.Get(1)
-								_ = A
-								tmp1316 := PrimCons(symstring, Nil)
-
-								tmp1317 := PrimCons(symlist, tmp1316)
-
-								tmp1318 := PrimCons(tmp1317, Nil)
-
-								tmp1319 := PrimCons(sym_1_1_6, tmp1318)
-
-								tmp1320 := PrimCons(A, tmp1319)
-
-								tmp1321 := Call(__e, PrimFunc(symis_b), V6107, tmp1320, B6103, L6104, Key6105, C6106)
-
-								__e.TailApply(PrimFunc(symshen_4gc), B6103, tmp1321)
-								return
-
-							}, 1)
-
-							tmp1322 := Call(__e, PrimFunc(symshen_4newpv), B6103)
-
-							__e.TailApply(tmp1315, tmp1322)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp1323 := PrimValue(symshen_4_dsigf_d)
-
-		tmp1324 := Call(__e, PrimFunc(symshen_4assoc_1_6), symexplode, tmp1314, tmp1323)
-
-		tmp1325 := PrimSet(symshen_4_dsigf_d, tmp1324)
-
-		_ = tmp1325
-
-		tmp1326 := MakeNative(func(__e *ControlFlow) {
-			V6112 := __e.Get(1)
-			_ = V6112
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6108 := __e.Get(1)
-				_ = B6108
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6109 := __e.Get(1)
-					_ = L6109
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6110 := __e.Get(1)
-						_ = Key6110
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6111 := __e.Get(1)
-							_ = C6111
-							tmp1327 := PrimCons(symsymbol, Nil)
-
-							tmp1328 := PrimCons(sym_1_1_6, tmp1327)
-
-							tmp1329 := PrimCons(symsymbol, tmp1328)
-
-							__e.TailApply(PrimFunc(symis_b), V6112, tmp1329, B6108, L6109, Key6110, C6111)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp1330 := PrimValue(symshen_4_dsigf_d)
-
-		tmp1331 := Call(__e, PrimFunc(symshen_4assoc_1_6), symfactorise, tmp1326, tmp1330)
-
-		tmp1332 := PrimSet(symshen_4_dsigf_d, tmp1331)
-
-		_ = tmp1332
-
-		tmp1333 := MakeNative(func(__e *ControlFlow) {
-			V6117 := __e.Get(1)
-			_ = V6117
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6113 := __e.Get(1)
-				_ = B6113
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6114 := __e.Get(1)
-					_ = L6114
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6115 := __e.Get(1)
-						_ = Key6115
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6116 := __e.Get(1)
-							_ = C6116
-							tmp1334 := PrimCons(symboolean, Nil)
-
-							tmp1335 := PrimCons(sym_1_1_6, tmp1334)
-
-							__e.TailApply(PrimFunc(symis_b), V6117, tmp1335, B6113, L6114, Key6115, C6116)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp1336 := PrimValue(symshen_4_dsigf_d)
-
-		tmp1337 := Call(__e, PrimFunc(symshen_4assoc_1_6), symfactorise_2, tmp1333, tmp1336)
-
-		tmp1338 := PrimSet(symshen_4_dsigf_d, tmp1337)
-
-		_ = tmp1338
-
-		tmp1339 := MakeNative(func(__e *ControlFlow) {
-			V6122 := __e.Get(1)
-			_ = V6122
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6118 := __e.Get(1)
-				_ = B6118
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6119 := __e.Get(1)
-					_ = L6119
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6120 := __e.Get(1)
-						_ = Key6120
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6121 := __e.Get(1)
-							_ = C6121
-							tmp1340 := PrimCons(symsymbol, Nil)
-
-							tmp1341 := PrimCons(sym_1_1_6, tmp1340)
-
-							__e.TailApply(PrimFunc(symis_b), V6122, tmp1341, B6118, L6119, Key6120, C6121)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp1342 := PrimValue(symshen_4_dsigf_d)
-
-		tmp1343 := Call(__e, PrimFunc(symshen_4assoc_1_6), symfail, tmp1339, tmp1342)
-
-		tmp1344 := PrimSet(symshen_4_dsigf_d, tmp1343)
-
-		_ = tmp1344
-
-		tmp1345 := MakeNative(func(__e *ControlFlow) {
-			V6127 := __e.Get(1)
-			_ = V6127
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6123 := __e.Get(1)
-				_ = B6123
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6124 := __e.Get(1)
-					_ = L6124
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6125 := __e.Get(1)
-						_ = Key6125
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6126 := __e.Get(1)
-							_ = C6126
-							tmp1346 := MakeNative(func(__e *ControlFlow) {
-								A := __e.Get(1)
-								_ = A
-								tmp1347 := PrimCons(A, Nil)
-
-								tmp1348 := PrimCons(sym_1_1_6, tmp1347)
-
-								tmp1349 := PrimCons(A, tmp1348)
-
-								tmp1350 := PrimCons(A, Nil)
-
-								tmp1351 := PrimCons(sym_1_1_6, tmp1350)
-
-								tmp1352 := PrimCons(A, tmp1351)
-
-								tmp1353 := PrimCons(tmp1352, Nil)
-
-								tmp1354 := PrimCons(sym_1_1_6, tmp1353)
-
-								tmp1355 := PrimCons(tmp1349, tmp1354)
-
-								tmp1356 := Call(__e, PrimFunc(symis_b), V6127, tmp1355, B6123, L6124, Key6125, C6126)
-
-								__e.TailApply(PrimFunc(symshen_4gc), B6123, tmp1356)
-								return
-
-							}, 1)
-
-							tmp1357 := Call(__e, PrimFunc(symshen_4newpv), B6123)
-
-							__e.TailApply(tmp1346, tmp1357)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp1358 := PrimValue(symshen_4_dsigf_d)
-
-		tmp1359 := Call(__e, PrimFunc(symshen_4assoc_1_6), symfix, tmp1345, tmp1358)
-
-		tmp1360 := PrimSet(symshen_4_dsigf_d, tmp1359)
-
-		_ = tmp1360
-
-		tmp1361 := MakeNative(func(__e *ControlFlow) {
-			V6132 := __e.Get(1)
-			_ = V6132
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6128 := __e.Get(1)
-				_ = B6128
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6129 := __e.Get(1)
-					_ = L6129
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6130 := __e.Get(1)
-						_ = Key6130
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6131 := __e.Get(1)
-							_ = C6131
-							tmp1362 := MakeNative(func(__e *ControlFlow) {
-								A := __e.Get(1)
-								_ = A
-								tmp1363 := PrimCons(A, Nil)
-
-								tmp1364 := PrimCons(symlazy, tmp1363)
-
-								tmp1365 := PrimCons(tmp1364, Nil)
-
-								tmp1366 := PrimCons(sym_1_1_6, tmp1365)
-
-								tmp1367 := PrimCons(A, tmp1366)
-
-								tmp1368 := Call(__e, PrimFunc(symis_b), V6132, tmp1367, B6128, L6129, Key6130, C6131)
-
-								__e.TailApply(PrimFunc(symshen_4gc), B6128, tmp1368)
-								return
-
-							}, 1)
-
-							tmp1369 := Call(__e, PrimFunc(symshen_4newpv), B6128)
-
-							__e.TailApply(tmp1362, tmp1369)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp1370 := PrimValue(symshen_4_dsigf_d)
-
-		tmp1371 := Call(__e, PrimFunc(symshen_4assoc_1_6), symfreeze, tmp1361, tmp1370)
-
-		tmp1372 := PrimSet(symshen_4_dsigf_d, tmp1371)
-
-		_ = tmp1372
-
-		tmp1373 := MakeNative(func(__e *ControlFlow) {
-			V6137 := __e.Get(1)
-			_ = V6137
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6133 := __e.Get(1)
-				_ = B6133
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6134 := __e.Get(1)
-					_ = L6134
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6135 := __e.Get(1)
-						_ = Key6135
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6136 := __e.Get(1)
-							_ = C6136
-							tmp1374 := MakeNative(func(__e *ControlFlow) {
-								B := __e.Get(1)
-								_ = B
-								tmp1375 := MakeNative(func(__e *ControlFlow) {
-									A := __e.Get(1)
-									_ = A
-									tmp1376 := PrimCons(B, Nil)
-
-									tmp1377 := PrimCons(sym_d, tmp1376)
-
-									tmp1378 := PrimCons(A, tmp1377)
-
-									tmp1379 := PrimCons(A, Nil)
-
-									tmp1380 := PrimCons(sym_1_1_6, tmp1379)
-
-									tmp1381 := PrimCons(tmp1378, tmp1380)
-
-									tmp1382 := Call(__e, PrimFunc(symis_b), V6137, tmp1381, B6133, L6134, Key6135, C6136)
-
-									__e.TailApply(PrimFunc(symshen_4gc), B6133, tmp1382)
-									return
-
-								}, 1)
-
-								tmp1383 := Call(__e, PrimFunc(symshen_4newpv), B6133)
-
-								tmp1384 := Call(__e, tmp1375, tmp1383)
-
-								__e.TailApply(PrimFunc(symshen_4gc), B6133, tmp1384)
-								return
-
-							}, 1)
-
-							tmp1385 := Call(__e, PrimFunc(symshen_4newpv), B6133)
-
-							__e.TailApply(tmp1374, tmp1385)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp1386 := PrimValue(symshen_4_dsigf_d)
-
-		tmp1387 := Call(__e, PrimFunc(symshen_4assoc_1_6), symfst, tmp1373, tmp1386)
-
-		tmp1388 := PrimSet(symshen_4_dsigf_d, tmp1387)
-
-		_ = tmp1388
-
-		tmp1389 := MakeNative(func(__e *ControlFlow) {
-			V6142 := __e.Get(1)
-			_ = V6142
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6138 := __e.Get(1)
-				_ = B6138
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6139 := __e.Get(1)
-					_ = L6139
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6140 := __e.Get(1)
-						_ = Key6140
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6141 := __e.Get(1)
-							_ = C6141
-							tmp1390 := PrimCons(symsymbol, Nil)
-
-							tmp1391 := PrimCons(sym_1_1_6, tmp1390)
-
-							tmp1392 := PrimCons(symsymbol, tmp1391)
-
-							__e.TailApply(PrimFunc(symis_b), V6142, tmp1392, B6138, L6139, Key6140, C6141)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp1393 := PrimValue(symshen_4_dsigf_d)
-
-		tmp1394 := Call(__e, PrimFunc(symshen_4assoc_1_6), symgensym, tmp1389, tmp1393)
-
-		tmp1395 := PrimSet(symshen_4_dsigf_d, tmp1394)
-
-		_ = tmp1395
-
-		tmp1396 := MakeNative(func(__e *ControlFlow) {
-			V6147 := __e.Get(1)
-			_ = V6147
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6143 := __e.Get(1)
-				_ = B6143
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6144 := __e.Get(1)
-					_ = L6144
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6145 := __e.Get(1)
-						_ = Key6145
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6146 := __e.Get(1)
-							_ = C6146
-							tmp1397 := MakeNative(func(__e *ControlFlow) {
-								A := __e.Get(1)
-								_ = A
-								tmp1398 := PrimCons(A, Nil)
-
-								tmp1399 := PrimCons(symlist, tmp1398)
-
-								tmp1400 := PrimCons(symboolean, Nil)
-
-								tmp1401 := PrimCons(sym_1_1_6, tmp1400)
-
-								tmp1402 := PrimCons(A, tmp1401)
-
-								tmp1403 := PrimCons(tmp1402, Nil)
-
-								tmp1404 := PrimCons(sym_1_1_6, tmp1403)
-
-								tmp1405 := PrimCons(tmp1399, tmp1404)
-
-								tmp1406 := Call(__e, PrimFunc(symis_b), V6147, tmp1405, B6143, L6144, Key6145, C6146)
-
-								__e.TailApply(PrimFunc(symshen_4gc), B6143, tmp1406)
-								return
-
-							}, 1)
-
-							tmp1407 := Call(__e, PrimFunc(symshen_4newpv), B6143)
-
-							__e.TailApply(tmp1397, tmp1407)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp1408 := PrimValue(symshen_4_dsigf_d)
-
-		tmp1409 := Call(__e, PrimFunc(symshen_4assoc_1_6), symshen_4hds_a_2, tmp1396, tmp1408)
-
-		tmp1410 := PrimSet(symshen_4_dsigf_d, tmp1409)
-
-		_ = tmp1410
-
-		tmp1411 := MakeNative(func(__e *ControlFlow) {
-			V6152 := __e.Get(1)
-			_ = V6152
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6148 := __e.Get(1)
-				_ = B6148
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6149 := __e.Get(1)
-					_ = L6149
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6150 := __e.Get(1)
-						_ = Key6150
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6151 := __e.Get(1)
-							_ = C6151
-							tmp1412 := PrimCons(symboolean, Nil)
-
-							tmp1413 := PrimCons(sym_1_1_6, tmp1412)
-
-							tmp1414 := PrimCons(symsymbol, tmp1413)
-
-							__e.TailApply(PrimFunc(symis_b), V6152, tmp1414, B6148, L6149, Key6150, C6151)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp1415 := PrimValue(symshen_4_dsigf_d)
-
-		tmp1416 := Call(__e, PrimFunc(symshen_4assoc_1_6), symhush, tmp1411, tmp1415)
-
-		tmp1417 := PrimSet(symshen_4_dsigf_d, tmp1416)
-
-		_ = tmp1417
-
-		tmp1418 := MakeNative(func(__e *ControlFlow) {
-			V6157 := __e.Get(1)
-			_ = V6157
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6153 := __e.Get(1)
-				_ = B6153
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6154 := __e.Get(1)
-					_ = L6154
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6155 := __e.Get(1)
-						_ = Key6155
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6156 := __e.Get(1)
-							_ = C6156
-							tmp1419 := PrimCons(symboolean, Nil)
-
-							tmp1420 := PrimCons(sym_1_1_6, tmp1419)
-
-							__e.TailApply(PrimFunc(symis_b), V6157, tmp1420, B6153, L6154, Key6155, C6156)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp1421 := PrimValue(symshen_4_dsigf_d)
-
-		tmp1422 := Call(__e, PrimFunc(symshen_4assoc_1_6), symhush_2, tmp1418, tmp1421)
-
-		tmp1423 := PrimSet(symshen_4_dsigf_d, tmp1422)
-
-		_ = tmp1423
-
-		tmp1424 := MakeNative(func(__e *ControlFlow) {
-			V6162 := __e.Get(1)
-			_ = V6162
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6158 := __e.Get(1)
-				_ = B6158
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6159 := __e.Get(1)
-					_ = L6159
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6160 := __e.Get(1)
-						_ = Key6160
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6161 := __e.Get(1)
-							_ = C6161
-							tmp1425 := MakeNative(func(__e *ControlFlow) {
-								A := __e.Get(1)
-								_ = A
-								tmp1426 := PrimCons(A, Nil)
-
-								tmp1427 := PrimCons(symvector, tmp1426)
-
-								tmp1428 := PrimCons(A, Nil)
-
-								tmp1429 := PrimCons(sym_1_1_6, tmp1428)
-
-								tmp1430 := PrimCons(symnumber, tmp1429)
-
-								tmp1431 := PrimCons(tmp1430, Nil)
-
-								tmp1432 := PrimCons(sym_1_1_6, tmp1431)
-
-								tmp1433 := PrimCons(tmp1427, tmp1432)
-
-								tmp1434 := Call(__e, PrimFunc(symis_b), V6162, tmp1433, B6158, L6159, Key6160, C6161)
-
-								__e.TailApply(PrimFunc(symshen_4gc), B6158, tmp1434)
-								return
-
-							}, 1)
-
-							tmp1435 := Call(__e, PrimFunc(symshen_4newpv), B6158)
-
-							__e.TailApply(tmp1425, tmp1435)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp1436 := PrimValue(symshen_4_dsigf_d)
-
-		tmp1437 := Call(__e, PrimFunc(symshen_4assoc_1_6), sym_5_1vector, tmp1424, tmp1436)
-
-		tmp1438 := PrimSet(symshen_4_dsigf_d, tmp1437)
-
-		_ = tmp1438
-
-		tmp1439 := MakeNative(func(__e *ControlFlow) {
-			V6167 := __e.Get(1)
-			_ = V6167
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6163 := __e.Get(1)
-				_ = B6163
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6164 := __e.Get(1)
-					_ = L6164
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6165 := __e.Get(1)
-						_ = Key6165
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6166 := __e.Get(1)
-							_ = C6166
-							tmp1440 := MakeNative(func(__e *ControlFlow) {
-								A := __e.Get(1)
-								_ = A
-								tmp1441 := PrimCons(A, Nil)
-
-								tmp1442 := PrimCons(symvector, tmp1441)
-
-								tmp1443 := PrimCons(A, Nil)
-
-								tmp1444 := PrimCons(symvector, tmp1443)
-
-								tmp1445 := PrimCons(tmp1444, Nil)
-
-								tmp1446 := PrimCons(sym_1_1_6, tmp1445)
-
-								tmp1447 := PrimCons(A, tmp1446)
-
-								tmp1448 := PrimCons(tmp1447, Nil)
-
-								tmp1449 := PrimCons(sym_1_1_6, tmp1448)
-
-								tmp1450 := PrimCons(symnumber, tmp1449)
-
-								tmp1451 := PrimCons(tmp1450, Nil)
-
-								tmp1452 := PrimCons(sym_1_1_6, tmp1451)
-
-								tmp1453 := PrimCons(tmp1442, tmp1452)
-
-								tmp1454 := Call(__e, PrimFunc(symis_b), V6167, tmp1453, B6163, L6164, Key6165, C6166)
-
-								__e.TailApply(PrimFunc(symshen_4gc), B6163, tmp1454)
-								return
-
-							}, 1)
-
-							tmp1455 := Call(__e, PrimFunc(symshen_4newpv), B6163)
-
-							__e.TailApply(tmp1440, tmp1455)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp1456 := PrimValue(symshen_4_dsigf_d)
-
-		tmp1457 := Call(__e, PrimFunc(symshen_4assoc_1_6), symvector_1_6, tmp1439, tmp1456)
-
-		tmp1458 := PrimSet(symshen_4_dsigf_d, tmp1457)
-
-		_ = tmp1458
-
-		tmp1459 := MakeNative(func(__e *ControlFlow) {
-			V6172 := __e.Get(1)
-			_ = V6172
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6168 := __e.Get(1)
-				_ = B6168
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6169 := __e.Get(1)
-					_ = L6169
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6170 := __e.Get(1)
-						_ = Key6170
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6171 := __e.Get(1)
-							_ = C6171
-							tmp1460 := MakeNative(func(__e *ControlFlow) {
-								A := __e.Get(1)
-								_ = A
-								tmp1461 := PrimCons(A, Nil)
-
-								tmp1462 := PrimCons(symvector, tmp1461)
-
-								tmp1463 := PrimCons(tmp1462, Nil)
-
-								tmp1464 := PrimCons(sym_1_1_6, tmp1463)
-
-								tmp1465 := PrimCons(symnumber, tmp1464)
-
-								tmp1466 := Call(__e, PrimFunc(symis_b), V6172, tmp1465, B6168, L6169, Key6170, C6171)
-
-								__e.TailApply(PrimFunc(symshen_4gc), B6168, tmp1466)
-								return
-
-							}, 1)
-
-							tmp1467 := Call(__e, PrimFunc(symshen_4newpv), B6168)
-
-							__e.TailApply(tmp1460, tmp1467)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp1468 := PrimValue(symshen_4_dsigf_d)
-
-		tmp1469 := Call(__e, PrimFunc(symshen_4assoc_1_6), symvector, tmp1459, tmp1468)
-
-		tmp1470 := PrimSet(symshen_4_dsigf_d, tmp1469)
-
-		_ = tmp1470
-
-		tmp1471 := MakeNative(func(__e *ControlFlow) {
-			V6177 := __e.Get(1)
-			_ = V6177
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6173 := __e.Get(1)
-				_ = B6173
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6174 := __e.Get(1)
-					_ = L6174
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6175 := __e.Get(1)
-						_ = Key6175
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6176 := __e.Get(1)
-							_ = C6176
-							tmp1472 := PrimCons(symnumber, Nil)
-
-							tmp1473 := PrimCons(sym_1_1_6, tmp1472)
-
-							tmp1474 := PrimCons(symsymbol, tmp1473)
-
-							__e.TailApply(PrimFunc(symis_b), V6177, tmp1474, B6173, L6174, Key6175, C6176)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp1475 := PrimValue(symshen_4_dsigf_d)
-
-		tmp1476 := Call(__e, PrimFunc(symshen_4assoc_1_6), symget_1time, tmp1471, tmp1475)
-
-		tmp1477 := PrimSet(symshen_4_dsigf_d, tmp1476)
-
-		_ = tmp1477
-
-		tmp1478 := MakeNative(func(__e *ControlFlow) {
-			V6182 := __e.Get(1)
-			_ = V6182
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6178 := __e.Get(1)
-				_ = B6178
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6179 := __e.Get(1)
-					_ = L6179
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6180 := __e.Get(1)
-						_ = Key6180
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6181 := __e.Get(1)
-							_ = C6181
-							tmp1479 := MakeNative(func(__e *ControlFlow) {
-								A := __e.Get(1)
-								_ = A
-								tmp1480 := PrimCons(symnumber, Nil)
-
-								tmp1481 := PrimCons(sym_1_1_6, tmp1480)
-
-								tmp1482 := PrimCons(symnumber, tmp1481)
-
-								tmp1483 := PrimCons(tmp1482, Nil)
-
-								tmp1484 := PrimCons(sym_1_1_6, tmp1483)
-
-								tmp1485 := PrimCons(A, tmp1484)
-
-								tmp1486 := Call(__e, PrimFunc(symis_b), V6182, tmp1485, B6178, L6179, Key6180, C6181)
-
-								__e.TailApply(PrimFunc(symshen_4gc), B6178, tmp1486)
-								return
-
-							}, 1)
-
-							tmp1487 := Call(__e, PrimFunc(symshen_4newpv), B6178)
-
-							__e.TailApply(tmp1479, tmp1487)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp1488 := PrimValue(symshen_4_dsigf_d)
-
-		tmp1489 := Call(__e, PrimFunc(symshen_4assoc_1_6), symhash, tmp1478, tmp1488)
-
-		tmp1490 := PrimSet(symshen_4_dsigf_d, tmp1489)
-
-		_ = tmp1490
-
-		tmp1491 := MakeNative(func(__e *ControlFlow) {
-			V6187 := __e.Get(1)
-			_ = V6187
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6183 := __e.Get(1)
-				_ = B6183
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6184 := __e.Get(1)
-					_ = L6184
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6185 := __e.Get(1)
-						_ = Key6185
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6186 := __e.Get(1)
-							_ = C6186
-							tmp1492 := MakeNative(func(__e *ControlFlow) {
-								A := __e.Get(1)
-								_ = A
-								tmp1493 := PrimCons(A, Nil)
-
-								tmp1494 := PrimCons(symlist, tmp1493)
-
-								tmp1495 := PrimCons(A, Nil)
-
-								tmp1496 := PrimCons(sym_1_1_6, tmp1495)
-
-								tmp1497 := PrimCons(tmp1494, tmp1496)
-
-								tmp1498 := Call(__e, PrimFunc(symis_b), V6187, tmp1497, B6183, L6184, Key6185, C6186)
-
-								__e.TailApply(PrimFunc(symshen_4gc), B6183, tmp1498)
-								return
-
-							}, 1)
-
-							tmp1499 := Call(__e, PrimFunc(symshen_4newpv), B6183)
-
-							__e.TailApply(tmp1492, tmp1499)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp1500 := PrimValue(symshen_4_dsigf_d)
-
-		tmp1501 := Call(__e, PrimFunc(symshen_4assoc_1_6), symhead, tmp1491, tmp1500)
-
-		tmp1502 := PrimSet(symshen_4_dsigf_d, tmp1501)
-
-		_ = tmp1502
-
-		tmp1503 := MakeNative(func(__e *ControlFlow) {
-			V6192 := __e.Get(1)
-			_ = V6192
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6188 := __e.Get(1)
-				_ = B6188
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6189 := __e.Get(1)
-					_ = L6189
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6190 := __e.Get(1)
-						_ = Key6190
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6191 := __e.Get(1)
-							_ = C6191
-							tmp1504 := MakeNative(func(__e *ControlFlow) {
-								A := __e.Get(1)
-								_ = A
-								tmp1505 := PrimCons(A, Nil)
-
-								tmp1506 := PrimCons(symvector, tmp1505)
-
-								tmp1507 := PrimCons(A, Nil)
-
-								tmp1508 := PrimCons(sym_1_1_6, tmp1507)
-
-								tmp1509 := PrimCons(tmp1506, tmp1508)
-
-								tmp1510 := Call(__e, PrimFunc(symis_b), V6192, tmp1509, B6188, L6189, Key6190, C6191)
-
-								__e.TailApply(PrimFunc(symshen_4gc), B6188, tmp1510)
-								return
-
-							}, 1)
-
-							tmp1511 := Call(__e, PrimFunc(symshen_4newpv), B6188)
-
-							__e.TailApply(tmp1504, tmp1511)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp1512 := PrimValue(symshen_4_dsigf_d)
-
-		tmp1513 := Call(__e, PrimFunc(symshen_4assoc_1_6), symhdv, tmp1503, tmp1512)
-
-		tmp1514 := PrimSet(symshen_4_dsigf_d, tmp1513)
-
-		_ = tmp1514
-
-		tmp1515 := MakeNative(func(__e *ControlFlow) {
-			V6197 := __e.Get(1)
-			_ = V6197
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6193 := __e.Get(1)
-				_ = B6193
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6194 := __e.Get(1)
-					_ = L6194
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6195 := __e.Get(1)
-						_ = Key6195
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6196 := __e.Get(1)
-							_ = C6196
-							tmp1516 := PrimCons(symstring, Nil)
-
-							tmp1517 := PrimCons(sym_1_1_6, tmp1516)
-
-							tmp1518 := PrimCons(symstring, tmp1517)
-
-							__e.TailApply(PrimFunc(symis_b), V6197, tmp1518, B6193, L6194, Key6195, C6196)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp1519 := PrimValue(symshen_4_dsigf_d)
-
-		tmp1520 := Call(__e, PrimFunc(symshen_4assoc_1_6), symhdstr, tmp1515, tmp1519)
-
-		tmp1521 := PrimSet(symshen_4_dsigf_d, tmp1520)
-
-		_ = tmp1521
-
-		tmp1522 := MakeNative(func(__e *ControlFlow) {
-			V6202 := __e.Get(1)
-			_ = V6202
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6198 := __e.Get(1)
-				_ = B6198
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6199 := __e.Get(1)
-					_ = L6199
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6200 := __e.Get(1)
-						_ = Key6200
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6201 := __e.Get(1)
-							_ = C6201
-							tmp1523 := MakeNative(func(__e *ControlFlow) {
-								A := __e.Get(1)
-								_ = A
-								tmp1524 := PrimCons(A, Nil)
-
-								tmp1525 := PrimCons(sym_1_1_6, tmp1524)
-
-								tmp1526 := PrimCons(A, tmp1525)
-
-								tmp1527 := PrimCons(tmp1526, Nil)
-
-								tmp1528 := PrimCons(sym_1_1_6, tmp1527)
-
-								tmp1529 := PrimCons(A, tmp1528)
-
-								tmp1530 := PrimCons(tmp1529, Nil)
-
-								tmp1531 := PrimCons(sym_1_1_6, tmp1530)
-
-								tmp1532 := PrimCons(symboolean, tmp1531)
-
-								tmp1533 := Call(__e, PrimFunc(symis_b), V6202, tmp1532, B6198, L6199, Key6200, C6201)
-
-								__e.TailApply(PrimFunc(symshen_4gc), B6198, tmp1533)
-								return
-
-							}, 1)
-
-							tmp1534 := Call(__e, PrimFunc(symshen_4newpv), B6198)
-
-							__e.TailApply(tmp1523, tmp1534)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp1535 := PrimValue(symshen_4_dsigf_d)
-
-		tmp1536 := Call(__e, PrimFunc(symshen_4assoc_1_6), symif, tmp1522, tmp1535)
-
-		tmp1537 := PrimSet(symshen_4_dsigf_d, tmp1536)
-
-		_ = tmp1537
-
-		tmp1538 := MakeNative(func(__e *ControlFlow) {
-			V6207 := __e.Get(1)
-			_ = V6207
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6203 := __e.Get(1)
-				_ = B6203
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6204 := __e.Get(1)
-					_ = L6204
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6205 := __e.Get(1)
-						_ = Key6205
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6206 := __e.Get(1)
-							_ = C6206
-							tmp1539 := PrimCons(symsymbol, Nil)
-
-							tmp1540 := PrimCons(sym_1_1_6, tmp1539)
-
-							tmp1541 := PrimCons(symsymbol, tmp1540)
-
-							__e.TailApply(PrimFunc(symis_b), V6207, tmp1541, B6203, L6204, Key6205, C6206)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp1542 := PrimValue(symshen_4_dsigf_d)
-
-		tmp1543 := Call(__e, PrimFunc(symshen_4assoc_1_6), symin_1package, tmp1538, tmp1542)
-
-		tmp1544 := PrimSet(symshen_4_dsigf_d, tmp1543)
-
-		_ = tmp1544
-
-		tmp1545 := MakeNative(func(__e *ControlFlow) {
-			V6212 := __e.Get(1)
-			_ = V6212
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6208 := __e.Get(1)
-				_ = B6208
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6209 := __e.Get(1)
-					_ = L6209
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6210 := __e.Get(1)
-						_ = Key6210
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6211 := __e.Get(1)
-							_ = C6211
-							tmp1546 := PrimCons(symstring, Nil)
-
-							tmp1547 := PrimCons(sym_1_1_6, tmp1546)
-
-							__e.TailApply(PrimFunc(symis_b), V6212, tmp1547, B6208, L6209, Key6210, C6211)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp1548 := PrimValue(symshen_4_dsigf_d)
-
-		tmp1549 := Call(__e, PrimFunc(symshen_4assoc_1_6), symit, tmp1545, tmp1548)
-
-		tmp1550 := PrimSet(symshen_4_dsigf_d, tmp1549)
-
-		_ = tmp1550
-
-		tmp1551 := MakeNative(func(__e *ControlFlow) {
-			V6217 := __e.Get(1)
-			_ = V6217
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6213 := __e.Get(1)
-				_ = B6213
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6214 := __e.Get(1)
-					_ = L6214
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6215 := __e.Get(1)
-						_ = Key6215
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6216 := __e.Get(1)
-							_ = C6216
-							tmp1552 := PrimCons(symstring, Nil)
-
-							tmp1553 := PrimCons(sym_1_1_6, tmp1552)
-
-							__e.TailApply(PrimFunc(symis_b), V6217, tmp1553, B6213, L6214, Key6215, C6216)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp1554 := PrimValue(symshen_4_dsigf_d)
-
-		tmp1555 := Call(__e, PrimFunc(symshen_4assoc_1_6), symimplementation, tmp1551, tmp1554)
-
-		tmp1556 := PrimSet(symshen_4_dsigf_d, tmp1555)
-
-		_ = tmp1556
-
-		tmp1557 := MakeNative(func(__e *ControlFlow) {
-			V6222 := __e.Get(1)
-			_ = V6222
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6218 := __e.Get(1)
-				_ = B6218
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6219 := __e.Get(1)
-					_ = L6219
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6220 := __e.Get(1)
-						_ = Key6220
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6221 := __e.Get(1)
-							_ = C6221
-							tmp1558 := PrimCons(symsymbol, Nil)
-
-							tmp1559 := PrimCons(symlist, tmp1558)
-
-							tmp1560 := PrimCons(symsymbol, Nil)
-
-							tmp1561 := PrimCons(symlist, tmp1560)
-
-							tmp1562 := PrimCons(tmp1561, Nil)
-
-							tmp1563 := PrimCons(sym_1_1_6, tmp1562)
-
-							tmp1564 := PrimCons(tmp1559, tmp1563)
-
-							__e.TailApply(PrimFunc(symis_b), V6222, tmp1564, B6218, L6219, Key6220, C6221)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp1565 := PrimValue(symshen_4_dsigf_d)
-
-		tmp1566 := Call(__e, PrimFunc(symshen_4assoc_1_6), syminclude, tmp1557, tmp1565)
-
-		tmp1567 := PrimSet(symshen_4_dsigf_d, tmp1566)
-
-		_ = tmp1567
-
-		tmp1568 := MakeNative(func(__e *ControlFlow) {
-			V6227 := __e.Get(1)
-			_ = V6227
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6223 := __e.Get(1)
-				_ = B6223
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6224 := __e.Get(1)
-					_ = L6224
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6225 := __e.Get(1)
-						_ = Key6225
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6226 := __e.Get(1)
-							_ = C6226
-							tmp1569 := PrimCons(symsymbol, Nil)
-
-							tmp1570 := PrimCons(symlist, tmp1569)
-
-							tmp1571 := PrimCons(symsymbol, Nil)
-
-							tmp1572 := PrimCons(symlist, tmp1571)
-
-							tmp1573 := PrimCons(tmp1572, Nil)
-
-							tmp1574 := PrimCons(sym_1_1_6, tmp1573)
-
-							tmp1575 := PrimCons(tmp1570, tmp1574)
-
-							__e.TailApply(PrimFunc(symis_b), V6227, tmp1575, B6223, L6224, Key6225, C6226)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp1576 := PrimValue(symshen_4_dsigf_d)
-
-		tmp1577 := Call(__e, PrimFunc(symshen_4assoc_1_6), syminclude_1all_1but, tmp1568, tmp1576)
-
-		tmp1578 := PrimSet(symshen_4_dsigf_d, tmp1577)
-
-		_ = tmp1578
-
-		tmp1579 := MakeNative(func(__e *ControlFlow) {
-			V6232 := __e.Get(1)
-			_ = V6232
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6228 := __e.Get(1)
-				_ = B6228
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6229 := __e.Get(1)
-					_ = L6229
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6230 := __e.Get(1)
-						_ = Key6230
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6231 := __e.Get(1)
-							_ = C6231
-							tmp1580 := PrimCons(symsymbol, Nil)
-
-							tmp1581 := PrimCons(symlist, tmp1580)
-
-							tmp1582 := PrimCons(tmp1581, Nil)
-
-							tmp1583 := PrimCons(sym_1_1_6, tmp1582)
-
-							__e.TailApply(PrimFunc(symis_b), V6232, tmp1583, B6228, L6229, Key6230, C6231)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp1584 := PrimValue(symshen_4_dsigf_d)
-
-		tmp1585 := Call(__e, PrimFunc(symshen_4assoc_1_6), symincluded, tmp1579, tmp1584)
-
-		tmp1586 := PrimSet(symshen_4_dsigf_d, tmp1585)
-
-		_ = tmp1586
-
-		tmp1587 := MakeNative(func(__e *ControlFlow) {
-			V6237 := __e.Get(1)
-			_ = V6237
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6233 := __e.Get(1)
-				_ = B6233
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6234 := __e.Get(1)
-					_ = L6234
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6235 := __e.Get(1)
-						_ = Key6235
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6236 := __e.Get(1)
-							_ = C6236
-							tmp1588 := PrimCons(symnumber, Nil)
-
-							tmp1589 := PrimCons(sym_1_1_6, tmp1588)
-
-							__e.TailApply(PrimFunc(symis_b), V6237, tmp1589, B6233, L6234, Key6235, C6236)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp1590 := PrimValue(symshen_4_dsigf_d)
-
-		tmp1591 := Call(__e, PrimFunc(symshen_4assoc_1_6), syminferences, tmp1587, tmp1590)
-
-		tmp1592 := PrimSet(symshen_4_dsigf_d, tmp1591)
-
-		_ = tmp1592
-
-		tmp1593 := MakeNative(func(__e *ControlFlow) {
-			V6242 := __e.Get(1)
-			_ = V6242
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6238 := __e.Get(1)
-				_ = B6238
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6239 := __e.Get(1)
-					_ = L6239
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6240 := __e.Get(1)
-						_ = Key6240
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6241 := __e.Get(1)
-							_ = C6241
-							tmp1594 := MakeNative(func(__e *ControlFlow) {
-								A := __e.Get(1)
-								_ = A
-								tmp1595 := PrimCons(symstring, Nil)
-
-								tmp1596 := PrimCons(sym_1_1_6, tmp1595)
-
-								tmp1597 := PrimCons(symstring, tmp1596)
-
-								tmp1598 := PrimCons(tmp1597, Nil)
-
-								tmp1599 := PrimCons(sym_1_1_6, tmp1598)
-
-								tmp1600 := PrimCons(A, tmp1599)
-
-								tmp1601 := Call(__e, PrimFunc(symis_b), V6242, tmp1600, B6238, L6239, Key6240, C6241)
-
-								__e.TailApply(PrimFunc(symshen_4gc), B6238, tmp1601)
-								return
-
-							}, 1)
-
-							tmp1602 := Call(__e, PrimFunc(symshen_4newpv), B6238)
-
-							__e.TailApply(tmp1594, tmp1602)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp1603 := PrimValue(symshen_4_dsigf_d)
-
-		tmp1604 := Call(__e, PrimFunc(symshen_4assoc_1_6), symshen_4insert, tmp1593, tmp1603)
-
-		tmp1605 := PrimSet(symshen_4_dsigf_d, tmp1604)
-
-		_ = tmp1605
-
-		tmp1606 := MakeNative(func(__e *ControlFlow) {
-			V6247 := __e.Get(1)
-			_ = V6247
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6243 := __e.Get(1)
-				_ = B6243
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6244 := __e.Get(1)
-					_ = L6244
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6245 := __e.Get(1)
-						_ = Key6245
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6246 := __e.Get(1)
-							_ = C6246
-							tmp1607 := MakeNative(func(__e *ControlFlow) {
-								A := __e.Get(1)
-								_ = A
-								tmp1608 := PrimCons(symboolean, Nil)
-
-								tmp1609 := PrimCons(sym_1_1_6, tmp1608)
-
-								tmp1610 := PrimCons(A, tmp1609)
-
-								tmp1611 := Call(__e, PrimFunc(symis_b), V6247, tmp1610, B6243, L6244, Key6245, C6246)
-
-								__e.TailApply(PrimFunc(symshen_4gc), B6243, tmp1611)
-								return
-
-							}, 1)
-
-							tmp1612 := Call(__e, PrimFunc(symshen_4newpv), B6243)
-
-							__e.TailApply(tmp1607, tmp1612)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp1613 := PrimValue(symshen_4_dsigf_d)
-
-		tmp1614 := Call(__e, PrimFunc(symshen_4assoc_1_6), syminteger_2, tmp1606, tmp1613)
-
-		tmp1615 := PrimSet(symshen_4_dsigf_d, tmp1614)
-
-		_ = tmp1615
-
-		tmp1616 := MakeNative(func(__e *ControlFlow) {
-			V6252 := __e.Get(1)
-			_ = V6252
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6248 := __e.Get(1)
-				_ = B6248
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6249 := __e.Get(1)
-					_ = L6249
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6250 := __e.Get(1)
-						_ = Key6250
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6251 := __e.Get(1)
-							_ = C6251
-							tmp1617 := PrimCons(symsymbol, Nil)
-
-							tmp1618 := PrimCons(symlist, tmp1617)
-
-							tmp1619 := PrimCons(tmp1618, Nil)
-
-							tmp1620 := PrimCons(sym_1_1_6, tmp1619)
-
-							tmp1621 := PrimCons(symsymbol, tmp1620)
-
-							__e.TailApply(PrimFunc(symis_b), V6252, tmp1621, B6248, L6249, Key6250, C6251)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp1622 := PrimValue(symshen_4_dsigf_d)
-
-		tmp1623 := Call(__e, PrimFunc(symshen_4assoc_1_6), syminternal, tmp1616, tmp1622)
-
-		tmp1624 := PrimSet(symshen_4_dsigf_d, tmp1623)
-
-		_ = tmp1624
-
-		tmp1625 := MakeNative(func(__e *ControlFlow) {
-			V6257 := __e.Get(1)
-			_ = V6257
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6253 := __e.Get(1)
-				_ = B6253
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6254 := __e.Get(1)
-					_ = L6254
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6255 := __e.Get(1)
-						_ = Key6255
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6256 := __e.Get(1)
-							_ = C6256
-							tmp1626 := MakeNative(func(__e *ControlFlow) {
-								A := __e.Get(1)
-								_ = A
-								tmp1627 := PrimCons(A, Nil)
-
-								tmp1628 := PrimCons(symlist, tmp1627)
-
-								tmp1629 := PrimCons(A, Nil)
-
-								tmp1630 := PrimCons(symlist, tmp1629)
-
-								tmp1631 := PrimCons(A, Nil)
-
-								tmp1632 := PrimCons(symlist, tmp1631)
-
-								tmp1633 := PrimCons(tmp1632, Nil)
-
-								tmp1634 := PrimCons(sym_1_1_6, tmp1633)
-
-								tmp1635 := PrimCons(tmp1630, tmp1634)
-
-								tmp1636 := PrimCons(tmp1635, Nil)
-
-								tmp1637 := PrimCons(sym_1_1_6, tmp1636)
-
-								tmp1638 := PrimCons(tmp1628, tmp1637)
-
-								tmp1639 := Call(__e, PrimFunc(symis_b), V6257, tmp1638, B6253, L6254, Key6255, C6256)
-
-								__e.TailApply(PrimFunc(symshen_4gc), B6253, tmp1639)
-								return
-
-							}, 1)
-
-							tmp1640 := Call(__e, PrimFunc(symshen_4newpv), B6253)
-
-							__e.TailApply(tmp1626, tmp1640)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp1641 := PrimValue(symshen_4_dsigf_d)
-
-		tmp1642 := Call(__e, PrimFunc(symshen_4assoc_1_6), symintersection, tmp1625, tmp1641)
-
-		tmp1643 := PrimSet(symshen_4_dsigf_d, tmp1642)
-
-		_ = tmp1643
-
-		tmp1644 := MakeNative(func(__e *ControlFlow) {
-			V6262 := __e.Get(1)
-			_ = V6262
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6258 := __e.Get(1)
-				_ = B6258
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6259 := __e.Get(1)
-					_ = L6259
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6260 := __e.Get(1)
-						_ = Key6260
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6261 := __e.Get(1)
-							_ = C6261
-							tmp1645 := PrimCons(symstring, Nil)
-
-							tmp1646 := PrimCons(sym_1_1_6, tmp1645)
-
-							__e.TailApply(PrimFunc(symis_b), V6262, tmp1646, B6258, L6259, Key6260, C6261)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp1647 := PrimValue(symshen_4_dsigf_d)
-
-		tmp1648 := Call(__e, PrimFunc(symshen_4assoc_1_6), symlanguage, tmp1644, tmp1647)
-
-		tmp1649 := PrimSet(symshen_4_dsigf_d, tmp1648)
-
-		_ = tmp1649
-
-		tmp1650 := MakeNative(func(__e *ControlFlow) {
-			V6267 := __e.Get(1)
-			_ = V6267
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6263 := __e.Get(1)
-				_ = B6263
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6264 := __e.Get(1)
-					_ = L6264
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6265 := __e.Get(1)
-						_ = Key6265
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6266 := __e.Get(1)
-							_ = C6266
-							tmp1651 := MakeNative(func(__e *ControlFlow) {
-								A := __e.Get(1)
-								_ = A
-								tmp1652 := PrimCons(A, Nil)
-
-								tmp1653 := PrimCons(symlist, tmp1652)
-
-								tmp1654 := PrimCons(symnumber, Nil)
-
-								tmp1655 := PrimCons(sym_1_1_6, tmp1654)
-
-								tmp1656 := PrimCons(tmp1653, tmp1655)
-
-								tmp1657 := Call(__e, PrimFunc(symis_b), V6267, tmp1656, B6263, L6264, Key6265, C6266)
-
-								__e.TailApply(PrimFunc(symshen_4gc), B6263, tmp1657)
-								return
-
-							}, 1)
-
-							tmp1658 := Call(__e, PrimFunc(symshen_4newpv), B6263)
-
-							__e.TailApply(tmp1651, tmp1658)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp1659 := PrimValue(symshen_4_dsigf_d)
-
-		tmp1660 := Call(__e, PrimFunc(symshen_4assoc_1_6), symlength, tmp1650, tmp1659)
-
-		tmp1661 := PrimSet(symshen_4_dsigf_d, tmp1660)
-
-		_ = tmp1661
-
-		tmp1662 := MakeNative(func(__e *ControlFlow) {
-			V6272 := __e.Get(1)
-			_ = V6272
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6268 := __e.Get(1)
-				_ = B6268
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6269 := __e.Get(1)
-					_ = L6269
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6270 := __e.Get(1)
-						_ = Key6270
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6271 := __e.Get(1)
-							_ = C6271
-							tmp1663 := MakeNative(func(__e *ControlFlow) {
-								A := __e.Get(1)
-								_ = A
-								tmp1664 := PrimCons(A, Nil)
-
-								tmp1665 := PrimCons(symvector, tmp1664)
-
-								tmp1666 := PrimCons(symnumber, Nil)
-
-								tmp1667 := PrimCons(sym_1_1_6, tmp1666)
-
-								tmp1668 := PrimCons(tmp1665, tmp1667)
-
-								tmp1669 := Call(__e, PrimFunc(symis_b), V6272, tmp1668, B6268, L6269, Key6270, C6271)
-
-								__e.TailApply(PrimFunc(symshen_4gc), B6268, tmp1669)
-								return
-
-							}, 1)
-
-							tmp1670 := Call(__e, PrimFunc(symshen_4newpv), B6268)
-
-							__e.TailApply(tmp1663, tmp1670)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp1671 := PrimValue(symshen_4_dsigf_d)
-
-		tmp1672 := Call(__e, PrimFunc(symshen_4assoc_1_6), symlimit, tmp1662, tmp1671)
-
-		tmp1673 := PrimSet(symshen_4_dsigf_d, tmp1672)
-
-		_ = tmp1673
-
-		tmp1674 := MakeNative(func(__e *ControlFlow) {
-			V6277 := __e.Get(1)
-			_ = V6277
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6273 := __e.Get(1)
-				_ = B6273
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6274 := __e.Get(1)
-					_ = L6274
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6275 := __e.Get(1)
-						_ = Key6275
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6276 := __e.Get(1)
-							_ = C6276
-							tmp1675 := PrimCons(symin, Nil)
-
-							tmp1676 := PrimCons(symstream, tmp1675)
-
-							tmp1677 := PrimCons(symunit, Nil)
-
-							tmp1678 := PrimCons(symlist, tmp1677)
-
-							tmp1679 := PrimCons(tmp1678, Nil)
-
-							tmp1680 := PrimCons(sym_1_1_6, tmp1679)
-
-							tmp1681 := PrimCons(tmp1676, tmp1680)
-
-							__e.TailApply(PrimFunc(symis_b), V6277, tmp1681, B6273, L6274, Key6275, C6276)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp1682 := PrimValue(symshen_4_dsigf_d)
-
-		tmp1683 := Call(__e, PrimFunc(symshen_4assoc_1_6), symlineread, tmp1674, tmp1682)
-
-		tmp1684 := PrimSet(symshen_4_dsigf_d, tmp1683)
-
-		_ = tmp1684
-
-		tmp1685 := MakeNative(func(__e *ControlFlow) {
-			V6282 := __e.Get(1)
-			_ = V6282
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6278 := __e.Get(1)
-				_ = B6278
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6279 := __e.Get(1)
-					_ = L6279
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6280 := __e.Get(1)
-						_ = Key6280
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6281 := __e.Get(1)
-							_ = C6281
-							tmp1686 := PrimCons(symsymbol, Nil)
-
-							tmp1687 := PrimCons(sym_1_1_6, tmp1686)
-
-							tmp1688 := PrimCons(symstring, tmp1687)
-
-							__e.TailApply(PrimFunc(symis_b), V6282, tmp1688, B6278, L6279, Key6280, C6281)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp1689 := PrimValue(symshen_4_dsigf_d)
-
-		tmp1690 := Call(__e, PrimFunc(symshen_4assoc_1_6), symload, tmp1685, tmp1689)
-
-		tmp1691 := PrimSet(symshen_4_dsigf_d, tmp1690)
-
-		_ = tmp1691
-
-		tmp1692 := MakeNative(func(__e *ControlFlow) {
-			V6287 := __e.Get(1)
-			_ = V6287
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6283 := __e.Get(1)
-				_ = B6283
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6284 := __e.Get(1)
-					_ = L6284
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6285 := __e.Get(1)
-						_ = Key6285
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6286 := __e.Get(1)
-							_ = C6286
-							tmp1693 := MakeNative(func(__e *ControlFlow) {
-								A := __e.Get(1)
-								_ = A
-								tmp1694 := MakeNative(func(__e *ControlFlow) {
-									B := __e.Get(1)
-									_ = B
-									tmp1695 := PrimCons(B, Nil)
-
-									tmp1696 := PrimCons(sym_1_1_6, tmp1695)
-
-									tmp1697 := PrimCons(A, tmp1696)
-
-									tmp1698 := PrimCons(A, Nil)
-
-									tmp1699 := PrimCons(symlist, tmp1698)
-
-									tmp1700 := PrimCons(B, Nil)
-
-									tmp1701 := PrimCons(symlist, tmp1700)
-
-									tmp1702 := PrimCons(tmp1701, Nil)
-
-									tmp1703 := PrimCons(sym_1_1_6, tmp1702)
-
-									tmp1704 := PrimCons(tmp1699, tmp1703)
-
-									tmp1705 := PrimCons(tmp1704, Nil)
-
-									tmp1706 := PrimCons(sym_1_1_6, tmp1705)
-
-									tmp1707 := PrimCons(tmp1697, tmp1706)
-
-									tmp1708 := Call(__e, PrimFunc(symis_b), V6287, tmp1707, B6283, L6284, Key6285, C6286)
-
-									__e.TailApply(PrimFunc(symshen_4gc), B6283, tmp1708)
-									return
-
-								}, 1)
-
-								tmp1709 := Call(__e, PrimFunc(symshen_4newpv), B6283)
-
-								tmp1710 := Call(__e, tmp1694, tmp1709)
-
-								__e.TailApply(PrimFunc(symshen_4gc), B6283, tmp1710)
-								return
-
-							}, 1)
-
-							tmp1711 := Call(__e, PrimFunc(symshen_4newpv), B6283)
-
-							__e.TailApply(tmp1693, tmp1711)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp1712 := PrimValue(symshen_4_dsigf_d)
-
-		tmp1713 := Call(__e, PrimFunc(symshen_4assoc_1_6), symmap, tmp1692, tmp1712)
-
-		tmp1714 := PrimSet(symshen_4_dsigf_d, tmp1713)
-
-		_ = tmp1714
-
-		tmp1715 := MakeNative(func(__e *ControlFlow) {
-			V6292 := __e.Get(1)
-			_ = V6292
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6288 := __e.Get(1)
-				_ = B6288
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6289 := __e.Get(1)
-					_ = L6289
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6290 := __e.Get(1)
-						_ = Key6290
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6291 := __e.Get(1)
-							_ = C6291
-							tmp1716 := MakeNative(func(__e *ControlFlow) {
-								A := __e.Get(1)
-								_ = A
-								tmp1717 := MakeNative(func(__e *ControlFlow) {
-									B := __e.Get(1)
-									_ = B
-									tmp1718 := PrimCons(B, Nil)
-
-									tmp1719 := PrimCons(symlist, tmp1718)
-
-									tmp1720 := PrimCons(tmp1719, Nil)
-
-									tmp1721 := PrimCons(sym_1_1_6, tmp1720)
-
-									tmp1722 := PrimCons(A, tmp1721)
-
-									tmp1723 := PrimCons(A, Nil)
-
-									tmp1724 := PrimCons(symlist, tmp1723)
-
-									tmp1725 := PrimCons(B, Nil)
-
-									tmp1726 := PrimCons(symlist, tmp1725)
-
-									tmp1727 := PrimCons(tmp1726, Nil)
-
-									tmp1728 := PrimCons(sym_1_1_6, tmp1727)
-
-									tmp1729 := PrimCons(tmp1724, tmp1728)
-
-									tmp1730 := PrimCons(tmp1729, Nil)
-
-									tmp1731 := PrimCons(sym_1_1_6, tmp1730)
-
-									tmp1732 := PrimCons(tmp1722, tmp1731)
-
-									tmp1733 := Call(__e, PrimFunc(symis_b), V6292, tmp1732, B6288, L6289, Key6290, C6291)
-
-									__e.TailApply(PrimFunc(symshen_4gc), B6288, tmp1733)
-									return
-
-								}, 1)
-
-								tmp1734 := Call(__e, PrimFunc(symshen_4newpv), B6288)
-
-								tmp1735 := Call(__e, tmp1717, tmp1734)
-
-								__e.TailApply(PrimFunc(symshen_4gc), B6288, tmp1735)
-								return
-
-							}, 1)
-
-							tmp1736 := Call(__e, PrimFunc(symshen_4newpv), B6288)
-
-							__e.TailApply(tmp1716, tmp1736)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp1737 := PrimValue(symshen_4_dsigf_d)
-
-		tmp1738 := Call(__e, PrimFunc(symshen_4assoc_1_6), symmapcan, tmp1715, tmp1737)
-
-		tmp1739 := PrimSet(symshen_4_dsigf_d, tmp1738)
-
-		_ = tmp1739
-
-		tmp1740 := MakeNative(func(__e *ControlFlow) {
-			V6297 := __e.Get(1)
-			_ = V6297
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6293 := __e.Get(1)
-				_ = B6293
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6294 := __e.Get(1)
-					_ = L6294
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6295 := __e.Get(1)
-						_ = Key6295
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6296 := __e.Get(1)
-							_ = C6296
-							tmp1741 := PrimCons(symnumber, Nil)
-
-							tmp1742 := PrimCons(sym_1_1_6, tmp1741)
-
-							tmp1743 := PrimCons(symnumber, tmp1742)
-
-							__e.TailApply(PrimFunc(symis_b), V6297, tmp1743, B6293, L6294, Key6295, C6296)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp1744 := PrimValue(symshen_4_dsigf_d)
-
-		tmp1745 := Call(__e, PrimFunc(symshen_4assoc_1_6), symmaxinferences, tmp1740, tmp1744)
-
-		tmp1746 := PrimSet(symshen_4_dsigf_d, tmp1745)
-
-		_ = tmp1746
-
-		tmp1747 := MakeNative(func(__e *ControlFlow) {
-			V6302 := __e.Get(1)
-			_ = V6302
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6298 := __e.Get(1)
-				_ = B6298
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6299 := __e.Get(1)
-					_ = L6299
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6300 := __e.Get(1)
-						_ = Key6300
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6301 := __e.Get(1)
-							_ = C6301
-							tmp1748 := PrimCons(symstring, Nil)
-
-							tmp1749 := PrimCons(sym_1_1_6, tmp1748)
-
-							tmp1750 := PrimCons(symnumber, tmp1749)
-
-							__e.TailApply(PrimFunc(symis_b), V6302, tmp1750, B6298, L6299, Key6300, C6301)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp1751 := PrimValue(symshen_4_dsigf_d)
-
-		tmp1752 := Call(__e, PrimFunc(symshen_4assoc_1_6), symn_1_6string, tmp1747, tmp1751)
-
-		tmp1753 := PrimSet(symshen_4_dsigf_d, tmp1752)
-
-		_ = tmp1753
-
-		tmp1754 := MakeNative(func(__e *ControlFlow) {
-			V6307 := __e.Get(1)
-			_ = V6307
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6303 := __e.Get(1)
-				_ = B6303
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6304 := __e.Get(1)
-					_ = L6304
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6305 := __e.Get(1)
-						_ = Key6305
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6306 := __e.Get(1)
-							_ = C6306
-							tmp1755 := PrimCons(symnumber, Nil)
-
-							tmp1756 := PrimCons(sym_1_1_6, tmp1755)
-
-							tmp1757 := PrimCons(symnumber, tmp1756)
-
-							__e.TailApply(PrimFunc(symis_b), V6307, tmp1757, B6303, L6304, Key6305, C6306)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp1758 := PrimValue(symshen_4_dsigf_d)
-
-		tmp1759 := Call(__e, PrimFunc(symshen_4assoc_1_6), symnl, tmp1754, tmp1758)
-
-		tmp1760 := PrimSet(symshen_4_dsigf_d, tmp1759)
-
-		_ = tmp1760
-
-		tmp1761 := MakeNative(func(__e *ControlFlow) {
-			V6312 := __e.Get(1)
-			_ = V6312
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6308 := __e.Get(1)
-				_ = B6308
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6309 := __e.Get(1)
-					_ = L6309
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6310 := __e.Get(1)
-						_ = Key6310
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6311 := __e.Get(1)
-							_ = C6311
-							tmp1762 := PrimCons(symboolean, Nil)
-
-							tmp1763 := PrimCons(sym_1_1_6, tmp1762)
-
-							tmp1764 := PrimCons(symboolean, tmp1763)
-
-							__e.TailApply(PrimFunc(symis_b), V6312, tmp1764, B6308, L6309, Key6310, C6311)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp1765 := PrimValue(symshen_4_dsigf_d)
-
-		tmp1766 := Call(__e, PrimFunc(symshen_4assoc_1_6), symnot, tmp1761, tmp1765)
-
-		tmp1767 := PrimSet(symshen_4_dsigf_d, tmp1766)
-
-		_ = tmp1767
-
-		tmp1768 := MakeNative(func(__e *ControlFlow) {
-			V6317 := __e.Get(1)
-			_ = V6317
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6313 := __e.Get(1)
-				_ = B6313
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6314 := __e.Get(1)
-					_ = L6314
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6315 := __e.Get(1)
-						_ = Key6315
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6316 := __e.Get(1)
-							_ = C6316
-							tmp1769 := MakeNative(func(__e *ControlFlow) {
-								A := __e.Get(1)
-								_ = A
-								tmp1770 := PrimCons(A, Nil)
-
-								tmp1771 := PrimCons(symlist, tmp1770)
-
-								tmp1772 := PrimCons(A, Nil)
-
-								tmp1773 := PrimCons(sym_1_1_6, tmp1772)
-
-								tmp1774 := PrimCons(tmp1771, tmp1773)
-
-								tmp1775 := PrimCons(tmp1774, Nil)
-
-								tmp1776 := PrimCons(sym_1_1_6, tmp1775)
-
-								tmp1777 := PrimCons(symnumber, tmp1776)
-
-								tmp1778 := Call(__e, PrimFunc(symis_b), V6317, tmp1777, B6313, L6314, Key6315, C6316)
-
-								__e.TailApply(PrimFunc(symshen_4gc), B6313, tmp1778)
-								return
-
-							}, 1)
-
-							tmp1779 := Call(__e, PrimFunc(symshen_4newpv), B6313)
-
-							__e.TailApply(tmp1769, tmp1779)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp1780 := PrimValue(symshen_4_dsigf_d)
-
-		tmp1781 := Call(__e, PrimFunc(symshen_4assoc_1_6), symnth, tmp1768, tmp1780)
-
-		tmp1782 := PrimSet(symshen_4_dsigf_d, tmp1781)
-
-		_ = tmp1782
-
-		tmp1783 := MakeNative(func(__e *ControlFlow) {
-			V6322 := __e.Get(1)
-			_ = V6322
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6318 := __e.Get(1)
-				_ = B6318
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6319 := __e.Get(1)
-					_ = L6319
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6320 := __e.Get(1)
-						_ = Key6320
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6321 := __e.Get(1)
-							_ = C6321
-							tmp1784 := MakeNative(func(__e *ControlFlow) {
-								A := __e.Get(1)
-								_ = A
-								tmp1785 := PrimCons(symboolean, Nil)
-
-								tmp1786 := PrimCons(sym_1_1_6, tmp1785)
-
-								tmp1787 := PrimCons(A, tmp1786)
-
-								tmp1788 := Call(__e, PrimFunc(symis_b), V6322, tmp1787, B6318, L6319, Key6320, C6321)
-
-								__e.TailApply(PrimFunc(symshen_4gc), B6318, tmp1788)
-								return
-
-							}, 1)
-
-							tmp1789 := Call(__e, PrimFunc(symshen_4newpv), B6318)
-
-							__e.TailApply(tmp1784, tmp1789)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp1790 := PrimValue(symshen_4_dsigf_d)
-
-		tmp1791 := Call(__e, PrimFunc(symshen_4assoc_1_6), symnumber_2, tmp1783, tmp1790)
-
-		tmp1792 := PrimSet(symshen_4_dsigf_d, tmp1791)
-
-		_ = tmp1792
-
-		tmp1793 := MakeNative(func(__e *ControlFlow) {
-			V6327 := __e.Get(1)
-			_ = V6327
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6323 := __e.Get(1)
-				_ = B6323
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6324 := __e.Get(1)
-					_ = L6324
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6325 := __e.Get(1)
-						_ = Key6325
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6326 := __e.Get(1)
-							_ = C6326
-							tmp1794 := MakeNative(func(__e *ControlFlow) {
-								A := __e.Get(1)
-								_ = A
-								tmp1795 := MakeNative(func(__e *ControlFlow) {
-									B := __e.Get(1)
-									_ = B
-									tmp1796 := PrimCons(symnumber, Nil)
-
-									tmp1797 := PrimCons(sym_1_1_6, tmp1796)
-
-									tmp1798 := PrimCons(B, tmp1797)
-
-									tmp1799 := PrimCons(tmp1798, Nil)
-
-									tmp1800 := PrimCons(sym_1_1_6, tmp1799)
-
-									tmp1801 := PrimCons(A, tmp1800)
-
-									tmp1802 := Call(__e, PrimFunc(symis_b), V6327, tmp1801, B6323, L6324, Key6325, C6326)
-
-									__e.TailApply(PrimFunc(symshen_4gc), B6323, tmp1802)
-									return
-
-								}, 1)
-
-								tmp1803 := Call(__e, PrimFunc(symshen_4newpv), B6323)
-
-								tmp1804 := Call(__e, tmp1795, tmp1803)
-
-								__e.TailApply(PrimFunc(symshen_4gc), B6323, tmp1804)
-								return
-
-							}, 1)
-
-							tmp1805 := Call(__e, PrimFunc(symshen_4newpv), B6323)
-
-							__e.TailApply(tmp1794, tmp1805)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp1806 := PrimValue(symshen_4_dsigf_d)
-
-		tmp1807 := Call(__e, PrimFunc(symshen_4assoc_1_6), symoccurrences, tmp1793, tmp1806)
-
-		tmp1808 := PrimSet(symshen_4_dsigf_d, tmp1807)
-
-		_ = tmp1808
-
-		tmp1809 := MakeNative(func(__e *ControlFlow) {
-			V6332 := __e.Get(1)
-			_ = V6332
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6328 := __e.Get(1)
-				_ = B6328
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6329 := __e.Get(1)
-					_ = L6329
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6330 := __e.Get(1)
-						_ = Key6330
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6331 := __e.Get(1)
-							_ = C6331
-							tmp1810 := PrimCons(symboolean, Nil)
-
-							tmp1811 := PrimCons(sym_1_1_6, tmp1810)
-
-							tmp1812 := PrimCons(symsymbol, tmp1811)
-
-							__e.TailApply(PrimFunc(symis_b), V6332, tmp1812, B6328, L6329, Key6330, C6331)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp1813 := PrimValue(symshen_4_dsigf_d)
-
-		tmp1814 := Call(__e, PrimFunc(symshen_4assoc_1_6), symoccurs_1check, tmp1809, tmp1813)
-
-		tmp1815 := PrimSet(symshen_4_dsigf_d, tmp1814)
-
-		_ = tmp1815
-
-		tmp1816 := MakeNative(func(__e *ControlFlow) {
-			V6337 := __e.Get(1)
-			_ = V6337
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6333 := __e.Get(1)
-				_ = B6333
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6334 := __e.Get(1)
-					_ = L6334
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6335 := __e.Get(1)
-						_ = Key6335
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6336 := __e.Get(1)
-							_ = C6336
-							tmp1817 := PrimCons(symboolean, Nil)
-
-							tmp1818 := PrimCons(sym_1_1_6, tmp1817)
-
-							__e.TailApply(PrimFunc(symis_b), V6337, tmp1818, B6333, L6334, Key6335, C6336)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp1819 := PrimValue(symshen_4_dsigf_d)
-
-		tmp1820 := Call(__e, PrimFunc(symshen_4assoc_1_6), symoccurs_2, tmp1816, tmp1819)
-
-		tmp1821 := PrimSet(symshen_4_dsigf_d, tmp1820)
-
-		_ = tmp1821
-
-		tmp1822 := MakeNative(func(__e *ControlFlow) {
-			V6342 := __e.Get(1)
-			_ = V6342
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6338 := __e.Get(1)
-				_ = B6338
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6339 := __e.Get(1)
-					_ = L6339
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6340 := __e.Get(1)
-						_ = Key6340
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6341 := __e.Get(1)
-							_ = C6341
-							tmp1823 := PrimCons(symboolean, Nil)
-
-							tmp1824 := PrimCons(sym_1_1_6, tmp1823)
-
-							tmp1825 := PrimCons(symsymbol, tmp1824)
-
-							__e.TailApply(PrimFunc(symis_b), V6342, tmp1825, B6338, L6339, Key6340, C6341)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp1826 := PrimValue(symshen_4_dsigf_d)
-
-		tmp1827 := Call(__e, PrimFunc(symshen_4assoc_1_6), symoptimise, tmp1822, tmp1826)
-
-		tmp1828 := PrimSet(symshen_4_dsigf_d, tmp1827)
-
-		_ = tmp1828
-
-		tmp1829 := MakeNative(func(__e *ControlFlow) {
-			V6347 := __e.Get(1)
-			_ = V6347
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6343 := __e.Get(1)
-				_ = B6343
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6344 := __e.Get(1)
-					_ = L6344
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6345 := __e.Get(1)
-						_ = Key6345
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6346 := __e.Get(1)
-							_ = C6346
-							tmp1830 := PrimCons(symboolean, Nil)
-
-							tmp1831 := PrimCons(sym_1_1_6, tmp1830)
-
-							__e.TailApply(PrimFunc(symis_b), V6347, tmp1831, B6343, L6344, Key6345, C6346)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp1832 := PrimValue(symshen_4_dsigf_d)
-
-		tmp1833 := Call(__e, PrimFunc(symshen_4assoc_1_6), symoptimise_2, tmp1829, tmp1832)
-
-		tmp1834 := PrimSet(symshen_4_dsigf_d, tmp1833)
-
-		_ = tmp1834
-
-		tmp1835 := MakeNative(func(__e *ControlFlow) {
-			V6352 := __e.Get(1)
-			_ = V6352
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6348 := __e.Get(1)
-				_ = B6348
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6349 := __e.Get(1)
-					_ = L6349
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6350 := __e.Get(1)
-						_ = Key6350
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6351 := __e.Get(1)
-							_ = C6351
-							tmp1836 := PrimCons(symboolean, Nil)
-
-							tmp1837 := PrimCons(sym_1_1_6, tmp1836)
-
-							tmp1838 := PrimCons(symboolean, tmp1837)
-
-							tmp1839 := PrimCons(tmp1838, Nil)
-
-							tmp1840 := PrimCons(sym_1_1_6, tmp1839)
-
-							tmp1841 := PrimCons(symboolean, tmp1840)
-
-							__e.TailApply(PrimFunc(symis_b), V6352, tmp1841, B6348, L6349, Key6350, C6351)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp1842 := PrimValue(symshen_4_dsigf_d)
-
-		tmp1843 := Call(__e, PrimFunc(symshen_4assoc_1_6), symor, tmp1835, tmp1842)
-
-		tmp1844 := PrimSet(symshen_4_dsigf_d, tmp1843)
-
-		_ = tmp1844
-
-		tmp1845 := MakeNative(func(__e *ControlFlow) {
-			V6357 := __e.Get(1)
-			_ = V6357
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6353 := __e.Get(1)
-				_ = B6353
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6354 := __e.Get(1)
-					_ = L6354
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6355 := __e.Get(1)
-						_ = Key6355
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6356 := __e.Get(1)
-							_ = C6356
-							tmp1846 := PrimCons(symstring, Nil)
-
-							tmp1847 := PrimCons(sym_1_1_6, tmp1846)
-
-							__e.TailApply(PrimFunc(symis_b), V6357, tmp1847, B6353, L6354, Key6355, C6356)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp1848 := PrimValue(symshen_4_dsigf_d)
-
-		tmp1849 := Call(__e, PrimFunc(symshen_4assoc_1_6), symos, tmp1845, tmp1848)
-
-		tmp1850 := PrimSet(symshen_4_dsigf_d, tmp1849)
-
-		_ = tmp1850
-
-		tmp1851 := MakeNative(func(__e *ControlFlow) {
-			V6362 := __e.Get(1)
-			_ = V6362
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6358 := __e.Get(1)
-				_ = B6358
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6359 := __e.Get(1)
-					_ = L6359
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6360 := __e.Get(1)
-						_ = Key6360
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6361 := __e.Get(1)
-							_ = C6361
-							tmp1852 := PrimCons(symboolean, Nil)
-
-							tmp1853 := PrimCons(sym_1_1_6, tmp1852)
-
-							tmp1854 := PrimCons(symsymbol, tmp1853)
-
-							__e.TailApply(PrimFunc(symis_b), V6362, tmp1854, B6358, L6359, Key6360, C6361)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp1855 := PrimValue(symshen_4_dsigf_d)
-
-		tmp1856 := Call(__e, PrimFunc(symshen_4assoc_1_6), sympackage_2, tmp1851, tmp1855)
-
-		tmp1857 := PrimSet(symshen_4_dsigf_d, tmp1856)
-
-		_ = tmp1857
-
-		tmp1858 := MakeNative(func(__e *ControlFlow) {
-			V6367 := __e.Get(1)
-			_ = V6367
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6363 := __e.Get(1)
-				_ = B6363
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6364 := __e.Get(1)
-					_ = L6364
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6365 := __e.Get(1)
-						_ = Key6365
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6366 := __e.Get(1)
-							_ = C6366
-							tmp1859 := PrimCons(symstring, Nil)
-
-							tmp1860 := PrimCons(sym_1_1_6, tmp1859)
-
-							__e.TailApply(PrimFunc(symis_b), V6367, tmp1860, B6363, L6364, Key6365, C6366)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp1861 := PrimValue(symshen_4_dsigf_d)
-
-		tmp1862 := Call(__e, PrimFunc(symshen_4assoc_1_6), symport, tmp1858, tmp1861)
-
-		tmp1863 := PrimSet(symshen_4_dsigf_d, tmp1862)
-
-		_ = tmp1863
-
-		tmp1864 := MakeNative(func(__e *ControlFlow) {
-			V6372 := __e.Get(1)
-			_ = V6372
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6368 := __e.Get(1)
-				_ = B6368
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6369 := __e.Get(1)
-					_ = L6369
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6370 := __e.Get(1)
-						_ = Key6370
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6371 := __e.Get(1)
-							_ = C6371
-							tmp1865 := PrimCons(symstring, Nil)
-
-							tmp1866 := PrimCons(sym_1_1_6, tmp1865)
-
-							__e.TailApply(PrimFunc(symis_b), V6372, tmp1866, B6368, L6369, Key6370, C6371)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp1867 := PrimValue(symshen_4_dsigf_d)
-
-		tmp1868 := Call(__e, PrimFunc(symshen_4assoc_1_6), symporters, tmp1864, tmp1867)
-
-		tmp1869 := PrimSet(symshen_4_dsigf_d, tmp1868)
-
-		_ = tmp1869
-
-		tmp1870 := MakeNative(func(__e *ControlFlow) {
-			V6377 := __e.Get(1)
-			_ = V6377
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6373 := __e.Get(1)
-				_ = B6373
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6374 := __e.Get(1)
-					_ = L6374
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6375 := __e.Get(1)
-						_ = Key6375
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6376 := __e.Get(1)
-							_ = C6376
-							tmp1871 := PrimCons(symstring, Nil)
-
-							tmp1872 := PrimCons(sym_1_1_6, tmp1871)
-
-							tmp1873 := PrimCons(symnumber, tmp1872)
-
-							tmp1874 := PrimCons(tmp1873, Nil)
-
-							tmp1875 := PrimCons(sym_1_1_6, tmp1874)
-
-							tmp1876 := PrimCons(symstring, tmp1875)
-
-							__e.TailApply(PrimFunc(symis_b), V6377, tmp1876, B6373, L6374, Key6375, C6376)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp1877 := PrimValue(symshen_4_dsigf_d)
-
-		tmp1878 := Call(__e, PrimFunc(symshen_4assoc_1_6), sympos, tmp1870, tmp1877)
-
-		tmp1879 := PrimSet(symshen_4_dsigf_d, tmp1878)
-
-		_ = tmp1879
-
-		tmp1880 := MakeNative(func(__e *ControlFlow) {
-			V6382 := __e.Get(1)
-			_ = V6382
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6378 := __e.Get(1)
-				_ = B6378
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6379 := __e.Get(1)
-					_ = L6379
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6380 := __e.Get(1)
-						_ = Key6380
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6381 := __e.Get(1)
-							_ = C6381
-							tmp1881 := PrimCons(symout, Nil)
-
-							tmp1882 := PrimCons(symstream, tmp1881)
-
-							tmp1883 := PrimCons(symstring, Nil)
-
-							tmp1884 := PrimCons(sym_1_1_6, tmp1883)
-
-							tmp1885 := PrimCons(tmp1882, tmp1884)
-
-							tmp1886 := PrimCons(tmp1885, Nil)
-
-							tmp1887 := PrimCons(sym_1_1_6, tmp1886)
-
-							tmp1888 := PrimCons(symstring, tmp1887)
-
-							__e.TailApply(PrimFunc(symis_b), V6382, tmp1888, B6378, L6379, Key6380, C6381)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp1889 := PrimValue(symshen_4_dsigf_d)
-
-		tmp1890 := Call(__e, PrimFunc(symshen_4assoc_1_6), sympr, tmp1880, tmp1889)
-
-		tmp1891 := PrimSet(symshen_4_dsigf_d, tmp1890)
-
-		_ = tmp1891
-
-		tmp1892 := MakeNative(func(__e *ControlFlow) {
-			V6387 := __e.Get(1)
-			_ = V6387
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6383 := __e.Get(1)
-				_ = B6383
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6384 := __e.Get(1)
-					_ = L6384
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6385 := __e.Get(1)
-						_ = Key6385
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6386 := __e.Get(1)
-							_ = C6386
-							tmp1893 := MakeNative(func(__e *ControlFlow) {
-								A := __e.Get(1)
-								_ = A
-								tmp1894 := PrimCons(A, Nil)
-
-								tmp1895 := PrimCons(sym_1_1_6, tmp1894)
-
-								tmp1896 := PrimCons(A, tmp1895)
-
-								tmp1897 := Call(__e, PrimFunc(symis_b), V6387, tmp1896, B6383, L6384, Key6385, C6386)
-
-								__e.TailApply(PrimFunc(symshen_4gc), B6383, tmp1897)
-								return
-
-							}, 1)
-
-							tmp1898 := Call(__e, PrimFunc(symshen_4newpv), B6383)
-
-							__e.TailApply(tmp1893, tmp1898)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp1899 := PrimValue(symshen_4_dsigf_d)
-
-		tmp1900 := Call(__e, PrimFunc(symshen_4assoc_1_6), symprint, tmp1892, tmp1899)
-
-		tmp1901 := PrimSet(symshen_4_dsigf_d, tmp1900)
-
-		_ = tmp1901
-
-		tmp1902 := MakeNative(func(__e *ControlFlow) {
-			V6392 := __e.Get(1)
-			_ = V6392
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6388 := __e.Get(1)
-				_ = B6388
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6389 := __e.Get(1)
-					_ = L6389
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6390 := __e.Get(1)
-						_ = Key6390
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6391 := __e.Get(1)
-							_ = C6391
-							tmp1903 := PrimCons(symsymbol, Nil)
-
-							tmp1904 := PrimCons(sym_1_1_6, tmp1903)
-
-							tmp1905 := PrimCons(symsymbol, tmp1904)
-
-							__e.TailApply(PrimFunc(symis_b), V6392, tmp1905, B6388, L6389, Key6390, C6391)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp1906 := PrimValue(symshen_4_dsigf_d)
-
-		tmp1907 := Call(__e, PrimFunc(symshen_4assoc_1_6), symprofile, tmp1902, tmp1906)
-
-		tmp1908 := PrimSet(symshen_4_dsigf_d, tmp1907)
-
-		_ = tmp1908
-
-		tmp1909 := MakeNative(func(__e *ControlFlow) {
-			V6397 := __e.Get(1)
-			_ = V6397
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6393 := __e.Get(1)
-				_ = B6393
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6394 := __e.Get(1)
-					_ = L6394
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6395 := __e.Get(1)
-						_ = Key6395
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6396 := __e.Get(1)
-							_ = C6396
-							tmp1910 := PrimCons(symsymbol, Nil)
-
-							tmp1911 := PrimCons(symlist, tmp1910)
-
-							tmp1912 := PrimCons(symsymbol, Nil)
-
-							tmp1913 := PrimCons(symlist, tmp1912)
-
-							tmp1914 := PrimCons(tmp1913, Nil)
-
-							tmp1915 := PrimCons(sym_1_1_6, tmp1914)
-
-							tmp1916 := PrimCons(tmp1911, tmp1915)
-
-							__e.TailApply(PrimFunc(symis_b), V6397, tmp1916, B6393, L6394, Key6395, C6396)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp1917 := PrimValue(symshen_4_dsigf_d)
-
-		tmp1918 := Call(__e, PrimFunc(symshen_4assoc_1_6), sympreclude, tmp1909, tmp1917)
-
-		tmp1919 := PrimSet(symshen_4_dsigf_d, tmp1918)
-
-		_ = tmp1919
-
-		tmp1920 := MakeNative(func(__e *ControlFlow) {
-			V6402 := __e.Get(1)
-			_ = V6402
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6398 := __e.Get(1)
-				_ = B6398
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6399 := __e.Get(1)
-					_ = L6399
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6400 := __e.Get(1)
-						_ = Key6400
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6401 := __e.Get(1)
-							_ = C6401
-							tmp1921 := PrimCons(symstring, Nil)
-
-							tmp1922 := PrimCons(sym_1_1_6, tmp1921)
-
-							tmp1923 := PrimCons(symstring, tmp1922)
-
-							__e.TailApply(PrimFunc(symis_b), V6402, tmp1923, B6398, L6399, Key6400, C6401)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp1924 := PrimValue(symshen_4_dsigf_d)
-
-		tmp1925 := Call(__e, PrimFunc(symshen_4assoc_1_6), symshen_4proc_1nl, tmp1920, tmp1924)
-
-		tmp1926 := PrimSet(symshen_4_dsigf_d, tmp1925)
-
-		_ = tmp1926
-
-		tmp1927 := MakeNative(func(__e *ControlFlow) {
-			V6407 := __e.Get(1)
-			_ = V6407
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6403 := __e.Get(1)
-				_ = B6403
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6404 := __e.Get(1)
-					_ = L6404
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6405 := __e.Get(1)
-						_ = Key6405
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6406 := __e.Get(1)
-							_ = C6406
-							tmp1928 := PrimCons(symnumber, Nil)
-
-							tmp1929 := PrimCons(sym_d, tmp1928)
-
-							tmp1930 := PrimCons(symsymbol, tmp1929)
-
-							tmp1931 := PrimCons(tmp1930, Nil)
-
-							tmp1932 := PrimCons(sym_1_1_6, tmp1931)
-
-							tmp1933 := PrimCons(symsymbol, tmp1932)
-
-							__e.TailApply(PrimFunc(symis_b), V6407, tmp1933, B6403, L6404, Key6405, C6406)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp1934 := PrimValue(symshen_4_dsigf_d)
-
-		tmp1935 := Call(__e, PrimFunc(symshen_4assoc_1_6), symprofile_1results, tmp1927, tmp1934)
-
-		tmp1936 := PrimSet(symshen_4_dsigf_d, tmp1935)
-
-		_ = tmp1936
-
-		tmp1937 := MakeNative(func(__e *ControlFlow) {
-			V6412 := __e.Get(1)
-			_ = V6412
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6408 := __e.Get(1)
-				_ = B6408
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6409 := __e.Get(1)
-					_ = L6409
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6410 := __e.Get(1)
-						_ = Key6410
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6411 := __e.Get(1)
-							_ = C6411
-							tmp1938 := MakeNative(func(__e *ControlFlow) {
-								A := __e.Get(1)
-								_ = A
-								tmp1939 := PrimCons(A, Nil)
-
-								tmp1940 := PrimCons(sym_1_1_6, tmp1939)
-
-								tmp1941 := PrimCons(A, tmp1940)
-
-								tmp1942 := Call(__e, PrimFunc(symis_b), V6412, tmp1941, B6408, L6409, Key6410, C6411)
-
-								__e.TailApply(PrimFunc(symshen_4gc), B6408, tmp1942)
-								return
-
-							}, 1)
-
-							tmp1943 := Call(__e, PrimFunc(symshen_4newpv), B6408)
-
-							__e.TailApply(tmp1938, tmp1943)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp1944 := PrimValue(symshen_4_dsigf_d)
-
-		tmp1945 := Call(__e, PrimFunc(symshen_4assoc_1_6), symprotect, tmp1937, tmp1944)
-
-		tmp1946 := PrimSet(symshen_4_dsigf_d, tmp1945)
-
-		_ = tmp1946
-
-		tmp1947 := MakeNative(func(__e *ControlFlow) {
-			V6417 := __e.Get(1)
-			_ = V6417
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6413 := __e.Get(1)
-				_ = B6413
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6414 := __e.Get(1)
-					_ = L6414
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6415 := __e.Get(1)
-						_ = Key6415
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6416 := __e.Get(1)
-							_ = C6416
-							tmp1948 := PrimCons(symsymbol, Nil)
-
-							tmp1949 := PrimCons(symlist, tmp1948)
-
-							tmp1950 := PrimCons(symsymbol, Nil)
-
-							tmp1951 := PrimCons(symlist, tmp1950)
-
-							tmp1952 := PrimCons(tmp1951, Nil)
-
-							tmp1953 := PrimCons(sym_1_1_6, tmp1952)
-
-							tmp1954 := PrimCons(tmp1949, tmp1953)
-
-							__e.TailApply(PrimFunc(symis_b), V6417, tmp1954, B6413, L6414, Key6415, C6416)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp1955 := PrimValue(symshen_4_dsigf_d)
-
-		tmp1956 := Call(__e, PrimFunc(symshen_4assoc_1_6), sympreclude_1all_1but, tmp1947, tmp1955)
-
-		tmp1957 := PrimSet(symshen_4_dsigf_d, tmp1956)
-
-		_ = tmp1957
-
-		tmp1958 := MakeNative(func(__e *ControlFlow) {
-			V6422 := __e.Get(1)
-			_ = V6422
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6418 := __e.Get(1)
-				_ = B6418
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6419 := __e.Get(1)
-					_ = L6419
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6420 := __e.Get(1)
-						_ = Key6420
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6421 := __e.Get(1)
-							_ = C6421
-							tmp1959 := PrimCons(symout, Nil)
-
-							tmp1960 := PrimCons(symstream, tmp1959)
-
-							tmp1961 := PrimCons(symstring, Nil)
-
-							tmp1962 := PrimCons(sym_1_1_6, tmp1961)
-
-							tmp1963 := PrimCons(tmp1960, tmp1962)
-
-							tmp1964 := PrimCons(tmp1963, Nil)
-
-							tmp1965 := PrimCons(sym_1_1_6, tmp1964)
-
-							tmp1966 := PrimCons(symstring, tmp1965)
-
-							__e.TailApply(PrimFunc(symis_b), V6422, tmp1966, B6418, L6419, Key6420, C6421)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp1967 := PrimValue(symshen_4_dsigf_d)
-
-		tmp1968 := Call(__e, PrimFunc(symshen_4assoc_1_6), symshen_4prhush, tmp1958, tmp1967)
-
-		tmp1969 := PrimSet(symshen_4_dsigf_d, tmp1968)
-
-		_ = tmp1969
-
-		tmp1970 := MakeNative(func(__e *ControlFlow) {
-			V6427 := __e.Get(1)
-			_ = V6427
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6423 := __e.Get(1)
-				_ = B6423
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6424 := __e.Get(1)
-					_ = L6424
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6425 := __e.Get(1)
-						_ = Key6425
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6426 := __e.Get(1)
-							_ = C6426
-							tmp1971 := PrimCons(symnumber, Nil)
-
-							tmp1972 := PrimCons(sym_1_1_6, tmp1971)
-
-							tmp1973 := PrimCons(symnumber, tmp1972)
-
-							__e.TailApply(PrimFunc(symis_b), V6427, tmp1973, B6423, L6424, Key6425, C6426)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp1974 := PrimValue(symshen_4_dsigf_d)
-
-		tmp1975 := Call(__e, PrimFunc(symshen_4assoc_1_6), symprolog_1memory, tmp1970, tmp1974)
-
-		tmp1976 := PrimSet(symshen_4_dsigf_d, tmp1975)
-
-		_ = tmp1976
-
-		tmp1977 := MakeNative(func(__e *ControlFlow) {
-			V6432 := __e.Get(1)
-			_ = V6432
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6428 := __e.Get(1)
-				_ = B6428
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6429 := __e.Get(1)
-					_ = L6429
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6430 := __e.Get(1)
-						_ = Key6430
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6431 := __e.Get(1)
-							_ = C6431
-							tmp1978 := PrimCons(symunit, Nil)
-
-							tmp1979 := PrimCons(symlist, tmp1978)
-
-							tmp1980 := PrimCons(tmp1979, Nil)
-
-							tmp1981 := PrimCons(sym_1_1_6, tmp1980)
-
-							tmp1982 := PrimCons(symsymbol, tmp1981)
-
-							__e.TailApply(PrimFunc(symis_b), V6432, tmp1982, B6428, L6429, Key6430, C6431)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp1983 := PrimValue(symshen_4_dsigf_d)
-
-		tmp1984 := Call(__e, PrimFunc(symshen_4assoc_1_6), symps, tmp1977, tmp1983)
-
-		tmp1985 := PrimSet(symshen_4_dsigf_d, tmp1984)
-
-		_ = tmp1985
-
-		tmp1986 := MakeNative(func(__e *ControlFlow) {
-			V6437 := __e.Get(1)
-			_ = V6437
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6433 := __e.Get(1)
-				_ = B6433
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6434 := __e.Get(1)
-					_ = L6434
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6435 := __e.Get(1)
-						_ = Key6435
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6436 := __e.Get(1)
-							_ = C6436
-							tmp1987 := PrimCons(symin, Nil)
-
-							tmp1988 := PrimCons(symstream, tmp1987)
-
-							tmp1989 := PrimCons(symunit, Nil)
-
-							tmp1990 := PrimCons(sym_1_1_6, tmp1989)
-
-							tmp1991 := PrimCons(tmp1988, tmp1990)
-
-							__e.TailApply(PrimFunc(symis_b), V6437, tmp1991, B6433, L6434, Key6435, C6436)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp1992 := PrimValue(symshen_4_dsigf_d)
-
-		tmp1993 := Call(__e, PrimFunc(symshen_4assoc_1_6), symread, tmp1986, tmp1992)
-
-		tmp1994 := PrimSet(symshen_4_dsigf_d, tmp1993)
-
-		_ = tmp1994
-
-		tmp1995 := MakeNative(func(__e *ControlFlow) {
-			V6442 := __e.Get(1)
-			_ = V6442
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6438 := __e.Get(1)
-				_ = B6438
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6439 := __e.Get(1)
-					_ = L6439
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6440 := __e.Get(1)
-						_ = Key6440
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6441 := __e.Get(1)
-							_ = C6441
-							tmp1996 := PrimCons(symin, Nil)
-
-							tmp1997 := PrimCons(symstream, tmp1996)
-
-							tmp1998 := PrimCons(symnumber, Nil)
-
-							tmp1999 := PrimCons(sym_1_1_6, tmp1998)
-
-							tmp2000 := PrimCons(tmp1997, tmp1999)
-
-							__e.TailApply(PrimFunc(symis_b), V6442, tmp2000, B6438, L6439, Key6440, C6441)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2001 := PrimValue(symshen_4_dsigf_d)
-
-		tmp2002 := Call(__e, PrimFunc(symshen_4assoc_1_6), symread_1byte, tmp1995, tmp2001)
-
-		tmp2003 := PrimSet(symshen_4_dsigf_d, tmp2002)
-
-		_ = tmp2003
-
-		tmp2004 := MakeNative(func(__e *ControlFlow) {
-			V6447 := __e.Get(1)
-			_ = V6447
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6443 := __e.Get(1)
-				_ = B6443
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6444 := __e.Get(1)
-					_ = L6444
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6445 := __e.Get(1)
-						_ = Key6445
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6446 := __e.Get(1)
-							_ = C6446
-							tmp2005 := PrimCons(symnumber, Nil)
-
-							tmp2006 := PrimCons(symlist, tmp2005)
-
-							tmp2007 := PrimCons(tmp2006, Nil)
-
-							tmp2008 := PrimCons(sym_1_1_6, tmp2007)
-
-							tmp2009 := PrimCons(symstring, tmp2008)
-
-							__e.TailApply(PrimFunc(symis_b), V6447, tmp2009, B6443, L6444, Key6445, C6446)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2010 := PrimValue(symshen_4_dsigf_d)
-
-		tmp2011 := Call(__e, PrimFunc(symshen_4assoc_1_6), symread_1file_1as_1bytelist, tmp2004, tmp2010)
-
-		tmp2012 := PrimSet(symshen_4_dsigf_d, tmp2011)
-
-		_ = tmp2012
-
-		tmp2013 := MakeNative(func(__e *ControlFlow) {
-			V6452 := __e.Get(1)
-			_ = V6452
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6448 := __e.Get(1)
-				_ = B6448
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6449 := __e.Get(1)
-					_ = L6449
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6450 := __e.Get(1)
-						_ = Key6450
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6451 := __e.Get(1)
-							_ = C6451
-							tmp2014 := PrimCons(symstring, Nil)
-
-							tmp2015 := PrimCons(sym_1_1_6, tmp2014)
-
-							tmp2016 := PrimCons(symstring, tmp2015)
-
-							__e.TailApply(PrimFunc(symis_b), V6452, tmp2016, B6448, L6449, Key6450, C6451)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2017 := PrimValue(symshen_4_dsigf_d)
-
-		tmp2018 := Call(__e, PrimFunc(symshen_4assoc_1_6), symread_1file_1as_1string, tmp2013, tmp2017)
-
-		tmp2019 := PrimSet(symshen_4_dsigf_d, tmp2018)
-
-		_ = tmp2019
-
-		tmp2020 := MakeNative(func(__e *ControlFlow) {
-			V6457 := __e.Get(1)
-			_ = V6457
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6453 := __e.Get(1)
-				_ = B6453
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6454 := __e.Get(1)
-					_ = L6454
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6455 := __e.Get(1)
-						_ = Key6455
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6456 := __e.Get(1)
-							_ = C6456
-							tmp2021 := PrimCons(symunit, Nil)
-
-							tmp2022 := PrimCons(symlist, tmp2021)
-
-							tmp2023 := PrimCons(tmp2022, Nil)
-
-							tmp2024 := PrimCons(sym_1_1_6, tmp2023)
-
-							tmp2025 := PrimCons(symstring, tmp2024)
-
-							__e.TailApply(PrimFunc(symis_b), V6457, tmp2025, B6453, L6454, Key6455, C6456)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2026 := PrimValue(symshen_4_dsigf_d)
-
-		tmp2027 := Call(__e, PrimFunc(symshen_4assoc_1_6), symread_1file, tmp2020, tmp2026)
-
-		tmp2028 := PrimSet(symshen_4_dsigf_d, tmp2027)
-
-		_ = tmp2028
-
-		tmp2029 := MakeNative(func(__e *ControlFlow) {
-			V6462 := __e.Get(1)
-			_ = V6462
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6458 := __e.Get(1)
-				_ = B6458
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6459 := __e.Get(1)
-					_ = L6459
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6460 := __e.Get(1)
-						_ = Key6460
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6461 := __e.Get(1)
-							_ = C6461
-							tmp2030 := PrimCons(symunit, Nil)
-
-							tmp2031 := PrimCons(symlist, tmp2030)
-
-							tmp2032 := PrimCons(tmp2031, Nil)
-
-							tmp2033 := PrimCons(sym_1_1_6, tmp2032)
-
-							tmp2034 := PrimCons(symstring, tmp2033)
-
-							__e.TailApply(PrimFunc(symis_b), V6462, tmp2034, B6458, L6459, Key6460, C6461)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2035 := PrimValue(symshen_4_dsigf_d)
-
-		tmp2036 := Call(__e, PrimFunc(symshen_4assoc_1_6), symread_1from_1string, tmp2029, tmp2035)
-
-		tmp2037 := PrimSet(symshen_4_dsigf_d, tmp2036)
-
-		_ = tmp2037
-
-		tmp2038 := MakeNative(func(__e *ControlFlow) {
-			V6467 := __e.Get(1)
-			_ = V6467
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6463 := __e.Get(1)
-				_ = B6463
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6464 := __e.Get(1)
-					_ = L6464
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6465 := __e.Get(1)
-						_ = Key6465
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6466 := __e.Get(1)
-							_ = C6466
-							tmp2039 := PrimCons(symunit, Nil)
-
-							tmp2040 := PrimCons(symlist, tmp2039)
-
-							tmp2041 := PrimCons(tmp2040, Nil)
-
-							tmp2042 := PrimCons(sym_1_1_6, tmp2041)
-
-							tmp2043 := PrimCons(symstring, tmp2042)
-
-							__e.TailApply(PrimFunc(symis_b), V6467, tmp2043, B6463, L6464, Key6465, C6466)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2044 := PrimValue(symshen_4_dsigf_d)
-
-		tmp2045 := Call(__e, PrimFunc(symshen_4assoc_1_6), symread_1from_1string_1unprocessed, tmp2038, tmp2044)
-
-		tmp2046 := PrimSet(symshen_4_dsigf_d, tmp2045)
-
-		_ = tmp2046
-
-		tmp2047 := MakeNative(func(__e *ControlFlow) {
-			V6472 := __e.Get(1)
-			_ = V6472
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6468 := __e.Get(1)
-				_ = B6468
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6469 := __e.Get(1)
-					_ = L6469
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6470 := __e.Get(1)
-						_ = Key6470
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6471 := __e.Get(1)
-							_ = C6471
-							tmp2048 := PrimCons(symstring, Nil)
-
-							tmp2049 := PrimCons(sym_1_1_6, tmp2048)
-
-							__e.TailApply(PrimFunc(symis_b), V6472, tmp2049, B6468, L6469, Key6470, C6471)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2050 := PrimValue(symshen_4_dsigf_d)
-
-		tmp2051 := Call(__e, PrimFunc(symshen_4assoc_1_6), symrelease, tmp2047, tmp2050)
-
-		tmp2052 := PrimSet(symshen_4_dsigf_d, tmp2051)
-
-		_ = tmp2052
-
-		tmp2053 := MakeNative(func(__e *ControlFlow) {
-			V6477 := __e.Get(1)
-			_ = V6477
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6473 := __e.Get(1)
-				_ = B6473
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6474 := __e.Get(1)
-					_ = L6474
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6475 := __e.Get(1)
-						_ = Key6475
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6476 := __e.Get(1)
-							_ = C6476
-							tmp2054 := MakeNative(func(__e *ControlFlow) {
-								A := __e.Get(1)
-								_ = A
-								tmp2055 := PrimCons(A, Nil)
-
-								tmp2056 := PrimCons(symlist, tmp2055)
-
-								tmp2057 := PrimCons(A, Nil)
-
-								tmp2058 := PrimCons(symlist, tmp2057)
-
-								tmp2059 := PrimCons(tmp2058, Nil)
-
-								tmp2060 := PrimCons(sym_1_1_6, tmp2059)
-
-								tmp2061 := PrimCons(tmp2056, tmp2060)
-
-								tmp2062 := PrimCons(tmp2061, Nil)
-
-								tmp2063 := PrimCons(sym_1_1_6, tmp2062)
-
-								tmp2064 := PrimCons(A, tmp2063)
-
-								tmp2065 := Call(__e, PrimFunc(symis_b), V6477, tmp2064, B6473, L6474, Key6475, C6476)
-
-								__e.TailApply(PrimFunc(symshen_4gc), B6473, tmp2065)
-								return
-
-							}, 1)
-
-							tmp2066 := Call(__e, PrimFunc(symshen_4newpv), B6473)
-
-							__e.TailApply(tmp2054, tmp2066)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2067 := PrimValue(symshen_4_dsigf_d)
-
-		tmp2068 := Call(__e, PrimFunc(symshen_4assoc_1_6), symremove, tmp2053, tmp2067)
-
-		tmp2069 := PrimSet(symshen_4_dsigf_d, tmp2068)
-
-		_ = tmp2069
-
-		tmp2070 := MakeNative(func(__e *ControlFlow) {
-			V6482 := __e.Get(1)
-			_ = V6482
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6478 := __e.Get(1)
-				_ = B6478
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6479 := __e.Get(1)
-					_ = L6479
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6480 := __e.Get(1)
-						_ = Key6480
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6481 := __e.Get(1)
-							_ = C6481
-							tmp2071 := MakeNative(func(__e *ControlFlow) {
-								A := __e.Get(1)
-								_ = A
-								tmp2072 := PrimCons(A, Nil)
-
-								tmp2073 := PrimCons(symlist, tmp2072)
-
-								tmp2074 := PrimCons(A, Nil)
-
-								tmp2075 := PrimCons(symlist, tmp2074)
-
-								tmp2076 := PrimCons(tmp2075, Nil)
-
-								tmp2077 := PrimCons(sym_1_1_6, tmp2076)
-
-								tmp2078 := PrimCons(tmp2073, tmp2077)
-
-								tmp2079 := Call(__e, PrimFunc(symis_b), V6482, tmp2078, B6478, L6479, Key6480, C6481)
-
-								__e.TailApply(PrimFunc(symshen_4gc), B6478, tmp2079)
-								return
-
-							}, 1)
-
-							tmp2080 := Call(__e, PrimFunc(symshen_4newpv), B6478)
-
-							__e.TailApply(tmp2071, tmp2080)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2081 := PrimValue(symshen_4_dsigf_d)
-
-		tmp2082 := Call(__e, PrimFunc(symshen_4assoc_1_6), symreverse, tmp2070, tmp2081)
-
-		tmp2083 := PrimSet(symshen_4_dsigf_d, tmp2082)
-
-		_ = tmp2083
-
-		tmp2084 := MakeNative(func(__e *ControlFlow) {
-			V6487 := __e.Get(1)
-			_ = V6487
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6483 := __e.Get(1)
-				_ = B6483
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6484 := __e.Get(1)
-					_ = L6484
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6485 := __e.Get(1)
-						_ = Key6485
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6486 := __e.Get(1)
-							_ = C6486
-							tmp2085 := MakeNative(func(__e *ControlFlow) {
-								A := __e.Get(1)
-								_ = A
-								tmp2086 := PrimCons(A, Nil)
-
-								tmp2087 := PrimCons(sym_1_1_6, tmp2086)
-
-								tmp2088 := PrimCons(symstring, tmp2087)
-
-								tmp2089 := Call(__e, PrimFunc(symis_b), V6487, tmp2088, B6483, L6484, Key6485, C6486)
-
-								__e.TailApply(PrimFunc(symshen_4gc), B6483, tmp2089)
-								return
-
-							}, 1)
-
-							tmp2090 := Call(__e, PrimFunc(symshen_4newpv), B6483)
-
-							__e.TailApply(tmp2085, tmp2090)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2091 := PrimValue(symshen_4_dsigf_d)
-
-		tmp2092 := Call(__e, PrimFunc(symshen_4assoc_1_6), symsimple_1error, tmp2084, tmp2091)
-
-		tmp2093 := PrimSet(symshen_4_dsigf_d, tmp2092)
-
-		_ = tmp2093
-
-		tmp2094 := MakeNative(func(__e *ControlFlow) {
-			V6492 := __e.Get(1)
-			_ = V6492
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6488 := __e.Get(1)
-				_ = B6488
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6489 := __e.Get(1)
-					_ = L6489
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6490 := __e.Get(1)
-						_ = Key6490
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6491 := __e.Get(1)
-							_ = C6491
-							tmp2095 := MakeNative(func(__e *ControlFlow) {
-								A := __e.Get(1)
-								_ = A
-								tmp2096 := MakeNative(func(__e *ControlFlow) {
-									B := __e.Get(1)
-									_ = B
-									tmp2097 := PrimCons(B, Nil)
-
-									tmp2098 := PrimCons(sym_d, tmp2097)
-
-									tmp2099 := PrimCons(A, tmp2098)
-
-									tmp2100 := PrimCons(B, Nil)
-
-									tmp2101 := PrimCons(sym_1_1_6, tmp2100)
-
-									tmp2102 := PrimCons(tmp2099, tmp2101)
-
-									tmp2103 := Call(__e, PrimFunc(symis_b), V6492, tmp2102, B6488, L6489, Key6490, C6491)
-
-									__e.TailApply(PrimFunc(symshen_4gc), B6488, tmp2103)
-									return
-
-								}, 1)
-
-								tmp2104 := Call(__e, PrimFunc(symshen_4newpv), B6488)
-
-								tmp2105 := Call(__e, tmp2096, tmp2104)
-
-								__e.TailApply(PrimFunc(symshen_4gc), B6488, tmp2105)
-								return
-
-							}, 1)
-
-							tmp2106 := Call(__e, PrimFunc(symshen_4newpv), B6488)
-
-							__e.TailApply(tmp2095, tmp2106)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2107 := PrimValue(symshen_4_dsigf_d)
-
-		tmp2108 := Call(__e, PrimFunc(symshen_4assoc_1_6), symsnd, tmp2094, tmp2107)
-
-		tmp2109 := PrimSet(symshen_4_dsigf_d, tmp2108)
-
-		_ = tmp2109
-
-		tmp2110 := MakeNative(func(__e *ControlFlow) {
-			V6497 := __e.Get(1)
-			_ = V6497
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6493 := __e.Get(1)
-				_ = B6493
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6494 := __e.Get(1)
-					_ = L6494
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6495 := __e.Get(1)
-						_ = Key6495
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6496 := __e.Get(1)
-							_ = C6496
-							tmp2111 := PrimCons(symsymbol, Nil)
-
-							tmp2112 := PrimCons(sym_1_1_6, tmp2111)
-
-							tmp2113 := PrimCons(symnumber, tmp2112)
-
-							tmp2114 := PrimCons(tmp2113, Nil)
-
-							tmp2115 := PrimCons(sym_1_1_6, tmp2114)
-
-							tmp2116 := PrimCons(symsymbol, tmp2115)
-
-							__e.TailApply(PrimFunc(symis_b), V6497, tmp2116, B6493, L6494, Key6495, C6496)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2117 := PrimValue(symshen_4_dsigf_d)
-
-		tmp2118 := Call(__e, PrimFunc(symshen_4assoc_1_6), symspecialise, tmp2110, tmp2117)
-
-		tmp2119 := PrimSet(symshen_4_dsigf_d, tmp2118)
-
-		_ = tmp2119
-
-		tmp2120 := MakeNative(func(__e *ControlFlow) {
-			V6502 := __e.Get(1)
-			_ = V6502
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6498 := __e.Get(1)
-				_ = B6498
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6499 := __e.Get(1)
-					_ = L6499
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6500 := __e.Get(1)
-						_ = Key6500
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6501 := __e.Get(1)
-							_ = C6501
-							tmp2121 := PrimCons(symboolean, Nil)
-
-							tmp2122 := PrimCons(sym_1_1_6, tmp2121)
-
-							tmp2123 := PrimCons(symsymbol, tmp2122)
-
-							__e.TailApply(PrimFunc(symis_b), V6502, tmp2123, B6498, L6499, Key6500, C6501)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2124 := PrimValue(symshen_4_dsigf_d)
-
-		tmp2125 := Call(__e, PrimFunc(symshen_4assoc_1_6), symspy, tmp2120, tmp2124)
-
-		tmp2126 := PrimSet(symshen_4_dsigf_d, tmp2125)
-
-		_ = tmp2126
-
-		tmp2127 := MakeNative(func(__e *ControlFlow) {
-			V6507 := __e.Get(1)
-			_ = V6507
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6503 := __e.Get(1)
-				_ = B6503
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6504 := __e.Get(1)
-					_ = L6504
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6505 := __e.Get(1)
-						_ = Key6505
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6506 := __e.Get(1)
-							_ = C6506
-							tmp2128 := PrimCons(symboolean, Nil)
-
-							tmp2129 := PrimCons(sym_1_1_6, tmp2128)
-
-							__e.TailApply(PrimFunc(symis_b), V6507, tmp2129, B6503, L6504, Key6505, C6506)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2130 := PrimValue(symshen_4_dsigf_d)
-
-		tmp2131 := Call(__e, PrimFunc(symshen_4assoc_1_6), symshen_4spy_2, tmp2127, tmp2130)
-
-		tmp2132 := PrimSet(symshen_4_dsigf_d, tmp2131)
-
-		_ = tmp2132
-
-		tmp2133 := MakeNative(func(__e *ControlFlow) {
-			V6512 := __e.Get(1)
-			_ = V6512
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6508 := __e.Get(1)
-				_ = B6508
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6509 := __e.Get(1)
-					_ = L6509
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6510 := __e.Get(1)
-						_ = Key6510
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6511 := __e.Get(1)
-							_ = C6511
-							tmp2134 := PrimCons(symboolean, Nil)
-
-							tmp2135 := PrimCons(sym_1_1_6, tmp2134)
-
-							tmp2136 := PrimCons(symsymbol, tmp2135)
-
-							__e.TailApply(PrimFunc(symis_b), V6512, tmp2136, B6508, L6509, Key6510, C6511)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2137 := PrimValue(symshen_4_dsigf_d)
-
-		tmp2138 := Call(__e, PrimFunc(symshen_4assoc_1_6), symstep, tmp2133, tmp2137)
-
-		tmp2139 := PrimSet(symshen_4_dsigf_d, tmp2138)
-
-		_ = tmp2139
-
-		tmp2140 := MakeNative(func(__e *ControlFlow) {
-			V6517 := __e.Get(1)
-			_ = V6517
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6513 := __e.Get(1)
-				_ = B6513
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6514 := __e.Get(1)
-					_ = L6514
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6515 := __e.Get(1)
-						_ = Key6515
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6516 := __e.Get(1)
-							_ = C6516
-							tmp2141 := PrimCons(symboolean, Nil)
-
-							tmp2142 := PrimCons(sym_1_1_6, tmp2141)
-
-							__e.TailApply(PrimFunc(symis_b), V6517, tmp2142, B6513, L6514, Key6515, C6516)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2143 := PrimValue(symshen_4_dsigf_d)
-
-		tmp2144 := Call(__e, PrimFunc(symshen_4assoc_1_6), symshen_4step_2, tmp2140, tmp2143)
-
-		tmp2145 := PrimSet(symshen_4_dsigf_d, tmp2144)
-
-		_ = tmp2145
-
-		tmp2146 := MakeNative(func(__e *ControlFlow) {
-			V6522 := __e.Get(1)
-			_ = V6522
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6518 := __e.Get(1)
-				_ = B6518
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6519 := __e.Get(1)
-					_ = L6519
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6520 := __e.Get(1)
-						_ = Key6520
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6521 := __e.Get(1)
-							_ = C6521
-							tmp2147 := PrimCons(symin, Nil)
-
-							tmp2148 := PrimCons(symstream, tmp2147)
-
-							tmp2149 := PrimCons(tmp2148, Nil)
-
-							tmp2150 := PrimCons(sym_1_1_6, tmp2149)
-
-							__e.TailApply(PrimFunc(symis_b), V6522, tmp2150, B6518, L6519, Key6520, C6521)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2151 := PrimValue(symshen_4_dsigf_d)
-
-		tmp2152 := Call(__e, PrimFunc(symshen_4assoc_1_6), symstinput, tmp2146, tmp2151)
-
-		tmp2153 := PrimSet(symshen_4_dsigf_d, tmp2152)
-
-		_ = tmp2153
-
-		tmp2154 := MakeNative(func(__e *ControlFlow) {
-			V6527 := __e.Get(1)
-			_ = V6527
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6523 := __e.Get(1)
-				_ = B6523
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6524 := __e.Get(1)
-					_ = L6524
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6525 := __e.Get(1)
-						_ = Key6525
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6526 := __e.Get(1)
-							_ = C6526
-							tmp2155 := PrimCons(symout, Nil)
-
-							tmp2156 := PrimCons(symstream, tmp2155)
-
-							tmp2157 := PrimCons(tmp2156, Nil)
-
-							tmp2158 := PrimCons(sym_1_1_6, tmp2157)
-
-							__e.TailApply(PrimFunc(symis_b), V6527, tmp2158, B6523, L6524, Key6525, C6526)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2159 := PrimValue(symshen_4_dsigf_d)
-
-		tmp2160 := Call(__e, PrimFunc(symshen_4assoc_1_6), symsterror, tmp2154, tmp2159)
-
-		tmp2161 := PrimSet(symshen_4_dsigf_d, tmp2160)
-
-		_ = tmp2161
-
-		tmp2162 := MakeNative(func(__e *ControlFlow) {
-			V6532 := __e.Get(1)
-			_ = V6532
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6528 := __e.Get(1)
-				_ = B6528
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6529 := __e.Get(1)
-					_ = L6529
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6530 := __e.Get(1)
-						_ = Key6530
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6531 := __e.Get(1)
-							_ = C6531
-							tmp2163 := PrimCons(symout, Nil)
-
-							tmp2164 := PrimCons(symstream, tmp2163)
-
-							tmp2165 := PrimCons(tmp2164, Nil)
-
-							tmp2166 := PrimCons(sym_1_1_6, tmp2165)
-
-							__e.TailApply(PrimFunc(symis_b), V6532, tmp2166, B6528, L6529, Key6530, C6531)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2167 := PrimValue(symshen_4_dsigf_d)
-
-		tmp2168 := Call(__e, PrimFunc(symshen_4assoc_1_6), symstoutput, tmp2162, tmp2167)
-
-		tmp2169 := PrimSet(symshen_4_dsigf_d, tmp2168)
-
-		_ = tmp2169
-
-		tmp2170 := MakeNative(func(__e *ControlFlow) {
-			V6537 := __e.Get(1)
-			_ = V6537
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6533 := __e.Get(1)
-				_ = B6533
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6534 := __e.Get(1)
-					_ = L6534
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6535 := __e.Get(1)
-						_ = Key6535
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6536 := __e.Get(1)
-							_ = C6536
-							tmp2171 := MakeNative(func(__e *ControlFlow) {
-								A := __e.Get(1)
-								_ = A
-								tmp2172 := PrimCons(symboolean, Nil)
-
-								tmp2173 := PrimCons(sym_1_1_6, tmp2172)
-
-								tmp2174 := PrimCons(A, tmp2173)
-
-								tmp2175 := Call(__e, PrimFunc(symis_b), V6537, tmp2174, B6533, L6534, Key6535, C6536)
-
-								__e.TailApply(PrimFunc(symshen_4gc), B6533, tmp2175)
-								return
-
-							}, 1)
-
-							tmp2176 := Call(__e, PrimFunc(symshen_4newpv), B6533)
-
-							__e.TailApply(tmp2171, tmp2176)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2177 := PrimValue(symshen_4_dsigf_d)
-
-		tmp2178 := Call(__e, PrimFunc(symshen_4assoc_1_6), symstring_2, tmp2170, tmp2177)
-
-		tmp2179 := PrimSet(symshen_4_dsigf_d, tmp2178)
-
-		_ = tmp2179
-
-		tmp2180 := MakeNative(func(__e *ControlFlow) {
-			V6542 := __e.Get(1)
-			_ = V6542
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6538 := __e.Get(1)
-				_ = B6538
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6539 := __e.Get(1)
-					_ = L6539
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6540 := __e.Get(1)
-						_ = Key6540
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6541 := __e.Get(1)
-							_ = C6541
-							tmp2181 := MakeNative(func(__e *ControlFlow) {
-								A := __e.Get(1)
-								_ = A
-								tmp2182 := PrimCons(symstring, Nil)
-
-								tmp2183 := PrimCons(sym_1_1_6, tmp2182)
-
-								tmp2184 := PrimCons(A, tmp2183)
-
-								tmp2185 := Call(__e, PrimFunc(symis_b), V6542, tmp2184, B6538, L6539, Key6540, C6541)
-
-								__e.TailApply(PrimFunc(symshen_4gc), B6538, tmp2185)
-								return
-
-							}, 1)
-
-							tmp2186 := Call(__e, PrimFunc(symshen_4newpv), B6538)
-
-							__e.TailApply(tmp2181, tmp2186)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2187 := PrimValue(symshen_4_dsigf_d)
-
-		tmp2188 := Call(__e, PrimFunc(symshen_4assoc_1_6), symstr, tmp2180, tmp2187)
-
-		tmp2189 := PrimSet(symshen_4_dsigf_d, tmp2188)
-
-		_ = tmp2189
-
-		tmp2190 := MakeNative(func(__e *ControlFlow) {
-			V6547 := __e.Get(1)
-			_ = V6547
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6543 := __e.Get(1)
-				_ = B6543
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6544 := __e.Get(1)
-					_ = L6544
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6545 := __e.Get(1)
-						_ = Key6545
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6546 := __e.Get(1)
-							_ = C6546
-							tmp2191 := PrimCons(symnumber, Nil)
-
-							tmp2192 := PrimCons(sym_1_1_6, tmp2191)
-
-							tmp2193 := PrimCons(symstring, tmp2192)
-
-							__e.TailApply(PrimFunc(symis_b), V6547, tmp2193, B6543, L6544, Key6545, C6546)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2194 := PrimValue(symshen_4_dsigf_d)
-
-		tmp2195 := Call(__e, PrimFunc(symshen_4assoc_1_6), symstring_1_6n, tmp2190, tmp2194)
-
-		tmp2196 := PrimSet(symshen_4_dsigf_d, tmp2195)
-
-		_ = tmp2196
-
-		tmp2197 := MakeNative(func(__e *ControlFlow) {
-			V6552 := __e.Get(1)
-			_ = V6552
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6548 := __e.Get(1)
-				_ = B6548
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6549 := __e.Get(1)
-					_ = L6549
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6550 := __e.Get(1)
-						_ = Key6550
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6551 := __e.Get(1)
-							_ = C6551
-							tmp2198 := PrimCons(symsymbol, Nil)
-
-							tmp2199 := PrimCons(sym_1_1_6, tmp2198)
-
-							tmp2200 := PrimCons(symstring, tmp2199)
-
-							__e.TailApply(PrimFunc(symis_b), V6552, tmp2200, B6548, L6549, Key6550, C6551)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2201 := PrimValue(symshen_4_dsigf_d)
-
-		tmp2202 := Call(__e, PrimFunc(symshen_4assoc_1_6), symstring_1_6symbol, tmp2197, tmp2201)
-
-		tmp2203 := PrimSet(symshen_4_dsigf_d, tmp2202)
-
-		_ = tmp2203
-
-		tmp2204 := MakeNative(func(__e *ControlFlow) {
-			V6557 := __e.Get(1)
-			_ = V6557
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6553 := __e.Get(1)
-				_ = B6553
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6554 := __e.Get(1)
-					_ = L6554
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6555 := __e.Get(1)
-						_ = Key6555
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6556 := __e.Get(1)
-							_ = C6556
-							tmp2205 := PrimCons(symnumber, Nil)
-
-							tmp2206 := PrimCons(symlist, tmp2205)
-
-							tmp2207 := PrimCons(symnumber, Nil)
-
-							tmp2208 := PrimCons(sym_1_1_6, tmp2207)
-
-							tmp2209 := PrimCons(tmp2206, tmp2208)
-
-							__e.TailApply(PrimFunc(symis_b), V6557, tmp2209, B6553, L6554, Key6555, C6556)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2210 := PrimValue(symshen_4_dsigf_d)
-
-		tmp2211 := Call(__e, PrimFunc(symshen_4assoc_1_6), symsum, tmp2204, tmp2210)
-
-		tmp2212 := PrimSet(symshen_4_dsigf_d, tmp2211)
-
-		_ = tmp2212
-
-		tmp2213 := MakeNative(func(__e *ControlFlow) {
-			V6562 := __e.Get(1)
-			_ = V6562
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6558 := __e.Get(1)
-				_ = B6558
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6559 := __e.Get(1)
-					_ = L6559
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6560 := __e.Get(1)
-						_ = Key6560
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6561 := __e.Get(1)
-							_ = C6561
-							tmp2214 := MakeNative(func(__e *ControlFlow) {
-								A := __e.Get(1)
-								_ = A
-								tmp2215 := PrimCons(symboolean, Nil)
-
-								tmp2216 := PrimCons(sym_1_1_6, tmp2215)
-
-								tmp2217 := PrimCons(A, tmp2216)
-
-								tmp2218 := Call(__e, PrimFunc(symis_b), V6562, tmp2217, B6558, L6559, Key6560, C6561)
-
-								__e.TailApply(PrimFunc(symshen_4gc), B6558, tmp2218)
-								return
-
-							}, 1)
-
-							tmp2219 := Call(__e, PrimFunc(symshen_4newpv), B6558)
-
-							__e.TailApply(tmp2214, tmp2219)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2220 := PrimValue(symshen_4_dsigf_d)
-
-		tmp2221 := Call(__e, PrimFunc(symshen_4assoc_1_6), symsymbol_2, tmp2213, tmp2220)
-
-		tmp2222 := PrimSet(symshen_4_dsigf_d, tmp2221)
-
-		_ = tmp2222
-
-		tmp2223 := MakeNative(func(__e *ControlFlow) {
-			V6567 := __e.Get(1)
-			_ = V6567
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6563 := __e.Get(1)
-				_ = B6563
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6564 := __e.Get(1)
-					_ = L6564
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6565 := __e.Get(1)
-						_ = Key6565
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6566 := __e.Get(1)
-							_ = C6566
-							tmp2224 := PrimCons(symsymbol, Nil)
-
-							tmp2225 := PrimCons(sym_1_1_6, tmp2224)
-
-							tmp2226 := PrimCons(symsymbol, tmp2225)
-
-							__e.TailApply(PrimFunc(symis_b), V6567, tmp2226, B6563, L6564, Key6565, C6566)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2227 := PrimValue(symshen_4_dsigf_d)
-
-		tmp2228 := Call(__e, PrimFunc(symshen_4assoc_1_6), symsystemf, tmp2223, tmp2227)
-
-		tmp2229 := PrimSet(symshen_4_dsigf_d, tmp2228)
-
-		_ = tmp2229
-
-		tmp2230 := MakeNative(func(__e *ControlFlow) {
-			V6572 := __e.Get(1)
-			_ = V6572
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6568 := __e.Get(1)
-				_ = B6568
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6569 := __e.Get(1)
-					_ = L6569
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6570 := __e.Get(1)
-						_ = Key6570
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6571 := __e.Get(1)
-							_ = C6571
-							tmp2231 := PrimCons(symboolean, Nil)
-
-							tmp2232 := PrimCons(sym_1_1_6, tmp2231)
-
-							__e.TailApply(PrimFunc(symis_b), V6572, tmp2232, B6568, L6569, Key6570, C6571)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2233 := PrimValue(symshen_4_dsigf_d)
-
-		tmp2234 := Call(__e, PrimFunc(symshen_4assoc_1_6), symsystem_1S_2, tmp2230, tmp2233)
-
-		tmp2235 := PrimSet(symshen_4_dsigf_d, tmp2234)
-
-		_ = tmp2235
-
-		tmp2236 := MakeNative(func(__e *ControlFlow) {
-			V6577 := __e.Get(1)
-			_ = V6577
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6573 := __e.Get(1)
-				_ = B6573
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6574 := __e.Get(1)
-					_ = L6574
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6575 := __e.Get(1)
-						_ = Key6575
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6576 := __e.Get(1)
-							_ = C6576
-							tmp2237 := MakeNative(func(__e *ControlFlow) {
-								A := __e.Get(1)
-								_ = A
-								tmp2238 := PrimCons(A, Nil)
-
-								tmp2239 := PrimCons(symlist, tmp2238)
-
-								tmp2240 := PrimCons(A, Nil)
-
-								tmp2241 := PrimCons(symlist, tmp2240)
-
-								tmp2242 := PrimCons(tmp2241, Nil)
-
-								tmp2243 := PrimCons(sym_1_1_6, tmp2242)
-
-								tmp2244 := PrimCons(tmp2239, tmp2243)
-
-								tmp2245 := Call(__e, PrimFunc(symis_b), V6577, tmp2244, B6573, L6574, Key6575, C6576)
-
-								__e.TailApply(PrimFunc(symshen_4gc), B6573, tmp2245)
-								return
-
-							}, 1)
-
-							tmp2246 := Call(__e, PrimFunc(symshen_4newpv), B6573)
-
-							__e.TailApply(tmp2237, tmp2246)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2247 := PrimValue(symshen_4_dsigf_d)
-
-		tmp2248 := Call(__e, PrimFunc(symshen_4assoc_1_6), symtail, tmp2236, tmp2247)
-
-		tmp2249 := PrimSet(symshen_4_dsigf_d, tmp2248)
-
-		_ = tmp2249
-
-		tmp2250 := MakeNative(func(__e *ControlFlow) {
-			V6582 := __e.Get(1)
-			_ = V6582
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6578 := __e.Get(1)
-				_ = B6578
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6579 := __e.Get(1)
-					_ = L6579
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6580 := __e.Get(1)
-						_ = Key6580
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6581 := __e.Get(1)
-							_ = C6581
-							tmp2251 := PrimCons(symstring, Nil)
-
-							tmp2252 := PrimCons(sym_1_1_6, tmp2251)
-
-							tmp2253 := PrimCons(symstring, tmp2252)
-
-							__e.TailApply(PrimFunc(symis_b), V6582, tmp2253, B6578, L6579, Key6580, C6581)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2254 := PrimValue(symshen_4_dsigf_d)
-
-		tmp2255 := Call(__e, PrimFunc(symshen_4assoc_1_6), symtlstr, tmp2250, tmp2254)
-
-		tmp2256 := PrimSet(symshen_4_dsigf_d, tmp2255)
-
-		_ = tmp2256
-
-		tmp2257 := MakeNative(func(__e *ControlFlow) {
-			V6587 := __e.Get(1)
-			_ = V6587
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6583 := __e.Get(1)
-				_ = B6583
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6584 := __e.Get(1)
-					_ = L6584
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6585 := __e.Get(1)
-						_ = Key6585
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6586 := __e.Get(1)
-							_ = C6586
-							tmp2258 := MakeNative(func(__e *ControlFlow) {
-								A := __e.Get(1)
-								_ = A
-								tmp2259 := PrimCons(A, Nil)
-
-								tmp2260 := PrimCons(symvector, tmp2259)
-
-								tmp2261 := PrimCons(A, Nil)
-
-								tmp2262 := PrimCons(symvector, tmp2261)
-
-								tmp2263 := PrimCons(tmp2262, Nil)
-
-								tmp2264 := PrimCons(sym_1_1_6, tmp2263)
-
-								tmp2265 := PrimCons(tmp2260, tmp2264)
-
-								tmp2266 := Call(__e, PrimFunc(symis_b), V6587, tmp2265, B6583, L6584, Key6585, C6586)
-
-								__e.TailApply(PrimFunc(symshen_4gc), B6583, tmp2266)
-								return
-
-							}, 1)
-
-							tmp2267 := Call(__e, PrimFunc(symshen_4newpv), B6583)
-
-							__e.TailApply(tmp2258, tmp2267)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2268 := PrimValue(symshen_4_dsigf_d)
-
-		tmp2269 := Call(__e, PrimFunc(symshen_4assoc_1_6), symtlv, tmp2257, tmp2268)
-
-		tmp2270 := PrimSet(symshen_4_dsigf_d, tmp2269)
-
-		_ = tmp2270
-
-		tmp2271 := MakeNative(func(__e *ControlFlow) {
-			V6592 := __e.Get(1)
-			_ = V6592
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6588 := __e.Get(1)
-				_ = B6588
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6589 := __e.Get(1)
-					_ = L6589
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6590 := __e.Get(1)
-						_ = Key6590
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6591 := __e.Get(1)
-							_ = C6591
-							tmp2272 := PrimCons(symboolean, Nil)
-
-							tmp2273 := PrimCons(sym_1_1_6, tmp2272)
-
-							tmp2274 := PrimCons(symsymbol, tmp2273)
-
-							__e.TailApply(PrimFunc(symis_b), V6592, tmp2274, B6588, L6589, Key6590, C6591)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2275 := PrimValue(symshen_4_dsigf_d)
-
-		tmp2276 := Call(__e, PrimFunc(symshen_4assoc_1_6), symtc, tmp2271, tmp2275)
-
-		tmp2277 := PrimSet(symshen_4_dsigf_d, tmp2276)
-
-		_ = tmp2277
-
-		tmp2278 := MakeNative(func(__e *ControlFlow) {
-			V6597 := __e.Get(1)
-			_ = V6597
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6593 := __e.Get(1)
-				_ = B6593
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6594 := __e.Get(1)
-					_ = L6594
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6595 := __e.Get(1)
-						_ = Key6595
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6596 := __e.Get(1)
-							_ = C6596
-							tmp2279 := PrimCons(symboolean, Nil)
-
-							tmp2280 := PrimCons(sym_1_1_6, tmp2279)
-
-							__e.TailApply(PrimFunc(symis_b), V6597, tmp2280, B6593, L6594, Key6595, C6596)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2281 := PrimValue(symshen_4_dsigf_d)
-
-		tmp2282 := Call(__e, PrimFunc(symshen_4assoc_1_6), symtc_2, tmp2278, tmp2281)
-
-		tmp2283 := PrimSet(symshen_4_dsigf_d, tmp2282)
-
-		_ = tmp2283
-
-		tmp2284 := MakeNative(func(__e *ControlFlow) {
-			V6602 := __e.Get(1)
-			_ = V6602
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6598 := __e.Get(1)
-				_ = B6598
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6599 := __e.Get(1)
-					_ = L6599
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6600 := __e.Get(1)
-						_ = Key6600
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6601 := __e.Get(1)
-							_ = C6601
-							tmp2285 := MakeNative(func(__e *ControlFlow) {
-								A := __e.Get(1)
-								_ = A
-								tmp2286 := PrimCons(A, Nil)
-
-								tmp2287 := PrimCons(symlazy, tmp2286)
-
-								tmp2288 := PrimCons(A, Nil)
-
-								tmp2289 := PrimCons(sym_1_1_6, tmp2288)
-
-								tmp2290 := PrimCons(tmp2287, tmp2289)
-
-								tmp2291 := Call(__e, PrimFunc(symis_b), V6602, tmp2290, B6598, L6599, Key6600, C6601)
-
-								__e.TailApply(PrimFunc(symshen_4gc), B6598, tmp2291)
-								return
-
-							}, 1)
-
-							tmp2292 := Call(__e, PrimFunc(symshen_4newpv), B6598)
-
-							__e.TailApply(tmp2285, tmp2292)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2293 := PrimValue(symshen_4_dsigf_d)
-
-		tmp2294 := Call(__e, PrimFunc(symshen_4assoc_1_6), symthaw, tmp2284, tmp2293)
-
-		tmp2295 := PrimSet(symshen_4_dsigf_d, tmp2294)
-
-		_ = tmp2295
-
-		tmp2296 := MakeNative(func(__e *ControlFlow) {
-			V6607 := __e.Get(1)
-			_ = V6607
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6603 := __e.Get(1)
-				_ = B6603
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6604 := __e.Get(1)
-					_ = L6604
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6605 := __e.Get(1)
-						_ = Key6605
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6606 := __e.Get(1)
-							_ = C6606
-							tmp2297 := PrimCons(symsymbol, Nil)
-
-							tmp2298 := PrimCons(sym_1_1_6, tmp2297)
-
-							tmp2299 := PrimCons(symsymbol, tmp2298)
-
-							__e.TailApply(PrimFunc(symis_b), V6607, tmp2299, B6603, L6604, Key6605, C6606)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2300 := PrimValue(symshen_4_dsigf_d)
-
-		tmp2301 := Call(__e, PrimFunc(symshen_4assoc_1_6), symtrack, tmp2296, tmp2300)
-
-		tmp2302 := PrimSet(symshen_4_dsigf_d, tmp2301)
-
-		_ = tmp2302
-
-		tmp2303 := MakeNative(func(__e *ControlFlow) {
-			V6612 := __e.Get(1)
-			_ = V6612
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6608 := __e.Get(1)
-				_ = B6608
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6609 := __e.Get(1)
-					_ = L6609
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6610 := __e.Get(1)
-						_ = Key6610
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6611 := __e.Get(1)
-							_ = C6611
-							tmp2304 := PrimCons(symsymbol, Nil)
-
-							tmp2305 := PrimCons(symlist, tmp2304)
-
-							tmp2306 := PrimCons(tmp2305, Nil)
-
-							tmp2307 := PrimCons(sym_1_1_6, tmp2306)
-
-							__e.TailApply(PrimFunc(symis_b), V6612, tmp2307, B6608, L6609, Key6610, C6611)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2308 := PrimValue(symshen_4_dsigf_d)
-
-		tmp2309 := Call(__e, PrimFunc(symshen_4assoc_1_6), symtracked, tmp2303, tmp2308)
-
-		tmp2310 := PrimSet(symshen_4_dsigf_d, tmp2309)
-
-		_ = tmp2310
-
-		tmp2311 := MakeNative(func(__e *ControlFlow) {
-			V6617 := __e.Get(1)
-			_ = V6617
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6613 := __e.Get(1)
-				_ = B6613
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6614 := __e.Get(1)
-					_ = L6614
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6615 := __e.Get(1)
-						_ = Key6615
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6616 := __e.Get(1)
-							_ = C6616
-							tmp2312 := MakeNative(func(__e *ControlFlow) {
-								A := __e.Get(1)
-								_ = A
-								tmp2313 := PrimCons(A, Nil)
-
-								tmp2314 := PrimCons(sym_1_1_6, tmp2313)
-
-								tmp2315 := PrimCons(symexception, tmp2314)
-
-								tmp2316 := PrimCons(A, Nil)
-
-								tmp2317 := PrimCons(sym_1_1_6, tmp2316)
-
-								tmp2318 := PrimCons(tmp2315, tmp2317)
-
-								tmp2319 := PrimCons(tmp2318, Nil)
-
-								tmp2320 := PrimCons(sym_1_1_6, tmp2319)
-
-								tmp2321 := PrimCons(A, tmp2320)
-
-								tmp2322 := Call(__e, PrimFunc(symis_b), V6617, tmp2321, B6613, L6614, Key6615, C6616)
-
-								__e.TailApply(PrimFunc(symshen_4gc), B6613, tmp2322)
-								return
-
-							}, 1)
-
-							tmp2323 := Call(__e, PrimFunc(symshen_4newpv), B6613)
-
-							__e.TailApply(tmp2312, tmp2323)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2324 := PrimValue(symshen_4_dsigf_d)
-
-		tmp2325 := Call(__e, PrimFunc(symshen_4assoc_1_6), symtrap_1error, tmp2311, tmp2324)
-
-		tmp2326 := PrimSet(symshen_4_dsigf_d, tmp2325)
-
-		_ = tmp2326
-
-		tmp2327 := MakeNative(func(__e *ControlFlow) {
-			V6622 := __e.Get(1)
-			_ = V6622
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6618 := __e.Get(1)
-				_ = B6618
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6619 := __e.Get(1)
-					_ = L6619
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6620 := __e.Get(1)
-						_ = Key6620
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6621 := __e.Get(1)
-							_ = C6621
-							tmp2328 := MakeNative(func(__e *ControlFlow) {
-								A := __e.Get(1)
-								_ = A
-								tmp2329 := PrimCons(symboolean, Nil)
-
-								tmp2330 := PrimCons(sym_1_1_6, tmp2329)
-
-								tmp2331 := PrimCons(A, tmp2330)
-
-								tmp2332 := Call(__e, PrimFunc(symis_b), V6622, tmp2331, B6618, L6619, Key6620, C6621)
-
-								__e.TailApply(PrimFunc(symshen_4gc), B6618, tmp2332)
-								return
-
-							}, 1)
-
-							tmp2333 := Call(__e, PrimFunc(symshen_4newpv), B6618)
-
-							__e.TailApply(tmp2328, tmp2333)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2334 := PrimValue(symshen_4_dsigf_d)
-
-		tmp2335 := Call(__e, PrimFunc(symshen_4assoc_1_6), symtuple_2, tmp2327, tmp2334)
-
-		tmp2336 := PrimSet(symshen_4_dsigf_d, tmp2335)
-
-		_ = tmp2336
-
-		tmp2337 := MakeNative(func(__e *ControlFlow) {
-			V6627 := __e.Get(1)
-			_ = V6627
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6623 := __e.Get(1)
-				_ = B6623
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6624 := __e.Get(1)
-					_ = L6624
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6625 := __e.Get(1)
-						_ = Key6625
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6626 := __e.Get(1)
-							_ = C6626
-							tmp2338 := PrimCons(symstring, Nil)
-
-							tmp2339 := PrimCons(symlist, tmp2338)
-
-							tmp2340 := PrimCons(tmp2339, Nil)
-
-							tmp2341 := PrimCons(sym_1_1_6, tmp2340)
-
-							tmp2342 := PrimCons(symstring, tmp2341)
-
-							__e.TailApply(PrimFunc(symis_b), V6627, tmp2342, B6623, L6624, Key6625, C6626)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2343 := PrimValue(symshen_4_dsigf_d)
-
-		tmp2344 := Call(__e, PrimFunc(symshen_4assoc_1_6), symunabsolute, tmp2337, tmp2343)
-
-		tmp2345 := PrimSet(symshen_4_dsigf_d, tmp2344)
-
-		_ = tmp2345
-
-		tmp2346 := MakeNative(func(__e *ControlFlow) {
-			V6632 := __e.Get(1)
-			_ = V6632
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6628 := __e.Get(1)
-				_ = B6628
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6629 := __e.Get(1)
-					_ = L6629
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6630 := __e.Get(1)
-						_ = Key6630
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6631 := __e.Get(1)
-							_ = C6631
-							tmp2347 := PrimCons(symsymbol, Nil)
-
-							tmp2348 := PrimCons(sym_1_1_6, tmp2347)
-
-							tmp2349 := PrimCons(symsymbol, tmp2348)
-
-							__e.TailApply(PrimFunc(symis_b), V6632, tmp2349, B6628, L6629, Key6630, C6631)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2350 := PrimValue(symshen_4_dsigf_d)
-
-		tmp2351 := Call(__e, PrimFunc(symshen_4assoc_1_6), symundefmacro, tmp2346, tmp2350)
-
-		tmp2352 := PrimSet(symshen_4_dsigf_d, tmp2351)
-
-		_ = tmp2352
-
-		tmp2353 := MakeNative(func(__e *ControlFlow) {
-			V6637 := __e.Get(1)
-			_ = V6637
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6633 := __e.Get(1)
-				_ = B6633
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6634 := __e.Get(1)
-					_ = L6634
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6635 := __e.Get(1)
-						_ = Key6635
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6636 := __e.Get(1)
-							_ = C6636
-							tmp2354 := MakeNative(func(__e *ControlFlow) {
-								A := __e.Get(1)
-								_ = A
-								tmp2355 := PrimCons(A, Nil)
-
-								tmp2356 := PrimCons(symlist, tmp2355)
-
-								tmp2357 := PrimCons(A, Nil)
-
-								tmp2358 := PrimCons(symlist, tmp2357)
-
-								tmp2359 := PrimCons(A, Nil)
-
-								tmp2360 := PrimCons(symlist, tmp2359)
-
-								tmp2361 := PrimCons(tmp2360, Nil)
-
-								tmp2362 := PrimCons(sym_1_1_6, tmp2361)
-
-								tmp2363 := PrimCons(tmp2358, tmp2362)
-
-								tmp2364 := PrimCons(tmp2363, Nil)
-
-								tmp2365 := PrimCons(sym_1_1_6, tmp2364)
-
-								tmp2366 := PrimCons(tmp2356, tmp2365)
-
-								tmp2367 := Call(__e, PrimFunc(symis_b), V6637, tmp2366, B6633, L6634, Key6635, C6636)
-
-								__e.TailApply(PrimFunc(symshen_4gc), B6633, tmp2367)
-								return
-
-							}, 1)
-
-							tmp2368 := Call(__e, PrimFunc(symshen_4newpv), B6633)
-
-							__e.TailApply(tmp2354, tmp2368)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2369 := PrimValue(symshen_4_dsigf_d)
-
-		tmp2370 := Call(__e, PrimFunc(symshen_4assoc_1_6), symunion, tmp2353, tmp2369)
-
-		tmp2371 := PrimSet(symshen_4_dsigf_d, tmp2370)
-
-		_ = tmp2371
-
-		tmp2372 := MakeNative(func(__e *ControlFlow) {
-			V6642 := __e.Get(1)
-			_ = V6642
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6638 := __e.Get(1)
-				_ = B6638
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6639 := __e.Get(1)
-					_ = L6639
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6640 := __e.Get(1)
-						_ = Key6640
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6641 := __e.Get(1)
-							_ = C6641
-							tmp2373 := PrimCons(symsymbol, Nil)
-
-							tmp2374 := PrimCons(sym_1_1_6, tmp2373)
-
-							tmp2375 := PrimCons(symsymbol, tmp2374)
-
-							__e.TailApply(PrimFunc(symis_b), V6642, tmp2375, B6638, L6639, Key6640, C6641)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2376 := PrimValue(symshen_4_dsigf_d)
-
-		tmp2377 := Call(__e, PrimFunc(symshen_4assoc_1_6), symunprofile, tmp2372, tmp2376)
-
-		tmp2378 := PrimSet(symshen_4_dsigf_d, tmp2377)
-
-		_ = tmp2378
-
-		tmp2379 := MakeNative(func(__e *ControlFlow) {
-			V6647 := __e.Get(1)
-			_ = V6647
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6643 := __e.Get(1)
-				_ = B6643
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6644 := __e.Get(1)
-					_ = L6644
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6645 := __e.Get(1)
-						_ = Key6645
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6646 := __e.Get(1)
-							_ = C6646
-							tmp2380 := PrimCons(symsymbol, Nil)
-
-							tmp2381 := PrimCons(sym_1_1_6, tmp2380)
-
-							tmp2382 := PrimCons(symsymbol, tmp2381)
-
-							__e.TailApply(PrimFunc(symis_b), V6647, tmp2382, B6643, L6644, Key6645, C6646)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2383 := PrimValue(symshen_4_dsigf_d)
-
-		tmp2384 := Call(__e, PrimFunc(symshen_4assoc_1_6), symuntrack, tmp2379, tmp2383)
-
-		tmp2385 := PrimSet(symshen_4_dsigf_d, tmp2384)
-
-		_ = tmp2385
-
-		tmp2386 := MakeNative(func(__e *ControlFlow) {
-			V6652 := __e.Get(1)
-			_ = V6652
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6648 := __e.Get(1)
-				_ = B6648
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6649 := __e.Get(1)
-					_ = L6649
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6650 := __e.Get(1)
-						_ = Key6650
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6651 := __e.Get(1)
-							_ = C6651
-							tmp2387 := PrimCons(symsymbol, Nil)
-
-							tmp2388 := PrimCons(symlist, tmp2387)
-
-							tmp2389 := PrimCons(tmp2388, Nil)
-
-							tmp2390 := PrimCons(sym_1_1_6, tmp2389)
-
-							__e.TailApply(PrimFunc(symis_b), V6652, tmp2390, B6648, L6649, Key6650, C6651)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2391 := PrimValue(symshen_4_dsigf_d)
-
-		tmp2392 := Call(__e, PrimFunc(symshen_4assoc_1_6), symuserdefs, tmp2386, tmp2391)
-
-		tmp2393 := PrimSet(symshen_4_dsigf_d, tmp2392)
-
-		_ = tmp2393
-
-		tmp2394 := MakeNative(func(__e *ControlFlow) {
-			V6657 := __e.Get(1)
-			_ = V6657
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6653 := __e.Get(1)
-				_ = B6653
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6654 := __e.Get(1)
-					_ = L6654
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6655 := __e.Get(1)
-						_ = Key6655
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6656 := __e.Get(1)
-							_ = C6656
-							tmp2395 := MakeNative(func(__e *ControlFlow) {
-								A := __e.Get(1)
-								_ = A
-								tmp2396 := PrimCons(symboolean, Nil)
-
-								tmp2397 := PrimCons(sym_1_1_6, tmp2396)
-
-								tmp2398 := PrimCons(A, tmp2397)
-
-								tmp2399 := Call(__e, PrimFunc(symis_b), V6657, tmp2398, B6653, L6654, Key6655, C6656)
-
-								__e.TailApply(PrimFunc(symshen_4gc), B6653, tmp2399)
-								return
-
-							}, 1)
-
-							tmp2400 := Call(__e, PrimFunc(symshen_4newpv), B6653)
-
-							__e.TailApply(tmp2395, tmp2400)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2401 := PrimValue(symshen_4_dsigf_d)
-
-		tmp2402 := Call(__e, PrimFunc(symshen_4assoc_1_6), symvariable_2, tmp2394, tmp2401)
-
-		tmp2403 := PrimSet(symshen_4_dsigf_d, tmp2402)
-
-		_ = tmp2403
-
-		tmp2404 := MakeNative(func(__e *ControlFlow) {
-			V6662 := __e.Get(1)
-			_ = V6662
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6658 := __e.Get(1)
-				_ = B6658
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6659 := __e.Get(1)
-					_ = L6659
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6660 := __e.Get(1)
-						_ = Key6660
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6661 := __e.Get(1)
-							_ = C6661
-							tmp2405 := MakeNative(func(__e *ControlFlow) {
-								A := __e.Get(1)
-								_ = A
-								tmp2406 := PrimCons(symboolean, Nil)
-
-								tmp2407 := PrimCons(sym_1_1_6, tmp2406)
-
-								tmp2408 := PrimCons(A, tmp2407)
-
-								tmp2409 := Call(__e, PrimFunc(symis_b), V6662, tmp2408, B6658, L6659, Key6660, C6661)
-
-								__e.TailApply(PrimFunc(symshen_4gc), B6658, tmp2409)
-								return
-
-							}, 1)
-
-							tmp2410 := Call(__e, PrimFunc(symshen_4newpv), B6658)
-
-							__e.TailApply(tmp2405, tmp2410)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2411 := PrimValue(symshen_4_dsigf_d)
-
-		tmp2412 := Call(__e, PrimFunc(symshen_4assoc_1_6), symvector_2, tmp2404, tmp2411)
-
-		tmp2413 := PrimSet(symshen_4_dsigf_d, tmp2412)
-
-		_ = tmp2413
-
-		tmp2414 := MakeNative(func(__e *ControlFlow) {
-			V6667 := __e.Get(1)
-			_ = V6667
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6663 := __e.Get(1)
-				_ = B6663
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6664 := __e.Get(1)
-					_ = L6664
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6665 := __e.Get(1)
-						_ = Key6665
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6666 := __e.Get(1)
-							_ = C6666
-							tmp2415 := PrimCons(symstring, Nil)
-
-							tmp2416 := PrimCons(sym_1_1_6, tmp2415)
-
-							__e.TailApply(PrimFunc(symis_b), V6667, tmp2416, B6663, L6664, Key6665, C6666)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2417 := PrimValue(symshen_4_dsigf_d)
-
-		tmp2418 := Call(__e, PrimFunc(symshen_4assoc_1_6), symversion, tmp2414, tmp2417)
-
-		tmp2419 := PrimSet(symshen_4_dsigf_d, tmp2418)
-
-		_ = tmp2419
-
-		tmp2420 := MakeNative(func(__e *ControlFlow) {
-			V6672 := __e.Get(1)
-			_ = V6672
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6668 := __e.Get(1)
-				_ = B6668
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6669 := __e.Get(1)
-					_ = L6669
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6670 := __e.Get(1)
-						_ = Key6670
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6671 := __e.Get(1)
-							_ = C6671
-							tmp2421 := MakeNative(func(__e *ControlFlow) {
-								A := __e.Get(1)
-								_ = A
-								tmp2422 := PrimCons(A, Nil)
-
-								tmp2423 := PrimCons(sym_1_1_6, tmp2422)
-
-								tmp2424 := PrimCons(A, tmp2423)
-
-								tmp2425 := PrimCons(tmp2424, Nil)
-
-								tmp2426 := PrimCons(sym_1_1_6, tmp2425)
-
-								tmp2427 := PrimCons(symstring, tmp2426)
-
-								tmp2428 := Call(__e, PrimFunc(symis_b), V6672, tmp2427, B6668, L6669, Key6670, C6671)
-
-								__e.TailApply(PrimFunc(symshen_4gc), B6668, tmp2428)
-								return
-
-							}, 1)
-
-							tmp2429 := Call(__e, PrimFunc(symshen_4newpv), B6668)
-
-							__e.TailApply(tmp2421, tmp2429)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2430 := PrimValue(symshen_4_dsigf_d)
-
-		tmp2431 := Call(__e, PrimFunc(symshen_4assoc_1_6), symwrite_1to_1file, tmp2420, tmp2430)
-
-		tmp2432 := PrimSet(symshen_4_dsigf_d, tmp2431)
-
-		_ = tmp2432
-
-		tmp2433 := MakeNative(func(__e *ControlFlow) {
-			V6677 := __e.Get(1)
-			_ = V6677
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6673 := __e.Get(1)
-				_ = B6673
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6674 := __e.Get(1)
-					_ = L6674
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6675 := __e.Get(1)
-						_ = Key6675
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6676 := __e.Get(1)
-							_ = C6676
-							tmp2434 := PrimCons(symout, Nil)
-
-							tmp2435 := PrimCons(symstream, tmp2434)
-
-							tmp2436 := PrimCons(symnumber, Nil)
-
-							tmp2437 := PrimCons(sym_1_1_6, tmp2436)
-
-							tmp2438 := PrimCons(tmp2435, tmp2437)
-
-							tmp2439 := PrimCons(tmp2438, Nil)
-
-							tmp2440 := PrimCons(sym_1_1_6, tmp2439)
-
-							tmp2441 := PrimCons(symnumber, tmp2440)
-
-							__e.TailApply(PrimFunc(symis_b), V6677, tmp2441, B6673, L6674, Key6675, C6676)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2442 := PrimValue(symshen_4_dsigf_d)
-
-		tmp2443 := Call(__e, PrimFunc(symshen_4assoc_1_6), symwrite_1byte, tmp2433, tmp2442)
-
-		tmp2444 := PrimSet(symshen_4_dsigf_d, tmp2443)
-
-		_ = tmp2444
-
-		tmp2445 := MakeNative(func(__e *ControlFlow) {
-			V6682 := __e.Get(1)
-			_ = V6682
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6678 := __e.Get(1)
-				_ = B6678
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6679 := __e.Get(1)
-					_ = L6679
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6680 := __e.Get(1)
-						_ = Key6680
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6681 := __e.Get(1)
-							_ = C6681
-							tmp2446 := PrimCons(symboolean, Nil)
-
-							tmp2447 := PrimCons(sym_1_1_6, tmp2446)
-
-							tmp2448 := PrimCons(symstring, tmp2447)
-
-							__e.TailApply(PrimFunc(symis_b), V6682, tmp2448, B6678, L6679, Key6680, C6681)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2449 := PrimValue(symshen_4_dsigf_d)
-
-		tmp2450 := Call(__e, PrimFunc(symshen_4assoc_1_6), symy_1or_1n_2, tmp2445, tmp2449)
-
-		tmp2451 := PrimSet(symshen_4_dsigf_d, tmp2450)
-
-		_ = tmp2451
-
-		tmp2452 := MakeNative(func(__e *ControlFlow) {
-			V6687 := __e.Get(1)
-			_ = V6687
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6683 := __e.Get(1)
-				_ = B6683
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6684 := __e.Get(1)
-					_ = L6684
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6685 := __e.Get(1)
-						_ = Key6685
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6686 := __e.Get(1)
-							_ = C6686
-							tmp2453 := PrimCons(symboolean, Nil)
-
-							tmp2454 := PrimCons(sym_1_1_6, tmp2453)
-
-							tmp2455 := PrimCons(symnumber, tmp2454)
-
-							tmp2456 := PrimCons(tmp2455, Nil)
-
-							tmp2457 := PrimCons(sym_1_1_6, tmp2456)
-
-							tmp2458 := PrimCons(symnumber, tmp2457)
-
-							__e.TailApply(PrimFunc(symis_b), V6687, tmp2458, B6683, L6684, Key6685, C6686)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2459 := PrimValue(symshen_4_dsigf_d)
-
-		tmp2460 := Call(__e, PrimFunc(symshen_4assoc_1_6), sym_6, tmp2452, tmp2459)
-
-		tmp2461 := PrimSet(symshen_4_dsigf_d, tmp2460)
-
-		_ = tmp2461
-
-		tmp2462 := MakeNative(func(__e *ControlFlow) {
-			V6692 := __e.Get(1)
-			_ = V6692
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6688 := __e.Get(1)
-				_ = B6688
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6689 := __e.Get(1)
-					_ = L6689
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6690 := __e.Get(1)
-						_ = Key6690
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6691 := __e.Get(1)
-							_ = C6691
-							tmp2463 := PrimCons(symboolean, Nil)
-
-							tmp2464 := PrimCons(sym_1_1_6, tmp2463)
-
-							tmp2465 := PrimCons(symnumber, tmp2464)
-
-							tmp2466 := PrimCons(tmp2465, Nil)
-
-							tmp2467 := PrimCons(sym_1_1_6, tmp2466)
-
-							tmp2468 := PrimCons(symnumber, tmp2467)
-
-							__e.TailApply(PrimFunc(symis_b), V6692, tmp2468, B6688, L6689, Key6690, C6691)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2469 := PrimValue(symshen_4_dsigf_d)
-
-		tmp2470 := Call(__e, PrimFunc(symshen_4assoc_1_6), sym_5, tmp2462, tmp2469)
-
-		tmp2471 := PrimSet(symshen_4_dsigf_d, tmp2470)
-
-		_ = tmp2471
-
-		tmp2472 := MakeNative(func(__e *ControlFlow) {
-			V6697 := __e.Get(1)
-			_ = V6697
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6693 := __e.Get(1)
-				_ = B6693
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6694 := __e.Get(1)
-					_ = L6694
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6695 := __e.Get(1)
-						_ = Key6695
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6696 := __e.Get(1)
-							_ = C6696
-							tmp2473 := PrimCons(symboolean, Nil)
-
-							tmp2474 := PrimCons(sym_1_1_6, tmp2473)
-
-							tmp2475 := PrimCons(symnumber, tmp2474)
-
-							tmp2476 := PrimCons(tmp2475, Nil)
-
-							tmp2477 := PrimCons(sym_1_1_6, tmp2476)
-
-							tmp2478 := PrimCons(symnumber, tmp2477)
-
-							__e.TailApply(PrimFunc(symis_b), V6697, tmp2478, B6693, L6694, Key6695, C6696)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2479 := PrimValue(symshen_4_dsigf_d)
-
-		tmp2480 := Call(__e, PrimFunc(symshen_4assoc_1_6), sym_6_a, tmp2472, tmp2479)
-
-		tmp2481 := PrimSet(symshen_4_dsigf_d, tmp2480)
-
-		_ = tmp2481
-
-		tmp2482 := MakeNative(func(__e *ControlFlow) {
-			V6702 := __e.Get(1)
-			_ = V6702
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6698 := __e.Get(1)
-				_ = B6698
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6699 := __e.Get(1)
-					_ = L6699
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6700 := __e.Get(1)
-						_ = Key6700
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6701 := __e.Get(1)
-							_ = C6701
-							tmp2483 := PrimCons(symboolean, Nil)
-
-							tmp2484 := PrimCons(sym_1_1_6, tmp2483)
-
-							tmp2485 := PrimCons(symnumber, tmp2484)
-
-							tmp2486 := PrimCons(tmp2485, Nil)
-
-							tmp2487 := PrimCons(sym_1_1_6, tmp2486)
-
-							tmp2488 := PrimCons(symnumber, tmp2487)
-
-							__e.TailApply(PrimFunc(symis_b), V6702, tmp2488, B6698, L6699, Key6700, C6701)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2489 := PrimValue(symshen_4_dsigf_d)
-
-		tmp2490 := Call(__e, PrimFunc(symshen_4assoc_1_6), sym_5_a, tmp2482, tmp2489)
-
-		tmp2491 := PrimSet(symshen_4_dsigf_d, tmp2490)
-
-		_ = tmp2491
-
-		tmp2492 := MakeNative(func(__e *ControlFlow) {
-			V6707 := __e.Get(1)
-			_ = V6707
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6703 := __e.Get(1)
-				_ = B6703
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6704 := __e.Get(1)
-					_ = L6704
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6705 := __e.Get(1)
-						_ = Key6705
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6706 := __e.Get(1)
-							_ = C6706
-							tmp2493 := MakeNative(func(__e *ControlFlow) {
-								A := __e.Get(1)
-								_ = A
-								tmp2494 := PrimCons(symboolean, Nil)
-
-								tmp2495 := PrimCons(sym_1_1_6, tmp2494)
-
-								tmp2496 := PrimCons(A, tmp2495)
-
-								tmp2497 := PrimCons(tmp2496, Nil)
-
-								tmp2498 := PrimCons(sym_1_1_6, tmp2497)
-
-								tmp2499 := PrimCons(A, tmp2498)
-
-								tmp2500 := Call(__e, PrimFunc(symis_b), V6707, tmp2499, B6703, L6704, Key6705, C6706)
-
-								__e.TailApply(PrimFunc(symshen_4gc), B6703, tmp2500)
-								return
-
-							}, 1)
-
-							tmp2501 := Call(__e, PrimFunc(symshen_4newpv), B6703)
-
-							__e.TailApply(tmp2493, tmp2501)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2502 := PrimValue(symshen_4_dsigf_d)
-
-		tmp2503 := Call(__e, PrimFunc(symshen_4assoc_1_6), sym_a, tmp2492, tmp2502)
-
-		tmp2504 := PrimSet(symshen_4_dsigf_d, tmp2503)
-
-		_ = tmp2504
-
-		tmp2505 := MakeNative(func(__e *ControlFlow) {
-			V6712 := __e.Get(1)
-			_ = V6712
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6708 := __e.Get(1)
-				_ = B6708
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6709 := __e.Get(1)
-					_ = L6709
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6710 := __e.Get(1)
-						_ = Key6710
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6711 := __e.Get(1)
-							_ = C6711
-							tmp2506 := PrimCons(symnumber, Nil)
-
-							tmp2507 := PrimCons(sym_1_1_6, tmp2506)
-
-							tmp2508 := PrimCons(symnumber, tmp2507)
-
-							tmp2509 := PrimCons(tmp2508, Nil)
-
-							tmp2510 := PrimCons(sym_1_1_6, tmp2509)
-
-							tmp2511 := PrimCons(symnumber, tmp2510)
-
-							__e.TailApply(PrimFunc(symis_b), V6712, tmp2511, B6708, L6709, Key6710, C6711)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2512 := PrimValue(symshen_4_dsigf_d)
-
-		tmp2513 := Call(__e, PrimFunc(symshen_4assoc_1_6), sym_7, tmp2505, tmp2512)
-
-		tmp2514 := PrimSet(symshen_4_dsigf_d, tmp2513)
-
-		_ = tmp2514
-
-		tmp2515 := MakeNative(func(__e *ControlFlow) {
-			V6717 := __e.Get(1)
-			_ = V6717
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6713 := __e.Get(1)
-				_ = B6713
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6714 := __e.Get(1)
-					_ = L6714
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6715 := __e.Get(1)
-						_ = Key6715
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6716 := __e.Get(1)
-							_ = C6716
-							tmp2516 := PrimCons(symnumber, Nil)
-
-							tmp2517 := PrimCons(sym_1_1_6, tmp2516)
-
-							tmp2518 := PrimCons(symnumber, tmp2517)
-
-							tmp2519 := PrimCons(tmp2518, Nil)
-
-							tmp2520 := PrimCons(sym_1_1_6, tmp2519)
-
-							tmp2521 := PrimCons(symnumber, tmp2520)
-
-							__e.TailApply(PrimFunc(symis_b), V6717, tmp2521, B6713, L6714, Key6715, C6716)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2522 := PrimValue(symshen_4_dsigf_d)
-
-		tmp2523 := Call(__e, PrimFunc(symshen_4assoc_1_6), sym_c, tmp2515, tmp2522)
-
-		tmp2524 := PrimSet(symshen_4_dsigf_d, tmp2523)
-
-		_ = tmp2524
-
-		tmp2525 := MakeNative(func(__e *ControlFlow) {
-			V6722 := __e.Get(1)
-			_ = V6722
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6718 := __e.Get(1)
-				_ = B6718
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6719 := __e.Get(1)
-					_ = L6719
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6720 := __e.Get(1)
-						_ = Key6720
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6721 := __e.Get(1)
-							_ = C6721
-							tmp2526 := PrimCons(symnumber, Nil)
-
-							tmp2527 := PrimCons(sym_1_1_6, tmp2526)
-
-							tmp2528 := PrimCons(symnumber, tmp2527)
-
-							tmp2529 := PrimCons(tmp2528, Nil)
-
-							tmp2530 := PrimCons(sym_1_1_6, tmp2529)
-
-							tmp2531 := PrimCons(symnumber, tmp2530)
-
-							__e.TailApply(PrimFunc(symis_b), V6722, tmp2531, B6718, L6719, Key6720, C6721)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2532 := PrimValue(symshen_4_dsigf_d)
-
-		tmp2533 := Call(__e, PrimFunc(symshen_4assoc_1_6), sym_1, tmp2525, tmp2532)
-
-		tmp2534 := PrimSet(symshen_4_dsigf_d, tmp2533)
-
-		_ = tmp2534
-
-		tmp2535 := MakeNative(func(__e *ControlFlow) {
-			V6727 := __e.Get(1)
-			_ = V6727
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6723 := __e.Get(1)
-				_ = B6723
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6724 := __e.Get(1)
-					_ = L6724
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6725 := __e.Get(1)
-						_ = Key6725
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6726 := __e.Get(1)
-							_ = C6726
-							tmp2536 := PrimCons(symnumber, Nil)
-
-							tmp2537 := PrimCons(sym_1_1_6, tmp2536)
-
-							tmp2538 := PrimCons(symnumber, tmp2537)
-
-							tmp2539 := PrimCons(tmp2538, Nil)
-
-							tmp2540 := PrimCons(sym_1_1_6, tmp2539)
-
-							tmp2541 := PrimCons(symnumber, tmp2540)
-
-							__e.TailApply(PrimFunc(symis_b), V6727, tmp2541, B6723, L6724, Key6725, C6726)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2542 := PrimValue(symshen_4_dsigf_d)
-
-		tmp2543 := Call(__e, PrimFunc(symshen_4assoc_1_6), sym_d, tmp2535, tmp2542)
-
-		tmp2544 := PrimSet(symshen_4_dsigf_d, tmp2543)
-
-		_ = tmp2544
-
-		tmp2545 := MakeNative(func(__e *ControlFlow) {
-			V6732 := __e.Get(1)
-			_ = V6732
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				B6728 := __e.Get(1)
-				_ = B6728
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					L6729 := __e.Get(1)
-					_ = L6729
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Key6730 := __e.Get(1)
-						_ = Key6730
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							C6731 := __e.Get(1)
-							_ = C6731
-							tmp2546 := MakeNative(func(__e *ControlFlow) {
-								A := __e.Get(1)
-								_ = A
-								tmp2547 := MakeNative(func(__e *ControlFlow) {
-									B := __e.Get(1)
-									_ = B
-									tmp2548 := PrimCons(symboolean, Nil)
-
-									tmp2549 := PrimCons(sym_1_1_6, tmp2548)
-
-									tmp2550 := PrimCons(B, tmp2549)
-
-									tmp2551 := PrimCons(tmp2550, Nil)
-
-									tmp2552 := PrimCons(sym_1_1_6, tmp2551)
-
-									tmp2553 := PrimCons(A, tmp2552)
-
-									tmp2554 := Call(__e, PrimFunc(symis_b), V6732, tmp2553, B6728, L6729, Key6730, C6731)
-
-									__e.TailApply(PrimFunc(symshen_4gc), B6728, tmp2554)
-									return
-
-								}, 1)
-
-								tmp2555 := Call(__e, PrimFunc(symshen_4newpv), B6728)
-
-								tmp2556 := Call(__e, tmp2547, tmp2555)
-
-								__e.TailApply(PrimFunc(symshen_4gc), B6728, tmp2556)
-								return
-
-							}, 1)
-
-							tmp2557 := Call(__e, PrimFunc(symshen_4newpv), B6728)
-
-							__e.TailApply(tmp2546, tmp2557)
-							return
-
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2558 := PrimValue(symshen_4_dsigf_d)
-
-		tmp2559 := Call(__e, PrimFunc(symshen_4assoc_1_6), sym_a_a, tmp2545, tmp2558)
-
-		__e.Return(PrimSet(symshen_4_dsigf_d, tmp2559))
-		return
-
-	}, 0)
-
-	tmp2560 := Call(__e, ns2_1set, symshen_4initialise_1signedfuncs, tmp815)
-
-	_ = tmp2560
-
-	tmp2561 := MakeNative(func(__e *ControlFlow) {
-		tmp2562 := MakeNative(func(__e *ControlFlow) {
-			Y1196 := __e.Get(1)
-			_ = Y1196
-			__e.TailApply(PrimFunc(symshen_4tuple), Y1196)
-			return
-		}, 1)
-
-		tmp2563 := PrimCons(symshen_4tuple, tmp2562)
-
-		tmp2564 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2563)
-
-		_ = tmp2564
-
-		tmp2565 := MakeNative(func(__e *ControlFlow) {
-			Y1195 := __e.Get(1)
-			_ = Y1195
-			__e.TailApply(PrimFunc(symshen_4pvar), Y1195)
-			return
-		}, 1)
-
-		tmp2566 := PrimCons(symshen_4pvar, tmp2565)
-
-		tmp2567 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2566)
-
-		_ = tmp2567
-
-		tmp2568 := MakeNative(func(__e *ControlFlow) {
-			Y1194 := __e.Get(1)
-			_ = Y1194
-			__e.TailApply(PrimFunc(symshen_4dictionary), Y1194)
-			return
-		}, 1)
-
-		tmp2569 := PrimCons(symshen_4dictionary, tmp2568)
-
-		tmp2570 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2569)
-
-		_ = tmp2570
-
-		tmp2571 := MakeNative(func(__e *ControlFlow) {
-			Y1193 := __e.Get(1)
-			_ = Y1193
-			__e.TailApply(PrimFunc(symshen_4print_1prolog_1vector), Y1193)
-			return
-		}, 1)
-
-		tmp2572 := PrimCons(symshen_4print_1prolog_1vector, tmp2571)
-
-		tmp2573 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2572)
-
-		_ = tmp2573
-
-		tmp2574 := MakeNative(func(__e *ControlFlow) {
-			Y1192 := __e.Get(1)
-			_ = Y1192
-			__e.TailApply(PrimFunc(symshen_4print_1freshterm), Y1192)
-			return
-		}, 1)
-
-		tmp2575 := PrimCons(symshen_4print_1freshterm, tmp2574)
-
-		tmp2576 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2575)
-
-		_ = tmp2576
-
-		tmp2577 := MakeNative(func(__e *ControlFlow) {
-			Y1191 := __e.Get(1)
-			_ = Y1191
-			__e.TailApply(PrimFunc(symshen_4printF), Y1191)
-			return
-		}, 1)
-
-		tmp2578 := PrimCons(symshen_4printF, tmp2577)
-
-		tmp2579 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2578)
-
-		_ = tmp2579
-
-		tmp2580 := MakeNative(func(__e *ControlFlow) {
-			Y1190 := __e.Get(1)
-			_ = Y1190
-			__e.TailApply(PrimFunc(symabsolute), Y1190)
-			return
-		}, 1)
-
-		tmp2581 := PrimCons(symabsolute, tmp2580)
-
-		tmp2582 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2581)
-
-		_ = tmp2582
-
-		tmp2583 := MakeNative(func(__e *ControlFlow) {
-			Y1189 := __e.Get(1)
-			_ = Y1189
-			__e.Return(PrimIsVector(Y1189))
-			return
-		}, 1)
-
-		tmp2584 := PrimCons(symabsvector_2, tmp2583)
-
-		tmp2585 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2584)
-
-		_ = tmp2585
-
-		tmp2586 := MakeNative(func(__e *ControlFlow) {
-			Y1188 := __e.Get(1)
-			_ = Y1188
-			__e.Return(PrimAbsvector(Y1188))
-			return
-		}, 1)
-
-		tmp2587 := PrimCons(symabsvector, tmp2586)
-
-		tmp2588 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2587)
-
-		_ = tmp2588
-
-		tmp2589 := MakeNative(func(__e *ControlFlow) {
-			Y1185 := __e.Get(1)
-			_ = Y1185
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				Y1186 := __e.Get(1)
-				_ = Y1186
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					Y1187 := __e.Get(1)
-					_ = Y1187
-					__e.Return(PrimVectorSet(Y1185, Y1186, Y1187))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2590 := PrimCons(symaddress_1_6, tmp2589)
-
-		tmp2591 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2590)
-
-		_ = tmp2591
-
-		tmp2592 := MakeNative(func(__e *ControlFlow) {
-			Y1183 := __e.Get(1)
-			_ = Y1183
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				Y1184 := __e.Get(1)
-				_ = Y1184
-				__e.TailApply(PrimFunc(symadjoin), Y1183, Y1184)
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2593 := PrimCons(symadjoin, tmp2592)
-
-		tmp2594 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2593)
-
-		_ = tmp2594
-
-		tmp2595 := MakeNative(func(__e *ControlFlow) {
-			Y1181 := __e.Get(1)
-			_ = Y1181
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				Y1182 := __e.Get(1)
-				_ = Y1182
-				if True == Y1181 {
-					if True == Y1182 {
-						__e.Return(True)
-						return
-					} else {
-						__e.Return(False)
-						return
-					}
-				} else {
-					__e.Return(False)
-					return
-				}
-			}, 1))
-			return
-		}, 1)
-
-		tmp2598 := PrimCons(symand, tmp2595)
-
-		tmp2599 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2598)
-
-		_ = tmp2599
-
-		tmp2600 := MakeNative(func(__e *ControlFlow) {
-			Y1179 := __e.Get(1)
-			_ = Y1179
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				Y1180 := __e.Get(1)
-				_ = Y1180
-				__e.TailApply(PrimFunc(symappend), Y1179, Y1180)
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2601 := PrimCons(symappend, tmp2600)
-
-		tmp2602 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2601)
-
-		_ = tmp2602
-
-		tmp2603 := MakeNative(func(__e *ControlFlow) {
-			Y1178 := __e.Get(1)
-			_ = Y1178
-			__e.TailApply(PrimFunc(symarity), Y1178)
-			return
-		}, 1)
-
-		tmp2604 := PrimCons(symarity, tmp2603)
-
-		tmp2605 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2604)
-
-		_ = tmp2605
-
-		tmp2606 := MakeNative(func(__e *ControlFlow) {
-			Y1176 := __e.Get(1)
-			_ = Y1176
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				Y1177 := __e.Get(1)
-				_ = Y1177
-				__e.TailApply(PrimFunc(symassoc), Y1176, Y1177)
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2607 := PrimCons(symassoc, tmp2606)
-
-		tmp2608 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2607)
-
-		_ = tmp2608
-
-		tmp2609 := MakeNative(func(__e *ControlFlow) {
-			Y1175 := __e.Get(1)
-			_ = Y1175
-			__e.TailApply(PrimFunc(symatom_2), Y1175)
-			return
-		}, 1)
-
-		tmp2610 := PrimCons(symatom_2, tmp2609)
-
-		tmp2611 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2610)
-
-		_ = tmp2611
-
-		tmp2612 := MakeNative(func(__e *ControlFlow) {
-			Y1174 := __e.Get(1)
-			_ = Y1174
-			__e.TailApply(PrimFunc(symboolean_2), Y1174)
-			return
-		}, 1)
-
-		tmp2613 := PrimCons(symboolean_2, tmp2612)
-
-		tmp2614 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2613)
-
-		_ = tmp2614
-
-		tmp2615 := MakeNative(func(__e *ControlFlow) {
-			Y1173 := __e.Get(1)
-			_ = Y1173
-			__e.TailApply(PrimFunc(symbootstrap), Y1173)
-			return
-		}, 1)
-
-		tmp2616 := PrimCons(symbootstrap, tmp2615)
-
-		tmp2617 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2616)
-
-		_ = tmp2617
-
-		tmp2618 := MakeNative(func(__e *ControlFlow) {
-			Y1172 := __e.Get(1)
-			_ = Y1172
-			__e.TailApply(PrimFunc(symbound_2), Y1172)
-			return
-		}, 1)
-
-		tmp2619 := PrimCons(symbound_2, tmp2618)
-
-		tmp2620 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2619)
-
-		_ = tmp2620
-
-		tmp2621 := MakeNative(func(__e *ControlFlow) {
-			Y1166 := __e.Get(1)
-			_ = Y1166
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				Y1167 := __e.Get(1)
-				_ = Y1167
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					Y1168 := __e.Get(1)
-					_ = Y1168
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Y1169 := __e.Get(1)
-						_ = Y1169
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							Y1170 := __e.Get(1)
-							_ = Y1170
-							__e.Return(MakeNative(func(__e *ControlFlow) {
-								Y1171 := __e.Get(1)
-								_ = Y1171
-								__e.TailApply(PrimFunc(symbind), Y1166, Y1167, Y1168, Y1169, Y1170, Y1171)
-								return
-							}, 1))
-							return
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2622 := PrimCons(symbind, tmp2621)
-
-		tmp2623 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2622)
-
-		_ = tmp2623
-
-		tmp2624 := MakeNative(func(__e *ControlFlow) {
-			Y1161 := __e.Get(1)
-			_ = Y1161
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				Y1162 := __e.Get(1)
-				_ = Y1162
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					Y1163 := __e.Get(1)
-					_ = Y1163
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Y1164 := __e.Get(1)
-						_ = Y1164
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							Y1165 := __e.Get(1)
-							_ = Y1165
-							__e.TailApply(PrimFunc(symcall), Y1161, Y1162, Y1163, Y1164, Y1165)
-							return
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2625 := PrimCons(symcall, tmp2624)
-
-		tmp2626 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2625)
-
-		_ = tmp2626
-
-		tmp2627 := MakeNative(func(__e *ControlFlow) {
-			Y1160 := __e.Get(1)
-			_ = Y1160
-			__e.TailApply(PrimFunc(symcd), Y1160)
-			return
-		}, 1)
-
-		tmp2628 := PrimCons(symcd, tmp2627)
-
-		tmp2629 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2628)
-
-		_ = tmp2629
-
-		tmp2630 := MakeNative(func(__e *ControlFlow) {
-			Y1158 := __e.Get(1)
-			_ = Y1158
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				Y1159 := __e.Get(1)
-				_ = Y1159
-				__e.TailApply(PrimFunc(symcompile), Y1158, Y1159)
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2631 := PrimCons(symcompile, tmp2630)
-
-		tmp2632 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2631)
-
-		_ = tmp2632
-
-		tmp2633 := MakeNative(func(__e *ControlFlow) {
-			Y1156 := __e.Get(1)
-			_ = Y1156
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				Y1157 := __e.Get(1)
-				_ = Y1157
-				__e.TailApply(PrimFunc(symconcat), Y1156, Y1157)
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2634 := PrimCons(symconcat, tmp2633)
-
-		tmp2635 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2634)
-
-		_ = tmp2635
-
-		tmp2636 := MakeNative(func(__e *ControlFlow) {
-			Y1154 := __e.Get(1)
-			_ = Y1154
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				Y1155 := __e.Get(1)
-				_ = Y1155
-				__e.Return(PrimCons(Y1154, Y1155))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2637 := PrimCons(symcons, tmp2636)
-
-		tmp2638 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2637)
-
-		_ = tmp2638
-
-		tmp2639 := MakeNative(func(__e *ControlFlow) {
-			Y1153 := __e.Get(1)
-			_ = Y1153
-			__e.Return(PrimIsPair(Y1153))
-			return
-		}, 1)
-
-		tmp2640 := PrimCons(symcons_2, tmp2639)
-
-		tmp2641 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2640)
-
-		_ = tmp2641
-
-		tmp2642 := MakeNative(func(__e *ControlFlow) {
-			Y1151 := __e.Get(1)
-			_ = Y1151
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				Y1152 := __e.Get(1)
-				_ = Y1152
-				__e.Return(PrimStringConcat(Y1151, Y1152))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2643 := PrimCons(symcn, tmp2642)
-
-		tmp2644 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2643)
-
-		_ = tmp2644
-
-		tmp2645 := MakeNative(func(__e *ControlFlow) {
-			Y1150 := __e.Get(1)
-			_ = Y1150
-			__e.Return(PrimCloseStream(Y1150))
-			return
-		}, 1)
-
-		tmp2646 := PrimCons(symclose, tmp2645)
-
-		tmp2647 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2646)
-
-		_ = tmp2647
-
-		tmp2648 := MakeNative(func(__e *ControlFlow) {
-			Y1148 := __e.Get(1)
-			_ = Y1148
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				Y1149 := __e.Get(1)
-				_ = Y1149
-				__e.TailApply(PrimFunc(symdeclare), Y1148, Y1149)
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2649 := PrimCons(symdeclare, tmp2648)
-
-		tmp2650 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2649)
-
-		_ = tmp2650
-
-		tmp2651 := MakeNative(func(__e *ControlFlow) {
-			Y1147 := __e.Get(1)
-			_ = Y1147
-			__e.TailApply(PrimFunc(symdestroy), Y1147)
-			return
-		}, 1)
-
-		tmp2652 := PrimCons(symdestroy, tmp2651)
-
-		tmp2653 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2652)
-
-		_ = tmp2653
-
-		tmp2654 := MakeNative(func(__e *ControlFlow) {
-			Y1145 := __e.Get(1)
-			_ = Y1145
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				Y1146 := __e.Get(1)
-				_ = Y1146
-				__e.TailApply(PrimFunc(symdifference), Y1145, Y1146)
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2655 := PrimCons(symdifference, tmp2654)
-
-		tmp2656 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2655)
-
-		_ = tmp2656
-
-		tmp2657 := MakeNative(func(__e *ControlFlow) {
-			Y1143 := __e.Get(1)
-			_ = Y1143
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				Y1144 := __e.Get(1)
-				_ = Y1144
-				_ = Y1143
-
-				__e.Return(Y1144)
-				return
-
-			}, 1))
-			return
-		}, 1)
-
-		tmp2658 := PrimCons(symdo, tmp2657)
-
-		tmp2659 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2658)
-
-		_ = tmp2659
-
-		tmp2660 := MakeNative(func(__e *ControlFlow) {
-			Y1141 := __e.Get(1)
-			_ = Y1141
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				Y1142 := __e.Get(1)
-				_ = Y1142
-				__e.TailApply(PrimFunc(symelement_2), Y1141, Y1142)
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2661 := PrimCons(symelement_2, tmp2660)
-
-		tmp2662 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2661)
-
-		_ = tmp2662
-
-		tmp2663 := MakeNative(func(__e *ControlFlow) {
-			Y1140 := __e.Get(1)
-			_ = Y1140
-			__e.TailApply(PrimFunc(symempty_2), Y1140)
-			return
-		}, 1)
-
-		tmp2664 := PrimCons(symempty_2, tmp2663)
-
-		tmp2665 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2664)
-
-		_ = tmp2665
-
-		tmp2666 := MakeNative(func(__e *ControlFlow) {
-			Y1139 := __e.Get(1)
-			_ = Y1139
-			__e.TailApply(PrimFunc(symenable_1type_1theory), Y1139)
-			return
-		}, 1)
-
-		tmp2667 := PrimCons(symenable_1type_1theory, tmp2666)
-
-		tmp2668 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2667)
-
-		_ = tmp2668
-
-		tmp2669 := MakeNative(func(__e *ControlFlow) {
-			Y1138 := __e.Get(1)
-			_ = Y1138
-			__e.TailApply(PrimFunc(symexternal), Y1138)
-			return
-		}, 1)
-
-		tmp2670 := PrimCons(symexternal, tmp2669)
-
-		tmp2671 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2670)
-
-		_ = tmp2671
-
-		tmp2672 := MakeNative(func(__e *ControlFlow) {
-			Y1137 := __e.Get(1)
-			_ = Y1137
-			__e.Return(PrimErrorToString(Y1137))
-			return
-		}, 1)
-
-		tmp2673 := PrimCons(symerror_1to_1string, tmp2672)
-
-		tmp2674 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2673)
-
-		_ = tmp2674
-
-		tmp2675 := MakeNative(func(__e *ControlFlow) {
-			Y1136 := __e.Get(1)
-			_ = Y1136
-			__e.TailApply(PrimFunc(symeval), Y1136)
-			return
-		}, 1)
-
-		tmp2676 := PrimCons(symeval, tmp2675)
-
-		tmp2677 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2676)
-
-		_ = tmp2677
-
-		tmp2678 := MakeNative(func(__e *ControlFlow) {
-			Y1135 := __e.Get(1)
-			_ = Y1135
-			__e.TailApply(PrimFunc(symeval_1kl), Y1135)
-			return
-		}, 1)
-
-		tmp2679 := PrimCons(symeval_1kl, tmp2678)
-
-		tmp2680 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2679)
-
-		_ = tmp2680
-
-		tmp2681 := MakeNative(func(__e *ControlFlow) {
-			Y1134 := __e.Get(1)
-			_ = Y1134
-			__e.TailApply(PrimFunc(symexplode), Y1134)
-			return
-		}, 1)
-
-		tmp2682 := PrimCons(symexplode, tmp2681)
-
-		tmp2683 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2682)
-
-		_ = tmp2683
-
-		tmp2684 := MakeNative(func(__e *ControlFlow) {
-			Y1133 := __e.Get(1)
-			_ = Y1133
-			__e.TailApply(PrimFunc(symexternal), Y1133)
-			return
-		}, 1)
-
-		tmp2685 := PrimCons(symexternal, tmp2684)
-
-		tmp2686 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2685)
-
-		_ = tmp2686
-
-		tmp2687 := MakeNative(func(__e *ControlFlow) {
-			Y1132 := __e.Get(1)
-			_ = Y1132
-			__e.TailApply(PrimFunc(symfactorise), Y1132)
-			return
-		}, 1)
-
-		tmp2688 := PrimCons(symfactorise, tmp2687)
-
-		tmp2689 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2688)
-
-		_ = tmp2689
-
-		tmp2690 := MakeNative(func(__e *ControlFlow) {
-			Y1130 := __e.Get(1)
-			_ = Y1130
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				Y1131 := __e.Get(1)
-				_ = Y1131
-				__e.TailApply(PrimFunc(symfail_1if), Y1130, Y1131)
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2691 := PrimCons(symfail_1if, tmp2690)
-
-		tmp2692 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2691)
-
-		_ = tmp2692
-
-		tmp2693 := MakeNative(func(__e *ControlFlow) {
-			Y1128 := __e.Get(1)
-			_ = Y1128
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				Y1129 := __e.Get(1)
-				_ = Y1129
-				__e.TailApply(PrimFunc(symfix), Y1128, Y1129)
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2694 := PrimCons(symfix, tmp2693)
-
-		tmp2695 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2694)
-
-		_ = tmp2695
-
-		tmp2696 := MakeNative(func(__e *ControlFlow) {
-			Y1121 := __e.Get(1)
-			_ = Y1121
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				Y1122 := __e.Get(1)
-				_ = Y1122
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					Y1123 := __e.Get(1)
-					_ = Y1123
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Y1124 := __e.Get(1)
-						_ = Y1124
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							Y1125 := __e.Get(1)
-							_ = Y1125
-							__e.Return(MakeNative(func(__e *ControlFlow) {
-								Y1126 := __e.Get(1)
-								_ = Y1126
-								__e.Return(MakeNative(func(__e *ControlFlow) {
-									Y1127 := __e.Get(1)
-									_ = Y1127
-									__e.TailApply(PrimFunc(symfindall), Y1121, Y1122, Y1123, Y1124, Y1125, Y1126, Y1127)
-									return
-								}, 1))
-								return
-							}, 1))
-							return
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2697 := PrimCons(symfindall, tmp2696)
-
-		tmp2698 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2697)
-
-		_ = tmp2698
-
-		tmp2699 := MakeNative(func(__e *ControlFlow) {
-			Y1116 := __e.Get(1)
-			_ = Y1116
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				Y1117 := __e.Get(1)
-				_ = Y1117
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					Y1118 := __e.Get(1)
-					_ = Y1118
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Y1119 := __e.Get(1)
-						_ = Y1119
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							Y1120 := __e.Get(1)
-							_ = Y1120
-							__e.TailApply(PrimFunc(symfork), Y1116, Y1117, Y1118, Y1119, Y1120)
-							return
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2700 := PrimCons(symfork, tmp2699)
-
-		tmp2701 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2700)
-
-		_ = tmp2701
-
-		tmp2702 := MakeNative(func(__e *ControlFlow) {
-			Y1115 := __e.Get(1)
-			_ = Y1115
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				__e.Return(Y1115)
-				return
-			}, 0))
-			return
-		}, 1)
-
-		tmp2703 := PrimCons(symfreeze, tmp2702)
-
-		tmp2704 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2703)
-
-		_ = tmp2704
-
-		tmp2705 := MakeNative(func(__e *ControlFlow) {
-			Y1114 := __e.Get(1)
-			_ = Y1114
-			__e.TailApply(PrimFunc(symfst), Y1114)
-			return
-		}, 1)
-
-		tmp2706 := PrimCons(symfst, tmp2705)
-
-		tmp2707 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2706)
-
-		_ = tmp2707
-
-		tmp2708 := MakeNative(func(__e *ControlFlow) {
-			Y1113 := __e.Get(1)
-			_ = Y1113
-			__e.TailApply(PrimFunc(symfn), Y1113)
-			return
-		}, 1)
-
-		tmp2709 := PrimCons(symfn, tmp2708)
-
-		tmp2710 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2709)
-
-		_ = tmp2710
-
-		tmp2711 := MakeNative(func(__e *ControlFlow) {
-			Y1112 := __e.Get(1)
-			_ = Y1112
-			__e.TailApply(PrimFunc(symfunction), Y1112)
-			return
-		}, 1)
-
-		tmp2712 := PrimCons(symfunction, tmp2711)
-
-		tmp2713 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2712)
-
-		_ = tmp2713
-
-		tmp2714 := MakeNative(func(__e *ControlFlow) {
-			Y1111 := __e.Get(1)
-			_ = Y1111
-			__e.TailApply(PrimFunc(symgensym), Y1111)
-			return
-		}, 1)
-
-		tmp2715 := PrimCons(symgensym, tmp2714)
-
-		tmp2716 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2715)
-
-		_ = tmp2716
-
-		tmp2717 := MakeNative(func(__e *ControlFlow) {
-			Y1108 := __e.Get(1)
-			_ = Y1108
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				Y1109 := __e.Get(1)
-				_ = Y1109
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					Y1110 := __e.Get(1)
-					_ = Y1110
-					__e.TailApply(PrimFunc(symget), Y1108, Y1109, Y1110)
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2718 := PrimCons(symget, tmp2717)
-
-		tmp2719 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2718)
-
-		_ = tmp2719
-
-		tmp2720 := MakeNative(func(__e *ControlFlow) {
-			Y1107 := __e.Get(1)
-			_ = Y1107
-			__e.Return(PrimGetTime(Y1107))
-			return
-		}, 1)
-
-		tmp2721 := PrimCons(symget_1time, tmp2720)
-
-		tmp2722 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2721)
-
-		_ = tmp2722
-
-		tmp2723 := MakeNative(func(__e *ControlFlow) {
-			Y1104 := __e.Get(1)
-			_ = Y1104
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				Y1105 := __e.Get(1)
-				_ = Y1105
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					Y1106 := __e.Get(1)
-					_ = Y1106
-					__e.Return(PrimVectorSet(Y1104, Y1105, Y1106))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2724 := PrimCons(symaddress_1_6, tmp2723)
-
-		tmp2725 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2724)
-
-		_ = tmp2725
-
-		tmp2726 := MakeNative(func(__e *ControlFlow) {
-			Y1102 := __e.Get(1)
-			_ = Y1102
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				Y1103 := __e.Get(1)
-				_ = Y1103
-				__e.Return(PrimVectorGet(Y1102, Y1103))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2727 := PrimCons(sym_5_1address, tmp2726)
-
-		tmp2728 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2727)
-
-		_ = tmp2728
-
-		tmp2729 := MakeNative(func(__e *ControlFlow) {
-			Y1100 := __e.Get(1)
-			_ = Y1100
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				Y1101 := __e.Get(1)
-				_ = Y1101
-				__e.TailApply(PrimFunc(sym_5_1vector), Y1100, Y1101)
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2730 := PrimCons(sym_5_1vector, tmp2729)
-
-		tmp2731 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2730)
-
-		_ = tmp2731
-
-		tmp2732 := MakeNative(func(__e *ControlFlow) {
-			Y1098 := __e.Get(1)
-			_ = Y1098
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				Y1099 := __e.Get(1)
-				_ = Y1099
-				__e.Return(PrimGreatThan(Y1098, Y1099))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2733 := PrimCons(sym_6, tmp2732)
-
-		tmp2734 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2733)
-
-		_ = tmp2734
-
-		tmp2735 := MakeNative(func(__e *ControlFlow) {
-			Y1096 := __e.Get(1)
-			_ = Y1096
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				Y1097 := __e.Get(1)
-				_ = Y1097
-				__e.Return(PrimGreatEqual(Y1096, Y1097))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2736 := PrimCons(sym_6_a, tmp2735)
-
-		tmp2737 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2736)
-
-		_ = tmp2737
-
-		tmp2738 := MakeNative(func(__e *ControlFlow) {
-			Y1094 := __e.Get(1)
-			_ = Y1094
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				Y1095 := __e.Get(1)
-				_ = Y1095
-				__e.Return(PrimEqual(Y1094, Y1095))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2739 := PrimCons(sym_a, tmp2738)
-
-		tmp2740 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2739)
-
-		_ = tmp2740
-
-		tmp2741 := MakeNative(func(__e *ControlFlow) {
-			Y1092 := __e.Get(1)
-			_ = Y1092
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				Y1093 := __e.Get(1)
-				_ = Y1093
-				__e.TailApply(PrimFunc(symhash), Y1092, Y1093)
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2742 := PrimCons(symhash, tmp2741)
-
-		tmp2743 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2742)
-
-		_ = tmp2743
-
-		tmp2744 := MakeNative(func(__e *ControlFlow) {
-			Y1091 := __e.Get(1)
-			_ = Y1091
-			__e.Return(PrimHead(Y1091))
-			return
-		}, 1)
-
-		tmp2745 := PrimCons(symhd, tmp2744)
-
-		tmp2746 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2745)
-
-		_ = tmp2746
-
-		tmp2747 := MakeNative(func(__e *ControlFlow) {
-			Y1090 := __e.Get(1)
-			_ = Y1090
-			__e.TailApply(PrimFunc(symhdv), Y1090)
-			return
-		}, 1)
-
-		tmp2748 := PrimCons(symhdv, tmp2747)
-
-		tmp2749 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2748)
-
-		_ = tmp2749
-
-		tmp2750 := MakeNative(func(__e *ControlFlow) {
-			Y1089 := __e.Get(1)
-			_ = Y1089
-			__e.TailApply(PrimFunc(symhdstr), Y1089)
-			return
-		}, 1)
-
-		tmp2751 := PrimCons(symhdstr, tmp2750)
-
-		tmp2752 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2751)
-
-		_ = tmp2752
-
-		tmp2753 := MakeNative(func(__e *ControlFlow) {
-			Y1088 := __e.Get(1)
-			_ = Y1088
-			__e.TailApply(PrimFunc(symhead), Y1088)
-			return
-		}, 1)
-
-		tmp2754 := PrimCons(symhead, tmp2753)
-
-		tmp2755 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2754)
-
-		_ = tmp2755
-
-		tmp2756 := MakeNative(func(__e *ControlFlow) {
-			Y1087 := __e.Get(1)
-			_ = Y1087
-			__e.TailApply(PrimFunc(symhush), Y1087)
-			return
-		}, 1)
-
-		tmp2757 := PrimCons(symhush, tmp2756)
-
-		tmp2758 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2757)
-
-		_ = tmp2758
-
-		tmp2759 := MakeNative(func(__e *ControlFlow) {
-			Y1084 := __e.Get(1)
-			_ = Y1084
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				Y1085 := __e.Get(1)
-				_ = Y1085
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					Y1086 := __e.Get(1)
-					_ = Y1086
-					if True == Y1084 {
-						__e.Return(Y1085)
-						return
-					} else {
-						__e.Return(Y1086)
-						return
-					}
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2761 := PrimCons(symif, tmp2759)
-
-		tmp2762 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2761)
-
-		_ = tmp2762
-
-		tmp2763 := MakeNative(func(__e *ControlFlow) {
-			Y1083 := __e.Get(1)
-			_ = Y1083
-			__e.TailApply(PrimFunc(syminclude), Y1083)
-			return
-		}, 1)
-
-		tmp2764 := PrimCons(syminclude, tmp2763)
-
-		tmp2765 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2764)
-
-		_ = tmp2765
-
-		tmp2766 := MakeNative(func(__e *ControlFlow) {
-			Y1082 := __e.Get(1)
-			_ = Y1082
-			__e.TailApply(PrimFunc(symin_1package), Y1082)
-			return
-		}, 1)
-
-		tmp2767 := PrimCons(symin_1package, tmp2766)
-
-		tmp2768 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2767)
-
-		_ = tmp2768
-
-		tmp2769 := MakeNative(func(__e *ControlFlow) {
-			Y1081 := __e.Get(1)
-			_ = Y1081
-			__e.Return(PrimIsInteger(Y1081))
-			return
-		}, 1)
-
-		tmp2770 := PrimCons(syminteger_2, tmp2769)
-
-		tmp2771 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2770)
-
-		_ = tmp2771
-
-		tmp2772 := MakeNative(func(__e *ControlFlow) {
-			Y1080 := __e.Get(1)
-			_ = Y1080
-			__e.TailApply(PrimFunc(syminternal), Y1080)
-			return
-		}, 1)
-
-		tmp2773 := PrimCons(syminternal, tmp2772)
-
-		tmp2774 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2773)
-
-		_ = tmp2774
-
-		tmp2775 := MakeNative(func(__e *ControlFlow) {
-			Y1079 := __e.Get(1)
-			_ = Y1079
-			__e.Return(PrimIntern(Y1079))
-			return
-		}, 1)
-
-		tmp2776 := PrimCons(symintern, tmp2775)
-
-		tmp2777 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2776)
-
-		_ = tmp2777
-
-		tmp2778 := MakeNative(func(__e *ControlFlow) {
-			Y1078 := __e.Get(1)
-			_ = Y1078
-			__e.TailApply(PrimFunc(syminput), Y1078)
-			return
-		}, 1)
-
-		tmp2779 := PrimCons(syminput, tmp2778)
-
-		tmp2780 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2779)
-
-		_ = tmp2780
-
-		tmp2781 := MakeNative(func(__e *ControlFlow) {
-			Y1076 := __e.Get(1)
-			_ = Y1076
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				Y1077 := __e.Get(1)
-				_ = Y1077
-				__e.TailApply(PrimFunc(syminput_7), Y1076, Y1077)
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2782 := PrimCons(syminput_7, tmp2781)
-
-		tmp2783 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2782)
-
-		_ = tmp2783
-
-		tmp2784 := MakeNative(func(__e *ControlFlow) {
-			Y1075 := __e.Get(1)
-			_ = Y1075
-			__e.TailApply(PrimFunc(syminclude_1all_1but), Y1075)
-			return
-		}, 1)
-
-		tmp2785 := PrimCons(syminclude_1all_1but, tmp2784)
-
-		tmp2786 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2785)
-
-		_ = tmp2786
-
-		tmp2787 := MakeNative(func(__e *ControlFlow) {
-			Y1073 := __e.Get(1)
-			_ = Y1073
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				Y1074 := __e.Get(1)
-				_ = Y1074
-				__e.TailApply(PrimFunc(symintersection), Y1073, Y1074)
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2788 := PrimCons(symintersection, tmp2787)
-
-		tmp2789 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2788)
-
-		_ = tmp2789
-
-		tmp2790 := MakeNative(func(__e *ControlFlow) {
-			Y1072 := __e.Get(1)
-			_ = Y1072
-			__e.TailApply(PrimFunc(syminternal), Y1072)
-			return
-		}, 1)
-
-		tmp2791 := PrimCons(syminternal, tmp2790)
-
-		tmp2792 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2791)
-
-		_ = tmp2792
-
-		tmp2793 := MakeNative(func(__e *ControlFlow) {
-			Y1066 := __e.Get(1)
-			_ = Y1066
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				Y1067 := __e.Get(1)
-				_ = Y1067
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					Y1068 := __e.Get(1)
-					_ = Y1068
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Y1069 := __e.Get(1)
-						_ = Y1069
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							Y1070 := __e.Get(1)
-							_ = Y1070
-							__e.Return(MakeNative(func(__e *ControlFlow) {
-								Y1071 := __e.Get(1)
-								_ = Y1071
-								__e.TailApply(PrimFunc(symis), Y1066, Y1067, Y1068, Y1069, Y1070, Y1071)
-								return
-							}, 1))
-							return
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2794 := PrimCons(symis, tmp2793)
-
-		tmp2795 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2794)
-
-		_ = tmp2795
-
-		tmp2796 := MakeNative(func(__e *ControlFlow) {
-			Y1060 := __e.Get(1)
-			_ = Y1060
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				Y1061 := __e.Get(1)
-				_ = Y1061
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					Y1062 := __e.Get(1)
-					_ = Y1062
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Y1063 := __e.Get(1)
-						_ = Y1063
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							Y1064 := __e.Get(1)
-							_ = Y1064
-							__e.Return(MakeNative(func(__e *ControlFlow) {
-								Y1065 := __e.Get(1)
-								_ = Y1065
-								__e.TailApply(PrimFunc(symis_b), Y1060, Y1061, Y1062, Y1063, Y1064, Y1065)
-								return
-							}, 1))
-							return
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2797 := PrimCons(symis_b, tmp2796)
-
-		tmp2798 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2797)
-
-		_ = tmp2798
-
-		tmp2799 := MakeNative(func(__e *ControlFlow) {
-			Y1059 := __e.Get(1)
-			_ = Y1059
-			__e.TailApply(PrimFunc(symlength), Y1059)
-			return
-		}, 1)
-
-		tmp2800 := PrimCons(symlength, tmp2799)
-
-		tmp2801 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2800)
-
-		_ = tmp2801
-
-		tmp2802 := MakeNative(func(__e *ControlFlow) {
-			Y1058 := __e.Get(1)
-			_ = Y1058
-			__e.TailApply(PrimFunc(symlimit), Y1058)
-			return
-		}, 1)
-
-		tmp2803 := PrimCons(symlimit, tmp2802)
-
-		tmp2804 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2803)
-
-		_ = tmp2804
-
-		tmp2805 := MakeNative(func(__e *ControlFlow) {
-			Y1057 := __e.Get(1)
-			_ = Y1057
-			__e.TailApply(PrimFunc(symlineread), Y1057)
-			return
-		}, 1)
-
-		tmp2806 := PrimCons(symlineread, tmp2805)
-
-		tmp2807 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2806)
-
-		_ = tmp2807
-
-		tmp2808 := MakeNative(func(__e *ControlFlow) {
-			Y1056 := __e.Get(1)
-			_ = Y1056
-			__e.TailApply(PrimFunc(symload), Y1056)
-			return
-		}, 1)
-
-		tmp2809 := PrimCons(symload, tmp2808)
-
-		tmp2810 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2809)
-
-		_ = tmp2810
-
-		tmp2811 := MakeNative(func(__e *ControlFlow) {
-			Y1054 := __e.Get(1)
-			_ = Y1054
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				Y1055 := __e.Get(1)
-				_ = Y1055
-				__e.Return(PrimLessThan(Y1054, Y1055))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2812 := PrimCons(sym_5, tmp2811)
-
-		tmp2813 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2812)
-
-		_ = tmp2813
-
-		tmp2814 := MakeNative(func(__e *ControlFlow) {
-			Y1052 := __e.Get(1)
-			_ = Y1052
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				Y1053 := __e.Get(1)
-				_ = Y1053
-				__e.Return(PrimLessEqual(Y1052, Y1053))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2815 := PrimCons(sym_5_a, tmp2814)
-
-		tmp2816 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2815)
-
-		_ = tmp2816
-
-		tmp2817 := MakeNative(func(__e *ControlFlow) {
-			Y1051 := __e.Get(1)
-			_ = Y1051
-			__e.TailApply(PrimFunc(symvector), Y1051)
-			return
-		}, 1)
-
-		tmp2818 := PrimCons(symvector, tmp2817)
-
-		tmp2819 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2818)
-
-		_ = tmp2819
-
-		tmp2820 := MakeNative(func(__e *ControlFlow) {
-			Y1050 := __e.Get(1)
-			_ = Y1050
-			__e.TailApply(PrimFunc(symmacroexpand), Y1050)
-			return
-		}, 1)
-
-		tmp2821 := PrimCons(symmacroexpand, tmp2820)
-
-		tmp2822 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2821)
-
-		_ = tmp2822
-
-		tmp2823 := MakeNative(func(__e *ControlFlow) {
-			Y1048 := __e.Get(1)
-			_ = Y1048
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				Y1049 := __e.Get(1)
-				_ = Y1049
-				__e.TailApply(PrimFunc(symmap), Y1048, Y1049)
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2824 := PrimCons(symmap, tmp2823)
-
-		tmp2825 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2824)
-
-		_ = tmp2825
-
-		tmp2826 := MakeNative(func(__e *ControlFlow) {
-			Y1046 := __e.Get(1)
-			_ = Y1046
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				Y1047 := __e.Get(1)
-				_ = Y1047
-				__e.TailApply(PrimFunc(symmapcan), Y1046, Y1047)
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2827 := PrimCons(symmapcan, tmp2826)
-
-		tmp2828 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2827)
-
-		_ = tmp2828
-
-		tmp2829 := MakeNative(func(__e *ControlFlow) {
-			Y1045 := __e.Get(1)
-			_ = Y1045
-			__e.TailApply(PrimFunc(symmaxinferences), Y1045)
-			return
-		}, 1)
-
-		tmp2830 := PrimCons(symmaxinferences, tmp2829)
-
-		tmp2831 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2830)
-
-		_ = tmp2831
-
-		tmp2832 := MakeNative(func(__e *ControlFlow) {
-			Y1044 := __e.Get(1)
-			_ = Y1044
-			__e.TailApply(PrimFunc(symnl), Y1044)
-			return
-		}, 1)
-
-		tmp2833 := PrimCons(symnl, tmp2832)
-
-		tmp2834 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2833)
-
-		_ = tmp2834
-
-		tmp2835 := MakeNative(func(__e *ControlFlow) {
-			Y1043 := __e.Get(1)
-			_ = Y1043
-			__e.Return(PrimNot(Y1043))
-			return
-		}, 1)
-
-		tmp2836 := PrimCons(symnot, tmp2835)
-
-		tmp2837 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2836)
-
-		_ = tmp2837
-
-		tmp2838 := MakeNative(func(__e *ControlFlow) {
-			Y1041 := __e.Get(1)
-			_ = Y1041
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				Y1042 := __e.Get(1)
-				_ = Y1042
-				__e.TailApply(PrimFunc(symnth), Y1041, Y1042)
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2839 := PrimCons(symnth, tmp2838)
-
-		tmp2840 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2839)
-
-		_ = tmp2840
-
-		tmp2841 := MakeNative(func(__e *ControlFlow) {
-			Y1040 := __e.Get(1)
-			_ = Y1040
-			__e.Return(PrimNumberToString(Y1040))
-			return
-		}, 1)
-
-		tmp2842 := PrimCons(symn_1_6string, tmp2841)
-
-		tmp2843 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2842)
-
-		_ = tmp2843
-
-		tmp2844 := MakeNative(func(__e *ControlFlow) {
-			Y1039 := __e.Get(1)
-			_ = Y1039
-			__e.Return(PrimIsNumber(Y1039))
-			return
-		}, 1)
-
-		tmp2845 := PrimCons(symnumber_2, tmp2844)
-
-		tmp2846 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2845)
-
-		_ = tmp2846
-
-		tmp2847 := MakeNative(func(__e *ControlFlow) {
-			Y1038 := __e.Get(1)
-			_ = Y1038
-			__e.TailApply(PrimFunc(symoccurs_1check), Y1038)
-			return
-		}, 1)
-
-		tmp2848 := PrimCons(symoccurs_1check, tmp2847)
-
-		tmp2849 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2848)
-
-		_ = tmp2849
-
-		tmp2850 := MakeNative(func(__e *ControlFlow) {
-			Y1036 := __e.Get(1)
-			_ = Y1036
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				Y1037 := __e.Get(1)
-				_ = Y1037
-				__e.TailApply(PrimFunc(symoccurrences), Y1036, Y1037)
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2851 := PrimCons(symoccurrences, tmp2850)
-
-		tmp2852 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2851)
-
-		_ = tmp2852
-
-		tmp2853 := MakeNative(func(__e *ControlFlow) {
-			Y1035 := __e.Get(1)
-			_ = Y1035
-			__e.TailApply(PrimFunc(symoccurs_1check), Y1035)
-			return
-		}, 1)
-
-		tmp2854 := PrimCons(symoccurs_1check, tmp2853)
-
-		tmp2855 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2854)
-
-		_ = tmp2855
-
-		tmp2856 := MakeNative(func(__e *ControlFlow) {
-			Y1033 := __e.Get(1)
-			_ = Y1033
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				Y1034 := __e.Get(1)
-				_ = Y1034
-				__e.Return(PrimOpenStream(Y1033, Y1034))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2857 := PrimCons(symopen, tmp2856)
-
-		tmp2858 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2857)
-
-		_ = tmp2858
-
-		tmp2859 := MakeNative(func(__e *ControlFlow) {
-			Y1032 := __e.Get(1)
-			_ = Y1032
-			__e.TailApply(PrimFunc(symoptimise), Y1032)
-			return
-		}, 1)
-
-		tmp2860 := PrimCons(symoptimise, tmp2859)
-
-		tmp2861 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2860)
-
-		_ = tmp2861
-
-		tmp2862 := MakeNative(func(__e *ControlFlow) {
-			Y1030 := __e.Get(1)
-			_ = Y1030
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				Y1031 := __e.Get(1)
-				_ = Y1031
-				if True == Y1030 {
-					__e.Return(True)
-					return
-				} else {
-					if True == Y1031 {
-						__e.Return(True)
-						return
-					} else {
-						__e.Return(False)
-						return
-					}
-				}
-			}, 1))
-			return
-		}, 1)
-
-		tmp2865 := PrimCons(symor, tmp2862)
-
-		tmp2866 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2865)
-
-		_ = tmp2866
-
-		tmp2867 := MakeNative(func(__e *ControlFlow) {
-			Y1029 := __e.Get(1)
-			_ = Y1029
-			__e.TailApply(PrimFunc(sympackage_2), Y1029)
-			return
-		}, 1)
-
-		tmp2868 := PrimCons(sympackage_2, tmp2867)
-
-		tmp2869 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2868)
-
-		_ = tmp2869
-
-		tmp2870 := MakeNative(func(__e *ControlFlow) {
-			Y1027 := __e.Get(1)
-			_ = Y1027
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				Y1028 := __e.Get(1)
-				_ = Y1028
-				__e.Return(PrimPos(Y1027, Y1028))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2871 := PrimCons(sympos, tmp2870)
-
-		tmp2872 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2871)
-
-		_ = tmp2872
-
-		tmp2873 := MakeNative(func(__e *ControlFlow) {
-			Y1026 := __e.Get(1)
-			_ = Y1026
-			__e.TailApply(PrimFunc(sympreclude_1all_1but), Y1026)
-			return
-		}, 1)
-
-		tmp2874 := PrimCons(sympreclude_1all_1but, tmp2873)
-
-		tmp2875 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2874)
-
-		_ = tmp2875
-
-		tmp2876 := MakeNative(func(__e *ControlFlow) {
-			Y1025 := __e.Get(1)
-			_ = Y1025
-			__e.TailApply(PrimFunc(symprint), Y1025)
-			return
-		}, 1)
-
-		tmp2877 := PrimCons(symprint, tmp2876)
-
-		tmp2878 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2877)
-
-		_ = tmp2878
-
-		tmp2879 := MakeNative(func(__e *ControlFlow) {
-			Y1024 := __e.Get(1)
-			_ = Y1024
-			__e.TailApply(PrimFunc(symprofile), Y1024)
-			return
-		}, 1)
-
-		tmp2880 := PrimCons(symprofile, tmp2879)
-
-		tmp2881 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2880)
-
-		_ = tmp2881
-
-		tmp2882 := MakeNative(func(__e *ControlFlow) {
-			Y1023 := __e.Get(1)
-			_ = Y1023
-			__e.TailApply(PrimFunc(symshen_4print_1prolog_1vector), Y1023)
-			return
-		}, 1)
-
-		tmp2883 := PrimCons(symshen_4print_1prolog_1vector, tmp2882)
-
-		tmp2884 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2883)
-
-		_ = tmp2884
-
-		tmp2885 := MakeNative(func(__e *ControlFlow) {
-			Y1022 := __e.Get(1)
-			_ = Y1022
-			__e.TailApply(PrimFunc(symshen_4print_1freshterm), Y1022)
-			return
-		}, 1)
-
-		tmp2886 := PrimCons(symshen_4print_1freshterm, tmp2885)
-
-		tmp2887 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2886)
-
-		_ = tmp2887
-
-		tmp2888 := MakeNative(func(__e *ControlFlow) {
-			Y1021 := __e.Get(1)
-			_ = Y1021
-			__e.TailApply(PrimFunc(symshen_4printF), Y1021)
-			return
-		}, 1)
-
-		tmp2889 := PrimCons(symshen_4printF, tmp2888)
-
-		tmp2890 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2889)
-
-		_ = tmp2890
-
-		tmp2891 := MakeNative(func(__e *ControlFlow) {
-			Y1020 := __e.Get(1)
-			_ = Y1020
-			__e.TailApply(PrimFunc(symprolog_1memory), Y1020)
-			return
-		}, 1)
-
-		tmp2892 := PrimCons(symprolog_1memory, tmp2891)
-
-		tmp2893 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2892)
-
-		_ = tmp2893
-
-		tmp2894 := MakeNative(func(__e *ControlFlow) {
-			Y1019 := __e.Get(1)
-			_ = Y1019
-			__e.TailApply(PrimFunc(symprofile_1results), Y1019)
-			return
-		}, 1)
-
-		tmp2895 := PrimCons(symprofile_1results, tmp2894)
-
-		tmp2896 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2895)
-
-		_ = tmp2896
-
-		tmp2897 := MakeNative(func(__e *ControlFlow) {
-			Y1017 := __e.Get(1)
-			_ = Y1017
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				Y1018 := __e.Get(1)
-				_ = Y1018
-				__e.TailApply(PrimFunc(sympr), Y1017, Y1018)
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2898 := PrimCons(sympr, tmp2897)
-
-		tmp2899 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2898)
-
-		_ = tmp2899
-
-		tmp2900 := MakeNative(func(__e *ControlFlow) {
-			Y1016 := __e.Get(1)
-			_ = Y1016
-			__e.TailApply(PrimFunc(symps), Y1016)
-			return
-		}, 1)
-
-		tmp2901 := PrimCons(symps, tmp2900)
-
-		tmp2902 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2901)
-
-		_ = tmp2902
-
-		tmp2903 := MakeNative(func(__e *ControlFlow) {
-			Y1015 := __e.Get(1)
-			_ = Y1015
-			__e.TailApply(PrimFunc(sympreclude), Y1015)
-			return
-		}, 1)
-
-		tmp2904 := PrimCons(sympreclude, tmp2903)
-
-		tmp2905 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2904)
-
-		_ = tmp2905
-
-		tmp2906 := MakeNative(func(__e *ControlFlow) {
-			Y1014 := __e.Get(1)
-			_ = Y1014
-			__e.TailApply(PrimFunc(sympreclude_1all_1but), Y1014)
-			return
-		}, 1)
-
-		tmp2907 := PrimCons(sympreclude_1all_1but, tmp2906)
-
-		tmp2908 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2907)
-
-		_ = tmp2908
-
-		tmp2909 := MakeNative(func(__e *ControlFlow) {
-			Y1013 := __e.Get(1)
-			_ = Y1013
-			__e.TailApply(PrimFunc(symprotect), Y1013)
-			return
-		}, 1)
-
-		tmp2910 := PrimCons(symprotect, tmp2909)
-
-		tmp2911 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2910)
-
-		_ = tmp2911
-
-		tmp2912 := MakeNative(func(__e *ControlFlow) {
-			Y1009 := __e.Get(1)
-			_ = Y1009
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				Y1010 := __e.Get(1)
-				_ = Y1010
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					Y1011 := __e.Get(1)
-					_ = Y1011
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Y1012 := __e.Get(1)
-						_ = Y1012
-						__e.TailApply(PrimFunc(symput), Y1009, Y1010, Y1011, Y1012)
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2913 := PrimCons(symput, tmp2912)
-
-		tmp2914 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2913)
-
-		_ = tmp2914
-
-		tmp2915 := MakeNative(func(__e *ControlFlow) {
-			Y1008 := __e.Get(1)
-			_ = Y1008
-			__e.Return(PrimReadFileAsString(Y1008))
-			return
-		}, 1)
-
-		tmp2916 := PrimCons(symread_1file_1as_1string, tmp2915)
-
-		tmp2917 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2916)
-
-		_ = tmp2917
-
-		tmp2918 := MakeNative(func(__e *ControlFlow) {
-			Y1007 := __e.Get(1)
-			_ = Y1007
-			__e.Return(PrimReadFileAsByteList(Y1007))
-			return
-		}, 1)
-
-		tmp2919 := PrimCons(symread_1file_1as_1bytelist, tmp2918)
-
-		tmp2920 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2919)
-
-		_ = tmp2920
-
-		tmp2921 := MakeNative(func(__e *ControlFlow) {
-			Y1006 := __e.Get(1)
-			_ = Y1006
-			__e.TailApply(PrimFunc(symread_1file), Y1006)
-			return
-		}, 1)
-
-		tmp2922 := PrimCons(symread_1file, tmp2921)
-
-		tmp2923 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2922)
-
-		_ = tmp2923
-
-		tmp2924 := MakeNative(func(__e *ControlFlow) {
-			Y1005 := __e.Get(1)
-			_ = Y1005
-			__e.TailApply(PrimFunc(symread), Y1005)
-			return
-		}, 1)
-
-		tmp2925 := PrimCons(symread, tmp2924)
-
-		tmp2926 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2925)
-
-		_ = tmp2926
-
-		tmp2927 := MakeNative(func(__e *ControlFlow) {
-			Y1004 := __e.Get(1)
-			_ = Y1004
-			__e.Return(PrimReadByte(Y1004))
-			return
-		}, 1)
-
-		tmp2928 := PrimCons(symread_1byte, tmp2927)
-
-		tmp2929 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2928)
-
-		_ = tmp2929
-
-		tmp2930 := MakeNative(func(__e *ControlFlow) {
-			Y1003 := __e.Get(1)
-			_ = Y1003
-			__e.TailApply(PrimFunc(symread_1from_1string), Y1003)
-			return
-		}, 1)
-
-		tmp2931 := PrimCons(symread_1from_1string, tmp2930)
-
-		tmp2932 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2931)
-
-		_ = tmp2932
-
-		tmp2933 := MakeNative(func(__e *ControlFlow) {
-			Y1002 := __e.Get(1)
-			_ = Y1002
-			__e.TailApply(PrimFunc(symread_1from_1string_1unprocessed), Y1002)
-			return
-		}, 1)
-
-		tmp2934 := PrimCons(symread_1from_1string_1unprocessed, tmp2933)
-
-		tmp2935 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2934)
-
-		_ = tmp2935
-
-		tmp2936 := MakeNative(func(__e *ControlFlow) {
-			Y1001 := __e.Get(1)
-			_ = Y1001
-			__e.TailApply(PrimFunc(symshen_4read_1unit_1string), Y1001)
-			return
-		}, 1)
-
-		tmp2937 := PrimCons(symshen_4read_1unit_1string, tmp2936)
-
-		tmp2938 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2937)
-
-		_ = tmp2938
-
-		tmp2939 := MakeNative(func(__e *ControlFlow) {
-			Y999 := __e.Get(1)
-			_ = Y999
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				Y1000 := __e.Get(1)
-				_ = Y1000
-				__e.TailApply(PrimFunc(symremove), Y999, Y1000)
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2940 := PrimCons(symremove, tmp2939)
-
-		tmp2941 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2940)
-
-		_ = tmp2941
-
-		tmp2942 := MakeNative(func(__e *ControlFlow) {
-			Y998 := __e.Get(1)
-			_ = Y998
-			__e.TailApply(PrimFunc(symreverse), Y998)
-			return
-		}, 1)
-
-		tmp2943 := PrimCons(symreverse, tmp2942)
-
-		tmp2944 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2943)
-
-		_ = tmp2944
-
-		tmp2945 := MakeNative(func(__e *ControlFlow) {
-			Y996 := __e.Get(1)
-			_ = Y996
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				Y997 := __e.Get(1)
-				_ = Y997
-				__e.Return(PrimSet(Y996, Y997))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2946 := PrimCons(symset, tmp2945)
-
-		tmp2947 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2946)
-
-		_ = tmp2947
-
-		tmp2948 := MakeNative(func(__e *ControlFlow) {
-			Y995 := __e.Get(1)
-			_ = Y995
-			__e.Return(PrimSimpleError(Y995))
-			return
-		}, 1)
-
-		tmp2949 := PrimCons(symsimple_1error, tmp2948)
-
-		tmp2950 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2949)
-
-		_ = tmp2950
-
-		tmp2951 := MakeNative(func(__e *ControlFlow) {
-			Y994 := __e.Get(1)
-			_ = Y994
-			__e.TailApply(PrimFunc(symsnd), Y994)
-			return
-		}, 1)
-
-		tmp2952 := PrimCons(symsnd, tmp2951)
-
-		tmp2953 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2952)
-
-		_ = tmp2953
-
-		tmp2954 := MakeNative(func(__e *ControlFlow) {
-			Y992 := __e.Get(1)
-			_ = Y992
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				Y993 := __e.Get(1)
-				_ = Y993
-				__e.TailApply(PrimFunc(symspecialise), Y992, Y993)
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2955 := PrimCons(symspecialise, tmp2954)
-
-		tmp2956 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2955)
-
-		_ = tmp2956
-
-		tmp2957 := MakeNative(func(__e *ControlFlow) {
-			Y991 := __e.Get(1)
-			_ = Y991
-			__e.TailApply(PrimFunc(symspy), Y991)
-			return
-		}, 1)
-
-		tmp2958 := PrimCons(symspy, tmp2957)
-
-		tmp2959 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2958)
-
-		_ = tmp2959
-
-		tmp2960 := MakeNative(func(__e *ControlFlow) {
-			Y990 := __e.Get(1)
-			_ = Y990
-			__e.TailApply(PrimFunc(symstep), Y990)
-			return
-		}, 1)
-
-		tmp2961 := PrimCons(symstep, tmp2960)
-
-		tmp2962 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2961)
-
-		_ = tmp2962
-
-		tmp2963 := MakeNative(func(__e *ControlFlow) {
-			Y989 := __e.Get(1)
-			_ = Y989
-			__e.Return(PrimStr(Y989))
-			return
-		}, 1)
-
-		tmp2964 := PrimCons(symstr, tmp2963)
-
-		tmp2965 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2964)
-
-		_ = tmp2965
-
-		tmp2966 := MakeNative(func(__e *ControlFlow) {
-			Y988 := __e.Get(1)
-			_ = Y988
-			__e.Return(PrimStringToNumber(Y988))
-			return
-		}, 1)
-
-		tmp2967 := PrimCons(symstring_1_6n, tmp2966)
-
-		tmp2968 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2967)
-
-		_ = tmp2968
-
-		tmp2969 := MakeNative(func(__e *ControlFlow) {
-			Y987 := __e.Get(1)
-			_ = Y987
-			__e.TailApply(PrimFunc(symstring_1_6symbol), Y987)
-			return
-		}, 1)
-
-		tmp2970 := PrimCons(symstring_1_6symbol, tmp2969)
-
-		tmp2971 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2970)
-
-		_ = tmp2971
-
-		tmp2972 := MakeNative(func(__e *ControlFlow) {
-			Y986 := __e.Get(1)
-			_ = Y986
-			__e.Return(PrimIsString(Y986))
-			return
-		}, 1)
-
-		tmp2973 := PrimCons(symstring_2, tmp2972)
-
-		tmp2974 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2973)
-
-		_ = tmp2974
-
-		tmp2975 := MakeNative(func(__e *ControlFlow) {
-			Y983 := __e.Get(1)
-			_ = Y983
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				Y984 := __e.Get(1)
-				_ = Y984
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					Y985 := __e.Get(1)
-					_ = Y985
-					__e.TailApply(PrimFunc(symsubst), Y983, Y984, Y985)
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp2976 := PrimCons(symsubst, tmp2975)
-
-		tmp2977 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2976)
-
-		_ = tmp2977
-
-		tmp2978 := MakeNative(func(__e *ControlFlow) {
-			Y982 := __e.Get(1)
-			_ = Y982
-			__e.TailApply(PrimFunc(symsum), Y982)
-			return
-		}, 1)
-
-		tmp2979 := PrimCons(symsum, tmp2978)
-
-		tmp2980 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2979)
-
-		_ = tmp2980
-
-		tmp2981 := MakeNative(func(__e *ControlFlow) {
-			Y981 := __e.Get(1)
-			_ = Y981
-			__e.Return(PrimIsSymbol(Y981))
-			return
-		}, 1)
-
-		tmp2982 := PrimCons(symsymbol_2, tmp2981)
-
-		tmp2983 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2982)
-
-		_ = tmp2983
-
-		tmp2984 := MakeNative(func(__e *ControlFlow) {
-			Y980 := __e.Get(1)
-			_ = Y980
-			__e.TailApply(PrimFunc(symsystemf), Y980)
-			return
-		}, 1)
-
-		tmp2985 := PrimCons(symsystemf, tmp2984)
-
-		tmp2986 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2985)
-
-		_ = tmp2986
-
-		tmp2987 := MakeNative(func(__e *ControlFlow) {
-			Y979 := __e.Get(1)
-			_ = Y979
-			__e.TailApply(PrimFunc(symtail), Y979)
-			return
-		}, 1)
-
-		tmp2988 := PrimCons(symtail, tmp2987)
-
-		tmp2989 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2988)
-
-		_ = tmp2989
-
-		tmp2990 := MakeNative(func(__e *ControlFlow) {
-			Y978 := __e.Get(1)
-			_ = Y978
-			__e.Return(PrimTail(Y978))
-			return
-		}, 1)
-
-		tmp2991 := PrimCons(symtl, tmp2990)
-
-		tmp2992 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2991)
-
-		_ = tmp2992
-
-		tmp2993 := MakeNative(func(__e *ControlFlow) {
-			Y977 := __e.Get(1)
-			_ = Y977
-			__e.TailApply(PrimFunc(symtc), Y977)
-			return
-		}, 1)
-
-		tmp2994 := PrimCons(symtc, tmp2993)
-
-		tmp2995 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2994)
-
-		_ = tmp2995
-
-		tmp2996 := MakeNative(func(__e *ControlFlow) {
-			Y976 := __e.Get(1)
-			_ = Y976
-			__e.TailApply(PrimFunc(symthaw), Y976)
-			return
-		}, 1)
-
-		tmp2997 := PrimCons(symthaw, tmp2996)
-
-		tmp2998 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp2997)
-
-		_ = tmp2998
-
-		tmp2999 := MakeNative(func(__e *ControlFlow) {
-			Y975 := __e.Get(1)
-			_ = Y975
-			__e.Return(PrimTailString(Y975))
-			return
-		}, 1)
-
-		tmp3000 := PrimCons(symtlstr, tmp2999)
-
-		tmp3001 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp3000)
-
-		_ = tmp3001
-
-		tmp3002 := MakeNative(func(__e *ControlFlow) {
-			Y974 := __e.Get(1)
-			_ = Y974
-			__e.TailApply(PrimFunc(symtrack), Y974)
-			return
-		}, 1)
-
-		tmp3003 := PrimCons(symtrack, tmp3002)
-
-		tmp3004 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp3003)
-
-		_ = tmp3004
-
-		tmp3005 := MakeNative(func(__e *ControlFlow) {
-			Y972 := __e.Get(1)
-			_ = Y972
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				Y973 := __e.Get(1)
-				_ = Y973
-				tmp3006 := MakeNative(func(__e *ControlFlow) {
-					__e.Return(Y972)
-					return
-				}, 0)
-
-				__e.TailApply(try_1catch, tmp3006, Y973)
-				return
-
-			}, 1))
-			return
-		}, 1)
-
-		tmp3007 := PrimCons(symtrap_1error, tmp3005)
-
-		tmp3008 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp3007)
-
-		_ = tmp3008
-
-		tmp3009 := MakeNative(func(__e *ControlFlow) {
-			Y971 := __e.Get(1)
-			_ = Y971
-			__e.TailApply(PrimFunc(symtuple_2), Y971)
-			return
-		}, 1)
-
-		tmp3010 := PrimCons(symtuple_2, tmp3009)
-
-		tmp3011 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp3010)
-
-		_ = tmp3011
-
-		tmp3012 := MakeNative(func(__e *ControlFlow) {
-			Y969 := __e.Get(1)
-			_ = Y969
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				Y970 := __e.Get(1)
-				_ = Y970
-				__e.Return(Y969)
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp3013 := PrimCons(symtype, tmp3012)
-
-		tmp3014 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp3013)
-
-		_ = tmp3014
-
-		tmp3015 := MakeNative(func(__e *ControlFlow) {
-			Y964 := __e.Get(1)
-			_ = Y964
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				Y965 := __e.Get(1)
-				_ = Y965
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					Y966 := __e.Get(1)
-					_ = Y966
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Y967 := __e.Get(1)
-						_ = Y967
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							Y968 := __e.Get(1)
-							_ = Y968
-							__e.TailApply(PrimFunc(symreturn), Y964, Y965, Y966, Y967, Y968)
-							return
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp3016 := PrimCons(symreturn, tmp3015)
-
-		tmp3017 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp3016)
-
-		_ = tmp3017
-
-		tmp3018 := MakeNative(func(__e *ControlFlow) {
-			Y963 := __e.Get(1)
-			_ = Y963
-			__e.TailApply(PrimFunc(symunabsolute), Y963)
-			return
-		}, 1)
-
-		tmp3019 := PrimCons(symunabsolute, tmp3018)
-
-		tmp3020 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp3019)
-
-		_ = tmp3020
-
-		tmp3021 := MakeNative(func(__e *ControlFlow) {
-			Y962 := __e.Get(1)
-			_ = Y962
-			__e.TailApply(PrimFunc(symundefmacro), Y962)
-			return
-		}, 1)
-
-		tmp3022 := PrimCons(symundefmacro, tmp3021)
-
-		tmp3023 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp3022)
-
-		_ = tmp3023
-
-		tmp3024 := MakeNative(func(__e *ControlFlow) {
-			Y959 := __e.Get(1)
-			_ = Y959
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				Y960 := __e.Get(1)
-				_ = Y960
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					Y961 := __e.Get(1)
-					_ = Y961
-					__e.TailApply(PrimFunc(symunput), Y959, Y960, Y961)
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp3025 := PrimCons(symunput, tmp3024)
-
-		tmp3026 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp3025)
-
-		_ = tmp3026
-
-		tmp3027 := MakeNative(func(__e *ControlFlow) {
-			Y958 := __e.Get(1)
-			_ = Y958
-			__e.TailApply(PrimFunc(symunprofile), Y958)
-			return
-		}, 1)
-
-		tmp3028 := PrimCons(symunprofile, tmp3027)
-
-		tmp3029 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp3028)
-
-		_ = tmp3029
-
-		tmp3030 := MakeNative(func(__e *ControlFlow) {
-			Y956 := __e.Get(1)
-			_ = Y956
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				Y957 := __e.Get(1)
-				_ = Y957
-				__e.TailApply(PrimFunc(symunion), Y956, Y957)
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp3031 := PrimCons(symunion, tmp3030)
-
-		tmp3032 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp3031)
-
-		_ = tmp3032
-
-		tmp3033 := MakeNative(func(__e *ControlFlow) {
-			Y955 := __e.Get(1)
-			_ = Y955
-			__e.TailApply(PrimFunc(symuntrack), Y955)
-			return
-		}, 1)
-
-		tmp3034 := PrimCons(symuntrack, tmp3033)
-
-		tmp3035 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp3034)
-
-		_ = tmp3035
-
-		tmp3036 := MakeNative(func(__e *ControlFlow) {
-			Y954 := __e.Get(1)
-			_ = Y954
-			__e.TailApply(PrimFunc(symundefmacro), Y954)
-			return
-		}, 1)
-
-		tmp3037 := PrimCons(symundefmacro, tmp3036)
-
-		tmp3038 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp3037)
-
-		_ = tmp3038
-
-		tmp3039 := MakeNative(func(__e *ControlFlow) {
-			Y952 := __e.Get(1)
-			_ = Y952
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				Y953 := __e.Get(1)
-				_ = Y953
-				__e.TailApply(PrimFunc(symupdate_1lambda_1table), Y952, Y953)
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp3040 := PrimCons(symupdate_1lambda_1table, tmp3039)
-
-		tmp3041 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp3040)
-
-		_ = tmp3041
-
-		tmp3042 := MakeNative(func(__e *ControlFlow) {
-			Y951 := __e.Get(1)
-			_ = Y951
-			__e.TailApply(PrimFunc(symvector), Y951)
-			return
-		}, 1)
-
-		tmp3043 := PrimCons(symvector, tmp3042)
-
-		tmp3044 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp3043)
-
-		_ = tmp3044
-
-		tmp3045 := MakeNative(func(__e *ControlFlow) {
-			Y950 := __e.Get(1)
-			_ = Y950
-			__e.TailApply(PrimFunc(symvector_2), Y950)
-			return
-		}, 1)
-
-		tmp3046 := PrimCons(symvector_2, tmp3045)
-
-		tmp3047 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp3046)
-
-		_ = tmp3047
-
-		tmp3048 := MakeNative(func(__e *ControlFlow) {
-			Y947 := __e.Get(1)
-			_ = Y947
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				Y948 := __e.Get(1)
-				_ = Y948
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					Y949 := __e.Get(1)
-					_ = Y949
-					__e.TailApply(PrimFunc(symvector_1_6), Y947, Y948, Y949)
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp3049 := PrimCons(symvector_1_6, tmp3048)
-
-		tmp3050 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp3049)
-
-		_ = tmp3050
-
-		tmp3051 := MakeNative(func(__e *ControlFlow) {
-			Y946 := __e.Get(1)
-			_ = Y946
-			__e.Return(PrimValue(Y946))
-			return
-		}, 1)
-
-		tmp3052 := PrimCons(symvalue, tmp3051)
-
-		tmp3053 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp3052)
-
-		_ = tmp3053
-
-		tmp3054 := MakeNative(func(__e *ControlFlow) {
-			Y945 := __e.Get(1)
-			_ = Y945
-			__e.Return(PrimIsVariable(Y945))
-			return
-		}, 1)
-
-		tmp3055 := PrimCons(symvariable_2, tmp3054)
-
-		tmp3056 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp3055)
-
-		_ = tmp3056
-
-		tmp3057 := MakeNative(func(__e *ControlFlow) {
-			Y940 := __e.Get(1)
-			_ = Y940
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				Y941 := __e.Get(1)
-				_ = Y941
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					Y942 := __e.Get(1)
-					_ = Y942
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Y943 := __e.Get(1)
-						_ = Y943
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							Y944 := __e.Get(1)
-							_ = Y944
-							__e.TailApply(PrimFunc(symvar_2), Y940, Y941, Y942, Y943, Y944)
-							return
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp3058 := PrimCons(symvar_2, tmp3057)
-
-		tmp3059 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp3058)
-
-		_ = tmp3059
-
-		tmp3060 := MakeNative(func(__e *ControlFlow) {
-			Y935 := __e.Get(1)
-			_ = Y935
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				Y936 := __e.Get(1)
-				_ = Y936
-				__e.Return(MakeNative(func(__e *ControlFlow) {
-					Y937 := __e.Get(1)
-					_ = Y937
-					__e.Return(MakeNative(func(__e *ControlFlow) {
-						Y938 := __e.Get(1)
-						_ = Y938
-						__e.Return(MakeNative(func(__e *ControlFlow) {
-							Y939 := __e.Get(1)
-							_ = Y939
-							__e.TailApply(PrimFunc(symwhen), Y935, Y936, Y937, Y938, Y939)
-							return
-						}, 1))
-						return
-					}, 1))
-					return
-				}, 1))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp3061 := PrimCons(symwhen, tmp3060)
-
-		tmp3062 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp3061)
-
-		_ = tmp3062
-
-		tmp3063 := MakeNative(func(__e *ControlFlow) {
-			Y933 := __e.Get(1)
-			_ = Y933
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				Y934 := __e.Get(1)
-				_ = Y934
-				__e.Return(PrimWriteByte(Y933, Y934))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp3064 := PrimCons(symwrite_1byte, tmp3063)
-
-		tmp3065 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp3064)
-
-		_ = tmp3065
-
-		tmp3066 := MakeNative(func(__e *ControlFlow) {
-			Y931 := __e.Get(1)
-			_ = Y931
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				Y932 := __e.Get(1)
-				_ = Y932
-				__e.TailApply(PrimFunc(symwrite_1to_1file), Y931, Y932)
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp3067 := PrimCons(symwrite_1to_1file, tmp3066)
-
-		tmp3068 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp3067)
-
-		_ = tmp3068
-
-		tmp3069 := MakeNative(func(__e *ControlFlow) {
-			Y930 := __e.Get(1)
-			_ = Y930
-			__e.TailApply(PrimFunc(symy_1or_1n_2), Y930)
-			return
-		}, 1)
-
-		tmp3070 := PrimCons(symy_1or_1n_2, tmp3069)
-
-		tmp3071 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp3070)
-
-		_ = tmp3071
-
-		tmp3072 := MakeNative(func(__e *ControlFlow) {
-			Y928 := __e.Get(1)
-			_ = Y928
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				Y929 := __e.Get(1)
-				_ = Y929
-				__e.Return(PrimNumberAdd(Y928, Y929))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp3073 := PrimCons(sym_7, tmp3072)
-
-		tmp3074 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp3073)
-
-		_ = tmp3074
-
-		tmp3075 := MakeNative(func(__e *ControlFlow) {
-			Y926 := __e.Get(1)
-			_ = Y926
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				Y927 := __e.Get(1)
-				_ = Y927
-				__e.Return(PrimNumberMultiply(Y926, Y927))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp3076 := PrimCons(sym_d, tmp3075)
-
-		tmp3077 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp3076)
-
-		_ = tmp3077
-
-		tmp3078 := MakeNative(func(__e *ControlFlow) {
-			Y924 := __e.Get(1)
-			_ = Y924
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				Y925 := __e.Get(1)
-				_ = Y925
-				__e.Return(PrimNumberDivide(Y924, Y925))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp3079 := PrimCons(sym_c, tmp3078)
-
-		tmp3080 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp3079)
-
-		_ = tmp3080
-
-		tmp3081 := MakeNative(func(__e *ControlFlow) {
-			Y922 := __e.Get(1)
-			_ = Y922
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				Y923 := __e.Get(1)
-				_ = Y923
-				__e.Return(PrimNumberSubtract(Y922, Y923))
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp3082 := PrimCons(sym_1, tmp3081)
-
-		tmp3083 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp3082)
-
-		_ = tmp3083
-
-		tmp3084 := MakeNative(func(__e *ControlFlow) {
-			Y920 := __e.Get(1)
-			_ = Y920
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				Y921 := __e.Get(1)
-				_ = Y921
-				__e.TailApply(PrimFunc(sym_a_a), Y920, Y921)
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp3085 := PrimCons(sym_a_a, tmp3084)
-
-		tmp3086 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp3085)
-
-		_ = tmp3086
-
-		tmp3087 := MakeNative(func(__e *ControlFlow) {
-			Y919 := __e.Get(1)
-			_ = Y919
-			__e.TailApply(PrimFunc(sym_5e_6), Y919)
-			return
-		}, 1)
-
-		tmp3088 := PrimCons(sym_5e_6, tmp3087)
-
-		tmp3089 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp3088)
-
-		_ = tmp3089
-
-		tmp3090 := MakeNative(func(__e *ControlFlow) {
-			Y918 := __e.Get(1)
-			_ = Y918
-			__e.TailApply(PrimFunc(sym_5end_6), Y918)
-			return
-		}, 1)
-
-		tmp3091 := PrimCons(sym_5end_6, tmp3090)
-
-		tmp3092 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp3091)
-
-		_ = tmp3092
-
-		tmp3093 := MakeNative(func(__e *ControlFlow) {
-			Y917 := __e.Get(1)
-			_ = Y917
-			__e.TailApply(PrimFunc(sym_5_b_6), Y917)
-			return
-		}, 1)
-
-		tmp3094 := PrimCons(sym_5_b_6, tmp3093)
-
-		tmp3095 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp3094)
-
-		_ = tmp3095
-
-		tmp3096 := MakeNative(func(__e *ControlFlow) {
-			Y915 := __e.Get(1)
-			_ = Y915
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				Y916 := __e.Get(1)
-				_ = Y916
-				__e.TailApply(PrimFunc(sym_8p), Y915, Y916)
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp3097 := PrimCons(sym_8p, tmp3096)
-
-		tmp3098 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp3097)
-
-		_ = tmp3098
-
-		tmp3099 := MakeNative(func(__e *ControlFlow) {
-			Y913 := __e.Get(1)
-			_ = Y913
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				Y914 := __e.Get(1)
-				_ = Y914
-				__e.TailApply(PrimFunc(sym_8v), Y913, Y914)
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp3100 := PrimCons(sym_8v, tmp3099)
-
-		tmp3101 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp3100)
-
-		_ = tmp3101
-
-		tmp3102 := MakeNative(func(__e *ControlFlow) {
-			Y911 := __e.Get(1)
-			_ = Y911
-			__e.Return(MakeNative(func(__e *ControlFlow) {
-				Y912 := __e.Get(1)
-				_ = Y912
-				__e.TailApply(PrimFunc(sym_8s), Y911, Y912)
-				return
-			}, 1))
-			return
-		}, 1)
-
-		tmp3103 := PrimCons(sym_8s, tmp3102)
-
-		__e.TailApply(PrimFunc(symshen_4set_1lambda_1form_1entry), tmp3103)
-		return
-
-	}, 0)
-
-	tmp3104 := Call(__e, ns2_1set, symshen_4initialise_1lambda_1forms, tmp2561)
-
-	_ = tmp3104
-
-	tmp3105 := MakeNative(func(__e *ControlFlow) {
-		tmp3106 := Call(__e, PrimFunc(symshen_4initialise_1environment))
-
-		_ = tmp3106
-
-		tmp3107 := Call(__e, PrimFunc(symshen_4initialise_1lambda_1forms))
-
-		_ = tmp3107
-
-		__e.TailApply(PrimFunc(symshen_4initialise_1signedfuncs))
-		return
-
-	}, 0)
-
-	__e.TailApply(ns2_1set, symshen_4initialise, tmp3105)
-	return
 
 }, 0)
 
-var sym_5_1address = MakeSymbol("<-address")
-var symshen_4zero_1place_2 = MakeSymbol("shen.zero-place?")
-var symshen_4vector_1parameter = MakeSymbol("shen.vector-parameter")
-var symdestroy = MakeSymbol("destroy")
-var symshen_4_dpackage_d = MakeSymbol("shen.*package*")
-var symshen_4_5rules_6 = MakeSymbol("shen.<rules>")
-var symK = MakeSymbol("K")
-var symshen_4read_1file_1as_1bytelist_1help = MakeSymbol("shen.read-file-as-bytelist-help")
-var symshen_4continue = MakeSymbol("shen.continue")
-var symhush = MakeSymbol("hush")
-var sym_dabsolute_d = MakeSymbol("*absolute*")
-var symcons = MakeSymbol("cons")
-var symshen_4internal_2 = MakeSymbol("shen.internal?")
-var symshen_4type_1F = MakeSymbol("shen.type-F")
-var symlazy = MakeSymbol("lazy")
-var symshen_4record_1and_1evaluate = MakeSymbol("shen.record-and-evaluate")
-var symshen_4constructor_1error = MakeSymbol("shen.constructor-error")
-var symshen_4credits = MakeSymbol("shen.credits")
-var symshen_4in_1_6 = MakeSymbol("shen.in->")
-var symtc_2 = MakeSymbol("tc?")
-var symdefcc = MakeSymbol("defcc")
-var symshen_4newname = MakeSymbol("shen.newname")
-var symshen_4dbl_1h_2 = MakeSymbol("shen.dbl-h?")
-var symshen_4unix = MakeSymbol("shen.unix")
-var symshen_4str_1_6str = MakeSymbol("shen.str->str")
-var symoccurrences = MakeSymbol("occurrences")
-var symParse = MakeSymbol("Parse")
-var symshen_4_5alphanum_6 = MakeSymbol("shen.<alphanum>")
-var symshen_4_5stop_6 = MakeSymbol("shen.<stop>")
-var symshen_4_5side_6 = MakeSymbol("shen.<side>")
-var symshen_4rule_1_6body = MakeSymbol("shen.rule->body")
-var symshen_4_5c_1rule_6 = MakeSymbol("shen.<c-rule>")
-var symshen_4analyse_1symbol_2 = MakeSymbol("shen.analyse-symbol?")
-var symshen_4set_1lambda_1form_1entry = MakeSymbol("shen.set-lambda-form-entry")
-var symfactorise = MakeSymbol("factorise")
-var symshen_4string_1prefix_2 = MakeSymbol("shen.string-prefix?")
-var symshen_4_5datatype_1rule_6 = MakeSymbol("shen.<datatype-rule>")
-var symshen_4prompt = MakeSymbol("shen.prompt")
-var symshen_4dynamic = MakeSymbol("shen.dynamic")
-var symshen_4lazyderef = MakeSymbol("shen.lazyderef")
-var symshen_4cons_1case_1minus = MakeSymbol("shen.cons-case-minus")
-var symstinput = MakeSymbol("stinput")
-var symdefun = MakeSymbol("defun")
-var symshen_4_7vector_2 = MakeSymbol("shen.+vector?")
-var symshen_4package_1symbols = MakeSymbol("shen.package-symbols")
-var symempty_2 = MakeSymbol("empty?")
-var symshen_4unassoc = MakeSymbol("shen.unassoc")
-var symshen_4lzy_a = MakeSymbol("shen.lzy=")
-var symshen_4_5packagechar_6 = MakeSymbol("shen.<packagechar>")
-var symeval = MakeSymbol("eval")
-var sym_8s = MakeSymbol("@s")
-var symshen_4digit_2 = MakeSymbol("shen.digit?")
-var symshen_4compile_1to_1kl = MakeSymbol("shen.compile-to-kl")
-var symshen_4process_1def = MakeSymbol("shen.process-def")
-var symtail = MakeSymbol("tail")
-var symin = MakeSymbol("in")
-var symshen_4_5minus_6 = MakeSymbol("shen.<minus>")
-var symoutput = MakeSymbol("output")
-var symshen_4process_1lambda = MakeSymbol("shen.process-lambda")
-var symshen_4_dgensym_d = MakeSymbol("shen.*gensym*")
-var symenable_1type_1theory = MakeSymbol("enable-type-theory")
-var symshen_4type_1error = MakeSymbol("shen.type-error")
-var symspy = MakeSymbol("spy")
-var symshen_4atom_1case_1minus = MakeSymbol("shen.atom-case-minus")
-var symshen_4prolog_1track = MakeSymbol("shen.prolog-track")
-var symshen_4signal_1def = MakeSymbol("shen.signal-def")
-var symshen_4pause_1for_1user = MakeSymbol("shen.pause-for-user")
-var sym_5 = MakeSymbol("<")
-var symshen_4string_1_6byte = MakeSymbol("shen.string->byte")
-var symshen_4_5s_1exprs_6 = MakeSymbol("shen.<s-exprs>")
-var symshen_4partial_1application_d_2 = MakeSymbol("shen.partial-application*?")
-var symshen_4_5ass_6 = MakeSymbol("shen.<ass>")
-var symshen_4sigxrules = MakeSymbol("shen.sigxrules")
-var symnull = MakeSymbol("null")
-var symadjoin = MakeSymbol("adjoin")
-var symshen_4assumetypes = MakeSymbol("shen.assumetypes")
-var symhdstr = MakeSymbol("hdstr")
-var symnl = MakeSymbol("nl")
-var symporters = MakeSymbol("porters")
-var symshen_4insert_1l = MakeSymbol("shen.insert-l")
-var symshen_4_dcall_d = MakeSymbol("shen.*call*")
-var symshen_4remember_1datatype = MakeSymbol("shen.remember-datatype")
-var symshen_4system_1S = MakeSymbol("shen.system-S")
-var symshen_4raise_1syntax_1error = MakeSymbol("shen.raise-syntax-error")
-var symshen_4_5sng_6 = MakeSymbol("shen.<sng>")
-var symshen_4_5non_1terminal_2_6 = MakeSymbol("shen.<non-terminal?>")
-var symshen_4combine_1c_1code = MakeSymbol("shen.combine-c-code")
-var symshen_4extraspecial_2 = MakeSymbol("shen.extraspecial?")
-var symeval_1kl = MakeSymbol("eval-kl")
-var symstring_1_6symbol = MakeSymbol("string->symbol")
-var symshen_4op_1test = MakeSymbol("shen.op-test")
-var symshen_4deref_1terms = MakeSymbol("shen.deref-terms")
-var symshen_4_5single_6 = MakeSymbol("shen.<single>")
-var symdo = MakeSymbol("do")
-var symshen_4mkstr = MakeSymbol("shen.mkstr")
-var sym_5_b_6 = MakeSymbol("<!>")
-var symcall = MakeSymbol("call")
-var symshen_4spaces = MakeSymbol("shen.spaces")
-var symshen_4posint_2 = MakeSymbol("shen.posint?")
-var symshen_4use_1type_1info = MakeSymbol("shen.use-type-info")
-var symshen_4f_1error = MakeSymbol("shen.f-error")
-var symshen_4free_1variable_2 = MakeSymbol("shen.free-variable?")
-var symshen_4find_1arity = MakeSymbol("shen.find-arity")
-var symshen_4fn_1call = MakeSymbol("shen.fn-call")
-var symmake_1string = MakeSymbol("make-string")
-var symshen_4process_1_8s = MakeSymbol("shen.process-@s")
-var symshen_4received = MakeSymbol("shen.received")
-var sym_a_a_6 = MakeSymbol("==>")
-var symshen_4_dtc_d = MakeSymbol("shen.*tc*")
-var symshen_4analyse_1variable_2 = MakeSymbol("shen.analyse-variable?")
-var symshen_4foreign_2 = MakeSymbol("shen.foreign?")
-var symshen_4_5head_6 = MakeSymbol("shen.<head>")
-var symshen_4cons_1case_1plus = MakeSymbol("shen.cons-case-plus")
-var symshen_4deref_1calls = MakeSymbol("shen.deref-calls")
-var symshen_4bind_b = MakeSymbol("shen.bind!")
-var symRecord = MakeSymbol("Record")
-var symStart = MakeSymbol("Start")
-var sym_8v = MakeSymbol("@v")
-var symshen_4_dmaxinferences_d = MakeSymbol("shen.*maxinferences*")
-var symshen_4factor_1cn = MakeSymbol("shen.factor-cn")
-var symshen_4dict_1capacity = MakeSymbol("shen.dict-capacity")
-var symshen_4process_1datatype = MakeSymbol("shen.process-datatype")
-var symshen_4update_1assoc = MakeSymbol("shen.update-assoc")
-var symassertz = MakeSymbol("assertz")
-var symstring = MakeSymbol("string")
-var sym_dlanguage_d = MakeSymbol("*language*")
-var symread_1file_1as_1bytelist = MakeSymbol("read-file-as-bytelist")
-var symshen_4misc_2 = MakeSymbol("shen.misc?")
-var symshen_4execute_1store_1arity = MakeSymbol("shen.execute-store-arity")
-var symsimple_1error = MakeSymbol("simple-error")
-var symshen_4sng_1h_2 = MakeSymbol("shen.sng-h?")
-var symshen_4t_d_1rule_1h = MakeSymbol("shen.t*-rule-h")
-var sym_dproperty_1vector_d = MakeSymbol("*property-vector*")
-var symbound_2 = MakeSymbol("bound?")
-var symcons_2 = MakeSymbol("cons?")
-var symshen_4_5backslash_6 = MakeSymbol("shen.<backslash>")
-var symshen_4write_1kl = MakeSymbol("shen.write-kl")
-var symprolog_1memory = MakeSymbol("prolog-memory")
-var sym_e = MakeSymbol("&")
-var symS = MakeSymbol("S")
-var symshen_4_5_1dict = MakeSymbol("shen.<-dict")
-var symread_1file_1as_1string = MakeSymbol("read-file-as-string")
-var symshen_4lambda_1of_1defun = MakeSymbol("shen.lambda-of-defun")
-var symshen_4_dstep_d = MakeSymbol("shen.*step*")
-var symintern = MakeSymbol("intern")
-var symA = MakeSymbol("A")
-var symshen_4initialise = MakeSymbol("shen.initialise")
-var symshen_4not_1tuple = MakeSymbol("shen.not-tuple")
-var symshen_4freshterm = MakeSymbol("shen.freshterm")
-var symtlstr = MakeSymbol("tlstr")
-var symshen_4myassume = MakeSymbol("shen.myassume")
-var symshen_4fix_1help = MakeSymbol("shen.fix-help")
-var symshen_4rep_1X = MakeSymbol("shen.rep-X")
-var symshen_4_5pattern2_6 = MakeSymbol("shen.<pattern2>")
-var symloaded = MakeSymbol("loaded")
-var symshen_4record_1kl = MakeSymbol("shen.record-kl")
-var symshen_4freshen_1type = MakeSymbol("shen.freshen-type")
-var sym_6 = MakeSymbol(">")
-var symand = MakeSymbol("and")
-var symshen_4_5atom_6 = MakeSymbol("shen.<atom>")
-var symshen_4rule_1_6clause = MakeSymbol("shen.rule->clause")
-var symunabsolute = MakeSymbol("unabsolute")
-var symshen_4triple_1stack = MakeSymbol("shen.triple-stack")
-var symshen_4_5lsb_6 = MakeSymbol("shen.<lsb>")
-var symshen_4prterm = MakeSymbol("shen.prterm")
-var symshen_4sigf = MakeSymbol("shen.sigf")
-var symshen_4hds_a_2 = MakeSymbol("shen.hds=?")
-var symshen_4compute_1integer_1h = MakeSymbol("shen.compute-integer-h")
-var symshen_4_5sig_drules_6 = MakeSymbol("shen.<sig*rules>")
-var symshen_4_5colon_1equal_6 = MakeSymbol("shen.<colon-equal>")
-var symshen_4dict = MakeSymbol("shen.dict")
-var symshen_4initialise__environment = MakeSymbol("shen.initialise_environment")
-var symget = MakeSymbol("get")
-var sym_dhush_d = MakeSymbol("*hush*")
-var symremove = MakeSymbol("remove")
-var symshen_4fbound_2 = MakeSymbol("shen.fbound?")
-var sympackage_2 = MakeSymbol("package?")
-var symshen_4internal_1to_1shen_2 = MakeSymbol("shen.internal-to-shen?")
-var symport = MakeSymbol("port")
-var symshen_4kl_1body = MakeSymbol("shen.kl-body")
-var symshen_4unpackage = MakeSymbol("shen.unpackage")
-var symshen_4macroexpand_1h = MakeSymbol("shen.macroexpand-h")
-var symprofile = MakeSymbol("profile")
-var symshen_4not_1dictionary = MakeSymbol("shen.not-dictionary")
-var symshen_4build_1lambda_1table = MakeSymbol("shen.build-lambda-table")
-var symshen_4_5hterm1_6 = MakeSymbol("shen.<hterm1>")
-var symshen_4external_1symbols = MakeSymbol("shen.external-symbols")
-var symshen_4r = MakeSymbol("shen.r")
-var symshen_4_5float_6 = MakeSymbol("shen.<float>")
-var symfail = MakeSymbol("fail")
-var symy_1or_1n_2 = MakeSymbol("y-or-n?")
-var symshen_4newpv = MakeSymbol("shen.newpv")
-var symshen_4correct = MakeSymbol("shen.correct")
-var symshen_4source = MakeSymbol("shen.source")
-var symshen_4read_1evaluate_1print = MakeSymbol("shen.read-evaluate-print")
-var symoccurs_1check = MakeSymbol("occurs-check")
-var symshen_4_5_1dict_1bucket = MakeSymbol("shen.<-dict-bucket")
-var symshen_4compute_1integer = MakeSymbol("shen.compute-integer")
-var symshen_4loading_2 = MakeSymbol("shen.loading?")
-var sym_5_1 = MakeSymbol("<-")
-var symFinish = MakeSymbol("Finish")
-var symshen_4_5prem_6 = MakeSymbol("shen.<prem>")
-var symshen_4dict_1fold_1h = MakeSymbol("shen.dict-fold-h")
-var symshen_4factor_1recognisors = MakeSymbol("shen.factor-recognisors")
-var symshen_4_5whitespaces_6 = MakeSymbol("shen.<whitespaces>")
-var symshen_4overbind = MakeSymbol("shen.overbind")
-var symshen_4tracked_2 = MakeSymbol("shen.tracked?")
-var symwarn = MakeSymbol("warn")
-var symAssumptions = MakeSymbol("Assumptions")
-var symfile = MakeSymbol("file")
-var sym_dstoutput_d = MakeSymbol("*stoutput*")
-var symshen_4t_d_1integrity = MakeSymbol("shen.t*-integrity")
-var sym_5_a = MakeSymbol("<=")
-var symhush_2 = MakeSymbol("hush?")
-var symshen_4eos = MakeSymbol("shen.eos")
-var symread_1byte = MakeSymbol("read-byte")
-var symshen_4occurs_1check_2 = MakeSymbol("shen.occurs-check?")
-var symshen_4_5expr_6 = MakeSymbol("shen.<expr>")
-var symshen_4check_1byte = MakeSymbol("shen.check-byte")
-var sym_6_a = MakeSymbol(">=")
-var symshen_4_5semicolon_6 = MakeSymbol("shen.<semicolon>")
-var symor = MakeSymbol("or")
-var symshen_4atom_1case_1plus = MakeSymbol("shen.atom-case-plus")
-var symshen_4rules_1_6prolog = MakeSymbol("shen.rules->prolog")
-var symshen_4search_1user_1datatypes = MakeSymbol("shen.search-user-datatypes")
-var sym_3 = MakeSymbol("$")
-var symshen_4prolog_1parameters = MakeSymbol("shen.prolog-parameters")
-var symshen_4_5double_6 = MakeSymbol("shen.<double>")
-var symAssumption = MakeSymbol("Assumption")
-var symshen_4output_1track = MakeSymbol("shen.output-track")
-var symverified = MakeSymbol("verified")
-var symshen_4non_1terminalcode = MakeSymbol("shen.non-terminalcode")
-var symsave = MakeSymbol("save")
-var symprolog_2 = MakeSymbol("prolog?")
-var symunput = MakeSymbol("unput")
-var symshen_4_dnames_d = MakeSymbol("shen.*names*")
-var symshen_4_5defprolog_6 = MakeSymbol("shen.<defprolog>")
-var symmode = MakeSymbol("mode")
-var symshen_4premises_1_6goals = MakeSymbol("shen.premises->goals")
-var symshen_4alpha_2 = MakeSymbol("shen.alpha?")
-var symshen_4call_1prolog = MakeSymbol("shen.call-prolog")
-var symshen_4fits_2 = MakeSymbol("shen.fits?")
-var symshen_4bindv = MakeSymbol("shen.bindv")
-var symshen_4_5non_1terminal_1name_6 = MakeSymbol("shen.<non-terminal-name>")
-var symnth = MakeSymbol("nth")
-var symatom_2 = MakeSymbol("atom?")
-var symshen_4_dprolog_1memory_d = MakeSymbol("shen.*prolog-memory*")
-var symshen_4repl = MakeSymbol("shen.repl")
-var symshen_4dict_1bucket_1_6 = MakeSymbol("shen.dict-bucket->")
-var symshen_4_5yaccsig_6 = MakeSymbol("shen.<yaccsig>")
-var symTl = MakeSymbol("Tl")
-var symW = MakeSymbol("W")
-var symshen_4op2 = MakeSymbol("shen.op2")
-var symout = MakeSymbol("out")
-var symshen_4_5rule_6 = MakeSymbol("shen.<rule>")
-var symshen_4process_1sexprs = MakeSymbol("shen.process-sexprs")
-var symshen_4shen_1call_2 = MakeSymbol("shen.shen-call?")
-var symshen_4c_1rules_1_6shen = MakeSymbol("shen.c-rules->shen")
-var symshen_4_doptimise_d = MakeSymbol("shen.*optimise*")
-var symshen_4this_1symbol_1is_1unbound = MakeSymbol("shen.this-symbol-is-unbound")
-var symZ = MakeSymbol("Z")
-var symshen_4add_1sexpr = MakeSymbol("shen.add-sexpr")
-var symshen_4byte_1_6digit = MakeSymbol("shen.byte->digit")
-var symshen_4process_1application = MakeSymbol("shen.process-application")
-var symreceive = MakeSymbol("receive")
-var symshen_4tuple_1up = MakeSymbol("shen.tuple-up")
-var syminput = MakeSymbol("input")
-var symshen_4_5numeral_6 = MakeSymbol("shen.<numeral>")
-var symshen_4_5lowE_6 = MakeSymbol("shen.<lowE>")
-var symshen_4invoke = MakeSymbol("shen.invoke")
-var symshen_4_5sides_6 = MakeSymbol("shen.<sides>")
-var symshen_4system_1S_1h = MakeSymbol("shen.system-S-h")
-var symshen_4prodbutzero = MakeSymbol("shen.prodbutzero")
-var symmapcan = MakeSymbol("mapcan")
-var symshen_4linearise_1h = MakeSymbol("shen.linearise-h")
-var symshen_4constructor_2 = MakeSymbol("shen.constructor?")
-var symshen_4try_1parse = MakeSymbol("shen.try-parse")
-var symshen_4string_1match = MakeSymbol("shen.string-match")
-var symshen_4arg_1_6str = MakeSymbol("shen.arg->str")
-var symshen_4syntax_1item_2 = MakeSymbol("shen.syntax-item?")
-var symshen_4trim_1it = MakeSymbol("shen.trim-it")
-var symfactorise_2 = MakeSymbol("factorise?")
-var sym_dos_d = MakeSymbol("*os*")
-var symshen_4compile_1synonyms = MakeSymbol("shen.compile-synonyms")
-var symshen_4reader_1error = MakeSymbol("shen.reader-error")
-var symshen_4_5notdbq_6 = MakeSymbol("shen.<notdbq>")
-var symundefmacro = MakeSymbol("undefmacro")
-var symshen_4remove_1bystanders = MakeSymbol("shen.remove-bystanders")
-var sym__ = MakeSymbol("_")
-var symshen_4_5rsb_6 = MakeSymbol("shen.<rsb>")
-var symerror = MakeSymbol("error")
-var symshen_4unwind_1types = MakeSymbol("shen.unwind-types")
-var symretract = MakeSymbol("retract")
-var symshen_4variablecode = MakeSymbol("shen.variablecode")
-var symRemainder = MakeSymbol("Remainder")
-var symshen_4vector_1_6str = MakeSymbol("shen.vector->str")
-var symshen_4linearise = MakeSymbol("shen.linearise")
-var symshen_4process_1let = MakeSymbol("shen.process-let")
-var symshen_4pac_1h = MakeSymbol("shen.pac-h")
-var symstream = MakeSymbol("stream")
-var symHd = MakeSymbol("Hd")
-var symhdv = MakeSymbol("hdv")
-var symshen_4fillvector = MakeSymbol("shen.fillvector")
-var symshen_4record_1external = MakeSymbol("shen.record-external")
-var symshen_4_5hterm_6 = MakeSymbol("shen.<hterm>")
-var symshen_4syntax_1error_1message = MakeSymbol("shen.syntax-error-message")
-var symshen_4prhush = MakeSymbol("shen.prhush")
-var symshen_4_5signature_6 = MakeSymbol("shen.<signature>")
-var symshen_4_5strc_6 = MakeSymbol("shen.<strc>")
-var symshen_4remove_1indirection = MakeSymbol("shen.remove-indirection")
-var symshen_4assert_d = MakeSymbol("shen.assert*")
-var symctxt = MakeSymbol("ctxt")
-var symshen_4decons = MakeSymbol("shen.decons")
-var syminternal = MakeSymbol("internal")
-var symshen_4typecheck = MakeSymbol("shen.typecheck")
-var symshen_4record_1internal = MakeSymbol("shen.record-internal")
-var symshen_4process_1after_1type = MakeSymbol("shen.process-after-type")
-var symshen_4_7m = MakeSymbol("shen.+m")
-var symshen_4_5iscolon_6 = MakeSymbol("shen.<iscolon>")
-var symshen_4show = MakeSymbol("shen.show")
-var symshen_4yacc_1semantics = MakeSymbol("shen.yacc-semantics")
-var symshen_4_dtracking_d = MakeSymbol("shen.*tracking*")
-var symshen_4modh = MakeSymbol("shen.modh")
-var symshen_4length_1h = MakeSymbol("shen.length-h")
-var symshen_4macros = MakeSymbol("shen.macros")
-var sym_6_6 = MakeSymbol(">>")
-var symshen_4empty_1absvector_2 = MakeSymbol("shen.empty-absvector?")
-var symshen_4curry_1type = MakeSymbol("shen.curry-type")
-var symP = MakeSymbol("P")
-var symshen_4macro_1_8c = MakeSymbol("shen.macro-@c")
-var symshen_4specialise_1consume = MakeSymbol("shen.specialise-consume")
-var sympreclude = MakeSymbol("preclude")
-var symshen_4_5packagenames_6 = MakeSymbol("shen.<packagenames>")
-var symoptimise_2 = MakeSymbol("optimise?")
-var symshen_4findall_1h = MakeSymbol("shen.findall-h")
-var symshen_4t_d_1rules = MakeSymbol("shen.t*-rules")
-var symshen_4_5syntax_1item_6 = MakeSymbol("shen.<syntax-item>")
-var symshen_4bucket_1fold = MakeSymbol("shen.bucket-fold")
-var symshen_4lambda_1entry = MakeSymbol("shen.lambda-entry")
-var symshen_4_5lcurly_6 = MakeSymbol("shen.<lcurly>")
-var symshen_4_dsize_1prolog_1vector_d = MakeSymbol("shen.*size-prolog-vector*")
-var symshen_4_5name_6 = MakeSymbol("shen.<name>")
-var symshen_4package_1user_1input = MakeSymbol("shen.package-user-input")
-var symshen_4_8ch = MakeSymbol("shen.@ch")
-var symshen_4put_1profile = MakeSymbol("shen.put-profile")
-var symshen_4_5rules_d_6 = MakeSymbol("shen.<rules*>")
-var symshen_4initialise_1lambda_1forms = MakeSymbol("shen.initialise-lambda-forms")
-var symshen_4lambda_1function = MakeSymbol("shen.lambda-function")
-var symshen_4_dspy_d = MakeSymbol("shen.*spy*")
-var symwrite_1to_1file = MakeSymbol("write-to-file")
-var symshen_4_5multiline_6 = MakeSymbol("shen.<multiline>")
-var symshen_4deref = MakeSymbol("shen.deref")
-var symshen_4mkstr_1r = MakeSymbol("shen.mkstr-r")
-var symshen_4evaluate_1lineread = MakeSymbol("shen.evaluate-lineread")
-var symshen_4lr_1rule = MakeSymbol("shen.lr-rule")
-var symlimit = MakeSymbol("limit")
-var symos = MakeSymbol("os")
-var symshen_4list_1_6str = MakeSymbol("shen.list->str")
-var symFreeze = MakeSymbol("Freeze")
-var symshen_4make_1uppercase = MakeSymbol("shen.make-uppercase")
-var symshen_4record_1macro = MakeSymbol("shen.record-macro")
-var symshen_4print_1freshterm = MakeSymbol("shen.print-freshterm")
-var symTm = MakeSymbol("Tm")
-var symshen_4_5dbl_6 = MakeSymbol("shen.<dbl>")
+tmp17818 := Call(__e, ns2_1set, symshen_4initialise_1environment, tmp17077)
+
+
+_ = tmp17818
+
+tmp17819 := MakeNative(func(__e *ControlFlow) {
+tmp17820 := PrimSet(symshen_4_dsigf_d, Nil)
+
+_ = tmp17820
+
+tmp17821 := MakeNative(func(__e *ControlFlow) {
+V5951 := __e.Get(1)
+_ = V5951
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B5947 := __e.Get(1)
+_ = B5947
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L5948 := __e.Get(1)
+_ = L5948
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key5949 := __e.Get(1)
+_ = Key5949
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C5950 := __e.Get(1)
+_ = C5950
+tmp17822 := MakeNative(func(__e *ControlFlow) {
+A := __e.Get(1)
+_ = A
+tmp17823 := PrimCons(A, Nil)
+
+tmp17824 := PrimCons(sym_1_1_6, tmp17823)
+
+tmp17825 := Call(__e, PrimFunc(symis_b), V5951, tmp17824, B5947, L5948, Key5949, C5950)
+
+
+__e.TailApply(PrimFunc(symshen_4gc), B5947, tmp17825)
+return
+
+
+}, 1)
+
+tmp17826 := Call(__e, PrimFunc(symshen_4newpv), B5947)
+
+
+__e.TailApply(tmp17822, tmp17826)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp17827 := PrimValue(symshen_4_dsigf_d)
+
+tmp17828 := Call(__e, PrimFunc(symshen_4assoc_1_6), symabort, tmp17821, tmp17827)
+
+
+tmp17829 := PrimSet(symshen_4_dsigf_d, tmp17828)
+
+_ = tmp17829
+
+tmp17830 := MakeNative(func(__e *ControlFlow) {
+V5956 := __e.Get(1)
+_ = V5956
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B5952 := __e.Get(1)
+_ = B5952
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L5953 := __e.Get(1)
+_ = L5953
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key5954 := __e.Get(1)
+_ = Key5954
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C5955 := __e.Get(1)
+_ = C5955
+tmp17831 := PrimCons(symstring, Nil)
+
+tmp17832 := PrimCons(symlist, tmp17831)
+
+tmp17833 := PrimCons(tmp17832, Nil)
+
+tmp17834 := PrimCons(sym_1_1_6, tmp17833)
+
+tmp17835 := PrimCons(symstring, tmp17834)
+
+__e.TailApply(PrimFunc(symis_b), V5956, tmp17835, B5952, L5953, Key5954, C5955)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp17836 := PrimValue(symshen_4_dsigf_d)
+
+tmp17837 := Call(__e, PrimFunc(symshen_4assoc_1_6), symabsolute, tmp17830, tmp17836)
+
+
+tmp17838 := PrimSet(symshen_4_dsigf_d, tmp17837)
+
+_ = tmp17838
+
+tmp17839 := MakeNative(func(__e *ControlFlow) {
+V5961 := __e.Get(1)
+_ = V5961
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B5957 := __e.Get(1)
+_ = B5957
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L5958 := __e.Get(1)
+_ = L5958
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key5959 := __e.Get(1)
+_ = Key5959
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C5960 := __e.Get(1)
+_ = C5960
+tmp17840 := MakeNative(func(__e *ControlFlow) {
+A := __e.Get(1)
+_ = A
+tmp17841 := PrimCons(symboolean, Nil)
+
+tmp17842 := PrimCons(sym_1_1_6, tmp17841)
+
+tmp17843 := PrimCons(A, tmp17842)
+
+tmp17844 := Call(__e, PrimFunc(symis_b), V5961, tmp17843, B5957, L5958, Key5959, C5960)
+
+
+__e.TailApply(PrimFunc(symshen_4gc), B5957, tmp17844)
+return
+
+
+}, 1)
+
+tmp17845 := Call(__e, PrimFunc(symshen_4newpv), B5957)
+
+
+__e.TailApply(tmp17840, tmp17845)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp17846 := PrimValue(symshen_4_dsigf_d)
+
+tmp17847 := Call(__e, PrimFunc(symshen_4assoc_1_6), symabsvector_2, tmp17839, tmp17846)
+
+
+tmp17848 := PrimSet(symshen_4_dsigf_d, tmp17847)
+
+_ = tmp17848
+
+tmp17849 := MakeNative(func(__e *ControlFlow) {
+V5966 := __e.Get(1)
+_ = V5966
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B5962 := __e.Get(1)
+_ = B5962
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L5963 := __e.Get(1)
+_ = L5963
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key5964 := __e.Get(1)
+_ = Key5964
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C5965 := __e.Get(1)
+_ = C5965
+tmp17850 := MakeNative(func(__e *ControlFlow) {
+A := __e.Get(1)
+_ = A
+tmp17851 := PrimCons(A, Nil)
+
+tmp17852 := PrimCons(symlist, tmp17851)
+
+tmp17853 := PrimCons(A, Nil)
+
+tmp17854 := PrimCons(symlist, tmp17853)
+
+tmp17855 := PrimCons(tmp17854, Nil)
+
+tmp17856 := PrimCons(sym_1_1_6, tmp17855)
+
+tmp17857 := PrimCons(tmp17852, tmp17856)
+
+tmp17858 := PrimCons(tmp17857, Nil)
+
+tmp17859 := PrimCons(sym_1_1_6, tmp17858)
+
+tmp17860 := PrimCons(A, tmp17859)
+
+tmp17861 := Call(__e, PrimFunc(symis_b), V5966, tmp17860, B5962, L5963, Key5964, C5965)
+
+
+__e.TailApply(PrimFunc(symshen_4gc), B5962, tmp17861)
+return
+
+
+}, 1)
+
+tmp17862 := Call(__e, PrimFunc(symshen_4newpv), B5962)
+
+
+__e.TailApply(tmp17850, tmp17862)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp17863 := PrimValue(symshen_4_dsigf_d)
+
+tmp17864 := Call(__e, PrimFunc(symshen_4assoc_1_6), symadjoin, tmp17849, tmp17863)
+
+
+tmp17865 := PrimSet(symshen_4_dsigf_d, tmp17864)
+
+_ = tmp17865
+
+tmp17866 := MakeNative(func(__e *ControlFlow) {
+V5971 := __e.Get(1)
+_ = V5971
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B5967 := __e.Get(1)
+_ = B5967
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L5968 := __e.Get(1)
+_ = L5968
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key5969 := __e.Get(1)
+_ = Key5969
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C5970 := __e.Get(1)
+_ = C5970
+tmp17867 := PrimCons(symboolean, Nil)
+
+tmp17868 := PrimCons(sym_1_1_6, tmp17867)
+
+tmp17869 := PrimCons(symboolean, tmp17868)
+
+tmp17870 := PrimCons(tmp17869, Nil)
+
+tmp17871 := PrimCons(sym_1_1_6, tmp17870)
+
+tmp17872 := PrimCons(symboolean, tmp17871)
+
+__e.TailApply(PrimFunc(symis_b), V5971, tmp17872, B5967, L5968, Key5969, C5970)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp17873 := PrimValue(symshen_4_dsigf_d)
+
+tmp17874 := Call(__e, PrimFunc(symshen_4assoc_1_6), symand, tmp17866, tmp17873)
+
+
+tmp17875 := PrimSet(symshen_4_dsigf_d, tmp17874)
+
+_ = tmp17875
+
+tmp17876 := MakeNative(func(__e *ControlFlow) {
+V5976 := __e.Get(1)
+_ = V5976
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B5972 := __e.Get(1)
+_ = B5972
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L5973 := __e.Get(1)
+_ = L5973
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key5974 := __e.Get(1)
+_ = Key5974
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C5975 := __e.Get(1)
+_ = C5975
+tmp17877 := MakeNative(func(__e *ControlFlow) {
+A := __e.Get(1)
+_ = A
+tmp17878 := PrimCons(symstring, Nil)
+
+tmp17879 := PrimCons(sym_1_1_6, tmp17878)
+
+tmp17880 := PrimCons(symsymbol, tmp17879)
+
+tmp17881 := PrimCons(tmp17880, Nil)
+
+tmp17882 := PrimCons(sym_1_1_6, tmp17881)
+
+tmp17883 := PrimCons(symstring, tmp17882)
+
+tmp17884 := PrimCons(tmp17883, Nil)
+
+tmp17885 := PrimCons(sym_1_1_6, tmp17884)
+
+tmp17886 := PrimCons(A, tmp17885)
+
+tmp17887 := Call(__e, PrimFunc(symis_b), V5976, tmp17886, B5972, L5973, Key5974, C5975)
+
+
+__e.TailApply(PrimFunc(symshen_4gc), B5972, tmp17887)
+return
+
+
+}, 1)
+
+tmp17888 := Call(__e, PrimFunc(symshen_4newpv), B5972)
+
+
+__e.TailApply(tmp17877, tmp17888)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp17889 := PrimValue(symshen_4_dsigf_d)
+
+tmp17890 := Call(__e, PrimFunc(symshen_4assoc_1_6), symshen_4app, tmp17876, tmp17889)
+
+
+tmp17891 := PrimSet(symshen_4_dsigf_d, tmp17890)
+
+_ = tmp17891
+
+tmp17892 := MakeNative(func(__e *ControlFlow) {
+V5981 := __e.Get(1)
+_ = V5981
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B5977 := __e.Get(1)
+_ = B5977
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L5978 := __e.Get(1)
+_ = L5978
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key5979 := __e.Get(1)
+_ = Key5979
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C5980 := __e.Get(1)
+_ = C5980
+tmp17893 := MakeNative(func(__e *ControlFlow) {
+A := __e.Get(1)
+_ = A
+tmp17894 := PrimCons(A, Nil)
+
+tmp17895 := PrimCons(symlist, tmp17894)
+
+tmp17896 := PrimCons(A, Nil)
+
+tmp17897 := PrimCons(symlist, tmp17896)
+
+tmp17898 := PrimCons(A, Nil)
+
+tmp17899 := PrimCons(symlist, tmp17898)
+
+tmp17900 := PrimCons(tmp17899, Nil)
+
+tmp17901 := PrimCons(sym_1_1_6, tmp17900)
+
+tmp17902 := PrimCons(tmp17897, tmp17901)
+
+tmp17903 := PrimCons(tmp17902, Nil)
+
+tmp17904 := PrimCons(sym_1_1_6, tmp17903)
+
+tmp17905 := PrimCons(tmp17895, tmp17904)
+
+tmp17906 := Call(__e, PrimFunc(symis_b), V5981, tmp17905, B5977, L5978, Key5979, C5980)
+
+
+__e.TailApply(PrimFunc(symshen_4gc), B5977, tmp17906)
+return
+
+
+}, 1)
+
+tmp17907 := Call(__e, PrimFunc(symshen_4newpv), B5977)
+
+
+__e.TailApply(tmp17893, tmp17907)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp17908 := PrimValue(symshen_4_dsigf_d)
+
+tmp17909 := Call(__e, PrimFunc(symshen_4assoc_1_6), symappend, tmp17892, tmp17908)
+
+
+tmp17910 := PrimSet(symshen_4_dsigf_d, tmp17909)
+
+_ = tmp17910
+
+tmp17911 := MakeNative(func(__e *ControlFlow) {
+V5986 := __e.Get(1)
+_ = V5986
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B5982 := __e.Get(1)
+_ = B5982
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L5983 := __e.Get(1)
+_ = L5983
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key5984 := __e.Get(1)
+_ = Key5984
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C5985 := __e.Get(1)
+_ = C5985
+tmp17912 := MakeNative(func(__e *ControlFlow) {
+A := __e.Get(1)
+_ = A
+tmp17913 := PrimCons(symnumber, Nil)
+
+tmp17914 := PrimCons(sym_1_1_6, tmp17913)
+
+tmp17915 := PrimCons(A, tmp17914)
+
+tmp17916 := Call(__e, PrimFunc(symis_b), V5986, tmp17915, B5982, L5983, Key5984, C5985)
+
+
+__e.TailApply(PrimFunc(symshen_4gc), B5982, tmp17916)
+return
+
+
+}, 1)
+
+tmp17917 := Call(__e, PrimFunc(symshen_4newpv), B5982)
+
+
+__e.TailApply(tmp17912, tmp17917)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp17918 := PrimValue(symshen_4_dsigf_d)
+
+tmp17919 := Call(__e, PrimFunc(symshen_4assoc_1_6), symarity, tmp17911, tmp17918)
+
+
+tmp17920 := PrimSet(symshen_4_dsigf_d, tmp17919)
+
+_ = tmp17920
+
+tmp17921 := MakeNative(func(__e *ControlFlow) {
+V5991 := __e.Get(1)
+_ = V5991
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B5987 := __e.Get(1)
+_ = B5987
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L5988 := __e.Get(1)
+_ = L5988
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key5989 := __e.Get(1)
+_ = Key5989
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C5990 := __e.Get(1)
+_ = C5990
+tmp17922 := MakeNative(func(__e *ControlFlow) {
+A := __e.Get(1)
+_ = A
+tmp17923 := PrimCons(A, Nil)
+
+tmp17924 := PrimCons(symlist, tmp17923)
+
+tmp17925 := PrimCons(tmp17924, Nil)
+
+tmp17926 := PrimCons(symlist, tmp17925)
+
+tmp17927 := PrimCons(A, Nil)
+
+tmp17928 := PrimCons(symlist, tmp17927)
+
+tmp17929 := PrimCons(tmp17928, Nil)
+
+tmp17930 := PrimCons(sym_1_1_6, tmp17929)
+
+tmp17931 := PrimCons(tmp17926, tmp17930)
+
+tmp17932 := PrimCons(tmp17931, Nil)
+
+tmp17933 := PrimCons(sym_1_1_6, tmp17932)
+
+tmp17934 := PrimCons(A, tmp17933)
+
+tmp17935 := Call(__e, PrimFunc(symis_b), V5991, tmp17934, B5987, L5988, Key5989, C5990)
+
+
+__e.TailApply(PrimFunc(symshen_4gc), B5987, tmp17935)
+return
+
+
+}, 1)
+
+tmp17936 := Call(__e, PrimFunc(symshen_4newpv), B5987)
+
+
+__e.TailApply(tmp17922, tmp17936)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp17937 := PrimValue(symshen_4_dsigf_d)
+
+tmp17938 := Call(__e, PrimFunc(symshen_4assoc_1_6), symassoc, tmp17921, tmp17937)
+
+
+tmp17939 := PrimSet(symshen_4_dsigf_d, tmp17938)
+
+_ = tmp17939
+
+tmp17940 := MakeNative(func(__e *ControlFlow) {
+V5996 := __e.Get(1)
+_ = V5996
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B5992 := __e.Get(1)
+_ = B5992
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L5993 := __e.Get(1)
+_ = L5993
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key5994 := __e.Get(1)
+_ = Key5994
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C5995 := __e.Get(1)
+_ = C5995
+tmp17941 := MakeNative(func(__e *ControlFlow) {
+A := __e.Get(1)
+_ = A
+tmp17942 := PrimCons(symboolean, Nil)
+
+tmp17943 := PrimCons(sym_1_1_6, tmp17942)
+
+tmp17944 := PrimCons(A, tmp17943)
+
+tmp17945 := Call(__e, PrimFunc(symis_b), V5996, tmp17944, B5992, L5993, Key5994, C5995)
+
+
+__e.TailApply(PrimFunc(symshen_4gc), B5992, tmp17945)
+return
+
+
+}, 1)
+
+tmp17946 := Call(__e, PrimFunc(symshen_4newpv), B5992)
+
+
+__e.TailApply(tmp17941, tmp17946)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp17947 := PrimValue(symshen_4_dsigf_d)
+
+tmp17948 := Call(__e, PrimFunc(symshen_4assoc_1_6), symatom_2, tmp17940, tmp17947)
+
+
+tmp17949 := PrimSet(symshen_4_dsigf_d, tmp17948)
+
+_ = tmp17949
+
+tmp17950 := MakeNative(func(__e *ControlFlow) {
+V6001 := __e.Get(1)
+_ = V6001
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B5997 := __e.Get(1)
+_ = B5997
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L5998 := __e.Get(1)
+_ = L5998
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key5999 := __e.Get(1)
+_ = Key5999
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6000 := __e.Get(1)
+_ = C6000
+tmp17951 := MakeNative(func(__e *ControlFlow) {
+A := __e.Get(1)
+_ = A
+tmp17952 := PrimCons(symboolean, Nil)
+
+tmp17953 := PrimCons(sym_1_1_6, tmp17952)
+
+tmp17954 := PrimCons(A, tmp17953)
+
+tmp17955 := Call(__e, PrimFunc(symis_b), V6001, tmp17954, B5997, L5998, Key5999, C6000)
+
+
+__e.TailApply(PrimFunc(symshen_4gc), B5997, tmp17955)
+return
+
+
+}, 1)
+
+tmp17956 := Call(__e, PrimFunc(symshen_4newpv), B5997)
+
+
+__e.TailApply(tmp17951, tmp17956)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp17957 := PrimValue(symshen_4_dsigf_d)
+
+tmp17958 := Call(__e, PrimFunc(symshen_4assoc_1_6), symboolean_2, tmp17950, tmp17957)
+
+
+tmp17959 := PrimSet(symshen_4_dsigf_d, tmp17958)
+
+_ = tmp17959
+
+tmp17960 := MakeNative(func(__e *ControlFlow) {
+V6006 := __e.Get(1)
+_ = V6006
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6002 := __e.Get(1)
+_ = B6002
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6003 := __e.Get(1)
+_ = L6003
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6004 := __e.Get(1)
+_ = Key6004
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6005 := __e.Get(1)
+_ = C6005
+tmp17961 := PrimCons(symstring, Nil)
+
+tmp17962 := PrimCons(sym_1_1_6, tmp17961)
+
+tmp17963 := PrimCons(symstring, tmp17962)
+
+__e.TailApply(PrimFunc(symis_b), V6006, tmp17963, B6002, L6003, Key6004, C6005)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp17964 := PrimValue(symshen_4_dsigf_d)
+
+tmp17965 := Call(__e, PrimFunc(symshen_4assoc_1_6), symbootstrap, tmp17960, tmp17964)
+
+
+tmp17966 := PrimSet(symshen_4_dsigf_d, tmp17965)
+
+_ = tmp17966
+
+tmp17967 := MakeNative(func(__e *ControlFlow) {
+V6011 := __e.Get(1)
+_ = V6011
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6007 := __e.Get(1)
+_ = B6007
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6008 := __e.Get(1)
+_ = L6008
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6009 := __e.Get(1)
+_ = Key6009
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6010 := __e.Get(1)
+_ = C6010
+tmp17968 := PrimCons(symboolean, Nil)
+
+tmp17969 := PrimCons(sym_1_1_6, tmp17968)
+
+tmp17970 := PrimCons(symsymbol, tmp17969)
+
+__e.TailApply(PrimFunc(symis_b), V6011, tmp17970, B6007, L6008, Key6009, C6010)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp17971 := PrimValue(symshen_4_dsigf_d)
+
+tmp17972 := Call(__e, PrimFunc(symshen_4assoc_1_6), symbound_2, tmp17967, tmp17971)
+
+
+tmp17973 := PrimSet(symshen_4_dsigf_d, tmp17972)
+
+_ = tmp17973
+
+tmp17974 := MakeNative(func(__e *ControlFlow) {
+V6016 := __e.Get(1)
+_ = V6016
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6012 := __e.Get(1)
+_ = B6012
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6013 := __e.Get(1)
+_ = L6013
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6014 := __e.Get(1)
+_ = Key6014
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6015 := __e.Get(1)
+_ = C6015
+tmp17975 := MakeNative(func(__e *ControlFlow) {
+A := __e.Get(1)
+_ = A
+tmp17976 := PrimCons(A, Nil)
+
+tmp17977 := PrimCons(symlist, tmp17976)
+
+tmp17978 := PrimCons(symboolean, Nil)
+
+tmp17979 := PrimCons(sym_1_1_6, tmp17978)
+
+tmp17980 := PrimCons(tmp17977, tmp17979)
+
+tmp17981 := Call(__e, PrimFunc(symis_b), V6016, tmp17980, B6012, L6013, Key6014, C6015)
+
+
+__e.TailApply(PrimFunc(symshen_4gc), B6012, tmp17981)
+return
+
+
+}, 1)
+
+tmp17982 := Call(__e, PrimFunc(symshen_4newpv), B6012)
+
+
+__e.TailApply(tmp17975, tmp17982)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp17983 := PrimValue(symshen_4_dsigf_d)
+
+tmp17984 := Call(__e, PrimFunc(symshen_4assoc_1_6), symshen_4ccons_2, tmp17974, tmp17983)
+
+
+tmp17985 := PrimSet(symshen_4_dsigf_d, tmp17984)
+
+_ = tmp17985
+
+tmp17986 := MakeNative(func(__e *ControlFlow) {
+V6021 := __e.Get(1)
+_ = V6021
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6017 := __e.Get(1)
+_ = B6017
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6018 := __e.Get(1)
+_ = L6018
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6019 := __e.Get(1)
+_ = Key6019
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6020 := __e.Get(1)
+_ = C6020
+tmp17987 := PrimCons(symstring, Nil)
+
+tmp17988 := PrimCons(sym_1_1_6, tmp17987)
+
+tmp17989 := PrimCons(symstring, tmp17988)
+
+__e.TailApply(PrimFunc(symis_b), V6021, tmp17989, B6017, L6018, Key6019, C6020)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp17990 := PrimValue(symshen_4_dsigf_d)
+
+tmp17991 := Call(__e, PrimFunc(symshen_4assoc_1_6), symcd, tmp17986, tmp17990)
+
+
+tmp17992 := PrimSet(symshen_4_dsigf_d, tmp17991)
+
+_ = tmp17992
+
+tmp17993 := MakeNative(func(__e *ControlFlow) {
+V6026 := __e.Get(1)
+_ = V6026
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6022 := __e.Get(1)
+_ = B6022
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6023 := __e.Get(1)
+_ = L6023
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6024 := __e.Get(1)
+_ = Key6024
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6025 := __e.Get(1)
+_ = C6025
+tmp17994 := MakeNative(func(__e *ControlFlow) {
+A := __e.Get(1)
+_ = A
+tmp17995 := MakeNative(func(__e *ControlFlow) {
+B := __e.Get(1)
+_ = B
+tmp17996 := PrimCons(A, Nil)
+
+tmp17997 := PrimCons(symstream, tmp17996)
+
+tmp17998 := PrimCons(B, Nil)
+
+tmp17999 := PrimCons(symlist, tmp17998)
+
+tmp18000 := PrimCons(tmp17999, Nil)
+
+tmp18001 := PrimCons(sym_1_1_6, tmp18000)
+
+tmp18002 := PrimCons(tmp17997, tmp18001)
+
+tmp18003 := Call(__e, PrimFunc(symis_b), V6026, tmp18002, B6022, L6023, Key6024, C6025)
+
+
+__e.TailApply(PrimFunc(symshen_4gc), B6022, tmp18003)
+return
+
+
+}, 1)
+
+tmp18004 := Call(__e, PrimFunc(symshen_4newpv), B6022)
+
+
+tmp18005 := Call(__e, tmp17995, tmp18004)
+
+
+__e.TailApply(PrimFunc(symshen_4gc), B6022, tmp18005)
+return
+
+
+}, 1)
+
+tmp18006 := Call(__e, PrimFunc(symshen_4newpv), B6022)
+
+
+__e.TailApply(tmp17994, tmp18006)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp18007 := PrimValue(symshen_4_dsigf_d)
+
+tmp18008 := Call(__e, PrimFunc(symshen_4assoc_1_6), symclose, tmp17993, tmp18007)
+
+
+tmp18009 := PrimSet(symshen_4_dsigf_d, tmp18008)
+
+_ = tmp18009
+
+tmp18010 := MakeNative(func(__e *ControlFlow) {
+V6031 := __e.Get(1)
+_ = V6031
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6027 := __e.Get(1)
+_ = B6027
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6028 := __e.Get(1)
+_ = L6028
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6029 := __e.Get(1)
+_ = Key6029
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6030 := __e.Get(1)
+_ = C6030
+tmp18011 := PrimCons(symstring, Nil)
+
+tmp18012 := PrimCons(sym_1_1_6, tmp18011)
+
+tmp18013 := PrimCons(symstring, tmp18012)
+
+tmp18014 := PrimCons(tmp18013, Nil)
+
+tmp18015 := PrimCons(sym_1_1_6, tmp18014)
+
+tmp18016 := PrimCons(symstring, tmp18015)
+
+__e.TailApply(PrimFunc(symis_b), V6031, tmp18016, B6027, L6028, Key6029, C6030)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp18017 := PrimValue(symshen_4_dsigf_d)
+
+tmp18018 := Call(__e, PrimFunc(symshen_4assoc_1_6), symcn, tmp18010, tmp18017)
+
+
+tmp18019 := PrimSet(symshen_4_dsigf_d, tmp18018)
+
+_ = tmp18019
+
+tmp18020 := MakeNative(func(__e *ControlFlow) {
+V6036 := __e.Get(1)
+_ = V6036
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6032 := __e.Get(1)
+_ = B6032
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6033 := __e.Get(1)
+_ = L6033
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6034 := __e.Get(1)
+_ = Key6034
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6035 := __e.Get(1)
+_ = C6035
+tmp18021 := MakeNative(func(__e *ControlFlow) {
+A := __e.Get(1)
+_ = A
+tmp18022 := MakeNative(func(__e *ControlFlow) {
+B := __e.Get(1)
+_ = B
+tmp18023 := PrimCons(A, Nil)
+
+tmp18024 := PrimCons(symlist, tmp18023)
+
+tmp18025 := PrimCons(A, Nil)
+
+tmp18026 := PrimCons(symlist, tmp18025)
+
+tmp18027 := PrimCons(B, Nil)
+
+tmp18028 := PrimCons(tmp18026, tmp18027)
+
+tmp18029 := PrimCons(symstr, tmp18028)
+
+tmp18030 := PrimCons(tmp18029, Nil)
+
+tmp18031 := PrimCons(sym_1_1_6, tmp18030)
+
+tmp18032 := PrimCons(tmp18024, tmp18031)
+
+tmp18033 := PrimCons(A, Nil)
+
+tmp18034 := PrimCons(symlist, tmp18033)
+
+tmp18035 := PrimCons(B, Nil)
+
+tmp18036 := PrimCons(sym_1_1_6, tmp18035)
+
+tmp18037 := PrimCons(tmp18034, tmp18036)
+
+tmp18038 := PrimCons(tmp18037, Nil)
+
+tmp18039 := PrimCons(sym_1_1_6, tmp18038)
+
+tmp18040 := PrimCons(tmp18032, tmp18039)
+
+tmp18041 := Call(__e, PrimFunc(symis_b), V6036, tmp18040, B6032, L6033, Key6034, C6035)
+
+
+__e.TailApply(PrimFunc(symshen_4gc), B6032, tmp18041)
+return
+
+
+}, 1)
+
+tmp18042 := Call(__e, PrimFunc(symshen_4newpv), B6032)
+
+
+tmp18043 := Call(__e, tmp18022, tmp18042)
+
+
+__e.TailApply(PrimFunc(symshen_4gc), B6032, tmp18043)
+return
+
+
+}, 1)
+
+tmp18044 := Call(__e, PrimFunc(symshen_4newpv), B6032)
+
+
+__e.TailApply(tmp18021, tmp18044)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp18045 := PrimValue(symshen_4_dsigf_d)
+
+tmp18046 := Call(__e, PrimFunc(symshen_4assoc_1_6), symcompile, tmp18020, tmp18045)
+
+
+tmp18047 := PrimSet(symshen_4_dsigf_d, tmp18046)
+
+_ = tmp18047
+
+tmp18048 := MakeNative(func(__e *ControlFlow) {
+V6041 := __e.Get(1)
+_ = V6041
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6037 := __e.Get(1)
+_ = B6037
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6038 := __e.Get(1)
+_ = L6038
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6039 := __e.Get(1)
+_ = Key6039
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6040 := __e.Get(1)
+_ = C6040
+tmp18049 := MakeNative(func(__e *ControlFlow) {
+A := __e.Get(1)
+_ = A
+tmp18050 := PrimCons(symboolean, Nil)
+
+tmp18051 := PrimCons(sym_1_1_6, tmp18050)
+
+tmp18052 := PrimCons(A, tmp18051)
+
+tmp18053 := Call(__e, PrimFunc(symis_b), V6041, tmp18052, B6037, L6038, Key6039, C6040)
+
+
+__e.TailApply(PrimFunc(symshen_4gc), B6037, tmp18053)
+return
+
+
+}, 1)
+
+tmp18054 := Call(__e, PrimFunc(symshen_4newpv), B6037)
+
+
+__e.TailApply(tmp18049, tmp18054)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp18055 := PrimValue(symshen_4_dsigf_d)
+
+tmp18056 := Call(__e, PrimFunc(symshen_4assoc_1_6), symcons_2, tmp18048, tmp18055)
+
+
+tmp18057 := PrimSet(symshen_4_dsigf_d, tmp18056)
+
+_ = tmp18057
+
+tmp18058 := MakeNative(func(__e *ControlFlow) {
+V6046 := __e.Get(1)
+_ = V6046
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6042 := __e.Get(1)
+_ = B6042
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6043 := __e.Get(1)
+_ = L6043
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6044 := __e.Get(1)
+_ = Key6044
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6045 := __e.Get(1)
+_ = C6045
+tmp18059 := PrimCons(symsymbol, Nil)
+
+tmp18060 := PrimCons(symlist, tmp18059)
+
+tmp18061 := PrimCons(tmp18060, Nil)
+
+tmp18062 := PrimCons(sym_1_1_6, tmp18061)
+
+__e.TailApply(PrimFunc(symis_b), V6046, tmp18062, B6042, L6043, Key6044, C6045)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp18063 := PrimValue(symshen_4_dsigf_d)
+
+tmp18064 := Call(__e, PrimFunc(symshen_4assoc_1_6), symdatatypes, tmp18058, tmp18063)
+
+
+tmp18065 := PrimSet(symshen_4_dsigf_d, tmp18064)
+
+_ = tmp18065
+
+tmp18066 := MakeNative(func(__e *ControlFlow) {
+V6051 := __e.Get(1)
+_ = V6051
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6047 := __e.Get(1)
+_ = B6047
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6048 := __e.Get(1)
+_ = L6048
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6049 := __e.Get(1)
+_ = Key6049
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6050 := __e.Get(1)
+_ = C6050
+tmp18067 := PrimCons(symsymbol, Nil)
+
+tmp18068 := PrimCons(sym_1_1_6, tmp18067)
+
+tmp18069 := PrimCons(symsymbol, tmp18068)
+
+__e.TailApply(PrimFunc(symis_b), V6051, tmp18069, B6047, L6048, Key6049, C6050)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp18070 := PrimValue(symshen_4_dsigf_d)
+
+tmp18071 := Call(__e, PrimFunc(symshen_4assoc_1_6), symdestroy, tmp18066, tmp18070)
+
+
+tmp18072 := PrimSet(symshen_4_dsigf_d, tmp18071)
+
+_ = tmp18072
+
+tmp18073 := MakeNative(func(__e *ControlFlow) {
+V6056 := __e.Get(1)
+_ = V6056
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6052 := __e.Get(1)
+_ = B6052
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6053 := __e.Get(1)
+_ = L6053
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6054 := __e.Get(1)
+_ = Key6054
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6055 := __e.Get(1)
+_ = C6055
+tmp18074 := MakeNative(func(__e *ControlFlow) {
+A := __e.Get(1)
+_ = A
+tmp18075 := PrimCons(A, Nil)
+
+tmp18076 := PrimCons(symlist, tmp18075)
+
+tmp18077 := PrimCons(A, Nil)
+
+tmp18078 := PrimCons(symlist, tmp18077)
+
+tmp18079 := PrimCons(A, Nil)
+
+tmp18080 := PrimCons(symlist, tmp18079)
+
+tmp18081 := PrimCons(tmp18080, Nil)
+
+tmp18082 := PrimCons(sym_1_1_6, tmp18081)
+
+tmp18083 := PrimCons(tmp18078, tmp18082)
+
+tmp18084 := PrimCons(tmp18083, Nil)
+
+tmp18085 := PrimCons(sym_1_1_6, tmp18084)
+
+tmp18086 := PrimCons(tmp18076, tmp18085)
+
+tmp18087 := Call(__e, PrimFunc(symis_b), V6056, tmp18086, B6052, L6053, Key6054, C6055)
+
+
+__e.TailApply(PrimFunc(symshen_4gc), B6052, tmp18087)
+return
+
+
+}, 1)
+
+tmp18088 := Call(__e, PrimFunc(symshen_4newpv), B6052)
+
+
+__e.TailApply(tmp18074, tmp18088)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp18089 := PrimValue(symshen_4_dsigf_d)
+
+tmp18090 := Call(__e, PrimFunc(symshen_4assoc_1_6), symdifference, tmp18073, tmp18089)
+
+
+tmp18091 := PrimSet(symshen_4_dsigf_d, tmp18090)
+
+_ = tmp18091
+
+tmp18092 := MakeNative(func(__e *ControlFlow) {
+V6061 := __e.Get(1)
+_ = V6061
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6057 := __e.Get(1)
+_ = B6057
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6058 := __e.Get(1)
+_ = L6058
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6059 := __e.Get(1)
+_ = Key6059
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6060 := __e.Get(1)
+_ = C6060
+tmp18093 := MakeNative(func(__e *ControlFlow) {
+A := __e.Get(1)
+_ = A
+tmp18094 := MakeNative(func(__e *ControlFlow) {
+B := __e.Get(1)
+_ = B
+tmp18095 := PrimCons(B, Nil)
+
+tmp18096 := PrimCons(sym_1_1_6, tmp18095)
+
+tmp18097 := PrimCons(B, tmp18096)
+
+tmp18098 := PrimCons(tmp18097, Nil)
+
+tmp18099 := PrimCons(sym_1_1_6, tmp18098)
+
+tmp18100 := PrimCons(A, tmp18099)
+
+tmp18101 := Call(__e, PrimFunc(symis_b), V6061, tmp18100, B6057, L6058, Key6059, C6060)
+
+
+__e.TailApply(PrimFunc(symshen_4gc), B6057, tmp18101)
+return
+
+
+}, 1)
+
+tmp18102 := Call(__e, PrimFunc(symshen_4newpv), B6057)
+
+
+tmp18103 := Call(__e, tmp18094, tmp18102)
+
+
+__e.TailApply(PrimFunc(symshen_4gc), B6057, tmp18103)
+return
+
+
+}, 1)
+
+tmp18104 := Call(__e, PrimFunc(symshen_4newpv), B6057)
+
+
+__e.TailApply(tmp18093, tmp18104)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp18105 := PrimValue(symshen_4_dsigf_d)
+
+tmp18106 := Call(__e, PrimFunc(symshen_4assoc_1_6), symdo, tmp18092, tmp18105)
+
+
+tmp18107 := PrimSet(symshen_4_dsigf_d, tmp18106)
+
+_ = tmp18107
+
+tmp18108 := MakeNative(func(__e *ControlFlow) {
+V6066 := __e.Get(1)
+_ = V6066
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6062 := __e.Get(1)
+_ = B6062
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6063 := __e.Get(1)
+_ = L6063
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6064 := __e.Get(1)
+_ = Key6064
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6065 := __e.Get(1)
+_ = C6065
+tmp18109 := MakeNative(func(__e *ControlFlow) {
+A := __e.Get(1)
+_ = A
+tmp18110 := MakeNative(func(__e *ControlFlow) {
+B := __e.Get(1)
+_ = B
+tmp18111 := PrimCons(A, Nil)
+
+tmp18112 := PrimCons(symlist, tmp18111)
+
+tmp18113 := PrimCons(A, Nil)
+
+tmp18114 := PrimCons(symlist, tmp18113)
+
+tmp18115 := PrimCons(B, Nil)
+
+tmp18116 := PrimCons(symlist, tmp18115)
+
+tmp18117 := PrimCons(tmp18116, Nil)
+
+tmp18118 := PrimCons(tmp18114, tmp18117)
+
+tmp18119 := PrimCons(symstr, tmp18118)
+
+tmp18120 := PrimCons(tmp18119, Nil)
+
+tmp18121 := PrimCons(sym_1_1_6, tmp18120)
+
+tmp18122 := PrimCons(tmp18112, tmp18121)
+
+tmp18123 := Call(__e, PrimFunc(symis_b), V6066, tmp18122, B6062, L6063, Key6064, C6065)
+
+
+__e.TailApply(PrimFunc(symshen_4gc), B6062, tmp18123)
+return
+
+
+}, 1)
+
+tmp18124 := Call(__e, PrimFunc(symshen_4newpv), B6062)
+
+
+tmp18125 := Call(__e, tmp18110, tmp18124)
+
+
+__e.TailApply(PrimFunc(symshen_4gc), B6062, tmp18125)
+return
+
+
+}, 1)
+
+tmp18126 := Call(__e, PrimFunc(symshen_4newpv), B6062)
+
+
+__e.TailApply(tmp18109, tmp18126)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp18127 := PrimValue(symshen_4_dsigf_d)
+
+tmp18128 := Call(__e, PrimFunc(symshen_4assoc_1_6), sym_5e_6, tmp18108, tmp18127)
+
+
+tmp18129 := PrimSet(symshen_4_dsigf_d, tmp18128)
+
+_ = tmp18129
+
+tmp18130 := MakeNative(func(__e *ControlFlow) {
+V6071 := __e.Get(1)
+_ = V6071
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6067 := __e.Get(1)
+_ = B6067
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6068 := __e.Get(1)
+_ = L6068
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6069 := __e.Get(1)
+_ = Key6069
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6070 := __e.Get(1)
+_ = C6070
+tmp18131 := MakeNative(func(__e *ControlFlow) {
+B := __e.Get(1)
+_ = B
+tmp18132 := MakeNative(func(__e *ControlFlow) {
+A := __e.Get(1)
+_ = A
+tmp18133 := PrimCons(A, Nil)
+
+tmp18134 := PrimCons(symlist, tmp18133)
+
+tmp18135 := PrimCons(B, Nil)
+
+tmp18136 := PrimCons(symlist, tmp18135)
+
+tmp18137 := PrimCons(A, Nil)
+
+tmp18138 := PrimCons(symlist, tmp18137)
+
+tmp18139 := PrimCons(tmp18138, Nil)
+
+tmp18140 := PrimCons(tmp18136, tmp18139)
+
+tmp18141 := PrimCons(symstr, tmp18140)
+
+tmp18142 := PrimCons(tmp18141, Nil)
+
+tmp18143 := PrimCons(sym_1_1_6, tmp18142)
+
+tmp18144 := PrimCons(tmp18134, tmp18143)
+
+tmp18145 := Call(__e, PrimFunc(symis_b), V6071, tmp18144, B6067, L6068, Key6069, C6070)
+
+
+__e.TailApply(PrimFunc(symshen_4gc), B6067, tmp18145)
+return
+
+
+}, 1)
+
+tmp18146 := Call(__e, PrimFunc(symshen_4newpv), B6067)
+
+
+tmp18147 := Call(__e, tmp18132, tmp18146)
+
+
+__e.TailApply(PrimFunc(symshen_4gc), B6067, tmp18147)
+return
+
+
+}, 1)
+
+tmp18148 := Call(__e, PrimFunc(symshen_4newpv), B6067)
+
+
+__e.TailApply(tmp18131, tmp18148)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp18149 := PrimValue(symshen_4_dsigf_d)
+
+tmp18150 := Call(__e, PrimFunc(symshen_4assoc_1_6), sym_5_b_6, tmp18130, tmp18149)
+
+
+tmp18151 := PrimSet(symshen_4_dsigf_d, tmp18150)
+
+_ = tmp18151
+
+tmp18152 := MakeNative(func(__e *ControlFlow) {
+V6076 := __e.Get(1)
+_ = V6076
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6072 := __e.Get(1)
+_ = B6072
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6073 := __e.Get(1)
+_ = L6073
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6074 := __e.Get(1)
+_ = Key6074
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6075 := __e.Get(1)
+_ = C6075
+tmp18153 := MakeNative(func(__e *ControlFlow) {
+A := __e.Get(1)
+_ = A
+tmp18154 := MakeNative(func(__e *ControlFlow) {
+B := __e.Get(1)
+_ = B
+tmp18155 := PrimCons(A, Nil)
+
+tmp18156 := PrimCons(symlist, tmp18155)
+
+tmp18157 := PrimCons(A, Nil)
+
+tmp18158 := PrimCons(symlist, tmp18157)
+
+tmp18159 := PrimCons(B, Nil)
+
+tmp18160 := PrimCons(symlist, tmp18159)
+
+tmp18161 := PrimCons(tmp18160, Nil)
+
+tmp18162 := PrimCons(tmp18158, tmp18161)
+
+tmp18163 := PrimCons(symstr, tmp18162)
+
+tmp18164 := PrimCons(tmp18163, Nil)
+
+tmp18165 := PrimCons(sym_1_1_6, tmp18164)
+
+tmp18166 := PrimCons(tmp18156, tmp18165)
+
+tmp18167 := Call(__e, PrimFunc(symis_b), V6076, tmp18166, B6072, L6073, Key6074, C6075)
+
+
+__e.TailApply(PrimFunc(symshen_4gc), B6072, tmp18167)
+return
+
+
+}, 1)
+
+tmp18168 := Call(__e, PrimFunc(symshen_4newpv), B6072)
+
+
+tmp18169 := Call(__e, tmp18154, tmp18168)
+
+
+__e.TailApply(PrimFunc(symshen_4gc), B6072, tmp18169)
+return
+
+
+}, 1)
+
+tmp18170 := Call(__e, PrimFunc(symshen_4newpv), B6072)
+
+
+__e.TailApply(tmp18153, tmp18170)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp18171 := PrimValue(symshen_4_dsigf_d)
+
+tmp18172 := Call(__e, PrimFunc(symshen_4assoc_1_6), sym_5end_6, tmp18152, tmp18171)
+
+
+tmp18173 := PrimSet(symshen_4_dsigf_d, tmp18172)
+
+_ = tmp18173
+
+tmp18174 := MakeNative(func(__e *ControlFlow) {
+V6081 := __e.Get(1)
+_ = V6081
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6077 := __e.Get(1)
+_ = B6077
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6078 := __e.Get(1)
+_ = L6078
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6079 := __e.Get(1)
+_ = Key6079
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6080 := __e.Get(1)
+_ = C6080
+tmp18175 := MakeNative(func(__e *ControlFlow) {
+A := __e.Get(1)
+_ = A
+tmp18176 := MakeNative(func(__e *ControlFlow) {
+B := __e.Get(1)
+_ = B
+tmp18177 := PrimCons(A, Nil)
+
+tmp18178 := PrimCons(symlist, tmp18177)
+
+tmp18179 := PrimCons(B, Nil)
+
+tmp18180 := PrimCons(tmp18178, tmp18179)
+
+tmp18181 := PrimCons(symstr, tmp18180)
+
+tmp18182 := PrimCons(symboolean, Nil)
+
+tmp18183 := PrimCons(sym_1_1_6, tmp18182)
+
+tmp18184 := PrimCons(tmp18181, tmp18183)
+
+tmp18185 := Call(__e, PrimFunc(symis_b), V6081, tmp18184, B6077, L6078, Key6079, C6080)
+
+
+__e.TailApply(PrimFunc(symshen_4gc), B6077, tmp18185)
+return
+
+
+}, 1)
+
+tmp18186 := Call(__e, PrimFunc(symshen_4newpv), B6077)
+
+
+tmp18187 := Call(__e, tmp18176, tmp18186)
+
+
+__e.TailApply(PrimFunc(symshen_4gc), B6077, tmp18187)
+return
+
+
+}, 1)
+
+tmp18188 := Call(__e, PrimFunc(symshen_4newpv), B6077)
+
+
+__e.TailApply(tmp18175, tmp18188)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp18189 := PrimValue(symshen_4_dsigf_d)
+
+tmp18190 := Call(__e, PrimFunc(symshen_4assoc_1_6), symshen_4parse_1failure_2, tmp18174, tmp18189)
+
+
+tmp18191 := PrimSet(symshen_4_dsigf_d, tmp18190)
+
+_ = tmp18191
+
+tmp18192 := MakeNative(func(__e *ControlFlow) {
+V6086 := __e.Get(1)
+_ = V6086
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6082 := __e.Get(1)
+_ = B6082
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6083 := __e.Get(1)
+_ = L6083
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6084 := __e.Get(1)
+_ = Key6084
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6085 := __e.Get(1)
+_ = C6085
+tmp18193 := MakeNative(func(__e *ControlFlow) {
+A := __e.Get(1)
+_ = A
+tmp18194 := MakeNative(func(__e *ControlFlow) {
+B := __e.Get(1)
+_ = B
+tmp18195 := PrimCons(A, Nil)
+
+tmp18196 := PrimCons(symlist, tmp18195)
+
+tmp18197 := PrimCons(B, Nil)
+
+tmp18198 := PrimCons(tmp18196, tmp18197)
+
+tmp18199 := PrimCons(symstr, tmp18198)
+
+tmp18200 := PrimCons(tmp18199, Nil)
+
+tmp18201 := PrimCons(sym_1_1_6, tmp18200)
+
+tmp18202 := Call(__e, PrimFunc(symis_b), V6086, tmp18201, B6082, L6083, Key6084, C6085)
+
+
+__e.TailApply(PrimFunc(symshen_4gc), B6082, tmp18202)
+return
+
+
+}, 1)
+
+tmp18203 := Call(__e, PrimFunc(symshen_4newpv), B6082)
+
+
+tmp18204 := Call(__e, tmp18194, tmp18203)
+
+
+__e.TailApply(PrimFunc(symshen_4gc), B6082, tmp18204)
+return
+
+
+}, 1)
+
+tmp18205 := Call(__e, PrimFunc(symshen_4newpv), B6082)
+
+
+__e.TailApply(tmp18193, tmp18205)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp18206 := PrimValue(symshen_4_dsigf_d)
+
+tmp18207 := Call(__e, PrimFunc(symshen_4assoc_1_6), symshen_4parse_1failure, tmp18192, tmp18206)
+
+
+tmp18208 := PrimSet(symshen_4_dsigf_d, tmp18207)
+
+_ = tmp18208
+
+tmp18209 := MakeNative(func(__e *ControlFlow) {
+V6091 := __e.Get(1)
+_ = V6091
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6087 := __e.Get(1)
+_ = B6087
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6088 := __e.Get(1)
+_ = L6088
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6089 := __e.Get(1)
+_ = Key6089
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6090 := __e.Get(1)
+_ = C6090
+tmp18210 := MakeNative(func(__e *ControlFlow) {
+A := __e.Get(1)
+_ = A
+tmp18211 := MakeNative(func(__e *ControlFlow) {
+B := __e.Get(1)
+_ = B
+tmp18212 := PrimCons(A, Nil)
+
+tmp18213 := PrimCons(symlist, tmp18212)
+
+tmp18214 := PrimCons(B, Nil)
+
+tmp18215 := PrimCons(tmp18213, tmp18214)
+
+tmp18216 := PrimCons(symstr, tmp18215)
+
+tmp18217 := PrimCons(B, Nil)
+
+tmp18218 := PrimCons(sym_1_1_6, tmp18217)
+
+tmp18219 := PrimCons(tmp18216, tmp18218)
+
+tmp18220 := Call(__e, PrimFunc(symis_b), V6091, tmp18219, B6087, L6088, Key6089, C6090)
+
+
+__e.TailApply(PrimFunc(symshen_4gc), B6087, tmp18220)
+return
+
+
+}, 1)
+
+tmp18221 := Call(__e, PrimFunc(symshen_4newpv), B6087)
+
+
+tmp18222 := Call(__e, tmp18211, tmp18221)
+
+
+__e.TailApply(PrimFunc(symshen_4gc), B6087, tmp18222)
+return
+
+
+}, 1)
+
+tmp18223 := Call(__e, PrimFunc(symshen_4newpv), B6087)
+
+
+__e.TailApply(tmp18210, tmp18223)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp18224 := PrimValue(symshen_4_dsigf_d)
+
+tmp18225 := Call(__e, PrimFunc(symshen_4assoc_1_6), symshen_4_5_1out, tmp18209, tmp18224)
+
+
+tmp18226 := PrimSet(symshen_4_dsigf_d, tmp18225)
+
+_ = tmp18226
+
+tmp18227 := MakeNative(func(__e *ControlFlow) {
+V6096 := __e.Get(1)
+_ = V6096
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6092 := __e.Get(1)
+_ = B6092
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6093 := __e.Get(1)
+_ = L6093
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6094 := __e.Get(1)
+_ = Key6094
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6095 := __e.Get(1)
+_ = C6095
+tmp18228 := MakeNative(func(__e *ControlFlow) {
+B := __e.Get(1)
+_ = B
+tmp18229 := MakeNative(func(__e *ControlFlow) {
+A := __e.Get(1)
+_ = A
+tmp18230 := PrimCons(A, Nil)
+
+tmp18231 := PrimCons(symlist, tmp18230)
+
+tmp18232 := PrimCons(B, Nil)
+
+tmp18233 := PrimCons(tmp18231, tmp18232)
+
+tmp18234 := PrimCons(symstr, tmp18233)
+
+tmp18235 := PrimCons(A, Nil)
+
+tmp18236 := PrimCons(symlist, tmp18235)
+
+tmp18237 := PrimCons(tmp18236, Nil)
+
+tmp18238 := PrimCons(sym_1_1_6, tmp18237)
+
+tmp18239 := PrimCons(tmp18234, tmp18238)
+
+tmp18240 := Call(__e, PrimFunc(symis_b), V6096, tmp18239, B6092, L6093, Key6094, C6095)
+
+
+__e.TailApply(PrimFunc(symshen_4gc), B6092, tmp18240)
+return
+
+
+}, 1)
+
+tmp18241 := Call(__e, PrimFunc(symshen_4newpv), B6092)
+
+
+tmp18242 := Call(__e, tmp18229, tmp18241)
+
+
+__e.TailApply(PrimFunc(symshen_4gc), B6092, tmp18242)
+return
+
+
+}, 1)
+
+tmp18243 := Call(__e, PrimFunc(symshen_4newpv), B6092)
+
+
+__e.TailApply(tmp18228, tmp18243)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp18244 := PrimValue(symshen_4_dsigf_d)
+
+tmp18245 := Call(__e, PrimFunc(symshen_4assoc_1_6), symshen_4in_1_6, tmp18227, tmp18244)
+
+
+tmp18246 := PrimSet(symshen_4_dsigf_d, tmp18245)
+
+_ = tmp18246
+
+tmp18247 := MakeNative(func(__e *ControlFlow) {
+V6101 := __e.Get(1)
+_ = V6101
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6097 := __e.Get(1)
+_ = B6097
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6098 := __e.Get(1)
+_ = L6098
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6099 := __e.Get(1)
+_ = Key6099
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6100 := __e.Get(1)
+_ = C6100
+tmp18248 := MakeNative(func(__e *ControlFlow) {
+A := __e.Get(1)
+_ = A
+tmp18249 := MakeNative(func(__e *ControlFlow) {
+B := __e.Get(1)
+_ = B
+tmp18250 := PrimCons(A, Nil)
+
+tmp18251 := PrimCons(symlist, tmp18250)
+
+tmp18252 := PrimCons(A, Nil)
+
+tmp18253 := PrimCons(symlist, tmp18252)
+
+tmp18254 := PrimCons(B, Nil)
+
+tmp18255 := PrimCons(tmp18253, tmp18254)
+
+tmp18256 := PrimCons(symstr, tmp18255)
+
+tmp18257 := PrimCons(tmp18256, Nil)
+
+tmp18258 := PrimCons(sym_1_1_6, tmp18257)
+
+tmp18259 := PrimCons(B, tmp18258)
+
+tmp18260 := PrimCons(tmp18259, Nil)
+
+tmp18261 := PrimCons(sym_1_1_6, tmp18260)
+
+tmp18262 := PrimCons(tmp18251, tmp18261)
+
+tmp18263 := Call(__e, PrimFunc(symis_b), V6101, tmp18262, B6097, L6098, Key6099, C6100)
+
+
+__e.TailApply(PrimFunc(symshen_4gc), B6097, tmp18263)
+return
+
+
+}, 1)
+
+tmp18264 := Call(__e, PrimFunc(symshen_4newpv), B6097)
+
+
+tmp18265 := Call(__e, tmp18249, tmp18264)
+
+
+__e.TailApply(PrimFunc(symshen_4gc), B6097, tmp18265)
+return
+
+
+}, 1)
+
+tmp18266 := Call(__e, PrimFunc(symshen_4newpv), B6097)
+
+
+__e.TailApply(tmp18248, tmp18266)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp18267 := PrimValue(symshen_4_dsigf_d)
+
+tmp18268 := Call(__e, PrimFunc(symshen_4assoc_1_6), symshen_4comb, tmp18247, tmp18267)
+
+
+tmp18269 := PrimSet(symshen_4_dsigf_d, tmp18268)
+
+_ = tmp18269
+
+tmp18270 := MakeNative(func(__e *ControlFlow) {
+V6106 := __e.Get(1)
+_ = V6106
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6102 := __e.Get(1)
+_ = B6102
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6103 := __e.Get(1)
+_ = L6103
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6104 := __e.Get(1)
+_ = Key6104
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6105 := __e.Get(1)
+_ = C6105
+tmp18271 := MakeNative(func(__e *ControlFlow) {
+A := __e.Get(1)
+_ = A
+tmp18272 := PrimCons(A, Nil)
+
+tmp18273 := PrimCons(symlist, tmp18272)
+
+tmp18274 := PrimCons(symboolean, Nil)
+
+tmp18275 := PrimCons(sym_1_1_6, tmp18274)
+
+tmp18276 := PrimCons(tmp18273, tmp18275)
+
+tmp18277 := PrimCons(tmp18276, Nil)
+
+tmp18278 := PrimCons(sym_1_1_6, tmp18277)
+
+tmp18279 := PrimCons(A, tmp18278)
+
+tmp18280 := Call(__e, PrimFunc(symis_b), V6106, tmp18279, B6102, L6103, Key6104, C6105)
+
+
+__e.TailApply(PrimFunc(symshen_4gc), B6102, tmp18280)
+return
+
+
+}, 1)
+
+tmp18281 := Call(__e, PrimFunc(symshen_4newpv), B6102)
+
+
+__e.TailApply(tmp18271, tmp18281)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp18282 := PrimValue(symshen_4_dsigf_d)
+
+tmp18283 := Call(__e, PrimFunc(symshen_4assoc_1_6), symelement_2, tmp18270, tmp18282)
+
+
+tmp18284 := PrimSet(symshen_4_dsigf_d, tmp18283)
+
+_ = tmp18284
+
+tmp18285 := MakeNative(func(__e *ControlFlow) {
+V6111 := __e.Get(1)
+_ = V6111
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6107 := __e.Get(1)
+_ = B6107
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6108 := __e.Get(1)
+_ = L6108
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6109 := __e.Get(1)
+_ = Key6109
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6110 := __e.Get(1)
+_ = C6110
+tmp18286 := MakeNative(func(__e *ControlFlow) {
+A := __e.Get(1)
+_ = A
+tmp18287 := PrimCons(symboolean, Nil)
+
+tmp18288 := PrimCons(sym_1_1_6, tmp18287)
+
+tmp18289 := PrimCons(A, tmp18288)
+
+tmp18290 := Call(__e, PrimFunc(symis_b), V6111, tmp18289, B6107, L6108, Key6109, C6110)
+
+
+__e.TailApply(PrimFunc(symshen_4gc), B6107, tmp18290)
+return
+
+
+}, 1)
+
+tmp18291 := Call(__e, PrimFunc(symshen_4newpv), B6107)
+
+
+__e.TailApply(tmp18286, tmp18291)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp18292 := PrimValue(symshen_4_dsigf_d)
+
+tmp18293 := Call(__e, PrimFunc(symshen_4assoc_1_6), symempty_2, tmp18285, tmp18292)
+
+
+tmp18294 := PrimSet(symshen_4_dsigf_d, tmp18293)
+
+_ = tmp18294
+
+tmp18295 := MakeNative(func(__e *ControlFlow) {
+V6116 := __e.Get(1)
+_ = V6116
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6112 := __e.Get(1)
+_ = B6112
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6113 := __e.Get(1)
+_ = L6113
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6114 := __e.Get(1)
+_ = Key6114
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6115 := __e.Get(1)
+_ = C6115
+tmp18296 := PrimCons(symboolean, Nil)
+
+tmp18297 := PrimCons(sym_1_1_6, tmp18296)
+
+tmp18298 := PrimCons(symsymbol, tmp18297)
+
+__e.TailApply(PrimFunc(symis_b), V6116, tmp18298, B6112, L6113, Key6114, C6115)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp18299 := PrimValue(symshen_4_dsigf_d)
+
+tmp18300 := Call(__e, PrimFunc(symshen_4assoc_1_6), symenable_1type_1theory, tmp18295, tmp18299)
+
+
+tmp18301 := PrimSet(symshen_4_dsigf_d, tmp18300)
+
+_ = tmp18301
+
+tmp18302 := MakeNative(func(__e *ControlFlow) {
+V6121 := __e.Get(1)
+_ = V6121
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6117 := __e.Get(1)
+_ = B6117
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6118 := __e.Get(1)
+_ = L6118
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6119 := __e.Get(1)
+_ = Key6119
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6120 := __e.Get(1)
+_ = C6120
+tmp18303 := PrimCons(symsymbol, Nil)
+
+tmp18304 := PrimCons(symlist, tmp18303)
+
+tmp18305 := PrimCons(tmp18304, Nil)
+
+tmp18306 := PrimCons(sym_1_1_6, tmp18305)
+
+tmp18307 := PrimCons(symsymbol, tmp18306)
+
+__e.TailApply(PrimFunc(symis_b), V6121, tmp18307, B6117, L6118, Key6119, C6120)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp18308 := PrimValue(symshen_4_dsigf_d)
+
+tmp18309 := Call(__e, PrimFunc(symshen_4assoc_1_6), symexternal, tmp18302, tmp18308)
+
+
+tmp18310 := PrimSet(symshen_4_dsigf_d, tmp18309)
+
+_ = tmp18310
+
+tmp18311 := MakeNative(func(__e *ControlFlow) {
+V6126 := __e.Get(1)
+_ = V6126
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6122 := __e.Get(1)
+_ = B6122
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6123 := __e.Get(1)
+_ = L6123
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6124 := __e.Get(1)
+_ = Key6124
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6125 := __e.Get(1)
+_ = C6125
+tmp18312 := PrimCons(symstring, Nil)
+
+tmp18313 := PrimCons(sym_1_1_6, tmp18312)
+
+tmp18314 := PrimCons(symexception, tmp18313)
+
+__e.TailApply(PrimFunc(symis_b), V6126, tmp18314, B6122, L6123, Key6124, C6125)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp18315 := PrimValue(symshen_4_dsigf_d)
+
+tmp18316 := Call(__e, PrimFunc(symshen_4assoc_1_6), symerror_1to_1string, tmp18311, tmp18315)
+
+
+tmp18317 := PrimSet(symshen_4_dsigf_d, tmp18316)
+
+_ = tmp18317
+
+tmp18318 := MakeNative(func(__e *ControlFlow) {
+V6131 := __e.Get(1)
+_ = V6131
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6127 := __e.Get(1)
+_ = B6127
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6128 := __e.Get(1)
+_ = L6128
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6129 := __e.Get(1)
+_ = Key6129
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6130 := __e.Get(1)
+_ = C6130
+tmp18319 := MakeNative(func(__e *ControlFlow) {
+A := __e.Get(1)
+_ = A
+tmp18320 := PrimCons(symstring, Nil)
+
+tmp18321 := PrimCons(symlist, tmp18320)
+
+tmp18322 := PrimCons(tmp18321, Nil)
+
+tmp18323 := PrimCons(sym_1_1_6, tmp18322)
+
+tmp18324 := PrimCons(A, tmp18323)
+
+tmp18325 := Call(__e, PrimFunc(symis_b), V6131, tmp18324, B6127, L6128, Key6129, C6130)
+
+
+__e.TailApply(PrimFunc(symshen_4gc), B6127, tmp18325)
+return
+
+
+}, 1)
+
+tmp18326 := Call(__e, PrimFunc(symshen_4newpv), B6127)
+
+
+__e.TailApply(tmp18319, tmp18326)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp18327 := PrimValue(symshen_4_dsigf_d)
+
+tmp18328 := Call(__e, PrimFunc(symshen_4assoc_1_6), symexplode, tmp18318, tmp18327)
+
+
+tmp18329 := PrimSet(symshen_4_dsigf_d, tmp18328)
+
+_ = tmp18329
+
+tmp18330 := MakeNative(func(__e *ControlFlow) {
+V6136 := __e.Get(1)
+_ = V6136
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6132 := __e.Get(1)
+_ = B6132
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6133 := __e.Get(1)
+_ = L6133
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6134 := __e.Get(1)
+_ = Key6134
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6135 := __e.Get(1)
+_ = C6135
+tmp18331 := PrimCons(symsymbol, Nil)
+
+tmp18332 := PrimCons(sym_1_1_6, tmp18331)
+
+tmp18333 := PrimCons(symsymbol, tmp18332)
+
+__e.TailApply(PrimFunc(symis_b), V6136, tmp18333, B6132, L6133, Key6134, C6135)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp18334 := PrimValue(symshen_4_dsigf_d)
+
+tmp18335 := Call(__e, PrimFunc(symshen_4assoc_1_6), symfactorise, tmp18330, tmp18334)
+
+
+tmp18336 := PrimSet(symshen_4_dsigf_d, tmp18335)
+
+_ = tmp18336
+
+tmp18337 := MakeNative(func(__e *ControlFlow) {
+V6141 := __e.Get(1)
+_ = V6141
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6137 := __e.Get(1)
+_ = B6137
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6138 := __e.Get(1)
+_ = L6138
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6139 := __e.Get(1)
+_ = Key6139
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6140 := __e.Get(1)
+_ = C6140
+tmp18338 := PrimCons(symboolean, Nil)
+
+tmp18339 := PrimCons(sym_1_1_6, tmp18338)
+
+__e.TailApply(PrimFunc(symis_b), V6141, tmp18339, B6137, L6138, Key6139, C6140)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp18340 := PrimValue(symshen_4_dsigf_d)
+
+tmp18341 := Call(__e, PrimFunc(symshen_4assoc_1_6), symfactorise_2, tmp18337, tmp18340)
+
+
+tmp18342 := PrimSet(symshen_4_dsigf_d, tmp18341)
+
+_ = tmp18342
+
+tmp18343 := MakeNative(func(__e *ControlFlow) {
+V6146 := __e.Get(1)
+_ = V6146
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6142 := __e.Get(1)
+_ = B6142
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6143 := __e.Get(1)
+_ = L6143
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6144 := __e.Get(1)
+_ = Key6144
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6145 := __e.Get(1)
+_ = C6145
+tmp18344 := PrimCons(symsymbol, Nil)
+
+tmp18345 := PrimCons(sym_1_1_6, tmp18344)
+
+__e.TailApply(PrimFunc(symis_b), V6146, tmp18345, B6142, L6143, Key6144, C6145)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp18346 := PrimValue(symshen_4_dsigf_d)
+
+tmp18347 := Call(__e, PrimFunc(symshen_4assoc_1_6), symfail, tmp18343, tmp18346)
+
+
+tmp18348 := PrimSet(symshen_4_dsigf_d, tmp18347)
+
+_ = tmp18348
+
+tmp18349 := MakeNative(func(__e *ControlFlow) {
+V6151 := __e.Get(1)
+_ = V6151
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6147 := __e.Get(1)
+_ = B6147
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6148 := __e.Get(1)
+_ = L6148
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6149 := __e.Get(1)
+_ = Key6149
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6150 := __e.Get(1)
+_ = C6150
+tmp18350 := MakeNative(func(__e *ControlFlow) {
+A := __e.Get(1)
+_ = A
+tmp18351 := PrimCons(A, Nil)
+
+tmp18352 := PrimCons(sym_1_1_6, tmp18351)
+
+tmp18353 := PrimCons(A, tmp18352)
+
+tmp18354 := PrimCons(A, Nil)
+
+tmp18355 := PrimCons(sym_1_1_6, tmp18354)
+
+tmp18356 := PrimCons(A, tmp18355)
+
+tmp18357 := PrimCons(tmp18356, Nil)
+
+tmp18358 := PrimCons(sym_1_1_6, tmp18357)
+
+tmp18359 := PrimCons(tmp18353, tmp18358)
+
+tmp18360 := Call(__e, PrimFunc(symis_b), V6151, tmp18359, B6147, L6148, Key6149, C6150)
+
+
+__e.TailApply(PrimFunc(symshen_4gc), B6147, tmp18360)
+return
+
+
+}, 1)
+
+tmp18361 := Call(__e, PrimFunc(symshen_4newpv), B6147)
+
+
+__e.TailApply(tmp18350, tmp18361)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp18362 := PrimValue(symshen_4_dsigf_d)
+
+tmp18363 := Call(__e, PrimFunc(symshen_4assoc_1_6), symfix, tmp18349, tmp18362)
+
+
+tmp18364 := PrimSet(symshen_4_dsigf_d, tmp18363)
+
+_ = tmp18364
+
+tmp18365 := MakeNative(func(__e *ControlFlow) {
+V6156 := __e.Get(1)
+_ = V6156
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6152 := __e.Get(1)
+_ = B6152
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6153 := __e.Get(1)
+_ = L6153
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6154 := __e.Get(1)
+_ = Key6154
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6155 := __e.Get(1)
+_ = C6155
+tmp18366 := MakeNative(func(__e *ControlFlow) {
+A := __e.Get(1)
+_ = A
+tmp18367 := PrimCons(A, Nil)
+
+tmp18368 := PrimCons(symlazy, tmp18367)
+
+tmp18369 := PrimCons(tmp18368, Nil)
+
+tmp18370 := PrimCons(sym_1_1_6, tmp18369)
+
+tmp18371 := PrimCons(A, tmp18370)
+
+tmp18372 := Call(__e, PrimFunc(symis_b), V6156, tmp18371, B6152, L6153, Key6154, C6155)
+
+
+__e.TailApply(PrimFunc(symshen_4gc), B6152, tmp18372)
+return
+
+
+}, 1)
+
+tmp18373 := Call(__e, PrimFunc(symshen_4newpv), B6152)
+
+
+__e.TailApply(tmp18366, tmp18373)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp18374 := PrimValue(symshen_4_dsigf_d)
+
+tmp18375 := Call(__e, PrimFunc(symshen_4assoc_1_6), symfreeze, tmp18365, tmp18374)
+
+
+tmp18376 := PrimSet(symshen_4_dsigf_d, tmp18375)
+
+_ = tmp18376
+
+tmp18377 := MakeNative(func(__e *ControlFlow) {
+V6161 := __e.Get(1)
+_ = V6161
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6157 := __e.Get(1)
+_ = B6157
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6158 := __e.Get(1)
+_ = L6158
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6159 := __e.Get(1)
+_ = Key6159
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6160 := __e.Get(1)
+_ = C6160
+tmp18378 := MakeNative(func(__e *ControlFlow) {
+B := __e.Get(1)
+_ = B
+tmp18379 := MakeNative(func(__e *ControlFlow) {
+A := __e.Get(1)
+_ = A
+tmp18380 := PrimCons(B, Nil)
+
+tmp18381 := PrimCons(sym_d, tmp18380)
+
+tmp18382 := PrimCons(A, tmp18381)
+
+tmp18383 := PrimCons(A, Nil)
+
+tmp18384 := PrimCons(sym_1_1_6, tmp18383)
+
+tmp18385 := PrimCons(tmp18382, tmp18384)
+
+tmp18386 := Call(__e, PrimFunc(symis_b), V6161, tmp18385, B6157, L6158, Key6159, C6160)
+
+
+__e.TailApply(PrimFunc(symshen_4gc), B6157, tmp18386)
+return
+
+
+}, 1)
+
+tmp18387 := Call(__e, PrimFunc(symshen_4newpv), B6157)
+
+
+tmp18388 := Call(__e, tmp18379, tmp18387)
+
+
+__e.TailApply(PrimFunc(symshen_4gc), B6157, tmp18388)
+return
+
+
+}, 1)
+
+tmp18389 := Call(__e, PrimFunc(symshen_4newpv), B6157)
+
+
+__e.TailApply(tmp18378, tmp18389)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp18390 := PrimValue(symshen_4_dsigf_d)
+
+tmp18391 := Call(__e, PrimFunc(symshen_4assoc_1_6), symfst, tmp18377, tmp18390)
+
+
+tmp18392 := PrimSet(symshen_4_dsigf_d, tmp18391)
+
+_ = tmp18392
+
+tmp18393 := MakeNative(func(__e *ControlFlow) {
+V6166 := __e.Get(1)
+_ = V6166
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6162 := __e.Get(1)
+_ = B6162
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6163 := __e.Get(1)
+_ = L6163
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6164 := __e.Get(1)
+_ = Key6164
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6165 := __e.Get(1)
+_ = C6165
+tmp18394 := PrimCons(symsymbol, Nil)
+
+tmp18395 := PrimCons(sym_1_1_6, tmp18394)
+
+tmp18396 := PrimCons(symsymbol, tmp18395)
+
+__e.TailApply(PrimFunc(symis_b), V6166, tmp18396, B6162, L6163, Key6164, C6165)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp18397 := PrimValue(symshen_4_dsigf_d)
+
+tmp18398 := Call(__e, PrimFunc(symshen_4assoc_1_6), symgensym, tmp18393, tmp18397)
+
+
+tmp18399 := PrimSet(symshen_4_dsigf_d, tmp18398)
+
+_ = tmp18399
+
+tmp18400 := MakeNative(func(__e *ControlFlow) {
+V6171 := __e.Get(1)
+_ = V6171
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6167 := __e.Get(1)
+_ = B6167
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6168 := __e.Get(1)
+_ = L6168
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6169 := __e.Get(1)
+_ = Key6169
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6170 := __e.Get(1)
+_ = C6170
+tmp18401 := MakeNative(func(__e *ControlFlow) {
+A := __e.Get(1)
+_ = A
+tmp18402 := PrimCons(A, Nil)
+
+tmp18403 := PrimCons(symlist, tmp18402)
+
+tmp18404 := PrimCons(symboolean, Nil)
+
+tmp18405 := PrimCons(sym_1_1_6, tmp18404)
+
+tmp18406 := PrimCons(A, tmp18405)
+
+tmp18407 := PrimCons(tmp18406, Nil)
+
+tmp18408 := PrimCons(sym_1_1_6, tmp18407)
+
+tmp18409 := PrimCons(tmp18403, tmp18408)
+
+tmp18410 := Call(__e, PrimFunc(symis_b), V6171, tmp18409, B6167, L6168, Key6169, C6170)
+
+
+__e.TailApply(PrimFunc(symshen_4gc), B6167, tmp18410)
+return
+
+
+}, 1)
+
+tmp18411 := Call(__e, PrimFunc(symshen_4newpv), B6167)
+
+
+__e.TailApply(tmp18401, tmp18411)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp18412 := PrimValue(symshen_4_dsigf_d)
+
+tmp18413 := Call(__e, PrimFunc(symshen_4assoc_1_6), symshen_4hds_a_2, tmp18400, tmp18412)
+
+
+tmp18414 := PrimSet(symshen_4_dsigf_d, tmp18413)
+
+_ = tmp18414
+
+tmp18415 := MakeNative(func(__e *ControlFlow) {
+V6176 := __e.Get(1)
+_ = V6176
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6172 := __e.Get(1)
+_ = B6172
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6173 := __e.Get(1)
+_ = L6173
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6174 := __e.Get(1)
+_ = Key6174
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6175 := __e.Get(1)
+_ = C6175
+tmp18416 := PrimCons(symboolean, Nil)
+
+tmp18417 := PrimCons(sym_1_1_6, tmp18416)
+
+tmp18418 := PrimCons(symsymbol, tmp18417)
+
+__e.TailApply(PrimFunc(symis_b), V6176, tmp18418, B6172, L6173, Key6174, C6175)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp18419 := PrimValue(symshen_4_dsigf_d)
+
+tmp18420 := Call(__e, PrimFunc(symshen_4assoc_1_6), symhush, tmp18415, tmp18419)
+
+
+tmp18421 := PrimSet(symshen_4_dsigf_d, tmp18420)
+
+_ = tmp18421
+
+tmp18422 := MakeNative(func(__e *ControlFlow) {
+V6181 := __e.Get(1)
+_ = V6181
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6177 := __e.Get(1)
+_ = B6177
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6178 := __e.Get(1)
+_ = L6178
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6179 := __e.Get(1)
+_ = Key6179
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6180 := __e.Get(1)
+_ = C6180
+tmp18423 := PrimCons(symboolean, Nil)
+
+tmp18424 := PrimCons(sym_1_1_6, tmp18423)
+
+__e.TailApply(PrimFunc(symis_b), V6181, tmp18424, B6177, L6178, Key6179, C6180)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp18425 := PrimValue(symshen_4_dsigf_d)
+
+tmp18426 := Call(__e, PrimFunc(symshen_4assoc_1_6), symhush_2, tmp18422, tmp18425)
+
+
+tmp18427 := PrimSet(symshen_4_dsigf_d, tmp18426)
+
+_ = tmp18427
+
+tmp18428 := MakeNative(func(__e *ControlFlow) {
+V6186 := __e.Get(1)
+_ = V6186
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6182 := __e.Get(1)
+_ = B6182
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6183 := __e.Get(1)
+_ = L6183
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6184 := __e.Get(1)
+_ = Key6184
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6185 := __e.Get(1)
+_ = C6185
+tmp18429 := MakeNative(func(__e *ControlFlow) {
+A := __e.Get(1)
+_ = A
+tmp18430 := PrimCons(A, Nil)
+
+tmp18431 := PrimCons(symvector, tmp18430)
+
+tmp18432 := PrimCons(A, Nil)
+
+tmp18433 := PrimCons(sym_1_1_6, tmp18432)
+
+tmp18434 := PrimCons(symnumber, tmp18433)
+
+tmp18435 := PrimCons(tmp18434, Nil)
+
+tmp18436 := PrimCons(sym_1_1_6, tmp18435)
+
+tmp18437 := PrimCons(tmp18431, tmp18436)
+
+tmp18438 := Call(__e, PrimFunc(symis_b), V6186, tmp18437, B6182, L6183, Key6184, C6185)
+
+
+__e.TailApply(PrimFunc(symshen_4gc), B6182, tmp18438)
+return
+
+
+}, 1)
+
+tmp18439 := Call(__e, PrimFunc(symshen_4newpv), B6182)
+
+
+__e.TailApply(tmp18429, tmp18439)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp18440 := PrimValue(symshen_4_dsigf_d)
+
+tmp18441 := Call(__e, PrimFunc(symshen_4assoc_1_6), sym_5_1vector, tmp18428, tmp18440)
+
+
+tmp18442 := PrimSet(symshen_4_dsigf_d, tmp18441)
+
+_ = tmp18442
+
+tmp18443 := MakeNative(func(__e *ControlFlow) {
+V6191 := __e.Get(1)
+_ = V6191
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6187 := __e.Get(1)
+_ = B6187
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6188 := __e.Get(1)
+_ = L6188
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6189 := __e.Get(1)
+_ = Key6189
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6190 := __e.Get(1)
+_ = C6190
+tmp18444 := MakeNative(func(__e *ControlFlow) {
+A := __e.Get(1)
+_ = A
+tmp18445 := PrimCons(A, Nil)
+
+tmp18446 := PrimCons(symvector, tmp18445)
+
+tmp18447 := PrimCons(A, Nil)
+
+tmp18448 := PrimCons(symvector, tmp18447)
+
+tmp18449 := PrimCons(tmp18448, Nil)
+
+tmp18450 := PrimCons(sym_1_1_6, tmp18449)
+
+tmp18451 := PrimCons(A, tmp18450)
+
+tmp18452 := PrimCons(tmp18451, Nil)
+
+tmp18453 := PrimCons(sym_1_1_6, tmp18452)
+
+tmp18454 := PrimCons(symnumber, tmp18453)
+
+tmp18455 := PrimCons(tmp18454, Nil)
+
+tmp18456 := PrimCons(sym_1_1_6, tmp18455)
+
+tmp18457 := PrimCons(tmp18446, tmp18456)
+
+tmp18458 := Call(__e, PrimFunc(symis_b), V6191, tmp18457, B6187, L6188, Key6189, C6190)
+
+
+__e.TailApply(PrimFunc(symshen_4gc), B6187, tmp18458)
+return
+
+
+}, 1)
+
+tmp18459 := Call(__e, PrimFunc(symshen_4newpv), B6187)
+
+
+__e.TailApply(tmp18444, tmp18459)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp18460 := PrimValue(symshen_4_dsigf_d)
+
+tmp18461 := Call(__e, PrimFunc(symshen_4assoc_1_6), symvector_1_6, tmp18443, tmp18460)
+
+
+tmp18462 := PrimSet(symshen_4_dsigf_d, tmp18461)
+
+_ = tmp18462
+
+tmp18463 := MakeNative(func(__e *ControlFlow) {
+V6196 := __e.Get(1)
+_ = V6196
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6192 := __e.Get(1)
+_ = B6192
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6193 := __e.Get(1)
+_ = L6193
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6194 := __e.Get(1)
+_ = Key6194
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6195 := __e.Get(1)
+_ = C6195
+tmp18464 := MakeNative(func(__e *ControlFlow) {
+A := __e.Get(1)
+_ = A
+tmp18465 := PrimCons(A, Nil)
+
+tmp18466 := PrimCons(symvector, tmp18465)
+
+tmp18467 := PrimCons(tmp18466, Nil)
+
+tmp18468 := PrimCons(sym_1_1_6, tmp18467)
+
+tmp18469 := PrimCons(symnumber, tmp18468)
+
+tmp18470 := Call(__e, PrimFunc(symis_b), V6196, tmp18469, B6192, L6193, Key6194, C6195)
+
+
+__e.TailApply(PrimFunc(symshen_4gc), B6192, tmp18470)
+return
+
+
+}, 1)
+
+tmp18471 := Call(__e, PrimFunc(symshen_4newpv), B6192)
+
+
+__e.TailApply(tmp18464, tmp18471)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp18472 := PrimValue(symshen_4_dsigf_d)
+
+tmp18473 := Call(__e, PrimFunc(symshen_4assoc_1_6), symvector, tmp18463, tmp18472)
+
+
+tmp18474 := PrimSet(symshen_4_dsigf_d, tmp18473)
+
+_ = tmp18474
+
+tmp18475 := MakeNative(func(__e *ControlFlow) {
+V6201 := __e.Get(1)
+_ = V6201
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6197 := __e.Get(1)
+_ = B6197
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6198 := __e.Get(1)
+_ = L6198
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6199 := __e.Get(1)
+_ = Key6199
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6200 := __e.Get(1)
+_ = C6200
+tmp18476 := PrimCons(symnumber, Nil)
+
+tmp18477 := PrimCons(sym_1_1_6, tmp18476)
+
+tmp18478 := PrimCons(symsymbol, tmp18477)
+
+__e.TailApply(PrimFunc(symis_b), V6201, tmp18478, B6197, L6198, Key6199, C6200)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp18479 := PrimValue(symshen_4_dsigf_d)
+
+tmp18480 := Call(__e, PrimFunc(symshen_4assoc_1_6), symget_1time, tmp18475, tmp18479)
+
+
+tmp18481 := PrimSet(symshen_4_dsigf_d, tmp18480)
+
+_ = tmp18481
+
+tmp18482 := MakeNative(func(__e *ControlFlow) {
+V6206 := __e.Get(1)
+_ = V6206
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6202 := __e.Get(1)
+_ = B6202
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6203 := __e.Get(1)
+_ = L6203
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6204 := __e.Get(1)
+_ = Key6204
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6205 := __e.Get(1)
+_ = C6205
+tmp18483 := MakeNative(func(__e *ControlFlow) {
+A := __e.Get(1)
+_ = A
+tmp18484 := PrimCons(symnumber, Nil)
+
+tmp18485 := PrimCons(sym_1_1_6, tmp18484)
+
+tmp18486 := PrimCons(symnumber, tmp18485)
+
+tmp18487 := PrimCons(tmp18486, Nil)
+
+tmp18488 := PrimCons(sym_1_1_6, tmp18487)
+
+tmp18489 := PrimCons(A, tmp18488)
+
+tmp18490 := Call(__e, PrimFunc(symis_b), V6206, tmp18489, B6202, L6203, Key6204, C6205)
+
+
+__e.TailApply(PrimFunc(symshen_4gc), B6202, tmp18490)
+return
+
+
+}, 1)
+
+tmp18491 := Call(__e, PrimFunc(symshen_4newpv), B6202)
+
+
+__e.TailApply(tmp18483, tmp18491)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp18492 := PrimValue(symshen_4_dsigf_d)
+
+tmp18493 := Call(__e, PrimFunc(symshen_4assoc_1_6), symhash, tmp18482, tmp18492)
+
+
+tmp18494 := PrimSet(symshen_4_dsigf_d, tmp18493)
+
+_ = tmp18494
+
+tmp18495 := MakeNative(func(__e *ControlFlow) {
+V6211 := __e.Get(1)
+_ = V6211
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6207 := __e.Get(1)
+_ = B6207
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6208 := __e.Get(1)
+_ = L6208
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6209 := __e.Get(1)
+_ = Key6209
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6210 := __e.Get(1)
+_ = C6210
+tmp18496 := MakeNative(func(__e *ControlFlow) {
+A := __e.Get(1)
+_ = A
+tmp18497 := PrimCons(A, Nil)
+
+tmp18498 := PrimCons(symlist, tmp18497)
+
+tmp18499 := PrimCons(A, Nil)
+
+tmp18500 := PrimCons(sym_1_1_6, tmp18499)
+
+tmp18501 := PrimCons(tmp18498, tmp18500)
+
+tmp18502 := Call(__e, PrimFunc(symis_b), V6211, tmp18501, B6207, L6208, Key6209, C6210)
+
+
+__e.TailApply(PrimFunc(symshen_4gc), B6207, tmp18502)
+return
+
+
+}, 1)
+
+tmp18503 := Call(__e, PrimFunc(symshen_4newpv), B6207)
+
+
+__e.TailApply(tmp18496, tmp18503)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp18504 := PrimValue(symshen_4_dsigf_d)
+
+tmp18505 := Call(__e, PrimFunc(symshen_4assoc_1_6), symhead, tmp18495, tmp18504)
+
+
+tmp18506 := PrimSet(symshen_4_dsigf_d, tmp18505)
+
+_ = tmp18506
+
+tmp18507 := MakeNative(func(__e *ControlFlow) {
+V6216 := __e.Get(1)
+_ = V6216
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6212 := __e.Get(1)
+_ = B6212
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6213 := __e.Get(1)
+_ = L6213
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6214 := __e.Get(1)
+_ = Key6214
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6215 := __e.Get(1)
+_ = C6215
+tmp18508 := MakeNative(func(__e *ControlFlow) {
+A := __e.Get(1)
+_ = A
+tmp18509 := PrimCons(A, Nil)
+
+tmp18510 := PrimCons(symvector, tmp18509)
+
+tmp18511 := PrimCons(A, Nil)
+
+tmp18512 := PrimCons(sym_1_1_6, tmp18511)
+
+tmp18513 := PrimCons(tmp18510, tmp18512)
+
+tmp18514 := Call(__e, PrimFunc(symis_b), V6216, tmp18513, B6212, L6213, Key6214, C6215)
+
+
+__e.TailApply(PrimFunc(symshen_4gc), B6212, tmp18514)
+return
+
+
+}, 1)
+
+tmp18515 := Call(__e, PrimFunc(symshen_4newpv), B6212)
+
+
+__e.TailApply(tmp18508, tmp18515)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp18516 := PrimValue(symshen_4_dsigf_d)
+
+tmp18517 := Call(__e, PrimFunc(symshen_4assoc_1_6), symhdv, tmp18507, tmp18516)
+
+
+tmp18518 := PrimSet(symshen_4_dsigf_d, tmp18517)
+
+_ = tmp18518
+
+tmp18519 := MakeNative(func(__e *ControlFlow) {
+V6221 := __e.Get(1)
+_ = V6221
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6217 := __e.Get(1)
+_ = B6217
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6218 := __e.Get(1)
+_ = L6218
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6219 := __e.Get(1)
+_ = Key6219
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6220 := __e.Get(1)
+_ = C6220
+tmp18520 := PrimCons(symstring, Nil)
+
+tmp18521 := PrimCons(sym_1_1_6, tmp18520)
+
+tmp18522 := PrimCons(symstring, tmp18521)
+
+__e.TailApply(PrimFunc(symis_b), V6221, tmp18522, B6217, L6218, Key6219, C6220)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp18523 := PrimValue(symshen_4_dsigf_d)
+
+tmp18524 := Call(__e, PrimFunc(symshen_4assoc_1_6), symhdstr, tmp18519, tmp18523)
+
+
+tmp18525 := PrimSet(symshen_4_dsigf_d, tmp18524)
+
+_ = tmp18525
+
+tmp18526 := MakeNative(func(__e *ControlFlow) {
+V6226 := __e.Get(1)
+_ = V6226
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6222 := __e.Get(1)
+_ = B6222
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6223 := __e.Get(1)
+_ = L6223
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6224 := __e.Get(1)
+_ = Key6224
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6225 := __e.Get(1)
+_ = C6225
+tmp18527 := MakeNative(func(__e *ControlFlow) {
+A := __e.Get(1)
+_ = A
+tmp18528 := PrimCons(A, Nil)
+
+tmp18529 := PrimCons(sym_1_1_6, tmp18528)
+
+tmp18530 := PrimCons(A, tmp18529)
+
+tmp18531 := PrimCons(tmp18530, Nil)
+
+tmp18532 := PrimCons(sym_1_1_6, tmp18531)
+
+tmp18533 := PrimCons(A, tmp18532)
+
+tmp18534 := PrimCons(tmp18533, Nil)
+
+tmp18535 := PrimCons(sym_1_1_6, tmp18534)
+
+tmp18536 := PrimCons(symboolean, tmp18535)
+
+tmp18537 := Call(__e, PrimFunc(symis_b), V6226, tmp18536, B6222, L6223, Key6224, C6225)
+
+
+__e.TailApply(PrimFunc(symshen_4gc), B6222, tmp18537)
+return
+
+
+}, 1)
+
+tmp18538 := Call(__e, PrimFunc(symshen_4newpv), B6222)
+
+
+__e.TailApply(tmp18527, tmp18538)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp18539 := PrimValue(symshen_4_dsigf_d)
+
+tmp18540 := Call(__e, PrimFunc(symshen_4assoc_1_6), symif, tmp18526, tmp18539)
+
+
+tmp18541 := PrimSet(symshen_4_dsigf_d, tmp18540)
+
+_ = tmp18541
+
+tmp18542 := MakeNative(func(__e *ControlFlow) {
+V6231 := __e.Get(1)
+_ = V6231
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6227 := __e.Get(1)
+_ = B6227
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6228 := __e.Get(1)
+_ = L6228
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6229 := __e.Get(1)
+_ = Key6229
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6230 := __e.Get(1)
+_ = C6230
+tmp18543 := PrimCons(symsymbol, Nil)
+
+tmp18544 := PrimCons(sym_1_1_6, tmp18543)
+
+tmp18545 := PrimCons(symsymbol, tmp18544)
+
+__e.TailApply(PrimFunc(symis_b), V6231, tmp18545, B6227, L6228, Key6229, C6230)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp18546 := PrimValue(symshen_4_dsigf_d)
+
+tmp18547 := Call(__e, PrimFunc(symshen_4assoc_1_6), symin_1package, tmp18542, tmp18546)
+
+
+tmp18548 := PrimSet(symshen_4_dsigf_d, tmp18547)
+
+_ = tmp18548
+
+tmp18549 := MakeNative(func(__e *ControlFlow) {
+V6236 := __e.Get(1)
+_ = V6236
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6232 := __e.Get(1)
+_ = B6232
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6233 := __e.Get(1)
+_ = L6233
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6234 := __e.Get(1)
+_ = Key6234
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6235 := __e.Get(1)
+_ = C6235
+tmp18550 := PrimCons(symstring, Nil)
+
+tmp18551 := PrimCons(sym_1_1_6, tmp18550)
+
+__e.TailApply(PrimFunc(symis_b), V6236, tmp18551, B6232, L6233, Key6234, C6235)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp18552 := PrimValue(symshen_4_dsigf_d)
+
+tmp18553 := Call(__e, PrimFunc(symshen_4assoc_1_6), symit, tmp18549, tmp18552)
+
+
+tmp18554 := PrimSet(symshen_4_dsigf_d, tmp18553)
+
+_ = tmp18554
+
+tmp18555 := MakeNative(func(__e *ControlFlow) {
+V6241 := __e.Get(1)
+_ = V6241
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6237 := __e.Get(1)
+_ = B6237
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6238 := __e.Get(1)
+_ = L6238
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6239 := __e.Get(1)
+_ = Key6239
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6240 := __e.Get(1)
+_ = C6240
+tmp18556 := PrimCons(symstring, Nil)
+
+tmp18557 := PrimCons(sym_1_1_6, tmp18556)
+
+__e.TailApply(PrimFunc(symis_b), V6241, tmp18557, B6237, L6238, Key6239, C6240)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp18558 := PrimValue(symshen_4_dsigf_d)
+
+tmp18559 := Call(__e, PrimFunc(symshen_4assoc_1_6), symimplementation, tmp18555, tmp18558)
+
+
+tmp18560 := PrimSet(symshen_4_dsigf_d, tmp18559)
+
+_ = tmp18560
+
+tmp18561 := MakeNative(func(__e *ControlFlow) {
+V6246 := __e.Get(1)
+_ = V6246
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6242 := __e.Get(1)
+_ = B6242
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6243 := __e.Get(1)
+_ = L6243
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6244 := __e.Get(1)
+_ = Key6244
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6245 := __e.Get(1)
+_ = C6245
+tmp18562 := PrimCons(symsymbol, Nil)
+
+tmp18563 := PrimCons(symlist, tmp18562)
+
+tmp18564 := PrimCons(symsymbol, Nil)
+
+tmp18565 := PrimCons(symlist, tmp18564)
+
+tmp18566 := PrimCons(tmp18565, Nil)
+
+tmp18567 := PrimCons(sym_1_1_6, tmp18566)
+
+tmp18568 := PrimCons(tmp18563, tmp18567)
+
+__e.TailApply(PrimFunc(symis_b), V6246, tmp18568, B6242, L6243, Key6244, C6245)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp18569 := PrimValue(symshen_4_dsigf_d)
+
+tmp18570 := Call(__e, PrimFunc(symshen_4assoc_1_6), syminclude, tmp18561, tmp18569)
+
+
+tmp18571 := PrimSet(symshen_4_dsigf_d, tmp18570)
+
+_ = tmp18571
+
+tmp18572 := MakeNative(func(__e *ControlFlow) {
+V6251 := __e.Get(1)
+_ = V6251
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6247 := __e.Get(1)
+_ = B6247
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6248 := __e.Get(1)
+_ = L6248
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6249 := __e.Get(1)
+_ = Key6249
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6250 := __e.Get(1)
+_ = C6250
+tmp18573 := PrimCons(symsymbol, Nil)
+
+tmp18574 := PrimCons(symlist, tmp18573)
+
+tmp18575 := PrimCons(symsymbol, Nil)
+
+tmp18576 := PrimCons(symlist, tmp18575)
+
+tmp18577 := PrimCons(tmp18576, Nil)
+
+tmp18578 := PrimCons(sym_1_1_6, tmp18577)
+
+tmp18579 := PrimCons(tmp18574, tmp18578)
+
+__e.TailApply(PrimFunc(symis_b), V6251, tmp18579, B6247, L6248, Key6249, C6250)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp18580 := PrimValue(symshen_4_dsigf_d)
+
+tmp18581 := Call(__e, PrimFunc(symshen_4assoc_1_6), syminclude_1all_1but, tmp18572, tmp18580)
+
+
+tmp18582 := PrimSet(symshen_4_dsigf_d, tmp18581)
+
+_ = tmp18582
+
+tmp18583 := MakeNative(func(__e *ControlFlow) {
+V6256 := __e.Get(1)
+_ = V6256
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6252 := __e.Get(1)
+_ = B6252
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6253 := __e.Get(1)
+_ = L6253
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6254 := __e.Get(1)
+_ = Key6254
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6255 := __e.Get(1)
+_ = C6255
+tmp18584 := PrimCons(symsymbol, Nil)
+
+tmp18585 := PrimCons(symlist, tmp18584)
+
+tmp18586 := PrimCons(tmp18585, Nil)
+
+tmp18587 := PrimCons(sym_1_1_6, tmp18586)
+
+__e.TailApply(PrimFunc(symis_b), V6256, tmp18587, B6252, L6253, Key6254, C6255)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp18588 := PrimValue(symshen_4_dsigf_d)
+
+tmp18589 := Call(__e, PrimFunc(symshen_4assoc_1_6), symincluded, tmp18583, tmp18588)
+
+
+tmp18590 := PrimSet(symshen_4_dsigf_d, tmp18589)
+
+_ = tmp18590
+
+tmp18591 := MakeNative(func(__e *ControlFlow) {
+V6261 := __e.Get(1)
+_ = V6261
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6257 := __e.Get(1)
+_ = B6257
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6258 := __e.Get(1)
+_ = L6258
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6259 := __e.Get(1)
+_ = Key6259
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6260 := __e.Get(1)
+_ = C6260
+tmp18592 := PrimCons(symnumber, Nil)
+
+tmp18593 := PrimCons(sym_1_1_6, tmp18592)
+
+__e.TailApply(PrimFunc(symis_b), V6261, tmp18593, B6257, L6258, Key6259, C6260)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp18594 := PrimValue(symshen_4_dsigf_d)
+
+tmp18595 := Call(__e, PrimFunc(symshen_4assoc_1_6), syminferences, tmp18591, tmp18594)
+
+
+tmp18596 := PrimSet(symshen_4_dsigf_d, tmp18595)
+
+_ = tmp18596
+
+tmp18597 := MakeNative(func(__e *ControlFlow) {
+V6266 := __e.Get(1)
+_ = V6266
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6262 := __e.Get(1)
+_ = B6262
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6263 := __e.Get(1)
+_ = L6263
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6264 := __e.Get(1)
+_ = Key6264
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6265 := __e.Get(1)
+_ = C6265
+tmp18598 := MakeNative(func(__e *ControlFlow) {
+A := __e.Get(1)
+_ = A
+tmp18599 := PrimCons(symstring, Nil)
+
+tmp18600 := PrimCons(sym_1_1_6, tmp18599)
+
+tmp18601 := PrimCons(symstring, tmp18600)
+
+tmp18602 := PrimCons(tmp18601, Nil)
+
+tmp18603 := PrimCons(sym_1_1_6, tmp18602)
+
+tmp18604 := PrimCons(A, tmp18603)
+
+tmp18605 := Call(__e, PrimFunc(symis_b), V6266, tmp18604, B6262, L6263, Key6264, C6265)
+
+
+__e.TailApply(PrimFunc(symshen_4gc), B6262, tmp18605)
+return
+
+
+}, 1)
+
+tmp18606 := Call(__e, PrimFunc(symshen_4newpv), B6262)
+
+
+__e.TailApply(tmp18598, tmp18606)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp18607 := PrimValue(symshen_4_dsigf_d)
+
+tmp18608 := Call(__e, PrimFunc(symshen_4assoc_1_6), symshen_4insert, tmp18597, tmp18607)
+
+
+tmp18609 := PrimSet(symshen_4_dsigf_d, tmp18608)
+
+_ = tmp18609
+
+tmp18610 := MakeNative(func(__e *ControlFlow) {
+V6271 := __e.Get(1)
+_ = V6271
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6267 := __e.Get(1)
+_ = B6267
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6268 := __e.Get(1)
+_ = L6268
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6269 := __e.Get(1)
+_ = Key6269
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6270 := __e.Get(1)
+_ = C6270
+tmp18611 := MakeNative(func(__e *ControlFlow) {
+A := __e.Get(1)
+_ = A
+tmp18612 := PrimCons(symboolean, Nil)
+
+tmp18613 := PrimCons(sym_1_1_6, tmp18612)
+
+tmp18614 := PrimCons(A, tmp18613)
+
+tmp18615 := Call(__e, PrimFunc(symis_b), V6271, tmp18614, B6267, L6268, Key6269, C6270)
+
+
+__e.TailApply(PrimFunc(symshen_4gc), B6267, tmp18615)
+return
+
+
+}, 1)
+
+tmp18616 := Call(__e, PrimFunc(symshen_4newpv), B6267)
+
+
+__e.TailApply(tmp18611, tmp18616)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp18617 := PrimValue(symshen_4_dsigf_d)
+
+tmp18618 := Call(__e, PrimFunc(symshen_4assoc_1_6), syminteger_2, tmp18610, tmp18617)
+
+
+tmp18619 := PrimSet(symshen_4_dsigf_d, tmp18618)
+
+_ = tmp18619
+
+tmp18620 := MakeNative(func(__e *ControlFlow) {
+V6276 := __e.Get(1)
+_ = V6276
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6272 := __e.Get(1)
+_ = B6272
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6273 := __e.Get(1)
+_ = L6273
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6274 := __e.Get(1)
+_ = Key6274
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6275 := __e.Get(1)
+_ = C6275
+tmp18621 := PrimCons(symsymbol, Nil)
+
+tmp18622 := PrimCons(symlist, tmp18621)
+
+tmp18623 := PrimCons(tmp18622, Nil)
+
+tmp18624 := PrimCons(sym_1_1_6, tmp18623)
+
+tmp18625 := PrimCons(symsymbol, tmp18624)
+
+__e.TailApply(PrimFunc(symis_b), V6276, tmp18625, B6272, L6273, Key6274, C6275)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp18626 := PrimValue(symshen_4_dsigf_d)
+
+tmp18627 := Call(__e, PrimFunc(symshen_4assoc_1_6), syminternal, tmp18620, tmp18626)
+
+
+tmp18628 := PrimSet(symshen_4_dsigf_d, tmp18627)
+
+_ = tmp18628
+
+tmp18629 := MakeNative(func(__e *ControlFlow) {
+V6281 := __e.Get(1)
+_ = V6281
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6277 := __e.Get(1)
+_ = B6277
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6278 := __e.Get(1)
+_ = L6278
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6279 := __e.Get(1)
+_ = Key6279
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6280 := __e.Get(1)
+_ = C6280
+tmp18630 := MakeNative(func(__e *ControlFlow) {
+A := __e.Get(1)
+_ = A
+tmp18631 := PrimCons(A, Nil)
+
+tmp18632 := PrimCons(symlist, tmp18631)
+
+tmp18633 := PrimCons(A, Nil)
+
+tmp18634 := PrimCons(symlist, tmp18633)
+
+tmp18635 := PrimCons(A, Nil)
+
+tmp18636 := PrimCons(symlist, tmp18635)
+
+tmp18637 := PrimCons(tmp18636, Nil)
+
+tmp18638 := PrimCons(sym_1_1_6, tmp18637)
+
+tmp18639 := PrimCons(tmp18634, tmp18638)
+
+tmp18640 := PrimCons(tmp18639, Nil)
+
+tmp18641 := PrimCons(sym_1_1_6, tmp18640)
+
+tmp18642 := PrimCons(tmp18632, tmp18641)
+
+tmp18643 := Call(__e, PrimFunc(symis_b), V6281, tmp18642, B6277, L6278, Key6279, C6280)
+
+
+__e.TailApply(PrimFunc(symshen_4gc), B6277, tmp18643)
+return
+
+
+}, 1)
+
+tmp18644 := Call(__e, PrimFunc(symshen_4newpv), B6277)
+
+
+__e.TailApply(tmp18630, tmp18644)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp18645 := PrimValue(symshen_4_dsigf_d)
+
+tmp18646 := Call(__e, PrimFunc(symshen_4assoc_1_6), symintersection, tmp18629, tmp18645)
+
+
+tmp18647 := PrimSet(symshen_4_dsigf_d, tmp18646)
+
+_ = tmp18647
+
+tmp18648 := MakeNative(func(__e *ControlFlow) {
+V6286 := __e.Get(1)
+_ = V6286
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6282 := __e.Get(1)
+_ = B6282
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6283 := __e.Get(1)
+_ = L6283
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6284 := __e.Get(1)
+_ = Key6284
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6285 := __e.Get(1)
+_ = C6285
+tmp18649 := PrimCons(symstring, Nil)
+
+tmp18650 := PrimCons(sym_1_1_6, tmp18649)
+
+__e.TailApply(PrimFunc(symis_b), V6286, tmp18650, B6282, L6283, Key6284, C6285)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp18651 := PrimValue(symshen_4_dsigf_d)
+
+tmp18652 := Call(__e, PrimFunc(symshen_4assoc_1_6), symlanguage, tmp18648, tmp18651)
+
+
+tmp18653 := PrimSet(symshen_4_dsigf_d, tmp18652)
+
+_ = tmp18653
+
+tmp18654 := MakeNative(func(__e *ControlFlow) {
+V6291 := __e.Get(1)
+_ = V6291
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6287 := __e.Get(1)
+_ = B6287
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6288 := __e.Get(1)
+_ = L6288
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6289 := __e.Get(1)
+_ = Key6289
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6290 := __e.Get(1)
+_ = C6290
+tmp18655 := MakeNative(func(__e *ControlFlow) {
+A := __e.Get(1)
+_ = A
+tmp18656 := PrimCons(A, Nil)
+
+tmp18657 := PrimCons(symlist, tmp18656)
+
+tmp18658 := PrimCons(symnumber, Nil)
+
+tmp18659 := PrimCons(sym_1_1_6, tmp18658)
+
+tmp18660 := PrimCons(tmp18657, tmp18659)
+
+tmp18661 := Call(__e, PrimFunc(symis_b), V6291, tmp18660, B6287, L6288, Key6289, C6290)
+
+
+__e.TailApply(PrimFunc(symshen_4gc), B6287, tmp18661)
+return
+
+
+}, 1)
+
+tmp18662 := Call(__e, PrimFunc(symshen_4newpv), B6287)
+
+
+__e.TailApply(tmp18655, tmp18662)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp18663 := PrimValue(symshen_4_dsigf_d)
+
+tmp18664 := Call(__e, PrimFunc(symshen_4assoc_1_6), symlength, tmp18654, tmp18663)
+
+
+tmp18665 := PrimSet(symshen_4_dsigf_d, tmp18664)
+
+_ = tmp18665
+
+tmp18666 := MakeNative(func(__e *ControlFlow) {
+V6296 := __e.Get(1)
+_ = V6296
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6292 := __e.Get(1)
+_ = B6292
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6293 := __e.Get(1)
+_ = L6293
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6294 := __e.Get(1)
+_ = Key6294
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6295 := __e.Get(1)
+_ = C6295
+tmp18667 := MakeNative(func(__e *ControlFlow) {
+A := __e.Get(1)
+_ = A
+tmp18668 := PrimCons(A, Nil)
+
+tmp18669 := PrimCons(symvector, tmp18668)
+
+tmp18670 := PrimCons(symnumber, Nil)
+
+tmp18671 := PrimCons(sym_1_1_6, tmp18670)
+
+tmp18672 := PrimCons(tmp18669, tmp18671)
+
+tmp18673 := Call(__e, PrimFunc(symis_b), V6296, tmp18672, B6292, L6293, Key6294, C6295)
+
+
+__e.TailApply(PrimFunc(symshen_4gc), B6292, tmp18673)
+return
+
+
+}, 1)
+
+tmp18674 := Call(__e, PrimFunc(symshen_4newpv), B6292)
+
+
+__e.TailApply(tmp18667, tmp18674)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp18675 := PrimValue(symshen_4_dsigf_d)
+
+tmp18676 := Call(__e, PrimFunc(symshen_4assoc_1_6), symlimit, tmp18666, tmp18675)
+
+
+tmp18677 := PrimSet(symshen_4_dsigf_d, tmp18676)
+
+_ = tmp18677
+
+tmp18678 := MakeNative(func(__e *ControlFlow) {
+V6301 := __e.Get(1)
+_ = V6301
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6297 := __e.Get(1)
+_ = B6297
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6298 := __e.Get(1)
+_ = L6298
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6299 := __e.Get(1)
+_ = Key6299
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6300 := __e.Get(1)
+_ = C6300
+tmp18679 := PrimCons(symin, Nil)
+
+tmp18680 := PrimCons(symstream, tmp18679)
+
+tmp18681 := PrimCons(symunit, Nil)
+
+tmp18682 := PrimCons(symlist, tmp18681)
+
+tmp18683 := PrimCons(tmp18682, Nil)
+
+tmp18684 := PrimCons(sym_1_1_6, tmp18683)
+
+tmp18685 := PrimCons(tmp18680, tmp18684)
+
+__e.TailApply(PrimFunc(symis_b), V6301, tmp18685, B6297, L6298, Key6299, C6300)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp18686 := PrimValue(symshen_4_dsigf_d)
+
+tmp18687 := Call(__e, PrimFunc(symshen_4assoc_1_6), symlineread, tmp18678, tmp18686)
+
+
+tmp18688 := PrimSet(symshen_4_dsigf_d, tmp18687)
+
+_ = tmp18688
+
+tmp18689 := MakeNative(func(__e *ControlFlow) {
+V6306 := __e.Get(1)
+_ = V6306
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6302 := __e.Get(1)
+_ = B6302
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6303 := __e.Get(1)
+_ = L6303
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6304 := __e.Get(1)
+_ = Key6304
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6305 := __e.Get(1)
+_ = C6305
+tmp18690 := PrimCons(symsymbol, Nil)
+
+tmp18691 := PrimCons(sym_1_1_6, tmp18690)
+
+tmp18692 := PrimCons(symstring, tmp18691)
+
+__e.TailApply(PrimFunc(symis_b), V6306, tmp18692, B6302, L6303, Key6304, C6305)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp18693 := PrimValue(symshen_4_dsigf_d)
+
+tmp18694 := Call(__e, PrimFunc(symshen_4assoc_1_6), symload, tmp18689, tmp18693)
+
+
+tmp18695 := PrimSet(symshen_4_dsigf_d, tmp18694)
+
+_ = tmp18695
+
+tmp18696 := MakeNative(func(__e *ControlFlow) {
+V6311 := __e.Get(1)
+_ = V6311
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6307 := __e.Get(1)
+_ = B6307
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6308 := __e.Get(1)
+_ = L6308
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6309 := __e.Get(1)
+_ = Key6309
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6310 := __e.Get(1)
+_ = C6310
+tmp18697 := MakeNative(func(__e *ControlFlow) {
+A := __e.Get(1)
+_ = A
+tmp18698 := MakeNative(func(__e *ControlFlow) {
+B := __e.Get(1)
+_ = B
+tmp18699 := PrimCons(B, Nil)
+
+tmp18700 := PrimCons(sym_1_1_6, tmp18699)
+
+tmp18701 := PrimCons(A, tmp18700)
+
+tmp18702 := PrimCons(A, Nil)
+
+tmp18703 := PrimCons(symlist, tmp18702)
+
+tmp18704 := PrimCons(B, Nil)
+
+tmp18705 := PrimCons(symlist, tmp18704)
+
+tmp18706 := PrimCons(tmp18705, Nil)
+
+tmp18707 := PrimCons(sym_1_1_6, tmp18706)
+
+tmp18708 := PrimCons(tmp18703, tmp18707)
+
+tmp18709 := PrimCons(tmp18708, Nil)
+
+tmp18710 := PrimCons(sym_1_1_6, tmp18709)
+
+tmp18711 := PrimCons(tmp18701, tmp18710)
+
+tmp18712 := Call(__e, PrimFunc(symis_b), V6311, tmp18711, B6307, L6308, Key6309, C6310)
+
+
+__e.TailApply(PrimFunc(symshen_4gc), B6307, tmp18712)
+return
+
+
+}, 1)
+
+tmp18713 := Call(__e, PrimFunc(symshen_4newpv), B6307)
+
+
+tmp18714 := Call(__e, tmp18698, tmp18713)
+
+
+__e.TailApply(PrimFunc(symshen_4gc), B6307, tmp18714)
+return
+
+
+}, 1)
+
+tmp18715 := Call(__e, PrimFunc(symshen_4newpv), B6307)
+
+
+__e.TailApply(tmp18697, tmp18715)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp18716 := PrimValue(symshen_4_dsigf_d)
+
+tmp18717 := Call(__e, PrimFunc(symshen_4assoc_1_6), symmap, tmp18696, tmp18716)
+
+
+tmp18718 := PrimSet(symshen_4_dsigf_d, tmp18717)
+
+_ = tmp18718
+
+tmp18719 := MakeNative(func(__e *ControlFlow) {
+V6316 := __e.Get(1)
+_ = V6316
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6312 := __e.Get(1)
+_ = B6312
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6313 := __e.Get(1)
+_ = L6313
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6314 := __e.Get(1)
+_ = Key6314
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6315 := __e.Get(1)
+_ = C6315
+tmp18720 := MakeNative(func(__e *ControlFlow) {
+A := __e.Get(1)
+_ = A
+tmp18721 := MakeNative(func(__e *ControlFlow) {
+B := __e.Get(1)
+_ = B
+tmp18722 := PrimCons(B, Nil)
+
+tmp18723 := PrimCons(symlist, tmp18722)
+
+tmp18724 := PrimCons(tmp18723, Nil)
+
+tmp18725 := PrimCons(sym_1_1_6, tmp18724)
+
+tmp18726 := PrimCons(A, tmp18725)
+
+tmp18727 := PrimCons(A, Nil)
+
+tmp18728 := PrimCons(symlist, tmp18727)
+
+tmp18729 := PrimCons(B, Nil)
+
+tmp18730 := PrimCons(symlist, tmp18729)
+
+tmp18731 := PrimCons(tmp18730, Nil)
+
+tmp18732 := PrimCons(sym_1_1_6, tmp18731)
+
+tmp18733 := PrimCons(tmp18728, tmp18732)
+
+tmp18734 := PrimCons(tmp18733, Nil)
+
+tmp18735 := PrimCons(sym_1_1_6, tmp18734)
+
+tmp18736 := PrimCons(tmp18726, tmp18735)
+
+tmp18737 := Call(__e, PrimFunc(symis_b), V6316, tmp18736, B6312, L6313, Key6314, C6315)
+
+
+__e.TailApply(PrimFunc(symshen_4gc), B6312, tmp18737)
+return
+
+
+}, 1)
+
+tmp18738 := Call(__e, PrimFunc(symshen_4newpv), B6312)
+
+
+tmp18739 := Call(__e, tmp18721, tmp18738)
+
+
+__e.TailApply(PrimFunc(symshen_4gc), B6312, tmp18739)
+return
+
+
+}, 1)
+
+tmp18740 := Call(__e, PrimFunc(symshen_4newpv), B6312)
+
+
+__e.TailApply(tmp18720, tmp18740)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp18741 := PrimValue(symshen_4_dsigf_d)
+
+tmp18742 := Call(__e, PrimFunc(symshen_4assoc_1_6), symmapcan, tmp18719, tmp18741)
+
+
+tmp18743 := PrimSet(symshen_4_dsigf_d, tmp18742)
+
+_ = tmp18743
+
+tmp18744 := MakeNative(func(__e *ControlFlow) {
+V6321 := __e.Get(1)
+_ = V6321
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6317 := __e.Get(1)
+_ = B6317
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6318 := __e.Get(1)
+_ = L6318
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6319 := __e.Get(1)
+_ = Key6319
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6320 := __e.Get(1)
+_ = C6320
+tmp18745 := PrimCons(symnumber, Nil)
+
+tmp18746 := PrimCons(sym_1_1_6, tmp18745)
+
+tmp18747 := PrimCons(symnumber, tmp18746)
+
+__e.TailApply(PrimFunc(symis_b), V6321, tmp18747, B6317, L6318, Key6319, C6320)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp18748 := PrimValue(symshen_4_dsigf_d)
+
+tmp18749 := Call(__e, PrimFunc(symshen_4assoc_1_6), symmaxinferences, tmp18744, tmp18748)
+
+
+tmp18750 := PrimSet(symshen_4_dsigf_d, tmp18749)
+
+_ = tmp18750
+
+tmp18751 := MakeNative(func(__e *ControlFlow) {
+V6326 := __e.Get(1)
+_ = V6326
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6322 := __e.Get(1)
+_ = B6322
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6323 := __e.Get(1)
+_ = L6323
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6324 := __e.Get(1)
+_ = Key6324
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6325 := __e.Get(1)
+_ = C6325
+tmp18752 := PrimCons(symstring, Nil)
+
+tmp18753 := PrimCons(sym_1_1_6, tmp18752)
+
+tmp18754 := PrimCons(symnumber, tmp18753)
+
+__e.TailApply(PrimFunc(symis_b), V6326, tmp18754, B6322, L6323, Key6324, C6325)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp18755 := PrimValue(symshen_4_dsigf_d)
+
+tmp18756 := Call(__e, PrimFunc(symshen_4assoc_1_6), symn_1_6string, tmp18751, tmp18755)
+
+
+tmp18757 := PrimSet(symshen_4_dsigf_d, tmp18756)
+
+_ = tmp18757
+
+tmp18758 := MakeNative(func(__e *ControlFlow) {
+V6331 := __e.Get(1)
+_ = V6331
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6327 := __e.Get(1)
+_ = B6327
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6328 := __e.Get(1)
+_ = L6328
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6329 := __e.Get(1)
+_ = Key6329
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6330 := __e.Get(1)
+_ = C6330
+tmp18759 := PrimCons(symnumber, Nil)
+
+tmp18760 := PrimCons(sym_1_1_6, tmp18759)
+
+tmp18761 := PrimCons(symnumber, tmp18760)
+
+__e.TailApply(PrimFunc(symis_b), V6331, tmp18761, B6327, L6328, Key6329, C6330)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp18762 := PrimValue(symshen_4_dsigf_d)
+
+tmp18763 := Call(__e, PrimFunc(symshen_4assoc_1_6), symnl, tmp18758, tmp18762)
+
+
+tmp18764 := PrimSet(symshen_4_dsigf_d, tmp18763)
+
+_ = tmp18764
+
+tmp18765 := MakeNative(func(__e *ControlFlow) {
+V6336 := __e.Get(1)
+_ = V6336
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6332 := __e.Get(1)
+_ = B6332
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6333 := __e.Get(1)
+_ = L6333
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6334 := __e.Get(1)
+_ = Key6334
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6335 := __e.Get(1)
+_ = C6335
+tmp18766 := PrimCons(symboolean, Nil)
+
+tmp18767 := PrimCons(sym_1_1_6, tmp18766)
+
+tmp18768 := PrimCons(symboolean, tmp18767)
+
+__e.TailApply(PrimFunc(symis_b), V6336, tmp18768, B6332, L6333, Key6334, C6335)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp18769 := PrimValue(symshen_4_dsigf_d)
+
+tmp18770 := Call(__e, PrimFunc(symshen_4assoc_1_6), symnot, tmp18765, tmp18769)
+
+
+tmp18771 := PrimSet(symshen_4_dsigf_d, tmp18770)
+
+_ = tmp18771
+
+tmp18772 := MakeNative(func(__e *ControlFlow) {
+V6341 := __e.Get(1)
+_ = V6341
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6337 := __e.Get(1)
+_ = B6337
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6338 := __e.Get(1)
+_ = L6338
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6339 := __e.Get(1)
+_ = Key6339
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6340 := __e.Get(1)
+_ = C6340
+tmp18773 := MakeNative(func(__e *ControlFlow) {
+A := __e.Get(1)
+_ = A
+tmp18774 := PrimCons(A, Nil)
+
+tmp18775 := PrimCons(symlist, tmp18774)
+
+tmp18776 := PrimCons(A, Nil)
+
+tmp18777 := PrimCons(sym_1_1_6, tmp18776)
+
+tmp18778 := PrimCons(tmp18775, tmp18777)
+
+tmp18779 := PrimCons(tmp18778, Nil)
+
+tmp18780 := PrimCons(sym_1_1_6, tmp18779)
+
+tmp18781 := PrimCons(symnumber, tmp18780)
+
+tmp18782 := Call(__e, PrimFunc(symis_b), V6341, tmp18781, B6337, L6338, Key6339, C6340)
+
+
+__e.TailApply(PrimFunc(symshen_4gc), B6337, tmp18782)
+return
+
+
+}, 1)
+
+tmp18783 := Call(__e, PrimFunc(symshen_4newpv), B6337)
+
+
+__e.TailApply(tmp18773, tmp18783)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp18784 := PrimValue(symshen_4_dsigf_d)
+
+tmp18785 := Call(__e, PrimFunc(symshen_4assoc_1_6), symnth, tmp18772, tmp18784)
+
+
+tmp18786 := PrimSet(symshen_4_dsigf_d, tmp18785)
+
+_ = tmp18786
+
+tmp18787 := MakeNative(func(__e *ControlFlow) {
+V6346 := __e.Get(1)
+_ = V6346
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6342 := __e.Get(1)
+_ = B6342
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6343 := __e.Get(1)
+_ = L6343
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6344 := __e.Get(1)
+_ = Key6344
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6345 := __e.Get(1)
+_ = C6345
+tmp18788 := MakeNative(func(__e *ControlFlow) {
+A := __e.Get(1)
+_ = A
+tmp18789 := PrimCons(symboolean, Nil)
+
+tmp18790 := PrimCons(sym_1_1_6, tmp18789)
+
+tmp18791 := PrimCons(A, tmp18790)
+
+tmp18792 := Call(__e, PrimFunc(symis_b), V6346, tmp18791, B6342, L6343, Key6344, C6345)
+
+
+__e.TailApply(PrimFunc(symshen_4gc), B6342, tmp18792)
+return
+
+
+}, 1)
+
+tmp18793 := Call(__e, PrimFunc(symshen_4newpv), B6342)
+
+
+__e.TailApply(tmp18788, tmp18793)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp18794 := PrimValue(symshen_4_dsigf_d)
+
+tmp18795 := Call(__e, PrimFunc(symshen_4assoc_1_6), symnumber_2, tmp18787, tmp18794)
+
+
+tmp18796 := PrimSet(symshen_4_dsigf_d, tmp18795)
+
+_ = tmp18796
+
+tmp18797 := MakeNative(func(__e *ControlFlow) {
+V6351 := __e.Get(1)
+_ = V6351
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6347 := __e.Get(1)
+_ = B6347
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6348 := __e.Get(1)
+_ = L6348
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6349 := __e.Get(1)
+_ = Key6349
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6350 := __e.Get(1)
+_ = C6350
+tmp18798 := MakeNative(func(__e *ControlFlow) {
+A := __e.Get(1)
+_ = A
+tmp18799 := MakeNative(func(__e *ControlFlow) {
+B := __e.Get(1)
+_ = B
+tmp18800 := PrimCons(symnumber, Nil)
+
+tmp18801 := PrimCons(sym_1_1_6, tmp18800)
+
+tmp18802 := PrimCons(B, tmp18801)
+
+tmp18803 := PrimCons(tmp18802, Nil)
+
+tmp18804 := PrimCons(sym_1_1_6, tmp18803)
+
+tmp18805 := PrimCons(A, tmp18804)
+
+tmp18806 := Call(__e, PrimFunc(symis_b), V6351, tmp18805, B6347, L6348, Key6349, C6350)
+
+
+__e.TailApply(PrimFunc(symshen_4gc), B6347, tmp18806)
+return
+
+
+}, 1)
+
+tmp18807 := Call(__e, PrimFunc(symshen_4newpv), B6347)
+
+
+tmp18808 := Call(__e, tmp18799, tmp18807)
+
+
+__e.TailApply(PrimFunc(symshen_4gc), B6347, tmp18808)
+return
+
+
+}, 1)
+
+tmp18809 := Call(__e, PrimFunc(symshen_4newpv), B6347)
+
+
+__e.TailApply(tmp18798, tmp18809)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp18810 := PrimValue(symshen_4_dsigf_d)
+
+tmp18811 := Call(__e, PrimFunc(symshen_4assoc_1_6), symoccurrences, tmp18797, tmp18810)
+
+
+tmp18812 := PrimSet(symshen_4_dsigf_d, tmp18811)
+
+_ = tmp18812
+
+tmp18813 := MakeNative(func(__e *ControlFlow) {
+V6356 := __e.Get(1)
+_ = V6356
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6352 := __e.Get(1)
+_ = B6352
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6353 := __e.Get(1)
+_ = L6353
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6354 := __e.Get(1)
+_ = Key6354
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6355 := __e.Get(1)
+_ = C6355
+tmp18814 := PrimCons(symboolean, Nil)
+
+tmp18815 := PrimCons(sym_1_1_6, tmp18814)
+
+tmp18816 := PrimCons(symsymbol, tmp18815)
+
+__e.TailApply(PrimFunc(symis_b), V6356, tmp18816, B6352, L6353, Key6354, C6355)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp18817 := PrimValue(symshen_4_dsigf_d)
+
+tmp18818 := Call(__e, PrimFunc(symshen_4assoc_1_6), symoccurs_1check, tmp18813, tmp18817)
+
+
+tmp18819 := PrimSet(symshen_4_dsigf_d, tmp18818)
+
+_ = tmp18819
+
+tmp18820 := MakeNative(func(__e *ControlFlow) {
+V6361 := __e.Get(1)
+_ = V6361
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6357 := __e.Get(1)
+_ = B6357
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6358 := __e.Get(1)
+_ = L6358
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6359 := __e.Get(1)
+_ = Key6359
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6360 := __e.Get(1)
+_ = C6360
+tmp18821 := PrimCons(symboolean, Nil)
+
+tmp18822 := PrimCons(sym_1_1_6, tmp18821)
+
+__e.TailApply(PrimFunc(symis_b), V6361, tmp18822, B6357, L6358, Key6359, C6360)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp18823 := PrimValue(symshen_4_dsigf_d)
+
+tmp18824 := Call(__e, PrimFunc(symshen_4assoc_1_6), symoccurs_2, tmp18820, tmp18823)
+
+
+tmp18825 := PrimSet(symshen_4_dsigf_d, tmp18824)
+
+_ = tmp18825
+
+tmp18826 := MakeNative(func(__e *ControlFlow) {
+V6366 := __e.Get(1)
+_ = V6366
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6362 := __e.Get(1)
+_ = B6362
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6363 := __e.Get(1)
+_ = L6363
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6364 := __e.Get(1)
+_ = Key6364
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6365 := __e.Get(1)
+_ = C6365
+tmp18827 := PrimCons(symboolean, Nil)
+
+tmp18828 := PrimCons(sym_1_1_6, tmp18827)
+
+tmp18829 := PrimCons(symsymbol, tmp18828)
+
+__e.TailApply(PrimFunc(symis_b), V6366, tmp18829, B6362, L6363, Key6364, C6365)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp18830 := PrimValue(symshen_4_dsigf_d)
+
+tmp18831 := Call(__e, PrimFunc(symshen_4assoc_1_6), symoptimise, tmp18826, tmp18830)
+
+
+tmp18832 := PrimSet(symshen_4_dsigf_d, tmp18831)
+
+_ = tmp18832
+
+tmp18833 := MakeNative(func(__e *ControlFlow) {
+V6371 := __e.Get(1)
+_ = V6371
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6367 := __e.Get(1)
+_ = B6367
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6368 := __e.Get(1)
+_ = L6368
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6369 := __e.Get(1)
+_ = Key6369
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6370 := __e.Get(1)
+_ = C6370
+tmp18834 := PrimCons(symboolean, Nil)
+
+tmp18835 := PrimCons(sym_1_1_6, tmp18834)
+
+__e.TailApply(PrimFunc(symis_b), V6371, tmp18835, B6367, L6368, Key6369, C6370)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp18836 := PrimValue(symshen_4_dsigf_d)
+
+tmp18837 := Call(__e, PrimFunc(symshen_4assoc_1_6), symoptimise_2, tmp18833, tmp18836)
+
+
+tmp18838 := PrimSet(symshen_4_dsigf_d, tmp18837)
+
+_ = tmp18838
+
+tmp18839 := MakeNative(func(__e *ControlFlow) {
+V6376 := __e.Get(1)
+_ = V6376
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6372 := __e.Get(1)
+_ = B6372
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6373 := __e.Get(1)
+_ = L6373
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6374 := __e.Get(1)
+_ = Key6374
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6375 := __e.Get(1)
+_ = C6375
+tmp18840 := PrimCons(symboolean, Nil)
+
+tmp18841 := PrimCons(sym_1_1_6, tmp18840)
+
+tmp18842 := PrimCons(symboolean, tmp18841)
+
+tmp18843 := PrimCons(tmp18842, Nil)
+
+tmp18844 := PrimCons(sym_1_1_6, tmp18843)
+
+tmp18845 := PrimCons(symboolean, tmp18844)
+
+__e.TailApply(PrimFunc(symis_b), V6376, tmp18845, B6372, L6373, Key6374, C6375)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp18846 := PrimValue(symshen_4_dsigf_d)
+
+tmp18847 := Call(__e, PrimFunc(symshen_4assoc_1_6), symor, tmp18839, tmp18846)
+
+
+tmp18848 := PrimSet(symshen_4_dsigf_d, tmp18847)
+
+_ = tmp18848
+
+tmp18849 := MakeNative(func(__e *ControlFlow) {
+V6381 := __e.Get(1)
+_ = V6381
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6377 := __e.Get(1)
+_ = B6377
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6378 := __e.Get(1)
+_ = L6378
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6379 := __e.Get(1)
+_ = Key6379
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6380 := __e.Get(1)
+_ = C6380
+tmp18850 := PrimCons(symstring, Nil)
+
+tmp18851 := PrimCons(sym_1_1_6, tmp18850)
+
+__e.TailApply(PrimFunc(symis_b), V6381, tmp18851, B6377, L6378, Key6379, C6380)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp18852 := PrimValue(symshen_4_dsigf_d)
+
+tmp18853 := Call(__e, PrimFunc(symshen_4assoc_1_6), symos, tmp18849, tmp18852)
+
+
+tmp18854 := PrimSet(symshen_4_dsigf_d, tmp18853)
+
+_ = tmp18854
+
+tmp18855 := MakeNative(func(__e *ControlFlow) {
+V6386 := __e.Get(1)
+_ = V6386
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6382 := __e.Get(1)
+_ = B6382
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6383 := __e.Get(1)
+_ = L6383
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6384 := __e.Get(1)
+_ = Key6384
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6385 := __e.Get(1)
+_ = C6385
+tmp18856 := PrimCons(symboolean, Nil)
+
+tmp18857 := PrimCons(sym_1_1_6, tmp18856)
+
+tmp18858 := PrimCons(symsymbol, tmp18857)
+
+__e.TailApply(PrimFunc(symis_b), V6386, tmp18858, B6382, L6383, Key6384, C6385)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp18859 := PrimValue(symshen_4_dsigf_d)
+
+tmp18860 := Call(__e, PrimFunc(symshen_4assoc_1_6), sympackage_2, tmp18855, tmp18859)
+
+
+tmp18861 := PrimSet(symshen_4_dsigf_d, tmp18860)
+
+_ = tmp18861
+
+tmp18862 := MakeNative(func(__e *ControlFlow) {
+V6391 := __e.Get(1)
+_ = V6391
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6387 := __e.Get(1)
+_ = B6387
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6388 := __e.Get(1)
+_ = L6388
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6389 := __e.Get(1)
+_ = Key6389
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6390 := __e.Get(1)
+_ = C6390
+tmp18863 := PrimCons(symstring, Nil)
+
+tmp18864 := PrimCons(sym_1_1_6, tmp18863)
+
+__e.TailApply(PrimFunc(symis_b), V6391, tmp18864, B6387, L6388, Key6389, C6390)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp18865 := PrimValue(symshen_4_dsigf_d)
+
+tmp18866 := Call(__e, PrimFunc(symshen_4assoc_1_6), symport, tmp18862, tmp18865)
+
+
+tmp18867 := PrimSet(symshen_4_dsigf_d, tmp18866)
+
+_ = tmp18867
+
+tmp18868 := MakeNative(func(__e *ControlFlow) {
+V6396 := __e.Get(1)
+_ = V6396
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6392 := __e.Get(1)
+_ = B6392
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6393 := __e.Get(1)
+_ = L6393
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6394 := __e.Get(1)
+_ = Key6394
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6395 := __e.Get(1)
+_ = C6395
+tmp18869 := PrimCons(symstring, Nil)
+
+tmp18870 := PrimCons(sym_1_1_6, tmp18869)
+
+__e.TailApply(PrimFunc(symis_b), V6396, tmp18870, B6392, L6393, Key6394, C6395)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp18871 := PrimValue(symshen_4_dsigf_d)
+
+tmp18872 := Call(__e, PrimFunc(symshen_4assoc_1_6), symporters, tmp18868, tmp18871)
+
+
+tmp18873 := PrimSet(symshen_4_dsigf_d, tmp18872)
+
+_ = tmp18873
+
+tmp18874 := MakeNative(func(__e *ControlFlow) {
+V6401 := __e.Get(1)
+_ = V6401
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6397 := __e.Get(1)
+_ = B6397
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6398 := __e.Get(1)
+_ = L6398
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6399 := __e.Get(1)
+_ = Key6399
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6400 := __e.Get(1)
+_ = C6400
+tmp18875 := PrimCons(symstring, Nil)
+
+tmp18876 := PrimCons(sym_1_1_6, tmp18875)
+
+tmp18877 := PrimCons(symnumber, tmp18876)
+
+tmp18878 := PrimCons(tmp18877, Nil)
+
+tmp18879 := PrimCons(sym_1_1_6, tmp18878)
+
+tmp18880 := PrimCons(symstring, tmp18879)
+
+__e.TailApply(PrimFunc(symis_b), V6401, tmp18880, B6397, L6398, Key6399, C6400)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp18881 := PrimValue(symshen_4_dsigf_d)
+
+tmp18882 := Call(__e, PrimFunc(symshen_4assoc_1_6), sympos, tmp18874, tmp18881)
+
+
+tmp18883 := PrimSet(symshen_4_dsigf_d, tmp18882)
+
+_ = tmp18883
+
+tmp18884 := MakeNative(func(__e *ControlFlow) {
+V6406 := __e.Get(1)
+_ = V6406
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6402 := __e.Get(1)
+_ = B6402
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6403 := __e.Get(1)
+_ = L6403
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6404 := __e.Get(1)
+_ = Key6404
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6405 := __e.Get(1)
+_ = C6405
+tmp18885 := PrimCons(symout, Nil)
+
+tmp18886 := PrimCons(symstream, tmp18885)
+
+tmp18887 := PrimCons(symstring, Nil)
+
+tmp18888 := PrimCons(sym_1_1_6, tmp18887)
+
+tmp18889 := PrimCons(tmp18886, tmp18888)
+
+tmp18890 := PrimCons(tmp18889, Nil)
+
+tmp18891 := PrimCons(sym_1_1_6, tmp18890)
+
+tmp18892 := PrimCons(symstring, tmp18891)
+
+__e.TailApply(PrimFunc(symis_b), V6406, tmp18892, B6402, L6403, Key6404, C6405)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp18893 := PrimValue(symshen_4_dsigf_d)
+
+tmp18894 := Call(__e, PrimFunc(symshen_4assoc_1_6), sympr, tmp18884, tmp18893)
+
+
+tmp18895 := PrimSet(symshen_4_dsigf_d, tmp18894)
+
+_ = tmp18895
+
+tmp18896 := MakeNative(func(__e *ControlFlow) {
+V6411 := __e.Get(1)
+_ = V6411
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6407 := __e.Get(1)
+_ = B6407
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6408 := __e.Get(1)
+_ = L6408
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6409 := __e.Get(1)
+_ = Key6409
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6410 := __e.Get(1)
+_ = C6410
+tmp18897 := MakeNative(func(__e *ControlFlow) {
+A := __e.Get(1)
+_ = A
+tmp18898 := PrimCons(A, Nil)
+
+tmp18899 := PrimCons(sym_1_1_6, tmp18898)
+
+tmp18900 := PrimCons(A, tmp18899)
+
+tmp18901 := Call(__e, PrimFunc(symis_b), V6411, tmp18900, B6407, L6408, Key6409, C6410)
+
+
+__e.TailApply(PrimFunc(symshen_4gc), B6407, tmp18901)
+return
+
+
+}, 1)
+
+tmp18902 := Call(__e, PrimFunc(symshen_4newpv), B6407)
+
+
+__e.TailApply(tmp18897, tmp18902)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp18903 := PrimValue(symshen_4_dsigf_d)
+
+tmp18904 := Call(__e, PrimFunc(symshen_4assoc_1_6), symprint, tmp18896, tmp18903)
+
+
+tmp18905 := PrimSet(symshen_4_dsigf_d, tmp18904)
+
+_ = tmp18905
+
+tmp18906 := MakeNative(func(__e *ControlFlow) {
+V6416 := __e.Get(1)
+_ = V6416
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6412 := __e.Get(1)
+_ = B6412
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6413 := __e.Get(1)
+_ = L6413
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6414 := __e.Get(1)
+_ = Key6414
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6415 := __e.Get(1)
+_ = C6415
+tmp18907 := PrimCons(symsymbol, Nil)
+
+tmp18908 := PrimCons(sym_1_1_6, tmp18907)
+
+tmp18909 := PrimCons(symsymbol, tmp18908)
+
+__e.TailApply(PrimFunc(symis_b), V6416, tmp18909, B6412, L6413, Key6414, C6415)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp18910 := PrimValue(symshen_4_dsigf_d)
+
+tmp18911 := Call(__e, PrimFunc(symshen_4assoc_1_6), symprofile, tmp18906, tmp18910)
+
+
+tmp18912 := PrimSet(symshen_4_dsigf_d, tmp18911)
+
+_ = tmp18912
+
+tmp18913 := MakeNative(func(__e *ControlFlow) {
+V6421 := __e.Get(1)
+_ = V6421
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6417 := __e.Get(1)
+_ = B6417
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6418 := __e.Get(1)
+_ = L6418
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6419 := __e.Get(1)
+_ = Key6419
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6420 := __e.Get(1)
+_ = C6420
+tmp18914 := PrimCons(symsymbol, Nil)
+
+tmp18915 := PrimCons(symlist, tmp18914)
+
+tmp18916 := PrimCons(symsymbol, Nil)
+
+tmp18917 := PrimCons(symlist, tmp18916)
+
+tmp18918 := PrimCons(tmp18917, Nil)
+
+tmp18919 := PrimCons(sym_1_1_6, tmp18918)
+
+tmp18920 := PrimCons(tmp18915, tmp18919)
+
+__e.TailApply(PrimFunc(symis_b), V6421, tmp18920, B6417, L6418, Key6419, C6420)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp18921 := PrimValue(symshen_4_dsigf_d)
+
+tmp18922 := Call(__e, PrimFunc(symshen_4assoc_1_6), sympreclude, tmp18913, tmp18921)
+
+
+tmp18923 := PrimSet(symshen_4_dsigf_d, tmp18922)
+
+_ = tmp18923
+
+tmp18924 := MakeNative(func(__e *ControlFlow) {
+V6426 := __e.Get(1)
+_ = V6426
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6422 := __e.Get(1)
+_ = B6422
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6423 := __e.Get(1)
+_ = L6423
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6424 := __e.Get(1)
+_ = Key6424
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6425 := __e.Get(1)
+_ = C6425
+tmp18925 := PrimCons(symstring, Nil)
+
+tmp18926 := PrimCons(sym_1_1_6, tmp18925)
+
+tmp18927 := PrimCons(symstring, tmp18926)
+
+__e.TailApply(PrimFunc(symis_b), V6426, tmp18927, B6422, L6423, Key6424, C6425)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp18928 := PrimValue(symshen_4_dsigf_d)
+
+tmp18929 := Call(__e, PrimFunc(symshen_4assoc_1_6), symshen_4proc_1nl, tmp18924, tmp18928)
+
+
+tmp18930 := PrimSet(symshen_4_dsigf_d, tmp18929)
+
+_ = tmp18930
+
+tmp18931 := MakeNative(func(__e *ControlFlow) {
+V6431 := __e.Get(1)
+_ = V6431
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6427 := __e.Get(1)
+_ = B6427
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6428 := __e.Get(1)
+_ = L6428
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6429 := __e.Get(1)
+_ = Key6429
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6430 := __e.Get(1)
+_ = C6430
+tmp18932 := PrimCons(symnumber, Nil)
+
+tmp18933 := PrimCons(sym_d, tmp18932)
+
+tmp18934 := PrimCons(symsymbol, tmp18933)
+
+tmp18935 := PrimCons(tmp18934, Nil)
+
+tmp18936 := PrimCons(sym_1_1_6, tmp18935)
+
+tmp18937 := PrimCons(symsymbol, tmp18936)
+
+__e.TailApply(PrimFunc(symis_b), V6431, tmp18937, B6427, L6428, Key6429, C6430)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp18938 := PrimValue(symshen_4_dsigf_d)
+
+tmp18939 := Call(__e, PrimFunc(symshen_4assoc_1_6), symprofile_1results, tmp18931, tmp18938)
+
+
+tmp18940 := PrimSet(symshen_4_dsigf_d, tmp18939)
+
+_ = tmp18940
+
+tmp18941 := MakeNative(func(__e *ControlFlow) {
+V6436 := __e.Get(1)
+_ = V6436
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6432 := __e.Get(1)
+_ = B6432
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6433 := __e.Get(1)
+_ = L6433
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6434 := __e.Get(1)
+_ = Key6434
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6435 := __e.Get(1)
+_ = C6435
+tmp18942 := MakeNative(func(__e *ControlFlow) {
+A := __e.Get(1)
+_ = A
+tmp18943 := PrimCons(A, Nil)
+
+tmp18944 := PrimCons(sym_1_1_6, tmp18943)
+
+tmp18945 := PrimCons(A, tmp18944)
+
+tmp18946 := Call(__e, PrimFunc(symis_b), V6436, tmp18945, B6432, L6433, Key6434, C6435)
+
+
+__e.TailApply(PrimFunc(symshen_4gc), B6432, tmp18946)
+return
+
+
+}, 1)
+
+tmp18947 := Call(__e, PrimFunc(symshen_4newpv), B6432)
+
+
+__e.TailApply(tmp18942, tmp18947)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp18948 := PrimValue(symshen_4_dsigf_d)
+
+tmp18949 := Call(__e, PrimFunc(symshen_4assoc_1_6), symprotect, tmp18941, tmp18948)
+
+
+tmp18950 := PrimSet(symshen_4_dsigf_d, tmp18949)
+
+_ = tmp18950
+
+tmp18951 := MakeNative(func(__e *ControlFlow) {
+V6441 := __e.Get(1)
+_ = V6441
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6437 := __e.Get(1)
+_ = B6437
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6438 := __e.Get(1)
+_ = L6438
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6439 := __e.Get(1)
+_ = Key6439
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6440 := __e.Get(1)
+_ = C6440
+tmp18952 := PrimCons(symsymbol, Nil)
+
+tmp18953 := PrimCons(symlist, tmp18952)
+
+tmp18954 := PrimCons(symsymbol, Nil)
+
+tmp18955 := PrimCons(symlist, tmp18954)
+
+tmp18956 := PrimCons(tmp18955, Nil)
+
+tmp18957 := PrimCons(sym_1_1_6, tmp18956)
+
+tmp18958 := PrimCons(tmp18953, tmp18957)
+
+__e.TailApply(PrimFunc(symis_b), V6441, tmp18958, B6437, L6438, Key6439, C6440)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp18959 := PrimValue(symshen_4_dsigf_d)
+
+tmp18960 := Call(__e, PrimFunc(symshen_4assoc_1_6), sympreclude_1all_1but, tmp18951, tmp18959)
+
+
+tmp18961 := PrimSet(symshen_4_dsigf_d, tmp18960)
+
+_ = tmp18961
+
+tmp18962 := MakeNative(func(__e *ControlFlow) {
+V6446 := __e.Get(1)
+_ = V6446
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6442 := __e.Get(1)
+_ = B6442
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6443 := __e.Get(1)
+_ = L6443
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6444 := __e.Get(1)
+_ = Key6444
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6445 := __e.Get(1)
+_ = C6445
+tmp18963 := PrimCons(symout, Nil)
+
+tmp18964 := PrimCons(symstream, tmp18963)
+
+tmp18965 := PrimCons(symstring, Nil)
+
+tmp18966 := PrimCons(sym_1_1_6, tmp18965)
+
+tmp18967 := PrimCons(tmp18964, tmp18966)
+
+tmp18968 := PrimCons(tmp18967, Nil)
+
+tmp18969 := PrimCons(sym_1_1_6, tmp18968)
+
+tmp18970 := PrimCons(symstring, tmp18969)
+
+__e.TailApply(PrimFunc(symis_b), V6446, tmp18970, B6442, L6443, Key6444, C6445)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp18971 := PrimValue(symshen_4_dsigf_d)
+
+tmp18972 := Call(__e, PrimFunc(symshen_4assoc_1_6), symshen_4prhush, tmp18962, tmp18971)
+
+
+tmp18973 := PrimSet(symshen_4_dsigf_d, tmp18972)
+
+_ = tmp18973
+
+tmp18974 := MakeNative(func(__e *ControlFlow) {
+V6451 := __e.Get(1)
+_ = V6451
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6447 := __e.Get(1)
+_ = B6447
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6448 := __e.Get(1)
+_ = L6448
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6449 := __e.Get(1)
+_ = Key6449
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6450 := __e.Get(1)
+_ = C6450
+tmp18975 := PrimCons(symnumber, Nil)
+
+tmp18976 := PrimCons(sym_1_1_6, tmp18975)
+
+tmp18977 := PrimCons(symnumber, tmp18976)
+
+__e.TailApply(PrimFunc(symis_b), V6451, tmp18977, B6447, L6448, Key6449, C6450)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp18978 := PrimValue(symshen_4_dsigf_d)
+
+tmp18979 := Call(__e, PrimFunc(symshen_4assoc_1_6), symprolog_1memory, tmp18974, tmp18978)
+
+
+tmp18980 := PrimSet(symshen_4_dsigf_d, tmp18979)
+
+_ = tmp18980
+
+tmp18981 := MakeNative(func(__e *ControlFlow) {
+V6456 := __e.Get(1)
+_ = V6456
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6452 := __e.Get(1)
+_ = B6452
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6453 := __e.Get(1)
+_ = L6453
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6454 := __e.Get(1)
+_ = Key6454
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6455 := __e.Get(1)
+_ = C6455
+tmp18982 := PrimCons(symunit, Nil)
+
+tmp18983 := PrimCons(symlist, tmp18982)
+
+tmp18984 := PrimCons(tmp18983, Nil)
+
+tmp18985 := PrimCons(sym_1_1_6, tmp18984)
+
+tmp18986 := PrimCons(symsymbol, tmp18985)
+
+__e.TailApply(PrimFunc(symis_b), V6456, tmp18986, B6452, L6453, Key6454, C6455)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp18987 := PrimValue(symshen_4_dsigf_d)
+
+tmp18988 := Call(__e, PrimFunc(symshen_4assoc_1_6), symps, tmp18981, tmp18987)
+
+
+tmp18989 := PrimSet(symshen_4_dsigf_d, tmp18988)
+
+_ = tmp18989
+
+tmp18990 := MakeNative(func(__e *ControlFlow) {
+V6461 := __e.Get(1)
+_ = V6461
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6457 := __e.Get(1)
+_ = B6457
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6458 := __e.Get(1)
+_ = L6458
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6459 := __e.Get(1)
+_ = Key6459
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6460 := __e.Get(1)
+_ = C6460
+tmp18991 := PrimCons(symin, Nil)
+
+tmp18992 := PrimCons(symstream, tmp18991)
+
+tmp18993 := PrimCons(symunit, Nil)
+
+tmp18994 := PrimCons(sym_1_1_6, tmp18993)
+
+tmp18995 := PrimCons(tmp18992, tmp18994)
+
+__e.TailApply(PrimFunc(symis_b), V6461, tmp18995, B6457, L6458, Key6459, C6460)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp18996 := PrimValue(symshen_4_dsigf_d)
+
+tmp18997 := Call(__e, PrimFunc(symshen_4assoc_1_6), symread, tmp18990, tmp18996)
+
+
+tmp18998 := PrimSet(symshen_4_dsigf_d, tmp18997)
+
+_ = tmp18998
+
+tmp18999 := MakeNative(func(__e *ControlFlow) {
+V6466 := __e.Get(1)
+_ = V6466
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6462 := __e.Get(1)
+_ = B6462
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6463 := __e.Get(1)
+_ = L6463
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6464 := __e.Get(1)
+_ = Key6464
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6465 := __e.Get(1)
+_ = C6465
+tmp19000 := PrimCons(symin, Nil)
+
+tmp19001 := PrimCons(symstream, tmp19000)
+
+tmp19002 := PrimCons(symnumber, Nil)
+
+tmp19003 := PrimCons(sym_1_1_6, tmp19002)
+
+tmp19004 := PrimCons(tmp19001, tmp19003)
+
+__e.TailApply(PrimFunc(symis_b), V6466, tmp19004, B6462, L6463, Key6464, C6465)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp19005 := PrimValue(symshen_4_dsigf_d)
+
+tmp19006 := Call(__e, PrimFunc(symshen_4assoc_1_6), symread_1byte, tmp18999, tmp19005)
+
+
+tmp19007 := PrimSet(symshen_4_dsigf_d, tmp19006)
+
+_ = tmp19007
+
+tmp19008 := MakeNative(func(__e *ControlFlow) {
+V6471 := __e.Get(1)
+_ = V6471
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6467 := __e.Get(1)
+_ = B6467
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6468 := __e.Get(1)
+_ = L6468
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6469 := __e.Get(1)
+_ = Key6469
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6470 := __e.Get(1)
+_ = C6470
+tmp19009 := PrimCons(symnumber, Nil)
+
+tmp19010 := PrimCons(symlist, tmp19009)
+
+tmp19011 := PrimCons(tmp19010, Nil)
+
+tmp19012 := PrimCons(sym_1_1_6, tmp19011)
+
+tmp19013 := PrimCons(symstring, tmp19012)
+
+__e.TailApply(PrimFunc(symis_b), V6471, tmp19013, B6467, L6468, Key6469, C6470)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp19014 := PrimValue(symshen_4_dsigf_d)
+
+tmp19015 := Call(__e, PrimFunc(symshen_4assoc_1_6), symread_1file_1as_1bytelist, tmp19008, tmp19014)
+
+
+tmp19016 := PrimSet(symshen_4_dsigf_d, tmp19015)
+
+_ = tmp19016
+
+tmp19017 := MakeNative(func(__e *ControlFlow) {
+V6476 := __e.Get(1)
+_ = V6476
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6472 := __e.Get(1)
+_ = B6472
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6473 := __e.Get(1)
+_ = L6473
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6474 := __e.Get(1)
+_ = Key6474
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6475 := __e.Get(1)
+_ = C6475
+tmp19018 := PrimCons(symstring, Nil)
+
+tmp19019 := PrimCons(sym_1_1_6, tmp19018)
+
+tmp19020 := PrimCons(symstring, tmp19019)
+
+__e.TailApply(PrimFunc(symis_b), V6476, tmp19020, B6472, L6473, Key6474, C6475)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp19021 := PrimValue(symshen_4_dsigf_d)
+
+tmp19022 := Call(__e, PrimFunc(symshen_4assoc_1_6), symread_1file_1as_1string, tmp19017, tmp19021)
+
+
+tmp19023 := PrimSet(symshen_4_dsigf_d, tmp19022)
+
+_ = tmp19023
+
+tmp19024 := MakeNative(func(__e *ControlFlow) {
+V6481 := __e.Get(1)
+_ = V6481
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6477 := __e.Get(1)
+_ = B6477
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6478 := __e.Get(1)
+_ = L6478
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6479 := __e.Get(1)
+_ = Key6479
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6480 := __e.Get(1)
+_ = C6480
+tmp19025 := PrimCons(symunit, Nil)
+
+tmp19026 := PrimCons(symlist, tmp19025)
+
+tmp19027 := PrimCons(tmp19026, Nil)
+
+tmp19028 := PrimCons(sym_1_1_6, tmp19027)
+
+tmp19029 := PrimCons(symstring, tmp19028)
+
+__e.TailApply(PrimFunc(symis_b), V6481, tmp19029, B6477, L6478, Key6479, C6480)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp19030 := PrimValue(symshen_4_dsigf_d)
+
+tmp19031 := Call(__e, PrimFunc(symshen_4assoc_1_6), symread_1file, tmp19024, tmp19030)
+
+
+tmp19032 := PrimSet(symshen_4_dsigf_d, tmp19031)
+
+_ = tmp19032
+
+tmp19033 := MakeNative(func(__e *ControlFlow) {
+V6486 := __e.Get(1)
+_ = V6486
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6482 := __e.Get(1)
+_ = B6482
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6483 := __e.Get(1)
+_ = L6483
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6484 := __e.Get(1)
+_ = Key6484
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6485 := __e.Get(1)
+_ = C6485
+tmp19034 := PrimCons(symunit, Nil)
+
+tmp19035 := PrimCons(symlist, tmp19034)
+
+tmp19036 := PrimCons(tmp19035, Nil)
+
+tmp19037 := PrimCons(sym_1_1_6, tmp19036)
+
+tmp19038 := PrimCons(symstring, tmp19037)
+
+__e.TailApply(PrimFunc(symis_b), V6486, tmp19038, B6482, L6483, Key6484, C6485)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp19039 := PrimValue(symshen_4_dsigf_d)
+
+tmp19040 := Call(__e, PrimFunc(symshen_4assoc_1_6), symread_1from_1string, tmp19033, tmp19039)
+
+
+tmp19041 := PrimSet(symshen_4_dsigf_d, tmp19040)
+
+_ = tmp19041
+
+tmp19042 := MakeNative(func(__e *ControlFlow) {
+V6491 := __e.Get(1)
+_ = V6491
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6487 := __e.Get(1)
+_ = B6487
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6488 := __e.Get(1)
+_ = L6488
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6489 := __e.Get(1)
+_ = Key6489
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6490 := __e.Get(1)
+_ = C6490
+tmp19043 := PrimCons(symunit, Nil)
+
+tmp19044 := PrimCons(symlist, tmp19043)
+
+tmp19045 := PrimCons(tmp19044, Nil)
+
+tmp19046 := PrimCons(sym_1_1_6, tmp19045)
+
+tmp19047 := PrimCons(symstring, tmp19046)
+
+__e.TailApply(PrimFunc(symis_b), V6491, tmp19047, B6487, L6488, Key6489, C6490)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp19048 := PrimValue(symshen_4_dsigf_d)
+
+tmp19049 := Call(__e, PrimFunc(symshen_4assoc_1_6), symread_1from_1string_1unprocessed, tmp19042, tmp19048)
+
+
+tmp19050 := PrimSet(symshen_4_dsigf_d, tmp19049)
+
+_ = tmp19050
+
+tmp19051 := MakeNative(func(__e *ControlFlow) {
+V6496 := __e.Get(1)
+_ = V6496
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6492 := __e.Get(1)
+_ = B6492
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6493 := __e.Get(1)
+_ = L6493
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6494 := __e.Get(1)
+_ = Key6494
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6495 := __e.Get(1)
+_ = C6495
+tmp19052 := PrimCons(symstring, Nil)
+
+tmp19053 := PrimCons(sym_1_1_6, tmp19052)
+
+__e.TailApply(PrimFunc(symis_b), V6496, tmp19053, B6492, L6493, Key6494, C6495)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp19054 := PrimValue(symshen_4_dsigf_d)
+
+tmp19055 := Call(__e, PrimFunc(symshen_4assoc_1_6), symrelease, tmp19051, tmp19054)
+
+
+tmp19056 := PrimSet(symshen_4_dsigf_d, tmp19055)
+
+_ = tmp19056
+
+tmp19057 := MakeNative(func(__e *ControlFlow) {
+V6501 := __e.Get(1)
+_ = V6501
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6497 := __e.Get(1)
+_ = B6497
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6498 := __e.Get(1)
+_ = L6498
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6499 := __e.Get(1)
+_ = Key6499
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6500 := __e.Get(1)
+_ = C6500
+tmp19058 := MakeNative(func(__e *ControlFlow) {
+A := __e.Get(1)
+_ = A
+tmp19059 := PrimCons(A, Nil)
+
+tmp19060 := PrimCons(symlist, tmp19059)
+
+tmp19061 := PrimCons(A, Nil)
+
+tmp19062 := PrimCons(symlist, tmp19061)
+
+tmp19063 := PrimCons(tmp19062, Nil)
+
+tmp19064 := PrimCons(sym_1_1_6, tmp19063)
+
+tmp19065 := PrimCons(tmp19060, tmp19064)
+
+tmp19066 := PrimCons(tmp19065, Nil)
+
+tmp19067 := PrimCons(sym_1_1_6, tmp19066)
+
+tmp19068 := PrimCons(A, tmp19067)
+
+tmp19069 := Call(__e, PrimFunc(symis_b), V6501, tmp19068, B6497, L6498, Key6499, C6500)
+
+
+__e.TailApply(PrimFunc(symshen_4gc), B6497, tmp19069)
+return
+
+
+}, 1)
+
+tmp19070 := Call(__e, PrimFunc(symshen_4newpv), B6497)
+
+
+__e.TailApply(tmp19058, tmp19070)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp19071 := PrimValue(symshen_4_dsigf_d)
+
+tmp19072 := Call(__e, PrimFunc(symshen_4assoc_1_6), symremove, tmp19057, tmp19071)
+
+
+tmp19073 := PrimSet(symshen_4_dsigf_d, tmp19072)
+
+_ = tmp19073
+
+tmp19074 := MakeNative(func(__e *ControlFlow) {
+V6506 := __e.Get(1)
+_ = V6506
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6502 := __e.Get(1)
+_ = B6502
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6503 := __e.Get(1)
+_ = L6503
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6504 := __e.Get(1)
+_ = Key6504
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6505 := __e.Get(1)
+_ = C6505
+tmp19075 := MakeNative(func(__e *ControlFlow) {
+A := __e.Get(1)
+_ = A
+tmp19076 := PrimCons(A, Nil)
+
+tmp19077 := PrimCons(symlist, tmp19076)
+
+tmp19078 := PrimCons(A, Nil)
+
+tmp19079 := PrimCons(symlist, tmp19078)
+
+tmp19080 := PrimCons(tmp19079, Nil)
+
+tmp19081 := PrimCons(sym_1_1_6, tmp19080)
+
+tmp19082 := PrimCons(tmp19077, tmp19081)
+
+tmp19083 := Call(__e, PrimFunc(symis_b), V6506, tmp19082, B6502, L6503, Key6504, C6505)
+
+
+__e.TailApply(PrimFunc(symshen_4gc), B6502, tmp19083)
+return
+
+
+}, 1)
+
+tmp19084 := Call(__e, PrimFunc(symshen_4newpv), B6502)
+
+
+__e.TailApply(tmp19075, tmp19084)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp19085 := PrimValue(symshen_4_dsigf_d)
+
+tmp19086 := Call(__e, PrimFunc(symshen_4assoc_1_6), symreverse, tmp19074, tmp19085)
+
+
+tmp19087 := PrimSet(symshen_4_dsigf_d, tmp19086)
+
+_ = tmp19087
+
+tmp19088 := MakeNative(func(__e *ControlFlow) {
+V6511 := __e.Get(1)
+_ = V6511
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6507 := __e.Get(1)
+_ = B6507
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6508 := __e.Get(1)
+_ = L6508
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6509 := __e.Get(1)
+_ = Key6509
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6510 := __e.Get(1)
+_ = C6510
+tmp19089 := MakeNative(func(__e *ControlFlow) {
+A := __e.Get(1)
+_ = A
+tmp19090 := PrimCons(A, Nil)
+
+tmp19091 := PrimCons(sym_1_1_6, tmp19090)
+
+tmp19092 := PrimCons(symstring, tmp19091)
+
+tmp19093 := Call(__e, PrimFunc(symis_b), V6511, tmp19092, B6507, L6508, Key6509, C6510)
+
+
+__e.TailApply(PrimFunc(symshen_4gc), B6507, tmp19093)
+return
+
+
+}, 1)
+
+tmp19094 := Call(__e, PrimFunc(symshen_4newpv), B6507)
+
+
+__e.TailApply(tmp19089, tmp19094)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp19095 := PrimValue(symshen_4_dsigf_d)
+
+tmp19096 := Call(__e, PrimFunc(symshen_4assoc_1_6), symsimple_1error, tmp19088, tmp19095)
+
+
+tmp19097 := PrimSet(symshen_4_dsigf_d, tmp19096)
+
+_ = tmp19097
+
+tmp19098 := MakeNative(func(__e *ControlFlow) {
+V6516 := __e.Get(1)
+_ = V6516
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6512 := __e.Get(1)
+_ = B6512
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6513 := __e.Get(1)
+_ = L6513
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6514 := __e.Get(1)
+_ = Key6514
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6515 := __e.Get(1)
+_ = C6515
+tmp19099 := MakeNative(func(__e *ControlFlow) {
+A := __e.Get(1)
+_ = A
+tmp19100 := MakeNative(func(__e *ControlFlow) {
+B := __e.Get(1)
+_ = B
+tmp19101 := PrimCons(B, Nil)
+
+tmp19102 := PrimCons(sym_d, tmp19101)
+
+tmp19103 := PrimCons(A, tmp19102)
+
+tmp19104 := PrimCons(B, Nil)
+
+tmp19105 := PrimCons(sym_1_1_6, tmp19104)
+
+tmp19106 := PrimCons(tmp19103, tmp19105)
+
+tmp19107 := Call(__e, PrimFunc(symis_b), V6516, tmp19106, B6512, L6513, Key6514, C6515)
+
+
+__e.TailApply(PrimFunc(symshen_4gc), B6512, tmp19107)
+return
+
+
+}, 1)
+
+tmp19108 := Call(__e, PrimFunc(symshen_4newpv), B6512)
+
+
+tmp19109 := Call(__e, tmp19100, tmp19108)
+
+
+__e.TailApply(PrimFunc(symshen_4gc), B6512, tmp19109)
+return
+
+
+}, 1)
+
+tmp19110 := Call(__e, PrimFunc(symshen_4newpv), B6512)
+
+
+__e.TailApply(tmp19099, tmp19110)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp19111 := PrimValue(symshen_4_dsigf_d)
+
+tmp19112 := Call(__e, PrimFunc(symshen_4assoc_1_6), symsnd, tmp19098, tmp19111)
+
+
+tmp19113 := PrimSet(symshen_4_dsigf_d, tmp19112)
+
+_ = tmp19113
+
+tmp19114 := MakeNative(func(__e *ControlFlow) {
+V6521 := __e.Get(1)
+_ = V6521
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6517 := __e.Get(1)
+_ = B6517
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6518 := __e.Get(1)
+_ = L6518
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6519 := __e.Get(1)
+_ = Key6519
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6520 := __e.Get(1)
+_ = C6520
+tmp19115 := PrimCons(symsymbol, Nil)
+
+tmp19116 := PrimCons(sym_1_1_6, tmp19115)
+
+tmp19117 := PrimCons(symnumber, tmp19116)
+
+tmp19118 := PrimCons(tmp19117, Nil)
+
+tmp19119 := PrimCons(sym_1_1_6, tmp19118)
+
+tmp19120 := PrimCons(symsymbol, tmp19119)
+
+__e.TailApply(PrimFunc(symis_b), V6521, tmp19120, B6517, L6518, Key6519, C6520)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp19121 := PrimValue(symshen_4_dsigf_d)
+
+tmp19122 := Call(__e, PrimFunc(symshen_4assoc_1_6), symspecialise, tmp19114, tmp19121)
+
+
+tmp19123 := PrimSet(symshen_4_dsigf_d, tmp19122)
+
+_ = tmp19123
+
+tmp19124 := MakeNative(func(__e *ControlFlow) {
+V6526 := __e.Get(1)
+_ = V6526
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6522 := __e.Get(1)
+_ = B6522
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6523 := __e.Get(1)
+_ = L6523
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6524 := __e.Get(1)
+_ = Key6524
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6525 := __e.Get(1)
+_ = C6525
+tmp19125 := PrimCons(symboolean, Nil)
+
+tmp19126 := PrimCons(sym_1_1_6, tmp19125)
+
+tmp19127 := PrimCons(symsymbol, tmp19126)
+
+__e.TailApply(PrimFunc(symis_b), V6526, tmp19127, B6522, L6523, Key6524, C6525)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp19128 := PrimValue(symshen_4_dsigf_d)
+
+tmp19129 := Call(__e, PrimFunc(symshen_4assoc_1_6), symspy, tmp19124, tmp19128)
+
+
+tmp19130 := PrimSet(symshen_4_dsigf_d, tmp19129)
+
+_ = tmp19130
+
+tmp19131 := MakeNative(func(__e *ControlFlow) {
+V6531 := __e.Get(1)
+_ = V6531
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6527 := __e.Get(1)
+_ = B6527
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6528 := __e.Get(1)
+_ = L6528
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6529 := __e.Get(1)
+_ = Key6529
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6530 := __e.Get(1)
+_ = C6530
+tmp19132 := PrimCons(symboolean, Nil)
+
+tmp19133 := PrimCons(sym_1_1_6, tmp19132)
+
+__e.TailApply(PrimFunc(symis_b), V6531, tmp19133, B6527, L6528, Key6529, C6530)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp19134 := PrimValue(symshen_4_dsigf_d)
+
+tmp19135 := Call(__e, PrimFunc(symshen_4assoc_1_6), symshen_4spy_2, tmp19131, tmp19134)
+
+
+tmp19136 := PrimSet(symshen_4_dsigf_d, tmp19135)
+
+_ = tmp19136
+
+tmp19137 := MakeNative(func(__e *ControlFlow) {
+V6536 := __e.Get(1)
+_ = V6536
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6532 := __e.Get(1)
+_ = B6532
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6533 := __e.Get(1)
+_ = L6533
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6534 := __e.Get(1)
+_ = Key6534
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6535 := __e.Get(1)
+_ = C6535
+tmp19138 := PrimCons(symboolean, Nil)
+
+tmp19139 := PrimCons(sym_1_1_6, tmp19138)
+
+tmp19140 := PrimCons(symsymbol, tmp19139)
+
+__e.TailApply(PrimFunc(symis_b), V6536, tmp19140, B6532, L6533, Key6534, C6535)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp19141 := PrimValue(symshen_4_dsigf_d)
+
+tmp19142 := Call(__e, PrimFunc(symshen_4assoc_1_6), symstep, tmp19137, tmp19141)
+
+
+tmp19143 := PrimSet(symshen_4_dsigf_d, tmp19142)
+
+_ = tmp19143
+
+tmp19144 := MakeNative(func(__e *ControlFlow) {
+V6541 := __e.Get(1)
+_ = V6541
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6537 := __e.Get(1)
+_ = B6537
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6538 := __e.Get(1)
+_ = L6538
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6539 := __e.Get(1)
+_ = Key6539
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6540 := __e.Get(1)
+_ = C6540
+tmp19145 := PrimCons(symboolean, Nil)
+
+tmp19146 := PrimCons(sym_1_1_6, tmp19145)
+
+__e.TailApply(PrimFunc(symis_b), V6541, tmp19146, B6537, L6538, Key6539, C6540)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp19147 := PrimValue(symshen_4_dsigf_d)
+
+tmp19148 := Call(__e, PrimFunc(symshen_4assoc_1_6), symshen_4step_2, tmp19144, tmp19147)
+
+
+tmp19149 := PrimSet(symshen_4_dsigf_d, tmp19148)
+
+_ = tmp19149
+
+tmp19150 := MakeNative(func(__e *ControlFlow) {
+V6546 := __e.Get(1)
+_ = V6546
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6542 := __e.Get(1)
+_ = B6542
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6543 := __e.Get(1)
+_ = L6543
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6544 := __e.Get(1)
+_ = Key6544
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6545 := __e.Get(1)
+_ = C6545
+tmp19151 := PrimCons(symin, Nil)
+
+tmp19152 := PrimCons(symstream, tmp19151)
+
+tmp19153 := PrimCons(tmp19152, Nil)
+
+tmp19154 := PrimCons(sym_1_1_6, tmp19153)
+
+__e.TailApply(PrimFunc(symis_b), V6546, tmp19154, B6542, L6543, Key6544, C6545)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp19155 := PrimValue(symshen_4_dsigf_d)
+
+tmp19156 := Call(__e, PrimFunc(symshen_4assoc_1_6), symstinput, tmp19150, tmp19155)
+
+
+tmp19157 := PrimSet(symshen_4_dsigf_d, tmp19156)
+
+_ = tmp19157
+
+tmp19158 := MakeNative(func(__e *ControlFlow) {
+V6551 := __e.Get(1)
+_ = V6551
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6547 := __e.Get(1)
+_ = B6547
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6548 := __e.Get(1)
+_ = L6548
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6549 := __e.Get(1)
+_ = Key6549
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6550 := __e.Get(1)
+_ = C6550
+tmp19159 := PrimCons(symout, Nil)
+
+tmp19160 := PrimCons(symstream, tmp19159)
+
+tmp19161 := PrimCons(tmp19160, Nil)
+
+tmp19162 := PrimCons(sym_1_1_6, tmp19161)
+
+__e.TailApply(PrimFunc(symis_b), V6551, tmp19162, B6547, L6548, Key6549, C6550)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp19163 := PrimValue(symshen_4_dsigf_d)
+
+tmp19164 := Call(__e, PrimFunc(symshen_4assoc_1_6), symsterror, tmp19158, tmp19163)
+
+
+tmp19165 := PrimSet(symshen_4_dsigf_d, tmp19164)
+
+_ = tmp19165
+
+tmp19166 := MakeNative(func(__e *ControlFlow) {
+V6556 := __e.Get(1)
+_ = V6556
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6552 := __e.Get(1)
+_ = B6552
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6553 := __e.Get(1)
+_ = L6553
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6554 := __e.Get(1)
+_ = Key6554
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6555 := __e.Get(1)
+_ = C6555
+tmp19167 := PrimCons(symout, Nil)
+
+tmp19168 := PrimCons(symstream, tmp19167)
+
+tmp19169 := PrimCons(tmp19168, Nil)
+
+tmp19170 := PrimCons(sym_1_1_6, tmp19169)
+
+__e.TailApply(PrimFunc(symis_b), V6556, tmp19170, B6552, L6553, Key6554, C6555)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp19171 := PrimValue(symshen_4_dsigf_d)
+
+tmp19172 := Call(__e, PrimFunc(symshen_4assoc_1_6), symstoutput, tmp19166, tmp19171)
+
+
+tmp19173 := PrimSet(symshen_4_dsigf_d, tmp19172)
+
+_ = tmp19173
+
+tmp19174 := MakeNative(func(__e *ControlFlow) {
+V6561 := __e.Get(1)
+_ = V6561
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6557 := __e.Get(1)
+_ = B6557
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6558 := __e.Get(1)
+_ = L6558
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6559 := __e.Get(1)
+_ = Key6559
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6560 := __e.Get(1)
+_ = C6560
+tmp19175 := MakeNative(func(__e *ControlFlow) {
+A := __e.Get(1)
+_ = A
+tmp19176 := PrimCons(symboolean, Nil)
+
+tmp19177 := PrimCons(sym_1_1_6, tmp19176)
+
+tmp19178 := PrimCons(A, tmp19177)
+
+tmp19179 := Call(__e, PrimFunc(symis_b), V6561, tmp19178, B6557, L6558, Key6559, C6560)
+
+
+__e.TailApply(PrimFunc(symshen_4gc), B6557, tmp19179)
+return
+
+
+}, 1)
+
+tmp19180 := Call(__e, PrimFunc(symshen_4newpv), B6557)
+
+
+__e.TailApply(tmp19175, tmp19180)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp19181 := PrimValue(symshen_4_dsigf_d)
+
+tmp19182 := Call(__e, PrimFunc(symshen_4assoc_1_6), symstring_2, tmp19174, tmp19181)
+
+
+tmp19183 := PrimSet(symshen_4_dsigf_d, tmp19182)
+
+_ = tmp19183
+
+tmp19184 := MakeNative(func(__e *ControlFlow) {
+V6566 := __e.Get(1)
+_ = V6566
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6562 := __e.Get(1)
+_ = B6562
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6563 := __e.Get(1)
+_ = L6563
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6564 := __e.Get(1)
+_ = Key6564
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6565 := __e.Get(1)
+_ = C6565
+tmp19185 := MakeNative(func(__e *ControlFlow) {
+A := __e.Get(1)
+_ = A
+tmp19186 := PrimCons(symstring, Nil)
+
+tmp19187 := PrimCons(sym_1_1_6, tmp19186)
+
+tmp19188 := PrimCons(A, tmp19187)
+
+tmp19189 := Call(__e, PrimFunc(symis_b), V6566, tmp19188, B6562, L6563, Key6564, C6565)
+
+
+__e.TailApply(PrimFunc(symshen_4gc), B6562, tmp19189)
+return
+
+
+}, 1)
+
+tmp19190 := Call(__e, PrimFunc(symshen_4newpv), B6562)
+
+
+__e.TailApply(tmp19185, tmp19190)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp19191 := PrimValue(symshen_4_dsigf_d)
+
+tmp19192 := Call(__e, PrimFunc(symshen_4assoc_1_6), symstr, tmp19184, tmp19191)
+
+
+tmp19193 := PrimSet(symshen_4_dsigf_d, tmp19192)
+
+_ = tmp19193
+
+tmp19194 := MakeNative(func(__e *ControlFlow) {
+V6571 := __e.Get(1)
+_ = V6571
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6567 := __e.Get(1)
+_ = B6567
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6568 := __e.Get(1)
+_ = L6568
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6569 := __e.Get(1)
+_ = Key6569
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6570 := __e.Get(1)
+_ = C6570
+tmp19195 := PrimCons(symnumber, Nil)
+
+tmp19196 := PrimCons(sym_1_1_6, tmp19195)
+
+tmp19197 := PrimCons(symstring, tmp19196)
+
+__e.TailApply(PrimFunc(symis_b), V6571, tmp19197, B6567, L6568, Key6569, C6570)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp19198 := PrimValue(symshen_4_dsigf_d)
+
+tmp19199 := Call(__e, PrimFunc(symshen_4assoc_1_6), symstring_1_6n, tmp19194, tmp19198)
+
+
+tmp19200 := PrimSet(symshen_4_dsigf_d, tmp19199)
+
+_ = tmp19200
+
+tmp19201 := MakeNative(func(__e *ControlFlow) {
+V6576 := __e.Get(1)
+_ = V6576
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6572 := __e.Get(1)
+_ = B6572
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6573 := __e.Get(1)
+_ = L6573
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6574 := __e.Get(1)
+_ = Key6574
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6575 := __e.Get(1)
+_ = C6575
+tmp19202 := PrimCons(symsymbol, Nil)
+
+tmp19203 := PrimCons(sym_1_1_6, tmp19202)
+
+tmp19204 := PrimCons(symstring, tmp19203)
+
+__e.TailApply(PrimFunc(symis_b), V6576, tmp19204, B6572, L6573, Key6574, C6575)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp19205 := PrimValue(symshen_4_dsigf_d)
+
+tmp19206 := Call(__e, PrimFunc(symshen_4assoc_1_6), symstring_1_6symbol, tmp19201, tmp19205)
+
+
+tmp19207 := PrimSet(symshen_4_dsigf_d, tmp19206)
+
+_ = tmp19207
+
+tmp19208 := MakeNative(func(__e *ControlFlow) {
+V6581 := __e.Get(1)
+_ = V6581
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6577 := __e.Get(1)
+_ = B6577
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6578 := __e.Get(1)
+_ = L6578
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6579 := __e.Get(1)
+_ = Key6579
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6580 := __e.Get(1)
+_ = C6580
+tmp19209 := PrimCons(symnumber, Nil)
+
+tmp19210 := PrimCons(symlist, tmp19209)
+
+tmp19211 := PrimCons(symnumber, Nil)
+
+tmp19212 := PrimCons(sym_1_1_6, tmp19211)
+
+tmp19213 := PrimCons(tmp19210, tmp19212)
+
+__e.TailApply(PrimFunc(symis_b), V6581, tmp19213, B6577, L6578, Key6579, C6580)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp19214 := PrimValue(symshen_4_dsigf_d)
+
+tmp19215 := Call(__e, PrimFunc(symshen_4assoc_1_6), symsum, tmp19208, tmp19214)
+
+
+tmp19216 := PrimSet(symshen_4_dsigf_d, tmp19215)
+
+_ = tmp19216
+
+tmp19217 := MakeNative(func(__e *ControlFlow) {
+V6586 := __e.Get(1)
+_ = V6586
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6582 := __e.Get(1)
+_ = B6582
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6583 := __e.Get(1)
+_ = L6583
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6584 := __e.Get(1)
+_ = Key6584
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6585 := __e.Get(1)
+_ = C6585
+tmp19218 := MakeNative(func(__e *ControlFlow) {
+A := __e.Get(1)
+_ = A
+tmp19219 := PrimCons(symboolean, Nil)
+
+tmp19220 := PrimCons(sym_1_1_6, tmp19219)
+
+tmp19221 := PrimCons(A, tmp19220)
+
+tmp19222 := Call(__e, PrimFunc(symis_b), V6586, tmp19221, B6582, L6583, Key6584, C6585)
+
+
+__e.TailApply(PrimFunc(symshen_4gc), B6582, tmp19222)
+return
+
+
+}, 1)
+
+tmp19223 := Call(__e, PrimFunc(symshen_4newpv), B6582)
+
+
+__e.TailApply(tmp19218, tmp19223)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp19224 := PrimValue(symshen_4_dsigf_d)
+
+tmp19225 := Call(__e, PrimFunc(symshen_4assoc_1_6), symsymbol_2, tmp19217, tmp19224)
+
+
+tmp19226 := PrimSet(symshen_4_dsigf_d, tmp19225)
+
+_ = tmp19226
+
+tmp19227 := MakeNative(func(__e *ControlFlow) {
+V6591 := __e.Get(1)
+_ = V6591
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6587 := __e.Get(1)
+_ = B6587
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6588 := __e.Get(1)
+_ = L6588
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6589 := __e.Get(1)
+_ = Key6589
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6590 := __e.Get(1)
+_ = C6590
+tmp19228 := PrimCons(symsymbol, Nil)
+
+tmp19229 := PrimCons(sym_1_1_6, tmp19228)
+
+tmp19230 := PrimCons(symsymbol, tmp19229)
+
+__e.TailApply(PrimFunc(symis_b), V6591, tmp19230, B6587, L6588, Key6589, C6590)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp19231 := PrimValue(symshen_4_dsigf_d)
+
+tmp19232 := Call(__e, PrimFunc(symshen_4assoc_1_6), symsystemf, tmp19227, tmp19231)
+
+
+tmp19233 := PrimSet(symshen_4_dsigf_d, tmp19232)
+
+_ = tmp19233
+
+tmp19234 := MakeNative(func(__e *ControlFlow) {
+V6596 := __e.Get(1)
+_ = V6596
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6592 := __e.Get(1)
+_ = B6592
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6593 := __e.Get(1)
+_ = L6593
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6594 := __e.Get(1)
+_ = Key6594
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6595 := __e.Get(1)
+_ = C6595
+tmp19235 := PrimCons(symboolean, Nil)
+
+tmp19236 := PrimCons(sym_1_1_6, tmp19235)
+
+__e.TailApply(PrimFunc(symis_b), V6596, tmp19236, B6592, L6593, Key6594, C6595)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp19237 := PrimValue(symshen_4_dsigf_d)
+
+tmp19238 := Call(__e, PrimFunc(symshen_4assoc_1_6), symsystem_1S_2, tmp19234, tmp19237)
+
+
+tmp19239 := PrimSet(symshen_4_dsigf_d, tmp19238)
+
+_ = tmp19239
+
+tmp19240 := MakeNative(func(__e *ControlFlow) {
+V6601 := __e.Get(1)
+_ = V6601
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6597 := __e.Get(1)
+_ = B6597
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6598 := __e.Get(1)
+_ = L6598
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6599 := __e.Get(1)
+_ = Key6599
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6600 := __e.Get(1)
+_ = C6600
+tmp19241 := MakeNative(func(__e *ControlFlow) {
+A := __e.Get(1)
+_ = A
+tmp19242 := PrimCons(A, Nil)
+
+tmp19243 := PrimCons(symlist, tmp19242)
+
+tmp19244 := PrimCons(A, Nil)
+
+tmp19245 := PrimCons(symlist, tmp19244)
+
+tmp19246 := PrimCons(tmp19245, Nil)
+
+tmp19247 := PrimCons(sym_1_1_6, tmp19246)
+
+tmp19248 := PrimCons(tmp19243, tmp19247)
+
+tmp19249 := Call(__e, PrimFunc(symis_b), V6601, tmp19248, B6597, L6598, Key6599, C6600)
+
+
+__e.TailApply(PrimFunc(symshen_4gc), B6597, tmp19249)
+return
+
+
+}, 1)
+
+tmp19250 := Call(__e, PrimFunc(symshen_4newpv), B6597)
+
+
+__e.TailApply(tmp19241, tmp19250)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp19251 := PrimValue(symshen_4_dsigf_d)
+
+tmp19252 := Call(__e, PrimFunc(symshen_4assoc_1_6), symtail, tmp19240, tmp19251)
+
+
+tmp19253 := PrimSet(symshen_4_dsigf_d, tmp19252)
+
+_ = tmp19253
+
+tmp19254 := MakeNative(func(__e *ControlFlow) {
+V6606 := __e.Get(1)
+_ = V6606
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6602 := __e.Get(1)
+_ = B6602
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6603 := __e.Get(1)
+_ = L6603
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6604 := __e.Get(1)
+_ = Key6604
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6605 := __e.Get(1)
+_ = C6605
+tmp19255 := PrimCons(symstring, Nil)
+
+tmp19256 := PrimCons(sym_1_1_6, tmp19255)
+
+tmp19257 := PrimCons(symstring, tmp19256)
+
+__e.TailApply(PrimFunc(symis_b), V6606, tmp19257, B6602, L6603, Key6604, C6605)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp19258 := PrimValue(symshen_4_dsigf_d)
+
+tmp19259 := Call(__e, PrimFunc(symshen_4assoc_1_6), symtlstr, tmp19254, tmp19258)
+
+
+tmp19260 := PrimSet(symshen_4_dsigf_d, tmp19259)
+
+_ = tmp19260
+
+tmp19261 := MakeNative(func(__e *ControlFlow) {
+V6611 := __e.Get(1)
+_ = V6611
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6607 := __e.Get(1)
+_ = B6607
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6608 := __e.Get(1)
+_ = L6608
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6609 := __e.Get(1)
+_ = Key6609
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6610 := __e.Get(1)
+_ = C6610
+tmp19262 := MakeNative(func(__e *ControlFlow) {
+A := __e.Get(1)
+_ = A
+tmp19263 := PrimCons(A, Nil)
+
+tmp19264 := PrimCons(symvector, tmp19263)
+
+tmp19265 := PrimCons(A, Nil)
+
+tmp19266 := PrimCons(symvector, tmp19265)
+
+tmp19267 := PrimCons(tmp19266, Nil)
+
+tmp19268 := PrimCons(sym_1_1_6, tmp19267)
+
+tmp19269 := PrimCons(tmp19264, tmp19268)
+
+tmp19270 := Call(__e, PrimFunc(symis_b), V6611, tmp19269, B6607, L6608, Key6609, C6610)
+
+
+__e.TailApply(PrimFunc(symshen_4gc), B6607, tmp19270)
+return
+
+
+}, 1)
+
+tmp19271 := Call(__e, PrimFunc(symshen_4newpv), B6607)
+
+
+__e.TailApply(tmp19262, tmp19271)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp19272 := PrimValue(symshen_4_dsigf_d)
+
+tmp19273 := Call(__e, PrimFunc(symshen_4assoc_1_6), symtlv, tmp19261, tmp19272)
+
+
+tmp19274 := PrimSet(symshen_4_dsigf_d, tmp19273)
+
+_ = tmp19274
+
+tmp19275 := MakeNative(func(__e *ControlFlow) {
+V6616 := __e.Get(1)
+_ = V6616
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6612 := __e.Get(1)
+_ = B6612
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6613 := __e.Get(1)
+_ = L6613
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6614 := __e.Get(1)
+_ = Key6614
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6615 := __e.Get(1)
+_ = C6615
+tmp19276 := PrimCons(symboolean, Nil)
+
+tmp19277 := PrimCons(sym_1_1_6, tmp19276)
+
+tmp19278 := PrimCons(symsymbol, tmp19277)
+
+__e.TailApply(PrimFunc(symis_b), V6616, tmp19278, B6612, L6613, Key6614, C6615)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp19279 := PrimValue(symshen_4_dsigf_d)
+
+tmp19280 := Call(__e, PrimFunc(symshen_4assoc_1_6), symtc, tmp19275, tmp19279)
+
+
+tmp19281 := PrimSet(symshen_4_dsigf_d, tmp19280)
+
+_ = tmp19281
+
+tmp19282 := MakeNative(func(__e *ControlFlow) {
+V6621 := __e.Get(1)
+_ = V6621
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6617 := __e.Get(1)
+_ = B6617
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6618 := __e.Get(1)
+_ = L6618
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6619 := __e.Get(1)
+_ = Key6619
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6620 := __e.Get(1)
+_ = C6620
+tmp19283 := PrimCons(symboolean, Nil)
+
+tmp19284 := PrimCons(sym_1_1_6, tmp19283)
+
+__e.TailApply(PrimFunc(symis_b), V6621, tmp19284, B6617, L6618, Key6619, C6620)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp19285 := PrimValue(symshen_4_dsigf_d)
+
+tmp19286 := Call(__e, PrimFunc(symshen_4assoc_1_6), symtc_2, tmp19282, tmp19285)
+
+
+tmp19287 := PrimSet(symshen_4_dsigf_d, tmp19286)
+
+_ = tmp19287
+
+tmp19288 := MakeNative(func(__e *ControlFlow) {
+V6626 := __e.Get(1)
+_ = V6626
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6622 := __e.Get(1)
+_ = B6622
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6623 := __e.Get(1)
+_ = L6623
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6624 := __e.Get(1)
+_ = Key6624
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6625 := __e.Get(1)
+_ = C6625
+tmp19289 := MakeNative(func(__e *ControlFlow) {
+A := __e.Get(1)
+_ = A
+tmp19290 := PrimCons(A, Nil)
+
+tmp19291 := PrimCons(symlazy, tmp19290)
+
+tmp19292 := PrimCons(A, Nil)
+
+tmp19293 := PrimCons(sym_1_1_6, tmp19292)
+
+tmp19294 := PrimCons(tmp19291, tmp19293)
+
+tmp19295 := Call(__e, PrimFunc(symis_b), V6626, tmp19294, B6622, L6623, Key6624, C6625)
+
+
+__e.TailApply(PrimFunc(symshen_4gc), B6622, tmp19295)
+return
+
+
+}, 1)
+
+tmp19296 := Call(__e, PrimFunc(symshen_4newpv), B6622)
+
+
+__e.TailApply(tmp19289, tmp19296)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp19297 := PrimValue(symshen_4_dsigf_d)
+
+tmp19298 := Call(__e, PrimFunc(symshen_4assoc_1_6), symthaw, tmp19288, tmp19297)
+
+
+tmp19299 := PrimSet(symshen_4_dsigf_d, tmp19298)
+
+_ = tmp19299
+
+tmp19300 := MakeNative(func(__e *ControlFlow) {
+V6631 := __e.Get(1)
+_ = V6631
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6627 := __e.Get(1)
+_ = B6627
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6628 := __e.Get(1)
+_ = L6628
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6629 := __e.Get(1)
+_ = Key6629
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6630 := __e.Get(1)
+_ = C6630
+tmp19301 := PrimCons(symsymbol, Nil)
+
+tmp19302 := PrimCons(sym_1_1_6, tmp19301)
+
+tmp19303 := PrimCons(symsymbol, tmp19302)
+
+__e.TailApply(PrimFunc(symis_b), V6631, tmp19303, B6627, L6628, Key6629, C6630)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp19304 := PrimValue(symshen_4_dsigf_d)
+
+tmp19305 := Call(__e, PrimFunc(symshen_4assoc_1_6), symtrack, tmp19300, tmp19304)
+
+
+tmp19306 := PrimSet(symshen_4_dsigf_d, tmp19305)
+
+_ = tmp19306
+
+tmp19307 := MakeNative(func(__e *ControlFlow) {
+V6636 := __e.Get(1)
+_ = V6636
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6632 := __e.Get(1)
+_ = B6632
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6633 := __e.Get(1)
+_ = L6633
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6634 := __e.Get(1)
+_ = Key6634
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6635 := __e.Get(1)
+_ = C6635
+tmp19308 := PrimCons(symsymbol, Nil)
+
+tmp19309 := PrimCons(symlist, tmp19308)
+
+tmp19310 := PrimCons(tmp19309, Nil)
+
+tmp19311 := PrimCons(sym_1_1_6, tmp19310)
+
+__e.TailApply(PrimFunc(symis_b), V6636, tmp19311, B6632, L6633, Key6634, C6635)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp19312 := PrimValue(symshen_4_dsigf_d)
+
+tmp19313 := Call(__e, PrimFunc(symshen_4assoc_1_6), symtracked, tmp19307, tmp19312)
+
+
+tmp19314 := PrimSet(symshen_4_dsigf_d, tmp19313)
+
+_ = tmp19314
+
+tmp19315 := MakeNative(func(__e *ControlFlow) {
+V6641 := __e.Get(1)
+_ = V6641
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6637 := __e.Get(1)
+_ = B6637
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6638 := __e.Get(1)
+_ = L6638
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6639 := __e.Get(1)
+_ = Key6639
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6640 := __e.Get(1)
+_ = C6640
+tmp19316 := MakeNative(func(__e *ControlFlow) {
+A := __e.Get(1)
+_ = A
+tmp19317 := PrimCons(A, Nil)
+
+tmp19318 := PrimCons(sym_1_1_6, tmp19317)
+
+tmp19319 := PrimCons(symexception, tmp19318)
+
+tmp19320 := PrimCons(A, Nil)
+
+tmp19321 := PrimCons(sym_1_1_6, tmp19320)
+
+tmp19322 := PrimCons(tmp19319, tmp19321)
+
+tmp19323 := PrimCons(tmp19322, Nil)
+
+tmp19324 := PrimCons(sym_1_1_6, tmp19323)
+
+tmp19325 := PrimCons(A, tmp19324)
+
+tmp19326 := Call(__e, PrimFunc(symis_b), V6641, tmp19325, B6637, L6638, Key6639, C6640)
+
+
+__e.TailApply(PrimFunc(symshen_4gc), B6637, tmp19326)
+return
+
+
+}, 1)
+
+tmp19327 := Call(__e, PrimFunc(symshen_4newpv), B6637)
+
+
+__e.TailApply(tmp19316, tmp19327)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp19328 := PrimValue(symshen_4_dsigf_d)
+
+tmp19329 := Call(__e, PrimFunc(symshen_4assoc_1_6), symtrap_1error, tmp19315, tmp19328)
+
+
+tmp19330 := PrimSet(symshen_4_dsigf_d, tmp19329)
+
+_ = tmp19330
+
+tmp19331 := MakeNative(func(__e *ControlFlow) {
+V6646 := __e.Get(1)
+_ = V6646
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6642 := __e.Get(1)
+_ = B6642
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6643 := __e.Get(1)
+_ = L6643
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6644 := __e.Get(1)
+_ = Key6644
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6645 := __e.Get(1)
+_ = C6645
+tmp19332 := MakeNative(func(__e *ControlFlow) {
+A := __e.Get(1)
+_ = A
+tmp19333 := PrimCons(symboolean, Nil)
+
+tmp19334 := PrimCons(sym_1_1_6, tmp19333)
+
+tmp19335 := PrimCons(A, tmp19334)
+
+tmp19336 := Call(__e, PrimFunc(symis_b), V6646, tmp19335, B6642, L6643, Key6644, C6645)
+
+
+__e.TailApply(PrimFunc(symshen_4gc), B6642, tmp19336)
+return
+
+
+}, 1)
+
+tmp19337 := Call(__e, PrimFunc(symshen_4newpv), B6642)
+
+
+__e.TailApply(tmp19332, tmp19337)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp19338 := PrimValue(symshen_4_dsigf_d)
+
+tmp19339 := Call(__e, PrimFunc(symshen_4assoc_1_6), symtuple_2, tmp19331, tmp19338)
+
+
+tmp19340 := PrimSet(symshen_4_dsigf_d, tmp19339)
+
+_ = tmp19340
+
+tmp19341 := MakeNative(func(__e *ControlFlow) {
+V6651 := __e.Get(1)
+_ = V6651
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6647 := __e.Get(1)
+_ = B6647
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6648 := __e.Get(1)
+_ = L6648
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6649 := __e.Get(1)
+_ = Key6649
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6650 := __e.Get(1)
+_ = C6650
+tmp19342 := PrimCons(symstring, Nil)
+
+tmp19343 := PrimCons(symlist, tmp19342)
+
+tmp19344 := PrimCons(tmp19343, Nil)
+
+tmp19345 := PrimCons(sym_1_1_6, tmp19344)
+
+tmp19346 := PrimCons(symstring, tmp19345)
+
+__e.TailApply(PrimFunc(symis_b), V6651, tmp19346, B6647, L6648, Key6649, C6650)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp19347 := PrimValue(symshen_4_dsigf_d)
+
+tmp19348 := Call(__e, PrimFunc(symshen_4assoc_1_6), symunabsolute, tmp19341, tmp19347)
+
+
+tmp19349 := PrimSet(symshen_4_dsigf_d, tmp19348)
+
+_ = tmp19349
+
+tmp19350 := MakeNative(func(__e *ControlFlow) {
+V6656 := __e.Get(1)
+_ = V6656
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6652 := __e.Get(1)
+_ = B6652
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6653 := __e.Get(1)
+_ = L6653
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6654 := __e.Get(1)
+_ = Key6654
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6655 := __e.Get(1)
+_ = C6655
+tmp19351 := PrimCons(symsymbol, Nil)
+
+tmp19352 := PrimCons(sym_1_1_6, tmp19351)
+
+tmp19353 := PrimCons(symsymbol, tmp19352)
+
+__e.TailApply(PrimFunc(symis_b), V6656, tmp19353, B6652, L6653, Key6654, C6655)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp19354 := PrimValue(symshen_4_dsigf_d)
+
+tmp19355 := Call(__e, PrimFunc(symshen_4assoc_1_6), symundefmacro, tmp19350, tmp19354)
+
+
+tmp19356 := PrimSet(symshen_4_dsigf_d, tmp19355)
+
+_ = tmp19356
+
+tmp19357 := MakeNative(func(__e *ControlFlow) {
+V6661 := __e.Get(1)
+_ = V6661
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6657 := __e.Get(1)
+_ = B6657
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6658 := __e.Get(1)
+_ = L6658
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6659 := __e.Get(1)
+_ = Key6659
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6660 := __e.Get(1)
+_ = C6660
+tmp19358 := MakeNative(func(__e *ControlFlow) {
+A := __e.Get(1)
+_ = A
+tmp19359 := PrimCons(A, Nil)
+
+tmp19360 := PrimCons(symlist, tmp19359)
+
+tmp19361 := PrimCons(A, Nil)
+
+tmp19362 := PrimCons(symlist, tmp19361)
+
+tmp19363 := PrimCons(A, Nil)
+
+tmp19364 := PrimCons(symlist, tmp19363)
+
+tmp19365 := PrimCons(tmp19364, Nil)
+
+tmp19366 := PrimCons(sym_1_1_6, tmp19365)
+
+tmp19367 := PrimCons(tmp19362, tmp19366)
+
+tmp19368 := PrimCons(tmp19367, Nil)
+
+tmp19369 := PrimCons(sym_1_1_6, tmp19368)
+
+tmp19370 := PrimCons(tmp19360, tmp19369)
+
+tmp19371 := Call(__e, PrimFunc(symis_b), V6661, tmp19370, B6657, L6658, Key6659, C6660)
+
+
+__e.TailApply(PrimFunc(symshen_4gc), B6657, tmp19371)
+return
+
+
+}, 1)
+
+tmp19372 := Call(__e, PrimFunc(symshen_4newpv), B6657)
+
+
+__e.TailApply(tmp19358, tmp19372)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp19373 := PrimValue(symshen_4_dsigf_d)
+
+tmp19374 := Call(__e, PrimFunc(symshen_4assoc_1_6), symunion, tmp19357, tmp19373)
+
+
+tmp19375 := PrimSet(symshen_4_dsigf_d, tmp19374)
+
+_ = tmp19375
+
+tmp19376 := MakeNative(func(__e *ControlFlow) {
+V6666 := __e.Get(1)
+_ = V6666
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6662 := __e.Get(1)
+_ = B6662
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6663 := __e.Get(1)
+_ = L6663
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6664 := __e.Get(1)
+_ = Key6664
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6665 := __e.Get(1)
+_ = C6665
+tmp19377 := PrimCons(symsymbol, Nil)
+
+tmp19378 := PrimCons(sym_1_1_6, tmp19377)
+
+tmp19379 := PrimCons(symsymbol, tmp19378)
+
+__e.TailApply(PrimFunc(symis_b), V6666, tmp19379, B6662, L6663, Key6664, C6665)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp19380 := PrimValue(symshen_4_dsigf_d)
+
+tmp19381 := Call(__e, PrimFunc(symshen_4assoc_1_6), symunprofile, tmp19376, tmp19380)
+
+
+tmp19382 := PrimSet(symshen_4_dsigf_d, tmp19381)
+
+_ = tmp19382
+
+tmp19383 := MakeNative(func(__e *ControlFlow) {
+V6671 := __e.Get(1)
+_ = V6671
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6667 := __e.Get(1)
+_ = B6667
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6668 := __e.Get(1)
+_ = L6668
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6669 := __e.Get(1)
+_ = Key6669
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6670 := __e.Get(1)
+_ = C6670
+tmp19384 := PrimCons(symsymbol, Nil)
+
+tmp19385 := PrimCons(sym_1_1_6, tmp19384)
+
+tmp19386 := PrimCons(symsymbol, tmp19385)
+
+__e.TailApply(PrimFunc(symis_b), V6671, tmp19386, B6667, L6668, Key6669, C6670)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp19387 := PrimValue(symshen_4_dsigf_d)
+
+tmp19388 := Call(__e, PrimFunc(symshen_4assoc_1_6), symuntrack, tmp19383, tmp19387)
+
+
+tmp19389 := PrimSet(symshen_4_dsigf_d, tmp19388)
+
+_ = tmp19389
+
+tmp19390 := MakeNative(func(__e *ControlFlow) {
+V6676 := __e.Get(1)
+_ = V6676
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6672 := __e.Get(1)
+_ = B6672
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6673 := __e.Get(1)
+_ = L6673
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6674 := __e.Get(1)
+_ = Key6674
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6675 := __e.Get(1)
+_ = C6675
+tmp19391 := PrimCons(symsymbol, Nil)
+
+tmp19392 := PrimCons(symlist, tmp19391)
+
+tmp19393 := PrimCons(tmp19392, Nil)
+
+tmp19394 := PrimCons(sym_1_1_6, tmp19393)
+
+__e.TailApply(PrimFunc(symis_b), V6676, tmp19394, B6672, L6673, Key6674, C6675)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp19395 := PrimValue(symshen_4_dsigf_d)
+
+tmp19396 := Call(__e, PrimFunc(symshen_4assoc_1_6), symuserdefs, tmp19390, tmp19395)
+
+
+tmp19397 := PrimSet(symshen_4_dsigf_d, tmp19396)
+
+_ = tmp19397
+
+tmp19398 := MakeNative(func(__e *ControlFlow) {
+V6681 := __e.Get(1)
+_ = V6681
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6677 := __e.Get(1)
+_ = B6677
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6678 := __e.Get(1)
+_ = L6678
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6679 := __e.Get(1)
+_ = Key6679
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6680 := __e.Get(1)
+_ = C6680
+tmp19399 := MakeNative(func(__e *ControlFlow) {
+A := __e.Get(1)
+_ = A
+tmp19400 := PrimCons(symboolean, Nil)
+
+tmp19401 := PrimCons(sym_1_1_6, tmp19400)
+
+tmp19402 := PrimCons(A, tmp19401)
+
+tmp19403 := Call(__e, PrimFunc(symis_b), V6681, tmp19402, B6677, L6678, Key6679, C6680)
+
+
+__e.TailApply(PrimFunc(symshen_4gc), B6677, tmp19403)
+return
+
+
+}, 1)
+
+tmp19404 := Call(__e, PrimFunc(symshen_4newpv), B6677)
+
+
+__e.TailApply(tmp19399, tmp19404)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp19405 := PrimValue(symshen_4_dsigf_d)
+
+tmp19406 := Call(__e, PrimFunc(symshen_4assoc_1_6), symvariable_2, tmp19398, tmp19405)
+
+
+tmp19407 := PrimSet(symshen_4_dsigf_d, tmp19406)
+
+_ = tmp19407
+
+tmp19408 := MakeNative(func(__e *ControlFlow) {
+V6686 := __e.Get(1)
+_ = V6686
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6682 := __e.Get(1)
+_ = B6682
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6683 := __e.Get(1)
+_ = L6683
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6684 := __e.Get(1)
+_ = Key6684
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6685 := __e.Get(1)
+_ = C6685
+tmp19409 := MakeNative(func(__e *ControlFlow) {
+A := __e.Get(1)
+_ = A
+tmp19410 := PrimCons(symboolean, Nil)
+
+tmp19411 := PrimCons(sym_1_1_6, tmp19410)
+
+tmp19412 := PrimCons(A, tmp19411)
+
+tmp19413 := Call(__e, PrimFunc(symis_b), V6686, tmp19412, B6682, L6683, Key6684, C6685)
+
+
+__e.TailApply(PrimFunc(symshen_4gc), B6682, tmp19413)
+return
+
+
+}, 1)
+
+tmp19414 := Call(__e, PrimFunc(symshen_4newpv), B6682)
+
+
+__e.TailApply(tmp19409, tmp19414)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp19415 := PrimValue(symshen_4_dsigf_d)
+
+tmp19416 := Call(__e, PrimFunc(symshen_4assoc_1_6), symvector_2, tmp19408, tmp19415)
+
+
+tmp19417 := PrimSet(symshen_4_dsigf_d, tmp19416)
+
+_ = tmp19417
+
+tmp19418 := MakeNative(func(__e *ControlFlow) {
+V6691 := __e.Get(1)
+_ = V6691
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6687 := __e.Get(1)
+_ = B6687
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6688 := __e.Get(1)
+_ = L6688
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6689 := __e.Get(1)
+_ = Key6689
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6690 := __e.Get(1)
+_ = C6690
+tmp19419 := PrimCons(symstring, Nil)
+
+tmp19420 := PrimCons(sym_1_1_6, tmp19419)
+
+__e.TailApply(PrimFunc(symis_b), V6691, tmp19420, B6687, L6688, Key6689, C6690)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp19421 := PrimValue(symshen_4_dsigf_d)
+
+tmp19422 := Call(__e, PrimFunc(symshen_4assoc_1_6), symversion, tmp19418, tmp19421)
+
+
+tmp19423 := PrimSet(symshen_4_dsigf_d, tmp19422)
+
+_ = tmp19423
+
+tmp19424 := MakeNative(func(__e *ControlFlow) {
+V6696 := __e.Get(1)
+_ = V6696
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6692 := __e.Get(1)
+_ = B6692
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6693 := __e.Get(1)
+_ = L6693
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6694 := __e.Get(1)
+_ = Key6694
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6695 := __e.Get(1)
+_ = C6695
+tmp19425 := MakeNative(func(__e *ControlFlow) {
+A := __e.Get(1)
+_ = A
+tmp19426 := PrimCons(A, Nil)
+
+tmp19427 := PrimCons(sym_1_1_6, tmp19426)
+
+tmp19428 := PrimCons(A, tmp19427)
+
+tmp19429 := PrimCons(tmp19428, Nil)
+
+tmp19430 := PrimCons(sym_1_1_6, tmp19429)
+
+tmp19431 := PrimCons(symstring, tmp19430)
+
+tmp19432 := Call(__e, PrimFunc(symis_b), V6696, tmp19431, B6692, L6693, Key6694, C6695)
+
+
+__e.TailApply(PrimFunc(symshen_4gc), B6692, tmp19432)
+return
+
+
+}, 1)
+
+tmp19433 := Call(__e, PrimFunc(symshen_4newpv), B6692)
+
+
+__e.TailApply(tmp19425, tmp19433)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp19434 := PrimValue(symshen_4_dsigf_d)
+
+tmp19435 := Call(__e, PrimFunc(symshen_4assoc_1_6), symwrite_1to_1file, tmp19424, tmp19434)
+
+
+tmp19436 := PrimSet(symshen_4_dsigf_d, tmp19435)
+
+_ = tmp19436
+
+tmp19437 := MakeNative(func(__e *ControlFlow) {
+V6701 := __e.Get(1)
+_ = V6701
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6697 := __e.Get(1)
+_ = B6697
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6698 := __e.Get(1)
+_ = L6698
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6699 := __e.Get(1)
+_ = Key6699
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6700 := __e.Get(1)
+_ = C6700
+tmp19438 := PrimCons(symout, Nil)
+
+tmp19439 := PrimCons(symstream, tmp19438)
+
+tmp19440 := PrimCons(symnumber, Nil)
+
+tmp19441 := PrimCons(sym_1_1_6, tmp19440)
+
+tmp19442 := PrimCons(tmp19439, tmp19441)
+
+tmp19443 := PrimCons(tmp19442, Nil)
+
+tmp19444 := PrimCons(sym_1_1_6, tmp19443)
+
+tmp19445 := PrimCons(symnumber, tmp19444)
+
+__e.TailApply(PrimFunc(symis_b), V6701, tmp19445, B6697, L6698, Key6699, C6700)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp19446 := PrimValue(symshen_4_dsigf_d)
+
+tmp19447 := Call(__e, PrimFunc(symshen_4assoc_1_6), symwrite_1byte, tmp19437, tmp19446)
+
+
+tmp19448 := PrimSet(symshen_4_dsigf_d, tmp19447)
+
+_ = tmp19448
+
+tmp19449 := MakeNative(func(__e *ControlFlow) {
+V6706 := __e.Get(1)
+_ = V6706
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6702 := __e.Get(1)
+_ = B6702
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6703 := __e.Get(1)
+_ = L6703
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6704 := __e.Get(1)
+_ = Key6704
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6705 := __e.Get(1)
+_ = C6705
+tmp19450 := PrimCons(symboolean, Nil)
+
+tmp19451 := PrimCons(sym_1_1_6, tmp19450)
+
+tmp19452 := PrimCons(symstring, tmp19451)
+
+__e.TailApply(PrimFunc(symis_b), V6706, tmp19452, B6702, L6703, Key6704, C6705)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp19453 := PrimValue(symshen_4_dsigf_d)
+
+tmp19454 := Call(__e, PrimFunc(symshen_4assoc_1_6), symy_1or_1n_2, tmp19449, tmp19453)
+
+
+tmp19455 := PrimSet(symshen_4_dsigf_d, tmp19454)
+
+_ = tmp19455
+
+tmp19456 := MakeNative(func(__e *ControlFlow) {
+V6711 := __e.Get(1)
+_ = V6711
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6707 := __e.Get(1)
+_ = B6707
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6708 := __e.Get(1)
+_ = L6708
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6709 := __e.Get(1)
+_ = Key6709
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6710 := __e.Get(1)
+_ = C6710
+tmp19457 := PrimCons(symboolean, Nil)
+
+tmp19458 := PrimCons(sym_1_1_6, tmp19457)
+
+tmp19459 := PrimCons(symnumber, tmp19458)
+
+tmp19460 := PrimCons(tmp19459, Nil)
+
+tmp19461 := PrimCons(sym_1_1_6, tmp19460)
+
+tmp19462 := PrimCons(symnumber, tmp19461)
+
+__e.TailApply(PrimFunc(symis_b), V6711, tmp19462, B6707, L6708, Key6709, C6710)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp19463 := PrimValue(symshen_4_dsigf_d)
+
+tmp19464 := Call(__e, PrimFunc(symshen_4assoc_1_6), sym_6, tmp19456, tmp19463)
+
+
+tmp19465 := PrimSet(symshen_4_dsigf_d, tmp19464)
+
+_ = tmp19465
+
+tmp19466 := MakeNative(func(__e *ControlFlow) {
+V6716 := __e.Get(1)
+_ = V6716
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6712 := __e.Get(1)
+_ = B6712
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6713 := __e.Get(1)
+_ = L6713
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6714 := __e.Get(1)
+_ = Key6714
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6715 := __e.Get(1)
+_ = C6715
+tmp19467 := PrimCons(symboolean, Nil)
+
+tmp19468 := PrimCons(sym_1_1_6, tmp19467)
+
+tmp19469 := PrimCons(symnumber, tmp19468)
+
+tmp19470 := PrimCons(tmp19469, Nil)
+
+tmp19471 := PrimCons(sym_1_1_6, tmp19470)
+
+tmp19472 := PrimCons(symnumber, tmp19471)
+
+__e.TailApply(PrimFunc(symis_b), V6716, tmp19472, B6712, L6713, Key6714, C6715)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp19473 := PrimValue(symshen_4_dsigf_d)
+
+tmp19474 := Call(__e, PrimFunc(symshen_4assoc_1_6), sym_5, tmp19466, tmp19473)
+
+
+tmp19475 := PrimSet(symshen_4_dsigf_d, tmp19474)
+
+_ = tmp19475
+
+tmp19476 := MakeNative(func(__e *ControlFlow) {
+V6721 := __e.Get(1)
+_ = V6721
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6717 := __e.Get(1)
+_ = B6717
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6718 := __e.Get(1)
+_ = L6718
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6719 := __e.Get(1)
+_ = Key6719
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6720 := __e.Get(1)
+_ = C6720
+tmp19477 := PrimCons(symboolean, Nil)
+
+tmp19478 := PrimCons(sym_1_1_6, tmp19477)
+
+tmp19479 := PrimCons(symnumber, tmp19478)
+
+tmp19480 := PrimCons(tmp19479, Nil)
+
+tmp19481 := PrimCons(sym_1_1_6, tmp19480)
+
+tmp19482 := PrimCons(symnumber, tmp19481)
+
+__e.TailApply(PrimFunc(symis_b), V6721, tmp19482, B6717, L6718, Key6719, C6720)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp19483 := PrimValue(symshen_4_dsigf_d)
+
+tmp19484 := Call(__e, PrimFunc(symshen_4assoc_1_6), sym_6_a, tmp19476, tmp19483)
+
+
+tmp19485 := PrimSet(symshen_4_dsigf_d, tmp19484)
+
+_ = tmp19485
+
+tmp19486 := MakeNative(func(__e *ControlFlow) {
+V6726 := __e.Get(1)
+_ = V6726
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6722 := __e.Get(1)
+_ = B6722
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6723 := __e.Get(1)
+_ = L6723
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6724 := __e.Get(1)
+_ = Key6724
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6725 := __e.Get(1)
+_ = C6725
+tmp19487 := PrimCons(symboolean, Nil)
+
+tmp19488 := PrimCons(sym_1_1_6, tmp19487)
+
+tmp19489 := PrimCons(symnumber, tmp19488)
+
+tmp19490 := PrimCons(tmp19489, Nil)
+
+tmp19491 := PrimCons(sym_1_1_6, tmp19490)
+
+tmp19492 := PrimCons(symnumber, tmp19491)
+
+__e.TailApply(PrimFunc(symis_b), V6726, tmp19492, B6722, L6723, Key6724, C6725)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp19493 := PrimValue(symshen_4_dsigf_d)
+
+tmp19494 := Call(__e, PrimFunc(symshen_4assoc_1_6), sym_5_a, tmp19486, tmp19493)
+
+
+tmp19495 := PrimSet(symshen_4_dsigf_d, tmp19494)
+
+_ = tmp19495
+
+tmp19496 := MakeNative(func(__e *ControlFlow) {
+V6731 := __e.Get(1)
+_ = V6731
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6727 := __e.Get(1)
+_ = B6727
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6728 := __e.Get(1)
+_ = L6728
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6729 := __e.Get(1)
+_ = Key6729
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6730 := __e.Get(1)
+_ = C6730
+tmp19497 := MakeNative(func(__e *ControlFlow) {
+A := __e.Get(1)
+_ = A
+tmp19498 := PrimCons(symboolean, Nil)
+
+tmp19499 := PrimCons(sym_1_1_6, tmp19498)
+
+tmp19500 := PrimCons(A, tmp19499)
+
+tmp19501 := PrimCons(tmp19500, Nil)
+
+tmp19502 := PrimCons(sym_1_1_6, tmp19501)
+
+tmp19503 := PrimCons(A, tmp19502)
+
+tmp19504 := Call(__e, PrimFunc(symis_b), V6731, tmp19503, B6727, L6728, Key6729, C6730)
+
+
+__e.TailApply(PrimFunc(symshen_4gc), B6727, tmp19504)
+return
+
+
+}, 1)
+
+tmp19505 := Call(__e, PrimFunc(symshen_4newpv), B6727)
+
+
+__e.TailApply(tmp19497, tmp19505)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp19506 := PrimValue(symshen_4_dsigf_d)
+
+tmp19507 := Call(__e, PrimFunc(symshen_4assoc_1_6), sym_a, tmp19496, tmp19506)
+
+
+tmp19508 := PrimSet(symshen_4_dsigf_d, tmp19507)
+
+_ = tmp19508
+
+tmp19509 := MakeNative(func(__e *ControlFlow) {
+V6736 := __e.Get(1)
+_ = V6736
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6732 := __e.Get(1)
+_ = B6732
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6733 := __e.Get(1)
+_ = L6733
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6734 := __e.Get(1)
+_ = Key6734
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6735 := __e.Get(1)
+_ = C6735
+tmp19510 := PrimCons(symnumber, Nil)
+
+tmp19511 := PrimCons(sym_1_1_6, tmp19510)
+
+tmp19512 := PrimCons(symnumber, tmp19511)
+
+tmp19513 := PrimCons(tmp19512, Nil)
+
+tmp19514 := PrimCons(sym_1_1_6, tmp19513)
+
+tmp19515 := PrimCons(symnumber, tmp19514)
+
+__e.TailApply(PrimFunc(symis_b), V6736, tmp19515, B6732, L6733, Key6734, C6735)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp19516 := PrimValue(symshen_4_dsigf_d)
+
+tmp19517 := Call(__e, PrimFunc(symshen_4assoc_1_6), sym_7, tmp19509, tmp19516)
+
+
+tmp19518 := PrimSet(symshen_4_dsigf_d, tmp19517)
+
+_ = tmp19518
+
+tmp19519 := MakeNative(func(__e *ControlFlow) {
+V6741 := __e.Get(1)
+_ = V6741
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6737 := __e.Get(1)
+_ = B6737
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6738 := __e.Get(1)
+_ = L6738
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6739 := __e.Get(1)
+_ = Key6739
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6740 := __e.Get(1)
+_ = C6740
+tmp19520 := PrimCons(symnumber, Nil)
+
+tmp19521 := PrimCons(sym_1_1_6, tmp19520)
+
+tmp19522 := PrimCons(symnumber, tmp19521)
+
+tmp19523 := PrimCons(tmp19522, Nil)
+
+tmp19524 := PrimCons(sym_1_1_6, tmp19523)
+
+tmp19525 := PrimCons(symnumber, tmp19524)
+
+__e.TailApply(PrimFunc(symis_b), V6741, tmp19525, B6737, L6738, Key6739, C6740)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp19526 := PrimValue(symshen_4_dsigf_d)
+
+tmp19527 := Call(__e, PrimFunc(symshen_4assoc_1_6), sym_c, tmp19519, tmp19526)
+
+
+tmp19528 := PrimSet(symshen_4_dsigf_d, tmp19527)
+
+_ = tmp19528
+
+tmp19529 := MakeNative(func(__e *ControlFlow) {
+V6746 := __e.Get(1)
+_ = V6746
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6742 := __e.Get(1)
+_ = B6742
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6743 := __e.Get(1)
+_ = L6743
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6744 := __e.Get(1)
+_ = Key6744
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6745 := __e.Get(1)
+_ = C6745
+tmp19530 := PrimCons(symnumber, Nil)
+
+tmp19531 := PrimCons(sym_1_1_6, tmp19530)
+
+tmp19532 := PrimCons(symnumber, tmp19531)
+
+tmp19533 := PrimCons(tmp19532, Nil)
+
+tmp19534 := PrimCons(sym_1_1_6, tmp19533)
+
+tmp19535 := PrimCons(symnumber, tmp19534)
+
+__e.TailApply(PrimFunc(symis_b), V6746, tmp19535, B6742, L6743, Key6744, C6745)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp19536 := PrimValue(symshen_4_dsigf_d)
+
+tmp19537 := Call(__e, PrimFunc(symshen_4assoc_1_6), sym_1, tmp19529, tmp19536)
+
+
+tmp19538 := PrimSet(symshen_4_dsigf_d, tmp19537)
+
+_ = tmp19538
+
+tmp19539 := MakeNative(func(__e *ControlFlow) {
+V6751 := __e.Get(1)
+_ = V6751
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6747 := __e.Get(1)
+_ = B6747
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6748 := __e.Get(1)
+_ = L6748
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6749 := __e.Get(1)
+_ = Key6749
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6750 := __e.Get(1)
+_ = C6750
+tmp19540 := PrimCons(symnumber, Nil)
+
+tmp19541 := PrimCons(sym_1_1_6, tmp19540)
+
+tmp19542 := PrimCons(symnumber, tmp19541)
+
+tmp19543 := PrimCons(tmp19542, Nil)
+
+tmp19544 := PrimCons(sym_1_1_6, tmp19543)
+
+tmp19545 := PrimCons(symnumber, tmp19544)
+
+__e.TailApply(PrimFunc(symis_b), V6751, tmp19545, B6747, L6748, Key6749, C6750)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp19546 := PrimValue(symshen_4_dsigf_d)
+
+tmp19547 := Call(__e, PrimFunc(symshen_4assoc_1_6), sym_d, tmp19539, tmp19546)
+
+
+tmp19548 := PrimSet(symshen_4_dsigf_d, tmp19547)
+
+_ = tmp19548
+
+tmp19549 := MakeNative(func(__e *ControlFlow) {
+V6756 := __e.Get(1)
+_ = V6756
+__e.Return(MakeNative(func(__e *ControlFlow) {
+B6752 := __e.Get(1)
+_ = B6752
+__e.Return(MakeNative(func(__e *ControlFlow) {
+L6753 := __e.Get(1)
+_ = L6753
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Key6754 := __e.Get(1)
+_ = Key6754
+__e.Return(MakeNative(func(__e *ControlFlow) {
+C6755 := __e.Get(1)
+_ = C6755
+tmp19550 := MakeNative(func(__e *ControlFlow) {
+A := __e.Get(1)
+_ = A
+tmp19551 := MakeNative(func(__e *ControlFlow) {
+B := __e.Get(1)
+_ = B
+tmp19552 := PrimCons(symboolean, Nil)
+
+tmp19553 := PrimCons(sym_1_1_6, tmp19552)
+
+tmp19554 := PrimCons(B, tmp19553)
+
+tmp19555 := PrimCons(tmp19554, Nil)
+
+tmp19556 := PrimCons(sym_1_1_6, tmp19555)
+
+tmp19557 := PrimCons(A, tmp19556)
+
+tmp19558 := Call(__e, PrimFunc(symis_b), V6756, tmp19557, B6752, L6753, Key6754, C6755)
+
+
+__e.TailApply(PrimFunc(symshen_4gc), B6752, tmp19558)
+return
+
+
+}, 1)
+
+tmp19559 := Call(__e, PrimFunc(symshen_4newpv), B6752)
+
+
+tmp19560 := Call(__e, tmp19551, tmp19559)
+
+
+__e.TailApply(PrimFunc(symshen_4gc), B6752, tmp19560)
+return
+
+
+}, 1)
+
+tmp19561 := Call(__e, PrimFunc(symshen_4newpv), B6752)
+
+
+__e.TailApply(tmp19550, tmp19561)
+return
+
+
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp19562 := PrimValue(symshen_4_dsigf_d)
+
+tmp19563 := Call(__e, PrimFunc(symshen_4assoc_1_6), sym_a_a, tmp19549, tmp19562)
+
+
+__e.Return(PrimSet(symshen_4_dsigf_d, tmp19563))
+return
+
+
+}, 0)
+
+tmp19564 := Call(__e, ns2_1set, symshen_4initialise_1signedfuncs, tmp17819)
+
+
+_ = tmp19564
+
+tmp19565 := MakeNative(func(__e *ControlFlow) {
+tmp19566 := MakeNative(func(__e *ControlFlow) {
+Y1220 := __e.Get(1)
+_ = Y1220
+__e.TailApply(PrimFunc(symshen_4tuple), Y1220)
+return
+}, 1)
+
+tmp19567 := PrimCons(symshen_4tuple, tmp19566)
+
+tmp19568 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19567)
+
+
+_ = tmp19568
+
+tmp19569 := MakeNative(func(__e *ControlFlow) {
+Y1219 := __e.Get(1)
+_ = Y1219
+__e.TailApply(PrimFunc(symshen_4pvar), Y1219)
+return
+}, 1)
+
+tmp19570 := PrimCons(symshen_4pvar, tmp19569)
+
+tmp19571 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19570)
+
+
+_ = tmp19571
+
+tmp19572 := MakeNative(func(__e *ControlFlow) {
+Y1218 := __e.Get(1)
+_ = Y1218
+__e.TailApply(PrimFunc(symshen_4dictionary), Y1218)
+return
+}, 1)
+
+tmp19573 := PrimCons(symshen_4dictionary, tmp19572)
+
+tmp19574 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19573)
+
+
+_ = tmp19574
+
+tmp19575 := MakeNative(func(__e *ControlFlow) {
+Y1217 := __e.Get(1)
+_ = Y1217
+__e.TailApply(PrimFunc(symshen_4print_1prolog_1vector), Y1217)
+return
+}, 1)
+
+tmp19576 := PrimCons(symshen_4print_1prolog_1vector, tmp19575)
+
+tmp19577 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19576)
+
+
+_ = tmp19577
+
+tmp19578 := MakeNative(func(__e *ControlFlow) {
+Y1216 := __e.Get(1)
+_ = Y1216
+__e.TailApply(PrimFunc(symshen_4print_1freshterm), Y1216)
+return
+}, 1)
+
+tmp19579 := PrimCons(symshen_4print_1freshterm, tmp19578)
+
+tmp19580 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19579)
+
+
+_ = tmp19580
+
+tmp19581 := MakeNative(func(__e *ControlFlow) {
+Y1215 := __e.Get(1)
+_ = Y1215
+__e.TailApply(PrimFunc(symshen_4printF), Y1215)
+return
+}, 1)
+
+tmp19582 := PrimCons(symshen_4printF, tmp19581)
+
+tmp19583 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19582)
+
+
+_ = tmp19583
+
+tmp19584 := MakeNative(func(__e *ControlFlow) {
+Y1214 := __e.Get(1)
+_ = Y1214
+__e.TailApply(PrimFunc(symabsolute), Y1214)
+return
+}, 1)
+
+tmp19585 := PrimCons(symabsolute, tmp19584)
+
+tmp19586 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19585)
+
+
+_ = tmp19586
+
+tmp19587 := MakeNative(func(__e *ControlFlow) {
+Y1213 := __e.Get(1)
+_ = Y1213
+__e.Return(PrimIsVector(Y1213))
+return
+}, 1)
+
+tmp19588 := PrimCons(symabsvector_2, tmp19587)
+
+tmp19589 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19588)
+
+
+_ = tmp19589
+
+tmp19590 := MakeNative(func(__e *ControlFlow) {
+Y1212 := __e.Get(1)
+_ = Y1212
+__e.Return(PrimAbsvector(Y1212))
+return
+}, 1)
+
+tmp19591 := PrimCons(symabsvector, tmp19590)
+
+tmp19592 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19591)
+
+
+_ = tmp19592
+
+tmp19593 := MakeNative(func(__e *ControlFlow) {
+Y1209 := __e.Get(1)
+_ = Y1209
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y1210 := __e.Get(1)
+_ = Y1210
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y1211 := __e.Get(1)
+_ = Y1211
+__e.Return(PrimVectorSet(Y1209, Y1210, Y1211))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp19594 := PrimCons(symaddress_1_6, tmp19593)
+
+tmp19595 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19594)
+
+
+_ = tmp19595
+
+tmp19596 := MakeNative(func(__e *ControlFlow) {
+Y1207 := __e.Get(1)
+_ = Y1207
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y1208 := __e.Get(1)
+_ = Y1208
+__e.TailApply(PrimFunc(symadjoin), Y1207, Y1208)
+return
+}, 1))
+return
+}, 1)
+
+tmp19597 := PrimCons(symadjoin, tmp19596)
+
+tmp19598 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19597)
+
+
+_ = tmp19598
+
+tmp19599 := MakeNative(func(__e *ControlFlow) {
+Y1205 := __e.Get(1)
+_ = Y1205
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y1206 := __e.Get(1)
+_ = Y1206
+if True == Y1205 {
+if True == Y1206 {
+__e.Return(True)
+return
+} else {
+__e.Return(False)
+return
+}
+} else {
+__e.Return(False)
+return
+}
+}, 1))
+return
+}, 1)
+
+tmp19602 := PrimCons(symand, tmp19599)
+
+tmp19603 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19602)
+
+
+_ = tmp19603
+
+tmp19604 := MakeNative(func(__e *ControlFlow) {
+Y1203 := __e.Get(1)
+_ = Y1203
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y1204 := __e.Get(1)
+_ = Y1204
+__e.TailApply(PrimFunc(symappend), Y1203, Y1204)
+return
+}, 1))
+return
+}, 1)
+
+tmp19605 := PrimCons(symappend, tmp19604)
+
+tmp19606 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19605)
+
+
+_ = tmp19606
+
+tmp19607 := MakeNative(func(__e *ControlFlow) {
+Y1202 := __e.Get(1)
+_ = Y1202
+__e.TailApply(PrimFunc(symarity), Y1202)
+return
+}, 1)
+
+tmp19608 := PrimCons(symarity, tmp19607)
+
+tmp19609 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19608)
+
+
+_ = tmp19609
+
+tmp19610 := MakeNative(func(__e *ControlFlow) {
+Y1200 := __e.Get(1)
+_ = Y1200
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y1201 := __e.Get(1)
+_ = Y1201
+__e.TailApply(PrimFunc(symassoc), Y1200, Y1201)
+return
+}, 1))
+return
+}, 1)
+
+tmp19611 := PrimCons(symassoc, tmp19610)
+
+tmp19612 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19611)
+
+
+_ = tmp19612
+
+tmp19613 := MakeNative(func(__e *ControlFlow) {
+Y1199 := __e.Get(1)
+_ = Y1199
+__e.TailApply(PrimFunc(symatom_2), Y1199)
+return
+}, 1)
+
+tmp19614 := PrimCons(symatom_2, tmp19613)
+
+tmp19615 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19614)
+
+
+_ = tmp19615
+
+tmp19616 := MakeNative(func(__e *ControlFlow) {
+Y1198 := __e.Get(1)
+_ = Y1198
+__e.TailApply(PrimFunc(symboolean_2), Y1198)
+return
+}, 1)
+
+tmp19617 := PrimCons(symboolean_2, tmp19616)
+
+tmp19618 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19617)
+
+
+_ = tmp19618
+
+tmp19619 := MakeNative(func(__e *ControlFlow) {
+Y1197 := __e.Get(1)
+_ = Y1197
+__e.TailApply(PrimFunc(symbootstrap), Y1197)
+return
+}, 1)
+
+tmp19620 := PrimCons(symbootstrap, tmp19619)
+
+tmp19621 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19620)
+
+
+_ = tmp19621
+
+tmp19622 := MakeNative(func(__e *ControlFlow) {
+Y1196 := __e.Get(1)
+_ = Y1196
+__e.TailApply(PrimFunc(symbound_2), Y1196)
+return
+}, 1)
+
+tmp19623 := PrimCons(symbound_2, tmp19622)
+
+tmp19624 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19623)
+
+
+_ = tmp19624
+
+tmp19625 := MakeNative(func(__e *ControlFlow) {
+Y1190 := __e.Get(1)
+_ = Y1190
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y1191 := __e.Get(1)
+_ = Y1191
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y1192 := __e.Get(1)
+_ = Y1192
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y1193 := __e.Get(1)
+_ = Y1193
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y1194 := __e.Get(1)
+_ = Y1194
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y1195 := __e.Get(1)
+_ = Y1195
+__e.TailApply(PrimFunc(symbind), Y1190, Y1191, Y1192, Y1193, Y1194, Y1195)
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp19626 := PrimCons(symbind, tmp19625)
+
+tmp19627 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19626)
+
+
+_ = tmp19627
+
+tmp19628 := MakeNative(func(__e *ControlFlow) {
+Y1185 := __e.Get(1)
+_ = Y1185
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y1186 := __e.Get(1)
+_ = Y1186
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y1187 := __e.Get(1)
+_ = Y1187
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y1188 := __e.Get(1)
+_ = Y1188
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y1189 := __e.Get(1)
+_ = Y1189
+__e.TailApply(PrimFunc(symcall), Y1185, Y1186, Y1187, Y1188, Y1189)
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp19629 := PrimCons(symcall, tmp19628)
+
+tmp19630 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19629)
+
+
+_ = tmp19630
+
+tmp19631 := MakeNative(func(__e *ControlFlow) {
+Y1184 := __e.Get(1)
+_ = Y1184
+__e.TailApply(PrimFunc(symcd), Y1184)
+return
+}, 1)
+
+tmp19632 := PrimCons(symcd, tmp19631)
+
+tmp19633 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19632)
+
+
+_ = tmp19633
+
+tmp19634 := MakeNative(func(__e *ControlFlow) {
+Y1182 := __e.Get(1)
+_ = Y1182
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y1183 := __e.Get(1)
+_ = Y1183
+__e.TailApply(PrimFunc(symcompile), Y1182, Y1183)
+return
+}, 1))
+return
+}, 1)
+
+tmp19635 := PrimCons(symcompile, tmp19634)
+
+tmp19636 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19635)
+
+
+_ = tmp19636
+
+tmp19637 := MakeNative(func(__e *ControlFlow) {
+Y1180 := __e.Get(1)
+_ = Y1180
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y1181 := __e.Get(1)
+_ = Y1181
+__e.TailApply(PrimFunc(symconcat), Y1180, Y1181)
+return
+}, 1))
+return
+}, 1)
+
+tmp19638 := PrimCons(symconcat, tmp19637)
+
+tmp19639 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19638)
+
+
+_ = tmp19639
+
+tmp19640 := MakeNative(func(__e *ControlFlow) {
+Y1178 := __e.Get(1)
+_ = Y1178
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y1179 := __e.Get(1)
+_ = Y1179
+__e.Return(PrimCons(Y1178, Y1179))
+return
+}, 1))
+return
+}, 1)
+
+tmp19641 := PrimCons(symcons, tmp19640)
+
+tmp19642 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19641)
+
+
+_ = tmp19642
+
+tmp19643 := MakeNative(func(__e *ControlFlow) {
+Y1177 := __e.Get(1)
+_ = Y1177
+__e.Return(PrimIsPair(Y1177))
+return
+}, 1)
+
+tmp19644 := PrimCons(symcons_2, tmp19643)
+
+tmp19645 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19644)
+
+
+_ = tmp19645
+
+tmp19646 := MakeNative(func(__e *ControlFlow) {
+Y1175 := __e.Get(1)
+_ = Y1175
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y1176 := __e.Get(1)
+_ = Y1176
+__e.Return(PrimStringConcat(Y1175, Y1176))
+return
+}, 1))
+return
+}, 1)
+
+tmp19647 := PrimCons(symcn, tmp19646)
+
+tmp19648 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19647)
+
+
+_ = tmp19648
+
+tmp19649 := MakeNative(func(__e *ControlFlow) {
+Y1174 := __e.Get(1)
+_ = Y1174
+__e.Return(PrimCloseStream(Y1174))
+return
+}, 1)
+
+tmp19650 := PrimCons(symclose, tmp19649)
+
+tmp19651 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19650)
+
+
+_ = tmp19651
+
+tmp19652 := MakeNative(func(__e *ControlFlow) {
+Y1172 := __e.Get(1)
+_ = Y1172
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y1173 := __e.Get(1)
+_ = Y1173
+__e.TailApply(PrimFunc(symdeclare), Y1172, Y1173)
+return
+}, 1))
+return
+}, 1)
+
+tmp19653 := PrimCons(symdeclare, tmp19652)
+
+tmp19654 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19653)
+
+
+_ = tmp19654
+
+tmp19655 := MakeNative(func(__e *ControlFlow) {
+Y1171 := __e.Get(1)
+_ = Y1171
+__e.TailApply(PrimFunc(symdestroy), Y1171)
+return
+}, 1)
+
+tmp19656 := PrimCons(symdestroy, tmp19655)
+
+tmp19657 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19656)
+
+
+_ = tmp19657
+
+tmp19658 := MakeNative(func(__e *ControlFlow) {
+Y1169 := __e.Get(1)
+_ = Y1169
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y1170 := __e.Get(1)
+_ = Y1170
+__e.TailApply(PrimFunc(symdifference), Y1169, Y1170)
+return
+}, 1))
+return
+}, 1)
+
+tmp19659 := PrimCons(symdifference, tmp19658)
+
+tmp19660 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19659)
+
+
+_ = tmp19660
+
+tmp19661 := MakeNative(func(__e *ControlFlow) {
+Y1167 := __e.Get(1)
+_ = Y1167
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y1168 := __e.Get(1)
+_ = Y1168
+_ = Y1167
+
+__e.Return(Y1168)
+return
+
+
+}, 1))
+return
+}, 1)
+
+tmp19662 := PrimCons(symdo, tmp19661)
+
+tmp19663 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19662)
+
+
+_ = tmp19663
+
+tmp19664 := MakeNative(func(__e *ControlFlow) {
+Y1165 := __e.Get(1)
+_ = Y1165
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y1166 := __e.Get(1)
+_ = Y1166
+__e.TailApply(PrimFunc(symelement_2), Y1165, Y1166)
+return
+}, 1))
+return
+}, 1)
+
+tmp19665 := PrimCons(symelement_2, tmp19664)
+
+tmp19666 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19665)
+
+
+_ = tmp19666
+
+tmp19667 := MakeNative(func(__e *ControlFlow) {
+Y1164 := __e.Get(1)
+_ = Y1164
+__e.TailApply(PrimFunc(symempty_2), Y1164)
+return
+}, 1)
+
+tmp19668 := PrimCons(symempty_2, tmp19667)
+
+tmp19669 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19668)
+
+
+_ = tmp19669
+
+tmp19670 := MakeNative(func(__e *ControlFlow) {
+Y1163 := __e.Get(1)
+_ = Y1163
+__e.TailApply(PrimFunc(symenable_1type_1theory), Y1163)
+return
+}, 1)
+
+tmp19671 := PrimCons(symenable_1type_1theory, tmp19670)
+
+tmp19672 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19671)
+
+
+_ = tmp19672
+
+tmp19673 := MakeNative(func(__e *ControlFlow) {
+Y1162 := __e.Get(1)
+_ = Y1162
+__e.TailApply(PrimFunc(symexternal), Y1162)
+return
+}, 1)
+
+tmp19674 := PrimCons(symexternal, tmp19673)
+
+tmp19675 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19674)
+
+
+_ = tmp19675
+
+tmp19676 := MakeNative(func(__e *ControlFlow) {
+Y1161 := __e.Get(1)
+_ = Y1161
+__e.Return(PrimErrorToString(Y1161))
+return
+}, 1)
+
+tmp19677 := PrimCons(symerror_1to_1string, tmp19676)
+
+tmp19678 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19677)
+
+
+_ = tmp19678
+
+tmp19679 := MakeNative(func(__e *ControlFlow) {
+Y1160 := __e.Get(1)
+_ = Y1160
+__e.TailApply(PrimFunc(symeval), Y1160)
+return
+}, 1)
+
+tmp19680 := PrimCons(symeval, tmp19679)
+
+tmp19681 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19680)
+
+
+_ = tmp19681
+
+tmp19682 := MakeNative(func(__e *ControlFlow) {
+Y1159 := __e.Get(1)
+_ = Y1159
+__e.TailApply(PrimFunc(symeval_1kl), Y1159)
+return
+}, 1)
+
+tmp19683 := PrimCons(symeval_1kl, tmp19682)
+
+tmp19684 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19683)
+
+
+_ = tmp19684
+
+tmp19685 := MakeNative(func(__e *ControlFlow) {
+Y1158 := __e.Get(1)
+_ = Y1158
+__e.TailApply(PrimFunc(symexplode), Y1158)
+return
+}, 1)
+
+tmp19686 := PrimCons(symexplode, tmp19685)
+
+tmp19687 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19686)
+
+
+_ = tmp19687
+
+tmp19688 := MakeNative(func(__e *ControlFlow) {
+Y1157 := __e.Get(1)
+_ = Y1157
+__e.TailApply(PrimFunc(symexternal), Y1157)
+return
+}, 1)
+
+tmp19689 := PrimCons(symexternal, tmp19688)
+
+tmp19690 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19689)
+
+
+_ = tmp19690
+
+tmp19691 := MakeNative(func(__e *ControlFlow) {
+Y1156 := __e.Get(1)
+_ = Y1156
+__e.TailApply(PrimFunc(symfactorise), Y1156)
+return
+}, 1)
+
+tmp19692 := PrimCons(symfactorise, tmp19691)
+
+tmp19693 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19692)
+
+
+_ = tmp19693
+
+tmp19694 := MakeNative(func(__e *ControlFlow) {
+Y1154 := __e.Get(1)
+_ = Y1154
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y1155 := __e.Get(1)
+_ = Y1155
+__e.TailApply(PrimFunc(symfail_1if), Y1154, Y1155)
+return
+}, 1))
+return
+}, 1)
+
+tmp19695 := PrimCons(symfail_1if, tmp19694)
+
+tmp19696 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19695)
+
+
+_ = tmp19696
+
+tmp19697 := MakeNative(func(__e *ControlFlow) {
+Y1152 := __e.Get(1)
+_ = Y1152
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y1153 := __e.Get(1)
+_ = Y1153
+__e.TailApply(PrimFunc(symfix), Y1152, Y1153)
+return
+}, 1))
+return
+}, 1)
+
+tmp19698 := PrimCons(symfix, tmp19697)
+
+tmp19699 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19698)
+
+
+_ = tmp19699
+
+tmp19700 := MakeNative(func(__e *ControlFlow) {
+Y1145 := __e.Get(1)
+_ = Y1145
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y1146 := __e.Get(1)
+_ = Y1146
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y1147 := __e.Get(1)
+_ = Y1147
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y1148 := __e.Get(1)
+_ = Y1148
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y1149 := __e.Get(1)
+_ = Y1149
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y1150 := __e.Get(1)
+_ = Y1150
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y1151 := __e.Get(1)
+_ = Y1151
+__e.TailApply(PrimFunc(symfindall), Y1145, Y1146, Y1147, Y1148, Y1149, Y1150, Y1151)
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp19701 := PrimCons(symfindall, tmp19700)
+
+tmp19702 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19701)
+
+
+_ = tmp19702
+
+tmp19703 := MakeNative(func(__e *ControlFlow) {
+Y1140 := __e.Get(1)
+_ = Y1140
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y1141 := __e.Get(1)
+_ = Y1141
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y1142 := __e.Get(1)
+_ = Y1142
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y1143 := __e.Get(1)
+_ = Y1143
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y1144 := __e.Get(1)
+_ = Y1144
+__e.TailApply(PrimFunc(symfork), Y1140, Y1141, Y1142, Y1143, Y1144)
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp19704 := PrimCons(symfork, tmp19703)
+
+tmp19705 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19704)
+
+
+_ = tmp19705
+
+tmp19706 := MakeNative(func(__e *ControlFlow) {
+Y1139 := __e.Get(1)
+_ = Y1139
+__e.Return(MakeNative(func(__e *ControlFlow) {
+__e.Return(Y1139)
+return
+}, 0))
+return
+}, 1)
+
+tmp19707 := PrimCons(symfreeze, tmp19706)
+
+tmp19708 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19707)
+
+
+_ = tmp19708
+
+tmp19709 := MakeNative(func(__e *ControlFlow) {
+Y1138 := __e.Get(1)
+_ = Y1138
+__e.TailApply(PrimFunc(symfst), Y1138)
+return
+}, 1)
+
+tmp19710 := PrimCons(symfst, tmp19709)
+
+tmp19711 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19710)
+
+
+_ = tmp19711
+
+tmp19712 := MakeNative(func(__e *ControlFlow) {
+Y1137 := __e.Get(1)
+_ = Y1137
+__e.TailApply(PrimFunc(symfn), Y1137)
+return
+}, 1)
+
+tmp19713 := PrimCons(symfn, tmp19712)
+
+tmp19714 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19713)
+
+
+_ = tmp19714
+
+tmp19715 := MakeNative(func(__e *ControlFlow) {
+Y1136 := __e.Get(1)
+_ = Y1136
+__e.TailApply(PrimFunc(symfunction), Y1136)
+return
+}, 1)
+
+tmp19716 := PrimCons(symfunction, tmp19715)
+
+tmp19717 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19716)
+
+
+_ = tmp19717
+
+tmp19718 := MakeNative(func(__e *ControlFlow) {
+Y1135 := __e.Get(1)
+_ = Y1135
+__e.TailApply(PrimFunc(symgensym), Y1135)
+return
+}, 1)
+
+tmp19719 := PrimCons(symgensym, tmp19718)
+
+tmp19720 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19719)
+
+
+_ = tmp19720
+
+tmp19721 := MakeNative(func(__e *ControlFlow) {
+Y1132 := __e.Get(1)
+_ = Y1132
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y1133 := __e.Get(1)
+_ = Y1133
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y1134 := __e.Get(1)
+_ = Y1134
+__e.TailApply(PrimFunc(symget), Y1132, Y1133, Y1134)
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp19722 := PrimCons(symget, tmp19721)
+
+tmp19723 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19722)
+
+
+_ = tmp19723
+
+tmp19724 := MakeNative(func(__e *ControlFlow) {
+Y1131 := __e.Get(1)
+_ = Y1131
+__e.Return(PrimGetTime(Y1131))
+return
+}, 1)
+
+tmp19725 := PrimCons(symget_1time, tmp19724)
+
+tmp19726 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19725)
+
+
+_ = tmp19726
+
+tmp19727 := MakeNative(func(__e *ControlFlow) {
+Y1128 := __e.Get(1)
+_ = Y1128
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y1129 := __e.Get(1)
+_ = Y1129
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y1130 := __e.Get(1)
+_ = Y1130
+__e.Return(PrimVectorSet(Y1128, Y1129, Y1130))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp19728 := PrimCons(symaddress_1_6, tmp19727)
+
+tmp19729 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19728)
+
+
+_ = tmp19729
+
+tmp19730 := MakeNative(func(__e *ControlFlow) {
+Y1126 := __e.Get(1)
+_ = Y1126
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y1127 := __e.Get(1)
+_ = Y1127
+__e.Return(PrimVectorGet(Y1126, Y1127))
+return
+}, 1))
+return
+}, 1)
+
+tmp19731 := PrimCons(sym_5_1address, tmp19730)
+
+tmp19732 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19731)
+
+
+_ = tmp19732
+
+tmp19733 := MakeNative(func(__e *ControlFlow) {
+Y1124 := __e.Get(1)
+_ = Y1124
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y1125 := __e.Get(1)
+_ = Y1125
+__e.TailApply(PrimFunc(sym_5_1vector), Y1124, Y1125)
+return
+}, 1))
+return
+}, 1)
+
+tmp19734 := PrimCons(sym_5_1vector, tmp19733)
+
+tmp19735 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19734)
+
+
+_ = tmp19735
+
+tmp19736 := MakeNative(func(__e *ControlFlow) {
+Y1122 := __e.Get(1)
+_ = Y1122
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y1123 := __e.Get(1)
+_ = Y1123
+__e.Return(PrimGreatThan(Y1122, Y1123))
+return
+}, 1))
+return
+}, 1)
+
+tmp19737 := PrimCons(sym_6, tmp19736)
+
+tmp19738 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19737)
+
+
+_ = tmp19738
+
+tmp19739 := MakeNative(func(__e *ControlFlow) {
+Y1120 := __e.Get(1)
+_ = Y1120
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y1121 := __e.Get(1)
+_ = Y1121
+__e.Return(PrimGreatEqual(Y1120, Y1121))
+return
+}, 1))
+return
+}, 1)
+
+tmp19740 := PrimCons(sym_6_a, tmp19739)
+
+tmp19741 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19740)
+
+
+_ = tmp19741
+
+tmp19742 := MakeNative(func(__e *ControlFlow) {
+Y1118 := __e.Get(1)
+_ = Y1118
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y1119 := __e.Get(1)
+_ = Y1119
+__e.Return(PrimEqual(Y1118, Y1119))
+return
+}, 1))
+return
+}, 1)
+
+tmp19743 := PrimCons(sym_a, tmp19742)
+
+tmp19744 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19743)
+
+
+_ = tmp19744
+
+tmp19745 := MakeNative(func(__e *ControlFlow) {
+Y1116 := __e.Get(1)
+_ = Y1116
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y1117 := __e.Get(1)
+_ = Y1117
+__e.TailApply(PrimFunc(symhash), Y1116, Y1117)
+return
+}, 1))
+return
+}, 1)
+
+tmp19746 := PrimCons(symhash, tmp19745)
+
+tmp19747 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19746)
+
+
+_ = tmp19747
+
+tmp19748 := MakeNative(func(__e *ControlFlow) {
+Y1115 := __e.Get(1)
+_ = Y1115
+__e.Return(PrimHead(Y1115))
+return
+}, 1)
+
+tmp19749 := PrimCons(symhd, tmp19748)
+
+tmp19750 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19749)
+
+
+_ = tmp19750
+
+tmp19751 := MakeNative(func(__e *ControlFlow) {
+Y1114 := __e.Get(1)
+_ = Y1114
+__e.TailApply(PrimFunc(symhdv), Y1114)
+return
+}, 1)
+
+tmp19752 := PrimCons(symhdv, tmp19751)
+
+tmp19753 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19752)
+
+
+_ = tmp19753
+
+tmp19754 := MakeNative(func(__e *ControlFlow) {
+Y1113 := __e.Get(1)
+_ = Y1113
+__e.TailApply(PrimFunc(symhdstr), Y1113)
+return
+}, 1)
+
+tmp19755 := PrimCons(symhdstr, tmp19754)
+
+tmp19756 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19755)
+
+
+_ = tmp19756
+
+tmp19757 := MakeNative(func(__e *ControlFlow) {
+Y1112 := __e.Get(1)
+_ = Y1112
+__e.TailApply(PrimFunc(symhead), Y1112)
+return
+}, 1)
+
+tmp19758 := PrimCons(symhead, tmp19757)
+
+tmp19759 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19758)
+
+
+_ = tmp19759
+
+tmp19760 := MakeNative(func(__e *ControlFlow) {
+Y1111 := __e.Get(1)
+_ = Y1111
+__e.TailApply(PrimFunc(symhush), Y1111)
+return
+}, 1)
+
+tmp19761 := PrimCons(symhush, tmp19760)
+
+tmp19762 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19761)
+
+
+_ = tmp19762
+
+tmp19763 := MakeNative(func(__e *ControlFlow) {
+Y1108 := __e.Get(1)
+_ = Y1108
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y1109 := __e.Get(1)
+_ = Y1109
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y1110 := __e.Get(1)
+_ = Y1110
+if True == Y1108 {
+__e.Return(Y1109)
+return
+} else {
+__e.Return(Y1110)
+return
+}
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp19765 := PrimCons(symif, tmp19763)
+
+tmp19766 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19765)
+
+
+_ = tmp19766
+
+tmp19767 := MakeNative(func(__e *ControlFlow) {
+Y1107 := __e.Get(1)
+_ = Y1107
+__e.TailApply(PrimFunc(syminclude), Y1107)
+return
+}, 1)
+
+tmp19768 := PrimCons(syminclude, tmp19767)
+
+tmp19769 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19768)
+
+
+_ = tmp19769
+
+tmp19770 := MakeNative(func(__e *ControlFlow) {
+Y1106 := __e.Get(1)
+_ = Y1106
+__e.TailApply(PrimFunc(symin_1package), Y1106)
+return
+}, 1)
+
+tmp19771 := PrimCons(symin_1package, tmp19770)
+
+tmp19772 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19771)
+
+
+_ = tmp19772
+
+tmp19773 := MakeNative(func(__e *ControlFlow) {
+Y1105 := __e.Get(1)
+_ = Y1105
+__e.Return(PrimIsInteger(Y1105))
+return
+}, 1)
+
+tmp19774 := PrimCons(syminteger_2, tmp19773)
+
+tmp19775 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19774)
+
+
+_ = tmp19775
+
+tmp19776 := MakeNative(func(__e *ControlFlow) {
+Y1104 := __e.Get(1)
+_ = Y1104
+__e.TailApply(PrimFunc(syminternal), Y1104)
+return
+}, 1)
+
+tmp19777 := PrimCons(syminternal, tmp19776)
+
+tmp19778 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19777)
+
+
+_ = tmp19778
+
+tmp19779 := MakeNative(func(__e *ControlFlow) {
+Y1103 := __e.Get(1)
+_ = Y1103
+__e.Return(PrimIntern(Y1103))
+return
+}, 1)
+
+tmp19780 := PrimCons(symintern, tmp19779)
+
+tmp19781 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19780)
+
+
+_ = tmp19781
+
+tmp19782 := MakeNative(func(__e *ControlFlow) {
+Y1102 := __e.Get(1)
+_ = Y1102
+__e.TailApply(PrimFunc(syminput), Y1102)
+return
+}, 1)
+
+tmp19783 := PrimCons(syminput, tmp19782)
+
+tmp19784 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19783)
+
+
+_ = tmp19784
+
+tmp19785 := MakeNative(func(__e *ControlFlow) {
+Y1100 := __e.Get(1)
+_ = Y1100
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y1101 := __e.Get(1)
+_ = Y1101
+__e.TailApply(PrimFunc(syminput_7), Y1100, Y1101)
+return
+}, 1))
+return
+}, 1)
+
+tmp19786 := PrimCons(syminput_7, tmp19785)
+
+tmp19787 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19786)
+
+
+_ = tmp19787
+
+tmp19788 := MakeNative(func(__e *ControlFlow) {
+Y1099 := __e.Get(1)
+_ = Y1099
+__e.TailApply(PrimFunc(syminclude_1all_1but), Y1099)
+return
+}, 1)
+
+tmp19789 := PrimCons(syminclude_1all_1but, tmp19788)
+
+tmp19790 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19789)
+
+
+_ = tmp19790
+
+tmp19791 := MakeNative(func(__e *ControlFlow) {
+Y1097 := __e.Get(1)
+_ = Y1097
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y1098 := __e.Get(1)
+_ = Y1098
+__e.TailApply(PrimFunc(symintersection), Y1097, Y1098)
+return
+}, 1))
+return
+}, 1)
+
+tmp19792 := PrimCons(symintersection, tmp19791)
+
+tmp19793 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19792)
+
+
+_ = tmp19793
+
+tmp19794 := MakeNative(func(__e *ControlFlow) {
+Y1096 := __e.Get(1)
+_ = Y1096
+__e.TailApply(PrimFunc(syminternal), Y1096)
+return
+}, 1)
+
+tmp19795 := PrimCons(syminternal, tmp19794)
+
+tmp19796 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19795)
+
+
+_ = tmp19796
+
+tmp19797 := MakeNative(func(__e *ControlFlow) {
+Y1090 := __e.Get(1)
+_ = Y1090
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y1091 := __e.Get(1)
+_ = Y1091
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y1092 := __e.Get(1)
+_ = Y1092
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y1093 := __e.Get(1)
+_ = Y1093
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y1094 := __e.Get(1)
+_ = Y1094
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y1095 := __e.Get(1)
+_ = Y1095
+__e.TailApply(PrimFunc(symis), Y1090, Y1091, Y1092, Y1093, Y1094, Y1095)
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp19798 := PrimCons(symis, tmp19797)
+
+tmp19799 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19798)
+
+
+_ = tmp19799
+
+tmp19800 := MakeNative(func(__e *ControlFlow) {
+Y1084 := __e.Get(1)
+_ = Y1084
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y1085 := __e.Get(1)
+_ = Y1085
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y1086 := __e.Get(1)
+_ = Y1086
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y1087 := __e.Get(1)
+_ = Y1087
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y1088 := __e.Get(1)
+_ = Y1088
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y1089 := __e.Get(1)
+_ = Y1089
+__e.TailApply(PrimFunc(symis_b), Y1084, Y1085, Y1086, Y1087, Y1088, Y1089)
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp19801 := PrimCons(symis_b, tmp19800)
+
+tmp19802 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19801)
+
+
+_ = tmp19802
+
+tmp19803 := MakeNative(func(__e *ControlFlow) {
+Y1083 := __e.Get(1)
+_ = Y1083
+__e.TailApply(PrimFunc(symlength), Y1083)
+return
+}, 1)
+
+tmp19804 := PrimCons(symlength, tmp19803)
+
+tmp19805 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19804)
+
+
+_ = tmp19805
+
+tmp19806 := MakeNative(func(__e *ControlFlow) {
+Y1082 := __e.Get(1)
+_ = Y1082
+__e.TailApply(PrimFunc(symlimit), Y1082)
+return
+}, 1)
+
+tmp19807 := PrimCons(symlimit, tmp19806)
+
+tmp19808 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19807)
+
+
+_ = tmp19808
+
+tmp19809 := MakeNative(func(__e *ControlFlow) {
+Y1081 := __e.Get(1)
+_ = Y1081
+__e.TailApply(PrimFunc(symlineread), Y1081)
+return
+}, 1)
+
+tmp19810 := PrimCons(symlineread, tmp19809)
+
+tmp19811 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19810)
+
+
+_ = tmp19811
+
+tmp19812 := MakeNative(func(__e *ControlFlow) {
+Y1080 := __e.Get(1)
+_ = Y1080
+__e.TailApply(PrimFunc(symload), Y1080)
+return
+}, 1)
+
+tmp19813 := PrimCons(symload, tmp19812)
+
+tmp19814 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19813)
+
+
+_ = tmp19814
+
+tmp19815 := MakeNative(func(__e *ControlFlow) {
+Y1078 := __e.Get(1)
+_ = Y1078
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y1079 := __e.Get(1)
+_ = Y1079
+__e.Return(PrimLessThan(Y1078, Y1079))
+return
+}, 1))
+return
+}, 1)
+
+tmp19816 := PrimCons(sym_5, tmp19815)
+
+tmp19817 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19816)
+
+
+_ = tmp19817
+
+tmp19818 := MakeNative(func(__e *ControlFlow) {
+Y1076 := __e.Get(1)
+_ = Y1076
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y1077 := __e.Get(1)
+_ = Y1077
+__e.Return(PrimLessEqual(Y1076, Y1077))
+return
+}, 1))
+return
+}, 1)
+
+tmp19819 := PrimCons(sym_5_a, tmp19818)
+
+tmp19820 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19819)
+
+
+_ = tmp19820
+
+tmp19821 := MakeNative(func(__e *ControlFlow) {
+Y1075 := __e.Get(1)
+_ = Y1075
+__e.TailApply(PrimFunc(symvector), Y1075)
+return
+}, 1)
+
+tmp19822 := PrimCons(symvector, tmp19821)
+
+tmp19823 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19822)
+
+
+_ = tmp19823
+
+tmp19824 := MakeNative(func(__e *ControlFlow) {
+Y1074 := __e.Get(1)
+_ = Y1074
+__e.TailApply(PrimFunc(symmacroexpand), Y1074)
+return
+}, 1)
+
+tmp19825 := PrimCons(symmacroexpand, tmp19824)
+
+tmp19826 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19825)
+
+
+_ = tmp19826
+
+tmp19827 := MakeNative(func(__e *ControlFlow) {
+Y1072 := __e.Get(1)
+_ = Y1072
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y1073 := __e.Get(1)
+_ = Y1073
+__e.TailApply(PrimFunc(symmap), Y1072, Y1073)
+return
+}, 1))
+return
+}, 1)
+
+tmp19828 := PrimCons(symmap, tmp19827)
+
+tmp19829 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19828)
+
+
+_ = tmp19829
+
+tmp19830 := MakeNative(func(__e *ControlFlow) {
+Y1070 := __e.Get(1)
+_ = Y1070
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y1071 := __e.Get(1)
+_ = Y1071
+__e.TailApply(PrimFunc(symmapcan), Y1070, Y1071)
+return
+}, 1))
+return
+}, 1)
+
+tmp19831 := PrimCons(symmapcan, tmp19830)
+
+tmp19832 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19831)
+
+
+_ = tmp19832
+
+tmp19833 := MakeNative(func(__e *ControlFlow) {
+Y1069 := __e.Get(1)
+_ = Y1069
+__e.TailApply(PrimFunc(symmaxinferences), Y1069)
+return
+}, 1)
+
+tmp19834 := PrimCons(symmaxinferences, tmp19833)
+
+tmp19835 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19834)
+
+
+_ = tmp19835
+
+tmp19836 := MakeNative(func(__e *ControlFlow) {
+Y1068 := __e.Get(1)
+_ = Y1068
+__e.TailApply(PrimFunc(symnl), Y1068)
+return
+}, 1)
+
+tmp19837 := PrimCons(symnl, tmp19836)
+
+tmp19838 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19837)
+
+
+_ = tmp19838
+
+tmp19839 := MakeNative(func(__e *ControlFlow) {
+Y1067 := __e.Get(1)
+_ = Y1067
+__e.Return(PrimNot(Y1067))
+return
+}, 1)
+
+tmp19840 := PrimCons(symnot, tmp19839)
+
+tmp19841 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19840)
+
+
+_ = tmp19841
+
+tmp19842 := MakeNative(func(__e *ControlFlow) {
+Y1065 := __e.Get(1)
+_ = Y1065
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y1066 := __e.Get(1)
+_ = Y1066
+__e.TailApply(PrimFunc(symnth), Y1065, Y1066)
+return
+}, 1))
+return
+}, 1)
+
+tmp19843 := PrimCons(symnth, tmp19842)
+
+tmp19844 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19843)
+
+
+_ = tmp19844
+
+tmp19845 := MakeNative(func(__e *ControlFlow) {
+Y1064 := __e.Get(1)
+_ = Y1064
+__e.Return(PrimNumberToString(Y1064))
+return
+}, 1)
+
+tmp19846 := PrimCons(symn_1_6string, tmp19845)
+
+tmp19847 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19846)
+
+
+_ = tmp19847
+
+tmp19848 := MakeNative(func(__e *ControlFlow) {
+Y1063 := __e.Get(1)
+_ = Y1063
+__e.Return(PrimIsNumber(Y1063))
+return
+}, 1)
+
+tmp19849 := PrimCons(symnumber_2, tmp19848)
+
+tmp19850 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19849)
+
+
+_ = tmp19850
+
+tmp19851 := MakeNative(func(__e *ControlFlow) {
+Y1062 := __e.Get(1)
+_ = Y1062
+__e.TailApply(PrimFunc(symoccurs_1check), Y1062)
+return
+}, 1)
+
+tmp19852 := PrimCons(symoccurs_1check, tmp19851)
+
+tmp19853 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19852)
+
+
+_ = tmp19853
+
+tmp19854 := MakeNative(func(__e *ControlFlow) {
+Y1060 := __e.Get(1)
+_ = Y1060
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y1061 := __e.Get(1)
+_ = Y1061
+__e.TailApply(PrimFunc(symoccurrences), Y1060, Y1061)
+return
+}, 1))
+return
+}, 1)
+
+tmp19855 := PrimCons(symoccurrences, tmp19854)
+
+tmp19856 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19855)
+
+
+_ = tmp19856
+
+tmp19857 := MakeNative(func(__e *ControlFlow) {
+Y1059 := __e.Get(1)
+_ = Y1059
+__e.TailApply(PrimFunc(symoccurs_1check), Y1059)
+return
+}, 1)
+
+tmp19858 := PrimCons(symoccurs_1check, tmp19857)
+
+tmp19859 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19858)
+
+
+_ = tmp19859
+
+tmp19860 := MakeNative(func(__e *ControlFlow) {
+Y1057 := __e.Get(1)
+_ = Y1057
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y1058 := __e.Get(1)
+_ = Y1058
+__e.Return(PrimOpenStream(Y1057, Y1058))
+return
+}, 1))
+return
+}, 1)
+
+tmp19861 := PrimCons(symopen, tmp19860)
+
+tmp19862 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19861)
+
+
+_ = tmp19862
+
+tmp19863 := MakeNative(func(__e *ControlFlow) {
+Y1056 := __e.Get(1)
+_ = Y1056
+__e.TailApply(PrimFunc(symoptimise), Y1056)
+return
+}, 1)
+
+tmp19864 := PrimCons(symoptimise, tmp19863)
+
+tmp19865 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19864)
+
+
+_ = tmp19865
+
+tmp19866 := MakeNative(func(__e *ControlFlow) {
+Y1054 := __e.Get(1)
+_ = Y1054
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y1055 := __e.Get(1)
+_ = Y1055
+if True == Y1054 {
+__e.Return(True)
+return
+} else {
+if True == Y1055 {
+__e.Return(True)
+return
+} else {
+__e.Return(False)
+return
+}
+}
+}, 1))
+return
+}, 1)
+
+tmp19869 := PrimCons(symor, tmp19866)
+
+tmp19870 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19869)
+
+
+_ = tmp19870
+
+tmp19871 := MakeNative(func(__e *ControlFlow) {
+Y1053 := __e.Get(1)
+_ = Y1053
+__e.TailApply(PrimFunc(sympackage_2), Y1053)
+return
+}, 1)
+
+tmp19872 := PrimCons(sympackage_2, tmp19871)
+
+tmp19873 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19872)
+
+
+_ = tmp19873
+
+tmp19874 := MakeNative(func(__e *ControlFlow) {
+Y1051 := __e.Get(1)
+_ = Y1051
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y1052 := __e.Get(1)
+_ = Y1052
+__e.Return(PrimPos(Y1051, Y1052))
+return
+}, 1))
+return
+}, 1)
+
+tmp19875 := PrimCons(sympos, tmp19874)
+
+tmp19876 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19875)
+
+
+_ = tmp19876
+
+tmp19877 := MakeNative(func(__e *ControlFlow) {
+Y1050 := __e.Get(1)
+_ = Y1050
+__e.TailApply(PrimFunc(sympreclude_1all_1but), Y1050)
+return
+}, 1)
+
+tmp19878 := PrimCons(sympreclude_1all_1but, tmp19877)
+
+tmp19879 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19878)
+
+
+_ = tmp19879
+
+tmp19880 := MakeNative(func(__e *ControlFlow) {
+Y1049 := __e.Get(1)
+_ = Y1049
+__e.TailApply(PrimFunc(symprint), Y1049)
+return
+}, 1)
+
+tmp19881 := PrimCons(symprint, tmp19880)
+
+tmp19882 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19881)
+
+
+_ = tmp19882
+
+tmp19883 := MakeNative(func(__e *ControlFlow) {
+Y1048 := __e.Get(1)
+_ = Y1048
+__e.TailApply(PrimFunc(symprofile), Y1048)
+return
+}, 1)
+
+tmp19884 := PrimCons(symprofile, tmp19883)
+
+tmp19885 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19884)
+
+
+_ = tmp19885
+
+tmp19886 := MakeNative(func(__e *ControlFlow) {
+Y1047 := __e.Get(1)
+_ = Y1047
+__e.TailApply(PrimFunc(symshen_4print_1prolog_1vector), Y1047)
+return
+}, 1)
+
+tmp19887 := PrimCons(symshen_4print_1prolog_1vector, tmp19886)
+
+tmp19888 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19887)
+
+
+_ = tmp19888
+
+tmp19889 := MakeNative(func(__e *ControlFlow) {
+Y1046 := __e.Get(1)
+_ = Y1046
+__e.TailApply(PrimFunc(symshen_4print_1freshterm), Y1046)
+return
+}, 1)
+
+tmp19890 := PrimCons(symshen_4print_1freshterm, tmp19889)
+
+tmp19891 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19890)
+
+
+_ = tmp19891
+
+tmp19892 := MakeNative(func(__e *ControlFlow) {
+Y1045 := __e.Get(1)
+_ = Y1045
+__e.TailApply(PrimFunc(symshen_4printF), Y1045)
+return
+}, 1)
+
+tmp19893 := PrimCons(symshen_4printF, tmp19892)
+
+tmp19894 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19893)
+
+
+_ = tmp19894
+
+tmp19895 := MakeNative(func(__e *ControlFlow) {
+Y1044 := __e.Get(1)
+_ = Y1044
+__e.TailApply(PrimFunc(symprolog_1memory), Y1044)
+return
+}, 1)
+
+tmp19896 := PrimCons(symprolog_1memory, tmp19895)
+
+tmp19897 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19896)
+
+
+_ = tmp19897
+
+tmp19898 := MakeNative(func(__e *ControlFlow) {
+Y1043 := __e.Get(1)
+_ = Y1043
+__e.TailApply(PrimFunc(symprofile_1results), Y1043)
+return
+}, 1)
+
+tmp19899 := PrimCons(symprofile_1results, tmp19898)
+
+tmp19900 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19899)
+
+
+_ = tmp19900
+
+tmp19901 := MakeNative(func(__e *ControlFlow) {
+Y1041 := __e.Get(1)
+_ = Y1041
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y1042 := __e.Get(1)
+_ = Y1042
+__e.TailApply(PrimFunc(sympr), Y1041, Y1042)
+return
+}, 1))
+return
+}, 1)
+
+tmp19902 := PrimCons(sympr, tmp19901)
+
+tmp19903 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19902)
+
+
+_ = tmp19903
+
+tmp19904 := MakeNative(func(__e *ControlFlow) {
+Y1040 := __e.Get(1)
+_ = Y1040
+__e.TailApply(PrimFunc(symps), Y1040)
+return
+}, 1)
+
+tmp19905 := PrimCons(symps, tmp19904)
+
+tmp19906 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19905)
+
+
+_ = tmp19906
+
+tmp19907 := MakeNative(func(__e *ControlFlow) {
+Y1039 := __e.Get(1)
+_ = Y1039
+__e.TailApply(PrimFunc(sympreclude), Y1039)
+return
+}, 1)
+
+tmp19908 := PrimCons(sympreclude, tmp19907)
+
+tmp19909 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19908)
+
+
+_ = tmp19909
+
+tmp19910 := MakeNative(func(__e *ControlFlow) {
+Y1038 := __e.Get(1)
+_ = Y1038
+__e.TailApply(PrimFunc(sympreclude_1all_1but), Y1038)
+return
+}, 1)
+
+tmp19911 := PrimCons(sympreclude_1all_1but, tmp19910)
+
+tmp19912 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19911)
+
+
+_ = tmp19912
+
+tmp19913 := MakeNative(func(__e *ControlFlow) {
+Y1037 := __e.Get(1)
+_ = Y1037
+__e.TailApply(PrimFunc(symprotect), Y1037)
+return
+}, 1)
+
+tmp19914 := PrimCons(symprotect, tmp19913)
+
+tmp19915 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19914)
+
+
+_ = tmp19915
+
+tmp19916 := MakeNative(func(__e *ControlFlow) {
+Y1033 := __e.Get(1)
+_ = Y1033
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y1034 := __e.Get(1)
+_ = Y1034
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y1035 := __e.Get(1)
+_ = Y1035
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y1036 := __e.Get(1)
+_ = Y1036
+__e.TailApply(PrimFunc(symput), Y1033, Y1034, Y1035, Y1036)
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp19917 := PrimCons(symput, tmp19916)
+
+tmp19918 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19917)
+
+
+_ = tmp19918
+
+tmp19919 := MakeNative(func(__e *ControlFlow) {
+Y1032 := __e.Get(1)
+_ = Y1032
+__e.Return(PrimReadFileAsString(Y1032))
+return
+}, 1)
+
+tmp19920 := PrimCons(symread_1file_1as_1string, tmp19919)
+
+tmp19921 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19920)
+
+
+_ = tmp19921
+
+tmp19922 := MakeNative(func(__e *ControlFlow) {
+Y1031 := __e.Get(1)
+_ = Y1031
+__e.Return(PrimReadFileAsByteList(Y1031))
+return
+}, 1)
+
+tmp19923 := PrimCons(symread_1file_1as_1bytelist, tmp19922)
+
+tmp19924 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19923)
+
+
+_ = tmp19924
+
+tmp19925 := MakeNative(func(__e *ControlFlow) {
+Y1030 := __e.Get(1)
+_ = Y1030
+__e.TailApply(PrimFunc(symread_1file), Y1030)
+return
+}, 1)
+
+tmp19926 := PrimCons(symread_1file, tmp19925)
+
+tmp19927 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19926)
+
+
+_ = tmp19927
+
+tmp19928 := MakeNative(func(__e *ControlFlow) {
+Y1029 := __e.Get(1)
+_ = Y1029
+__e.TailApply(PrimFunc(symread), Y1029)
+return
+}, 1)
+
+tmp19929 := PrimCons(symread, tmp19928)
+
+tmp19930 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19929)
+
+
+_ = tmp19930
+
+tmp19931 := MakeNative(func(__e *ControlFlow) {
+Y1028 := __e.Get(1)
+_ = Y1028
+__e.Return(PrimReadByte(Y1028))
+return
+}, 1)
+
+tmp19932 := PrimCons(symread_1byte, tmp19931)
+
+tmp19933 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19932)
+
+
+_ = tmp19933
+
+tmp19934 := MakeNative(func(__e *ControlFlow) {
+Y1027 := __e.Get(1)
+_ = Y1027
+__e.TailApply(PrimFunc(symread_1from_1string), Y1027)
+return
+}, 1)
+
+tmp19935 := PrimCons(symread_1from_1string, tmp19934)
+
+tmp19936 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19935)
+
+
+_ = tmp19936
+
+tmp19937 := MakeNative(func(__e *ControlFlow) {
+Y1026 := __e.Get(1)
+_ = Y1026
+__e.TailApply(PrimFunc(symread_1from_1string_1unprocessed), Y1026)
+return
+}, 1)
+
+tmp19938 := PrimCons(symread_1from_1string_1unprocessed, tmp19937)
+
+tmp19939 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19938)
+
+
+_ = tmp19939
+
+tmp19940 := MakeNative(func(__e *ControlFlow) {
+Y1025 := __e.Get(1)
+_ = Y1025
+__e.TailApply(PrimFunc(symshen_4read_1unit_1string), Y1025)
+return
+}, 1)
+
+tmp19941 := PrimCons(symshen_4read_1unit_1string, tmp19940)
+
+tmp19942 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19941)
+
+
+_ = tmp19942
+
+tmp19943 := MakeNative(func(__e *ControlFlow) {
+Y1023 := __e.Get(1)
+_ = Y1023
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y1024 := __e.Get(1)
+_ = Y1024
+__e.TailApply(PrimFunc(symremove), Y1023, Y1024)
+return
+}, 1))
+return
+}, 1)
+
+tmp19944 := PrimCons(symremove, tmp19943)
+
+tmp19945 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19944)
+
+
+_ = tmp19945
+
+tmp19946 := MakeNative(func(__e *ControlFlow) {
+Y1022 := __e.Get(1)
+_ = Y1022
+__e.TailApply(PrimFunc(symreverse), Y1022)
+return
+}, 1)
+
+tmp19947 := PrimCons(symreverse, tmp19946)
+
+tmp19948 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19947)
+
+
+_ = tmp19948
+
+tmp19949 := MakeNative(func(__e *ControlFlow) {
+Y1020 := __e.Get(1)
+_ = Y1020
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y1021 := __e.Get(1)
+_ = Y1021
+__e.Return(PrimSet(Y1020, Y1021))
+return
+}, 1))
+return
+}, 1)
+
+tmp19950 := PrimCons(symset, tmp19949)
+
+tmp19951 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19950)
+
+
+_ = tmp19951
+
+tmp19952 := MakeNative(func(__e *ControlFlow) {
+Y1019 := __e.Get(1)
+_ = Y1019
+__e.Return(PrimSimpleError(Y1019))
+return
+}, 1)
+
+tmp19953 := PrimCons(symsimple_1error, tmp19952)
+
+tmp19954 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19953)
+
+
+_ = tmp19954
+
+tmp19955 := MakeNative(func(__e *ControlFlow) {
+Y1018 := __e.Get(1)
+_ = Y1018
+__e.TailApply(PrimFunc(symsnd), Y1018)
+return
+}, 1)
+
+tmp19956 := PrimCons(symsnd, tmp19955)
+
+tmp19957 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19956)
+
+
+_ = tmp19957
+
+tmp19958 := MakeNative(func(__e *ControlFlow) {
+Y1016 := __e.Get(1)
+_ = Y1016
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y1017 := __e.Get(1)
+_ = Y1017
+__e.TailApply(PrimFunc(symspecialise), Y1016, Y1017)
+return
+}, 1))
+return
+}, 1)
+
+tmp19959 := PrimCons(symspecialise, tmp19958)
+
+tmp19960 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19959)
+
+
+_ = tmp19960
+
+tmp19961 := MakeNative(func(__e *ControlFlow) {
+Y1015 := __e.Get(1)
+_ = Y1015
+__e.TailApply(PrimFunc(symspy), Y1015)
+return
+}, 1)
+
+tmp19962 := PrimCons(symspy, tmp19961)
+
+tmp19963 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19962)
+
+
+_ = tmp19963
+
+tmp19964 := MakeNative(func(__e *ControlFlow) {
+Y1014 := __e.Get(1)
+_ = Y1014
+__e.TailApply(PrimFunc(symstep), Y1014)
+return
+}, 1)
+
+tmp19965 := PrimCons(symstep, tmp19964)
+
+tmp19966 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19965)
+
+
+_ = tmp19966
+
+tmp19967 := MakeNative(func(__e *ControlFlow) {
+Y1013 := __e.Get(1)
+_ = Y1013
+__e.Return(PrimStr(Y1013))
+return
+}, 1)
+
+tmp19968 := PrimCons(symstr, tmp19967)
+
+tmp19969 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19968)
+
+
+_ = tmp19969
+
+tmp19970 := MakeNative(func(__e *ControlFlow) {
+Y1012 := __e.Get(1)
+_ = Y1012
+__e.Return(PrimStringToNumber(Y1012))
+return
+}, 1)
+
+tmp19971 := PrimCons(symstring_1_6n, tmp19970)
+
+tmp19972 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19971)
+
+
+_ = tmp19972
+
+tmp19973 := MakeNative(func(__e *ControlFlow) {
+Y1011 := __e.Get(1)
+_ = Y1011
+__e.TailApply(PrimFunc(symstring_1_6symbol), Y1011)
+return
+}, 1)
+
+tmp19974 := PrimCons(symstring_1_6symbol, tmp19973)
+
+tmp19975 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19974)
+
+
+_ = tmp19975
+
+tmp19976 := MakeNative(func(__e *ControlFlow) {
+Y1010 := __e.Get(1)
+_ = Y1010
+__e.Return(PrimIsString(Y1010))
+return
+}, 1)
+
+tmp19977 := PrimCons(symstring_2, tmp19976)
+
+tmp19978 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19977)
+
+
+_ = tmp19978
+
+tmp19979 := MakeNative(func(__e *ControlFlow) {
+Y1007 := __e.Get(1)
+_ = Y1007
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y1008 := __e.Get(1)
+_ = Y1008
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y1009 := __e.Get(1)
+_ = Y1009
+__e.TailApply(PrimFunc(symsubst), Y1007, Y1008, Y1009)
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp19980 := PrimCons(symsubst, tmp19979)
+
+tmp19981 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19980)
+
+
+_ = tmp19981
+
+tmp19982 := MakeNative(func(__e *ControlFlow) {
+Y1006 := __e.Get(1)
+_ = Y1006
+__e.TailApply(PrimFunc(symsum), Y1006)
+return
+}, 1)
+
+tmp19983 := PrimCons(symsum, tmp19982)
+
+tmp19984 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19983)
+
+
+_ = tmp19984
+
+tmp19985 := MakeNative(func(__e *ControlFlow) {
+Y1005 := __e.Get(1)
+_ = Y1005
+__e.Return(PrimIsSymbol(Y1005))
+return
+}, 1)
+
+tmp19986 := PrimCons(symsymbol_2, tmp19985)
+
+tmp19987 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19986)
+
+
+_ = tmp19987
+
+tmp19988 := MakeNative(func(__e *ControlFlow) {
+Y1004 := __e.Get(1)
+_ = Y1004
+__e.TailApply(PrimFunc(symsystemf), Y1004)
+return
+}, 1)
+
+tmp19989 := PrimCons(symsystemf, tmp19988)
+
+tmp19990 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19989)
+
+
+_ = tmp19990
+
+tmp19991 := MakeNative(func(__e *ControlFlow) {
+Y1003 := __e.Get(1)
+_ = Y1003
+__e.TailApply(PrimFunc(symtail), Y1003)
+return
+}, 1)
+
+tmp19992 := PrimCons(symtail, tmp19991)
+
+tmp19993 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19992)
+
+
+_ = tmp19993
+
+tmp19994 := MakeNative(func(__e *ControlFlow) {
+Y1002 := __e.Get(1)
+_ = Y1002
+__e.Return(PrimTail(Y1002))
+return
+}, 1)
+
+tmp19995 := PrimCons(symtl, tmp19994)
+
+tmp19996 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19995)
+
+
+_ = tmp19996
+
+tmp19997 := MakeNative(func(__e *ControlFlow) {
+Y1001 := __e.Get(1)
+_ = Y1001
+__e.TailApply(PrimFunc(symtc), Y1001)
+return
+}, 1)
+
+tmp19998 := PrimCons(symtc, tmp19997)
+
+tmp19999 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp19998)
+
+
+_ = tmp19999
+
+tmp20000 := MakeNative(func(__e *ControlFlow) {
+Y1000 := __e.Get(1)
+_ = Y1000
+__e.TailApply(PrimFunc(symthaw), Y1000)
+return
+}, 1)
+
+tmp20001 := PrimCons(symthaw, tmp20000)
+
+tmp20002 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp20001)
+
+
+_ = tmp20002
+
+tmp20003 := MakeNative(func(__e *ControlFlow) {
+Y999 := __e.Get(1)
+_ = Y999
+__e.Return(PrimTailString(Y999))
+return
+}, 1)
+
+tmp20004 := PrimCons(symtlstr, tmp20003)
+
+tmp20005 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp20004)
+
+
+_ = tmp20005
+
+tmp20006 := MakeNative(func(__e *ControlFlow) {
+Y998 := __e.Get(1)
+_ = Y998
+__e.TailApply(PrimFunc(symtrack), Y998)
+return
+}, 1)
+
+tmp20007 := PrimCons(symtrack, tmp20006)
+
+tmp20008 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp20007)
+
+
+_ = tmp20008
+
+tmp20009 := MakeNative(func(__e *ControlFlow) {
+Y996 := __e.Get(1)
+_ = Y996
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y997 := __e.Get(1)
+_ = Y997
+tmp20010 := MakeNative(func(__e *ControlFlow) {
+__e.Return(Y996)
+return
+}, 0)
+
+__e.TailApply(try_1catch, tmp20010, Y997)
+return
+
+
+}, 1))
+return
+}, 1)
+
+tmp20011 := PrimCons(symtrap_1error, tmp20009)
+
+tmp20012 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp20011)
+
+
+_ = tmp20012
+
+tmp20013 := MakeNative(func(__e *ControlFlow) {
+Y995 := __e.Get(1)
+_ = Y995
+__e.TailApply(PrimFunc(symtuple_2), Y995)
+return
+}, 1)
+
+tmp20014 := PrimCons(symtuple_2, tmp20013)
+
+tmp20015 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp20014)
+
+
+_ = tmp20015
+
+tmp20016 := MakeNative(func(__e *ControlFlow) {
+Y993 := __e.Get(1)
+_ = Y993
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y994 := __e.Get(1)
+_ = Y994
+__e.Return(Y993)
+return
+}, 1))
+return
+}, 1)
+
+tmp20017 := PrimCons(symtype, tmp20016)
+
+tmp20018 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp20017)
+
+
+_ = tmp20018
+
+tmp20019 := MakeNative(func(__e *ControlFlow) {
+Y988 := __e.Get(1)
+_ = Y988
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y989 := __e.Get(1)
+_ = Y989
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y990 := __e.Get(1)
+_ = Y990
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y991 := __e.Get(1)
+_ = Y991
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y992 := __e.Get(1)
+_ = Y992
+__e.TailApply(PrimFunc(symreturn), Y988, Y989, Y990, Y991, Y992)
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp20020 := PrimCons(symreturn, tmp20019)
+
+tmp20021 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp20020)
+
+
+_ = tmp20021
+
+tmp20022 := MakeNative(func(__e *ControlFlow) {
+Y987 := __e.Get(1)
+_ = Y987
+__e.TailApply(PrimFunc(symunabsolute), Y987)
+return
+}, 1)
+
+tmp20023 := PrimCons(symunabsolute, tmp20022)
+
+tmp20024 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp20023)
+
+
+_ = tmp20024
+
+tmp20025 := MakeNative(func(__e *ControlFlow) {
+Y986 := __e.Get(1)
+_ = Y986
+__e.TailApply(PrimFunc(symundefmacro), Y986)
+return
+}, 1)
+
+tmp20026 := PrimCons(symundefmacro, tmp20025)
+
+tmp20027 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp20026)
+
+
+_ = tmp20027
+
+tmp20028 := MakeNative(func(__e *ControlFlow) {
+Y983 := __e.Get(1)
+_ = Y983
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y984 := __e.Get(1)
+_ = Y984
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y985 := __e.Get(1)
+_ = Y985
+__e.TailApply(PrimFunc(symunput), Y983, Y984, Y985)
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp20029 := PrimCons(symunput, tmp20028)
+
+tmp20030 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp20029)
+
+
+_ = tmp20030
+
+tmp20031 := MakeNative(func(__e *ControlFlow) {
+Y982 := __e.Get(1)
+_ = Y982
+__e.TailApply(PrimFunc(symunprofile), Y982)
+return
+}, 1)
+
+tmp20032 := PrimCons(symunprofile, tmp20031)
+
+tmp20033 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp20032)
+
+
+_ = tmp20033
+
+tmp20034 := MakeNative(func(__e *ControlFlow) {
+Y980 := __e.Get(1)
+_ = Y980
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y981 := __e.Get(1)
+_ = Y981
+__e.TailApply(PrimFunc(symunion), Y980, Y981)
+return
+}, 1))
+return
+}, 1)
+
+tmp20035 := PrimCons(symunion, tmp20034)
+
+tmp20036 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp20035)
+
+
+_ = tmp20036
+
+tmp20037 := MakeNative(func(__e *ControlFlow) {
+Y979 := __e.Get(1)
+_ = Y979
+__e.TailApply(PrimFunc(symuntrack), Y979)
+return
+}, 1)
+
+tmp20038 := PrimCons(symuntrack, tmp20037)
+
+tmp20039 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp20038)
+
+
+_ = tmp20039
+
+tmp20040 := MakeNative(func(__e *ControlFlow) {
+Y978 := __e.Get(1)
+_ = Y978
+__e.TailApply(PrimFunc(symundefmacro), Y978)
+return
+}, 1)
+
+tmp20041 := PrimCons(symundefmacro, tmp20040)
+
+tmp20042 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp20041)
+
+
+_ = tmp20042
+
+tmp20043 := MakeNative(func(__e *ControlFlow) {
+Y976 := __e.Get(1)
+_ = Y976
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y977 := __e.Get(1)
+_ = Y977
+__e.TailApply(PrimFunc(symupdate_1lambda_1table), Y976, Y977)
+return
+}, 1))
+return
+}, 1)
+
+tmp20044 := PrimCons(symupdate_1lambda_1table, tmp20043)
+
+tmp20045 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp20044)
+
+
+_ = tmp20045
+
+tmp20046 := MakeNative(func(__e *ControlFlow) {
+Y975 := __e.Get(1)
+_ = Y975
+__e.TailApply(PrimFunc(symvector), Y975)
+return
+}, 1)
+
+tmp20047 := PrimCons(symvector, tmp20046)
+
+tmp20048 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp20047)
+
+
+_ = tmp20048
+
+tmp20049 := MakeNative(func(__e *ControlFlow) {
+Y974 := __e.Get(1)
+_ = Y974
+__e.TailApply(PrimFunc(symvector_2), Y974)
+return
+}, 1)
+
+tmp20050 := PrimCons(symvector_2, tmp20049)
+
+tmp20051 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp20050)
+
+
+_ = tmp20051
+
+tmp20052 := MakeNative(func(__e *ControlFlow) {
+Y971 := __e.Get(1)
+_ = Y971
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y972 := __e.Get(1)
+_ = Y972
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y973 := __e.Get(1)
+_ = Y973
+__e.TailApply(PrimFunc(symvector_1_6), Y971, Y972, Y973)
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp20053 := PrimCons(symvector_1_6, tmp20052)
+
+tmp20054 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp20053)
+
+
+_ = tmp20054
+
+tmp20055 := MakeNative(func(__e *ControlFlow) {
+Y970 := __e.Get(1)
+_ = Y970
+__e.Return(PrimValue(Y970))
+return
+}, 1)
+
+tmp20056 := PrimCons(symvalue, tmp20055)
+
+tmp20057 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp20056)
+
+
+_ = tmp20057
+
+tmp20058 := MakeNative(func(__e *ControlFlow) {
+Y969 := __e.Get(1)
+_ = Y969
+__e.Return(PrimIsVariable(Y969))
+return
+}, 1)
+
+tmp20059 := PrimCons(symvariable_2, tmp20058)
+
+tmp20060 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp20059)
+
+
+_ = tmp20060
+
+tmp20061 := MakeNative(func(__e *ControlFlow) {
+Y964 := __e.Get(1)
+_ = Y964
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y965 := __e.Get(1)
+_ = Y965
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y966 := __e.Get(1)
+_ = Y966
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y967 := __e.Get(1)
+_ = Y967
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y968 := __e.Get(1)
+_ = Y968
+__e.TailApply(PrimFunc(symvar_2), Y964, Y965, Y966, Y967, Y968)
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp20062 := PrimCons(symvar_2, tmp20061)
+
+tmp20063 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp20062)
+
+
+_ = tmp20063
+
+tmp20064 := MakeNative(func(__e *ControlFlow) {
+Y959 := __e.Get(1)
+_ = Y959
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y960 := __e.Get(1)
+_ = Y960
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y961 := __e.Get(1)
+_ = Y961
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y962 := __e.Get(1)
+_ = Y962
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y963 := __e.Get(1)
+_ = Y963
+__e.TailApply(PrimFunc(symwhen), Y959, Y960, Y961, Y962, Y963)
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1))
+return
+}, 1)
+
+tmp20065 := PrimCons(symwhen, tmp20064)
+
+tmp20066 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp20065)
+
+
+_ = tmp20066
+
+tmp20067 := MakeNative(func(__e *ControlFlow) {
+Y957 := __e.Get(1)
+_ = Y957
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y958 := __e.Get(1)
+_ = Y958
+__e.Return(PrimWriteByte(Y957, Y958))
+return
+}, 1))
+return
+}, 1)
+
+tmp20068 := PrimCons(symwrite_1byte, tmp20067)
+
+tmp20069 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp20068)
+
+
+_ = tmp20069
+
+tmp20070 := MakeNative(func(__e *ControlFlow) {
+Y955 := __e.Get(1)
+_ = Y955
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y956 := __e.Get(1)
+_ = Y956
+__e.TailApply(PrimFunc(symwrite_1to_1file), Y955, Y956)
+return
+}, 1))
+return
+}, 1)
+
+tmp20071 := PrimCons(symwrite_1to_1file, tmp20070)
+
+tmp20072 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp20071)
+
+
+_ = tmp20072
+
+tmp20073 := MakeNative(func(__e *ControlFlow) {
+Y954 := __e.Get(1)
+_ = Y954
+__e.TailApply(PrimFunc(symy_1or_1n_2), Y954)
+return
+}, 1)
+
+tmp20074 := PrimCons(symy_1or_1n_2, tmp20073)
+
+tmp20075 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp20074)
+
+
+_ = tmp20075
+
+tmp20076 := MakeNative(func(__e *ControlFlow) {
+Y952 := __e.Get(1)
+_ = Y952
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y953 := __e.Get(1)
+_ = Y953
+__e.Return(PrimNumberAdd(Y952, Y953))
+return
+}, 1))
+return
+}, 1)
+
+tmp20077 := PrimCons(sym_7, tmp20076)
+
+tmp20078 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp20077)
+
+
+_ = tmp20078
+
+tmp20079 := MakeNative(func(__e *ControlFlow) {
+Y950 := __e.Get(1)
+_ = Y950
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y951 := __e.Get(1)
+_ = Y951
+__e.Return(PrimNumberMultiply(Y950, Y951))
+return
+}, 1))
+return
+}, 1)
+
+tmp20080 := PrimCons(sym_d, tmp20079)
+
+tmp20081 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp20080)
+
+
+_ = tmp20081
+
+tmp20082 := MakeNative(func(__e *ControlFlow) {
+Y948 := __e.Get(1)
+_ = Y948
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y949 := __e.Get(1)
+_ = Y949
+__e.Return(PrimNumberDivide(Y948, Y949))
+return
+}, 1))
+return
+}, 1)
+
+tmp20083 := PrimCons(sym_c, tmp20082)
+
+tmp20084 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp20083)
+
+
+_ = tmp20084
+
+tmp20085 := MakeNative(func(__e *ControlFlow) {
+Y946 := __e.Get(1)
+_ = Y946
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y947 := __e.Get(1)
+_ = Y947
+__e.Return(PrimNumberSubtract(Y946, Y947))
+return
+}, 1))
+return
+}, 1)
+
+tmp20086 := PrimCons(sym_1, tmp20085)
+
+tmp20087 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp20086)
+
+
+_ = tmp20087
+
+tmp20088 := MakeNative(func(__e *ControlFlow) {
+Y944 := __e.Get(1)
+_ = Y944
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y945 := __e.Get(1)
+_ = Y945
+__e.TailApply(PrimFunc(sym_a_a), Y944, Y945)
+return
+}, 1))
+return
+}, 1)
+
+tmp20089 := PrimCons(sym_a_a, tmp20088)
+
+tmp20090 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp20089)
+
+
+_ = tmp20090
+
+tmp20091 := MakeNative(func(__e *ControlFlow) {
+Y943 := __e.Get(1)
+_ = Y943
+__e.TailApply(PrimFunc(sym_5e_6), Y943)
+return
+}, 1)
+
+tmp20092 := PrimCons(sym_5e_6, tmp20091)
+
+tmp20093 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp20092)
+
+
+_ = tmp20093
+
+tmp20094 := MakeNative(func(__e *ControlFlow) {
+Y942 := __e.Get(1)
+_ = Y942
+__e.TailApply(PrimFunc(sym_5end_6), Y942)
+return
+}, 1)
+
+tmp20095 := PrimCons(sym_5end_6, tmp20094)
+
+tmp20096 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp20095)
+
+
+_ = tmp20096
+
+tmp20097 := MakeNative(func(__e *ControlFlow) {
+Y941 := __e.Get(1)
+_ = Y941
+__e.TailApply(PrimFunc(sym_5_b_6), Y941)
+return
+}, 1)
+
+tmp20098 := PrimCons(sym_5_b_6, tmp20097)
+
+tmp20099 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp20098)
+
+
+_ = tmp20099
+
+tmp20100 := MakeNative(func(__e *ControlFlow) {
+Y939 := __e.Get(1)
+_ = Y939
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y940 := __e.Get(1)
+_ = Y940
+__e.TailApply(PrimFunc(sym_8p), Y939, Y940)
+return
+}, 1))
+return
+}, 1)
+
+tmp20101 := PrimCons(sym_8p, tmp20100)
+
+tmp20102 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp20101)
+
+
+_ = tmp20102
+
+tmp20103 := MakeNative(func(__e *ControlFlow) {
+Y937 := __e.Get(1)
+_ = Y937
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y938 := __e.Get(1)
+_ = Y938
+__e.TailApply(PrimFunc(sym_8v), Y937, Y938)
+return
+}, 1))
+return
+}, 1)
+
+tmp20104 := PrimCons(sym_8v, tmp20103)
+
+tmp20105 := Call(__e, PrimFunc(symshen_4set_1lambda_1form_1entry), tmp20104)
+
+
+_ = tmp20105
+
+tmp20106 := MakeNative(func(__e *ControlFlow) {
+Y935 := __e.Get(1)
+_ = Y935
+__e.Return(MakeNative(func(__e *ControlFlow) {
+Y936 := __e.Get(1)
+_ = Y936
+__e.TailApply(PrimFunc(sym_8s), Y935, Y936)
+return
+}, 1))
+return
+}, 1)
+
+tmp20107 := PrimCons(sym_8s, tmp20106)
+
+__e.TailApply(PrimFunc(symshen_4set_1lambda_1form_1entry), tmp20107)
+return
+
+
+}, 0)
+
+tmp20108 := Call(__e, ns2_1set, symshen_4initialise_1lambda_1forms, tmp19565)
+
+
+_ = tmp20108
+
+tmp20109 := MakeNative(func(__e *ControlFlow) {
+tmp20110 := Call(__e, PrimFunc(symshen_4initialise_1environment))
+
+
+_ = tmp20110
+
+tmp20111 := Call(__e, PrimFunc(symshen_4initialise_1lambda_1forms))
+
+
+_ = tmp20111
+
+__e.TailApply(PrimFunc(symshen_4initialise_1signedfuncs))
+return
+
+
+}, 0)
+
+__e.TailApply(ns2_1set, symshen_4initialise, tmp20109)
+return
+
+
+
+
+}, 0)
+
+var sym_j = MakeSymbol("}")
+var symshen_4_5s_1exprs2_6 = MakeSymbol("shen.<s-exprs2>")
+var symshen_4write_1kl_1h = MakeSymbol("shen.write-kl-h")
 var symshen_4explode_1h = MakeSymbol("shen.explode-h")
-var syminferences = MakeSymbol("inferences")
-var symshen_4dbl_2 = MakeSymbol("shen.dbl?")
-var symshen_4process_1cond_1clauses = MakeSymbol("shen.process-cond-clauses")
-var sym_1_1_6 = MakeSymbol("-->")
-var symshen_4callrec = MakeSymbol("shen.callrec")
-var symshen_4gc = MakeSymbol("shen.gc")
-var symshen_4input_1track = MakeSymbol("shen.input-track")
-var symload = MakeSymbol("load")
-var symshen_4compile_1body = MakeSymbol("shen.compile-body")
-var symtrack = MakeSymbol("track")
-var symnumber = MakeSymbol("number")
-var symshen_4t_d_1rule = MakeSymbol("shen.t*-rule")
-var sympos = MakeSymbol("pos")
-var symshen_4bad_1pivot_2 = MakeSymbol("shen.bad-pivot?")
+var symshen_4deref_1forked_1literals = MakeSymbol("shen.deref-forked-literals")
+var symshen_4track_1function = MakeSymbol("shen.track-function")
+var symshen_4nvars = MakeSymbol("shen.nvars")
+var symshen_4freshen_1sig = MakeSymbol("shen.freshen-sig")
+var symshen_4_5pattern1_6 = MakeSymbol("shen.<pattern1>")
+var symshen_4semicolon_2 = MakeSymbol("shen.semicolon?")
+var symshen_4_duserdefs_d = MakeSymbol("shen.*userdefs*")
+var symoutput = MakeSymbol("output")
+var symshen_4_5colon_1equal_6 = MakeSymbol("shen.<colon-equal>")
+var sym_5 = MakeSymbol("<")
+var symshen_4peek_1history = MakeSymbol("shen.peek-history")
+var symshen_4string_1match = MakeSymbol("shen.string-match")
+var symshen_4unwind_1types = MakeSymbol("shen.unwind-types")
+var symintersection = MakeSymbol("intersection")
+var symos = MakeSymbol("os")
+var symshen_4_5pattern2_6 = MakeSymbol("shen.<pattern2>")
+var symshen_4combine_1c_1code = MakeSymbol("shen.combine-c-code")
+var symdifference = MakeSymbol("difference")
+var symshen_4c_1rule_1_6shen = MakeSymbol("shen.c-rule->shen")
+var syminternal = MakeSymbol("internal")
+var symreceive = MakeSymbol("receive")
+var sym_5_1_1 = MakeSymbol("<--")
+var sym_5_a = MakeSymbol("<=")
+var symshen_4fix_1help = MakeSymbol("shen.fix-help")
+var symshen_4_dcustom_1pattern_1reducer_d = MakeSymbol("shen.*custom-pattern-reducer*")
 var symshen_4_5shortnatters_6 = MakeSymbol("shen.<shortnatters>")
-var symshen_4_5longnatter_6 = MakeSymbol("shen.<longnatter>")
-var symshen_4_5hash_6 = MakeSymbol("shen.<hash>")
-var symshen_4vector_1dereference = MakeSymbol("shen.vector-dereference")
-var symshen_4profile_1help = MakeSymbol("shen.profile-help")
-var symshen_4dict_1count = MakeSymbol("shen.dict-count")
-var symshen_4_5returns_6 = MakeSymbol("shen.<returns>")
-var symdatatype = MakeSymbol("datatype")
-var symshen_4_5body_6 = MakeSymbol("shen.<body>")
-var symshen_4top = MakeSymbol("shen.top")
-var symshen_4a = MakeSymbol("shen.a")
-var symshen_4iter_1list = MakeSymbol("shen.iter-list")
-var symshen_4_5constructor_6 = MakeSymbol("shen.<constructor>")
-var symshen_4_5alpha_6 = MakeSymbol("shen.<alpha>")
-var symshen_4_dinfs_d = MakeSymbol("shen.*infs*")
-var symtype = MakeSymbol("type")
-var symshen_4shen_1_6kl = MakeSymbol("shen.shen->kl")
-var symshen_4rcons__form = MakeSymbol("shen.rcons_form")
-var symshen_4nothing_1doing_2 = MakeSymbol("shen.nothing-doing?")
-var sympackage = MakeSymbol("package")
-var symshen_4_5type_6 = MakeSymbol("shen.<type>")
-var symrun = MakeSymbol("run")
-var symHypotheses = MakeSymbol("Hypotheses")
-var symassoc = MakeSymbol("assoc")
-var symshen_4objectcode = MakeSymbol("shen.objectcode")
+var symmake_1string = MakeSymbol("make-string")
+var symshen_4_5prems_6 = MakeSymbol("shen.<prems>")
+var symsubst = MakeSymbol("subst")
+var symGoTo = MakeSymbol("GoTo")
+var symshen_4pivot_1on = MakeSymbol("shen.pivot-on")
+var symbar_b = MakeSymbol("bar!")
 var symshen_4_5digits_6 = MakeSymbol("shen.<digits>")
-var symshen_4synonyms_1h = MakeSymbol("shen.synonyms-h")
-var symis = MakeSymbol("is")
-var sym_i = MakeSymbol("{")
+var symshen_4application_2 = MakeSymbol("shen.application?")
+var symshen_4build_1lambda_1table = MakeSymbol("shen.build-lambda-table")
+var symassertz = MakeSymbol("assertz")
+var symshen_4dynamic_1default = MakeSymbol("shen.dynamic-default")
+var symshen_4dict_1fold_1h = MakeSymbol("shen.dict-fold-h")
+var symoptimise = MakeSymbol("optimise")
+var symlet = MakeSymbol("let")
+var symshen_4_5dbq_6 = MakeSymbol("shen.<dbq>")
+var symshen_4recursive_1string_1match = MakeSymbol("shen.recursive-string-match")
+var symshen_4make_1uppercase = MakeSymbol("shen.make-uppercase")
+var symshen_4rcons__form = MakeSymbol("shen.rcons_form")
+var symrun = MakeSymbol("run")
+var symshen_4atom_1case_1minus = MakeSymbol("shen.atom-case-minus")
+var symshen_4member_1clause = MakeSymbol("shen.member-clause")
+var symshen_4type_1theory_1enabled_2 = MakeSymbol("shen.type-theory-enabled?")
+var symshen_4show_1assumptions = MakeSymbol("shen.show-assumptions")
+var symshen_4process_1applications = MakeSymbol("shen.process-applications")
+var symfork = MakeSymbol("fork")
+var symshen_4profile_1func = MakeSymbol("shen.profile-func")
+var symnl = MakeSymbol("nl")
+var symshen_4beta = MakeSymbol("shen.beta")
+var symshen_4lch = MakeSymbol("shen.lch")
+var symshen_4remove_1datatypes = MakeSymbol("shen.remove-datatypes")
+var symoptimise_2 = MakeSymbol("optimise?")
+var symshen_4free_1var_1chk = MakeSymbol("shen.free-var-chk")
+var symshen_4_5lrb_6 = MakeSymbol("shen.<lrb>")
+var symshen_4bottom = MakeSymbol("shen.bottom")
+var symshen_4_5hterm_6 = MakeSymbol("shen.<hterm>")
+var symimplementation = MakeSymbol("implementation")
+var symshen_4integer_1test_2 = MakeSymbol("shen.integer-test?")
+var symshen_4choicepoint = MakeSymbol("shen.choicepoint")
+var symshen_4initialise__environment = MakeSymbol("shen.initialise_environment")
+var symshen_4unlock = MakeSymbol("shen.unlock")
+var symshen_4package_1symbols = MakeSymbol("shen.package-symbols")
 var symshen_4lowercase_1symbol_2 = MakeSymbol("shen.lowercase-symbol?")
-var symlist = MakeSymbol("list")
-var symB = MakeSymbol("B")
-var symshen_4make_1prolog_1variable = MakeSymbol("shen.make-prolog-variable")
-var symwhere = MakeSymbol("where")
-var symshen_4terms = MakeSymbol("shen.terms")
-var symshen_4macro_1_8ch = MakeSymbol("shen.macro-@ch")
-var symabsvector_2 = MakeSymbol("absvector?")
-var symshen_4assoc_1rm = MakeSymbol("shen.assoc-rm")
+var symshen_4_5yacc_6 = MakeSymbol("shen.<yacc>")
+var symarity = MakeSymbol("arity")
+var symshen_4compute_1integer_1h = MakeSymbol("shen.compute-integer-h")
+var symshen_4lzy_a_b = MakeSymbol("shen.lzy=!")
+var symshen_4freshen_1rule = MakeSymbol("shen.freshen-rule")
+var symshen_4alphanums_2 = MakeSymbol("shen.alphanums?")
+var symshen_4_5simple_1pattern_6 = MakeSymbol("shen.<simple-pattern>")
+var symshen_4sng_2 = MakeSymbol("shen.sng?")
+var symshen_4process_1datatype = MakeSymbol("shen.process-datatype")
+var symshen_4rules_1_6prolog = MakeSymbol("shen.rules->prolog")
+var symfindall = MakeSymbol("findall")
+var symshen_4spaces = MakeSymbol("shen.spaces")
+var symshen_4passive_1variables = MakeSymbol("shen.passive-variables")
+var symclose = MakeSymbol("close")
+var symexternal = MakeSymbol("external")
+var symabsolute = MakeSymbol("absolute")
+var symshen_4process_1time = MakeSymbol("shen.process-time")
+var symshen_4specialise_1member = MakeSymbol("shen.specialise-member")
+var symstream = MakeSymbol("stream")
+var symshen_4freshterms = MakeSymbol("shen.freshterms")
+var symshen_4_5syntax_1item_6 = MakeSymbol("shen.<syntax-item>")
+var symshen_4variants_2 = MakeSymbol("shen.variants?")
+var symget_1time = MakeSymbol("get-time")
+var sym_b = MakeSymbol("!")
+var sym_5_1address = MakeSymbol("<-address")
+var symshen_4process_1let = MakeSymbol("shen.process-let")
+var symshen_4work_1through = MakeSymbol("shen.work-through")
+var symshen_4use_1type_1info = MakeSymbol("shen.use-type-info")
+var symshen_4_5patterns_6 = MakeSymbol("shen.<patterns>")
+var symshen_4extract_1free_1vars = MakeSymbol("shen.extract-free-vars")
+var symshen_4prterm = MakeSymbol("shen.prterm")
+var symshen_4unix = MakeSymbol("shen.unix")
+var symshen_4funexstring = MakeSymbol("shen.funexstring")
+var symshen_4external_1symbols = MakeSymbol("shen.external-symbols")
+var symshen_4_5bterm_6 = MakeSymbol("shen.<bterm>")
+var symshen_4bind_b = MakeSymbol("shen.bind!")
+var symlanguage = MakeSymbol("language")
+var symdestroy = MakeSymbol("destroy")
+var symshen_4overapplication_2 = MakeSymbol("shen.overapplication?")
+var syminclude_1all_1but = MakeSymbol("include-all-but")
+var symshen_4fn_1call_2 = MakeSymbol("shen.fn-call?")
+var symshen_4_8c = MakeSymbol("shen.@c")
+var symstr = MakeSymbol("str")
 var sym_dversion_d = MakeSymbol("*version*")
+var symshen_4_5constructor_6 = MakeSymbol("shen.<constructor>")
+var symshen_4compute_1fraction = MakeSymbol("shen.compute-fraction")
+var symshen_4t_d = MakeSymbol("shen.t*")
+var symshen_4monomorphic_2 = MakeSymbol("shen.monomorphic?")
+var symshen_4map_1h = MakeSymbol("shen.map-h")
+var symshen_4choicepoint_b = MakeSymbol("shen.choicepoint!")
+var symResult = MakeSymbol("Result")
+var symshen_4eval_1and_1print = MakeSymbol("shen.eval-and-print")
+var symshen_4stpart = MakeSymbol("shen.stpart")
+var symHypotheses = MakeSymbol("Hypotheses")
+var symshen_4consume_1clause = MakeSymbol("shen.consume-clause")
+var symshen_4fillvector = MakeSymbol("shen.fillvector")
+var symshen_4free_1variable_2 = MakeSymbol("shen.free-variable?")
+var symlineread = MakeSymbol("lineread")
+var symshen_4call_1prolog = MakeSymbol("shen.call-prolog")
+var symshen_4t_d_1integrity = MakeSymbol("shen.t*-integrity")
+var symshen_4printF = MakeSymbol("shen.printF")
+var symshen_4_5singleline_6 = MakeSymbol("shen.<singleline>")
+var symshen_4compile_1prolog = MakeSymbol("shen.compile-prolog")
+var symshen_4prolog_1vector = MakeSymbol("shen.prolog-vector")
+var symshen_4remember_1datatype = MakeSymbol("shen.remember-datatype")
+var symshen_4prolog_1track = MakeSymbol("shen.prolog-track")
+var symshen_4freshen_1type = MakeSymbol("shen.freshen-type")
+var symshen_4freshterm_2 = MakeSymbol("shen.freshterm?")
+var symKey = MakeSymbol("Key")
+var symlimit = MakeSymbol("limit")
+var symshen_4alpha_2 = MakeSymbol("shen.alpha?")
+var symshen_4_dloading_2_d = MakeSymbol("shen.*loading?*")
+var symshen_4t_d_1rules = MakeSymbol("shen.t*-rules")
+var symporters = MakeSymbol("porters")
+var symshen_4find_1arities = MakeSymbol("shen.find-arities")
+var symshen_4processed = MakeSymbol("shen.processed")
+var symtail = MakeSymbol("tail")
+var symshen_4assoc_1_6 = MakeSymbol("shen.assoc->")
+var symshen_4_5number_6 = MakeSymbol("shen.<number>")
+var symshen_4_5lowE_6 = MakeSymbol("shen.<lowE>")
+var symshen_4string_1prefix_2 = MakeSymbol("shen.string-prefix?")
+var sym_c_4 = MakeSymbol("/.")
+var symshen_4write_1kl = MakeSymbol("shen.write-kl")
+var syminline = MakeSymbol("inline")
+var sym_a = MakeSymbol("=")
+var symshen_4constructor_1error = MakeSymbol("shen.constructor-error")
+var symif = MakeSymbol("if")
+var symabsvector_2 = MakeSymbol("absvector?")
+var symshen_4continue = MakeSymbol("shen.continue")
+var symshen_4_5formulae_6 = MakeSymbol("shen.<formulae>")
+var symshen_4_5rules_d_6 = MakeSymbol("shen.<rules*>")
+var symshen_4_5atom_6 = MakeSymbol("shen.<atom>")
+var symshen_4fn_1call = MakeSymbol("shen.fn-call")
+var symshen_4macroexpand_1h = MakeSymbol("shen.macroexpand-h")
+var symshen_4_5control_6 = MakeSymbol("shen.<control>")
+var symspy = MakeSymbol("spy")
+var sym_dproperty_1vector_d = MakeSymbol("*property-vector*")
+var symspecialise = MakeSymbol("specialise")
+var symshen_4remove_1indirection = MakeSymbol("shen.remove-indirection")
+var symshen_4try_1parse = MakeSymbol("shen.try-parse")
+var symNewAssumptions = MakeSymbol("NewAssumptions")
+var symshen_4dict_1count = MakeSymbol("shen.dict-count")
+var symin_1package = MakeSymbol("in-package")
+var symcn = MakeSymbol("cn")
+var symshen_4_5comment_6 = MakeSymbol("shen.<comment>")
+var symshen_4dict_1keys = MakeSymbol("shen.dict-keys")
+var sym_6 = MakeSymbol(">")
+var symfile = MakeSymbol("file")
+var symunit = MakeSymbol("unit")
+var symshen_4custom_1pattern_1body = MakeSymbol("shen.custom-pattern-body")
+var symoccurrences = MakeSymbol("occurrences")
+var symshen_4_5iscomma_6 = MakeSymbol("shen.<iscomma>")
+var symshen_4skip = MakeSymbol("shen.skip")
+var symcall = MakeSymbol("call")
+var symnumber_2 = MakeSymbol("number?")
+var symshen_4_5rule_6 = MakeSymbol("shen.<rule>")
+var symshen_4received = MakeSymbol("shen.received")
+var symempty_2 = MakeSymbol("empty?")
+var symshen_4reverse_1help = MakeSymbol("shen.reverse-help")
+var symshen_4sysfunc_2 = MakeSymbol("shen.sysfunc?")
+var symshen_4return_2 = MakeSymbol("shen.return?")
+var symshen_4check_1eval_1and_1print = MakeSymbol("shen.check-eval-and-print")
+var symshen_4openlock = MakeSymbol("shen.openlock")
+var symunspecialise = MakeSymbol("unspecialise")
+var symshen_4_5defprolog_6 = MakeSymbol("shen.<defprolog>")
+var symshen_4_5syntax_6 = MakeSymbol("shen.<syntax>")
+var symoccurs_2 = MakeSymbol("occurs?")
+var symshen_4in_1_6 = MakeSymbol("shen.in->")
+var symshen_4read_1loop = MakeSymbol("shen.read-loop")
+var symAssumption = MakeSymbol("Assumption")
+var symshen_4execute_1store_1arity = MakeSymbol("shen.execute-store-arity")
+var symshen_4cons_1form = MakeSymbol("shen.cons-form")
+var symshen_4_dcall_d = MakeSymbol("shen.*call*")
+var symshen_4_5datatype_1rules_6 = MakeSymbol("shen.<datatype-rules>")
+var symshen_4vector_1dereference = MakeSymbol("shen.vector-dereference")
+var symbound_2 = MakeSymbol("bound?")
 var symshen_4_dshen_1type_1theory_1enabled_2_d = MakeSymbol("shen.*shen-type-theory-enabled?*")
+var symshen_4empty_1absvector_2 = MakeSymbol("shen.empty-absvector?")
+var symshen_4_5datatype_6 = MakeSymbol("shen.<datatype>")
+var symshen_4dict_1update_1count = MakeSymbol("shen.dict-update-count")
+var symps = MakeSymbol("ps")
+var symnot = MakeSymbol("not")
+var symshen_4compute_1fraction_1h = MakeSymbol("shen.compute-fraction-h")
+var symshen_4rule_1_6clause = MakeSymbol("shen.rule->clause")
+var sympreclude = MakeSymbol("preclude")
+var symshen_4free_1variable_1error_1message = MakeSymbol("shen.free-variable-error-message")
+var symshen_4_5times_6 = MakeSymbol("shen.<times>")
+var symshen_4_5plus_6 = MakeSymbol("shen.<plus>")
+var symfunction = MakeSymbol("function")
+var symshen_4f = MakeSymbol("shen.f")
+var symhdv = MakeSymbol("hdv")
+var symshen_4_dinfs_d = MakeSymbol("shen.*infs*")
+var symshen_4mkstr_1r = MakeSymbol("shen.mkstr-r")
+var symshen_4bytes_1_6string = MakeSymbol("shen.bytes->string")
+var symshen_4_5lsb_6 = MakeSymbol("shen.<lsb>")
+var symshen_4unpackage = MakeSymbol("shen.unpackage")
+var symshen_4curry = MakeSymbol("shen.curry")
+var symshen_4dict_1bucket_1_6 = MakeSymbol("shen.dict-bucket->")
+var sym_dstoutput_d = MakeSymbol("*stoutput*")
+var symshen_4op_1test = MakeSymbol("shen.op-test")
+var symshen_4newname = MakeSymbol("shen.newname")
+var symcons = MakeSymbol("cons")
+var symshen_4pui_1h = MakeSymbol("shen.pui-h")
+var symshen_4length_1h = MakeSymbol("shen.length-h")
+var sym__ = MakeSymbol("_")
+var symshen_4cons_1case_1minus = MakeSymbol("shen.cons-case-minus")
+var symSelect = MakeSymbol("Select")
+var symshen_4system_1S = MakeSymbol("shen.system-S")
+var symfail_1if = MakeSymbol("fail-if")
+var sym_dhush_d = MakeSymbol("*hush*")
+var symshen_4myassume = MakeSymbol("shen.myassume")
+var symmap = MakeSymbol("map")
+var sym_a_a = MakeSymbol("==")
+var symshen_4print_1vector_2 = MakeSymbol("shen.print-vector?")
+var symshen_4custom_1pattern_2 = MakeSymbol("shen.custom-pattern?")
+var symshen_4show_1datatypes = MakeSymbol("shen.show-datatypes")
+var symthaw = MakeSymbol("thaw")
+var symfreeze = MakeSymbol("freeze")
+var symretract = MakeSymbol("retract")
+var symshen_4_dmaxinferences_d = MakeSymbol("shen.*maxinferences*")
+var symshen_4eos = MakeSymbol("shen.eos")
+var symtype = MakeSymbol("type")
+var symshen_4extract_1vars = MakeSymbol("shen.extract-vars")
+var symshen_4compile_1head = MakeSymbol("shen.compile-head")
+var symshen_4_5type_6 = MakeSymbol("shen.<type>")
+var symshen_4process_1synonyms = MakeSymbol("shen.process-synonyms")
+var symtc = MakeSymbol("tc")
+var symFreeze = MakeSymbol("Freeze")
 var symread_1from_1string = MakeSymbol("read-from-string")
 var symshen_4_5clauses_6 = MakeSymbol("shen.<clauses>")
-var symshen_4magless = MakeSymbol("shen.magless")
-var symstr = MakeSymbol("str")
-var symshen_4partial = MakeSymbol("shen.partial")
-var symopen = MakeSymbol("open")
-var symshen_4hashkey = MakeSymbol("shen.hashkey")
-var symasserta = MakeSymbol("asserta")
-var symshen_4pvar_2 = MakeSymbol("shen.pvar?")
-var symshen_4prolog_1abstraction = MakeSymbol("shen.prolog-abstraction")
-var sym_j = MakeSymbol("}")
-var symversion = MakeSymbol("version")
-var symshen_4store_1arity = MakeSymbol("shen.store-arity")
-var symshen_4horn_1clause_1procedure = MakeSymbol("shen.horn-clause-procedure")
-var symshen_4locked_2 = MakeSymbol("shen.locked?")
-var symshen_4tlv_1help = MakeSymbol("shen.tlv-help")
-var symprint = MakeSymbol("print")
-var symshen_4dictionary = MakeSymbol("shen.dictionary")
-var symshen_4process_1assoc = MakeSymbol("shen.process-assoc")
-var symshen_4dict_1update_1count = MakeSymbol("shen.dict-update-count")
-var symhash = MakeSymbol("hash")
-var symshen_4lambda_1form = MakeSymbol("shen.lambda-form")
-var symshen_4g = MakeSymbol("shen.g")
-var symprotect = MakeSymbol("protect")
-var symfn = MakeSymbol("fn")
-var symshen_4parse_1failure = MakeSymbol("shen.parse-failure")
-var symshen_4stpart = MakeSymbol("shen.stpart")
-var symshen_4insert_1tracking_1code = MakeSymbol("shen.insert-tracking-code")
-var symshen_4_duserdefs_d = MakeSymbol("shen.*userdefs*")
-var symshen_4rectify_1type = MakeSymbol("shen.rectify-type")
-var symshen_4monotype = MakeSymbol("shen.monotype")
-var symfunction = MakeSymbol("function")
-var symappend = MakeSymbol("append")
-var symshen_4unpack_1foreign = MakeSymbol("shen.unpack-foreign")
-var symshen_4_dsystem_d = MakeSymbol("shen.*system*")
-var sym_dsterror_d = MakeSymbol("*sterror*")
-var symshen_4return_2 = MakeSymbol("shen.return?")
-var symshen_4mod = MakeSymbol("shen.mod")
-var syminteger_2 = MakeSymbol("integer?")
-var symshen_4show_1datatypes = MakeSymbol("shen.show-datatypes")
-var symshen_4line = MakeSymbol("shen.line")
-var symunspecialise = MakeSymbol("unspecialise")
-var symshen_4process_1cases = MakeSymbol("shen.process-cases")
-var symshen_4_1m = MakeSymbol("shen.-m")
-var symreturn = MakeSymbol("return")
-var symshen_4dict_1count_1_6 = MakeSymbol("shen.dict-count->")
-var symunion = MakeSymbol("union")
-var symget_1time = MakeSymbol("get-time")
-var symshen_4choicepoint_2 = MakeSymbol("shen.choicepoint?")
-var symshen_4beta = MakeSymbol("shen.beta")
-var symfix = MakeSymbol("fix")
-var symshen_4multiples = MakeSymbol("shen.multiples")
-var symcompile = MakeSymbol("compile")
-var symNewV = MakeSymbol("NewV")
-var symshen_4maxseq = MakeSymbol("shen.maxseq")
-var symdifference = MakeSymbol("difference")
-var symshen_4bytes_1_6string = MakeSymbol("shen.bytes->string")
-var sym_c_4 = MakeSymbol("/.")
-var symtime = MakeSymbol("time")
-var symC = MakeSymbol("C")
-var symshen_4uppercase_2 = MakeSymbol("shen.uppercase?")
-var symshen_4comb = MakeSymbol("shen.comb")
-var symshen_4non_1application_2 = MakeSymbol("shen.non-application?")
-var symis_b = MakeSymbol("is!")
-var symshen_4freshterms = MakeSymbol("shen.freshterms")
-var symshen_4_5rcurly_6 = MakeSymbol("shen.<rcurly>")
-var symshen_4compile_1head = MakeSymbol("shen.compile-head")
-var symcd = MakeSymbol("cd")
-var symshen_4pvar = MakeSymbol("shen.pvar")
-var symshen_4internal_1to_1P_2 = MakeSymbol("shen.internal-to-P?")
-var symforeign = MakeSymbol("foreign")
-var symstring_1_6n = MakeSymbol("string->n")
-var symshen_4remove_1h = MakeSymbol("shen.remove-h")
-var symKey = MakeSymbol("Key")
-var symshen_4read_1unit_1string = MakeSymbol("shen.read-unit-string")
-var symshen_4_5number_6 = MakeSymbol("shen.<number>")
-var symshen_4_dalldatatypes_d = MakeSymbol("shen.*alldatatypes*")
-var symshen_4nvars = MakeSymbol("shen.nvars")
-var sym_dimplementation_d = MakeSymbol("*implementation*")
-var symshen_4_5bar_6 = MakeSymbol("shen.<bar>")
-var symshen_4special_2 = MakeSymbol("shen.special?")
-var sym_1 = MakeSymbol("-")
-var symshen_4shendef_1_6kldef = MakeSymbol("shen.shendef->kldef")
-var symlet = MakeSymbol("let")
-var symlambda = MakeSymbol("lambda")
-var symshen_4write_1string = MakeSymbol("shen.write-string")
-var symshen_4factor_1selectors = MakeSymbol("shen.factor-selectors")
-var symdefprolog = MakeSymbol("defprolog")
-var symshen_4_5syntax_6 = MakeSymbol("shen.<syntax>")
-var symboolean = MakeSymbol("boolean")
-var symsum = MakeSymbol("sum")
-var symshen_4_5comment_6 = MakeSymbol("shen.<comment>")
-var symshen_4not_1pvar = MakeSymbol("shen.not-pvar")
-var symshen_4primitive = MakeSymbol("shen.primitive")
-var symshen_4_5log10_6 = MakeSymbol("shen.<log10>")
-var symshen_4linearise_1clause = MakeSymbol("shen.linearise-clause")
-var symshen_4lookupsig = MakeSymbol("shen.lookupsig")
-var sym_7 = MakeSymbol("+")
-var symshen_4demod = MakeSymbol("shen.demod")
-var symshen_4function_1calls = MakeSymbol("shen.function-calls")
-var symfail_1if = MakeSymbol("fail-if")
-var symshen_4t = MakeSymbol("shen.t")
-var symshen_4_dextraspecial_d = MakeSymbol("shen.*extraspecial*")
-var symY = MakeSymbol("Y")
-var symshen_4rectify_1test = MakeSymbol("shen.rectify-test")
-var symmacroexpand = MakeSymbol("macroexpand")
-var symlength = MakeSymbol("length")
-var symdeclare = MakeSymbol("declare")
-var symshen_4create_1skeleton = MakeSymbol("shen.create-skeleton")
-var symshen_4type_1theory_1enabled_2 = MakeSymbol("shen.type-theory-enabled?")
-var symshen_4_5yacc_6 = MakeSymbol("shen.<yacc>")
-var symshen_4tuple = MakeSymbol("shen.tuple")
-var symshen_4get_1profile = MakeSymbol("shen.get-profile")
-var symcases = MakeSymbol("cases")
-var symshen_4_5formulae_6 = MakeSymbol("shen.<formulae>")
-var symn_1_6string = MakeSymbol("n->string")
-var symshen_4atom_1_6str = MakeSymbol("shen.atom->str")
-var symshen_4expt = MakeSymbol("shen.expt")
-var symshen_4initialise_1environment = MakeSymbol("shen.initialise-environment")
-var sym_5_1vector = MakeSymbol("<-vector")
-var symmaxinferences = MakeSymbol("maxinferences")
-var symshen_4_5str_6 = MakeSymbol("shen.<str>")
-var symshen_4pui_1h = MakeSymbol("shen.pui-h")
-var symshen_4incinfs = MakeSymbol("shen.incinfs")
-var symshen_4special_1case = MakeSymbol("shen.special-case")
-var symbootstrap = MakeSymbol("bootstrap")
-var symshen_4cut = MakeSymbol("shen.cut")
-var symshen_4copyfromvector = MakeSymbol("shen.copyfromvector")
-var symshen_4_5lrb_6 = MakeSymbol("shen.<lrb>")
-var symnumber_2 = MakeSymbol("number?")
-var symX = MakeSymbol("X")
-var symshen_4_5datatype_6 = MakeSymbol("shen.<datatype>")
-var sym_8p = MakeSymbol("@p")
-var symsystem_1S_2 = MakeSymbol("system-S?")
-var symshen_4free_1var_1chk = MakeSymbol("shen.free-var-chk")
-var symshen_4choicepoint = MakeSymbol("shen.choicepoint")
-var symshen_4_5integer_6 = MakeSymbol("shen.<integer>")
-var symshen_4yacc_1syntax = MakeSymbol("shen.yacc-syntax")
-var symshen_4for_1each = MakeSymbol("shen.for-each")
-var symshen_4_5define_6 = MakeSymbol("shen.<define>")
-var symGoTo = MakeSymbol("GoTo")
-var symshen_4toplevel_1display_1exception = MakeSymbol("shen.toplevel-display-exception")
-var symfindall = MakeSymbol("findall")
-var symshen_4construct_1context = MakeSymbol("shen.construct-context")
-var symshen_4show_1assumptions = MakeSymbol("shen.show-assumptions")
-var symmap = MakeSymbol("map")
-var symshen_4shen_1_6kl_1h = MakeSymbol("shen.shen->kl-h")
-var symshen_4_dsynonyms_d = MakeSymbol("shen.*synonyms*")
-var symshen_4lch = MakeSymbol("shen.lch")
-var symshen_4profile_1func = MakeSymbol("shen.profile-func")
-var symshen_4s = MakeSymbol("shen.s")
-var symshen_4char_1stinput_2 = MakeSymbol("shen.char-stinput?")
-var symshen_4_5control_6 = MakeSymbol("shen.<control>")
-var symspecialise = MakeSymbol("specialise")
-var symshen_4_dresidue_d = MakeSymbol("shen.*residue*")
-var symshen_4yacc_1_6shen = MakeSymbol("shen.yacc->shen")
-var symvalue = MakeSymbol("value")
-var symshen_4process_1yacc_1semantics = MakeSymbol("shen.process-yacc-semantics")
-var symexplode = MakeSymbol("explode")
-var sym_dporters_d = MakeSymbol("*porters*")
-var symshen_4unpackage_emacroexpand = MakeSymbol("shen.unpackage&macroexpand")
-var symshen_4check_1eval_1and_1print = MakeSymbol("shen.check-eval-and-print")
-var symunit = MakeSymbol("unit")
-var symuserdefs = MakeSymbol("userdefs")
-var symshen_4assoc_1_6 = MakeSymbol("shen.assoc->")
-var symshen_4process_1synonyms = MakeSymbol("shen.process-synonyms")
-var symshen_4specialise_1member = MakeSymbol("shen.specialise-member")
-var symexception = MakeSymbol("exception")
-var symshen_4internal_1symbols = MakeSymbol("shen.internal-symbols")
-var symshen_4funexstring = MakeSymbol("shen.funexstring")
-var symshen_4_5conc_6 = MakeSymbol("shen.<conc>")
-var sym_e_e = MakeSymbol("&&")
-var symsymbol_2 = MakeSymbol("symbol?")
-var symsubst = MakeSymbol("subst")
-var symsterror = MakeSymbol("sterror")
-var symshen_4lowercase_2 = MakeSymbol("shen.lowercase?")
-var symshen_4step_2 = MakeSymbol("shen.step?")
-var symshen_4variants_2 = MakeSymbol("shen.variants?")
-var symshen_4_5pattern1_6 = MakeSymbol("shen.<pattern1>")
-var symshen_4tame = MakeSymbol("shen.tame")
-var symshen_4freshen_1sig = MakeSymbol("shen.freshen-sig")
-var sym_dstinput_d = MakeSymbol("*stinput*")
-var symshen_4_5e_1number_6 = MakeSymbol("shen.<e-number>")
-var symshen_4_dsigf_d = MakeSymbol("shen.*sigf*")
-var symwhen = MakeSymbol("when")
-var symhead = MakeSymbol("head")
-var symshen_4typetable = MakeSymbol("shen.typetable")
-var symshen_4_5datatype_1rules_6 = MakeSymbol("shen.<datatype-rules>")
-var symput = MakeSymbol("put")
-var symshen_4_5s_1exprs1_6 = MakeSymbol("shen.<s-exprs1>")
-var symshen_4conscode = MakeSymbol("shen.conscode")
-var symoccurs_2 = MakeSymbol("occurs?")
-var symshen_4compile_1prolog = MakeSymbol("shen.compile-prolog")
-var symshen_4_5literal_6 = MakeSymbol("shen.<literal>")
-var symshen_4freshen_1rule = MakeSymbol("shen.freshen-rule")
-var symshen_4dict_1_6 = MakeSymbol("shen.dict->")
-var symshen_4factorise_1code = MakeSymbol("shen.factorise-code")
-var symshen_4process_1time = MakeSymbol("shen.process-time")
-var symshen_4_5c_1rules_6 = MakeSymbol("shen.<c-rules>")
-var symshen_4insert_1h = MakeSymbol("shen.insert-h")
-var symshen_4sysfunc_2 = MakeSymbol("shen.sysfunc?")
-var symshen_4typename_1h = MakeSymbol("shen.typename-h")
-var symvector = MakeSymbol("vector")
-var symshen_4proc_1nl = MakeSymbol("shen.proc-nl")
-var sym_dport_d = MakeSymbol("*port*")
-var symL = MakeSymbol("L")
-var symshen_4recursively_1print = MakeSymbol("shen.recursively-print")
-var symshen_4freshen = MakeSymbol("shen.freshen")
-var symshen_4dict_1fold = MakeSymbol("shen.dict-fold")
-var symshen_4reverse_1help = MakeSymbol("shen.reverse-help")
-var symshen_4char_1stoutput_2 = MakeSymbol("shen.char-stoutput?")
-var symshen_4_5whitespace_6 = MakeSymbol("shen.<whitespace>")
-var symshen_4prolog_1arity_1check = MakeSymbol("shen.prolog-arity-check")
-var symshen_4find_1free_1vars = MakeSymbol("shen.find-free-vars")
-var symshen_4free_1variable_1error_1message = MakeSymbol("shen.free-variable-error-message")
-var symshen_4_5clause_6 = MakeSymbol("shen.<clause>")
-var symAction = MakeSymbol("Action")
-var symshen_4_5colon_6 = MakeSymbol("shen.<colon>")
-var symshen_4unprotect = MakeSymbol("shen.unprotect")
-var symshen_4_dhistory_d = MakeSymbol("shen.*history*")
-var symtuple_2 = MakeSymbol("tuple?")
-var sym_a_a = MakeSymbol("==")
-var symshen_4printF = MakeSymbol("shen.printF")
-var symshen_4factor_1selectors_1h = MakeSymbol("shen.factor-selectors-h")
-var syminclude_1all_1but = MakeSymbol("include-all-but")
-var symshen_4insert_1prolog_1variables = MakeSymbol("shen.insert-prolog-variables")
-var sym_dmaximum_1print_1sequence_1size_d = MakeSymbol("*maximum-print-sequence-size*")
-var symshen_4remove_1datatypes = MakeSymbol("shen.remove-datatypes")
-var sym_dhome_1directory_d = MakeSymbol("*home-directory*")
-var symshen_4_dspecial_d = MakeSymbol("shen.*special*")
-var symshen_4my_1read_1byte = MakeSymbol("shen.my-read-byte")
-var symshen_4curry = MakeSymbol("shen.curry")
-var symshen_4member_1clause = MakeSymbol("shen.member-clause")
-var symshen_4maxinfexceeded_2 = MakeSymbol("shen.maxinfexceeded?")
-var symshen_4_dfactorise_2_d = MakeSymbol("shen.*factorise?*")
-var symabort = MakeSymbol("abort")
-var symshen_4iter_1vector = MakeSymbol("shen.iter-vector")
-var symshen_4consume = MakeSymbol("shen.consume")
-var sympr = MakeSymbol("pr")
-var symimplementation = MakeSymbol("implementation")
-var symshen_4insert = MakeSymbol("shen.insert")
-var symshen_4_5strcontents_6 = MakeSymbol("shen.<strcontents>")
-var syminline = MakeSymbol("inline")
-var symshen_4i_1failed_b = MakeSymbol("shen.i-failed!")
-var symshen_4_5plus_6 = MakeSymbol("shen.<plus>")
-var symshen_4sng_2 = MakeSymbol("shen.sng?")
-var symshen_4extract_1free_1vars = MakeSymbol("shen.extract-free-vars")
-var symshen_4ctxt = MakeSymbol("shen.ctxt")
-var symfst = MakeSymbol("fst")
-var symshen_4string_1_6bytes = MakeSymbol("shen.string->bytes")
-var symshen_4_dempty_1absvector_d = MakeSymbol("shen.*empty-absvector*")
-var symshen_4recursive_1string_1match = MakeSymbol("shen.recursive-string-match")
-var sym_dmacros_d = MakeSymbol("*macros*")
-var symshen_4l_1rules = MakeSymbol("shen.l-rules")
-var symshen_4update_1lambdatable = MakeSymbol("shen.update-lambdatable")
-var sympreclude_1all_1but = MakeSymbol("preclude-all-but")
-var symshen_4_5semantics_6 = MakeSymbol("shen.<semantics>")
-var symclose = MakeSymbol("close")
-var symupdate_1lambda_1table = MakeSymbol("update-lambda-table")
-var symshen_4_5singleline_6 = MakeSymbol("shen.<singleline>")
-var symshen_4dict_1values = MakeSymbol("shen.dict-values")
-var symtrap_1error = MakeSymbol("trap-error")
-var symshen_4_8v_1help = MakeSymbol("shen.@v-help")
-var symResult = MakeSymbol("Result")
-var symit = MakeSymbol("it")
-var symshen_4_ddatatypes_d = MakeSymbol("shen.*datatypes*")
-var symshen_4included = MakeSymbol("shen.included")
-var symshen_4_8c = MakeSymbol("shen.@c")
-var symu_b = MakeSymbol("u!")
-var symshen_4member = MakeSymbol("shen.member")
-var symshen_4monomorphic_2 = MakeSymbol("shen.monomorphic?")
-var symSelect = MakeSymbol("Select")
-var symshen_4lchh = MakeSymbol("shen.lchh")
-var symshen_4_dit_d = MakeSymbol("shen.*it*")
-var symread_1from_1string_1unprocessed = MakeSymbol("read-from-string-unprocessed")
-var symMessage = MakeSymbol("Message")
-var symshen_4openlock = MakeSymbol("shen.openlock")
-var symsymbol = MakeSymbol("symbol")
-var symshen_4_7string_2 = MakeSymbol("shen.+string?")
-var symtc = MakeSymbol("tc")
-var symshen_4mkstr_1l = MakeSymbol("shen.mkstr-l")
-var symshen_4compute_1fraction_1h = MakeSymbol("shen.compute-fraction-h")
-var symshen_4demode = MakeSymbol("shen.demode")
-var symvector_2 = MakeSymbol("vector?")
-var symconcat = MakeSymbol("concat")
-var symshen_4_5hterm2_6 = MakeSymbol("shen.<hterm2>")
-var symshen_4wildcard_2 = MakeSymbol("shen.wildcard?")
-var symshen_4unwind = MakeSymbol("shen.unwind")
-var symshen_4prolog_1vector_1size = MakeSymbol("shen.prolog-vector-size")
-var symshen_4write_1kl_1h = MakeSymbol("shen.write-kl-h")
-var symshen_4passive_1bind = MakeSymbol("shen.passive-bind")
-var symreverse = MakeSymbol("reverse")
-var symshen_4_dloading_2_d = MakeSymbol("shen.*loading?*")
-var symshen_4key_1in_1sequent_1calculus_2 = MakeSymbol("shen.key-in-sequent-calculus?")
-var symshen_4whitespace_2 = MakeSymbol("shen.whitespace?")
-var symshen_4compute_1fraction = MakeSymbol("shen.compute-fraction")
-var symrelease = MakeSymbol("release")
-var sym_4_4_4 = MakeSymbol("...")
-var symabsolute = MakeSymbol("absolute")
-var symshen_4parameters = MakeSymbol("shen.parameters")
-var symhd = MakeSymbol("hd")
-var symshen_4reader_1error_1message = MakeSymbol("shen.reader-error-message")
-var symshen_4intern_1in_1package = MakeSymbol("shen.intern-in-package")
-var symshen_4cons_1form_1respect_1modes = MakeSymbol("shen.cons-form-respect-modes")
-var sym_d = MakeSymbol("*")
-var symshen_4_5bterm_6 = MakeSymbol("shen.<bterm>")
-var symshen_4call_1dynamic = MakeSymbol("shen.call-dynamic")
-var symshen_4_5formula_6 = MakeSymbol("shen.<formula>")
-var sym_5e_6 = MakeSymbol("<e>")
-var symcond = MakeSymbol("cond")
-var symprofile_1results = MakeSymbol("profile-results")
-var symsnd = MakeSymbol("snd")
-var symshen_4out_1of_1bounds = MakeSymbol("shen.out-of-bounds")
-var symshen_4str_1_6bytes = MakeSymbol("shen.str->bytes")
-var symfork = MakeSymbol("fork")
-var symshen_4passive_1variables = MakeSymbol("shen.passive-variables")
-var symshen_4alphanums_2 = MakeSymbol("shen.alphanums?")
-var symnot = MakeSymbol("not")
-var symshen_4fn_1call_2 = MakeSymbol("shen.fn-call?")
-var symshen_4load_1help = MakeSymbol("shen.load-help")
-var symshen_4_5bterms_6 = MakeSymbol("shen.<bterms>")
-var symshen_4_5wildcard_6 = MakeSymbol("shen.<wildcard>")
-var symvar_2 = MakeSymbol("var?")
-var symshen_4colon_1equal_2 = MakeSymbol("shen.colon-equal?")
-var symshen_4ccons_2 = MakeSymbol("shen.ccons?")
-var symshen_4lock = MakeSymbol("shen.lock")
-var symshen_4processed = MakeSymbol("shen.processed")
-var symshen_4extract_1vars = MakeSymbol("shen.extract-vars")
-var symshen_4_5times_6 = MakeSymbol("shen.<times>")
-var symshen_4track_1function = MakeSymbol("shen.track-function")
-var symshen_4ok = MakeSymbol("shen.ok")
-var symshen_4dict_2 = MakeSymbol("shen.dict?")
-var symabsvector = MakeSymbol("absvector")
-var symshen_4record_1it = MakeSymbol("shen.record-it")
-var symshen_4_1null_1 = MakeSymbol("shen.-null-")
-var symshen_4_5packagename_6 = MakeSymbol("shen.<packagename>")
-var symshen_4by_1hypothesis = MakeSymbol("shen.by-hypothesis")
-var symshen_4rfas_1h = MakeSymbol("shen.rfas-h")
-var symshen_4_5shortnatter_6 = MakeSymbol("shen.<shortnatter>")
-var symshen_4rule_1_6head = MakeSymbol("shen.rule->head")
-var symshen_4abs = MakeSymbol("shen.abs")
-var symtl = MakeSymbol("tl")
-var symshen_4read_1loop = MakeSymbol("shen.read-loop")
-var symlineread = MakeSymbol("lineread")
-var symshen_4_5comma_6 = MakeSymbol("shen.<comma>")
-var symshen_4_5sym_6 = MakeSymbol("shen.<sym>")
-var symsystemf = MakeSymbol("systemf")
-var symshen_4terminalcode = MakeSymbol("shen.terminalcode")
-var symcn = MakeSymbol("cn")
-var symfreeze = MakeSymbol("freeze")
-var symshen_4variable_1case = MakeSymbol("shen.variable-case")
-var symbind = MakeSymbol("bind")
-var symshen_4dict_1rm = MakeSymbol("shen.dict-rm")
-var symboolean_2 = MakeSymbol("boolean?")
-var symshen_4arity_1chk = MakeSymbol("shen.arity-chk")
-var symshen_4_5sc_6 = MakeSymbol("shen.<sc>")
-var symshen_4retract_1clause = MakeSymbol("shen.retract-clause")
-var symshen_4app = MakeSymbol("shen.app")
-var symvariable_2 = MakeSymbol("variable?")
-var symfresh = MakeSymbol("fresh")
-var symshen_4write_1chars = MakeSymbol("shen.write-chars")
-var symshen_4print_1vector_2 = MakeSymbol("shen.print-vector?")
-var symshen_4_5patterns_6 = MakeSymbol("shen.<patterns>")
-var symdatatypes = MakeSymbol("datatypes")
-var symshen_4eval_1and_1print = MakeSymbol("shen.eval-and-print")
-var symtracked = MakeSymbol("tracked")
-var symshen_4assoc_1set = MakeSymbol("shen.assoc-set")
-var symshen_4factor = MakeSymbol("shen.factor")
-var symshen_4_5digit_6 = MakeSymbol("shen.<digit>")
-var symshen_4process_1read_1byte = MakeSymbol("shen.process-read-byte")
-var symshen_4pretty_1type = MakeSymbol("shen.pretty-type")
-var symshen_4goto = MakeSymbol("shen.goto")
-var symuntrack = MakeSymbol("untrack")
-var symshen_4shendef_1_6kldef_1h = MakeSymbol("shen.shendef->kldef-h")
-var symshen = MakeSymbol("shen")
-var symshen_4toplevel_1forms = MakeSymbol("shen.toplevel-forms")
-var symthaw = MakeSymbol("thaw")
-var symshen_4integer_1test_2 = MakeSymbol("shen.integer-test?")
-var symshen_4print_1prolog_1vector = MakeSymbol("shen.print-prolog-vector")
-var symshen_4mu_1h = MakeSymbol("shen.mu-h")
-var symshen_4unlock = MakeSymbol("shen.unlock")
-var symshen_4t_d = MakeSymbol("shen.t*")
-var symshen_4partial_1parse_1failure_2 = MakeSymbol("shen.partial-parse-failure?")
-var symshen_4predicate = MakeSymbol("shen.predicate")
-var symshen_4nextticket = MakeSymbol("shen.nextticket")
-var symincluded = MakeSymbol("included")
-var symgensym = MakeSymbol("gensym")
-var symintersection = MakeSymbol("intersection")
-var symshen_4f = MakeSymbol("shen.f")
-var symshen_4cons_1form = MakeSymbol("shen.cons-form")
-var symshen_4simple_1curry = MakeSymbol("shen.simple-curry")
-var symshen_4bottom = MakeSymbol("shen.bottom")
-var symshen_4wildcardcode = MakeSymbol("shen.wildcardcode")
-var symshen_4process_1applications = MakeSymbol("shen.process-applications")
-var symshen_4_doccurs_d = MakeSymbol("shen.*occurs*")
-var symshen_4list_2 = MakeSymbol("shen.list?")
-var symshen_4parse_1failure_2 = MakeSymbol("shen.parse-failure?")
-var sym_a = MakeSymbol("=")
-var sym_5_1_1 = MakeSymbol("<--")
-var syminclude = MakeSymbol("include")
-var symshen_4skip = MakeSymbol("shen.skip")
-var symshen_4decrement_1ticket = MakeSymbol("shen.decrement-ticket")
-var symshen_4p_1hyps = MakeSymbol("shen.p-hyps")
-var symshen_4_5simple_1pattern_6 = MakeSymbol("shen.<simple-pattern>")
-var symshen_4coll_1formulae = MakeSymbol("shen.coll-formulae")
-var symshen_4_5alphanums_6 = MakeSymbol("shen.<alphanums>")
-var symshen_4show_1p = MakeSymbol("shen.show-p")
-var symshen_4autocomplete = MakeSymbol("shen.autocomplete")
-var symexternal = MakeSymbol("external")
-var symin_1package = MakeSymbol("in-package")
-var symshen_4_5_1out = MakeSymbol("shen.<-out")
-var symsynonyms = MakeSymbol("synonyms")
-var symshen_4work_1through = MakeSymbol("shen.work-through")
-var symshen_4side_1conditions_1_6goals = MakeSymbol("shen.side-conditions->goals")
-var symshen_4update_1history = MakeSymbol("shen.update-history")
-var symshen_4peek_1history = MakeSymbol("shen.peek-history")
-var symshen_4_5prems_6 = MakeSymbol("shen.<prems>")
-var syminput_7 = MakeSymbol("input+")
-var symshen_4prolog_1keyword_2 = MakeSymbol("shen.prolog-keyword?")
-var symshen_4freshterm_2 = MakeSymbol("shen.freshterm?")
-var symps = MakeSymbol("ps")
-var symshen_4compute_1E = MakeSymbol("shen.compute-E")
-var symNewAssumptions = MakeSymbol("NewAssumptions")
-var symshen_4t_d_1correct = MakeSymbol("shen.t*-correct")
-var symshen_4pivot_1on = MakeSymbol("shen.pivot-on")
-var symshen_4fn_1print = MakeSymbol("shen.fn-print")
-var symshen_4find_1arities = MakeSymbol("shen.find-arities")
-var symshen_4unlocked_2 = MakeSymbol("shen.unlocked?")
-var symshen_4demodulate = MakeSymbol("shen.demodulate")
-var symshen_4non_1terminal_2 = MakeSymbol("shen.non-terminal?")
-var symread_1file = MakeSymbol("read-file")
-var symshen_4application_2 = MakeSymbol("shen.application?")
-var symwrite_1byte = MakeSymbol("write-byte")
-var symtlv = MakeSymbol("tlv")
-var symshen_4variancy = MakeSymbol("shen.variancy")
-var symshen_4scan_1body = MakeSymbol("shen.scan-body")
-var symshen_4_5lowC_6 = MakeSymbol("shen.<lowC>")
-var symshen_4_5s_1exprs2_6 = MakeSymbol("shen.<s-exprs2>")
-var symshen_4hascut_2 = MakeSymbol("shen.hascut?")
-var sym_c = MakeSymbol("/")
-var symlanguage = MakeSymbol("language")
-var sym_drelease_d = MakeSymbol("*release*")
-var symshen_4deref_1forked_1literals = MakeSymbol("shen.deref-forked-literals")
-var symshen_4initialise_1signedfuncs = MakeSymbol("shen.initialise-signedfuncs")
-var symshen_4choicepoint_b = MakeSymbol("shen.choicepoint!")
-var symshen_4_5pattern_6 = MakeSymbol("shen.<pattern>")
-var symshen_4_5return_6 = MakeSymbol("shen.<return>")
-var symshen_4use_1history = MakeSymbol("shen.use-history")
-var symdefmacro = MakeSymbol("defmacro")
-var symshen_4_5iscomma_6 = MakeSymbol("shen.<iscomma>")
-var symstep = MakeSymbol("step")
-var symstring_2 = MakeSymbol("string?")
-var symshen_4map_1h = MakeSymbol("shen.map-h")
-var symbar_b = MakeSymbol("bar!")
-var symset = MakeSymbol("set")
-var symshen_4_5rule_d_6 = MakeSymbol("shen.<rule*>")
-var symV = MakeSymbol("V")
-var sym_b = MakeSymbol("!")
-var symshen_4dict_1keys = MakeSymbol("shen.dict-keys")
-var symshen_4op1 = MakeSymbol("shen.op1")
-var symTime = MakeSymbol("Time")
-var symshen_4prolog_1vector = MakeSymbol("shen.prolog-vector")
-var symshen_4ticket_1number = MakeSymbol("shen.ticket-number")
-var symshen_4lzy_a_b = MakeSymbol("shen.lzy=!")
-var symshen_4terpri_1or_1read_1char = MakeSymbol("shen.terpri-or-read-char")
-var symshen_4cond_1form = MakeSymbol("shen.cond-form")
-var symshen_4alpha_1convert = MakeSymbol("shen.alpha-convert")
-var symshen_4_dprofiled_d = MakeSymbol("shen.*profiled*")
+var symshen_4output_1track = MakeSymbol("shen.output-track")
 var symshen_4find_1types = MakeSymbol("shen.find-types")
-var symshen_4_5equal_6 = MakeSymbol("shen.<equal>")
-var symshen_4packaged_2 = MakeSymbol("shen.packaged?")
-var symshen_4insert_1info = MakeSymbol("shen.insert-info")
-var symdefine = MakeSymbol("define")
-var symif = MakeSymbol("if")
-var sym_5end_6 = MakeSymbol("<end>")
-var symshen_4_5fraction_6 = MakeSymbol("shen.<fraction>")
+var symshen_4digit_2 = MakeSymbol("shen.digit?")
+var symshen_4r = MakeSymbol("shen.r")
+var symshen_4parameters = MakeSymbol("shen.parameters")
+var symshen_4_5prem_6 = MakeSymbol("shen.<prem>")
+var symshen_4tracked_2 = MakeSymbol("shen.tracked?")
+var symshen_4initialise = MakeSymbol("shen.initialise")
+var symshen_4custom_1pattern_1compiler = MakeSymbol("shen.custom-pattern-compiler")
+var symhd = MakeSymbol("hd")
+var symshen_4process_1def = MakeSymbol("shen.process-def")
+var symshen_4_dspy_d = MakeSymbol("shen.*spy*")
+var symshen_4dict_1rm = MakeSymbol("shen.dict-rm")
+var symeval = MakeSymbol("eval")
+var symrelease = MakeSymbol("release")
+var symcompile = MakeSymbol("compile")
+var symshen_4type_1F = MakeSymbol("shen.type-F")
+var symtlv = MakeSymbol("tlv")
+var symshen_4expt = MakeSymbol("shen.expt")
+var sym_7 = MakeSymbol("+")
+var sym_dstinput_d = MakeSymbol("*stinput*")
 var symshen_4typename = MakeSymbol("shen.typename")
-var symshen_4initialise_1arity_1table = MakeSymbol("shen.initialise-arity-table")
-var symshen_4goto_1h = MakeSymbol("shen.goto-h")
+var symshen_4package_1user_1input = MakeSymbol("shen.package-user-input")
+var sym_6_6 = MakeSymbol(">>")
 var symshen_4prtl = MakeSymbol("shen.prtl")
-var symaddress_1_6 = MakeSymbol("address->")
-var symelement_2 = MakeSymbol("element?")
-var symshen_4overapplication_2 = MakeSymbol("shen.overapplication?")
-var symshen_4walk = MakeSymbol("shen.walk")
-var symshen_4intern_1type = MakeSymbol("shen.intern-type")
-var symshen_4_ddemodulation_1function_d = MakeSymbol("shen.*demodulation-function*")
-var symshen_4semicolon_2 = MakeSymbol("shen.semicolon?")
-var symshen_4klfile = MakeSymbol("shen.klfile")
-var symshen_4dynamic_1default = MakeSymbol("shen.dynamic-default")
-var symshen_4freeze_1literals = MakeSymbol("shen.freeze-literals")
+var symshen_4_5stop_6 = MakeSymbol("shen.<stop>")
+var symshen_4compile_1synonyms = MakeSymbol("shen.compile-synonyms")
+var symshen_4findall_1h = MakeSymbol("shen.findall-h")
+var symshen_4initialise_1signedfuncs = MakeSymbol("shen.initialise-signedfuncs")
+var syminput = MakeSymbol("input")
+var symStart = MakeSymbol("Start")
+var symshen_4premises_1_6goals = MakeSymbol("shen.premises->goals")
+var symshen_4_doccurs_d = MakeSymbol("shen.*occurs*")
+var symFinish = MakeSymbol("Finish")
+var symshen_4freshen = MakeSymbol("shen.freshen")
+var symshen_4internal_1symbols = MakeSymbol("shen.internal-symbols")
+var symput = MakeSymbol("put")
+var symreverse = MakeSymbol("reverse")
 var symshen_4op = MakeSymbol("shen.op")
-var symshen_4_5rrb_6 = MakeSymbol("shen.<rrb>")
-var symoptimise = MakeSymbol("optimise")
-var symshen_4_5dbq_6 = MakeSymbol("shen.<dbq>")
-var symshen_4prolog_1fbody = MakeSymbol("shen.prolog-fbody")
-var symunprofile = MakeSymbol("unprofile")
-var symread = MakeSymbol("read")
+var symshen_4_5sc_6 = MakeSymbol("shen.<sc>")
+var symsave = MakeSymbol("save")
+var symadjoin = MakeSymbol("adjoin")
+var symshen_4_5str_6 = MakeSymbol("shen.<str>")
+var symshen_4dictionary = MakeSymbol("shen.dictionary")
+var symshen_4_5iscolon_6 = MakeSymbol("shen.<iscolon>")
 var symshen_4profiled_2 = MakeSymbol("shen.profiled?")
-var symerror_1to_1string = MakeSymbol("error-to-string")
-var symstoutput = MakeSymbol("stoutput")
-var sym_1_6 = MakeSymbol("->")
-var symshen_4consume_1clause = MakeSymbol("shen.consume-clause")
-var symshen_4spy_2 = MakeSymbol("shen.spy?")
-var symarity = MakeSymbol("arity")
-var symvector_1_6 = MakeSymbol("vector->")
-var symshen_4undefined_1f_2 = MakeSymbol("shen.undefined-f?")
-var symshen_4c_1rule_1_6shen = MakeSymbol("shen.c-rule->shen")
+var symshen_4autocomplete = MakeSymbol("shen.autocomplete")
+var symshen_4_5non_1terminal_1name_6 = MakeSymbol("shen.<non-terminal-name>")
+var symwarn = MakeSymbol("warn")
+var symshen_4intern_1type = MakeSymbol("shen.intern-type")
+var symbootstrap = MakeSymbol("bootstrap")
+var symreturn = MakeSymbol("return")
+var symshen_4_5c_1rule_6 = MakeSymbol("shen.<c-rule>")
+var sym_e_e = MakeSymbol("&&")
+var symtracked = MakeSymbol("tracked")
+var sym_dos_d = MakeSymbol("*os*")
+var symout = MakeSymbol("out")
+var symshen_4sigf = MakeSymbol("shen.sigf")
+var symshen_4_5longnatter_6 = MakeSymbol("shen.<longnatter>")
+var symshen_4_5non_1terminal_2_6 = MakeSymbol("shen.<non-terminal?>")
+var symhash = MakeSymbol("hash")
+var symshen_4_doptimise_d = MakeSymbol("shen.*optimise*")
+var symhush_2 = MakeSymbol("hush?")
+var symshen_4_5sym_6 = MakeSymbol("shen.<sym>")
+var symshen_4yacc_1semantics = MakeSymbol("shen.yacc-semantics")
+var symsum = MakeSymbol("sum")
+var symshen_4_dextraspecial_d = MakeSymbol("shen.*extraspecial*")
+var symshen_4mkstr = MakeSymbol("shen.mkstr")
+var symshen_4_dtracking_d = MakeSymbol("shen.*tracking*")
+var symshen_4compile_1to_1kl = MakeSymbol("shen.compile-to-kl")
+var symdefcc = MakeSymbol("defcc")
+var symhead = MakeSymbol("head")
+var sym_5_1 = MakeSymbol("<-")
+var symshen_4rectify_1test = MakeSymbol("shen.rectify-test")
+var symdefmacro = MakeSymbol("defmacro")
+var symC = MakeSymbol("C")
+var symshen_4_5packagenames_6 = MakeSymbol("shen.<packagenames>")
+var symshen_4colon_1equal_2 = MakeSymbol("shen.colon-equal?")
+var symshen_4analyse_1variable_2 = MakeSymbol("shen.analyse-variable?")
+var symshen_4foreign_2 = MakeSymbol("shen.foreign?")
+var symshen_4call_1dynamic = MakeSymbol("shen.call-dynamic")
+var symshen_4unprotect = MakeSymbol("shen.unprotect")
+var symMessage = MakeSymbol("Message")
+var symshen_4compound_1pattern_1h = MakeSymbol("shen.compound-pattern-h")
+var symshen_4_5log10_6 = MakeSymbol("shen.<log10>")
+var symshen_4passive_1bind = MakeSymbol("shen.passive-bind")
+var symshen_4_5whitespaces_6 = MakeSymbol("shen.<whitespaces>")
+var symshen_4unwind = MakeSymbol("shen.unwind")
+var symeval_1kl = MakeSymbol("eval-kl")
+var symshen_4parse_1failure = MakeSymbol("shen.parse-failure")
+var symread_1file_1as_1bytelist = MakeSymbol("read-file-as-bytelist")
+var symshen_4_5semicolon_6 = MakeSymbol("shen.<semicolon>")
+var symshen_4_5rcurly_6 = MakeSymbol("shen.<rcurly>")
+var symshen_4dbl_1h_2 = MakeSymbol("shen.dbl-h?")
+var symshen_4dict_1count_1_6 = MakeSymbol("shen.dict-count->")
+var symshen_4op1 = MakeSymbol("shen.op1")
+var symshen_4_5strcontents_6 = MakeSymbol("shen.<strcontents>")
+var symshen_4cons_1form_1respect_1modes = MakeSymbol("shen.cons-form-respect-modes")
+var symshen_4top = MakeSymbol("shen.top")
+var symit = MakeSymbol("it")
+var symshen_4freeze_1literals = MakeSymbol("shen.freeze-literals")
+var symshen_4fits_2 = MakeSymbol("shen.fits?")
+var symshen_4maxinfexceeded_2 = MakeSymbol("shen.maxinfexceeded?")
+var symshen_4lookupsig = MakeSymbol("shen.lookupsig")
+var sympr = MakeSymbol("pr")
+var symshen_4lambda_1entry = MakeSymbol("shen.lambda-entry")
+var symshen_4str_1_6str = MakeSymbol("shen.str->str")
+var symshen_4prompt = MakeSymbol("shen.prompt")
+var symshen_4show = MakeSymbol("shen.show")
+var symshen_4l_1rules = MakeSymbol("shen.l-rules")
 var symshen_4loop = MakeSymbol("shen.loop")
+var symshen_4prolog_1arity_1check = MakeSymbol("shen.prolog-arity-check")
+var symshen_4toplevel_1forms = MakeSymbol("shen.toplevel-forms")
+var symshen_4shendef_1_6kldef_1h = MakeSymbol("shen.shendef->kldef-h")
+var symshen_4conscode = MakeSymbol("shen.conscode")
+var sym_dlanguage_d = MakeSymbol("*language*")
+var sym_1_6 = MakeSymbol("->")
+var symshen_4typename_1h = MakeSymbol("shen.typename-h")
+var symsystemf = MakeSymbol("systemf")
+var symshen_4pac_1h = MakeSymbol("shen.pac-h")
+var symshen_4key_1in_1sequent_1calculus_2 = MakeSymbol("shen.key-in-sequent-calculus?")
+var symshen_4loading_2 = MakeSymbol("shen.loading?")
+var symdatatype = MakeSymbol("datatype")
+var symshen_4rule_1_6head = MakeSymbol("shen.rule->head")
+var symmacroexpand = MakeSymbol("macroexpand")
+var symshen_4nothing_1doing_2 = MakeSymbol("shen.nothing-doing?")
+var symshen_4process_1cases = MakeSymbol("shen.process-cases")
+var symshen_4_dtc_d = MakeSymbol("shen.*tc*")
+var symabort = MakeSymbol("abort")
+var symnth = MakeSymbol("nth")
+var symshen_4record_1macro = MakeSymbol("shen.record-macro")
+var symshen_4dynamic = MakeSymbol("shen.dynamic")
+var symshen_4not_1dictionary = MakeSymbol("shen.not-dictionary")
+var symunion = MakeSymbol("union")
+var symL = MakeSymbol("L")
+var sym_dmaximum_1print_1sequence_1size_d = MakeSymbol("*maximum-print-sequence-size*")
+var symshen_4update_1history = MakeSymbol("shen.update-history")
+var symvalue = MakeSymbol("value")
+var symis_b = MakeSymbol("is!")
+var symshen_4pause_1for_1user = MakeSymbol("shen.pause-for-user")
+var symshen_4_5rule_d_6 = MakeSymbol("shen.<rule*>")
+var symshen_4_dsystem_d = MakeSymbol("shen.*system*")
+var symlength = MakeSymbol("length")
+var symshen_4demod = MakeSymbol("shen.demod")
+var symintern = MakeSymbol("intern")
+var symtrack = MakeSymbol("track")
+var symsterror = MakeSymbol("sterror")
+var symstring_1_6symbol = MakeSymbol("string->symbol")
+var symshen_4process_1_8s = MakeSymbol("shen.process-@s")
+var symshen_4_5packagechar_6 = MakeSymbol("shen.<packagechar>")
+var symshen_4_5lcurly_6 = MakeSymbol("shen.<lcurly>")
+var symshen_4_5lowC_6 = MakeSymbol("shen.<lowC>")
+var symshen_4typecheck = MakeSymbol("shen.typecheck")
+var symshen_4mu_1h = MakeSymbol("shen.mu-h")
+var symaddress_1_6 = MakeSymbol("address->")
+var symshen_4_5fraction_6 = MakeSymbol("shen.<fraction>")
+var symread = MakeSymbol("read")
+var sym_1 = MakeSymbol("-")
+var symdefine = MakeSymbol("define")
+var symAssumptions = MakeSymbol("Assumptions")
+var symshen_4analyse_1symbol_2 = MakeSymbol("shen.analyse-symbol?")
+var symshen_4s = MakeSymbol("shen.s")
+var symshen_4_dresidue_d = MakeSymbol("shen.*residue*")
+var sym_8v = MakeSymbol("@v")
+var symshen_4mod = MakeSymbol("shen.mod")
+var symshen_4_dstep_d = MakeSymbol("shen.*step*")
+var symshen_4non_1terminalcode = MakeSymbol("shen.non-terminalcode")
+var symHd = MakeSymbol("Hd")
+var symshen_4source = MakeSymbol("shen.source")
+var symshen_4_5digit_6 = MakeSymbol("shen.<digit>")
+var symshen = MakeSymbol("shen")
+var symshen_4assumetypes = MakeSymbol("shen.assumetypes")
+var symshen_4assoc_1rm = MakeSymbol("shen.assoc-rm")
+var symshen_4multiples = MakeSymbol("shen.multiples")
+var symshen_4op2 = MakeSymbol("shen.op2")
+var symlist = MakeSymbol("list")
+var symshen_4sigxrules = MakeSymbol("shen.sigxrules")
+var symshen_4_5bar_6 = MakeSymbol("shen.<bar>")
+var symshen_4process_1cond_1clauses = MakeSymbol("shen.process-cond-clauses")
+var symshen_4partial_1application_d_2 = MakeSymbol("shen.partial-application*?")
+var symprolog_2 = MakeSymbol("prolog?")
+var symshen_4incinfs = MakeSymbol("shen.incinfs")
+var symshen_4prolog_1vector_1size = MakeSymbol("shen.prolog-vector-size")
+var symshen_4_5sig_drules_6 = MakeSymbol("shen.<sig*rules>")
+var sym_5_b_6 = MakeSymbol("<!>")
+var symshen_4record_1it = MakeSymbol("shen.record-it")
+var symshen_4_5rrb_6 = MakeSymbol("shen.<rrb>")
+var symshen_4_5rsb_6 = MakeSymbol("shen.<rsb>")
+var symshen_4_1null_1 = MakeSymbol("shen.-null-")
+var symshen_4put_1profile = MakeSymbol("shen.put-profile")
+var symshen_4abs = MakeSymbol("shen.abs")
+var symshen_4_5s_1exprs1_6 = MakeSymbol("shen.<s-exprs1>")
+var symshen_4assert_d = MakeSymbol("shen.assert*")
+var symshen_4lzy_a = MakeSymbol("shen.lzy=")
+var symstring = MakeSymbol("string")
+var symshen_4prolog_1abstraction = MakeSymbol("shen.prolog-abstraction")
+var symtlstr = MakeSymbol("tlstr")
+var symin = MakeSymbol("in")
+var symshen_4unpack_1foreign = MakeSymbol("shen.unpack-foreign")
+var symK = MakeSymbol("K")
+var symshen_4_5dbl_6 = MakeSymbol("shen.<dbl>")
+var sym_6_a = MakeSymbol(">=")
+var symshen_4t = MakeSymbol("shen.t")
+var symshen_4callrec = MakeSymbol("shen.callrec")
+var symshen_4rule_1_6body = MakeSymbol("shen.rule->body")
+var sym_c = MakeSymbol("/")
+var symfactorise_2 = MakeSymbol("factorise?")
+var symshen_4hascut_2 = MakeSymbol("shen.hascut?")
+var symshen_4_5conc_6 = MakeSymbol("shen.<conc>")
+var symshen_4compile_1pattern_1fragment = MakeSymbol("shen.compile-pattern-fragment")
+var symshen_4_5body_6 = MakeSymbol("shen.<body>")
+var symshen_4_5hterm2_6 = MakeSymbol("shen.<hterm2>")
+var symshen_4char_1stinput_2 = MakeSymbol("shen.char-stinput?")
+var symshen_4_5hash_6 = MakeSymbol("shen.<hash>")
+var symshen_4lambda_1of_1defun = MakeSymbol("shen.lambda-of-defun")
+var symshen_4newpv = MakeSymbol("shen.newpv")
+var symshen_4search_1user_1datatypes = MakeSymbol("shen.search-user-datatypes")
+var symunput = MakeSymbol("unput")
+var syminteger_2 = MakeSymbol("integer?")
+var symread_1from_1string_1unprocessed = MakeSymbol("read-from-string-unprocessed")
+var symshen_4assoc_1set = MakeSymbol("shen.assoc-set")
+var symshen_4read_1unit_1string = MakeSymbol("shen.read-unit-string")
+var symshen_4_5sides_6 = MakeSymbol("shen.<sides>")
+var symnumber = MakeSymbol("number")
+var sym_5_1vector = MakeSymbol("<-vector")
+var symshen_4iter_1list = MakeSymbol("shen.iter-list")
+var symdefun = MakeSymbol("defun")
+var symshen_4linearise_1h = MakeSymbol("shen.linearise-h")
+var symshen_4initialise_1arity_1table = MakeSymbol("shen.initialise-arity-table")
+var symshen_4terms = MakeSymbol("shen.terms")
+var symshen_4decrement_1ticket = MakeSymbol("shen.decrement-ticket")
+var symshen_4decons = MakeSymbol("shen.decons")
+var symshen_4side_1conditions_1_6goals = MakeSymbol("shen.side-conditions->goals")
+var symshen_4terpri_1or_1read_1char = MakeSymbol("shen.terpri-or-read-char")
+var symboolean = MakeSymbol("boolean")
+var symshen_4_5notdbq_6 = MakeSymbol("shen.<notdbq>")
+var symshen_4factor_1selectors_1h = MakeSymbol("shen.factor-selectors-h")
+var symshen_4_5ass_6 = MakeSymbol("shen.<ass>")
+var symexplode = MakeSymbol("explode")
+var symshen_4for_1each = MakeSymbol("shen.for-each")
+var symshen_4choicepoint_2 = MakeSymbol("shen.choicepoint?")
+var symshen_4objectcode = MakeSymbol("shen.objectcode")
+var symParse = MakeSymbol("Parse")
+var symshen_4add_1sexpr = MakeSymbol("shen.add-sexpr")
+var symshen_4process_1after_1type = MakeSymbol("shen.process-after-type")
+var symshen_4_5packagename_6 = MakeSymbol("shen.<packagename>")
+var symshen_4compute_1integer = MakeSymbol("shen.compute-integer")
+var symshen_4a = MakeSymbol("shen.a")
+var symshen_4initialise_1lambda_1forms = MakeSymbol("shen.initialise-lambda-forms")
+var symupdate_1lambda_1table = MakeSymbol("update-lambda-table")
+var symshen_4atom_1_6str = MakeSymbol("shen.atom->str")
+var symwhere = MakeSymbol("where")
+var symshen_4my_1read_1byte = MakeSymbol("shen.my-read-byte")
+var symshen_4_5returns_6 = MakeSymbol("shen.<returns>")
+var symshen_4evaluate_1lineread = MakeSymbol("shen.evaluate-lineread")
+var symshen_4sng_1h_2 = MakeSymbol("shen.sng-h?")
+var symprofile_1results = MakeSymbol("profile-results")
+var symfail = MakeSymbol("fail")
+var symshen_4_7string_2 = MakeSymbol("shen.+string?")
+var symshen_4undefined_1f_2 = MakeSymbol("shen.undefined-f?")
+var symshen_4_dhistory_d = MakeSymbol("shen.*history*")
+var symshen_4retract_1clause = MakeSymbol("shen.retract-clause")
+var symshen_4factor_1cn = MakeSymbol("shen.factor-cn")
+var symshen_4included = MakeSymbol("shen.included")
+var symshen_4credits = MakeSymbol("shen.credits")
+var symshen_4_5define_6 = MakeSymbol("shen.<define>")
+var symshen_4process_1lambda = MakeSymbol("shen.process-lambda")
+var symshen_4horn_1clause_1procedure = MakeSymbol("shen.horn-clause-procedure")
+var symshen_4_5clause_6 = MakeSymbol("shen.<clause>")
+var symS = MakeSymbol("S")
+var symshen_4lambda_1form = MakeSymbol("shen.lambda-form")
+var symshen_4make_1prolog_1variable = MakeSymbol("shen.make-prolog-variable")
+var symshen_4show_1p = MakeSymbol("shen.show-p")
+var symRemainder = MakeSymbol("Remainder")
+var symshen_4uppercase_2 = MakeSymbol("shen.uppercase?")
+var sym_4_4_4 = MakeSymbol("...")
+var symshen_4process_1sexprs = MakeSymbol("shen.process-sexprs")
+var symshen_4c_1rules_1_6shen = MakeSymbol("shen.c-rules->shen")
+var symshen_4find_1free_1vars = MakeSymbol("shen.find-free-vars")
+var symshen_4input_1track = MakeSymbol("shen.input-track")
+var symprofile = MakeSymbol("profile")
+var sym_dmacros_d = MakeSymbol("*macros*")
+var symTm = MakeSymbol("Tm")
+var sympreclude_1all_1but = MakeSymbol("preclude-all-but")
+var symshen_4check_1byte = MakeSymbol("shen.check-byte")
+var symshen_4reader_1error = MakeSymbol("shen.reader-error")
+var symX = MakeSymbol("X")
+var symbind = MakeSymbol("bind")
+var symshen_4dict_2 = MakeSymbol("shen.dict?")
+var symvariable_2 = MakeSymbol("variable?")
+var symshen_4unlocked_2 = MakeSymbol("shen.unlocked?")
+var symenable_1type_1theory = MakeSymbol("enable-type-theory")
+var symshen_4custom_1pattern_1reducer = MakeSymbol("shen.custom-pattern-reducer")
+var symshen_4_5backslash_6 = MakeSymbol("shen.<backslash>")
+var symload = MakeSymbol("load")
+var symshen_4shen_1_6kl_1h = MakeSymbol("shen.shen->kl-h")
+var symshen_4custom_1pattern_1triple_1stack = MakeSymbol("shen.custom-pattern-triple-stack")
+var symshen_4process_1application = MakeSymbol("shen.process-application")
+var symshen_4deref_1terms = MakeSymbol("shen.deref-terms")
+var symset = MakeSymbol("set")
+var symtrap_1error = MakeSymbol("trap-error")
+var symy_1or_1n_2 = MakeSymbol("y-or-n?")
+var symshen_4_dprolog_1memory_d = MakeSymbol("shen.*prolog-memory*")
+var symshen_4prolog_1parameters = MakeSymbol("shen.prolog-parameters")
+var symshen_4ticket_1number = MakeSymbol("shen.ticket-number")
+var symRecord = MakeSymbol("Record")
+var symcd = MakeSymbol("cd")
+var symversion = MakeSymbol("version")
+var symshen_4string_1_6byte = MakeSymbol("shen.string->byte")
+var symshen_4_5return_6 = MakeSymbol("shen.<return>")
+var symshen_4_5e_1number_6 = MakeSymbol("shen.<e-number>")
+var sympackage = MakeSymbol("package")
+var symshen_4remove_1bystanders = MakeSymbol("shen.remove-bystanders")
+var symshen_4recursively_1print = MakeSymbol("shen.recursively-print")
+var symshen_4i_1failed_b = MakeSymbol("shen.i-failed!")
+var symshen_4_5numeral_6 = MakeSymbol("shen.<numeral>")
+var symdefprolog = MakeSymbol("defprolog")
+var symshen_4insert_1info = MakeSymbol("shen.insert-info")
+var symshen_4goto = MakeSymbol("shen.goto")
+var symopen = MakeSymbol("open")
+var sym_dhome_1directory_d = MakeSymbol("*home-directory*")
+var symshen_4this_1symbol_1is_1unbound = MakeSymbol("shen.this-symbol-is-unbound")
+var symfactorise = MakeSymbol("factorise")
+var symshen_4packaged_2 = MakeSymbol("shen.packaged?")
+var symTime = MakeSymbol("Time")
+var symshen_4_dprofiled_d = MakeSymbol("shen.*profiled*")
+var symshen_4get_1profile = MakeSymbol("shen.get-profile")
+var symshen_4fbound_2 = MakeSymbol("shen.fbound?")
+var symprint = MakeSymbol("print")
+var symshen_4record_1and_1evaluate = MakeSymbol("shen.record-and-evaluate")
+var symshen_4internal_1to_1P_2 = MakeSymbol("shen.internal-to-P?")
+var symshen_4special_2 = MakeSymbol("shen.special?")
+var symfst = MakeSymbol("fst")
+var syminferences = MakeSymbol("inferences")
+var symshen_4_5strc_6 = MakeSymbol("shen.<strc>")
+var symvector_1_6 = MakeSymbol("vector->")
+var symshen_4create_1skeleton = MakeSymbol("shen.create-skeleton")
+var symshen_4prolog_1fbody = MakeSymbol("shen.prolog-fbody")
+var symshen_4nextticket = MakeSymbol("shen.nextticket")
+var symshen_4ok = MakeSymbol("shen.ok")
+var symshen_4_5_1dict_1bucket = MakeSymbol("shen.<-dict-bucket")
+var sym_dporters_d = MakeSymbol("*porters*")
+var symshen_4_5name_6 = MakeSymbol("shen.<name>")
+var symshen_4repl = MakeSymbol("shen.repl")
+var symshen_4insert_1prolog_1variables = MakeSymbol("shen.insert-prolog-variables")
+var symshen_4tuple = MakeSymbol("shen.tuple")
+var symshen_4ccons_2 = MakeSymbol("shen.ccons?")
+var symV = MakeSymbol("V")
+var symshen_4cut = MakeSymbol("shen.cut")
+var symshen_4demode = MakeSymbol("shen.demode")
+var symshen_4_5colon_6 = MakeSymbol("shen.<colon>")
+var symshen_4record_1internal = MakeSymbol("shen.record-internal")
+var symor = MakeSymbol("or")
+var symloaded = MakeSymbol("loaded")
+var symsymbol = MakeSymbol("symbol")
+var symshen_4_5_1out = MakeSymbol("shen.<-out")
+var symshen_4cond_1form = MakeSymbol("shen.cond-form")
+var symshen_4overbind = MakeSymbol("shen.overbind")
+var symshen_4member = MakeSymbol("shen.member")
+var symshen_4line = MakeSymbol("shen.line")
+var symshen_4raise_1syntax_1error = MakeSymbol("shen.raise-syntax-error")
+var sym_8s = MakeSymbol("@s")
+var symshen_4_8v_1help = MakeSymbol("shen.@v-help")
+var sym_dsterror_d = MakeSymbol("*sterror*")
+var symsynonyms = MakeSymbol("synonyms")
+var symread_1byte = MakeSymbol("read-byte")
+var symshen_4dict_1values = MakeSymbol("shen.dict-values")
+var symshen_4alpha_1convert = MakeSymbol("shen.alpha-convert")
+var symshen_4_5multiline_6 = MakeSymbol("shen.<multiline>")
+var symshen_4lchh = MakeSymbol("shen.lchh")
+var symshen_4t_d_1correct = MakeSymbol("shen.t*-correct")
+var symshen_4factorise_1code = MakeSymbol("shen.factorise-code")
+var symshen_4_5float_6 = MakeSymbol("shen.<float>")
+var symshen_4record_1external = MakeSymbol("shen.record-external")
+var sym_1_1_6 = MakeSymbol("-->")
+var symshen_4wildcard_2 = MakeSymbol("shen.wildcard?")
+var symshen_4comb = MakeSymbol("shen.comb")
+var symshen_4compute_1E = MakeSymbol("shen.compute-E")
+var symshen_4profile_1help = MakeSymbol("shen.profile-help")
+var sympos = MakeSymbol("pos")
+var symshen_4not_1tuple = MakeSymbol("shen.not-tuple")
+var symshen_4insert_1h = MakeSymbol("shen.insert-h")
+var symshen_4_5shortnatter_6 = MakeSymbol("shen.<shortnatter>")
+var symshen_4prolog_1keyword_2 = MakeSymbol("shen.prolog-keyword?")
+var symshen_4lock = MakeSymbol("shen.lock")
+var symshen_4gc = MakeSymbol("shen.gc")
+var symwhen = MakeSymbol("when")
+var symshen_4_5expr_6 = MakeSymbol("shen.<expr>")
+var symsimple_1error = MakeSymbol("simple-error")
+var symshen_4type_1error = MakeSymbol("shen.type-error")
+var symis = MakeSymbol("is")
+var symshen_4coll_1formulae = MakeSymbol("shen.coll-formulae")
+var symshen_4p_1hyps = MakeSymbol("shen.p-hyps")
+var symshen_4process_1yacc_1semantics = MakeSymbol("shen.process-yacc-semantics")
+var symshen_4wildcardcode = MakeSymbol("shen.wildcardcode")
+var symshen_4parse_1failure_2 = MakeSymbol("shen.parse-failure?")
+var symshen_4tuple_1up = MakeSymbol("shen.tuple-up")
+var symshen_4internal_2 = MakeSymbol("shen.internal?")
+var sym_5e_6 = MakeSymbol("<e>")
+var symshen_4_dit_d = MakeSymbol("shen.*it*")
+var symprolog_1memory = MakeSymbol("prolog-memory")
+var symcond = MakeSymbol("cond")
+var symshen_4pretty_1type = MakeSymbol("shen.pretty-type")
+var symoccurs_1check = MakeSymbol("occurs-check")
+var symfix = MakeSymbol("fix")
+var symshen_4hashkey = MakeSymbol("shen.hashkey")
+var sym_dport_d = MakeSymbol("*port*")
+var symshen_4freshterm = MakeSymbol("shen.freshterm")
+var symtl = MakeSymbol("tl")
+var symshen_4_5equal_6 = MakeSymbol("shen.<equal>")
+var symshen_4correct = MakeSymbol("shen.correct")
+var symshen_4dict = MakeSymbol("shen.dict")
+var symshen_4dbl_2 = MakeSymbol("shen.dbl?")
+var symstinput = MakeSymbol("stinput")
+var symshen_4_5alphanums_6 = MakeSymbol("shen.<alphanums>")
+var symshen_4extraspecial_2 = MakeSymbol("shen.extraspecial?")
+var symshen_4specialise_1consume = MakeSymbol("shen.specialise-consume")
+var symshen_4construct_1context = MakeSymbol("shen.construct-context")
+var symabsvector = MakeSymbol("absvector")
+var symshen_4_5s_1exprs_6 = MakeSymbol("shen.<s-exprs>")
+var symread_1file = MakeSymbol("read-file")
+var symasserta = MakeSymbol("asserta")
+var symshen_4function_1calls = MakeSymbol("shen.function-calls")
+var syminclude = MakeSymbol("include")
+var symshen_4_5_1dict = MakeSymbol("shen.<-dict")
+var symshen_4_dsynonyms_d = MakeSymbol("shen.*synonyms*")
+var symshen_4triple_1stack = MakeSymbol("shen.triple-stack")
+var symshen_4reader_1error_1message = MakeSymbol("shen.reader-error-message")
+var symshen_4_5integer_6 = MakeSymbol("shen.<integer>")
+var symshen_4non_1application_2 = MakeSymbol("shen.non-application?")
+var symboolean_2 = MakeSymbol("boolean?")
+var symfresh = MakeSymbol("fresh")
+var symshen_4_5pattern_6 = MakeSymbol("shen.<pattern>")
+var symshen_4goto_1h = MakeSymbol("shen.goto-h")
+var symstring_2 = MakeSymbol("string?")
+var symshen_4maxseq = MakeSymbol("shen.maxseq")
+var symshen_4use_1history = MakeSymbol("shen.use-history")
+var symshen_4t_d_1rule = MakeSymbol("shen.t*-rule")
+var symshen_4_dcustom_1pattern_1compiler_d = MakeSymbol("shen.*custom-pattern-compiler*")
+var symshen_4_5alphanum_6 = MakeSymbol("shen.<alphanum>")
+var symshen_4process_1read_1byte = MakeSymbol("shen.process-read-byte")
+var symshen_4ctxt = MakeSymbol("shen.ctxt")
+var symshen_4modh = MakeSymbol("shen.modh")
+var symshen_4insert = MakeSymbol("shen.insert")
+var symshen_4shen_1call_2 = MakeSymbol("shen.shen-call?")
+var symshen_4yacc_1_6shen = MakeSymbol("shen.yacc->shen")
+var symvector_2 = MakeSymbol("vector?")
+var symshen_4rfas_1h = MakeSymbol("shen.rfas-h")
+var symshen_4print_1freshterm = MakeSymbol("shen.print-freshterm")
+var symincluded = MakeSymbol("included")
+var symshen_4factor_1recognisors = MakeSymbol("shen.factor-recognisors")
+var symshen_4read_1evaluate_1print = MakeSymbol("shen.read-evaluate-print")
+var symNewV = MakeSymbol("NewV")
+var symshen_4shen_1_6kl = MakeSymbol("shen.shen->kl")
+var symshen_4proc_1nl = MakeSymbol("shen.proc-nl")
+var symshen_4char_1stoutput_2 = MakeSymbol("shen.char-stoutput?")
+var symshen_4pvar_2 = MakeSymbol("shen.pvar?")
+var symB = MakeSymbol("B")
+var symshen_4posint_2 = MakeSymbol("shen.posint?")
+var symshen_4store_1arity = MakeSymbol("shen.store-arity")
+var symshen_4zero_1place_2 = MakeSymbol("shen.zero-place?")
+var symshen_4_5hterm1_6 = MakeSymbol("shen.<hterm1>")
+var symshen_4cons_1case_1plus = MakeSymbol("shen.cons-case-plus")
+var symAction = MakeSymbol("Action")
+var symn_1_6string = MakeSymbol("n->string")
+var sym_dabsolute_d = MakeSymbol("*absolute*")
+var symshen_4_5minus_6 = MakeSymbol("shen.<minus>")
+var symu_b = MakeSymbol("u!")
+var symvar_2 = MakeSymbol("var?")
+var symshen_4monotype = MakeSymbol("shen.monotype")
+var symshen_4t_d_1rule_1h = MakeSymbol("shen.t*-rule-h")
+var symconcat = MakeSymbol("concat")
+var symshen_4record_1kl = MakeSymbol("shen.record-kl")
+var symshen_4partial = MakeSymbol("shen.partial")
+var symctxt = MakeSymbol("ctxt")
+var sym_e = MakeSymbol("&")
+var symshen_4demodulate = MakeSymbol("shen.demodulate")
+var symshen_4write_1chars = MakeSymbol("shen.write-chars")
+var symshen_4scan_1body = MakeSymbol("shen.scan-body")
+var symshen_4intern_1in_1package = MakeSymbol("shen.intern-in-package")
+var symshen_4arg_1_6str = MakeSymbol("shen.arg->str")
+var symshen_4_8ch = MakeSymbol("shen.@ch")
+var symshen_4typetable = MakeSymbol("shen.typetable")
+var symshen_4variable_1case = MakeSymbol("shen.variable-case")
+var symshen_4insert_1tracking_1code = MakeSymbol("shen.insert-tracking-code")
+var symshen_4_5semantics_6 = MakeSymbol("shen.<semantics>")
+var symexception = MakeSymbol("exception")
+var sym_8p = MakeSymbol("@p")
+var symshen_4_dalldatatypes_d = MakeSymbol("shen.*alldatatypes*")
+var symshen_4_dsize_1prolog_1vector_d = MakeSymbol("shen.*size-prolog-vector*")
+var symverified = MakeSymbol("verified")
+var symshen_4write_1string = MakeSymbol("shen.write-string")
+var symshen_4primitive = MakeSymbol("shen.primitive")
+var symshen_4_5c_1rules_6 = MakeSymbol("shen.<c-rules>")
+var symdo = MakeSymbol("do")
+var symread_1file_1as_1string = MakeSymbol("read-file-as-string")
+var symshen_4print_1prolog_1vector = MakeSymbol("shen.print-prolog-vector")
+var symtime = MakeSymbol("time")
+var symshen_4dict_1capacity = MakeSymbol("shen.dict-capacity")
+var symshen_4iter_1vector = MakeSymbol("shen.iter-vector")
+var symshen_4bucket_1fold = MakeSymbol("shen.bucket-fold")
+var symstep = MakeSymbol("step")
+var symappend = MakeSymbol("append")
+var symshen_4unpackage_emacroexpand = MakeSymbol("shen.unpackage&macroexpand")
+var symA = MakeSymbol("A")
+var symshen_4tame = MakeSymbol("shen.tame")
+var symtuple_2 = MakeSymbol("tuple?")
+var symshen_4list_1_6str = MakeSymbol("shen.list->str")
+var symshen_4byte_1_6digit = MakeSymbol("shen.byte->digit")
+var symshen_4factor_1selectors = MakeSymbol("shen.factor-selectors")
+var symshen_4walk = MakeSymbol("shen.walk")
+var symshen_4update_1lambdatable = MakeSymbol("shen.update-lambdatable")
+var symshen_4_5comma_6 = MakeSymbol("shen.<comma>")
+var symundefmacro = MakeSymbol("undefmacro")
+var symshen_4variancy = MakeSymbol("shen.variancy")
+var symshen_4arity_1chk = MakeSymbol("shen.arity-chk")
+var symshen_4special_1case = MakeSymbol("shen.special-case")
+var symshen_4occurs_1check_2 = MakeSymbol("shen.occurs-check?")
+var symshen_4by_1hypothesis = MakeSymbol("shen.by-hypothesis")
+var symstring_1_6n = MakeSymbol("string->n")
+var symP = MakeSymbol("P")
+var symshen_4copyfromvector = MakeSymbol("shen.copyfromvector")
+var symshen_4mkstr_1l = MakeSymbol("shen.mkstr-l")
+var sym_a_a_6 = MakeSymbol("==>")
+var symshen_4_5head_6 = MakeSymbol("shen.<head>")
+var symshen_4bindv = MakeSymbol("shen.bindv")
+var symshen_4partial_1parse_1failure_2 = MakeSymbol("shen.partial-parse-failure?")
+var symwrite_1byte = MakeSymbol("write-byte")
+var symelement_2 = MakeSymbol("element?")
+var symport = MakeSymbol("port")
+var sym_5end_6 = MakeSymbol("<end>")
+var symshen_4process_1assoc = MakeSymbol("shen.process-assoc")
+var symshen_4prhush = MakeSymbol("shen.prhush")
+var symshen_4fn_1print = MakeSymbol("shen.fn-print")
+var symshen_4str_1_6bytes = MakeSymbol("shen.str->bytes")
+var symshen_4linearise_1clause = MakeSymbol("shen.linearise-clause")
+var symshen_4_5yaccsig_6 = MakeSymbol("shen.<yaccsig>")
+var symerror_1to_1string = MakeSymbol("error-to-string")
+var symcons_2 = MakeSymbol("cons?")
+var symshen_4_1m = MakeSymbol("shen.-m")
+var symshen_4macro_1_8c = MakeSymbol("shen.macro-@c")
+var symZ = MakeSymbol("Z")
+var symshen_4lazyderef = MakeSymbol("shen.lazyderef")
+var symshen_4vector_1parameter = MakeSymbol("shen.vector-parameter")
+var symshen_4linearise = MakeSymbol("shen.linearise")
+var symshen_4_5double_6 = MakeSymbol("shen.<double>")
+var symshen_4spy_2 = MakeSymbol("shen.spy?")
+var symshen_4string_1_6bytes = MakeSymbol("shen.string->bytes")
+var symshen_4misc_2 = MakeSymbol("shen.misc?")
+var symshen_4_5sng_6 = MakeSymbol("shen.<sng>")
+var symshen_4consume = MakeSymbol("shen.consume")
+var symuntrack = MakeSymbol("untrack")
+var symshen_4dict_1fold = MakeSymbol("shen.dict-fold")
+var symshen_4trim_1it = MakeSymbol("shen.trim-it")
+var symshen_4_5datatype_1rule_6 = MakeSymbol("shen.<datatype-rule>")
+var symshen_4app = MakeSymbol("shen.app")
+var symsymbol_2 = MakeSymbol("symbol?")
+var symshen_4_dgensym_d = MakeSymbol("shen.*gensym*")
+var symassoc = MakeSymbol("assoc")
+var symshen_4_5whitespace_6 = MakeSymbol("shen.<whitespace>")
+var symshen_4deref_1calls = MakeSymbol("shen.deref-calls")
+var symshen_4signal_1def = MakeSymbol("shen.signal-def")
+var symY = MakeSymbol("Y")
+var symlambda = MakeSymbol("lambda")
+var symshen_4syntax_1error_1message = MakeSymbol("shen.syntax-error-message")
+var symstoutput = MakeSymbol("stoutput")
+var symwrite_1to_1file = MakeSymbol("write-to-file")
+var symshen_4out_1of_1bounds = MakeSymbol("shen.out-of-bounds")
+var symshen_4internal_1to_1shen_2 = MakeSymbol("shen.internal-to-shen?")
+var symshen_4invoke = MakeSymbol("shen.invoke")
+var symshen_4_dspecial_d = MakeSymbol("shen.*special*")
+var symshen_4custom_1pattern = MakeSymbol("shen.custom-pattern")
+var symshen_4macros = MakeSymbol("shen.macros")
+var sym_dimplementation_d = MakeSymbol("*implementation*")
+var symshen_4non_1terminal_2 = MakeSymbol("shen.non-terminal?")
+var symshen_4variablecode = MakeSymbol("shen.variablecode")
+var symshen_4f_1error = MakeSymbol("shen.f-error")
+var symshen_4_dsigf_d = MakeSymbol("shen.*sigf*")
+var symshen_4pvar = MakeSymbol("shen.pvar")
+var symshen_4lambda_1function = MakeSymbol("shen.lambda-function")
+var symerror = MakeSymbol("error")
+var symshen_4curry_1type = MakeSymbol("shen.curry-type")
+var symatom_2 = MakeSymbol("atom?")
+var symshen_4atom_1case_1plus = MakeSymbol("shen.atom-case-plus")
+var symhdstr = MakeSymbol("hdstr")
+var symshen_4insert_1l = MakeSymbol("shen.insert-l")
+var symshen_4read_1file_1as_1bytelist_1help = MakeSymbol("shen.read-file-as-bytelist-help")
+var symshen_4load_1help = MakeSymbol("shen.load-help")
+var symshen_4yacc_1syntax = MakeSymbol("shen.yacc-syntax")
+var symhush = MakeSymbol("hush")
+var symshen_4list_2 = MakeSymbol("shen.list?")
+var symshen_4initialise_1environment = MakeSymbol("shen.initialise-environment")
+var symshen_4magless = MakeSymbol("shen.magless")
+var symmaxinferences = MakeSymbol("maxinferences")
+var symshen_4set_1lambda_1form_1entry = MakeSymbol("shen.set-lambda-form-entry")
+var symshen_4_5alpha_6 = MakeSymbol("shen.<alpha>")
+var symshen_4g = MakeSymbol("shen.g")
+var symnull = MakeSymbol("null")
+var symget = MakeSymbol("get")
+var symshen_4kl_1body = MakeSymbol("shen.kl-body")
+var sym_3 = MakeSymbol("$")
+var symforeign = MakeSymbol("foreign")
+var symdatatypes = MakeSymbol("datatypes")
+var symsystem_1S_2 = MakeSymbol("system-S?")
+var symshen_4constructor_2 = MakeSymbol("shen.constructor?")
+var symshen_4prodbutzero = MakeSymbol("shen.prodbutzero")
+var symshen_4simple_1curry = MakeSymbol("shen.simple-curry")
+var sym_d = MakeSymbol("*")
+var symshen_4_5rules_6 = MakeSymbol("shen.<rules>")
+var symshen_4syntax_1item_2 = MakeSymbol("shen.syntax-item?")
+var symshen_4tlv_1help = MakeSymbol("shen.tlv-help")
+var symshen_4_ddemodulation_1function_d = MakeSymbol("shen.*demodulation-function*")
+var sympackage_2 = MakeSymbol("package?")
+var symremove = MakeSymbol("remove")
+var symshen_4_ddatatypes_d = MakeSymbol("shen.*datatypes*")
+var symshen_4lr_1rule = MakeSymbol("shen.lr-rule")
+var symshen_4step_2 = MakeSymbol("shen.step?")
+var symtc_2 = MakeSymbol("tc?")
+var symshen_4_dempty_1absvector_d = MakeSymbol("shen.*empty-absvector*")
+var symunprofile = MakeSymbol("unprofile")
+var symgensym = MakeSymbol("gensym")
+var symmapcan = MakeSymbol("mapcan")
+var symuserdefs = MakeSymbol("userdefs")
+var symunabsolute = MakeSymbol("unabsolute")
+var symshen_4rep_1X = MakeSymbol("shen.rep-X")
+var symshen_4predicate = MakeSymbol("shen.predicate")
+var symTl = MakeSymbol("Tl")
+var symshen_4_dfactorise_2_d = MakeSymbol("shen.*factorise?*")
+var symshen_4hds_a_2 = MakeSymbol("shen.hds=?")
+var symshen_4bad_1pivot_2 = MakeSymbol("shen.bad-pivot?")
+var symshen_4whitespace_2 = MakeSymbol("shen.whitespace?")
+var symshen_4update_1assoc = MakeSymbol("shen.update-assoc")
+var symshen_4deref = MakeSymbol("shen.deref")
+var symshen_4_5side_6 = MakeSymbol("shen.<side>")
+var symshen_4unassoc = MakeSymbol("shen.unassoc")
+var symshen_4synonyms_1h = MakeSymbol("shen.synonyms-h")
+var symshen_4_5bterms_6 = MakeSymbol("shen.<bterms>")
+var symvector = MakeSymbol("vector")
+var sym_drelease_d = MakeSymbol("*release*")
+var symand = MakeSymbol("and")
+var symshen_4klfile = MakeSymbol("shen.klfile")
+var symshen_4_5literal_6 = MakeSymbol("shen.<literal>")
+var symshen_4locked_2 = MakeSymbol("shen.locked?")
+var symshen_4compile_1body = MakeSymbol("shen.compile-body")
+var symlazy = MakeSymbol("lazy")
+var symshen_4_5signature_6 = MakeSymbol("shen.<signature>")
+var symshen_4compound_1pattern = MakeSymbol("shen.compound-pattern")
+var symshen_4vector_1_6str = MakeSymbol("shen.vector->str")
+var syminput_7 = MakeSymbol("input+")
+var symshen_4not_1pvar = MakeSymbol("shen.not-pvar")
+var symshen_4_5single_6 = MakeSymbol("shen.<single>")
+var symshen_4terminalcode = MakeSymbol("shen.terminalcode")
+var symshen_4dict_1_6 = MakeSymbol("shen.dict->")
+var symfn = MakeSymbol("fn")
+var symshen_4find_1arity = MakeSymbol("shen.find-arity")
+var symdeclare = MakeSymbol("declare")
+var symshen_4_5formula_6 = MakeSymbol("shen.<formula>")
+var symshen_4macro_1_8ch = MakeSymbol("shen.macro-@ch")
+var sym_i = MakeSymbol("{")
+var symshen_4_dpackage_d = MakeSymbol("shen.*package*")
+var symshen_4shendef_1_6kldef = MakeSymbol("shen.shendef->kldef")
+var symshen_4rectify_1type = MakeSymbol("shen.rectify-type")
+var symcases = MakeSymbol("cases")
+var symshen_4_7m = MakeSymbol("shen.+m")
+var symshen_4_5wildcard_6 = MakeSymbol("shen.<wildcard>")
+var symshen_4remove_1h = MakeSymbol("shen.remove-h")
+var symsnd = MakeSymbol("snd")
+var symW = MakeSymbol("W")
+var symshen_4factor = MakeSymbol("shen.factor")
+var symshen_4lowercase_2 = MakeSymbol("shen.lowercase?")
+var symshen_4toplevel_1display_1exception = MakeSymbol("shen.toplevel-display-exception")
+var symmode = MakeSymbol("mode")
+var symshen_4system_1S_1h = MakeSymbol("shen.system-S-h")
+var symprotect = MakeSymbol("protect")
+var symshen_4_7vector_2 = MakeSymbol("shen.+vector?")
+var symshen_4_dnames_d = MakeSymbol("shen.*names*")
