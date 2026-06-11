@@ -88,12 +88,16 @@ func parseManifest(dir string) (*manifest, error) {
 			m.users = append(m.users, val)
 		case "needs-eval":
 			m.needsEval = val == "true"
-		case "manifest-version", "kernel-version", "primitive":
+		case "manifest-version", "kernel-version", "primitive",
+			"primitive-optional", "global", "fn":
 			// Informational. The kl runtime provides every KL primitive
 			// natively (registered in the kl package's init()), so the
-			// primitive= list needs no per-program action here.
+			// primitive= list needs no per-program action here.  fn= is
+			// the manifest's user-defun arity table; this builder derives
+			// the same data from the KL itself (scanDefunArities).
 		default:
-			return nil, fmt.Errorf("unknown manifest key %q", key)
+			// Manifest contract: ignore unrecognised keys.
+			fmt.Fprintf(os.Stderr, "yggdrasil-build: ignoring unknown manifest key %q\n", key)
 		}
 	}
 	if m.kernel == "" {
