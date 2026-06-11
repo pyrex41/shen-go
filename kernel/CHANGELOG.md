@@ -6,6 +6,24 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 
 ## [Unreleased]
 
+## [41.2] - 2026-04-19
+
+### Fixed
+
+- Some StLib functions were losing their type signatures when being compiled to KLambda.
+
+### Added
+
+- A compatibility-and-tests GitHub Actions workflow for validating the
+  current kernel against the latest released `shen-scheme`.
+- A non-interactive extension test harness under `tests/extensions/`, with
+  coverage for the `programmable-pattern-matching` extension.
+
+### Changed
+
+- Restored the `programmable-pattern-matching` extension so it works with the
+  current kernel.
+
 ## [41.1] - 2026-03-08
 
 ### Added
@@ -14,19 +32,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
   `stlib.initialise-*` / `stlib.initialise` setup code.
 - `make klambda-kernel` and `make klambda-stlib` targets; `make klambda` now
   runs both.
+- `Encrypt` is temporarily skipped by the standard-library KLambda build.
 
 ### Changed
 
 - Library sources moved from `stlib/` to `lib/`, with the core standard
   library under `lib/stlib/` and optional libraries under sibling directories
   such as `lib/tk`, `lib/concurrency`, and `lib/ide`.
-- Standard-library KLambda generation now preserves source-load metadata such
-  as packages, arities, lambda forms, declarations, macros, datatypes, and
-  source records through `stlib.initialise-*` / `stlib.initialise`.
-- The standard-library KLambda build now temporarily masks host stlib macros
-  while compiling, so it can be built correctly even from Shen runtimes that
-  already ship with the stlib loaded.
-- `Encrypt` is temporarily skipped by the standard-library KLambda build.
 
 ## [41.0] - 2026-03-01
 
@@ -602,7 +614,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 - y-or-n? fixed
 - compiler warnings suppressed in CLisp
 
-[Unreleased]: https://github.com/Shen-Language/shen-sources/compare/shen-41.1...HEAD
+[Unreleased]: https://github.com/Shen-Language/shen-sources/compare/shen-41.2...HEAD
+[41.2]: https://github.com/Shen-Language/shen-sources/compare/shen-41.1...shen-41.2
 [41.1]: https://github.com/Shen-Language/shen-sources/compare/shen-41.0...shen-41.1
 [41.0]: https://github.com/Shen-Language/shen-sources/compare/shen-40.1...shen-41.0
 [40.1]: https://github.com/Shen-Language/shen-sources/compare/shen-40.0...shen-40.1

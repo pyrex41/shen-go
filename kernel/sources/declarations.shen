@@ -30,7 +30,7 @@
 (set *infs* 0)
 (set *hush* false)
 (set *optimise* false)
-(set *version* "41.1")
+(set *version* "41.2")
 (set *names* [])
 (set *step* false)
 (set *it* "")
@@ -40,6 +40,8 @@
 (set *loading?* false)
 (set *userdefs* [])
 (set *demodulation-function* (/. X X))
+(set *custom-pattern-compiler* false)
+(set *custom-pattern-reducer* false)
 
 (if (not (bound? *home-directory*))
     (set *home-directory* "")
