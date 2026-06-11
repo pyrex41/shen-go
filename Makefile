@@ -1,4 +1,4 @@
-.PHONY: all kl shen docker test certify test-all precompile
+.PHONY: all kl shen docker test certify test-all precompile yggdrasil-build
 
 all: kl shen
 
@@ -7,6 +7,13 @@ kl:
 
 shen:
 	go build -o shen github.com/tiancaiamao/shen-go/cmd/shen
+
+# Yggdrasil stage-2 static builder: turn a Yggdrasil shaken directory into a
+# Go module that builds a single static, cross-compilable binary.
+#   make yggdrasil-build
+#   ./yggdrasil-build path/to/shaken-out path/to/gen && (cd path/to/gen && go build -o prog .)
+yggdrasil-build:
+	go build -o yggdrasil-build ./cmd/yggdrasil-build
 
 # AOT-compile a whole Shen (or KL) file to a Go plugin .so, to be loaded at
 # startup with `./shen -precompiled OUT`. The .so MUST be built with the same Go

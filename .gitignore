@@ -3,4 +3,5 @@
 *.bc
 /shen
 /klc
+/yggdrasil-build
 *.exe
