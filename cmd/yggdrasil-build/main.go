@@ -528,6 +528,7 @@ func run(e *ControlFlow, name string, f Obj) {
 			if x, ok := r.(Obj); ok && IsError(x) {
 				fail(name, x)
 			}
+			fmt.Fprintf(os.Stderr, "yggdrasil: panic during %s\n", name)
 			panic(r)
 		}
 	}()
