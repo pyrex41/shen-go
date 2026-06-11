@@ -52,7 +52,10 @@ var kernelLoadOrder = []string{
 // single Go function. compile-file wraps each chunk in one nested-do thunk
 // and bc->go emits it as one Go function; keeping chunks bounded keeps both
 // the KL-side compile and the Go compile of the generated function tractable.
-const chunkTarget = 96 * 1024
+// The KL-side compile cost grows superlinearly with chunk size (the IR is
+// printed through the kernel's string printer), so smaller chunks build
+// faster overall. Tunable via -chunk-kb.
+var chunkTarget = 24 * 1024
 
 type manifest struct {
 	kernel    string
@@ -158,20 +161,26 @@ func chunkForms(forms [][]byte) [][]byte {
 }
 
 // evalKL parses src as KL forms and evaluates each on the VM, failing fast on
-// the first error.
+// the first error and returning the last form's value.
 func evalKL(e *kl.ControlFlow, src string) error {
+	_, err := evalKLValue(e, src)
+	return err
+}
+
+func evalKLValue(e *kl.ControlFlow, src string) (kl.Obj, error) {
 	r := kl.NewSexpReader(strings.NewReader(src), false)
+	last := kl.Nil
 	for {
 		form, err := r.Read()
 		if err != nil {
 			if errors.Is(err, io.EOF) {
-				return nil
+				return last, nil
 			}
-			return fmt.Errorf("parse %q: %v", src, err)
+			return kl.Nil, fmt.Errorf("parse %q: %v", src, err)
 		}
-		res := kl.Eval(e, form)
-		if kl.IsError(res) {
-			return fmt.Errorf("eval %s: %s", kl.ObjString(form), kl.GetString(kl.PrimErrorToString(res)))
+		last = kl.Eval(e, form)
+		if kl.IsError(last) {
+			return kl.Nil, fmt.Errorf("eval %s: %s", kl.ObjString(form), kl.GetString(kl.PrimErrorToString(last)))
 		}
 	}
 }
@@ -213,9 +222,44 @@ type unit struct {
 	src    []byte // KL source of the chunk
 }
 
+type fnArity struct {
+	name  string
+	arity int
+}
+
+// scanDefunArities returns the (name, arity) of every top-level defun in a KL
+// source, in order. Mirrors cmd/kl's emit-arities / the .fns manifest format.
+func scanDefunArities(src []byte) ([]fnArity, error) {
+	var out []fnArity
+	r := kl.NewSexpReader(strings.NewReader(string(src)), false)
+	symDefun := kl.MakeSymbol("defun")
+	for {
+		form, err := r.Read()
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				return out, nil
+			}
+			return nil, err
+		}
+		if kl.PrimIsPair(form) == kl.False || kl.Car(form) != symDefun {
+			continue
+		}
+		nameObj := kl.Cadr(form)
+		if !kl.IsSymbol(nameObj) {
+			continue
+		}
+		arity := 0
+		for p := kl.Car(kl.Cdr(kl.Cdr(form))); p != kl.Nil; p = kl.Cdr(p) {
+			arity++
+		}
+		out = append(out, fnArity{name: kl.GetSymbol(nameObj), arity: arity})
+	}
+}
+
 func main() {
 	shenGoFlag := flag.String("shen-go", "", "path to the shen-go source tree (default: walk up from cwd)")
 	keepWork := flag.Bool("keep-work", false, "keep the _work directory with intermediate .kl/.bc chunks")
+	chunkKB := flag.Int("chunk-kb", chunkTarget/1024, "target KL chunk size in KB per generated Go function")
 	flag.Usage = func() {
 		fmt.Fprintf(os.Stderr, "usage: yggdrasil-build [-shen-go DIR] <shaken-dir> <outdir>\n")
 		flag.PrintDefaults()
@@ -224,6 +268,9 @@ func main() {
 	if flag.NArg() != 2 {
 		flag.Usage()
 		os.Exit(2)
+	}
+	if *chunkKB > 0 {
+		chunkTarget = *chunkKB * 1024
 	}
 
 	shakenDir, err := filepath.Abs(flag.Arg(0))
@@ -283,6 +330,32 @@ func main() {
 	}
 	bootDur := time.Since(t0)
 
+	// Register every user defun's arity in the compiler image before
+	// compiling: with arities known, saturated calls compile to direct calls
+	// instead of runtime (fn F) lookups. The same pairs are replayed at
+	// runtime by the generated main.go (the static-build mirror of the
+	// plugin path's .fns manifest, cmd/shen/plugin.go).
+	var userArities []fnArity
+	for _, uf := range m.users {
+		src, err := os.ReadFile(filepath.Join(shakenDir, uf))
+		if err != nil {
+			fatal("%v", err)
+		}
+		fas, err := scanDefunArities(src)
+		if err != nil {
+			fatal("scan %s: %v", uf, err)
+		}
+		userArities = append(userArities, fas...)
+	}
+	symStoreArity := kl.MakeSymbol("shen.store-arity")
+	for _, fa := range userArities {
+		form := kl.Cons(symStoreArity, kl.Cons(kl.MakeSymbol(fa.name), kl.Cons(kl.MakeInteger(fa.arity), kl.Nil)))
+		if res := kl.Eval(&e, form); kl.IsError(res) {
+			fmt.Fprintf(os.Stderr, "yggdrasil-build: warning: store-arity %s/%d: %s\n",
+				fa.name, fa.arity, kl.GetString(kl.PrimErrorToString(res)))
+		}
+	}
+
 	// Carve the inputs into compilation units.
 	var kernelUnits, userUnits []unit
 	makeUnits := func(klFile, prefix string) []unit {
@@ -324,24 +397,26 @@ func main() {
 	t1 := time.Now()
 	compileUnit := func(u unit) {
 		klFile := filepath.Join(workDir, u.name+".kl")
-		bcFile := filepath.Join(workDir, u.name+".bc")
 		if err := os.WriteFile(klFile, u.src, 0644); err != nil {
 			fatal("%v", err)
 		}
-		if err := evalKL(&e, "(compile-file "+klPath(klFile)+" "+klPath(bcFile)+")"); err != nil {
-			fatal("compile-file %s: %v", u.name, err)
-		}
-		in, err := os.Open(bcFile)
+		// Same pipeline as compile-file (src/compiler.shen) minus the
+		// print-to-file/reparse round-trip: take the bytecode IR off the VM
+		// as an object and hand it straight to the Go translator. The
+		// trailing shen.skip keeps the do-wrap n-ary even for single-form
+		// chunks: (do X) with one argument is not special-formed by the
+		// compiler and would compile to a unary call of the do *function*
+		// (arity 2), which traps at runtime.
+		bc, err := evalKLValue(&e, "(codegen (macroexpand (cons do (append (read-file "+klPath(klFile)+") (cons shen.skip ())))))")
 		if err != nil {
-			fatal("%v", err)
+			fatal("compile %s: %v", u.name, err)
 		}
-		defer in.Close()
 		out, err := os.Create(filepath.Join(outDir, u.goFile))
 		if err != nil {
 			fatal("%v", err)
 		}
 		defer out.Close()
-		if err := cg.HandleBody(in, u.name, out); err != nil {
+		if err := cg.HandleBodyObj(bc, u.name, out); err != nil {
 			fatal("codegen %s: %v", u.name, err)
 		}
 		fmt.Printf("  %-24s %6.1f KB kl -> %s\n", u.name, float64(len(u.src))/1024, u.goFile)
@@ -368,7 +443,7 @@ func main() {
 	}
 
 	// main.go + go.mod for the generated module.
-	if err := os.WriteFile(filepath.Join(outDir, "main.go"), []byte(genMain(m, kernelUnits, userUnits)), 0644); err != nil {
+	if err := os.WriteFile(filepath.Join(outDir, "main.go"), []byte(genMain(m, kernelUnits, userUnits, userArities)), 0644); err != nil {
 		fatal("%v", err)
 	}
 	gomod := fmt.Sprintf("module yggdrasil.local/%s\n\ngo 1.25\n\nrequire github.com/tiancaiamao/shen-go v0.0.0\n\nreplace github.com/tiancaiamao/shen-go => %s\n",
@@ -395,7 +470,7 @@ func moduleName(m *manifest) string {
 	return "prog"
 }
 
-func genMain(m *manifest, kernelUnits, userUnits []unit) string {
+func genMain(m *manifest, kernelUnits, userUnits []unit, userArities []fnArity) string {
 	var b strings.Builder
 	b.WriteString(`// Code generated by yggdrasil-build. DO NOT EDIT.
 package main
@@ -426,6 +501,18 @@ var try_1catch Obj
 			b.WriteString(", ")
 		}
 		b.WriteString(u.name)
+	}
+	b.WriteString("}\n\n")
+	b.WriteString(`// userArities mirrors the plugin path's .fns manifest: every user defun's
+// arity, replayed via shen.store-arity after init so the kernel's (fn F)
+// lookup and partial application resolve compiled user functions.
+var userArities = []struct {
+	name  string
+	arity int
+}{
+`)
+	for _, fa := range userArities {
+		fmt.Fprintf(&b, "\t{%q, %d},\n", fa.name, fa.arity)
 	}
 	b.WriteString("}\n\n")
 	b.WriteString(`func fail(name string, x Obj) {
@@ -463,7 +550,14 @@ func main() {
 	BindSymbolFunc(MakeSymbol("hash"), MakePrimitive("hash", 2, PrimHash))
 `)
 	fmt.Fprintf(&b, "\trun(&e, %q, PrimFunc(MakeSymbol(%q)))\n", m.init, m.init)
-	b.WriteString(`	for i, c := range userChunks {
+	b.WriteString(`	storeArity := MakeSymbol("shen.store-arity")
+	for _, fa := range userArities {
+		if res := Eval(&e, Cons(storeArity, Cons(MakeSymbol(fa.name), Cons(MakeInteger(fa.arity), Nil)))); IsError(res) {
+			fmt.Fprintf(os.Stderr, "yggdrasil: warning: store-arity %s/%d: %s\n",
+				fa.name, fa.arity, GetString(PrimErrorToString(res)))
+		}
+	}
+	for i, c := range userChunks {
 		run(&e, fmt.Sprintf("user chunk %d", i), c)
 	}
 }
