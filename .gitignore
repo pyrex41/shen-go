@@ -3,5 +3,5 @@
 *.bc
 /shen
 /klc
-/yggdrasil-build
+/ratatoskr-build
 *.exe
