@@ -14,6 +14,7 @@
 (load-file "../kernel/klambda/types.kl")
 (load-file "../kernel/klambda/dict.kl")
 (load-file "../kernel/klambda/init.kl")
+(load-file "../kernel/klambda/extension-launcher.kl")
 (shen.initialise)
 
 (load "../src/compiler.shen")
@@ -34,6 +35,7 @@
 (do (compile-file "../kernel/klambda/types.kl" "types.tmp") ())
 (do (compile-file "../kernel/klambda/dict.kl" "dict.tmp") ())
 (do (compile-file "../kernel/klambda/init.kl" "init.tmp") ())
+(do (compile-file "../kernel/klambda/extension-launcher.kl" "launcher.tmp") ())
 
 (let Cg (make-code-generator)
   (do (bc->go Cg "SysMain" false "sys.tmp" "../cmd/shen/sys.go")
@@ -51,4 +53,5 @@
     (do (bc->go Cg "YaccMain" false "yacc.tmp" "../cmd/shen/yacc.go")
     (do (bc->go Cg "TypesMain" false "types.tmp" "../cmd/shen/types.go")
     (do (bc->go Cg "DictMain" false "dict.tmp" "../cmd/shen/dict.go")
-    (bc->go Cg "InitMain" true "init.tmp" "../cmd/shen/init.go")))))))))))))))))
+    (do (bc->go Cg "LauncherMain" false "launcher.tmp" "../cmd/shen/launcher.go")
+    (bc->go Cg "InitMain" true "init.tmp" "../cmd/shen/init.go"))))))))))))))))))
