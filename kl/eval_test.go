@@ -336,9 +336,10 @@ func TestBytecodeVM(t *testing.T) {
 			"81",
 		},
 		{
+			// Issue #11: shortest round-trip form (3.75, not 3.750000).
 			"compiled float multiply",
 			`(do (defun scale (R) (* 1.5 R)) (scale 2.5))`,
-			"3.750000",
+			"3.75",
 		},
 		// VM-path float comparisons through compiled defuns.
 		{

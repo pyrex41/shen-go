@@ -6,6 +6,7 @@ import (
 	"os"
 	"path"
 	"runtime"
+	"strconv"
 	"time"
 )
 
@@ -192,7 +193,9 @@ func PrimStr(o Obj) Obj {
 		}
 		f := mustNumber(o)
 		if !isPreciseInteger(f) {
-			return MakeString(fmt.Sprintf("%f", f))
+			// Issue #11: render with Go's shortest round-trip form
+			// (2.5, not 2.500000) to match shen-cl and the other ports.
+			return MakeString(strconv.FormatFloat(f, 'g', -1, 64))
 		}
 		return MakeString(fmt.Sprintf("%d", int(f)))
 	case scmHeadString:

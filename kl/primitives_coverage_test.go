@@ -17,11 +17,12 @@ func TestPrimitivesViaEval(t *testing.T) {
 	}{
 		// arithmetic
 		{"subtract int", "(- 5 3)", "2"},
-		{"subtract float", "(- 5.5 2.0)", "3.500000"},
+		// Issue #11: floats render in shortest round-trip form (3.5, not 3.500000).
+		{"subtract float", "(- 5.5 2.0)", "3.5"},
 		{"multiply int", "(* 6 7)", "42"},
-		{"multiply float", "(* 1.5 3.0)", "4.500000"},
+		{"multiply float", "(* 1.5 3.0)", "4.5"},
 		{"divide whole", "(/ 20 4)", "5"},
-		{"divide fractional", "(/ 7 2)", "3.500000"},
+		{"divide fractional", "(/ 7 2)", "3.5"},
 
 		// list ops
 		{"hd", "(hd (cons 1 (cons 2 ())))", "1"},
@@ -57,7 +58,7 @@ func TestPrimitivesViaEval(t *testing.T) {
 
 		// str renders each atom type
 		{"str number", "(str 42)", `"42"`},
-		{"str float", "(str 4.5)", `"4.500000"`},
+		{"str float", "(str 4.5)", `"4.5"`},
 		{"str symbol", "(str foo)", `"foo"`},
 		{"str bool", "(str true)", `"true"`},
 		{"str nil", "(str ())", `"()"`},
@@ -77,6 +78,45 @@ func TestPrimitivesViaEval(t *testing.T) {
 				t.Errorf("%s: got %q, want %q", c.input, got, c.want)
 			}
 		})
+	}
+}
+
+// TestFloatShortestFormIssue11 pins the issue #11 fix: non-integral floats
+// render in Go's shortest round-trip form (2.5, not 2.500000) via both the
+// `str` primitive (PrimStr) and ObjString (GoString) — matching shen-cl and
+// the other ports. Integral-valued floats keep printing without a decimal,
+// as the kernel expects.
+func TestFloatShortestFormIssue11(t *testing.T) {
+	var ctx ControlFlow
+
+	// `str` primitive surface.
+	strCases := []struct{ input, want string }{
+		{"(str 2.5)", `"2.5"`},
+		{"(str 4.5)", `"4.5"`},
+		{"(str (/ 7 2))", `"3.5"`},
+		{"(str (/ 1 4))", `"0.25"`},
+		{"(str 0.1)", `"0.1"`},
+		// integral-valued floats and integers print without a decimal point
+		{"(str (* 2.0 3.0))", `"6"`},
+		{"(str 42)", `"42"`},
+	}
+	for _, c := range strCases {
+		if got := ObjString(evalString(&ctx, c.input)); got != c.want {
+			t.Errorf("%s: got %q, want %q", c.input, got, c.want)
+		}
+	}
+
+	// ObjString / GoString surface (the REPL/test rendering path).
+	objCases := []struct{ input, want string }{
+		{"(/ 7 2)", "3.5"},
+		{"(* 1.5 2.5)", "3.75"},
+		{"(/ 1 4)", "0.25"},
+		{"(* 2.0 3.0)", "6"},
+	}
+	for _, c := range objCases {
+		if got := ObjString(evalString(&ctx, c.input)); got != c.want {
+			t.Errorf("ObjString %s: got %q, want %q", c.input, got, c.want)
+		}
 	}
 }
 
