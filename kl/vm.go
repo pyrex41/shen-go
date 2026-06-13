@@ -176,6 +176,7 @@ func vmExec(ctl *ControlFlow, bf *scmBytecodeFunc, args []Obj) {
 	consts := fn.Consts
 
 	for {
+		ctl.tick()
 		instr := code[pc]
 		pc++
 		switch instr.Op {
