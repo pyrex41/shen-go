@@ -134,7 +134,7 @@ func mustError(o Obj) *scmError {
 }
 
 func IsError(o Obj) bool {
-	return *o == scmHeadError
+	return o != nil && *o == scmHeadError
 }
 
 func IsNumber(o Obj) bool {

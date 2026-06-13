@@ -90,6 +90,17 @@ func TestBasic(t *testing.T) {
 			output: "7",
 		},
 
+		// Regression: calling an unbound symbol must raise a catchable Shen
+		// error (MakeError) rather than panic with a bare Go string. Prior to
+		// the fix, evalFunction panicked with fmt.Sprintf(...) which fell into
+		// trap-error's "unexpected panic" branch and yielded nil, later
+		// dereferenced by IsError → SIGSEGV.
+		{
+			name:   "trap-apply-non-function",
+			input:  `(trap-error (overflow->str) (lambda E "caught"))`,
+			output: `"caught"`,
+		},
+
 		// testCase{
 		// 	name:   "partial primitive",
 		// 	input:  `(+ (+ (+ 1 2) 3) 4)`,
@@ -367,5 +378,13 @@ func TestTypeIsMacro(t *testing.T) {
 	res := evalString(&ctx, "(type (cons 1 ()) (undefined func))")
 	if ObjString(res) != "(1)" {
 		t.Fail()
+	}
+}
+
+// TestIsErrorNil guards the nil-deref bug where IsError(nil) would
+// segfault because it unconditionally dereferenced its argument.
+func TestIsErrorNil(t *testing.T) {
+	if IsError(nil) {
+		t.Fatal("IsError(nil) should be false, not panic")
 	}
 }

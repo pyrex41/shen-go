@@ -179,6 +179,7 @@ func Try(e *ControlFlow, f Obj) (res tryResult) {
 			fmt.Println("Panic:", err)
 			fmt.Println("Recovered in Try:", ObjString(f))
 			fmt.Println(string(buf[:n]))
+			res = tryResult{e: e, data: MakeError(fmt.Sprintf("%v", err))}
 		}
 	}()
 	// f must be a 0-arity callable (native thunk or bytecode closure).
@@ -406,7 +407,7 @@ func evalFunction(e *ControlFlow, fn Obj, env Obj) Obj {
 	case scmHeadPair:
 		return evalExp(e, fn, env)
 	}
-	panic(fmt.Sprintf("can't apply non function: %#v", (*scmHead)(fn)))
+	panic(MakeError(fmt.Sprintf("can't apply non function: %#v", (*scmHead)(fn))))
 }
 
 func (e *ControlFlow) Global(key Obj) Obj {
