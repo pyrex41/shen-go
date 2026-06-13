@@ -94,6 +94,35 @@ func TestErrorIsCatchable(t *testing.T) {
 				wantVM:   `"oops"`,
 			},
 		},
+		{
+			// Issue #10: (/ 1 0) used to yield +Inf (truncated to a "maxint"),
+			// which trap-error could not catch. It must now raise the kernel's
+			// standard catchable error on both evaluation paths.
+			name:    "integer divide by zero",
+			trigger: "(/ 1 0)",
+			want: want{
+				wantTree: `"division by zero"`,
+				wantVM:   `"division by zero"`,
+			},
+		},
+		{
+			// Issue #10: float-typed zero divisors are equally uncatchable in
+			// raw Go; the guard must treat them the same.
+			name:    "float divide by zero",
+			trigger: "(/ 1.0 0)",
+			want: want{
+				wantTree: `"division by zero"`,
+				wantVM:   `"division by zero"`,
+			},
+		},
+		{
+			name:    "divide by float zero",
+			trigger: "(/ 1 0.0)",
+			want: want{
+				wantTree: `"division by zero"`,
+				wantVM:   `"division by zero"`,
+			},
+		},
 	}
 
 	for _, c := range cases {
@@ -207,6 +236,46 @@ func TestEvalSurvivesAdversarialSequence(t *testing.T) {
 		}
 		if ctx.pos != 0 {
 			t.Fatalf("step %d: residual sp %d", i, ctx.pos)
+		}
+	}
+}
+
+// TestDivideByZeroIssue10 is the focused regression for issue #10. Before the
+// fix, (/ 1 0) returned a non-finite/maxint value that trap-error could not
+// intercept; now it raises the kernel's standard catchable error. Ordinary
+// (non-zero divisor) division — including float division — must be unaffected.
+func TestDivideByZeroIssue10(t *testing.T) {
+	var ctx ControlFlow
+
+	// trap-error intercepts the divide-by-zero error and runs the handler.
+	if got := ObjString(evalString(&ctx,
+		`(trap-error (/ 1 0) (lambda E "caught"))`)); got != `"caught"` {
+		t.Fatalf("trap-error (/ 1 0): got %q, want %q", got, `"caught"`)
+	}
+
+	// A bare (/ 1 0) (no handler) surfaces as an error object.
+	if res := evalString(&ctx, "(/ 1 0)"); !IsError(res) {
+		t.Fatalf("bare (/ 1 0): got %q, want an error", ObjString(res))
+	}
+
+	// Float-typed zero divisors must be caught the same way (consistency).
+	for _, expr := range []string{"(/ 1 0.0)", "(/ 1.0 0)", "(/ 1.0 0.0)"} {
+		if got := ObjString(evalString(&ctx,
+			fmt.Sprintf(`(trap-error %s (lambda E "caught"))`, expr))); got != `"caught"` {
+			t.Fatalf("trap-error %s: got %q, want %q", expr, got, `"caught"`)
+		}
+	}
+
+	// Non-zero division is unaffected: integer and float results stand.
+	// (formatting here is the pre-existing %f form; issue #11 changes that
+	// separately — this test only cares that non-zero division still works.)
+	for _, c := range []struct{ expr, want string }{
+		{"(/ 20 4)", "5"},
+		{"(/ 7 2)", "3.500000"},
+		{"(/ 1.0 4)", "0.250000"},
+	} {
+		if got := ObjString(evalString(&ctx, c.expr)); got != c.want {
+			t.Fatalf("%s: got %q, want %q", c.expr, got, c.want)
 		}
 	}
 }

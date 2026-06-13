@@ -136,6 +136,13 @@ func PrimNumberMultiply(x, y Obj) Obj {
 func PrimNumberDivide(x, y Obj) Obj {
 	x1 := mustNumber(x)
 	y1 := mustNumber(y)
+	// Issue #10: guard divide-by-zero. Go's float64 division by 0 yields
+	// +Inf/-Inf/NaN (and, after truncation to int, looked like a "maxint"),
+	// which is not catchable by trap-error. Raise the kernel's standard
+	// catchable error instead, matching the sibling ports' message style.
+	if y1 == 0 {
+		panic(MakeError("division by zero"))
+	}
 	return MakeNumber(x1 / y1)
 }
 
