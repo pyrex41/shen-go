@@ -63,11 +63,11 @@ func TestErrorIsCatchable(t *testing.T) {
 			want: want{
 				wantTree: `"can't apply non function: 42"`,
 				// VM path lowers `(42 1)` through apply() and hits
-				// eval.go:242 `panic("can't apply object")` (non-Obj). That
-				// is a sibling hole; until it's fixed the VM variant would
-				// surface "trap-error result is not Obj". Skip rather than
-				// freeze the buggy message.
-				wantVM: "",
+				// eval.go:242, which now raises a catchable MakeError with
+				// the same message as the tree-walker rather than a bare
+				// Go-string panic (the old "trap-error result is not Obj"
+				// hole). Both paths agree.
+				wantVM: `"can't apply non function: 42"`,
 			},
 		},
 		{

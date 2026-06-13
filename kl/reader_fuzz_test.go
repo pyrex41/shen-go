@@ -53,6 +53,16 @@ func FuzzReaderEval(f *testing.F) {
 		"(/. _ false)",
 		"(lambda _ false)",
 
+		// Non-termination and resource-exhaustion inputs the fuzzer found
+		// once it could reach the evaluator. The first is a legal program
+		// that never halts (infinite tail recursion) — the step budget set
+		// below turns it into a catchable "step limit exceeded" rather than
+		// a stuck worker. The second used to abort the whole process with an
+		// unrecoverable OOM; PrimAbsvector now caps the size and raises a
+		// catchable error instead.
+		"(do (defun f (X) (f X)) (f 0))",
+		"(absvector 10000000000)",
+
 		// Reader edge cases that should at minimum not panic.
 		"",
 		" ",
@@ -85,7 +95,16 @@ func FuzzReaderEval(f *testing.F) {
 			// Read errors are an OK terminal state for malformed input.
 			return
 		}
+		// A KLambda program may legally never terminate — e.g. the fuzzer
+		// readily synthesises `(do (defun f (X) (f X)) (f 0))`, which
+		// tail-recurses forever without growing the Go stack, so no panic
+		// fires. That is the halting problem, not the memory-safety bug
+		// class this fuzzer hunts. Cap evaluation so a non-terminating
+		// input surfaces as a catchable "eval step limit exceeded" error
+		// (still a real Obj, still ObjString-able) instead of a stuck
+		// worker that deadlines the whole run and hides genuine crashers.
 		var ctx ControlFlow
+		ctx.stepLimit = 5_000_000
 		res := Eval(&ctx, sexp)
 		if res == nil {
 			t.Fatalf("Eval returned nil Obj for input %q (must be a real Obj or an error)", input)

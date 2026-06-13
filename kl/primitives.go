@@ -339,10 +339,23 @@ func PrimGreatEqual(a, b Obj) Obj {
 	return False
 }
 
+// maxAbsvectorSize bounds the element count `absvector` will allocate. A
+// vector holds n pointers (n*8 bytes on 64-bit), so an attacker-controlled n
+// turns `(absvector N)` into an arbitrarily large make() that aborts the
+// whole process with an unrecoverable Go "out of memory" fatal — uncatchable
+// by trap-error and fatal to any host embedding the evaluator (it was the
+// last way a single fuzzer-reachable form could kill the worker). The ceiling
+// is far larger than any realistic Shen vector (records, hash buckets) yet
+// turns the absurd case into an ordinary catchable Shen error instead.
+const maxAbsvectorSize = 1 << 28 // 268,435,456 elements
+
 func PrimAbsvector(o Obj) Obj {
 	n := mustInteger(o)
 	if n < 0 {
 		panic(MakeError("absvector wrong argument"))
+	}
+	if n > maxAbsvectorSize {
+		panic(MakeError(fmt.Sprintf("absvector size %d exceeds maximum %d", n, maxAbsvectorSize)))
 	}
 	return MakeVector(n)
 }

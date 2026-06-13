@@ -25,6 +25,39 @@ type ControlFlow struct {
 	// (f (g1 h) (g2 n) ...), the stack is used to store the temporary arguments
 	data []Obj
 	pos  int
+
+	// stepLimit, when > 0, caps the number of evaluation steps (trampoline
+	// iterations + VM instructions) a single Eval may take before it aborts
+	// with a catchable MakeError("eval step limit exceeded"). The default
+	// zero means *unlimited* — production never sets it, so the evaluator's
+	// behaviour is unchanged.
+	//
+	// The motivation is fuzzing: a KLambda program may legally fail to
+	// terminate (e.g. `(do (defun f (X) (f X)) (f 0))` tail-recurses
+	// forever without growing the Go stack, so no panic ever fires). That
+	// is the halting problem, not a memory-safety bug — but to a fuzzer it
+	// looks like a stuck worker and hides the crashes we actually care
+	// about. A step limit lets the harness turn "ran too long" into an
+	// ordinary catchable error so the fuzz loop keeps making progress.
+	stepLimit int64
+	steps     int64
+}
+
+// tick accounts one evaluation step against an optional step limit. It is on
+// the hottest path (every trampoline iteration and every VM instruction), so
+// the common case — no limit set — is a single branch, and the abort lives in
+// a separate non-inlined function so tick itself stays inlinable.
+func (ctl *ControlFlow) tick() {
+	if ctl.stepLimit != 0 {
+		ctl.steps++
+		if ctl.steps > ctl.stepLimit {
+			ctl.tripStepLimit()
+		}
+	}
+}
+
+func (ctl *ControlFlow) tripStepLimit() {
+	panic(MakeError("eval step limit exceeded"))
 }
 
 func (ctl *ControlFlow) TailEval(exp Obj, env Obj) {
@@ -56,6 +89,7 @@ func (ctl *ControlFlow) Get(n int) Obj {
 // trampoline is introduced for tail call optimization.
 func trampoline(ctl *ControlFlow) Obj {
 	for ctl.kind != ControlFlowReturn {
+		ctl.tick()
 		switch ctl.kind {
 		case ControlFlowEval:
 			eval(ctl)
@@ -226,7 +260,7 @@ func apply(ctl *ControlFlow) {
 		provided := len(fn.captured) + len(args)
 		required := fn.require
 		if provided != required {
-			panic("partial apply unsupported")
+			panic(MakeError("partial apply unsupported"))
 		}
 		if len(fn.captured) > 0 {
 			// Captured data should come fisrt, then the arguments.
@@ -239,7 +273,7 @@ func apply(ctl *ControlFlow) {
 		fn.fn(ctl)
 		return
 	}
-	panic("can't apply object")
+	panic(MakeError(fmt.Sprintf("can't apply non function: %s", ObjString(f))))
 }
 
 func envGet(env Obj, sym Obj) (Obj, bool) {
