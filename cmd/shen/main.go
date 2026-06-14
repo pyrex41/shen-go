@@ -128,6 +128,10 @@ func main() {
 
 	var e kl.ControlFlow
 	regist(&e)
+	// Memoize read-file (tokenize/parse/lower) per unchanged .shen file, so a
+	// repeated (load ...) in the same process skips re-parsing. Must come after
+	// regist (which binds the kernel read-file we wrap) and before any load.
+	installLoadCache()
 	// Override the kernel's interpreted `hash` (sys.kl) with the native FNV-1a
 	// version. Must come AFTER regist (which binds the kernel's hash) and BEFORE
 	// shen.initialise (which builds dictionaries): every dict must be created and
