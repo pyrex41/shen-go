@@ -6,6 +6,7 @@ import (
 	"os"
 	"path"
 	"runtime"
+	"strconv"
 	"time"
 )
 
@@ -136,6 +137,15 @@ func PrimNumberMultiply(x, y Obj) Obj {
 func PrimNumberDivide(x, y Obj) Obj {
 	x1 := mustNumber(x)
 	y1 := mustNumber(y)
+	// Issue #10: guard divide-by-zero. Go's float64 division by 0 yields
+	// +Inf/-Inf/NaN which, after truncation to int in the number->string
+	// path, surfaced as a bogus maxint (9223372036854775807) and was not
+	// catchable by trap-error. Raise the kernel's standard catchable error
+	// instead, matching shen-cl's divide-by-zero behavior and the sibling
+	// ports' simple-error mechanism.
+	if y1 == 0 {
+		panic(MakeError("division by zero"))
+	}
 	return MakeNumber(x1 / y1)
 }
 
@@ -192,7 +202,11 @@ func PrimStr(o Obj) Obj {
 		}
 		f := mustNumber(o)
 		if !isPreciseInteger(f) {
-			return MakeString(fmt.Sprintf("%f", f))
+			// Issue #11: render with Go's shortest round-trip form
+			// (2.5, not 2.500000) to match shen-cl, shen-rust and
+			// ShenScript. Integral-valued floats keep printing without
+			// a decimal point below, as the kernel expects.
+			return MakeString(strconv.FormatFloat(f, 'g', -1, 64))
 		}
 		return MakeString(fmt.Sprintf("%d", int(f)))
 	case scmHeadString:
