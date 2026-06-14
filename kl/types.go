@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"fmt"
 	"io"
+	"strconv"
 	"time"
 	"unsafe"
 )
@@ -441,7 +442,9 @@ func (o *scmHead) GoString() string {
 	case scmHeadNumber:
 		f := mustNumber(o)
 		if !isPreciseInteger(f) {
-			return fmt.Sprintf("%f", f)
+			// Issue #11: shortest round-trip form (2.5, not 2.500000)
+			// to match shen-cl and the other ports.
+			return strconv.FormatFloat(f, 'g', -1, 64)
 		}
 		return fmt.Sprintf("%d", int(f))
 	case scmHeadPair:
