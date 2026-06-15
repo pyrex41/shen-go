@@ -154,3 +154,19 @@ func isPreciseInteger(f float64) bool {
 func BindSymbolFunc(sym Obj, f Obj) {
 	mustSymbol(sym).function = f
 }
+
+// Equal reports deep structural equality of two objects, comparing numbers by
+// their full float64 value (not just printed form). Exposed for tests that
+// prove the Go-native reader matches the interpreted reader bit-for-bit.
+func Equal(x, y Obj) bool {
+	return equal(x, y) == True
+}
+
+// IsPair reports whether o is a cons pair and, if so, returns its cdr. Exposed
+// for tests that walk reader output without panicking on improper lists.
+func IsPair(o Obj) (bool, Obj) {
+	if ok, p := isPair(o); ok {
+		return true, p.cdr
+	}
+	return false, Nil
+}

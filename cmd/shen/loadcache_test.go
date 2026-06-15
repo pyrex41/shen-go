@@ -28,6 +28,7 @@ func bootShen(t testing.TB) *kl.ControlFlow {
 
 	var e kl.ControlFlow
 	regist(&e)
+	installNativeReader()
 	installLoadCache()
 	kl.BindSymbolFunc(kl.MakeSymbol("hash"), kl.MakePrimitive("hash", 2, kl.PrimHash))
 	kl.Eval(&e, kl.Cons(kl.MakeSymbol("shen.initialise"), kl.Nil))
