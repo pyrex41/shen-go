@@ -128,6 +128,12 @@ func main() {
 
 	var e kl.ControlFlow
 	regist(&e)
+	// Replace read-file's interpreted tokenize/parse stage with a Go-native
+	// reader (kl.ShenReadSExprs), keeping the interpreted process-sexprs. Speeds
+	// up the FIRST (cold) load and one-shot file workloads. Must come after
+	// regist (which binds the interpreted read-file we capture as fallback) and
+	// before installLoadCache so the cache wraps this native read-file.
+	installNativeReader()
 	// Memoize read-file (tokenize/parse/lower) per unchanged .shen file, so a
 	// repeated (load ...) in the same process skips re-parsing. Must come after
 	// regist (which binds the kernel read-file we wrap) and before any load.

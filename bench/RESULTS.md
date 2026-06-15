@@ -4,6 +4,38 @@ Machine: Linux amd64
 Kernel: S39.2  
 Date: 2026-05-05  
 
+## Allocation-reduction work (2026-06)
+
+Profiled with the Go-level VM micro-benchmarks in `kl/vm_bench_test.go`
+(`go test ./kl -bench BenchmarkVM -benchmem`). Two findings drove the work:
+
+1. The per-activation VM `locals`/`stack` slices do **not** heap-allocate —
+   Go stack-allocates them — so `fib`/`tak`/`ack` already run at **0 allocs/op**.
+   "VM slice pooling" was therefore *not* implemented; it would be dead work.
+2. The two real allocation sources, by alloc profile, were **integer boxing**
+   (`makeInteger`, 99.76% of allocs in integer code) and **the interpreter's
+   alist environment** (`cons` via `envExtend`, 99.89% of allocs in lambda code).
+
+Changes:
+
+- **Fixnum range widened** from unsigned `[0, 2^20)` to signed `[-2^25, 2^25)`
+  (`kl/types.go`). The sentinel array is pure address space (never dereferenced,
+  ~0 RSS). Removes boxing for all negative integers and mid-size positives.
+- **Interpreter env node** (`kl/types.go`, `kl/eval.go`): `envExtend` now allocates
+  one `scmEnv{sym,val,next}` per binding instead of `cons(cons(sym,val), env)`
+  (two cons cells). Halves per-binding allocation for `let`/`lambda` bodies that
+  run in the tree-walker.
+
+| Benchmark | Before | After |
+|---|---|---|
+| `fib(24)` | 0 allocs | 0 allocs (unchanged) |
+| `sum` to +32M (in-range) | 7868 allocs, 682 µs | **0 allocs, 398 µs** |
+| `sum` to −32M (negatives) | 8000 allocs, 663 µs | **0 allocs, 397 µs** |
+| lambda apply ×20000 | 40002 allocs, 5.16 ms | **20002 allocs, 4.36 ms** |
+
+Truly large integers (e.g. an accumulator reaching 5e9) still box — that needs a
+full number-representation change, deliberately out of scope here.
+
 ## Measurements
 
 ### `tak(18,12,6)` single call (wall time, seconds)
