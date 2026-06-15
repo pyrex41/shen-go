@@ -278,18 +278,18 @@ func apply(ctl *ControlFlow) {
 
 func envGet(env Obj, sym Obj) (Obj, bool) {
 	for env != Nil {
-		pair := car(env)
-		if car(pair) == sym {
-			return cdr(pair), true
+		fr := mustEnv(env)
+		if fr.sym == sym {
+			return fr.val, true
 		}
-		env = cdr(env)
+		env = fr.next
 	}
 	return nil, false
 }
 
 func envExtend(env Obj, symbols, values []Obj) Obj {
 	for i := 0; i < len(symbols); i++ {
-		env = cons(cons(symbols[i], values[i]), env)
+		env = envCons(symbols[i], values[i], env)
 	}
 	return env
 }

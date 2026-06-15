@@ -48,6 +48,33 @@ type scmPair struct {
 	cdr Obj
 }
 
+// scmEnv is one binding frame in the tree-walking interpreter's lexical
+// environment: a (sym -> val) binding plus a link to the enclosing env. The
+// interpreter previously represented the env as an alist — cons(cons(sym,val),
+// env) — which costs TWO heap allocations per binding. A scmEnv folds the
+// binding and the link into a single node, so each let/lambda binding allocates
+// once instead of twice. The env is fully encapsulated (built only by
+// envExtend, walked only by envGet, otherwise threaded opaquely and never
+// printed, compared, or exposed to Shen code), so this representation change is
+// invisible everywhere else.
+type scmEnv struct {
+	scmHead
+	sym  Obj
+	val  Obj
+	next Obj
+}
+
+const scmHeadEnv scmHead = 51
+
+func envCons(sym, val, next Obj) Obj {
+	tmp := &scmEnv{scmHeadEnv, sym, val, next}
+	return &tmp.scmHead
+}
+
+func mustEnv(o Obj) *scmEnv {
+	return (*scmEnv)(unsafe.Pointer(o))
+}
+
 type scmVector struct {
 	scmHead
 	vector []Obj

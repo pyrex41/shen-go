@@ -84,3 +84,14 @@ func BenchmarkVMSumNeg(b *testing.B) {
 	benchEval(b, `(defun nsum (Acc N) (if (= N 0) Acc (nsum (- Acc N) (- N 1))))`,
 		`(nsum 0 8000)`)
 }
+
+// BenchmarkVMLambdaApply repeatedly applies a lambda. A lambda value is a
+// scmProcedure whose body runs in the tree-walking interpreter (not the VM), so
+// each application goes through envExtend (which conses an (sym . val) pair onto
+// an alist env) and the body's variable references go through envGet (a linear
+// alist scan). This isolates the interpreter's environment representation — the
+// remaining per-call allocation once integer boxing is removed.
+func BenchmarkVMLambdaApply(b *testing.B) {
+	benchEval(b, `(defun applyn (F N Acc) (if (= N 0) Acc (applyn F (- N 1) (F Acc))))`,
+		`(applyn (lambda X (+ X 1)) 20000 0)`)
+}
