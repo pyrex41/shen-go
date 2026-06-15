@@ -450,7 +450,11 @@ func PrimOpenStream(x, y Obj) Obj {
 	case "in":
 		flag |= os.O_RDONLY
 	case "out":
-		flag |= os.O_WRONLY | os.O_CREATE
+		// O_TRUNC: `out` opens for writing from the start, replacing any
+		// existing contents. Without it, writing fewer bytes than a file
+		// already holds leaves the old tail behind (e.g. re-bootstrapping a
+		// .kl over a longer one left trailing bytes -> malformed KL).
+		flag |= os.O_WRONLY | os.O_CREATE | os.O_TRUNC
 	default:
 		flag = os.O_RDWR | os.O_CREATE
 	}

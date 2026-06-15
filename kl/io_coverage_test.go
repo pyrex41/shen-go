@@ -55,6 +55,37 @@ func TestStreamRoundTrip(t *testing.T) {
 	Call(&ctl, closeFn, in)
 }
 
+// TestOpenOutTruncates verifies that (open FILE out) truncates an existing
+// file rather than overwriting in place. Re-opening a file for output and
+// writing fewer bytes than it already holds must NOT leave the old tail
+// behind (a longer previous write left trailing bytes -> malformed output,
+// e.g. re-bootstrapping a .kl over a longer one corrupted the file).
+func TestOpenOutTruncates(t *testing.T) {
+	p := filepath.Join(t.TempDir(), "trunc.txt")
+	if err := os.WriteFile(p, []byte("AAAAAAAAAAAAAAAAAAAA"), 0644); err != nil {
+		t.Fatal(err)
+	}
+
+	var ctl ControlFlow
+	open := ctl.Global(MakeSymbol("open"))
+	closeFn := ctl.Global(MakeSymbol("close"))
+	writeByte := ctl.Global(MakeSymbol("write-byte"))
+
+	out := Call(&ctl, open, MakeString(p), MakeSymbol("out"))
+	for _, b := range []int{83, 72} { // "SH"
+		Call(&ctl, writeByte, MakeInteger(b), out)
+	}
+	Call(&ctl, closeFn, out)
+
+	got, err := os.ReadFile(p)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if string(got) != "SH" {
+		t.Errorf("open out did not truncate: got %q, want %q", string(got), "SH")
+	}
+}
+
 // TestGetTime covers both arms of get-time (unix wall clock and run-time).
 func TestGetTime(t *testing.T) {
 	var ctl ControlFlow
