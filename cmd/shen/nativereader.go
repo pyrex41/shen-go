@@ -43,7 +43,7 @@ import (
 // shen.process-sexprs) and before installLoadCache.
 func installNativeReader() {
 	readFileSym := kl.MakeSymbol("read-file")
-	interpreted := kl.PrimFunc(readFileSym)              // canonical fallback
+	interpreted := kl.PrimFunc(readFileSym) // canonical fallback
 	processSexprs := kl.PrimFunc(kl.MakeSymbol("shen.process-sexprs"))
 
 	native := kl.MakeNative(func(e *kl.ControlFlow) {

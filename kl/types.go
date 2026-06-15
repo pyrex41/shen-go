@@ -169,7 +169,7 @@ func mustString(o Obj) string {
 }
 
 func fixnum(o Obj) int {
-	return int(uintptr(unsafe.Pointer(o)) - uintptr(fixnumBaseAddr))
+	return int(uintptr(unsafe.Pointer(o))-uintptr(fixnumBaseAddr)) + fixnumMin
 }
 
 func mustInteger(o Obj) int {
@@ -244,13 +244,34 @@ var uptime time.Time
 var symQuote, symDefun, symLambda, symFreeze, symLet, symAnd Obj
 var symOr, symIf, symCond, symTrapError, symDo, symMacroExpand Obj
 var symType Obj
+
 // Arithmetic intrinsic symbols for the compiler fast-path detection.
 var symAdd, symSub, symMul, symLT, symLE, symGT, symGE, symNumEq, symNot Obj
 
-const fixnumCount = 1 << 20
+// Fixnum representation: small integers are encoded as pointers into a dedicated
+// sentinel byte array, costing zero heap allocation. The array's contents are
+// never read or written — only the *addresses* of its bytes are used — so the
+// array is pure virtual address space (BSS): it is never paged in and costs ~0
+// RSS regardless of size, and the GC never scans it (a [N]byte has no pointers).
+//
+// The range is signed and centered, so the byte at offset 0 represents
+// fixnumMin. Widening from the original unsigned [0, 2^20) to a signed
+// [-2^25, 2^25) removes heap boxing for two large classes of common integers
+// that previously always allocated a scmNumber: every negative integer, and
+// every integer between 2^20 and 2^25. makeInteger (the boxed fallback) was the
+// single largest allocation source in the VM (per the alloc profile of integer
+// arithmetic), so widening its fixnum fast path directly cuts GC pressure for
+// real integer workloads.
+const (
+	fixnumBits  = 26                       // sentinel array is 2^26 bytes = 64 MiB of pure address space
+	fixnumCount = 1 << fixnumBits          // number of distinct fixnum values
+	fixnumMin   = -(1 << (fixnumBits - 1)) // smallest fixnum, i.e. -2^25
+	fixnumMax   = 1 << (fixnumBits - 1)    // one past the largest fixnum, i.e. 2^25
+)
 
 var addrForFixnum [fixnumCount]byte
 
+// fixnumBaseAddr is the address representing the integer fixnumMin.
 var fixnumBaseAddr = unsafe.Pointer(&addrForFixnum[0])
 var fixnumEndAddr = unsafe.Add(fixnumBaseAddr, fixnumCount)
 
@@ -318,8 +339,8 @@ func init() {
 }
 
 func MakeInteger(v int) Obj {
-	if v >= 0 && v < fixnumCount {
-		return Obj(unsafe.Pointer(unsafe.Add(fixnumBaseAddr, v)))
+	if v >= fixnumMin && v < fixnumMax {
+		return Obj(unsafe.Pointer(unsafe.Add(fixnumBaseAddr, v-fixnumMin)))
 	}
 	return makeInteger(v)
 }
