@@ -137,6 +137,52 @@ func TestLoadCacheEvaluatesCachedFormsAndInvalidatesOnChange(t *testing.T) {
 	}
 }
 
+// TestLoadHonorsHomeDirectory is the regression for the PR #16 review finding:
+// the native read-file (and the load cache) must resolve a relative (load "F")
+// through *home-directory* exactly as the kernel `open` does, NOT read F from
+// the process CWD. The repro puts the SAME relative filename in both the CWD and
+// *home-directory*, with different definitions, and asserts the
+// *home-directory* copy is the one that loads — matching the interpreted reader.
+func TestLoadHonorsHomeDirectory(t *testing.T) {
+	e := bootShen(t)
+	loadCache.reset()
+
+	homeSym := kl.MakeSymbol("*home-directory*")
+	orig := kl.PrimValue(homeSym)
+	defer kl.PrimSet(homeSym, orig) // don't leak the home dir into other tests
+
+	cwdDir := t.TempDir()
+	homeDir := t.TempDir()
+	// Same relative name in both places, different definitions.
+	writeFile(t, filepath.Join(cwdDir, "target.shen"), `(defun home-probe () 111)`)
+	writeFile(t, filepath.Join(homeDir, "target.shen"), `(defun home-probe () 222)`)
+
+	t.Chdir(cwdDir) // process CWD now contains the 111 copy
+	// *home-directory* must end with a separator: `open` concatenates literally.
+	kl.PrimSet(homeSym, kl.MakeString(homeDir+string(filepath.Separator)))
+
+	evalForm(t, e, `(load "target.shen")`)
+	if got := kl.ObjString(evalForm(t, e, "(home-probe)")); got != "222" {
+		t.Fatalf("(load \"target.shen\") read the CWD copy, not *home-directory*: (home-probe) = %s, want 222", got)
+	}
+
+	// A cached reload of the same (home, path) must hit and still be 222.
+	evalForm(t, e, `(load "target.shen")`)
+	if got := kl.ObjString(evalForm(t, e, "(home-probe)")); got != "222" {
+		t.Fatalf("after cached reload, (home-probe) = %s, want 222", got)
+	}
+
+	// Point *home-directory* at a third dir whose copy differs: the cache key is
+	// the resolved path, so this must NOT collide with the previous entry.
+	homeDir2 := t.TempDir()
+	writeFile(t, filepath.Join(homeDir2, "target.shen"), `(defun home-probe () 333)`)
+	kl.PrimSet(homeSym, kl.MakeString(homeDir2+string(filepath.Separator)))
+	evalForm(t, e, `(load "target.shen")`)
+	if got := kl.ObjString(evalForm(t, e, "(home-probe)")); got != "333" {
+		t.Fatalf("after switching *home-directory*, (home-probe) = %s, want 333 (cache must key on resolved path)", got)
+	}
+}
+
 // BenchmarkRepeatedCachedLoad measures the steady-state cost of re-(load)ing an
 // unchanged file — the path the cache accelerates. Compare against
 // BenchmarkColdLoad below (which forces a re-parse every iteration).

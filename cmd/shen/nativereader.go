@@ -48,7 +48,11 @@ func installNativeReader() {
 
 	native := kl.MakeNative(func(e *kl.ControlFlow) {
 		arg := e.Get(1)
-		path := kl.GetString(arg)
+		// Resolve exactly as the kernel `open` does (honoring *home-directory*),
+		// so we read the same file the interpreted read-file-as-bytelist would.
+		// Reading the raw arg against the process CWD would diverge whenever Shen
+		// has changed *home-directory*.
+		path := kl.ResolveHomePath(kl.GetString(arg))
 
 		data, err := os.ReadFile(path)
 		if err != nil {

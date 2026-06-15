@@ -455,12 +455,24 @@ func PrimOpenStream(x, y Obj) Obj {
 		flag = os.O_RDWR | os.O_CREATE
 	}
 
-	file = GetString(PrimValue(home_directory)) + file
+	file = ResolveHomePath(file)
 	f, err := os.OpenFile(file, flag, 0666)
 	if err != nil {
 		panic(MakeError(err.Error()))
 	}
 	return MakeStream(f)
+}
+
+// ResolveHomePath resolves a file path the way the kernel `open` primitive does:
+// by prepending the current *home-directory* value (literal string
+// concatenation — *home-directory* is expected to already end with a
+// separator). Native code that reads files WITHOUT going through `open` (the
+// load cache and the Go-native read-file) MUST resolve through this so they
+// touch exactly the file the interpreted reader would; otherwise a Shen program
+// that changed *home-directory* (e.g. via cd) would make a relative (load "F")
+// silently read F from the process CWD instead of *home-directory*/F.
+func ResolveHomePath(file string) string {
+	return GetString(PrimValue(home_directory)) + file
 }
 
 func PrimCloseStream(x Obj) Obj {

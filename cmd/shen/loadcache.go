@@ -79,8 +79,14 @@ func (c *loadCacheT) reset() {
 // lookup returns the cached forms for path iff an entry exists whose hash matches
 // the current file content. Reading the file to hash it is the only I/O the fast
 // path does; on a hit we skip the whole interpreted parse.
+//
+// The path is resolved through *home-directory* (kl.ResolveHomePath) exactly as
+// the kernel `open` does, and the RESOLVED path is the cache key: the same
+// relative argument under two different *home-directory* values denotes two
+// different files and must not share a cache entry.
 func (c *loadCacheT) lookup(path string) (kl.Obj, bool) {
-	data, err := os.ReadFile(path)
+	resolved := kl.ResolveHomePath(path)
+	data, err := os.ReadFile(resolved)
 	if err != nil {
 		// Can't hash it (missing/unreadable): let the kernel read-file produce
 		// the canonical error. Never cache.
@@ -90,7 +96,7 @@ func (c *loadCacheT) lookup(path string) (kl.Obj, bool) {
 
 	c.mu.Lock()
 	defer c.mu.Unlock()
-	if e, ok := c.entries[path]; ok && e.hash == h {
+	if e, ok := c.entries[resolved]; ok && e.hash == h {
 		c.hits++
 		return e.forms, true
 	}
@@ -100,16 +106,18 @@ func (c *loadCacheT) lookup(path string) (kl.Obj, bool) {
 
 // store records forms as the parse of path's current content. It re-hashes the
 // file rather than trusting a hash threaded from lookup so the stored key always
-// reflects what was actually parsed.
+// reflects what was actually parsed. Like lookup, it keys on the
+// *home-directory*-resolved path.
 func (c *loadCacheT) store(path string, forms kl.Obj) {
-	data, err := os.ReadFile(path)
+	resolved := kl.ResolveHomePath(path)
+	data, err := os.ReadFile(resolved)
 	if err != nil {
 		return
 	}
 	h := sha256.Sum256(data)
 	c.mu.Lock()
 	defer c.mu.Unlock()
-	c.entries[path] = loadCacheEntry{hash: h, forms: forms}
+	c.entries[resolved] = loadCacheEntry{hash: h, forms: forms}
 }
 
 // installLoadCache rebinds the kernel's read-file with a caching wrapper. It must
