@@ -6,6 +6,19 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 
 ## [Unreleased]
 
+### Changed (shen-go vendoring)
+
+- Re-vendored the KLambda kernel from Mark Tarver's **S41.2 (2026-07-11 refresh)**
+  (https://www.shenlanguage.org/Download/S41.2.zip), replacing the community
+  ShenOSKernel-41.2 that was previously vendored byte-identically. Upstream
+  reused the "41.2" version number for a **restructured kernel of a different
+  lineage** (Tarver's CommonLisp reference kernel). See
+  `klambda/PROVENANCE.md` for the full delta. Notable structural changes: no
+  `shen.initialise` wrapper (init forms are inline, load order matters again),
+  `get`/`put`/`unput` moved into `sys.kl`, and `dict.kl` / `init.kl` /
+  `stlib.kl` / the shen-cl `compiler.kl` artifact removed. `backend.kl` (the
+  CommonLisp code generator) is vendored but not booted.
+
 ## [41.2] - 2026-04-19
 
 ### Fixed
