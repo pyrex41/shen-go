@@ -20,29 +20,39 @@ func init() {
 }
 
 func regist(e *kl.ControlFlow) {
-	for _, init := range []kl.Obj{
-		TopLevelMain,
-		CoreMain,
-		SysMain,
-		SequentMain,
-		YaccMain,
-		ReaderMain,
-		PrologMain,
-		TrackMain,
-		LoadMain,
-		WriterMain,
-		MacrosMain,
-		DeclarationsMain,
-		TStarMain,
-		TypesMain,
-		DictMain,
-		LauncherMain,
-		InitMain,
-	} {
-		res := kl.Call(e, init)
-		if kl.IsError(res) {
+	call := func(m kl.Obj) {
+		if kl.IsError(kl.Call(e, m)) {
 			fmt.Println("load ...fail")
 		}
+	}
+	// Load order follows upstream install.lsp. The Tarver S41.2 refresh has no
+	// shen.initialise wrapper (unlike the community ShenOSKernel): each module
+	// runs its own top-level (set ...), (put ... arity ...) and (declare ...)
+	// forms as its Main thunk is called, so order is load-order DEPENDENT.
+	call(SysMain)
+	// SysMain defines the interpreted `hash`; the property-vector dictionaries
+	// are then built by DeclarationsMain's arity table and TypesMain's datatype
+	// (declare ...) forms. Swap in the native FNV-1a hash now — after SysMain
+	// binds it, before the first dict write — so every dict is built AND read
+	// with the same hash for the life of the process.
+	kl.BindSymbolFunc(kl.MakeSymbol("hash"), kl.MakePrimitive("hash", 2, kl.PrimHash))
+	for _, m := range []kl.Obj{
+		WriterMain,
+		CoreMain,
+		ReaderMain,
+		DeclarationsMain,
+		TopLevelMain,
+		MacrosMain,
+		LoadMain,
+		PrologMain,
+		SequentMain,
+		TrackMain,
+		TStarMain,
+		YaccMain,
+		TypesMain,
+		LauncherMain,
+	} {
+		call(m)
 	}
 }
 
@@ -70,7 +80,10 @@ func repl(e *kl.ControlFlow) {
 				e.Return(kl.Nil)
 				return
 			}
-			e.TailApply(kl.PrimFunc(symshen_4toplevel_1display_1exception), err)
+			// The Tarver S41.2 refresh has no shen.toplevel-display-exception;
+			// its shen.loop prints the raw error string + newline, so mirror that.
+			fmt.Println(kl.GetString(kl.PrimErrorToString(err)))
+			e.Return(kl.Nil)
 		}, 1)
 
 		kl.Try(e, body).Catch(handler)
@@ -138,12 +151,11 @@ func main() {
 	// repeated (load ...) in the same process skips re-parsing. Must come after
 	// regist (which binds the kernel read-file we wrap) and before any load.
 	installLoadCache()
-	// Override the kernel's interpreted `hash` (sys.kl) with the native FNV-1a
-	// version. Must come AFTER regist (which binds the kernel's hash) and BEFORE
-	// shen.initialise (which builds dictionaries): every dict must be created and
-	// queried with the same hash, so the swap has to precede the first dict op.
-	kl.BindSymbolFunc(kl.MakeSymbol("hash"), kl.MakePrimitive("hash", 2, kl.PrimHash))
-	kl.Eval(&e, kl.Cons(kl.MakeSymbol("shen.initialise"), kl.Nil))
+	// NB: the Tarver S41.2 refresh has no shen.initialise to call here, and the
+	// native `hash` swap now happens inside regist (after SysMain binds the
+	// interpreted hash, before DeclarationsMain/TypesMain build the property
+	// dictionaries). All top-level initialisation runs inline as the module
+	// Mains are called in regist.
 	fixPrHush(&e)
 	loadPrecompiled(&e, precompiled)
 	if len(launcherArgs) > 0 {

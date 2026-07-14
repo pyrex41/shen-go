@@ -133,63 +133,17 @@ make shen
 ``` 
 Explanation : 
 
-`kl` implement a simple klambda interpreter in Go, which can be used to bootstrap `shen`
+`kl` implements a simple klambda interpreter in Go, which is used to bootstrap
+`shen`. `compiled/script.kl` drives the whole regeneration: it loads the KLambda
+kernel, loads the KL->IR compiler (`src/compiler.shen`), compiles each module to
+its intermediate representation (`*.tmp`), and emits the Go sources under
+`cmd/shen/`. The full transformation path is Shen -> KL -> IR -> Go.
 
-```
-(load-file "../kernel/klambda/toplevel.kl")
-(load-file "../kernel/klambda/core.kl")
-(load-file "../kernel/klambda/sys.kl")
-(load-file "../kernel/klambda/sequent.kl")
-(load-file "../kernel/klambda/yacc.kl")
-(load-file "../kernel/klambda/reader.kl")
-(load-file "../kernel/klambda/prolog.kl")
-(load-file "../kernel/klambda/track.kl")
-(load-file "../kernel/klambda/load.kl")
-(load-file "../kernel/klambda/writer.kl")
-(load-file "../kernel/klambda/macros.kl")
-(load-file "../kernel/klambda/declarations.kl")
-(load-file "../kernel/klambda/t-star.kl")
-(load-file "../kernel/klambda/types.kl")
-(load-file "../kernel/klambda/dict.kl")
-(load-file "../kernel/klambda/init.kl")
-(shen.initialise)
-```
-
-`shen` source files is generated from the `.kl` files. The full transformation path is Shen -> KL -> IR -> Go.
-
-The file `src/compiler.shen` is a transpiler from KL to an intermediate representation(IR), load it:
-
-```
-(load "../src/compiler.shen")
-```
-
-Compile the klambda to the intermediate representation:
-
-```
-(set *maximum-print-sequence-size* 100000)
-(compile-file "../kernel/klambda/sys.kl" "sys.tmp")
-(compile-file "../kernel/klambda/writer.kl" "writer.tmp")
-(compile-file "../kernel/klambda/core.kl" "core.tmp")
-(compile-file "../kernel/klambda/reader.kl" "reader.tmp")
-(compile-file "../kernel/klambda/declarations.kl" "declarations.tmp")
-(compile-file "../kernel/klambda/toplevel.kl" "toplevel.tmp")
-(compile-file "../kernel/klambda/macros.kl" "macros.tmp")
-(compile-file "../kernel/klambda/load.kl" "load.tmp")
-(compile-file "../kernel/klambda/prolog.kl" "prolog.tmp")
-(compile-file "../kernel/klambda/sequent.kl" "sequent.tmp")
-(compile-file "../kernel/klambda/track.kl" "track.tmp")
-(compile-file "../kernel/klambda/t-star.kl" "t-star.tmp")
-(compile-file "../kernel/klambda/yacc.kl" "yacc.tmp")
-(compile-file "../kernel/klambda/types.kl" "types.tmp")
-(compile-file "../kernel/klambda/dict.kl" "dict.tmp")
-(compile-file "../kernel/klambda/init.kl" "init.tmp")
-```
-
-And generate the Go files from the intermediate representation:
-
-Use `compiled/bctogo.shen` to generate the Go files from the intermediate representation.
-
-Now the shen source files are available, built it:
+The vendored kernel (Tarver's S41.2 refresh — see `kernel/klambda/PROVENANCE.md`)
+is **load-order dependent**: there is no `shen.initialise`, so each module runs
+its own top-level `(set ...)`/`(put ... arity ...)`/`(declare ...)` forms as it
+loads. `script.kl` loads the modules in upstream `install.lsp` order; do not
+reorder them. After regeneration:
 
 ```
 make shen

@@ -13,7 +13,8 @@
 // the shared codegen package — the same pipeline that generated cmd/shen
 // itself. The emitted module contains one 0-arity thunk per chunk plus a
 // main.go that runs kernel chunks in order, calls the manifest's init
-// function (shen.initialise), then runs the user chunks (whose toplevel
+// function if one is declared (the Tarver S41.2 refresh has none -- init runs
+// inline as the kernel chunks load), then runs the user chunks (whose toplevel
 // non-defun forms execute in source order, after init, as the Ratatoskr
 // builder contract requires).
 //
@@ -41,11 +42,15 @@ import (
 // mirrored from compiled/precompile.kl. The builder needs the full kernel
 // only to host the compiler; the program being built loads the *shaken*
 // kernel from the manifest instead.
+// Order follows upstream install.lsp (Tarver S41.2 refresh). This kernel has
+// no shen.initialise: each module runs its own top-level init forms as it loads
+// (load-order DEPENDENT), so this order must not be reordered. sys.kl is first
+// so the native hash can be swapped in immediately after it (see the boot code).
 var kernelLoadOrder = []string{
-	"toplevel.kl", "core.kl", "sys.kl", "sequent.kl", "yacc.kl",
-	"reader.kl", "prolog.kl", "track.kl", "load.kl", "writer.kl",
-	"macros.kl", "declarations.kl", "t-star.kl", "types.kl",
-	"dict.kl", "init.kl",
+	"sys.kl", "writer.kl", "core.kl", "reader.kl", "declarations.kl",
+	"toplevel.kl", "macros.kl", "load.kl", "prolog.kl", "sequent.kl",
+	"track.kl", "t-star.kl", "yacc.kl", "types.kl",
+	"extension-launcher.kl",
 }
 
 // chunkTarget is the rough upper bound on the KL source size compiled into a
@@ -103,9 +108,9 @@ func parseManifest(dir string) (*manifest, error) {
 	if m.kernel == "" {
 		return nil, fmt.Errorf("manifest has no kernel= entry")
 	}
-	if m.init == "" {
-		return nil, fmt.Errorf("manifest has no init= entry")
-	}
+	// init= is optional: the Tarver S41.2 refresh has no shen.initialise (init
+	// runs inline as the kernel loads), so a shaken dir for that kernel may omit
+	// it. When present it is still called after the kernel chunks.
 	return m, nil
 }
 
@@ -311,20 +316,23 @@ func main() {
 		fatal("%v", err)
 	}
 
-	// Boot the compiler image: full kernel + shen.initialise + compiler.shen.
+	// Boot the compiler image: full kernel + compiler.shen. The Tarver S41.2
+	// refresh has no shen.initialise -- each module runs its top-level init
+	// forms inline as it loads (load-order DEPENDENT), so we just load the
+	// modules in kernelLoadOrder.
 	t0 := time.Now()
 	var e kl.ControlFlow
-	for _, f := range kernelLoadOrder {
+	for i, f := range kernelLoadOrder {
 		p := filepath.Join(root, "kernel", "klambda", f)
 		if err := evalKL(&e, "(load-file "+klPath(p)+")"); err != nil {
 			fatal("boot kernel: %v", err)
 		}
-	}
-	// Mirror cmd/shen: native hash, swapped in after the kernel binds its
-	// interpreted version and before shen.initialise builds dictionaries.
-	kl.BindSymbolFunc(kl.MakeSymbol("hash"), kl.MakePrimitive("hash", 2, kl.PrimHash))
-	if err := evalKL(&e, "(shen.initialise)"); err != nil {
-		fatal("shen.initialise: %v", err)
+		// sys.kl (first) binds the interpreted hash and defines get/put; swap in
+		// the native hash right after so the property dictionaries built inline
+		// by declarations.kl / types.kl (and every later read) use one hash.
+		if i == 0 {
+			kl.BindSymbolFunc(kl.MakeSymbol("hash"), kl.MakePrimitive("hash", 2, kl.PrimHash))
+		}
 	}
 	if err := evalKL(&e, "(load "+klPath(filepath.Join(root, "src", "compiler.shen"))+")"); err != nil {
 		fatal("load compiler.shen: %v", err)
@@ -546,15 +554,20 @@ func main() {
 	try_1catch = PrimFunc(MakeSymbol("try-catch"))
 
 	var e ControlFlow
+	// Swap in the native hash BEFORE running any kernel chunk. The Tarver S41.2
+	// refresh builds the property dictionaries inline while the declarations /
+	// types chunks load (there is no separate shen.initialise pass that runs
+	// after the kernel), so the hash must already be its final form when the
+	// first dict is written. Whatever hash is live when the first dict op runs
+	// stays live for every later read -- no mid-boot swap, so no mismatch.
+	BindSymbolFunc(MakeSymbol("hash"), MakePrimitive("hash", 2, PrimHash))
 	for i, c := range kernelChunks {
 		run(&e, fmt.Sprintf("kernel chunk %d", i), c)
 	}
-	// Mirror cmd/shen: swap in the native hash after the kernel binds its
-	// interpreted version and before the init function builds dictionaries
-	// (every dict must be created and queried with the same hash).
-	BindSymbolFunc(MakeSymbol("hash"), MakePrimitive("hash", 2, PrimHash))
 `)
-	fmt.Fprintf(&b, "\trun(&e, %q, PrimFunc(MakeSymbol(%q)))\n", m.init, m.init)
+	if m.init != "" {
+		fmt.Fprintf(&b, "\trun(&e, %q, PrimFunc(MakeSymbol(%q)))\n", m.init, m.init)
+	}
 	if m.needsEval {
 		// The arity replay only serves runtime eval's (fn F) lookups; an
 		// eval-stripped kernel omits shen.store-arity itself.
