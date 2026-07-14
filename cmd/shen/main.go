@@ -157,6 +157,12 @@ func main() {
 	// dictionaries). All top-level initialisation runs inline as the module
 	// Mains are called in regist.
 	fixPrHush(&e)
+	// Load the embedded Shen standard library (filter/mapc/fold*/…) unless
+	// SHEN_NO_STDLIB is set. The kernel ships none of these; loading here makes
+	// a bare (filter ...) work in the REPL, launcher, and scripts.
+	if os.Getenv("SHEN_NO_STDLIB") == "" {
+		loadStdlib(&e)
+	}
 	loadPrecompiled(&e, precompiled)
 	if len(launcherArgs) > 0 {
 		runLauncher(&e, launcherArgs)

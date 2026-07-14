@@ -34,6 +34,16 @@ make shen-exe
 
 This binary has no dependency, you can move it to any where you want.
 
+## Standard library
+
+The Shen kernel ships no standard library, so shen-go bundles one from Tarver's
+`Lib/StLib` (vendored under `cmd/shen/stlib/`, `go:embed`ed into the binary and
+loaded at startup). Functions like `filter`, `mapc`, `take`/`drop`,
+`foldl`/`foldr`, `sort`, and the Maths/Strings/Vectors/Tuples helpers work out
+of the box — no separate install step. Loading adds ~0.12s to startup; set
+`SHEN_NO_STDLIB=1` to skip it (kernel functions only). See
+`cmd/shen/stlib/PROVENANCE.md`.
+
 ## Performance: compile hot files to Go (optional)
 
 By default every function runs on the bytecode VM — instant to define, ideal for
