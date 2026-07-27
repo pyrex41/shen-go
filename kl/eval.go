@@ -68,10 +68,17 @@ func (ctl *ControlFlow) TailEval(exp Obj, env Obj) {
 }
 
 func (ctl *ControlFlow) TailApply(f Obj, args ...Obj) {
+	ctl.tailApplySlice(f, args)
+}
+
+// tailApplySlice is TailApply taking an explicit slice, letting hot callers
+// (the VM's OP_CALL/OP_TAIL_CALL) hand over a view of their operand stack
+// without first materialising a temporary []Obj for varargs. args must not
+// alias ctl.data (all VM callers pass frame-local slices; the append below
+// copies the values into ctl.data immediately).
+func (ctl *ControlFlow) tailApplySlice(f Obj, args []Obj) {
 	ctl.data = ctl.data[:ctl.pos]
 	ctl.data = append(ctl.data, f)
-	// TODO: Change the function signature.
-	// Using args ... is not good for performance, there is a copy here.
 	ctl.data = append(ctl.data, args...)
 	ctl.kind = ControlFlowApply
 }
@@ -169,8 +176,15 @@ func makeTempSymbols(n int) []Obj {
 }
 
 func Call(e *ControlFlow, f Obj, args ...Obj) Obj {
-	e.TailApply(f, args...)
+	e.tailApplySlice(f, args)
 	return trampoline(e)
+}
+
+// callSlice is Call taking an explicit args slice (see tailApplySlice for the
+// aliasing contract).
+func (ctl *ControlFlow) callSlice(f Obj, args []Obj) Obj {
+	ctl.tailApplySlice(f, args)
+	return trampoline(ctl)
 }
 
 func Eval(e *ControlFlow, exp Obj) (res Obj) {
@@ -234,6 +248,16 @@ func apply(ctl *ControlFlow) {
 	args := ctl.data[ctl.pos+1:]
 	switch *f {
 	case scmHeadBytecodeFunc:
+		bf := mustBytecodeFunc(f)
+		if len(args) == bf.fn.Arity {
+			// Exact arity (the common case): no defensive copy needed. args
+			// aliases ctl.data, but vmExec copies it into a fresh locals slice
+			// before anything can mutate ctl.data.
+			vmExec(ctl, bf, args)
+			return
+		}
+		// Partial/over-application: the over-application path reads args after
+		// an inner Call has clobbered ctl.data, so it needs its own copy.
 		argsCopy := make([]Obj, len(args))
 		copy(argsCopy, args)
 		vmApply(ctl, f, argsCopy)

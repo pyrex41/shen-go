@@ -167,10 +167,16 @@ func vmExec(ctl *ControlFlow, bf *scmBytecodeFunc, args []Obj) {
 	fn := bf.fn
 	upvals := bf.upvals
 
-	locals := make([]Obj, fn.Nlocals)
+	// One allocation per activation: locals and the operand stack share a
+	// backing array (stack starts at len==0 just past the locals; append only
+	// ever writes at indices >= Nlocals, so the regions never overlap). If a
+	// frame needs more than 16 stack slots append reallocates the stack away
+	// from the slab, which is rare and still correct.
+	slab := make([]Obj, fn.Nlocals, fn.Nlocals+16)
+	locals := slab
 	copy(locals, args)
 
-	stack := make([]Obj, 0, 16)
+	stack := slab[fn.Nlocals:]
 	pc := 0
 	code := fn.Code
 	consts := fn.Consts
@@ -205,19 +211,27 @@ func vmExec(ctl *ControlFlow, bf *scmBytecodeFunc, args []Obj) {
 			n := int(instr.A)
 			base := len(stack) - n - 1
 			callee := stack[base]
-			callArgs := make([]Obj, n)
-			copy(callArgs, stack[base+1:])
+			var result Obj
+			if *callee == scmHeadBytecodeFunc {
+				// Direct dispatch to the callee: skips a round-trip through
+				// tailApplySlice+trampoline+apply (and its arg copies). The
+				// stack slice is frame-local, so vmApply may use it in place;
+				// vmExec copies it into the callee's locals immediately.
+				vmApply(ctl, callee, stack[base+1:])
+				result = trampoline(ctl)
+			} else {
+				result = ctl.callSlice(callee, stack[base+1:])
+			}
 			stack = stack[:base]
-			result := Call(ctl, callee, callArgs...)
 			stack = append(stack, result)
 
 		case OP_TAIL_CALL:
 			n := int(instr.A)
 			base := len(stack) - n - 1
 			callee := stack[base]
-			callArgs := make([]Obj, n)
-			copy(callArgs, stack[base+1:])
-			ctl.TailApply(callee, callArgs...)
+			// stack is frame-local (never aliases ctl.data), so hand it to
+			// tailApplySlice directly instead of copying to a temporary.
+			ctl.tailApplySlice(callee, stack[base+1:])
 			return
 
 		case OP_RETURN:
