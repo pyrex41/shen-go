@@ -60,6 +60,12 @@ func regist(e *kl.ControlFlow) {
 	} {
 		call(m)
 	}
+	// Swap the interpreted `arity`/`fn` for natives that read the same kernel
+	// structures (*property-vector* dict, shen.*lambdatable* alist) without the
+	// per-call trap-error closures and with a memoized lambdatable lookup.
+	// Must come after the module Mains above have defined the interpreted
+	// versions and built those structures.
+	kl.InstallKernelFast()
 }
 
 var ns2_1set kl.Obj
