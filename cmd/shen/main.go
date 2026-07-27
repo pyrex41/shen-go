@@ -66,6 +66,9 @@ func regist(e *kl.ControlFlow) {
 	// Must come after the module Mains above have defined the interpreted
 	// versions and built those structures.
 	kl.InstallKernelFast()
+	// Optional shen.x host extensions (SHA-256 via crypto/sha256).
+	// See pyrex41/shen-extensions. SHEN_X_SHA256=pure disables.
+	kl.InstallShenX()
 }
 
 var ns2_1set kl.Obj
