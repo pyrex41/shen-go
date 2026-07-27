@@ -167,12 +167,14 @@ func vmExec(ctl *ControlFlow, bf *scmBytecodeFunc, args []Obj) {
 	fn := bf.fn
 	upvals := bf.upvals
 
-	// One allocation per activation: locals and the operand stack share a
-	// backing array (stack starts at len==0 just past the locals; append only
-	// ever writes at indices >= Nlocals, so the regions never overlap). If a
+	// Locals and the operand stack share one slab (stack starts at len==0 just
+	// past the locals; append only ever writes at indices >= Nlocals, so the
+	// regions never overlap). Slabs are recycled via ctl.framePool — the
+	// previous per-activation make() dominated alloc_space on SHA/prng. If a
 	// frame needs more than 16 stack slots append reallocates the stack away
-	// from the slab, which is rare and still correct.
-	slab := make([]Obj, fn.Nlocals, fn.Nlocals+16)
+	// from the slab, which is rare and still correct (the original slab is
+	// what we putFrame).
+	slab := ctl.takeFrame(fn.Nlocals)
 	locals := slab
 	copy(locals, args)
 
@@ -211,16 +213,45 @@ func vmExec(ctl *ControlFlow, bf *scmBytecodeFunc, args []Obj) {
 			n := int(instr.A)
 			base := len(stack) - n - 1
 			callee := stack[base]
+			callArgs := stack[base+1:]
 			var result Obj
-			if *callee == scmHeadBytecodeFunc {
-				// Direct dispatch to the callee: skips a round-trip through
-				// tailApplySlice+trampoline+apply (and its arg copies). The
-				// stack slice is frame-local, so vmApply may use it in place;
-				// vmExec copies it into the callee's locals immediately.
-				vmApply(ctl, callee, stack[base+1:])
-				result = trampoline(ctl)
-			} else {
-				result = ctl.callSlice(callee, stack[base+1:])
+			switch *callee {
+			case scmHeadBytecodeFunc:
+				// Exact-arity: run the callee directly. If it returns, skip the
+				// trampoline hop; if it sets up a tail call, finish via trampoline.
+				// Partial/over-application still goes through vmApply.
+				bfc := mustBytecodeFunc(callee)
+				if len(callArgs) == bfc.fn.Arity {
+					vmExec(ctl, bfc, callArgs)
+					if ctl.kind == ControlFlowReturn {
+						result = ctl.data[ctl.pos]
+						ctl.data = ctl.data[:ctl.pos]
+					} else {
+						result = trampoline(ctl)
+					}
+				} else {
+					vmApply(ctl, callee, callArgs)
+					result = trampoline(ctl)
+				}
+			case scmHeadNative:
+				// Exact-arity natives without captured slots: set up ctl.data
+				// and invoke directly, only entering the trampoline if the
+				// native tail-applies (e.g. fn with arity 0).
+				nf := MustNative(callee)
+				if len(nf.captured) == 0 && len(callArgs) == nf.require {
+					ctl.tailApplySlice(callee, callArgs)
+					nf.fn(ctl)
+					if ctl.kind == ControlFlowReturn {
+						result = ctl.data[ctl.pos]
+						ctl.data = ctl.data[:ctl.pos]
+					} else {
+						result = trampoline(ctl)
+					}
+				} else {
+					result = ctl.callSlice(callee, callArgs)
+				}
+			default:
+				result = ctl.callSlice(callee, callArgs)
 			}
 			stack = stack[:base]
 			stack = append(stack, result)
@@ -232,10 +263,12 @@ func vmExec(ctl *ControlFlow, bf *scmBytecodeFunc, args []Obj) {
 			// stack is frame-local (never aliases ctl.data), so hand it to
 			// tailApplySlice directly instead of copying to a temporary.
 			ctl.tailApplySlice(callee, stack[base+1:])
+			ctl.putFrame(slab)
 			return
 
 		case OP_RETURN:
 			ctl.Return(stack[len(stack)-1])
+			ctl.putFrame(slab)
 			return
 
 		case OP_JUMP:
