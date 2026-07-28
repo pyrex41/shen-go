@@ -6,6 +6,8 @@ import (
 	"net/http"
 	_ "net/http/pprof"
 	"os"
+	"runtime"
+	runtimepprof "runtime/pprof"
 	"strings"
 
 	"github.com/tiancaiamao/shen-go/kl"
@@ -13,10 +15,14 @@ import (
 
 var pprof bool
 var precompiled precompiledFlag
+var cpuprofile string
+var memprofile string
 
 func init() {
 	flag.BoolVar(&pprof, "pprof", false, "enable pprof")
 	flag.Var(&precompiled, "precompiled", "path to a precompiled .so (repeatable or comma-separated); functions in it run as compiled Go instead of the VM")
+	flag.StringVar(&cpuprofile, "cpuprofile", "", "write a CPU profile (runtime/pprof) covering the whole run to FILE")
+	flag.StringVar(&memprofile, "memprofile", "", "write a heap profile to FILE at exit")
 }
 
 func regist(e *kl.ControlFlow) {
@@ -54,6 +60,15 @@ func regist(e *kl.ControlFlow) {
 	} {
 		call(m)
 	}
+	// Swap the interpreted `arity`/`fn` for natives that read the same kernel
+	// structures (*property-vector* dict, shen.*lambdatable* alist) without the
+	// per-call trap-error closures and with a memoized lambdatable lookup.
+	// Must come after the module Mains above have defined the interpreted
+	// versions and built those structures.
+	kl.InstallKernelFast()
+	// Optional shen.x host extensions (SHA-256 via crypto/sha256).
+	// See pyrex41/shen-extensions. SHEN_X_SHA256=pure disables.
+	kl.InstallShenX()
 }
 
 var ns2_1set kl.Obj
@@ -99,22 +114,34 @@ func isStinputEOFError(err kl.Obj) bool {
 	return kl.StinputEOF() && kl.GetString(kl.PrimErrorToString(err)) == "error: empty stream"
 }
 
-// splitArgs separates the leading Go-level flags (-pprof, -precompiled) from
-// the launcher command line. Everything from the first argument that isn't one
-// of our Go flags onward is handed verbatim to the kernel launcher, so
-// launcher-protocol arguments like `--version`, `--help` or `eval -e ...`
-// never reach Go's flag parser (which would reject them as unknown flags).
+// splitArgs separates the leading Go-level flags (-pprof, -precompiled,
+// -cpuprofile, -memprofile) from the launcher command line. Everything from
+// the first argument that isn't one of our Go flags onward is handed verbatim
+// to the kernel launcher, so launcher-protocol arguments like `--version`,
+// `--help` or `eval -e ...` never reach Go's flag parser (which would reject
+// them as unknown flags).
 func splitArgs(args []string) (goFlags, launcherArgs []string) {
+	// Flags whose value is the following argument (when not given as -f=v).
+	valueFlags := map[string]bool{"precompiled": true, "cpuprofile": true, "memprofile": true}
+	isGoFlag := func(name string) bool {
+		if name == "pprof" || valueFlags[name] {
+			return true
+		}
+		for f := range valueFlags {
+			if strings.HasPrefix(name, f+"=") {
+				return true
+			}
+		}
+		return strings.HasPrefix(name, "pprof=")
+	}
 	i := 0
 	for i < len(args) {
 		arg := args[i]
 		name := strings.TrimLeft(arg, "-")
 		switch {
-		case len(arg) > len(name) && (name == "pprof" || name == "precompiled" ||
-			strings.HasPrefix(name, "pprof=") || strings.HasPrefix(name, "precompiled=")):
+		case len(arg) > len(name) && isGoFlag(name):
 			goFlags = append(goFlags, arg)
-			// -precompiled takes its value as the following argument.
-			if name == "precompiled" && i+1 < len(args) {
+			if valueFlags[name] && i+1 < len(args) {
 				i++
 				goFlags = append(goFlags, args[i])
 			}
@@ -126,9 +153,45 @@ func splitArgs(args []string) (goFlags, launcherArgs []string) {
 	return goFlags, nil
 }
 
+// stopProfiles flushes any active -cpuprofile / -memprofile output. Called via
+// defer from main and explicitly before the os.Exit paths in runLauncher (which
+// would otherwise skip the defer and truncate the profile).
+func stopProfiles() {
+	if cpuprofile != "" {
+		runtimepprof.StopCPUProfile()
+		cpuprofile = "" // idempotent: defer + explicit call before os.Exit
+	}
+	if memprofile != "" {
+		f, err := os.Create(memprofile)
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "could not create memory profile: %v\n", err)
+			return
+		}
+		defer f.Close()
+		runtime.GC() // get up-to-date statistics
+		if err := runtimepprof.WriteHeapProfile(f); err != nil {
+			fmt.Fprintf(os.Stderr, "could not write memory profile: %v\n", err)
+		}
+		memprofile = ""
+	}
+}
+
 func main() {
 	goFlags, launcherArgs := splitArgs(os.Args[1:])
 	flag.CommandLine.Parse(goFlags)
+
+	if cpuprofile != "" {
+		f, err := os.Create(cpuprofile)
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "could not create CPU profile: %v\n", err)
+			os.Exit(1)
+		}
+		if err := runtimepprof.StartCPUProfile(f); err != nil {
+			fmt.Fprintf(os.Stderr, "could not start CPU profile: %v\n", err)
+			os.Exit(1)
+		}
+	}
+	defer stopProfiles()
 
 	if pprof {
 		go http.ListenAndServe(":8080", nil)
@@ -235,14 +298,17 @@ func runLauncher(e *kl.ControlFlow, args []string) {
 		fmt.Println(kl.GetString(kl.Car(kl.Cdr(res))))
 	case kl.MakeSymbol("error"):
 		fmt.Fprintf(os.Stderr, "ERROR: %s\n", kl.GetString(kl.Car(kl.Cdr(res))))
+		stopProfiles()
 		os.Exit(1)
 	case kl.MakeSymbol("unknown-arguments"):
 		prog := kl.GetString(kl.Car(kl.Cdr(res)))
 		bad := kl.GetString(kl.Car(kl.Cdr(kl.Cdr(res))))
 		fmt.Fprintf(os.Stderr, "ERROR: Invalid argument: %s\nTry `%s --help' for more information.\n", bad, prog)
+		stopProfiles()
 		os.Exit(1)
 	default:
 		fmt.Fprintf(os.Stderr, "ERROR: unexpected launcher result: %s\n", kl.ObjString(res))
+		stopProfiles()
 		os.Exit(1)
 	}
 }

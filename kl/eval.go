@@ -41,6 +41,73 @@ type ControlFlow struct {
 	// ordinary catchable error so the fuzz loop keeps making progress.
 	stepLimit int64
 	steps     int64
+
+	// framePool recycles VM activation slabs (locals + operand stack). On the
+	// urdr SHA/prng path every bytecode call previously allocated a fresh
+	// []Obj; pooling cuts that to near-zero after warmup and shrinks GC time.
+	// Single-threaded per ControlFlow — no locking. Bounded so a deep
+	// one-shot recursion can't pin an unbounded amount of memory forever.
+	framePool [][]Obj
+}
+
+// maxFramePool is the cap on recycled VM frames held on a ControlFlow.
+const maxFramePool = 128
+
+// minFrameCap is the minimum slab capacity. Rounding small frames up makes
+// them interchangeable and stops the freelist from filling with tiny slabs
+// that can never serve a larger activation (which then allocates forever).
+const minFrameCap = 48
+
+// takeFrame returns a slab with len==nlocals and cap >= nlocals+16, preferably
+// from the freelist. The unused capacity is the operand-stack region. Only the
+// locals region is cleared here — putFrame does not clear (stale pointers past
+// len are invisible to the GC while the slab sits as [:0] in the pool).
+func (ctl *ControlFlow) takeFrame(nlocals int) []Obj {
+	needCap := nlocals + 16
+	if needCap < minFrameCap {
+		needCap = minFrameCap
+	}
+	frames := ctl.framePool
+	// LIFO scan: most recently freed frames are most likely the right size
+	// on a recursive SHA-style workload.
+	for i := len(frames) - 1; i >= 0; i-- {
+		if cap(frames[i]) >= needCap {
+			s := frames[i]
+			frames[i] = frames[len(frames)-1]
+			ctl.framePool = frames[:len(frames)-1]
+			out := s[:nlocals]
+			clear(out)
+			return out
+		}
+	}
+	return make([]Obj, nlocals, needCap)
+}
+
+// putFrame returns a slab to the freelist. frame must be the locals view
+// (len may be nlocals; cap is the full slab). If the pool is full, a larger
+// incoming slab displaces the smallest resident one so we don't thrash on
+// mixed frame sizes.
+func (ctl *ControlFlow) putFrame(frame []Obj) {
+	c := cap(frame)
+	if c == 0 {
+		return
+	}
+	full := frame[:c]
+	if len(ctl.framePool) < maxFramePool {
+		ctl.framePool = append(ctl.framePool, full[:0])
+		return
+	}
+	// Pool full: keep the larger slabs.
+	minI, minC := 0, cap(ctl.framePool[0])
+	for i := 1; i < len(ctl.framePool); i++ {
+		if cc := cap(ctl.framePool[i]); cc < minC {
+			minI, minC = i, cc
+		}
+	}
+	if c <= minC {
+		return
+	}
+	ctl.framePool[minI] = full[:0]
 }
 
 // tick accounts one evaluation step against an optional step limit. It is on
@@ -68,10 +135,17 @@ func (ctl *ControlFlow) TailEval(exp Obj, env Obj) {
 }
 
 func (ctl *ControlFlow) TailApply(f Obj, args ...Obj) {
+	ctl.tailApplySlice(f, args)
+}
+
+// tailApplySlice is TailApply taking an explicit slice, letting hot callers
+// (the VM's OP_CALL/OP_TAIL_CALL) hand over a view of their operand stack
+// without first materialising a temporary []Obj for varargs. args must not
+// alias ctl.data (all VM callers pass frame-local slices; the append below
+// copies the values into ctl.data immediately).
+func (ctl *ControlFlow) tailApplySlice(f Obj, args []Obj) {
 	ctl.data = ctl.data[:ctl.pos]
 	ctl.data = append(ctl.data, f)
-	// TODO: Change the function signature.
-	// Using args ... is not good for performance, there is a copy here.
 	ctl.data = append(ctl.data, args...)
 	ctl.kind = ControlFlowApply
 }
@@ -169,8 +243,15 @@ func makeTempSymbols(n int) []Obj {
 }
 
 func Call(e *ControlFlow, f Obj, args ...Obj) Obj {
-	e.TailApply(f, args...)
+	e.tailApplySlice(f, args)
 	return trampoline(e)
+}
+
+// callSlice is Call taking an explicit args slice (see tailApplySlice for the
+// aliasing contract).
+func (ctl *ControlFlow) callSlice(f Obj, args []Obj) Obj {
+	ctl.tailApplySlice(f, args)
+	return trampoline(ctl)
 }
 
 func Eval(e *ControlFlow, exp Obj) (res Obj) {
@@ -234,6 +315,16 @@ func apply(ctl *ControlFlow) {
 	args := ctl.data[ctl.pos+1:]
 	switch *f {
 	case scmHeadBytecodeFunc:
+		bf := mustBytecodeFunc(f)
+		if len(args) == bf.fn.Arity {
+			// Exact arity (the common case): no defensive copy needed. args
+			// aliases ctl.data, but vmExec copies it into a fresh locals slice
+			// before anything can mutate ctl.data.
+			vmExec(ctl, bf, args)
+			return
+		}
+		// Partial/over-application: the over-application path reads args after
+		// an inner Call has clobbered ctl.data, so it needs its own copy.
 		argsCopy := make([]Obj, len(args))
 		copy(argsCopy, args)
 		vmApply(ctl, f, argsCopy)
