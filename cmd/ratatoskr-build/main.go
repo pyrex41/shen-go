@@ -564,6 +564,10 @@ func main() {
 	for i, c := range kernelChunks {
 		run(&e, fmt.Sprintf("kernel chunk %d", i), c)
 	}
+	// Optional shen.x host extensions (SHA-256 via crypto/sha256).
+	// Must run after kernel chunks so property/globals exist, before user
+	// code that may call shen.x.sha256-octets. SHEN_X_SHA256=pure disables.
+	InstallShenX()
 `)
 	if m.init != "" {
 		fmt.Fprintf(&b, "\trun(&e, %q, PrimFunc(MakeSymbol(%q)))\n", m.init, m.init)
