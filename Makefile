@@ -3,10 +3,10 @@
 all: kl shen
 
 kl:
-	go install github.com/tiancaiamao/shen-go/cmd/kl
+	go install github.com/pyrex41/shen-go/cmd/kl
 
 shen:
-	go build -o shen github.com/tiancaiamao/shen-go/cmd/shen
+	go build -o shen github.com/pyrex41/shen-go/cmd/shen
 
 # Ratatoskr stage-2 static builder: turn a Ratatoskr shaken directory into a
 # Go module that builds a single static, cross-compilable binary.
@@ -36,7 +36,7 @@ precompile:
 	@echo "precompiled $(FILE) -> $(OUT) (+ $(OUT).fns)"
 
 shen-exe:
-	go build -o shen.exe github.com/tiancaiamao/shen-go/cmd/shen
+	go build -o shen.exe github.com/pyrex41/shen-go/cmd/shen
 
 
 

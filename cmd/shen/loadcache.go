@@ -37,7 +37,7 @@ import (
 	"os"
 	"sync"
 
-	"github.com/tiancaiamao/shen-go/kl"
+	"github.com/pyrex41/shen-go/kl"
 )
 
 // loadCacheEntry is one memoized parse: the content hash it was parsed from and

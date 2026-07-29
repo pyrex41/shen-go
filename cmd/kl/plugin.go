@@ -22,7 +22,7 @@ import (
 	"plugin"
 	"time"
 
-	"github.com/tiancaiamao/shen-go/kl"
+	"github.com/pyrex41/shen-go/kl"
 )
 
 // emitArities: (emit-arities KlFile OutFile) scans a KL file for top-level

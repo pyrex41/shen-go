@@ -3,7 +3,7 @@ package codegen
 import (
 	"testing"
 
-	"github.com/tiancaiamao/shen-go/kl"
+	"github.com/pyrex41/shen-go/kl"
 )
 
 // Issue #10/#16: (/ x 0) must raise a catchable "division by zero" error rather

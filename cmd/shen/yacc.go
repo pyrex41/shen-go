@@ -1,6 +1,6 @@
 package main
 
-import . "github.com/tiancaiamao/shen-go/kl"
+import . "github.com/pyrex41/shen-go/kl"
 
 var YaccMain = MakeNative(func(__e *ControlFlow) {
 tmp17364 := MakeNative(func(__e *ControlFlow) {

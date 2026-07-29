@@ -21,7 +21,7 @@ import (
 	"math"
 	"strconv"
 
-	"github.com/tiancaiamao/shen-go/kl"
+	"github.com/pyrex41/shen-go/kl"
 )
 
 // CodeGenerator accumulates the set of symbols referenced by the code it has
@@ -46,7 +46,7 @@ func New() *CodeGenerator {
 // (package main, dot-importing kl) defining `var <export>` as the module thunk.
 func (cg *CodeGenerator) HandleBody(f io.Reader, export string, out io.Writer) error {
 	fmt.Fprintf(out, "package main\n\n")
-	fmt.Fprintf(out, "import . \"github.com/tiancaiamao/shen-go/kl\"\n\n")
+	fmt.Fprintf(out, "import . \"github.com/pyrex41/shen-go/kl\"\n\n")
 	fmt.Fprintf(out, `var %s = MakeNative(func(__e *ControlFlow) {
 `, export)
 	r := kl.NewSexpReader(f, false)
@@ -68,7 +68,7 @@ func (cg *CodeGenerator) HandleBody(f io.Reader, export string, out io.Writer) e
 // kernel's string printer dominates compile time for large files).
 func (cg *CodeGenerator) HandleBodyObj(bc kl.Obj, export string, out io.Writer) error {
 	fmt.Fprintf(out, "package main\n\n")
-	fmt.Fprintf(out, "import . \"github.com/tiancaiamao/shen-go/kl\"\n\n")
+	fmt.Fprintf(out, "import . \"github.com/pyrex41/shen-go/kl\"\n\n")
 	fmt.Fprintf(out, `var %s = MakeNative(func(__e *ControlFlow) {
 `, export)
 	if err := cg.generateExpr(out, bc); err != nil {

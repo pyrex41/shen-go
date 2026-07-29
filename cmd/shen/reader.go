@@ -1,6 +1,6 @@
 package main
 
-import . "github.com/tiancaiamao/shen-go/kl"
+import . "github.com/pyrex41/shen-go/kl"
 
 var ReaderMain = MakeNative(func(__e *ControlFlow) {
 tmp4747 := MakeNative(func(__e *ControlFlow) {

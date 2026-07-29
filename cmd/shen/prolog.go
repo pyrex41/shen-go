@@ -1,6 +1,6 @@
 package main
 
-import . "github.com/tiancaiamao/shen-go/kl"
+import . "github.com/pyrex41/shen-go/kl"
 
 var PrologMain = MakeNative(func(__e *ControlFlow) {
 tmp10088 := MakeNative(func(__e *ControlFlow) {

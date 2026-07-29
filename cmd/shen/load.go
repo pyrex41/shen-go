@@ -1,6 +1,6 @@
 package main
 
-import . "github.com/tiancaiamao/shen-go/kl"
+import . "github.com/pyrex41/shen-go/kl"
 
 var LoadMain = MakeNative(func(__e *ControlFlow) {
 tmp9643 := MakeNative(func(__e *ControlFlow) {

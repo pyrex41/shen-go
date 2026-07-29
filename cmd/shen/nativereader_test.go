@@ -29,7 +29,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/tiancaiamao/shen-go/kl"
+	"github.com/pyrex41/shen-go/kl"
 )
 
 // oracleMaxBytes bounds whole-file oracle comparison so the ~quadratic

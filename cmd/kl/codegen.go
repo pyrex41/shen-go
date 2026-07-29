@@ -8,8 +8,8 @@ import (
 	"os"
 	"unsafe"
 
-	"github.com/tiancaiamao/shen-go/codegen"
-	"github.com/tiancaiamao/shen-go/kl"
+	"github.com/pyrex41/shen-go/codegen"
+	"github.com/pyrex41/shen-go/kl"
 )
 
 var makeCodeGenerator = kl.MakeNative(func(e *kl.ControlFlow) {

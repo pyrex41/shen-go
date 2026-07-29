@@ -6,7 +6,7 @@
 // Build: go build -buildmode=plugin -o /tmp/tak.so ./cmd/plugintest/plugin
 package main
 
-import . "github.com/tiancaiamao/shen-go/kl"
+import . "github.com/pyrex41/shen-go/kl"
 
 // symtak is the self-reference, resolved at call time (after Install binds it),
 // exactly like generated kernel code uses PrimFunc(symXXX).

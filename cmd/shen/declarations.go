@@ -1,6 +1,6 @@
 package main
 
-import . "github.com/tiancaiamao/shen-go/kl"
+import . "github.com/pyrex41/shen-go/kl"
 
 var DeclarationsMain = MakeNative(func(__e *ControlFlow) {
 tmp7588 := PrimSet(symshen_4_dhistory_d, Nil)

@@ -15,7 +15,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/tiancaiamao/shen-go/kl"
+	"github.com/pyrex41/shen-go/kl"
 )
 
 // loadPlugin opens soPath, runs its exported Install hook (which binds every

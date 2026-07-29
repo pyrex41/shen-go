@@ -6,7 +6,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/tiancaiamao/shen-go/kl"
+	"github.com/pyrex41/shen-go/kl"
 )
 
 // Shen numbers are float64. Emitting them through GetInteger truncated every

@@ -12,7 +12,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/tiancaiamao/shen-go/kl"
+	"github.com/pyrex41/shen-go/kl"
 )
 
 // bootShen initializes a Shen runtime exactly like main(): register every

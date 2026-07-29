@@ -1,3 +1,3 @@
-module github.com/tiancaiamao/shen-go
+module github.com/pyrex41/shen-go
 
 go 1.25

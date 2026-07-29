@@ -10,7 +10,7 @@ import (
 	runtimepprof "runtime/pprof"
 	"strings"
 
-	"github.com/tiancaiamao/shen-go/kl"
+	"github.com/pyrex41/shen-go/kl"
 )
 
 var pprof bool

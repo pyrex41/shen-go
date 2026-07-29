@@ -6,7 +6,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/tiancaiamao/shen-go/kl"
+	"github.com/pyrex41/shen-go/kl"
 )
 
 // The Shen standard library, vendored from Tarver's S41.2 refresh Lib/StLib

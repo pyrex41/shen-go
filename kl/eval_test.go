@@ -373,7 +373,7 @@ func TestTypeIsMacro(t *testing.T) {
 	var ctx ControlFlow
 	// type is implemented as a macro rather than a primitive.
 	// This is because the second argument is not evaluated.
-	// See also https://github.com/tiancaiamao/shen-go/pull/30
+	// See also https://github.com/pyrex41/shen-go/pull/30
 	// This shouldn't something like
 	// 	"Panic: can't apply non function: undefined"
 	res := evalString(&ctx, "(type (cons 1 ()) (undefined func))")
