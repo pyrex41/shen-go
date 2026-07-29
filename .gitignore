@@ -4,4 +4,5 @@
 /shen
 /klc
 /ratatoskr-build
-*.exe
+*.exe/.bin/
+/.shen-kernel-cache.bin
