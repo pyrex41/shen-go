@@ -198,17 +198,13 @@ func PrimStr(o Obj) Obj {
 		return MakeString(str)
 	case scmHeadNumber:
 		if isFixnum(o) {
-			return MakeString(fmt.Sprintf("%d", mustInteger(o)))
+			return MakeString(strconv.Itoa(fixnum(o)))
 		}
-		f := mustNumber(o)
-		if !isPreciseInteger(f) {
-			// Issue #11: render with Go's shortest round-trip form
-			// (2.5, not 2.500000) to match shen-cl, shen-rust and
-			// ShenScript. Integral-valued floats keep printing without
-			// a decimal point below, as the kernel expects.
-			return MakeString(strconv.FormatFloat(f, 'g', -1, 64))
-		}
-		return MakeString(fmt.Sprintf("%d", int(f)))
+		// Shared with scmHead.GoString so the two printers can never drift:
+		// shortest round-trip form for fractions (issue #11), plain digits
+		// for integers that fit an int, and no narrowing for the ones that
+		// do not (1e19 used to print as 9223372036854775807).
+		return MakeString(formatNumber(mustNumber(o)))
 	case scmHeadString:
 		return MakeString(fmt.Sprintf(`"%s"`, mustString(o)))
 	case scmHeadProcedure:
