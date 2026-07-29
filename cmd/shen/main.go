@@ -71,6 +71,11 @@ func regist(e *kl.ControlFlow) {
 	// above has installed the interpreted version -- before that, the wrapper
 	// would just be overwritten.
 	kl.InstallIntegerGuard()
+	// The kernel reader computes a literal's value with its own (expt 10 N),
+	// which is N float64 multiplies and drifts past 10^22 / 10^-5 -- 1e300 read
+	// as 1.0000000000000002e300. Answer base-10 integer powers exactly instead.
+	// Must come after ReaderMain (which defines shen.expt) and before any read.
+	kl.InstallExactPow10()
 	// Optional shen.x host extensions (SHA-256 via crypto/sha256).
 	// See pyrex41/shen-extensions. SHEN_X_SHA256=pure disables.
 	kl.InstallShenX()

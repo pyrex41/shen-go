@@ -440,20 +440,13 @@ func digitsOf(bs []byte) []int {
 	return digits
 }
 
-// expt, computeInteger, computeFraction and computeE replicate the kernel's
+// computeInteger, computeFraction and computeE replicate the kernel's
 // arithmetic (reader.shen) operation-for-operation so the float64 results match
-// bit-for-bit. Using math.Pow or strconv.ParseFloat would round differently.
-
-// expt mirrors (expt Base Expt) for the integer exponents the reader uses.
-func expt(base float64, n int) float64 {
-	if n == 0 {
-		return 1
-	}
-	if n > 0 {
-		return base * expt(base, n-1)
-	}
-	return expt(base, n+1) / base
-}
+// the interpreted <s-exprs> bit-for-bit. They must therefore use the same
+// (expt 10 N) the interpreted reader uses -- which is pow10 below, installed
+// over shen.expt by InstallExactPow10 (see readerarith.go). Doing a one-shot
+// strconv.ParseFloat of the whole token here instead would round differently
+// from the interpreted reader and break that parity.
 
 // computeInteger mirrors compute-integer: sum digit*10^pos over reversed digits.
 func computeInteger(digits []int) float64 {
@@ -464,7 +457,7 @@ func computeIntegerH(ds []int, exp int) float64 {
 	if len(ds) == 0 {
 		return 0
 	}
-	return expt(10, exp)*float64(ds[0]) + computeIntegerH(ds[1:], exp+1)
+	return pow10(exp)*float64(ds[0]) + computeIntegerH(ds[1:], exp+1)
 }
 
 // computeFraction mirrors compute-fraction: sum digit*10^(-1-i) in source order.
@@ -476,12 +469,12 @@ func computeFractionH(ds []int, exp int) float64 {
 	if len(ds) == 0 {
 		return 0
 	}
-	return expt(10, exp)*float64(ds[0]) + computeFractionH(ds[1:], exp-1)
+	return pow10(exp)*float64(ds[0]) + computeFractionH(ds[1:], exp-1)
 }
 
 // computeE mirrors (compute-E N Log10) := N * (expt 10 Log10).
 func computeE(n float64, log10 int) float64 {
-	return n * expt(10, log10)
+	return n * pow10(log10)
 }
 
 func reverseInts(in []int) []int {

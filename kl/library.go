@@ -170,18 +170,31 @@ func fitsInt(f float64) bool {
 }
 
 // formatNumber renders a Shen number the way both printers (scmHead.GoString
-// and the `str` primitive) must agree on.
+// and the `str` primitive) must agree on. It implements the agreed cross-port
+// rendering convention:
 //
-// Integral values that fit in an int print without a decimal point, as the
-// kernel expects. Everything else uses Go's shortest round-trip form (issue
-// #11: 2.5, not 2.500000), which is also what codegen emits for constants.
-// That covers the values too large to narrow -- 1e19 is exactly representable
-// and perfectly ordinary, but no int can hold it, so it prints as a float
-// rather than as the saturated 9223372036854775807 it used to become.
+//   - a FINITE INTEGRAL float prints as full positional decimal digits, with
+//     no exponent, whatever its magnitude: 1e19 is 10000000000000000000, not
+//     1e+19 and not the saturated 9223372036854775807 it used to become.
+//     shen-cl and shen-rust already do this; shen-go was the outlier.
+//   - a non-integral finite float keeps Go's shortest round-trip form
+//     (issue #11: 2.5, not 2.500000), which is also what codegen emits for
+//     constants.
+//   - +Inf/-Inf/NaN print as inf/-inf/nan, matching shen-lua and shen-rust.
+//     This is only about not printing a number the value is not; it says
+//     nothing about whether an overflowing operation should have signalled in
+//     the first place.
 //
-// Non-finite values get the spelling shen-lua and shen-rust use. This is only
-// about not printing a number the value is not; it says nothing about whether
-// an overflowing operation should have signalled in the first place.
+// The positional digits are the shortest round-trip decimal laid out without
+// an exponent (strconv 'f' with precision -1), which is byte-for-byte what
+// shen-rust prints for the same float64: 2^70 renders as 1180591620717411300000,
+// not as the double's exact value 1180591620717411303424. shen-cl prints the
+// exact value there, but only because its numeric tower makes 2^70 a bignum
+// rather than a double -- that is a difference of value, not of rendering, and
+// shen-go has a single float64 number type. For the same reason shen-go never
+// emits a trailing ".0"; shen-rust's 10000000000.0 for (/ 1e300 1e290) and
+// shen-cl's 1.0 for (* 2.0 0.5) are artifacts of their two-tier towers, and
+// the two ports do not even agree with each other about them.
 func formatNumber(f float64) string {
 	switch {
 	case math.IsNaN(f):
@@ -190,8 +203,12 @@ func formatNumber(f float64) string {
 		return "inf"
 	case math.IsInf(f, -1):
 		return "-inf"
-	case isPreciseInteger(f) && fitsInt(f):
-		return strconv.FormatInt(int64(f), 10)
+	case isPreciseInteger(f):
+		// Fast path for the overwhelmingly common case; identical output.
+		if fitsInt(f) {
+			return strconv.FormatInt(int64(f), 10)
+		}
+		return strconv.FormatFloat(f, 'f', -1, 64)
 	default:
 		return strconv.FormatFloat(f, 'g', -1, 64)
 	}

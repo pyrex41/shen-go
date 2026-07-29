@@ -69,12 +69,12 @@ func TestUnnarrowableIndexRaisesCatchableError(t *testing.T) {
 		{
 			"address-> on a huge finite float",
 			`(address-> (absvector 3) 1e19 1)`,
-			`"1e+19 is not a valid integer"`,
+			`"10000000000000000000 is not a valid integer"`,
 		},
 		{
 			"n->string on a huge finite float",
 			`(n->string 1e19)`,
-			`"1e+19 is not a natural number"`,
+			`"10000000000000000000 is not a natural number"`,
 		},
 	} {
 		got := trapped(&ctx, tc.expr)

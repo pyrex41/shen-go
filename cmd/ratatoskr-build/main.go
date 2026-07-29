@@ -564,6 +564,11 @@ func main() {
 	for i, c := range kernelChunks {
 		run(&e, fmt.Sprintf("kernel chunk %d", i), c)
 	}
+	// The kernel reader computes a literal's value with its own (expt 10 N),
+	// which drifts past 10^22 / 10^-5 in a float64 tower. Answer base-10
+	// integer powers exactly instead. After the kernel chunks (which define
+	// shen.expt), before any source is read.
+	InstallExactPow10()
 	// Optional shen.x host extensions (SHA-256 via crypto/sha256).
 	// Must run after kernel chunks so property/globals exist, before user
 	// code that may call shen.x.sha256-octets. SHEN_X_SHA256=pure disables.
