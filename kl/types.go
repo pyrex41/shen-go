@@ -198,6 +198,19 @@ func fixnum(o Obj) int {
 	return int(uintptr(unsafe.Pointer(o))-uintptr(fixnumBaseAddr)) + fixnumMin
 }
 
+// narrowToInt converts a Shen number's float64 to a Go int, raising an
+// ordinary catchable Shen error rather than letting the conversion go
+// out of range. Go leaves an out-of-range float64 -> int conversion
+// implementation-defined; on arm64 it saturates, so +Inf used to reach the
+// index-taking primitives as 9223372036854775807 and, past any bounds check
+// they happened to have, as an uncatchable Go runtime panic.
+func narrowToInt(f float64) int {
+	if !fitsInt(f) {
+		panic(MakeError(fmt.Sprintf("%s is not a valid integer", formatNumber(f))))
+	}
+	return int(f)
+}
+
 func mustInteger(o Obj) int {
 	if (*o) != scmHeadNumber {
 		panic(MakeError("mustNumber"))
@@ -206,16 +219,14 @@ func mustInteger(o Obj) int {
 		return fixnum(o)
 	}
 
-	f := (*scmNumber)(unsafe.Pointer(o)).val
-	return int(f)
+	return narrowToInt((*scmNumber)(unsafe.Pointer(o)).val)
 }
 
 func GetInteger(o Obj) int {
 	if isFixnum(o) {
 		return fixnum(o)
 	}
-	f := (*scmNumber)(unsafe.Pointer(o)).val
-	return int(f)
+	return narrowToInt((*scmNumber)(unsafe.Pointer(o)).val)
 }
 
 // GetNumber returns o's numeric value without truncating it. Shen numbers are

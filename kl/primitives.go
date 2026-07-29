@@ -8,6 +8,7 @@ import (
 	"runtime"
 	"strconv"
 	"time"
+	"unicode"
 )
 
 var home_directory Obj
@@ -181,9 +182,21 @@ func PrimStringToNumber(o Obj) Obj {
 	return MakeInteger(int(n))
 }
 
+// PrimNumberToString implements n->string. The reference primitive (Tarver,
+// Primitives/CL/n-to-string.lsp) is (CODE-CHAR N) wrapped in a trap-error that
+// raises "~A is not a natural number", so anything CODE-CHAR would reject has
+// to raise here too. shen-go used to narrow with a bare int(f) and hand the
+// result to rune(), which turned +Inf into a replacement byte (0xfd) and -1
+// into U+FFFD -- silently, with no error at all.
 func PrimNumberToString(o Obj) Obj {
-	n := mustInteger(o)
-	return MakeString(string(rune(n)))
+	if (*o) != scmHeadNumber {
+		panic(MakeError("mustNumber"))
+	}
+	f := GetNumber(o)
+	if !fitsInt(f) || f < 0 || f > unicode.MaxRune {
+		panic(MakeError(fmt.Sprintf("%s is not a natural number", formatNumber(f))))
+	}
+	return MakeString(string(rune(int(f))))
 }
 
 func PrimStr(o Obj) Obj {
@@ -260,7 +273,9 @@ func PrimTailString(o Obj) Obj {
 func PrimPos(x, y Obj) Obj {
 	s := []rune(mustString(x))
 	n := mustInteger(y)
-	if n >= len(s) {
+	// n < 0 used to reach the slice index below and panic outside the Shen
+	// error system, the same way the saturated +Inf index did.
+	if n < 0 || n >= len(s) {
 		panic(MakeError(fmt.Sprintf("%d is not valid index for %s", n, string(s))))
 	}
 	return MakeString(string([]rune(s)[n]))
@@ -373,6 +388,13 @@ func PrimAbsvector(o Obj) Obj {
 func PrimVectorSet(x, y, z Obj) Obj {
 	vec := mustVector(x)
 	off := mustInteger(y)
+	// address-> had no bounds check at all: any out-of-range offset went
+	// straight into the Go slice and panicked with a runtime error that
+	// trap-error could not catch ("trap-error result is not Obj"). Raise the
+	// same catchable error <-address does.
+	if off < 0 || off >= len(vec) {
+		panic(MakeError(fmt.Sprintf("index %d out of range %d", off, len(vec))))
+	}
 	val := z
 	vec[off] = val
 	return x
@@ -381,7 +403,7 @@ func PrimVectorSet(x, y, z Obj) Obj {
 func PrimVectorGet(x, y Obj) Obj {
 	vec := mustVector(x)
 	off := mustInteger(y)
-	if off >= len(vec) {
+	if off < 0 || off >= len(vec) {
 		panic(MakeError(fmt.Sprintf("index %d out of range %d", off, len(vec))))
 	}
 	ret := vec[off]
