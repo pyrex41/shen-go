@@ -4,6 +4,7 @@ import (
 	"math"
 	"os"
 	"path"
+	"strconv"
 )
 
 func PackagePath() string {
@@ -138,6 +139,14 @@ func Cons(x, y Obj) Obj {
 // isInteger determinate whether a float64 is actually a precise integer.
 // Judge is according to IEEE754 standard.
 func isPreciseInteger(f float64) bool {
+	// math.Ilogb answers math.MaxInt32 for +-Inf and NaN, which would fall
+	// straight into the `exp >= 52` shortcut below and report them as
+	// integers. They are not integers under any reading, and callers narrow
+	// on the strength of this answer.
+	if math.IsInf(f, 0) || math.IsNaN(f) {
+		return false
+	}
+
 	exp := math.Ilogb(f)
 	if exp < 0 && exp != math.MinInt32 {
 		return false
@@ -149,6 +158,43 @@ func isPreciseInteger(f float64) bool {
 
 	bits := math.Float64bits(f)
 	return (bits << uint(12+exp)) == 0
+}
+
+// fitsInt reports whether f can be converted to Go's int without changing its
+// value. Go leaves an out-of-range float64 -> int conversion
+// implementation-defined (arm64 saturates to +-maxint64), so every narrowing
+// of a Shen number has to be guarded by this. NaN compares false both ways and
+// is correctly rejected.
+func fitsInt(f float64) bool {
+	return f >= minIntAsFloat && f < maxIntAsFloat
+}
+
+// formatNumber renders a Shen number the way both printers (scmHead.GoString
+// and the `str` primitive) must agree on.
+//
+// Integral values that fit in an int print without a decimal point, as the
+// kernel expects. Everything else uses Go's shortest round-trip form (issue
+// #11: 2.5, not 2.500000), which is also what codegen emits for constants.
+// That covers the values too large to narrow -- 1e19 is exactly representable
+// and perfectly ordinary, but no int can hold it, so it prints as a float
+// rather than as the saturated 9223372036854775807 it used to become.
+//
+// Non-finite values get the spelling shen-lua and shen-rust use. This is only
+// about not printing a number the value is not; it says nothing about whether
+// an overflowing operation should have signalled in the first place.
+func formatNumber(f float64) string {
+	switch {
+	case math.IsNaN(f):
+		return "nan"
+	case math.IsInf(f, 1):
+		return "inf"
+	case math.IsInf(f, -1):
+		return "-inf"
+	case isPreciseInteger(f) && fitsInt(f):
+		return strconv.FormatInt(int64(f), 10)
+	default:
+		return strconv.FormatFloat(f, 'g', -1, 64)
+	}
 }
 
 func BindSymbolFunc(sym Obj, f Obj) {

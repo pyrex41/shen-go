@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"fmt"
 	"io"
-	"strconv"
 	"time"
 	"unsafe"
 )
@@ -199,6 +198,19 @@ func fixnum(o Obj) int {
 	return int(uintptr(unsafe.Pointer(o))-uintptr(fixnumBaseAddr)) + fixnumMin
 }
 
+// narrowToInt converts a Shen number's float64 to a Go int, raising an
+// ordinary catchable Shen error rather than letting the conversion go
+// out of range. Go leaves an out-of-range float64 -> int conversion
+// implementation-defined; on arm64 it saturates, so +Inf used to reach the
+// index-taking primitives as 9223372036854775807 and, past any bounds check
+// they happened to have, as an uncatchable Go runtime panic.
+func narrowToInt(f float64) int {
+	if !fitsInt(f) {
+		panic(MakeError(fmt.Sprintf("%s is not a valid integer", formatNumber(f))))
+	}
+	return int(f)
+}
+
 func mustInteger(o Obj) int {
 	if (*o) != scmHeadNumber {
 		panic(MakeError("mustNumber"))
@@ -207,16 +219,14 @@ func mustInteger(o Obj) int {
 		return fixnum(o)
 	}
 
-	f := (*scmNumber)(unsafe.Pointer(o)).val
-	return int(f)
+	return narrowToInt((*scmNumber)(unsafe.Pointer(o)).val)
 }
 
 func GetInteger(o Obj) int {
 	if isFixnum(o) {
 		return fixnum(o)
 	}
-	f := (*scmNumber)(unsafe.Pointer(o)).val
-	return int(f)
+	return narrowToInt((*scmNumber)(unsafe.Pointer(o)).val)
 }
 
 // GetNumber returns o's numeric value without truncating it. Shen numbers are
@@ -509,13 +519,10 @@ func (o *scmPair) fmt(buf io.Writer, start bool) {
 func (o *scmHead) GoString() string {
 	switch *o {
 	case scmHeadNumber:
-		f := mustNumber(o)
-		if !isPreciseInteger(f) {
-			// Issue #11: shortest round-trip form (2.5, not 2.500000)
-			// to match shen-cl and the other ports.
-			return strconv.FormatFloat(f, 'g', -1, 64)
-		}
-		return fmt.Sprintf("%d", int(f))
+		// formatNumber keeps the integral-fits-in-int case printing without
+		// a decimal point and everything else (2.5, 1e19, inf) in a form
+		// that does not silently become a different number.
+		return formatNumber(mustNumber(o))
 	case scmHeadPair:
 		var buf bytes.Buffer
 		mustPair(o).fmt(&buf, true)
