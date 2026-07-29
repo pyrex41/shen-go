@@ -219,6 +219,17 @@ func GetInteger(o Obj) int {
 	return int(f)
 }
 
+// GetNumber returns o's numeric value without truncating it. Shen numbers are
+// float64; GetInteger narrows to int, which silently discards the fractional
+// part, so anything that must round-trip a number (code generation, for one)
+// has to use this instead.
+func GetNumber(o Obj) float64 {
+	if isFixnum(o) {
+		return float64(fixnum(o))
+	}
+	return (*scmNumber)(unsafe.Pointer(o)).val
+}
+
 func mustNumber(o Obj) float64 {
 	if (*o) != scmHeadNumber {
 		panic(MakeError("mustNumber"))
@@ -385,8 +396,18 @@ func makeInteger(v int) Obj {
 	return &tmp.scmHead
 }
 
+// Bounds of the int representation, as float64. maxIntAsFloat is 2^63 --
+// one past math.MaxInt64, which is not itself representable as a float64.
+const (
+	minIntAsFloat = -9223372036854775808.0
+	maxIntAsFloat = 9223372036854775808.0
+)
+
 func MakeNumber(f float64) Obj {
-	if isPreciseInteger(f) {
+	// A float beyond the int range is still mathematically integral, but
+	// narrowing it overflows -- int(1e300) saturates to maxint64, turning the
+	// value into a different one. Keep those as float64 instead.
+	if isPreciseInteger(f) && f >= minIntAsFloat && f < maxIntAsFloat {
 		return MakeInteger(int(f))
 	}
 

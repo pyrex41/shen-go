@@ -18,6 +18,8 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"math"
+	"strconv"
 
 	"github.com/tiancaiamao/shen-go/kl"
 )
@@ -277,7 +279,16 @@ func (cg *CodeGenerator) generateExpr(w io.Writer, sexp kl.Obj) error {
 func (cg *CodeGenerator) generateConst(w io.Writer, c kl.Obj) error {
 	switch {
 	case kl.IsNumber(c):
-		fmt.Fprintf(w, "MakeNumber(%d)", kl.GetInteger(c))
+		// Shen numbers are float64. Emitting via GetInteger truncated every
+		// constant to a whole number, so a shaken artifact saw 1.5 as 1 --
+		// silently, and only in compiled output. FormatFloat with precision
+		// -1 gives the shortest form that parses back to the identical
+		// float64, so the generated literal round-trips exactly.
+		f := kl.GetNumber(c)
+		if math.IsInf(f, 0) || math.IsNaN(f) {
+			return fmt.Errorf("cannot emit non-finite number constant %v", f)
+		}
+		fmt.Fprintf(w, "MakeNumber(%s)", strconv.FormatFloat(f, 'g', -1, 64))
 	case kl.IsString(c):
 		str := kl.GetString(c)
 		fmt.Fprintf(w, "MakeString(%#v)", str)
