@@ -66,6 +66,11 @@ func regist(e *kl.ControlFlow) {
 	// Must come after the module Mains above have defined the interpreted
 	// versions and built those structures.
 	kl.InstallKernelFast()
+	// The kernel's own integer? (sys.kl, via shen.magless) never terminates on
+	// +-Inf or NaN. Wrap it with a native non-finite guard now that the defun
+	// above has installed the interpreted version -- before that, the wrapper
+	// would just be overwritten.
+	kl.InstallIntegerGuard()
 	// Optional shen.x host extensions (SHA-256 via crypto/sha256).
 	// See pyrex41/shen-extensions. SHEN_X_SHA256=pure disables.
 	kl.InstallShenX()
