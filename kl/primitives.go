@@ -183,17 +183,24 @@ func PrimStringToNumber(o Obj) Obj {
 }
 
 // PrimNumberToString implements n->string. The reference primitive (Tarver,
-// Primitives/CL/n-to-string.lsp) is (CODE-CHAR N) wrapped in a trap-error that
+// Primitives/n-to-string.lsp:5) is (CODE-CHAR N) wrapped in a trap-error that
 // raises "~A is not a natural number", so anything CODE-CHAR would reject has
 // to raise here too. shen-go used to narrow with a bare int(f) and hand the
 // result to rune(), which turned +Inf into a replacement byte (0xfd) and -1
 // into U+FFFD -- silently, with no error at all.
+//
+// A fractional code is rejected for the same reason: 65.5 is not a natural
+// number, so (n->string 65.5) must not quietly answer "A". shen-lua does
+// answer "A" and shen-cl errors, but the reference outranks a 2-2 port split.
+//
+// A lone surrogate (U+D800..DFFF) is deliberately NOT rejected here; see
+// TestNumberToStringMapsLoneSurrogates.
 func PrimNumberToString(o Obj) Obj {
 	if (*o) != scmHeadNumber {
 		panic(MakeError("mustNumber"))
 	}
 	f := GetNumber(o)
-	if !fitsInt(f) || f < 0 || f > unicode.MaxRune {
+	if !isPreciseInteger(f) || !fitsInt(f) || f < 0 || f > unicode.MaxRune {
 		panic(MakeError(fmt.Sprintf("%s is not a natural number", formatNumber(f))))
 	}
 	return MakeString(string(rune(int(f))))
@@ -422,7 +429,7 @@ func PrimIsVector(x Obj) Obj {
 }
 
 func PrimWriteByte(x, y Obj) Obj {
-	n := mustInteger(x)
+	n := mustByte(x)
 	s := mustStream(y)
 	w, ok := s.raw.(io.Writer)
 	if !ok {

@@ -211,6 +211,32 @@ func narrowToInt(f float64) int {
 	return int(f)
 }
 
+// mustByte narrows a Shen number to a byte for write-byte, raising an ordinary
+// catchable Shen error unless it really is a whole number in 0..255.
+//
+// PrimWriteByte used to take mustInteger's answer and do byte(n), so
+// (write-byte 321 S) silently wrote 0x41, (write-byte -1 S) wrote 0xFF, and
+// (write-byte 65.5 S) wrote 'A' -- mustInteger checks range but not
+// integrality. Tarver's Primitives/write-byte.lsp is (WRITE-BYTE Byte S), and
+// CL's WRITE-BYTE signals a type error for anything outside (UNSIGNED-BYTE 8),
+// so an out-of-range byte has to raise here too.
+//
+// A non-integer or unnarrowable value keeps D4's "is not a valid integer"
+// wording; only the range check is new.
+func mustByte(o Obj) int {
+	if (*o) != scmHeadNumber {
+		panic(MakeError("mustNumber"))
+	}
+	f := GetNumber(o)
+	if !isPreciseInteger(f) || !fitsInt(f) {
+		panic(MakeError(fmt.Sprintf("%s is not a valid integer", formatNumber(f))))
+	}
+	if f < 0 || f > 255 {
+		panic(MakeError(fmt.Sprintf("%s is not a byte", formatNumber(f))))
+	}
+	return int(f)
+}
+
 func mustInteger(o Obj) int {
 	if (*o) != scmHeadNumber {
 		panic(MakeError("mustNumber"))
