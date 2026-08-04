@@ -6,12 +6,13 @@ PRNG / world suites (no digest semantics changes).
 
 ## Workloads
 
-From the urdr tree (`/Users/reuben/projects/urdr`):
+From a checkout of the urdr tree (set `URDR_DIR` to its location):
 
 ```bash
-export SHEN_GO=/Users/reuben/projects/shen-go/.bin/shen-go
-/usr/bin/time -lp $SHEN_GO script shen/tests/prng/run-tests.shen
-/usr/bin/time -lp $SHEN_GO script shen/tests/world/run-tests.shen
+export URDR_DIR=/path/to/urdr
+export SHEN_GO=/path/to/shen-go/.bin/shen-go
+/usr/bin/time -lp "$SHEN_GO" script "$URDR_DIR"/shen/tests/prng/run-tests.shen
+/usr/bin/time -lp "$SHEN_GO" script "$URDR_DIR"/shen/tests/world/run-tests.shen
 ```
 
 Stdout must stay byte-identical aside from the suite's own printed run times.

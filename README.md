@@ -80,6 +80,29 @@ precompile-the-hot-path option, not a replacement for the VM.
 > module and Go toolchain (both from this tree). Go plugins are Linux/macOS only
 > and cannot be unloaded (redefining a function means rebuilding the `.so`).
 
+### Using precompiled code with script runners
+
+The launcher script entrypoint and precompiled plugins compose: plugins are
+loaded before `script` evaluates the file, so functions defined in the plugin
+are used by the script while all other functions remain on the VM. For example,
+to precompile a hot module and run a suite:
+
+```
+make precompile FILE=path/to/prng.shen OUT=/tmp/prng.so
+./shen -precompiled /tmp/prng.so script path/to/run-tests.shen
+```
+
+This is an opt-in optimization for suite runners; it does not change the
+default `script` behavior. Big-int-heavy functions are supported, but continue
+to use Shen's boxed numeric representation, so measure the workload before and
+after enabling the plugin. To capture a profile for further optimization, add
+`-cpuprofile FILE` (and optionally `-memprofile FILE`) before `script`:
+
+```
+./shen -cpuprofile /tmp/prng.pprof script path/to/run-tests.shen
+go tool pprof -top ./shen /tmp/prng.pprof
+```
+
 ## Testing
 
 Testing has two clearly separate tiers:
