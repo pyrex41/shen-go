@@ -8,6 +8,7 @@ import (
 // InstallShenX binds optional shen.x host extensions.
 // SHA-256: crypto/sha256 (stdlib). Disable with SHEN_X_SHA256=pure.
 func InstallShenX() {
+	installShenXZmq()
 	if os.Getenv("SHEN_X_SHA256") == "pure" {
 		return
 	}
