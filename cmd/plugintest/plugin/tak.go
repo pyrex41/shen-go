@@ -13,9 +13,10 @@ import . "github.com/pyrex41/shen-go/kl"
 var symtak = MakeSymbol("tak")
 
 // takFn implements:
-//   (defun tak (X Y Z)
-//     (if (not (< Y X)) Z
-//         (tak (tak (- X 1) Y Z) (tak (- Y 1) Z X) (tak (- Z 1) X Y))))
+//
+//	(defun tak (X Y Z)
+//	  (if (not (< Y X)) Z
+//	      (tak (tak (- X 1) Y Z) (tak (- Y 1) Z X) (tak (- Z 1) X Y))))
 var takFn = MakeNative(func(__e *ControlFlow) {
 	X := __e.Get(1)
 	Y := __e.Get(2)
@@ -36,3 +37,9 @@ var takFn = MakeNative(func(__e *ControlFlow) {
 // Exported plugin contract (looked up by the host):
 var Compiled Obj = takFn
 var SymName string = "tak"
+
+// main is never called: this package only exists to be built with
+// -buildmode=plugin (see the header comment). It is declared so that a plain
+// `go build ./...` — the repo's verification gate — links this main package
+// instead of failing with "function main is undeclared in the main package".
+func main() {}
