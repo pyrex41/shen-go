@@ -17,10 +17,12 @@ var pprof bool
 var precompiled precompiledFlag
 var cpuprofile string
 var memprofile string
+var autoNativeFlag bool
 
 func init() {
 	flag.BoolVar(&pprof, "pprof", false, "enable pprof")
 	flag.Var(&precompiled, "precompiled", "path to a precompiled .so (repeatable or comma-separated); functions in it run as compiled Go instead of the VM")
+	flag.BoolVar(&autoNativeFlag, "auto-native", true, "after (load FILE), re-engage any loaded plugin compiled from exactly that file (content-hash checked); -auto-native=false or SHEN_NO_AUTO_NATIVE=1 disables")
 	flag.StringVar(&cpuprofile, "cpuprofile", "", "write a CPU profile (runtime/pprof) covering the whole run to FILE")
 	flag.StringVar(&memprofile, "memprofile", "", "write a heap profile to FILE at exit")
 }
@@ -124,17 +126,19 @@ func isStinputEOFError(err kl.Obj) bool {
 	return kl.StinputEOF() && kl.GetString(kl.PrimErrorToString(err)) == "error: empty stream"
 }
 
-// splitArgs separates the leading Go-level flags (-pprof, -precompiled,
-// -cpuprofile, -memprofile) from the launcher command line. Everything from
-// the first argument that isn't one of our Go flags onward is handed verbatim
-// to the kernel launcher, so launcher-protocol arguments like `--version`,
-// `--help` or `eval -e ...` never reach Go's flag parser (which would reject
-// them as unknown flags).
+// splitArgs separates the leading Go-level flags (-pprof, -auto-native,
+// -precompiled, -cpuprofile, -memprofile) from the launcher command line.
+// Everything from the first argument that isn't one of our Go flags onward is
+// handed verbatim to the kernel launcher, so launcher-protocol arguments like
+// `--version`, `--help` or `eval -e ...` never reach Go's flag parser (which
+// would reject them as unknown flags).
 func splitArgs(args []string) (goFlags, launcherArgs []string) {
 	// Flags whose value is the following argument (when not given as -f=v).
 	valueFlags := map[string]bool{"precompiled": true, "cpuprofile": true, "memprofile": true}
+	// Boolean flags, which stand alone or take an =value.
+	boolFlags := map[string]bool{"pprof": true, "auto-native": true}
 	isGoFlag := func(name string) bool {
-		if name == "pprof" || valueFlags[name] {
+		if boolFlags[name] || valueFlags[name] {
 			return true
 		}
 		for f := range valueFlags {
@@ -142,7 +146,12 @@ func splitArgs(args []string) (goFlags, launcherArgs []string) {
 				return true
 			}
 		}
-		return strings.HasPrefix(name, "pprof=")
+		for f := range boolFlags {
+			if strings.HasPrefix(name, f+"=") {
+				return true
+			}
+		}
+		return false
 	}
 	i := 0
 	for i < len(args) {
@@ -224,6 +233,14 @@ func main() {
 	// repeated (load ...) in the same process skips re-parsing. Must come after
 	// regist (which binds the kernel read-file we wrap) and before any load.
 	installLoadCache()
+	// Make the native path the default for hot loaded modules: after a
+	// (load "hot.shen") — which re-defines those functions onto the VM and
+	// would otherwise throw the compiled ones away — re-engage any plugin
+	// that was compiled from exactly that file. Must come after regist
+	// (which binds the kernel `load` we wrap) and before any load.
+	// See autonative.go.
+	autoNative = autoNativeFlag && os.Getenv("SHEN_NO_AUTO_NATIVE") == ""
+	installAutoNative()
 	// NB: the Tarver S41.2 refresh has no shen.initialise to call here, and the
 	// native `hash` swap now happens inside regist (after SysMain binds the
 	// interpreted hash, before DeclarationsMain/TypesMain build the property

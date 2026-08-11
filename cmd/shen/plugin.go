@@ -19,44 +19,69 @@ import (
 )
 
 // loadPlugin opens soPath, runs its exported Install hook (which binds every
-// function in the file), then registers each function's arity at the Shen level
-// from the companion "<soPath>.fns" manifest. The arity step is required: binding
-// the KL function alone leaves it "undefined" to the Shen reader, which resolves
+// function in the file), registers each function's arity at the Shen level from
+// the companion "<soPath>.fns" manifest, and records the plugin in the native
+// module registry so a later (load ...) of the source it was compiled from can
+// re-engage it (see autonative.go). The arity step is required: binding the KL
+// function alone leaves it "undefined" to the Shen reader, which resolves
 // applications via registered arity (see shen.record-and-evaluate in core.kl).
 //
 // The plugin must be built from the same module + Go toolchain as this binary
 // (see `make precompile`); a mismatch surfaces here as a plugin.Open error.
 func loadPlugin(e *kl.ControlFlow, soPath string) error {
-	p, err := plugin.Open(soPath)
+	prov, err := installPlugin(e, soPath)
 	if err != nil {
-		return fmt.Errorf("plugin.Open(%s): %w", soPath, err)
+		return err
 	}
-	sym, err := p.Lookup("Install")
-	if err != nil {
-		return fmt.Errorf("lookup Install in %s: %w", soPath, err)
-	}
-	install, ok := sym.(func(*kl.ControlFlow))
-	if !ok {
-		return fmt.Errorf("%s: Install has unexpected type %T", soPath, sym)
-	}
-	install(e)
-	registerArities(e, soPath+".fns")
+	registerNativeModule(soPath, prov)
 	return nil
 }
 
+// installPlugin is loadPlugin without the registry bookkeeping: open, Install,
+// replay arities, and hand back whatever provenance the manifest carried. It is
+// what the auto-engage path re-runs on an already-registered module (plugin.Open
+// is memoized by the runtime, so a re-install is just the rebinding).
+func installPlugin(e *kl.ControlFlow, soPath string) (provenance, error) {
+	p, err := plugin.Open(soPath)
+	if err != nil {
+		return provenance{}, fmt.Errorf("plugin.Open(%s): %w", soPath, err)
+	}
+	sym, err := p.Lookup("Install")
+	if err != nil {
+		return provenance{}, fmt.Errorf("lookup Install in %s: %w", soPath, err)
+	}
+	install, ok := sym.(func(*kl.ControlFlow))
+	if !ok {
+		return provenance{}, fmt.Errorf("%s: Install has unexpected type %T", soPath, sym)
+	}
+	install(e)
+	return registerArities(e, soPath+".fns"), nil
+}
+
 // registerArities replays the "NAME ARITY" manifest via shen.store-arity so the
-// plugin's functions are callable at the Shen REPL. A missing manifest is not
-// fatal — the functions are still callable from compiled/KL code.
-func registerArities(e *kl.ControlFlow, fnsPath string) {
+// plugin's functions are callable at the Shen REPL, and returns the provenance
+// header the manifest carried (see parseProvenanceLine). A missing manifest is
+// not fatal — the functions are still callable from compiled/KL code — it just
+// yields empty provenance, which disables auto-engagement for that plugin.
+func registerArities(e *kl.ControlFlow, fnsPath string) provenance {
 	f, err := os.Open(fnsPath)
 	if err != nil {
-		return
+		return provenance{}
 	}
 	defer f.Close()
 	storeArity := kl.PrimFunc(kl.MakeSymbol("shen.store-arity"))
+	var prov provenance
 	sc := bufio.NewScanner(f)
 	for sc.Scan() {
-		fields := strings.Fields(sc.Text())
+		line := sc.Text()
+		// "#key value" header lines carry provenance; they are deliberately
+		// prefixed so an older loader (which required exactly two whitespace
+		// separated fields, the second an integer) skips them harmlessly.
+		if strings.HasPrefix(line, "#") {
+			prov.absorb(line)
+			continue
+		}
+		fields := strings.Fields(line)
 		if len(fields) != 2 {
 			continue
 		}
@@ -66,6 +91,7 @@ func registerArities(e *kl.ControlFlow, fnsPath string) {
 		}
 		kl.Call(e, storeArity, kl.MakeSymbol(fields[0]), kl.MakeInteger(arity))
 	}
+	return prov
 }
 
 // registerLoadNativeArity publishes load-native's arity to the Shen level, the
