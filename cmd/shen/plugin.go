@@ -68,6 +68,18 @@ func registerArities(e *kl.ControlFlow, fnsPath string) {
 	}
 }
 
+// registerLoadNativeArity publishes load-native's arity to the Shen level, the
+// same way registerArities does for the functions a plugin installs. Binding the
+// KL function is necessary but not sufficient: shen.record-and-evaluate resolves
+// an application through the registered arity, so a KL-bound-but-arity-less
+// symbol is reported as undefined the moment it is called from Shen source.
+//
+// Must be called after regist (which binds shen.store-arity).
+func registerLoadNativeArity(e *kl.ControlFlow) {
+	storeArity := kl.PrimFunc(kl.MakeSymbol("shen.store-arity"))
+	kl.Call(e, storeArity, kl.MakeSymbol("load-native"), kl.MakeInteger(1))
+}
+
 // loadNative is the REPL/file-callable form: (load-native "foo.so").
 var loadNative = kl.MakeNative(func(e *kl.ControlFlow) {
 	soPath := kl.GetString(e.Get(1))

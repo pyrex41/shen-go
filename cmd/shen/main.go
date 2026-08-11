@@ -230,6 +230,13 @@ func main() {
 	// dictionaries). All top-level initialisation runs inline as the module
 	// Mains are called in regist.
 	fixPrHush(&e)
+	// Make `load-native` reachable from Shen source. The KL-level binding above
+	// is not enough on its own: the Shen reader resolves an application through
+	// the symbol's *registered arity*, so without this `(load-native "x.so")`
+	// from a script or the REPL failed with `fn: load-native is undefined` —
+	// the same trap registerArities already works around for the functions a
+	// plugin installs. Must come after regist, which binds shen.store-arity.
+	registerLoadNativeArity(&e)
 	// Load the embedded Shen standard library (filter/mapc/fold*/…) unless
 	// SHEN_NO_STDLIB is set. The kernel ships none of these; loading here makes
 	// a bare (filter ...) work in the REPL, launcher, and scripts.
