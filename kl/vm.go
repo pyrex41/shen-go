@@ -183,8 +183,15 @@ func vmExec(ctl *ControlFlow, bf *scmBytecodeFunc, args []Obj) {
 	code := fn.Code
 	consts := fn.Consts
 
+	// Hoisted out of the loop: see ControlFlow.stepLimited. In every
+	// non-fuzz process this is false and the per-instruction cost of the
+	// step counter collapses to one predictable register test.
+	limited := ctl.stepLimited()
+
 	for {
-		ctl.tick()
+		if limited {
+			ctl.tick()
+		}
 		instr := code[pc]
 		pc++
 		switch instr.Op {

@@ -110,16 +110,30 @@ func (ctl *ControlFlow) putFrame(frame []Obj) {
 	ctl.framePool[minI] = full[:0]
 }
 
-// tick accounts one evaluation step against an optional step limit. It is on
-// the hottest path (every trampoline iteration and every VM instruction), so
-// the common case — no limit set — is a single branch, and the abort lives in
-// a separate non-inlined function so tick itself stays inlinable.
+// stepLimited reports whether this ControlFlow carries a step budget.
+//
+// stepLimit is write-once: it is set when the ControlFlow is constructed (only
+// the fuzz harness and its tests ever do so — production leaves it zero) and is
+// never mutated while evaluation is running. The hot loops therefore hoist this
+// call *out* of their loop into a local and test that local per step, instead of
+// re-loading ctl.stepLimit through the pointer on every instruction. The load
+// was not free: the compiler cannot cache it across the eval/apply/vmExec calls
+// in the loop body (they all take ctl), so every VM instruction paid a memory
+// load + compare for a counter that is off in every non-test process.
+//
+// Anyone adding a way to change the budget mid-run must revisit that hoist.
+func (ctl *ControlFlow) stepLimited() bool {
+	return ctl.stepLimit != 0
+}
+
+// tick accounts one evaluation step against the step limit. It must only be
+// called when ctl.stepLimited() is true — the callers hoist that test out of
+// their loop (see stepLimited). The abort lives in a separate function so tick
+// itself stays inlinable.
 func (ctl *ControlFlow) tick() {
-	if ctl.stepLimit != 0 {
-		ctl.steps++
-		if ctl.steps > ctl.stepLimit {
-			ctl.tripStepLimit()
-		}
+	ctl.steps++
+	if ctl.steps > ctl.stepLimit {
+		ctl.tripStepLimit()
 	}
 }
 
@@ -162,8 +176,11 @@ func (ctl *ControlFlow) Get(n int) Obj {
 
 // trampoline is introduced for tail call optimization.
 func trampoline(ctl *ControlFlow) Obj {
+	limited := ctl.stepLimited()
 	for ctl.kind != ControlFlowReturn {
-		ctl.tick()
+		if limited {
+			ctl.tick()
+		}
 		switch ctl.kind {
 		case ControlFlowEval:
 			eval(ctl)
