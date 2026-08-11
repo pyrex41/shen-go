@@ -69,7 +69,9 @@ plus `hot.so.fns` (an arity manifest). It accepts a `.shen` or a `.kl` file.
 
 The functions in the `.so` now run as compiled Go; a bad/missing `.so` just warns
 and the REPL continues on the VM. `(load-native "hot.so")` does the same from
-inside a session.
+inside a session or from a script — and, unlike `-precompiled`, it can run
+*after* a `(load ...)` that would otherwise rebind those functions onto the VM
+(see the ordering note below).
 
 Measured on this kernel (darwin/arm64): a recursion-heavy benchmark runs ~1.6–1.9×
 faster compiled than on the VM. The compiled code still uses the runtime's boxed
@@ -82,15 +84,30 @@ precompile-the-hot-path option, not a replacement for the VM.
 
 ### Using precompiled code with script runners
 
-The launcher script entrypoint and precompiled plugins compose: plugins are
-loaded before `script` evaluates the file, so functions defined in the plugin
-are used by the script while all other functions remain on the VM. For example,
-to precompile a hot module and run a suite:
+Plugins are loaded before `script` evaluates the file, so a script that only
+*calls* the precompiled functions gets them:
 
 ```
-make precompile FILE=path/to/prng.shen OUT=/tmp/prng.so
-./shen -precompiled /tmp/prng.so script path/to/run-tests.shen
+make precompile FILE=path/to/hot.shen OUT=/tmp/hot.so
+./shen -precompiled /tmp/hot.so script path/to/driver.shen
 ```
+
+> **Ordering matters — `load` wins over `-precompiled`.** A plugin binds its
+> functions at startup; a later `(load "hot.shen")` *re-defines those same
+> functions onto the VM* and silently throws the compiled versions away. Suite
+> runners usually open with exactly that (`(load "shen/world/prng.shen")` at the
+> top of `run-tests.shen`), so `-precompiled` alone buys them **nothing**.
+>
+> Re-install the plugin *after* the loads instead:
+>
+> ```
+> (load "path/to/hot.shen")
+> (load-native "/tmp/hot.so")   \* now the compiled versions are in force *\
+> ```
+>
+> Measured on `bench/hot.shen` (darwin/arm64, min CPU seconds of 5 runs):
+> VM only 1.33s; `-precompiled` + `(load ...)` 1.33s (no gain);
+> `(load ...)` then `(load-native ...)` 0.89s (**1.49×**).
 
 This is an opt-in optimization for suite runners; it does not change the
 default `script` behavior. Big-int-heavy functions are supported, but continue
