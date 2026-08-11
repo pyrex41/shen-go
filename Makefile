@@ -20,6 +20,13 @@ ratatoskr-build:
 # toolchain + module as the shen binary that loads it (both from this tree).
 #   make precompile FILE=bench/hot.shen           # -> bench/hot.so
 #   make precompile FILE=bench/hot.shen OUT=x.so  # -> x.so
+#
+# The emitted OUT.fns manifest is headed with the source path and the sha256 of
+# the source bytes. That is what lets `shen` re-engage this plugin automatically
+# after a later `(load FILE)` re-defines the same functions onto the VM, while
+# refusing to do so once FILE has been edited (see cmd/shen/autonative.go). The
+# hash is taken from the copy actually compiled, so it always describes the
+# bytes that produced the .so.
 FILE ?=
 OUT  ?= $(basename $(FILE)).so
 precompile:
@@ -31,7 +38,7 @@ precompile:
 	@grep -q '\[go-build-plugin\]' /tmp/shen-precompile.log || { echo "precompile failed:"; cat /tmp/shen-precompile.log; exit 1; }
 	@mkdir -p "$(dir $(OUT))"
 	@mv compiled/_in.so "$(OUT)"
-	@mv compiled/_in.fns "$(OUT).fns"
+	@{ printf '#source %s\n#sha256 %s\n' "$(abspath $(FILE))" "$$(./klc -sha256 compiled/_in.shen)"; cat compiled/_in.fns; } > "$(OUT).fns"
 	@rm -rf compiled/_in* compiled/plugintmp*
 	@echo "precompiled $(FILE) -> $(OUT) (+ $(OUT).fns)"
 

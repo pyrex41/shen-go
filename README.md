@@ -59,7 +59,8 @@ make precompile FILE=bench/hot.shen OUT=hot.so
 ```
 
 This runs Shen → KL → IR → Go → `go build -buildmode=plugin`, emitting `hot.so`
-plus `hot.so.fns` (an arity manifest). It accepts a `.shen` or a `.kl` file.
+plus `hot.so.fns` (an arity manifest, headed with the source path and the sha256
+of the source bytes). It accepts a `.shen` or a `.kl` file.
 
 **2. Run with the compiled functions loaded at startup (~0.3s, no compile cost):**
 
@@ -69,9 +70,7 @@ plus `hot.so.fns` (an arity manifest). It accepts a `.shen` or a `.kl` file.
 
 The functions in the `.so` now run as compiled Go; a bad/missing `.so` just warns
 and the REPL continues on the VM. `(load-native "hot.so")` does the same from
-inside a session or from a script — and, unlike `-precompiled`, it can run
-*after* a `(load ...)` that would otherwise rebind those functions onto the VM
-(see the ordering note below).
+inside a session or from a script.
 
 Measured on this kernel (darwin/arm64): a recursion-heavy benchmark runs ~1.6–1.9×
 faster compiled than on the VM. The compiled code still uses the runtime's boxed
@@ -84,36 +83,52 @@ precompile-the-hot-path option, not a replacement for the VM.
 
 ### Using precompiled code with script runners
 
-Plugins are loaded before `script` evaluates the file, so a script that only
-*calls* the precompiled functions gets them:
+Naming the `.so` is all it takes — including for scripts that `(load ...)` the
+same file, which is what test-suite runners do:
 
 ```
 make precompile FILE=path/to/hot.shen OUT=/tmp/hot.so
-./shen -precompiled /tmp/hot.so script path/to/driver.shen
+./shen -precompiled /tmp/hot.so script path/to/run-tests.shen
 ```
 
-> **Ordering matters — `load` wins over `-precompiled`.** A plugin binds its
-> functions at startup; a later `(load "hot.shen")` *re-defines those same
-> functions onto the VM* and silently throws the compiled versions away. Suite
-> runners usually open with exactly that (`(load "shen/world/prng.shen")` at the
-> top of `run-tests.shen`), so `-precompiled` alone buys them **nothing**.
->
-> Re-install the plugin *after* the loads instead:
->
-> ```
-> (load "path/to/hot.shen")
-> (load-native "/tmp/hot.so")   \* now the compiled versions are in force *\
-> ```
->
-> Measured on `bench/hot.shen` (darwin/arm64, min CPU seconds of 5 runs):
-> VM only 1.33s; `-precompiled` + `(load ...)` 1.33s (no gain);
-> `(load ...)` then `(load-native ...)` 0.89s (**1.49×**).
+Shen's `load` is a definer: `(load "hot.shen")` re-runs every `define` in the
+file, which rebinds exactly the symbols a plugin just bound. Left alone, that
+throws the compiled versions away — and since suite runners open with
+`(load "shen/world/prng.shen")`, `-precompiled` used to buy them **nothing**.
 
-This is an opt-in optimization for suite runners; it does not change the
-default `script` behavior. Big-int-heavy functions are supported, but continue
-to use Shen's boxed numeric representation, so measure the workload before and
-after enabling the plugin. To capture a profile for further optimization, add
-`-cpuprofile FILE` (and optionally `-memprofile FILE`) before `script`:
+So `shen` closes the loop: **after a successful `(load F)`, any loaded plugin
+that was compiled from `F` is re-engaged automatically.** The default path is the
+native one; there is nothing to remember and no ordering to get right.
+
+Freshness is decided by **content**, never by path or mtime: `make precompile`
+stamps the source's sha256 into `hot.so.fns`, and a plugin is re-engaged only if
+the file just loaded hashes to exactly that. Edit `hot.shen` and the hashes
+diverge, so the freshly loaded (correct) VM definitions stay in force and you get
+one warning on stderr telling you to rebuild. Stale compiled code never runs
+silently.
+
+| flag / env | effect |
+|---|---|
+| *(default)* | re-engage a matching plugin after `(load ...)` |
+| `-auto-native=false` | never re-engage; `load` wins, as before |
+| `SHEN_NO_AUTO_NATIVE=1` | same, for harnesses that cannot change argv |
+| `SHEN_AUTO_NATIVE_VERBOSE=1` | narrate each engagement on stderr |
+
+Nothing is printed on the happy path (a suite's stdout is often compared against
+a golden file), and nothing is ever discovered from disk: only the `.so`s you
+named with `-precompiled` or `(load-native ...)` are candidates.
+
+> Measured on `bench/hot.shen` (darwin/arm64, min CPU seconds of 5 runs):
+> VM only 1.33s; `-precompiled` + `(load ...)` 1.33s (no gain, the old behavior);
+> auto-engaged (this default) **0.89s, 1.49×** — the same as the manual
+> `(load ...)` + `(load-native ...)` ordering, without the manual step.
+
+The manual form still works if you want explicit control (`-auto-native=false`
+plus `(load-native "/tmp/hot.so")` after your loads). Big-int-heavy functions are
+supported, but continue to use Shen's boxed numeric representation, so measure
+the workload before and after enabling the plugin. To capture a profile for
+further optimization, add `-cpuprofile FILE` (and optionally `-memprofile FILE`)
+before `script`:
 
 ```
 ./shen -cpuprofile /tmp/prng.pprof script path/to/run-tests.shen
