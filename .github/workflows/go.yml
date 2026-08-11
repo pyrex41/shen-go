@@ -14,15 +14,34 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
+    # Read the toolchain version from go.mod rather than pinning it here, so the
+    # workflow cannot drift behind the module's `go` directive (it was pinned to
+    # 1.18 against a `go 1.25` module, which fails before it builds anything).
     - name: Set up Go
-      uses: actions/setup-go@v3
+      uses: actions/setup-go@v5
       with:
-        go-version: 1.18
+        go-version-file: go.mod
 
+    # Every package must build, not just the two Makefile targets -- `go install
+    # github.com/pyrex41/shen-go/...@latest` builds all of them.
     - name: Build
-      run: make
+      run: |
+        make
+        go build ./...
+
+    # go.mod/go.sum must be tidy: a stale `// indirect` marker or a missing
+    # requirement is how a module breaks for consumers.
+    - name: Verify go.mod is tidy
+      run: |
+        go mod tidy
+        git diff --exit-code -- go.mod go.sum
 
     - name: Test
       run: make test
+
+    # The canonical ShenOSKernel acceptance suite. `make test` deliberately
+    # skips it (-short); run it here so master is never certified-by-assumption.
+    - name: Certify
+      run: make certify
