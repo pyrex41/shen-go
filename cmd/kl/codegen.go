@@ -2,7 +2,7 @@ package main
 
 // KL-native bindings over the shared bytecode-IR -> Go translator (package
 // codegen). The translator itself lives in codegen/ so other build tools
-// (cmd/ratatoskr-build) can drive it without going through KL.
+// (cmd/yggdrasil-build) can drive it without going through KL.
 
 import (
 	"os"

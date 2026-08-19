@@ -3,7 +3,7 @@
 *.bc
 /shen
 /klc
-/ratatoskr-build
+/yggdrasil-build
 *.exe
 /.bin/
 /.shen-kernel-cache.bin

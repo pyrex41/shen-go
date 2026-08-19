@@ -1,7 +1,7 @@
 // Package codegen translates the bytecode IR emitted by the Shen-side
 // compiler (src/compiler.shen, via compile-file) into Go source that runs on
 // the kl runtime's trampoline. It was extracted from cmd/kl so that other
-// build tools (cmd/kl's bc->go native, cmd/ratatoskr-build) can share it.
+// build tools (cmd/kl's bc->go native, cmd/yggdrasil-build) can share it.
 //
 // The emitted shape is `var <Export> = MakeNative(func(__e *ControlFlow)
 // {...}, 0)` — a 0-arity module thunk that, when Called, defun-binds every
