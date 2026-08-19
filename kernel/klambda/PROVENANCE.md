@@ -70,7 +70,7 @@ differ structurally in the porter-facing initialisation layer:
 and `extension-programmable-pattern-matching.kl` are Bruno Deferrari's community
 extensions, not part of Tarver's kernel. They are retained on top of the vendored
 kernel. Only `extension-launcher.kl` is booted (it provides the shared
-`shen script/eval/repl` launcher CLI that ratatoskr stage-1 relies on); the other
+`shen script/eval/repl` launcher CLI that yggdrasil stage-1 relies on); the other
 three are vendored but not booted, as before. They were written against the
 community kernel API and have not been re-validated against this kernel beyond
 the launcher.

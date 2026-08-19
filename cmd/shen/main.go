@@ -272,7 +272,7 @@ func main() {
 // char-stoutput fast path. The stock definition (writer.kl) returns without
 // writing whenever *hush* is true — for EVERY stream, so quiet mode
 // (`shen eval -q ...`, which sets *hush*) silently truncates all file output
-// written via pr/open (e.g. ratatoskr stage-1 emits its shaken kernel.kl that
+// written via pr/open (e.g. yggdrasil stage-1 emits its shaken kernel.kl that
 // way). Since shen-go's PrimCharStOutput is stubbed to false, pr here
 // effectively ignores *hush* altogether — the same behavior as shen-cl, whose
 // native pr writes unconditionally. With *hush* false (the default: REPL and

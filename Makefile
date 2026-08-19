@@ -1,4 +1,4 @@
-.PHONY: all kl shen docker test certify test-all precompile ratatoskr-build
+.PHONY: all kl shen docker test certify test-all precompile yggdrasil-build
 
 all: kl shen
 
@@ -8,12 +8,12 @@ kl:
 shen:
 	go build -o shen github.com/pyrex41/shen-go/cmd/shen
 
-# Ratatoskr stage-2 static builder: turn a Ratatoskr shaken directory into a
+# Yggdrasil stage-2 static builder: turn a Yggdrasil shaken directory into a
 # Go module that builds a single static, cross-compilable binary.
-#   make ratatoskr-build
-#   ./ratatoskr-build path/to/shaken-out path/to/gen && (cd path/to/gen && go build -o prog .)
-ratatoskr-build:
-	go build -o ratatoskr-build ./cmd/ratatoskr-build
+#   make yggdrasil-build
+#   ./yggdrasil-build path/to/shaken-out path/to/gen && (cd path/to/gen && go build -o prog .)
+yggdrasil-build:
+	go build -o yggdrasil-build ./cmd/yggdrasil-build
 
 # AOT-compile a whole Shen (or KL) file to a Go plugin .so, to be loaded at
 # startup with `./shen -precompiled OUT`. The .so MUST be built with the same Go

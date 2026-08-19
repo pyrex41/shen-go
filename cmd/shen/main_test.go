@@ -66,7 +66,7 @@ func TestLauncherEval(t *testing.T) {
 
 // TestLauncherQuietFileWrite verifies quiet mode (-q sets *hush*) does not
 // suppress pr writes to file streams — the failure mode that produced 0-byte
-// output files when hosting the ratatoskr stage-1 shaker. See fixPrHush.
+// output files when hosting the yggdrasil stage-1 shaker. See fixPrHush.
 func TestLauncherQuietFileWrite(t *testing.T) {
 	path := filepath.Join(t.TempDir(), "out.txt")
 	expr := `(let S (open "` + path + `" out) (do (pr "payload" S) (close S)))`
@@ -148,13 +148,13 @@ func TestReplSurvivesApplyNonFunction(t *testing.T) {
 // TestEvalSurvivesAdversarialSequence in package kl.
 func TestReplSurvivesAdversarialSession(t *testing.T) {
 	input := strings.Join([]string{
-		"(overflow->str)",          // apply unbound symbol
-		"(value never-bound-xyz)",  // unbound variable
-		`(simple-error "boom")`,    // explicit error
-		"(if 42 1 2)",              // type error on if
-		"(+ 1 2)",                  // valid form, must work
-		"(42 1)",                   // apply non-function literal
-		"(* 6 7)",                  // valid form, final answer
+		"(overflow->str)",         // apply unbound symbol
+		"(value never-bound-xyz)", // unbound variable
+		`(simple-error "boom")`,   // explicit error
+		"(if 42 1 2)",             // type error on if
+		"(+ 1 2)",                 // valid form, must work
+		"(42 1)",                  // apply non-function literal
+		"(* 6 7)",                 // valid form, final answer
 	}, "\n") + "\n"
 
 	out, err := runCLIStdin(t, input)
