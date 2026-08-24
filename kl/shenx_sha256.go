@@ -8,6 +8,7 @@ import (
 // InstallShenX binds optional shen.x host extensions.
 // SHA-256: crypto/sha256 (stdlib). Disable with SHEN_X_SHA256=pure.
 func InstallShenX() {
+	InstallShenXFeatures()
 	installShenXZmq()
 	if os.Getenv("SHEN_X_SHA256") == "pure" {
 		return
@@ -15,6 +16,7 @@ func InstallShenX() {
 	BindSymbolFunc(MakeSymbol("shen.x.sha256-octets-host"),
 		MakePrimitive("shen.x.sha256-octets-host", 1, primSha256OctetsHost))
 	PrimSet(MakeSymbol("shen.x.*sha256-backend*"), MakeSymbol("host"))
+	registerShenXFeature("shen.x/sha256-host")
 }
 
 func primSha256OctetsHost(xs Obj) Obj {
