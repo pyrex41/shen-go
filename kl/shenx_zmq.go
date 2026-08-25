@@ -70,6 +70,7 @@ func installShenXZmq() {
 	BindSymbolFunc(MakeSymbol("shen.x.zmq.term-host"),
 		MakeNative(func(e *ControlFlow) { e.Return(primZmqTermHost()) }, 0))
 	PrimSet(MakeSymbol("shen.x.*zmq-backend*"), MakeSymbol("host"))
+	registerShenXFeature("shen.x/zmq-host")
 }
 
 // ---------- helpers ----------
