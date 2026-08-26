@@ -18,7 +18,7 @@ jobs:
 
     # Read the toolchain version from go.mod rather than pinning it here, so the
     # workflow cannot drift behind the module's `go` directive (it was pinned to
-    # 1.18 against a `go 1.25` module, which fails before it builds anything).
+    # 1.18 against a newer module, which fails before it builds anything).
     - name: Set up Go
       uses: actions/setup-go@v5
       with:

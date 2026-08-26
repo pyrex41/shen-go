@@ -458,7 +458,7 @@ func main() {
 	if err := os.WriteFile(filepath.Join(outDir, "main.go"), []byte(genMain(m, kernelUnits, userUnits, userArities)), 0644); err != nil {
 		fatal("%v", err)
 	}
-	gomod := fmt.Sprintf("module yggdrasil.local/%s\n\ngo 1.25\n\nrequire github.com/pyrex41/shen-go v0.0.0\n\nreplace github.com/pyrex41/shen-go => %s\n",
+	gomod := fmt.Sprintf("module yggdrasil.local/%s\n\ngo 1.27\n\nrequire github.com/pyrex41/shen-go v0.0.0\n\nreplace github.com/pyrex41/shen-go => %s\n",
 		moduleName(m), root)
 	if err := os.WriteFile(filepath.Join(outDir, "go.mod"), []byte(gomod), 0644); err != nil {
 		fatal("%v", err)

@@ -1,6 +1,6 @@
 module github.com/pyrex41/shen-go
 
-go 1.25
+go 1.27
 
 require github.com/go-zeromq/zmq4 v0.17.0
 

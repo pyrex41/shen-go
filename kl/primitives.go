@@ -6,7 +6,7 @@ import (
 	"os"
 	"path"
 	"runtime"
-	"strconv"
+	"sync"
 	"time"
 	"unicode"
 )
@@ -27,64 +27,52 @@ func StinputEOF() bool {
 	return stinputEOF
 }
 
-var klPrimitives = []struct {
-	name  string
-	arity int
-	fn    interface{}
-}{
-	// &scmNative{scmHead: scmHeadNative, name: "type", require: 2, fn: PrimTypeFunc},
-	{"get-time", 1, PrimGetTime},
-	{"close", 1, PrimCloseStream},
-	{"open", 2, PrimOpenStream},
-	{"read-byte", 1, PrimReadByte},
-	{"write-byte", 2, PrimWriteByte},
-	{"absvector?", 1, PrimIsVector},
-	{"<-address", 2, PrimVectorGet},
-	{"address->", 3, PrimVectorSet},
-	{"absvector", 1, PrimAbsvector},
-	{"str", 1, PrimStr},
-	{"<=", 2, PrimLessEqual},
-	{">=", 2, PrimGreatEqual},
-	{"<", 2, PrimLessThan},
-	{">", 2, PrimGreatThan},
-	{"error-to-string", 1, PrimErrorToString},
-	{"simple-error", 1, PrimSimpleError},
-	{"=", 2, PrimEqual},
-	{"-", 2, PrimNumberSubtract},
-	{"*", 2, PrimNumberMultiply},
-	{"/", 2, PrimNumberDivide},
-	{"+", 2, PrimNumberAdd},
-	{"string->n", 1, PrimStringToNumber},
-	{"n->string", 1, PrimNumberToString},
-	{"number?", 1, PrimIsNumber},
-	{"string?", 1, PrimIsString},
-	{"pos", 2, PrimPos},
-	{"tlstr", 1, PrimTailString},
-	{"cn", 2, PrimStringConcat},
-	{"intern", 1, PrimIntern},
-	{"hd", 1, PrimHead},
-	{"tl", 1, PrimTail},
-	{"cons", 2, PrimCons},
-	{"cons?", 1, PrimIsPair},
-	{"value", 1, PrimValue},
-	{"set", 2, PrimSet},
-	{"not", 1, PrimNot},
-	{"if", 3, PrimIf},
-	{"symbol?", 1, PrimIsSymbol},
-	{"read-file-as-bytelist", 1, PrimReadFileAsByteList},
-	{"read-file-as-string", 1, PrimReadFileAsString},
-	{"variable?", 1, PrimIsVariable},
-	{"integer?", 1, PrimIsInteger},
-	{"shen.char-stoutput?", 1, PrimCharStOutput},
-	{"shen.char-stinput?", 1, PrimCharStInput},
-}
-
 func init() {
-	for _, item := range klPrimitives {
-		sym := MakeSymbol(item.name)
-		prim := MakePrimitive(item.name, item.arity, item.fn)
-		BindSymbolFunc(sym, prim)
-	}
+	register := func(name string, prim Obj) { BindSymbolFunc(MakeSymbol(name), prim) }
+	register("get-time", primitiveRegistry.register("get-time", PrimGetTime))
+	register("close", primitiveRegistry.register("close", PrimCloseStream))
+	register("open", primitiveRegistry.register("open", PrimOpenStream))
+	register("read-byte", primitiveRegistry.register("read-byte", PrimReadByte))
+	register("write-byte", primitiveRegistry.register("write-byte", PrimWriteByte))
+	register("absvector?", primitiveRegistry.register("absvector?", PrimIsVector))
+	register("<-address", primitiveRegistry.register("<-address", PrimVectorGet))
+	register("address->", primitiveRegistry.register("address->", PrimVectorSet))
+	register("absvector", primitiveRegistry.register("absvector", PrimAbsvector))
+	register("str", primitiveRegistry.register("str", PrimStr))
+	register("<=", primitiveRegistry.register("<=", PrimLessEqual))
+	register(">=", primitiveRegistry.register(">=", PrimGreatEqual))
+	register("<", primitiveRegistry.register("<", PrimLessThan))
+	register(">", primitiveRegistry.register(">", PrimGreatThan))
+	register("error-to-string", primitiveRegistry.register("error-to-string", PrimErrorToString))
+	register("simple-error", primitiveRegistry.register("simple-error", PrimSimpleError))
+	register("=", primitiveRegistry.register("=", PrimEqual))
+	register("-", primitiveRegistry.register("-", PrimNumberSubtract))
+	register("*", primitiveRegistry.register("*", PrimNumberMultiply))
+	register("/", primitiveRegistry.register("/", PrimNumberDivide))
+	register("+", primitiveRegistry.register("+", PrimNumberAdd))
+	register("string->n", primitiveRegistry.register("string->n", PrimStringToNumber))
+	register("n->string", primitiveRegistry.register("n->string", PrimNumberToString))
+	register("number?", primitiveRegistry.register("number?", PrimIsNumber))
+	register("string?", primitiveRegistry.register("string?", PrimIsString))
+	register("pos", primitiveRegistry.register("pos", PrimPos))
+	register("tlstr", primitiveRegistry.register("tlstr", PrimTailString))
+	register("cn", primitiveRegistry.register("cn", PrimStringConcat))
+	register("intern", primitiveRegistry.register("intern", PrimIntern))
+	register("hd", primitiveRegistry.register("hd", PrimHead))
+	register("tl", primitiveRegistry.register("tl", PrimTail))
+	register("cons", primitiveRegistry.register("cons", PrimCons))
+	register("cons?", primitiveRegistry.register("cons?", PrimIsPair))
+	register("value", primitiveRegistry.register("value", PrimValue))
+	register("set", primitiveRegistry.register("set", PrimSet))
+	register("not", primitiveRegistry.register("not", PrimNot))
+	register("if", primitiveRegistry.register("if", PrimIf))
+	register("symbol?", primitiveRegistry.register("symbol?", PrimIsSymbol))
+	register("read-file-as-bytelist", primitiveRegistry.register("read-file-as-bytelist", PrimReadFileAsByteList))
+	register("read-file-as-string", primitiveRegistry.register("read-file-as-string", PrimReadFileAsString))
+	register("variable?", primitiveRegistry.register("variable?", PrimIsVariable))
+	register("integer?", primitiveRegistry.register("integer?", PrimIsInteger))
+	register("shen.char-stoutput?", primitiveRegistry.register("shen.char-stoutput?", PrimCharStOutput))
+	register("shen.char-stinput?", primitiveRegistry.register("shen.char-stinput?", PrimCharStInput))
 
 	// Overload for primitive set and value.
 	BindSymbolFunc(MakeSymbol("eval-kl"), MakeNative(primEvalKL, 1))
@@ -170,7 +158,7 @@ func PrimTail(o Obj) Obj {
 }
 
 func PrimIsNumber(o Obj) Obj {
-	if *o == scmHeadNumber {
+	if IsNumber(o) {
 		return True
 	}
 	return False
@@ -196,7 +184,7 @@ func PrimStringToNumber(o Obj) Obj {
 // A lone surrogate (U+D800..DFFF) is deliberately NOT rejected here; see
 // TestNumberToStringMapsLoneSurrogates.
 func PrimNumberToString(o Obj) Obj {
-	if (*o) != scmHeadNumber {
+	if !IsNumber(o) {
 		panic(MakeError("mustNumber"))
 	}
 	f := GetNumber(o)
@@ -207,6 +195,9 @@ func PrimNumberToString(o Obj) Obj {
 }
 
 func PrimStr(o Obj) Obj {
+	if IsNumber(o) {
+		return MakeString(formatNumber(mustNumber(o)))
+	}
 	switch *o {
 	case scmHeadPair:
 		// Pair may contain recursive list.
@@ -216,15 +207,6 @@ func PrimStr(o Obj) Obj {
 	case scmHeadSymbol:
 		str := GetSymbol(o)
 		return MakeString(str)
-	case scmHeadNumber:
-		if isFixnum(o) {
-			return MakeString(strconv.Itoa(fixnum(o)))
-		}
-		// Shared with scmHead.GoString so the two printers can never drift:
-		// shortest round-trip form for fractions (issue #11), plain digits
-		// for integers that fit an int, and no narrowing for the ones that
-		// do not (1e19 used to print as 9223372036854775807).
-		return MakeString(formatNumber(mustNumber(o)))
 	case scmHeadString:
 		return MakeString(fmt.Sprintf(`"%s"`, mustString(o)))
 	case scmHeadProcedure:
@@ -421,7 +403,7 @@ func PrimVectorGet(x, y Obj) Obj {
 }
 
 func PrimIsVector(x Obj) Obj {
-	if *x == scmHeadVector {
+	if x != nil && !isFixnum(x) && *x == scmHeadVector {
 		return True
 
 	}
@@ -524,7 +506,7 @@ func PrimGetTime(x Obj) Obj {
 }
 
 func PrimIsString(x Obj) Obj {
-	if *x == scmHeadString {
+	if IsString(x) {
 		return True
 
 	}
@@ -532,7 +514,7 @@ func PrimIsString(x Obj) Obj {
 }
 
 func PrimIsPair(x Obj) Obj {
-	if *x == scmHeadPair {
+	if ok, _ := isPair(x); ok {
 		return True
 	}
 	return False
@@ -640,7 +622,7 @@ func hashKeyString(v Obj) string {
 }
 
 func PrimIsVariable(x Obj) Obj {
-	if *x != scmHeadSymbol {
+	if !IsSymbol(x) {
 		return False
 	}
 
@@ -652,7 +634,7 @@ func PrimIsVariable(x Obj) Obj {
 }
 
 func PrimIsInteger(x Obj) Obj {
-	if *x != scmHeadNumber {
+	if !IsNumber(x) {
 		return False
 
 	}
@@ -789,26 +771,38 @@ func wrapf4(f func(x, y, z Obj) Obj) func(*ControlFlow) {
 	}
 }
 
-func MakePrimitive(name string, arity int, f interface{}) Obj {
+// primitiveFunction is the complete set of function signatures accepted by
+// the primitive registrar. Keeping this constraint narrow prevents accidental
+// registration of arbitrary interface{} values.
+type primitiveFunction interface {
+	func(Obj) Obj | func(Obj, Obj) Obj | func(Obj, Obj, Obj) Obj
+}
+
+// primitiveRegistrar constructs kernel primitive objects. Its generic method
+// gives callers compile-time checking of the function signature and derives
+// the Shen arity metadata directly from that signature.
+type primitiveRegistrar struct {
+	mu        sync.RWMutex
+	canonical map[string]Obj
+}
+
+var primitiveRegistry primitiveRegistrar
+
+func (r *primitiveRegistrar) register[F primitiveFunction](name string, f F) Obj {
+	var arity int
 	var fn func(*ControlFlow)
-	switch arity {
-	case 1:
-		raw, ok := f.(func(Obj) Obj)
-		if !ok {
-			panic(fmt.Sprintf("MakePrimitive %s failed: %#v", name, f))
-		}
+	switch any(f).(type) {
+	case func(Obj) Obj:
+		arity = 1
+		raw := any(f).(func(Obj) Obj)
 		fn = wrapf1(raw)
-	case 2:
-		raw, ok := f.(func(x, y Obj) Obj)
-		if !ok {
-			panic(fmt.Sprintf("MakePrimitive %s failed: %#v", name, f))
-		}
+	case func(Obj, Obj) Obj:
+		arity = 2
+		raw := any(f).(func(Obj, Obj) Obj)
 		fn = wrapf2(raw)
-	case 3:
-		raw, ok := f.(func(x, y, z Obj) Obj)
-		if !ok {
-			panic(fmt.Sprintf("MakePrimitive %s failed: %#v", name, f))
-		}
+	case func(Obj, Obj, Obj) Obj:
+		arity = 3
+		raw := any(f).(func(Obj, Obj, Obj) Obj)
 		fn = wrapf3(raw)
 	default:
 		panic(fmt.Sprintf("MakePrimitive %s failed: %#v", name, f))
@@ -819,7 +813,46 @@ func MakePrimitive(name string, arity int, f interface{}) Obj {
 		require: arity,
 		fn:      fn,
 	}
-	return Obj(&tmp.scmHead)
+	prim := Obj(&tmp.scmHead)
+	// The first registration establishes the canonical implementation. Later
+	// MakePrimitive calls may intentionally shadow a name, but optimized code
+	// must guard against using the canonical fast path after that happens.
+	r.mu.Lock()
+	if r.canonical == nil {
+		r.canonical = make(map[string]Obj)
+	}
+	if _, exists := r.canonical[name]; !exists {
+		r.canonical[name] = prim
+	}
+	r.mu.Unlock()
+	return prim
+}
+
+// MakePrimitive preserves the original public entry point for callers that
+// provide a runtime function value.
+func MakePrimitive(name string, arity int, f interface{}) Obj {
+	switch arity {
+	case 1:
+		raw, ok := f.(func(Obj) Obj)
+		if !ok {
+			panic(fmt.Sprintf("MakePrimitive %s failed: %#v", name, f))
+		}
+		return primitiveRegistry.register(name, raw)
+	case 2:
+		raw, ok := f.(func(Obj, Obj) Obj)
+		if !ok {
+			panic(fmt.Sprintf("MakePrimitive %s failed: %#v", name, f))
+		}
+		return primitiveRegistry.register(name, raw)
+	case 3:
+		raw, ok := f.(func(Obj, Obj, Obj) Obj)
+		if !ok {
+			panic(fmt.Sprintf("MakePrimitive %s failed: %#v", name, f))
+		}
+		return primitiveRegistry.register(name, raw)
+	default:
+		panic(fmt.Sprintf("MakePrimitive %s failed: %#v", name, f))
+	}
 }
 
 func primDefun(key, val Obj) Obj {

@@ -18,7 +18,7 @@ func TestFixnumRoundTrip(t *testing.T) {
 	}
 	for _, v := range vals {
 		o := MakeInteger(v)
-		if *o != scmHeadNumber {
+		if !IsNumber(o) {
 			t.Errorf("MakeInteger(%d): not a number object", v)
 			continue
 		}
@@ -46,6 +46,33 @@ func TestFixnumRangeClassification(t *testing.T) {
 		if isFixnum(MakeInteger(v)) {
 			t.Errorf("MakeInteger(%d) expected to be boxed (out of fixnum range)", v)
 		}
+	}
+}
+
+func TestFixnumPredicatesAreSafeAtSentinelBoundary(t *testing.T) {
+	for _, v := range []int{fixnumMin, fixnumMax - 1} {
+		o := MakeInteger(v)
+		if !IsNumber(o) {
+			t.Fatalf("IsNumber(MakeInteger(%d)) = false", v)
+		}
+		if IsError(o) || IsSymbol(o) || IsString(o) {
+			t.Fatalf("non-number predicate accepted fixnum %d", v)
+		}
+		if PrimIsNumber(o) != True || PrimIsInteger(o) != True || PrimIsString(o) != False || PrimIsPair(o) != False || PrimIsVector(o) != False || PrimIsVariable(o) != False {
+			t.Fatalf("primitive predicates mishandled fixnum %d", v)
+		}
+		if got := mustNumber(o); got != float64(v) {
+			t.Fatalf("mustNumber(MakeInteger(%d)) = %v", v, got)
+		}
+		if got := ObjString(o); got != formatNumber(float64(v)) {
+			t.Fatalf("ObjString(MakeInteger(%d)) = %q", v, got)
+		}
+		if equal(o, o) != True || equal(o, MakeString("number")) != False {
+			t.Fatalf("equality mishandled fixnum sentinel %d", v)
+		}
+	}
+	if equal(MakeInteger(fixnumMin), MakeInteger(fixnumMax-1)) != False {
+		t.Fatal("distinct boundary fixnums compared equal")
 	}
 }
 

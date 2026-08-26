@@ -103,6 +103,66 @@ canonical kernel certification (dict-heavy: packages, types, prolog) stays 134/1
   `lambda`/`freeze`/`trap-error`/`let`/`cond` all compile to bytecode.
   Closures capture upvalues by value at creation time.
 
+## Go 1.27 typed-region benchmark matrix (2026-08-26)
+
+The Go-level matrix lives in `kl/typed_ir_bench_test.go`; equivalent Shen
+workloads for interpreter and generated AOT runs live in `bench/typed-ir.shen`.
+The matrix is shared by VM and AOT workloads: each case defines a KL function
+once, then measures repeated calls with parsing and kernel boot outside the
+timed section. The VM benchmark is executable today. AOT tests currently
+verify generated-plugin compilation and ABI wiring, but do not provide
+comparable wall-clock rows. Run the VM matrix on a clean tree with:
+
+```
+go test ./kl -run '^$' -bench 'BenchmarkTypedVM' -benchmem -count=10 \
+  | tee /tmp/shen-go-typed-ir.txt
+benchstat /tmp/shen-go-typed-ir.txt
+```
+
+Coverage includes numeric fixnum/float paths, boolean branches, Unicode string
+concatenation, pair/list construction, mutable vectors, higher-order dynamic
+application, and fallback-heavy mixed values. Typed IR is enabled by default;
+set `SHEN_GO_TYPED_IR=off` for the dynamic control run. Do not compare
+single-run `-benchtime=1x` output with `benchstat` results.
+
+Reference run (Apple M4, Go 1.27.0, `-benchtime=100ms`, one sample; use the
+ten-sample command above for decisions):
+
+| Benchmark | ns/op | B/op | allocs/op |
+|---|---:|---:|---:|
+| TypedVMBoolBranch | 768,534 | 5 | 0 |
+| TypedVMUnicodeString | 63,780 | 47,378 | 400 |
+| TypedVMPairList | 250,816 | 48,014 | 2,000 |
+| TypedVMVector | 808,741 | 47 | 2 |
+| TypedVMDynamicApply | 1,408,127 | 256,098 | 8,002 |
+| TypedVMFallbackHeavy | 1,072,590 | 2,177,803 | 4,000 |
+
+These values are orientation data, not acceptance thresholds; machine, Go
+version, and benchmark duration materially affect them.
+
+Clean VM acceptance spot-check on the same Apple M4 (`-benchtime=100ms`, five
+samples, medians shown) compared the default guarded path with
+`SHEN_GO_TYPED_IR=off`:
+
+| Benchmark | Typed default | Typed off | Result |
+|---|---:|---:|---:|
+| VMFib | 12.83 ms | 15.44 ms | 1.20x faster |
+| VMTak | 4.86 ms | 6.25 ms | 1.29x faster |
+| VMSum | 6.21 ms, 1 alloc | 9.81 ms, 199,328 allocs | 1.58x faster; boxing removed |
+| VMSumMid | 540 µs | 695 µs | 1.29x faster |
+| VMSumNeg | 612 µs | 747 µs | 1.22x faster |
+
+These are a smoke gate rather than a substitute for the ten-sample matrix.
+
+The VM specialization keeps finite numbers in `vmSlot` form where possible and
+uses guarded primitive opcodes for arithmetic, predicates, strings, pairs, and
+vectors. Every specialized operation checks the canonical primitive binding and
+falls back to the ordinary `Obj` call path, preserving redefinition and dynamic
+dispatch. AOT emission has the same guard/fallback shape and fuses nested,
+side-effect-free scalar call trees, including safe single-use temporary chains
+in generated blocks. Annotations remain advisory metadata and never suppress
+the fallback.
+
 ---
 
 ## Remaining gap to shen-cl
@@ -111,6 +171,6 @@ shen-cl (SBCL) typically runs `tak(18,12,6)` in under 0.002s.
 Current gap: ~6.5× (0.013s vs ~0.002s).  
 Target: within 3–5× of shen-cl.
 
-Next steps to close the gap:
-- Phase 4: decision-tree pattern matching compilation
+Further work to close the gap:
+- Decision-tree pattern matching compilation
 - Inline allocation pooling to reduce GC pressure

@@ -1,4 +1,4 @@
-FROM golang:alpine
+FROM golang:1.27-alpine
 
 RUN apk update
 RUN apk upgrade

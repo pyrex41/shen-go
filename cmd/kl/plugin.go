@@ -107,6 +107,7 @@ func buildPlugin(rawPath, exportName, outSoPath string) (int64, error) {
 	if err != nil {
 		return 0, err
 	}
+	defer os.RemoveAll(scratch)
 	src := append(raw, []byte(fmt.Sprintf(installHookTmpl, exportName))...)
 	if err := os.WriteFile(filepath.Join(scratch, "plugin.go"), src, 0644); err != nil {
 		return 0, err

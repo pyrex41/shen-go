@@ -16,8 +16,8 @@
   Env [cond [Case Action]] -> (parse Env [if Case Action [simple-error "no cond match"]])
   Env [cond [Case Action] | More] -> (parse Env [if Case Action [cond | More]])
   Env [freeze Body] -> [$lambda [] (parse Env Body)]
-  Env [type Exp _] -> (parse Env Exp)
-
+  Env [F | X] -> [$type (hd (tl X)) (parse Env (hd X))]
+    where (and (symbol? F) (= type F) (= 2 (length X)))
   Env [F | X] -> [(parse-app Env F) | (map (parse Env) X)] where (symbol? F)
   Env [F | X] -> (map (parse Env) [F | X]))
 
@@ -27,9 +27,15 @@
   _ F -> [$global F])
 
 
+(define mark-tail-type
+  Annotation [[return X] | BC] -> (cons [return [$type Annotation X]] BC)
+  Annotation [X | BC] -> (cons X (mark-tail-type Annotation BC))
+  _ [] -> [])
+
 (define peval-t
       BC [$const X] -> (cons [return [$const X]] BC)
       BC [$global X] -> (cons [return [$global X]] BC)
+      BC [$type A Exp] -> (mark-tail-type A (peval-t BC Exp))
       BC [$if X Y Z] -> (let Y1 (peval0 Y)
 			     Z1 (peval0 Z)
 			     Tmp (gensym ifres)
@@ -46,6 +52,8 @@
 (define peval
     BC [$const X] CC -> (CC BC [$const X])
     BC [$global X] CC -> (CC BC [$global X])
+    BC [$type A Exp] CC -> (peval BC Exp (/. BC1 (/. X1
+							(CC BC1 [$type A X1]))))
     BC [$if X Y Z] CC -> (let TMP (gensym ifres)
 			      (let Y1 (peval [] Y (/. BC1 (/. Y1 (cons block (reverse (cons [<- TMP Y1] BC1))))))
 				   Z1 (peval [] Z (/. BC1 (/. Z1 (cons block (reverse (cons [<- TMP Z1] BC1))))))
