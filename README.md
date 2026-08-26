@@ -14,7 +14,7 @@ shen-go is a port of the Shen language that runs on top of Go implementations.
 
 ## Building
 
-Make sure you have [Go installed](https://golang.org/doc/install).
+Make sure you have [Go 1.27 or newer installed](https://go.dev/doc/install).
 
 ```
 make shen

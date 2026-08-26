@@ -44,10 +44,10 @@ type ControlFlow struct {
 
 	// framePool recycles VM activation slabs (locals + operand stack). On the
 	// urdr SHA/prng path every bytecode call previously allocated a fresh
-	// []Obj; pooling cuts that to near-zero after warmup and shrinks GC time.
+	// []vmSlot; pooling cuts that to near-zero after warmup and shrinks GC time.
 	// Single-threaded per ControlFlow — no locking. Bounded so a deep
 	// one-shot recursion can't pin an unbounded amount of memory forever.
-	framePool [][]Obj
+	framePool [][]vmSlot
 }
 
 // maxFramePool is the cap on recycled VM frames held on a ControlFlow.
@@ -62,7 +62,7 @@ const minFrameCap = 48
 // from the freelist. The unused capacity is the operand-stack region. Only the
 // locals region is cleared here — putFrame does not clear (stale pointers past
 // len are invisible to the GC while the slab sits as [:0] in the pool).
-func (ctl *ControlFlow) takeFrame(nlocals int) []Obj {
+func (ctl *ControlFlow) takeFrame(nlocals int) []vmSlot {
 	needCap := nlocals + 16
 	if needCap < minFrameCap {
 		needCap = minFrameCap
@@ -80,14 +80,14 @@ func (ctl *ControlFlow) takeFrame(nlocals int) []Obj {
 			return out
 		}
 	}
-	return make([]Obj, nlocals, needCap)
+	return make([]vmSlot, nlocals, needCap)
 }
 
 // putFrame returns a slab to the freelist. frame must be the locals view
 // (len may be nlocals; cap is the full slab). If the pool is full, a larger
 // incoming slab displaces the smallest resident one so we don't thrash on
 // mixed frame sizes.
-func (ctl *ControlFlow) putFrame(frame []Obj) {
+func (ctl *ControlFlow) putFrame(frame []vmSlot) {
 	c := cap(frame)
 	if c == 0 {
 		return
@@ -161,6 +161,18 @@ func (ctl *ControlFlow) tailApplySlice(f Obj, args []Obj) {
 	ctl.data = ctl.data[:ctl.pos]
 	ctl.data = append(ctl.data, f)
 	ctl.data = append(ctl.data, args...)
+	ctl.kind = ControlFlowApply
+}
+
+// tailApplySlots is the VM-slot equivalent of tailApplySlice. It materializes
+// values directly into ctl.data, avoiding a temporary []Obj at dynamic call
+// boundaries while retaining unboxed numbers inside bytecode-to-bytecode calls.
+func (ctl *ControlFlow) tailApplySlots(f Obj, args []vmSlot) {
+	ctl.data = ctl.data[:ctl.pos]
+	ctl.data = append(ctl.data, f)
+	for _, arg := range args {
+		ctl.data = append(ctl.data, arg.objValue())
+	}
 	ctl.kind = ControlFlowApply
 }
 

@@ -2,10 +2,10 @@ package kl
 
 // klCompiler compiles a KL form to bytecode.
 type klCompiler struct {
-	fn      *BytecodeFunc
-	locals  map[Obj]int    // symbol pointer -> slot index
-	upvals  []upvalInfo    // upvalues captured from outer scope
-	outer   *klCompiler    // enclosing compiler (for closures)
+	fn     *BytecodeFunc
+	locals map[Obj]int // symbol pointer -> slot index
+	upvals []upvalInfo // upvalues captured from outer scope
+	outer  *klCompiler // enclosing compiler (for closures)
 }
 
 type upvalInfo struct {
@@ -21,7 +21,7 @@ type varRef struct {
 type varKind int
 
 const (
-	varLocal  varKind = iota
+	varLocal varKind = iota
 	varUpval
 	varGlobal
 )
@@ -400,6 +400,25 @@ func intrinsicOp2(sym Obj) uint8 {
 	return 0
 }
 
+// foldFixnum2 folds only tagged-integer literals. No type information is
+// inferred through locals or calls, so floats and other dynamic numeric
+// boundaries remain on the existing runtime paths.
+func foldFixnum2(sym Obj, x, y Obj) (Obj, bool) {
+	if !isFixnum(x) || !isFixnum(y) {
+		return nil, false
+	}
+	a, b := fixnum(x), fixnum(y)
+	switch sym {
+	case symAdd:
+		return MakeInteger(a + b), true
+	case symSub:
+		return MakeInteger(a - b), true
+	case symMul:
+		return MakeInteger(a * b), true
+	}
+	return nil, false
+}
+
 func (c *klCompiler) compileCall(fn Obj, args Obj, tail bool) {
 	nArgs := 0
 	argList := make([]Obj, 0, 4)
@@ -421,6 +440,13 @@ func (c *klCompiler) compileCall(fn Obj, args Obj, tail bool) {
 	// ---- 2-arg arithmetic intrinsics ----
 	if IsSymbol(fn) && nArgs == 2 {
 		if op := intrinsicOp2(fn); op != 0 {
+			if folded, ok := foldFixnum2(fn, argList[0], argList[1]); ok {
+				c.emit(OP_LOAD_CONST, c.addConst(folded), 0)
+				if tail {
+					c.emit(OP_RETURN, 0, 0)
+				}
+				return
+			}
 			c.compileExpr(argList[0], false)
 			c.compileExpr(argList[1], false)
 			c.emit(op, 0, 0)

@@ -2,35 +2,36 @@ package kl
 
 import (
 	"fmt"
+	"math"
 	"unsafe"
 )
 
 // ---- Opcodes ----
 
 const (
-	OP_LOAD_CONST      = uint8(0)  // push consts[A]
-	OP_LOAD_LOCAL      = uint8(1)  // push locals[A]
-	OP_STORE_LOCAL     = uint8(2)  // locals[A] = pop()
-	OP_LOAD_GLOBAL     = uint8(3)  // push mustSymbol(consts[A]).function
-	OP_LOAD_UPVAL      = uint8(4)  // push upvals[A]
-	OP_CALL            = uint8(5)  // non-tail call: fn at stack[top-A-1], A args above
-	OP_TAIL_CALL       = uint8(6)  // tail call: same layout, signal trampoline
-	OP_RETURN          = uint8(7)  // ctl.Return(pop())
-	OP_JUMP            = uint8(8)  // pc += A (signed)
-	OP_JUMP_FALSE      = uint8(9)  // pop(); if == False: pc += A
-	OP_MAKE_CLOSURE    = uint8(10) // consts[A]=BytecodeFunc; pop B upvals; push closure
-	OP_POP             = uint8(11) // discard top of stack
-	OP_SELF_TAIL_CALL  = uint8(12) // A args on stack → update locals[0..A-1], jump pc=0
+	OP_LOAD_CONST     = uint8(0)  // push consts[A]
+	OP_LOAD_LOCAL     = uint8(1)  // push locals[A]
+	OP_STORE_LOCAL    = uint8(2)  // locals[A] = pop()
+	OP_LOAD_GLOBAL    = uint8(3)  // push mustSymbol(consts[A]).function
+	OP_LOAD_UPVAL     = uint8(4)  // push upvals[A]
+	OP_CALL           = uint8(5)  // non-tail call: fn at stack[top-A-1], A args above
+	OP_TAIL_CALL      = uint8(6)  // tail call: same layout, signal trampoline
+	OP_RETURN         = uint8(7)  // ctl.Return(pop())
+	OP_JUMP           = uint8(8)  // pc += A (signed)
+	OP_JUMP_FALSE     = uint8(9)  // pop(); if == False: pc += A
+	OP_MAKE_CLOSURE   = uint8(10) // consts[A]=BytecodeFunc; pop B upvals; push closure
+	OP_POP            = uint8(11) // discard top of stack
+	OP_SELF_TAIL_CALL = uint8(12) // A args on stack → update locals[0..A-1], jump pc=0
 	// Arithmetic fast-paths (avoid trampoline + float64 boxing for fixnums)
-	OP_ADD             = uint8(13) // pop y,x: push x+y
-	OP_SUB             = uint8(14) // pop y,x: push x-y
-	OP_MUL             = uint8(15) // pop y,x: push x*y
-	OP_LT              = uint8(16) // pop y,x: push x<y
-	OP_LE              = uint8(17) // pop y,x: push x<=y
-	OP_GT              = uint8(18) // pop y,x: push x>y
-	OP_GE              = uint8(19) // pop y,x: push x>=y
-	OP_EQ              = uint8(20) // pop y,x: push x=y  (structural equality, delegates to equal())
-	OP_NOT             = uint8(21) // pop x: push (not x)
+	OP_ADD = uint8(13) // pop y,x: push x+y
+	OP_SUB = uint8(14) // pop y,x: push x-y
+	OP_MUL = uint8(15) // pop y,x: push x*y
+	OP_LT  = uint8(16) // pop y,x: push x<y
+	OP_LE  = uint8(17) // pop y,x: push x<=y
+	OP_GT  = uint8(18) // pop y,x: push x>y
+	OP_GE  = uint8(19) // pop y,x: push x>=y
+	OP_EQ  = uint8(20) // pop y,x: push x=y  (structural equality, delegates to equal())
+	OP_NOT = uint8(21) // pop x: push (not x)
 )
 
 // Instr is a single VM instruction.  A and B are signed operands.
@@ -44,7 +45,7 @@ type Instr struct {
 type BytecodeFunc struct {
 	Name    string
 	Arity   int
-	Nlocals int   // number of local slots (includes arity slots for params)
+	Nlocals int // number of local slots (includes arity slots for params)
 	Code    []Instr
 	Consts  []Obj // constant pool (numbers, strings, symbols, nested BytecodeFunc objs)
 }
@@ -54,6 +55,164 @@ type scmBytecodeFunc struct {
 	scmHead
 	fn     *BytecodeFunc
 	upvals []Obj // captured values for closures
+}
+
+// vmSlot keeps finite numbers unboxed while retaining an Obj for all other
+// Shen values. obj==nil denotes a numeric slot.
+type vmSlot struct {
+	obj    Obj
+	number float64
+}
+
+func slotFromObj(o Obj) vmSlot {
+	if o != nil && isFixnum(o) {
+		return vmSlot{obj: o}
+	}
+	if o != nil && *o == scmHeadNumber {
+		f := GetNumber(o)
+		if !math.IsNaN(f) && !math.IsInf(f, 0) {
+			return vmSlot{number: f}
+		}
+	}
+	return vmSlot{obj: o}
+}
+func slotFromNumber(f float64) vmSlot {
+	if math.IsNaN(f) || math.IsInf(f, 0) {
+		return vmSlot{obj: MakeNumber(f)}
+	}
+	if isPreciseInteger(f) && f >= float64(fixnumMin) && f < float64(fixnumMax) {
+		return vmSlot{obj: MakeInteger(int(f))}
+	}
+	return vmSlot{number: f}
+}
+func slotFromInteger(i int) vmSlot {
+	if i >= fixnumMin && i < fixnumMax {
+		return vmSlot{obj: MakeInteger(i)}
+	}
+	return vmSlot{number: float64(i)}
+}
+func slotFixnum(s vmSlot) (int, bool) {
+	if s.obj != nil && isFixnum(s.obj) {
+		return fixnum(s.obj), true
+	}
+	return 0, false
+}
+func slotNumber(s vmSlot) (float64, bool) {
+	if s.obj == nil {
+		return s.number, true
+	}
+	if isFixnum(s.obj) || *s.obj == scmHeadNumber {
+		return GetNumber(s.obj), true
+	}
+	return 0, false
+}
+func (s vmSlot) objValue() Obj {
+	if s.obj != nil {
+		return s.obj
+	}
+	return MakeNumber(s.number)
+}
+func slotArithmetic(s vmSlot) Obj {
+	if s.obj == nil {
+		return MakeNumber(s.number)
+	}
+	return s.obj
+}
+func slotAdd(x, y vmSlot) vmSlot {
+	if a, ok := slotFixnum(x); ok {
+		if b, ok := slotFixnum(y); ok {
+			return slotFromInteger(a + b)
+		}
+	}
+	if a, ok := slotNumber(x); ok {
+		if b, ok := slotNumber(y); ok {
+			return slotFromNumber(a + b)
+		}
+	}
+	return slotFromObj(numAdd(slotArithmetic(x), slotArithmetic(y)))
+}
+func slotSub(x, y vmSlot) vmSlot {
+	if a, ok := slotFixnum(x); ok {
+		if b, ok := slotFixnum(y); ok {
+			return slotFromInteger(a - b)
+		}
+	}
+	if a, ok := slotNumber(x); ok {
+		if b, ok := slotNumber(y); ok {
+			return slotFromNumber(a - b)
+		}
+	}
+	return slotFromObj(numSub(slotArithmetic(x), slotArithmetic(y)))
+}
+func slotMul(x, y vmSlot) vmSlot {
+	if a, ok := slotFixnum(x); ok {
+		if b, ok := slotFixnum(y); ok {
+			return slotFromInteger(a * b)
+		}
+	}
+	if a, ok := slotNumber(x); ok {
+		if b, ok := slotNumber(y); ok {
+			return slotFromNumber(a * b)
+		}
+	}
+	return slotFromObj(numMul(slotArithmetic(x), slotArithmetic(y)))
+}
+func slotBool(v bool) vmSlot {
+	if v {
+		return vmSlot{obj: True}
+	}
+	return vmSlot{obj: False}
+}
+func slotCmp(x, y vmSlot, op uint8) vmSlot {
+	if a, ok := slotFixnum(x); ok {
+		if b, ok := slotFixnum(y); ok {
+			switch op {
+			case OP_LT:
+				return slotBool(a < b)
+			case OP_LE:
+				return slotBool(a <= b)
+			case OP_GT:
+				return slotBool(a > b)
+			default:
+				return slotBool(a >= b)
+			}
+		}
+	}
+	if a, ok := slotNumber(x); ok {
+		if b, ok := slotNumber(y); ok {
+			switch op {
+			case OP_LT:
+				return slotBool(a < b)
+			case OP_LE:
+				return slotBool(a <= b)
+			case OP_GT:
+				return slotBool(a > b)
+			default:
+				return slotBool(a >= b)
+			}
+		}
+	}
+	switch op {
+	case OP_LT:
+		return slotFromObj(numCmpLT(slotArithmetic(x), slotArithmetic(y)))
+	case OP_LE:
+		return slotFromObj(numCmpLE(slotArithmetic(x), slotArithmetic(y)))
+	case OP_GT:
+		return slotFromObj(numCmpLT(slotArithmetic(y), slotArithmetic(x)))
+	default:
+		return slotFromObj(numCmpLE(slotArithmetic(y), slotArithmetic(x)))
+	}
+}
+func slotEqual(x, y vmSlot) vmSlot {
+	if x.obj != nil && y.obj != nil {
+		return vmSlot{obj: equal(x.obj, y.obj)}
+	}
+	if a, ok := slotNumber(x); ok {
+		if b, ok := slotNumber(y); ok {
+			return slotBool(a == b)
+		}
+	}
+	return vmSlot{obj: equal(slotArithmetic(x), slotArithmetic(y))}
 }
 
 const scmHeadBytecodeFunc scmHead = 50
@@ -164,6 +323,20 @@ func vmPartialApply(required int, providedArgs []Obj, proc Obj) Obj {
 // vmExec runs one activation of a bytecode function.
 // It either calls ctl.Return with the result or sets up a tail call.
 func vmExec(ctl *ControlFlow, bf *scmBytecodeFunc, args []Obj) {
+	var inline [8]vmSlot
+	slots := inline[:0]
+	if len(args) <= len(inline) {
+		slots = inline[:len(args)]
+	} else {
+		slots = make([]vmSlot, len(args))
+	}
+	for i, a := range args {
+		slots[i] = slotFromObj(a)
+	}
+	vmExecSlots(ctl, bf, slots)
+}
+
+func vmExecSlots(ctl *ControlFlow, bf *scmBytecodeFunc, args []vmSlot) {
 	fn := bf.fn
 	upvals := bf.upvals
 
@@ -197,7 +370,7 @@ func vmExec(ctl *ControlFlow, bf *scmBytecodeFunc, args []Obj) {
 		switch instr.Op {
 
 		case OP_LOAD_CONST:
-			stack = append(stack, consts[instr.A])
+			stack = append(stack, slotFromObj(consts[instr.A]))
 
 		case OP_LOAD_LOCAL:
 			stack = append(stack, locals[instr.A])
@@ -211,15 +384,15 @@ func vmExec(ctl *ControlFlow, bf *scmBytecodeFunc, args []Obj) {
 			if sym.function == nil {
 				panic(MakeError(fmt.Sprintf("function %s not bound", sym.str)))
 			}
-			stack = append(stack, sym.function)
+			stack = append(stack, slotFromObj(sym.function))
 
 		case OP_LOAD_UPVAL:
-			stack = append(stack, upvals[instr.A])
+			stack = append(stack, slotFromObj(upvals[instr.A]))
 
 		case OP_CALL:
 			n := int(instr.A)
 			base := len(stack) - n - 1
-			callee := stack[base]
+			callee := stack[base].objValue()
 			callArgs := stack[base+1:]
 			var result Obj
 			switch *callee {
@@ -228,8 +401,8 @@ func vmExec(ctl *ControlFlow, bf *scmBytecodeFunc, args []Obj) {
 				// trampoline hop; if it sets up a tail call, finish via trampoline.
 				// Partial/over-application still goes through vmApply.
 				bfc := mustBytecodeFunc(callee)
-				if len(callArgs) == bfc.fn.Arity {
-					vmExec(ctl, bfc, callArgs)
+				if n == bfc.fn.Arity {
+					vmExecSlots(ctl, bfc, callArgs)
 					if ctl.kind == ControlFlowReturn {
 						result = ctl.data[ctl.pos]
 						ctl.data = ctl.data[:ctl.pos]
@@ -237,7 +410,7 @@ func vmExec(ctl *ControlFlow, bf *scmBytecodeFunc, args []Obj) {
 						result = trampoline(ctl)
 					}
 				} else {
-					vmApply(ctl, callee, callArgs)
+					ctl.tailApplySlots(callee, callArgs)
 					result = trampoline(ctl)
 				}
 			case scmHeadNative:
@@ -245,8 +418,8 @@ func vmExec(ctl *ControlFlow, bf *scmBytecodeFunc, args []Obj) {
 				// and invoke directly, only entering the trampoline if the
 				// native tail-applies (e.g. fn with arity 0).
 				nf := MustNative(callee)
-				if len(nf.captured) == 0 && len(callArgs) == nf.require {
-					ctl.tailApplySlice(callee, callArgs)
+				if len(nf.captured) == 0 && n == nf.require {
+					ctl.tailApplySlots(callee, callArgs)
 					nf.fn(ctl)
 					if ctl.kind == ControlFlowReturn {
 						result = ctl.data[ctl.pos]
@@ -255,26 +428,26 @@ func vmExec(ctl *ControlFlow, bf *scmBytecodeFunc, args []Obj) {
 						result = trampoline(ctl)
 					}
 				} else {
-					result = ctl.callSlice(callee, callArgs)
+					ctl.tailApplySlots(callee, callArgs)
+					result = trampoline(ctl)
 				}
 			default:
-				result = ctl.callSlice(callee, callArgs)
+				ctl.tailApplySlots(callee, callArgs)
+				result = trampoline(ctl)
 			}
 			stack = stack[:base]
-			stack = append(stack, result)
+			stack = append(stack, slotFromObj(result))
 
 		case OP_TAIL_CALL:
 			n := int(instr.A)
 			base := len(stack) - n - 1
-			callee := stack[base]
-			// stack is frame-local (never aliases ctl.data), so hand it to
-			// tailApplySlice directly instead of copying to a temporary.
-			ctl.tailApplySlice(callee, stack[base+1:])
+			callee := stack[base].objValue()
+			ctl.tailApplySlots(callee, stack[base+1:])
 			ctl.putFrame(slab)
 			return
 
 		case OP_RETURN:
-			ctl.Return(stack[len(stack)-1])
+			ctl.Return(stack[len(stack)-1].objValue())
 			ctl.putFrame(slab)
 			return
 
@@ -284,9 +457,10 @@ func vmExec(ctl *ControlFlow, bf *scmBytecodeFunc, args []Obj) {
 		case OP_JUMP_FALSE:
 			v := stack[len(stack)-1]
 			stack = stack[:len(stack)-1]
-			if v == False {
+			vo := v.objValue()
+			if vo == False {
 				pc += int(instr.A)
-			} else if v != True {
+			} else if vo != True {
 				panic(MakeError("if requires a boolean"))
 			}
 
@@ -296,10 +470,12 @@ func vmExec(ctl *ControlFlow, bf *scmBytecodeFunc, args []Obj) {
 			innerBF := mustBytecodeFunc(innerBFObj)
 			captured := make([]Obj, nUpvals)
 			base := len(stack) - nUpvals
-			copy(captured, stack[base:])
+			for i := range captured {
+				captured[i] = stack[base+i].objValue()
+			}
 			stack = stack[:base]
 			closure := makeBytecodeObj(innerBF.fn, captured)
-			stack = append(stack, closure)
+			stack = append(stack, slotFromObj(closure))
 
 		case OP_POP:
 			stack = stack[:len(stack)-1]
@@ -315,57 +491,58 @@ func vmExec(ctl *ControlFlow, bf *scmBytecodeFunc, args []Obj) {
 			y := stack[len(stack)-1]
 			x := stack[len(stack)-2]
 			stack = stack[:len(stack)-2]
-			stack = append(stack, numAdd(x, y))
+			stack = append(stack, slotAdd(x, y))
 
 		case OP_SUB:
 			y := stack[len(stack)-1]
 			x := stack[len(stack)-2]
 			stack = stack[:len(stack)-2]
-			stack = append(stack, numSub(x, y))
+			stack = append(stack, slotSub(x, y))
 
 		case OP_MUL:
 			y := stack[len(stack)-1]
 			x := stack[len(stack)-2]
 			stack = stack[:len(stack)-2]
-			stack = append(stack, numMul(x, y))
+			stack = append(stack, slotMul(x, y))
 
 		case OP_LT:
 			y := stack[len(stack)-1]
 			x := stack[len(stack)-2]
 			stack = stack[:len(stack)-2]
-			stack = append(stack, numCmpLT(x, y))
+			stack = append(stack, slotCmp(x, y, OP_LT))
 
 		case OP_LE:
 			y := stack[len(stack)-1]
 			x := stack[len(stack)-2]
 			stack = stack[:len(stack)-2]
-			stack = append(stack, numCmpLE(x, y))
+			stack = append(stack, slotCmp(x, y, OP_LE))
 
 		case OP_GT:
 			y := stack[len(stack)-1]
 			x := stack[len(stack)-2]
 			stack = stack[:len(stack)-2]
-			stack = append(stack, numCmpLT(y, x)) // x > y ↔ y < x
+			stack = append(stack, slotCmp(x, y, OP_GT))
 
 		case OP_GE:
 			y := stack[len(stack)-1]
 			x := stack[len(stack)-2]
 			stack = stack[:len(stack)-2]
-			stack = append(stack, numCmpLE(y, x)) // x >= y ↔ y <= x
+			stack = append(stack, slotCmp(x, y, OP_GE))
 
 		case OP_EQ:
 			y := stack[len(stack)-1]
 			x := stack[len(stack)-2]
 			stack = stack[:len(stack)-2]
-			stack = append(stack, equal(x, y))
+			stack = append(stack, slotEqual(x, y))
 
 		case OP_NOT:
 			x := stack[len(stack)-1]
 			stack = stack[:len(stack)-1]
-			if x == True {
-				stack = append(stack, False)
-			} else if x == False {
-				stack = append(stack, True)
+			xo := x.objValue()
+			if xo == True {
+				stack = append(stack, slotFromObj(False))
+			} else if xo == False {
+				stack = append(stack, slotFromObj(True))
 			} else {
 				panic(MakeError("not: expected boolean"))
 			}
