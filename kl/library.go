@@ -41,6 +41,12 @@ func equal(x, y Obj) Obj {
 	if x == y {
 		return True
 	}
+	// Fixnums are sentinel addresses, not dereferenceable scmHead objects.
+	// Distinct sentinels are distinct integers, and a fixnum cannot be equal
+	// to any boxed representation under the existing identity-first semantics.
+	if isFixnum(x) || isFixnum(y) {
+		return False
+	}
 	if *x != *y {
 		return False
 	}

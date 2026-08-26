@@ -161,15 +161,15 @@ func mustError(o Obj) *scmError {
 }
 
 func IsError(o Obj) bool {
-	return o != nil && *o == scmHeadError
+	return o != nil && !isFixnum(o) && *o == scmHeadError
 }
 
 func IsNumber(o Obj) bool {
-	return *o == scmHeadNumber
+	return o != nil && (isFixnum(o) || *o == scmHeadNumber)
 }
 
 func IsSymbol(o Obj) bool {
-	return *o == scmHeadSymbol
+	return o != nil && !isFixnum(o) && *o == scmHeadSymbol
 }
 
 func mustVector(o Obj) []Obj {
@@ -224,7 +224,7 @@ func narrowToInt(f float64) int {
 // A non-integer or unnarrowable value keeps D4's "is not a valid integer"
 // wording; only the range check is new.
 func mustByte(o Obj) int {
-	if (*o) != scmHeadNumber {
+	if !IsNumber(o) {
 		panic(MakeError("mustNumber"))
 	}
 	f := GetNumber(o)
@@ -238,7 +238,7 @@ func mustByte(o Obj) int {
 }
 
 func mustInteger(o Obj) int {
-	if (*o) != scmHeadNumber {
+	if !IsNumber(o) {
 		panic(MakeError("mustNumber"))
 	}
 	if isFixnum(o) {
@@ -267,11 +267,14 @@ func GetNumber(o Obj) float64 {
 }
 
 func mustNumber(o Obj) float64 {
-	if (*o) != scmHeadNumber {
+	if o == nil {
 		panic(MakeError("mustNumber"))
 	}
 	if isFixnum(o) {
 		return float64(fixnum(o))
+	}
+	if (*o) != scmHeadNumber {
+		panic(MakeError("mustNumber"))
 	}
 	x := (*scmNumber)(unsafe.Pointer(o))
 	return x.val
@@ -307,7 +310,7 @@ func mustPair(o Obj) *scmPair {
 }
 
 func isPair(o Obj) (bool, *scmPair) {
-	if (*o) == scmHeadPair {
+	if o != nil && !isFixnum(o) && (*o) == scmHeadPair {
 		return true, (*scmPair)(unsafe.Pointer(o))
 	}
 	return false, nil
@@ -460,7 +463,7 @@ func MakeStream(raw interface{}) Obj {
 }
 
 func IsString(o Obj) bool {
-	return *o == scmHeadString
+	return o != nil && !isFixnum(o) && *o == scmHeadString
 }
 
 func GetString(o Obj) string {
@@ -543,6 +546,9 @@ func (o *scmPair) fmt(buf io.Writer, start bool) {
 }
 
 func (o *scmHead) GoString() string {
+	if isFixnum(o) {
+		return formatNumber(float64(fixnum(o)))
+	}
 	switch *o {
 	case scmHeadNumber:
 		// formatNumber keeps the integral-fits-in-int case printing without

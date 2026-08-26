@@ -15,6 +15,43 @@ func readTypedForm(t *testing.T, src string) Obj {
 	return o
 }
 
+func TestTypeHintsPreserveAdvisoryAnnotations(t *testing.T) {
+	fn := mustBytecodeFunc(CompileFunc("annotated", []Obj{MakeSymbol("x")}, readTypedForm(t, "(type x number)"))).fn
+	if len(fn.TypeHints) != 1 {
+		t.Fatalf("top-level hints = %#v, want one", fn.TypeHints)
+	}
+	h := fn.TypeHints[0]
+	if h.Name != "number" || !h.Kinds.Contains(KindNumber) || h.Source != TypeHintSourceAnnotation {
+		t.Fatalf("top-level hint = %#v", h)
+	}
+
+	outer := mustBytecodeFunc(CompileFunc("lambda-holder", nil, readTypedForm(t, "(lambda y (type y string))"))).fn
+	var inner *BytecodeFunc
+	for _, c := range outer.Consts {
+		if c != nil && *c == scmHeadBytecodeFunc {
+			inner = mustBytecodeFunc(c).fn
+			break
+		}
+	}
+	if inner == nil || len(inner.TypeHints) != 1 {
+		t.Fatalf("lambda hints not preserved: %#v", outer.Consts)
+	}
+	if h := inner.TypeHints[0]; h.Name != "string" || !h.Kinds.Contains(KindString) || h.Source != TypeHintSourceAnnotation {
+		t.Fatalf("lambda hint = %#v", inner.TypeHints[0])
+	}
+}
+
+func TestUnknownTypeHintRemainsNonEnforcing(t *testing.T) {
+	fn := mustBytecodeFunc(CompileFunc("unknown-annotation", nil, readTypedForm(t, "(type 7 imaginary-type)"))).fn
+	if len(fn.TypeHints) != 1 || !fn.TypeHints[0].Kinds.Contains(KindUnknown) {
+		t.Fatalf("unknown annotation metadata = %#v", fn.TypeHints)
+	}
+	var ctl ControlFlow
+	if got := Call(&ctl, makeBytecodeObj(fn, nil)); IsError(got) || mustNumber(got) != 7 {
+		t.Fatalf("annotation changed runtime result: %s", ObjString(got))
+	}
+}
+
 func TestNumericIntrinsicOpcodeSelection(t *testing.T) {
 	params := []Obj{MakeSymbol("x"), MakeSymbol("y")}
 	cases := []struct {

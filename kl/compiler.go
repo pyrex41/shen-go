@@ -6,6 +6,7 @@ type klCompiler struct {
 	locals map[Obj]int // symbol pointer -> slot index
 	upvals []upvalInfo // upvalues captured from outer scope
 	outer  *klCompiler // enclosing compiler (for closures)
+	hints  []TypeHint
 }
 
 type upvalInfo struct {
@@ -31,6 +32,7 @@ const (
 func CompileFunc(name string, params []Obj, body Obj) Obj {
 	c := newCompiler(name, len(params), params, nil)
 	c.compileExpr(body, true)
+	c.fn.TypeHints = append([]TypeHint(nil), c.hints...)
 	return makeBytecodeObj(c.fn, nil)
 }
 
@@ -223,7 +225,12 @@ func (c *klCompiler) compileForm(form Obj, tail bool) {
 		c.compileExpr(b, tail)
 
 	case symType:
-		// (type x _) — just compile x, ignore the type annotation
+		// (type x T) is advisory metadata; compile x unchanged so malformed
+		// annotations never introduce a new runtime error.
+		if typeName := cadr(rest); IsSymbol(typeName) {
+			name := GetSymbol(typeName)
+			c.hints = append(c.hints, TypeHint{PC: len(c.fn.Code), Name: name, Kinds: KindSetForAnnotation(name), Source: TypeHintSourceAnnotation})
+		}
 		c.compileExpr(car(rest), tail)
 
 	case symTrapError:
@@ -246,6 +253,7 @@ func (c *klCompiler) compileDefun(name, params, body Obj) {
 	// matching the interpreter which does makeProcedure(..., env).
 	inner := newCompiler(nameStr, len(paramSlice), paramSlice, c)
 	inner.compileExpr(body, true)
+	inner.fn.TypeHints = append([]TypeHint(nil), inner.hints...)
 
 	defunSym := c.addConst(MakeSymbol("defun"))
 	nameConst := c.addConst(name)
@@ -271,6 +279,7 @@ func (c *klCompiler) compileDefun(name, params, body Obj) {
 func (c *klCompiler) compileLambda(params []Obj, body Obj) {
 	inner := newCompiler("lambda", len(params), params, c)
 	inner.compileExpr(body, true)
+	inner.fn.TypeHints = append([]TypeHint(nil), inner.hints...)
 
 	// The inner compiler may have discovered upvalues; emit loads for them.
 	for _, uv := range inner.upvals {
@@ -379,6 +388,9 @@ func (c *klCompiler) compileTrapError(body, handler Obj, tail bool) {
 // intrinsicOp maps a 2-arg primitive symbol to a fast-path opcode.
 // Returns 0 if no fast path exists.
 func intrinsicOp2(sym Obj) uint8 {
+	if IsSymbol(sym) && GetSymbol(sym) == "/" {
+		return OP_DIV
+	}
 	switch sym {
 	case symAdd:
 		return OP_ADD
@@ -396,6 +408,21 @@ func intrinsicOp2(sym Obj) uint8 {
 		return OP_GE
 	case symNumEq:
 		return OP_EQ
+	}
+	return 0
+}
+
+func guardedPrimitiveArity(sym Obj) int {
+	if !IsSymbol(sym) || !HasCanonicalPrimitiveBinding(sym) {
+		return 0
+	}
+	switch GetSymbol(sym) {
+	case "number?", "integer?", "string?", "symbol?", "cons?", "absvector?", "variable?", "hd", "tl", "tlstr", "string->n", "n->string", "absvector":
+		return 1
+	case "cn", "pos", "cons", "<-address":
+		return 2
+	case "address->":
+		return 3
 	}
 	return 0
 }
@@ -427,10 +454,27 @@ func (c *klCompiler) compileCall(fn Obj, args Obj, tail bool) {
 		nArgs++
 	}
 
+	// Guarded primitives carry the canonical symbol in the instruction. The
+	// VM executes a typed fast path only while that binding remains unchanged;
+	// otherwise it performs the ordinary dynamic call.
+	if IsSymbol(fn) {
+		n := guardedPrimitiveArity(fn)
+		if n != 0 && n == nArgs {
+			for _, a := range argList {
+				c.compileExpr(a, false)
+			}
+			c.emit(OP_GUARDED_PRIM, int32(n), c.addConst(fn))
+			if tail {
+				c.emit(OP_RETURN, 0, 0)
+			}
+			return
+		}
+	}
+
 	// ---- 1-arg intrinsics ----
-	if IsSymbol(fn) && nArgs == 1 && fn == symNot {
+	if IsSymbol(fn) && nArgs == 1 && fn == symNot && HasCanonicalPrimitiveBinding(fn) {
 		c.compileExpr(argList[0], false)
-		c.emit(OP_NOT, 0, 0)
+		c.emit(OP_NOT, 0, c.addConst(fn))
 		if tail {
 			c.emit(OP_RETURN, 0, 0)
 		}
@@ -438,10 +482,17 @@ func (c *klCompiler) compileCall(fn Obj, args Obj, tail bool) {
 	}
 
 	// ---- 2-arg arithmetic intrinsics ----
-	if IsSymbol(fn) && nArgs == 2 {
+	if IsSymbol(fn) && nArgs == 2 && HasCanonicalPrimitiveBinding(fn) {
 		if op := intrinsicOp2(fn); op != 0 {
 			if folded, ok := foldFixnum2(fn, argList[0], argList[1]); ok {
-				c.emit(OP_LOAD_CONST, c.addConst(folded), 0)
+				// Keep the original operands and symbol so rebinding after
+				// compilation still takes the dynamic path.
+				// Folded constants retain their canonical operation in B without
+				// growing the constant pool (the original operands are in C/D).
+				c.emit(OP_GUARDED_CONST, c.addConst(folded), -int32(op))
+				idx := len(c.fn.Code) - 1
+				c.fn.Code[idx].C = int32(fixnum(argList[0]))
+				c.fn.Code[idx].D = int32(fixnum(argList[1]))
 				if tail {
 					c.emit(OP_RETURN, 0, 0)
 				}
@@ -449,7 +500,9 @@ func (c *klCompiler) compileCall(fn Obj, args Obj, tail bool) {
 			}
 			c.compileExpr(argList[0], false)
 			c.compileExpr(argList[1], false)
-			c.emit(op, 0, 0)
+			// Keep the symbol in the instruction so the VM can detect a
+			// redefinition after compilation and fall back to the dynamic call.
+			c.emit(op, 0, c.addConst(fn))
 			if tail {
 				c.emit(OP_RETURN, 0, 0)
 			}

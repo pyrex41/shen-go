@@ -35,3 +35,30 @@ func BenchmarkTypedVMCompiledFib(b *testing.B) {
 func BenchmarkTypedVMDynamicPrimitive(b *testing.B) {
 	benchEval(b, `(defun numeric-loop (N) (if (= N 0) true (do (number? N) (numeric-loop (- N 1)))))`, `(numeric-loop 8000)`)
 }
+
+// The following benchmarks exercise the typed-region boundaries.  They are
+// intentionally written as KL programs so VM and AOT implementations can use
+// the same workload definitions.
+func BenchmarkTypedVMBoolBranch(b *testing.B) {
+	benchEval(b, `(defun bool-loop (N Acc) (if (= N 0) Acc (if (number? N) (bool-loop (- N 1) true) (bool-loop (- N 1) Acc))))`, `(bool-loop 8000 false)`)
+}
+
+func BenchmarkTypedVMUnicodeString(b *testing.B) {
+	benchEval(b, `(defun string-loop (N S) (if (= N 0) S (string-loop (- N 1) (cn S "λ"))))`, `(string-loop 200 "λ")`)
+}
+
+func BenchmarkTypedVMPairList(b *testing.B) {
+	benchEval(b, `(defun list-loop (N L) (if (= N 0) L (list-loop (- N 1) (cons N L))))`, `(list-loop 2000 ())`)
+}
+
+func BenchmarkTypedVMVector(b *testing.B) {
+	benchEval(b, `(defun vector-loop (N V) (if (= N 0) V (do (address-> V 0 N) (vector-loop (- N 1) V))))`, `(vector-loop 8000 (absvector 1))`)
+}
+
+func BenchmarkTypedVMDynamicApply(b *testing.B) {
+	benchEval(b, `(defun apply-add (F N) (if (= N 0) 0 (do (F N) (apply-add F (- N 1)))))`, `(apply-add (lambda X (+ X 1)) 8000)`)
+}
+
+func BenchmarkTypedVMFallbackHeavy(b *testing.B) {
+	benchEval(b, `(defun fallback-heavy (N X) (if (= N 0) X (fallback-heavy (- N 1) (if (number? X) (+ X 1) (cn X "x")))))`, `(fallback-heavy 2000 "x")`)
+}

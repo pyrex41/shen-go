@@ -23,22 +23,28 @@ const (
 	OP_POP            = uint8(11) // discard top of stack
 	OP_SELF_TAIL_CALL = uint8(12) // A args on stack → update locals[0..A-1], jump pc=0
 	// Arithmetic fast-paths (avoid trampoline + float64 boxing for fixnums)
-	OP_ADD = uint8(13) // pop y,x: push x+y
-	OP_SUB = uint8(14) // pop y,x: push x-y
-	OP_MUL = uint8(15) // pop y,x: push x*y
-	OP_LT  = uint8(16) // pop y,x: push x<y
-	OP_LE  = uint8(17) // pop y,x: push x<=y
-	OP_GT  = uint8(18) // pop y,x: push x>y
-	OP_GE  = uint8(19) // pop y,x: push x>=y
-	OP_EQ  = uint8(20) // pop y,x: push x=y  (structural equality, delegates to equal())
-	OP_NOT = uint8(21) // pop x: push (not x)
+	OP_ADD           = uint8(13) // pop y,x: push x+y
+	OP_SUB           = uint8(14) // pop y,x: push x-y
+	OP_MUL           = uint8(15) // pop y,x: push x*y
+	OP_DIV           = uint8(24) // pop y,x: push x/y
+	OP_LT            = uint8(16) // pop y,x: push x<y
+	OP_LE            = uint8(17) // pop y,x: push x<=y
+	OP_GT            = uint8(18) // pop y,x: push x>y
+	OP_GE            = uint8(19) // pop y,x: push x>=y
+	OP_EQ            = uint8(20) // pop y,x: push x=y  (structural equality, delegates to equal())
+	OP_NOT           = uint8(21) // pop x: push (not x)
+	OP_GUARDED_CONST = uint8(22) // A=result const, B=symbol const, C=x const, D=y const
+	OP_GUARDED_PRIM  = uint8(23) // A=arity, B=symbol const; args are on stack
 )
 
-// Instr is a single VM instruction.  A and B are signed operands.
+// Instr is a single VM instruction. A-D are signed operands; C/D are used by
+// guarded constant specializations and remain zero for legacy instructions.
 type Instr struct {
 	Op uint8
 	A  int32
 	B  int32
+	C  int32
+	D  int32
 }
 
 // BytecodeFunc holds the compiled representation of a KL function.
@@ -48,7 +54,31 @@ type BytecodeFunc struct {
 	Nlocals int // number of local slots (includes arity slots for params)
 	Code    []Instr
 	Consts  []Obj // constant pool (numbers, strings, symbols, nested BytecodeFunc objs)
+	// TypeHints preserves advisory (type ...) annotations for later typed-IR
+	// passes. Hints never alter runtime behavior or introduce errors.
+	TypeHints []TypeHint
 }
+
+type TypeHint struct {
+	PC   int
+	Name string
+	// Kinds is the conservative shape implied by Name. Unknown annotation
+	// names intentionally map to KindUnknown; annotations are advisory only.
+	Kinds KindSet
+	// Source identifies this as source-level metadata rather than a proven
+	// runtime fact. Consumers must retain guards before specializing it.
+	Source TypeHintSource
+}
+
+// TypeHintSource records how a type fact was obtained. Source annotations are
+// never proof: they are useful for choosing a guarded region, but cannot alter
+// Shen semantics when the runtime value disagrees.
+type TypeHintSource uint8
+
+const (
+	TypeHintSourceUnknown TypeHintSource = iota
+	TypeHintSourceAnnotation
+)
 
 // scmBytecodeFunc wraps a BytecodeFunc as an Obj so it can live in the Shen heap.
 type scmBytecodeFunc struct {
@@ -215,6 +245,184 @@ func slotEqual(x, y vmSlot) vmSlot {
 	return vmSlot{obj: equal(slotArithmetic(x), slotArithmetic(y))}
 }
 
+// vmGuardedPrimitive executes the small, side-effect-free primitive subset
+// that has a typed representation. It returns ok=false when the arguments
+// are not suitable for specialization; callers must then use the ordinary
+// dynamic call so that the primitive's exact error behavior is retained.
+func vmGuardedPrimitive(sym Obj, args []vmSlot) (vmSlot, bool) {
+	if !TypedIREnabled() || !HasCanonicalPrimitiveBinding(sym) {
+		return vmSlot{}, false
+	}
+	name := GetSymbol(sym)
+	obj := func(i int) Obj { return args[i].objValue() }
+	boolResult := func(o Obj) (vmSlot, bool) {
+		if o != True && o != False {
+			return vmSlot{}, false
+		}
+		return vmSlot{obj: o}, true
+	}
+	switch name {
+	case "number?", "integer?", "string?", "symbol?", "cons?", "absvector?", "variable?":
+		var r Obj
+		switch name {
+		case "number?":
+			r = PrimIsNumber(obj(0))
+		case "integer?":
+			r = PrimIsInteger(obj(0))
+		case "string?":
+			r = PrimIsString(obj(0))
+		case "symbol?":
+			r = PrimIsSymbol(obj(0))
+		case "cons?":
+			r = PrimIsPair(obj(0))
+		case "absvector?":
+			r = PrimIsVector(obj(0))
+		default:
+			r = PrimIsVariable(obj(0))
+		}
+		return boolResult(r)
+	case "not":
+		o := obj(0)
+		if o != True && o != False {
+			return vmSlot{}, false
+		}
+		return slotFromObj(PrimNot(o)), true
+	case "cons":
+		return slotFromObj(PrimCons(obj(0), obj(1))), true
+	case "hd", "tl":
+		if TypedObjectKind(obj(0)) != KindPair {
+			return vmSlot{}, false
+		}
+		if name == "hd" {
+			h, _ := TypedPairHead(obj(0))
+			return slotFromObj(h), true
+		}
+		t, _ := TypedPairTail(obj(0))
+		return slotFromObj(t), true
+	case "cn":
+		x, okx := TypedString(obj(0))
+		y, oky := TypedString(obj(1))
+		if !okx || !oky {
+			return vmSlot{}, false
+		}
+		return slotFromObj(TypedMaterializeString(x + y)), true
+	case "tlstr":
+		x, ok := TypedString(obj(0))
+		if !ok {
+			return vmSlot{}, false
+		}
+		return slotFromObj(TypedMaterializeString(TypedStringTailValue(x))), true
+	case "pos":
+		x, ok := TypedString(obj(0))
+		n, okn := slotNumber(args[1])
+		if !ok || !okn || !isPreciseInteger(n) || !fitsInt(n) {
+			return vmSlot{}, false
+		}
+		return slotFromObj(TypedMaterializeString(TypedStringIndexValue(x, int(n)))), true
+	case "string->n":
+		x, ok := TypedString(obj(0))
+		if !ok || len([]rune(x)) == 0 {
+			return vmSlot{}, false
+		}
+		return slotFromInteger(int([]rune(x)[0])), true
+	case "n->string":
+		n, ok := slotNumber(args[0])
+		if !ok || !isPreciseInteger(n) || !fitsInt(n) || n < 0 || n > unicodeMaxRune {
+			return vmSlot{}, false
+		}
+		return slotFromObj(TypedMaterializeString(string(rune(int(n))))), true
+	case "/":
+		x, okx := slotNumber(args[0])
+		y, oky := slotNumber(args[1])
+		if !okx || !oky {
+			return vmSlot{}, false
+		}
+		return slotFromNumber(TypedDivideValue(x, y)), true
+	case "<-address":
+		if TypedObjectKind(obj(0)) != KindVector {
+			return vmSlot{}, false
+		}
+		n, ok := slotNumber(args[1])
+		if !ok || !isPreciseInteger(n) || !fitsInt(n) {
+			return vmSlot{}, false
+		}
+		return slotFromObj(TypedVectorGet(obj(0), int(n))), true
+	case "address->":
+		if TypedObjectKind(obj(0)) != KindVector {
+			return vmSlot{}, false
+		}
+		n, ok := slotNumber(args[1])
+		if !ok || !isPreciseInteger(n) || !fitsInt(n) {
+			return vmSlot{}, false
+		}
+		return slotFromObj(TypedVectorSet(obj(0), int(n), obj(2))), true
+	case "absvector":
+		n, ok := slotNumber(args[0])
+		if !ok || !isPreciseInteger(n) || !fitsInt(n) {
+			return vmSlot{}, false
+		}
+		return slotFromObj(PrimAbsvector(MakeInteger(int(n)))), true
+	}
+	return vmSlot{}, false
+}
+
+const unicodeMaxRune = 0x10ffff
+
+// vmIntrinsicFallback preserves dynamic rebinding semantics for bytecode
+// instructions specialized at compile time. It returns the current function's
+// result when the binding is no longer canonical (or specialization is off).
+func vmIntrinsicFallback(ctl *ControlFlow, sym Obj, args ...vmSlot) (vmSlot, bool) {
+	// Older callers can construct arithmetic instructions without the symbol
+	// operand (B defaults to zero). In that case retain the original intrinsic
+	// behavior instead of attempting to type-assert a nil/non-symbol constant.
+	if !IsSymbol(sym) {
+		return vmSlot{}, false
+	}
+	if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym) {
+		return vmSlot{}, false
+	}
+	return vmDynamicCall(ctl, sym, args...)
+}
+
+// vmDynamicCall invokes the current binding unconditionally. This is needed
+// when a guarded primitive's runtime type check misses: canonical bindings
+// still need their ordinary (catchable) error behavior for bad arguments.
+func vmDynamicCall(ctl *ControlFlow, sym Obj, args ...vmSlot) (vmSlot, bool) {
+	if !IsSymbol(sym) {
+		return vmSlot{}, false
+	}
+	s := mustSymbol(sym)
+	if s.function == nil {
+		panic(MakeError(fmt.Sprintf("function %s not bound", s.str)))
+	}
+	objs := make([]Obj, len(args))
+	for i, arg := range args {
+		objs[i] = arg.objValue()
+	}
+	ctl.tailApplySlice(s.function, objs)
+	return slotFromObj(trampoline(ctl)), true
+}
+
+// instrConstSym defensively reads the optional symbol operand carried by
+// specialized instructions. Zero-value/legacy Instr values have no such
+// operand and should continue down their built-in fast path.
+func instrConstSym(consts []Obj, index int32) Obj {
+	if index < 0 || int(index) >= len(consts) {
+		return nil
+	}
+	return consts[index]
+}
+
+func intrinsicSymbolForOp(op uint8) Obj {
+	for _, name := range []string{"+", "-", "*", "<", "<=", ">", ">=", "="} {
+		sym := MakeSymbol(name)
+		if intrinsicOp2(sym) == op {
+			return sym
+		}
+	}
+	return nil
+}
+
 const scmHeadBytecodeFunc scmHead = 50
 
 func makeBytecodeObj(fn *BytecodeFunc, upvals []Obj) Obj {
@@ -372,6 +580,40 @@ func vmExecSlots(ctl *ControlFlow, bf *scmBytecodeFunc, args []vmSlot) {
 		case OP_LOAD_CONST:
 			stack = append(stack, slotFromObj(consts[instr.A]))
 
+		case OP_GUARDED_CONST:
+			var sym Obj
+			if instr.B < 0 {
+				sym = intrinsicSymbolForOp(uint8(-instr.B))
+			} else if int(instr.B) < len(consts) {
+				sym = consts[instr.B]
+			}
+			if sym != nil && TypedIREnabled() && HasCanonicalPrimitiveBinding(sym) {
+				stack = append(stack, slotFromObj(consts[instr.A]))
+				continue
+			}
+			if r, ok := vmIntrinsicFallback(ctl, sym, slotFromInteger(int(instr.C)), slotFromInteger(int(instr.D))); ok {
+				stack = append(stack, r)
+				continue
+			}
+			panic("vmExec: guarded constant failed without fallback")
+
+		case OP_GUARDED_PRIM:
+			n := int(instr.A)
+			base := len(stack) - n
+			if base < 0 || instr.B < 0 || int(instr.B) >= len(consts) {
+				panic("vmExec: malformed guarded primitive")
+			}
+			args := stack[base:]
+			if r, ok := vmGuardedPrimitive(consts[instr.B], args); ok {
+				stack = append(stack[:base], r)
+				continue
+			}
+			if r, ok := vmDynamicCall(ctl, consts[instr.B], args...); ok {
+				stack = append(stack[:base], r)
+				continue
+			}
+			panic("vmExec: guarded primitive failed without fallback")
+
 		case OP_LOAD_LOCAL:
 			stack = append(stack, locals[instr.A])
 
@@ -491,53 +733,105 @@ func vmExecSlots(ctl *ControlFlow, bf *scmBytecodeFunc, args []vmSlot) {
 			y := stack[len(stack)-1]
 			x := stack[len(stack)-2]
 			stack = stack[:len(stack)-2]
+			if r, ok := vmIntrinsicFallback(ctl, instrConstSym(consts, instr.B), x, y); ok {
+				stack = append(stack, r)
+				continue
+			}
 			stack = append(stack, slotAdd(x, y))
 
 		case OP_SUB:
 			y := stack[len(stack)-1]
 			x := stack[len(stack)-2]
 			stack = stack[:len(stack)-2]
+			if r, ok := vmIntrinsicFallback(ctl, instrConstSym(consts, instr.B), x, y); ok {
+				stack = append(stack, r)
+				continue
+			}
 			stack = append(stack, slotSub(x, y))
 
 		case OP_MUL:
 			y := stack[len(stack)-1]
 			x := stack[len(stack)-2]
 			stack = stack[:len(stack)-2]
+			if r, ok := vmIntrinsicFallback(ctl, instrConstSym(consts, instr.B), x, y); ok {
+				stack = append(stack, r)
+				continue
+			}
 			stack = append(stack, slotMul(x, y))
+
+		case OP_DIV:
+			y := stack[len(stack)-1]
+			x := stack[len(stack)-2]
+			stack = stack[:len(stack)-2]
+			if r, ok := vmIntrinsicFallback(ctl, instrConstSym(consts, instr.B), x, y); ok {
+				stack = append(stack, r)
+				continue
+			}
+			a, oka := slotNumber(x)
+			b, okb := slotNumber(y)
+			if !oka || !okb {
+				stack = append(stack, slotFromObj(PrimNumberDivide(x.objValue(), y.objValue())))
+				continue
+			}
+			stack = append(stack, slotFromNumber(TypedDivideValue(a, b)))
 
 		case OP_LT:
 			y := stack[len(stack)-1]
 			x := stack[len(stack)-2]
 			stack = stack[:len(stack)-2]
+			if r, ok := vmIntrinsicFallback(ctl, instrConstSym(consts, instr.B), x, y); ok {
+				stack = append(stack, r)
+				continue
+			}
 			stack = append(stack, slotCmp(x, y, OP_LT))
 
 		case OP_LE:
 			y := stack[len(stack)-1]
 			x := stack[len(stack)-2]
 			stack = stack[:len(stack)-2]
+			if r, ok := vmIntrinsicFallback(ctl, instrConstSym(consts, instr.B), x, y); ok {
+				stack = append(stack, r)
+				continue
+			}
 			stack = append(stack, slotCmp(x, y, OP_LE))
 
 		case OP_GT:
 			y := stack[len(stack)-1]
 			x := stack[len(stack)-2]
 			stack = stack[:len(stack)-2]
+			if r, ok := vmIntrinsicFallback(ctl, instrConstSym(consts, instr.B), x, y); ok {
+				stack = append(stack, r)
+				continue
+			}
 			stack = append(stack, slotCmp(x, y, OP_GT))
 
 		case OP_GE:
 			y := stack[len(stack)-1]
 			x := stack[len(stack)-2]
 			stack = stack[:len(stack)-2]
+			if r, ok := vmIntrinsicFallback(ctl, instrConstSym(consts, instr.B), x, y); ok {
+				stack = append(stack, r)
+				continue
+			}
 			stack = append(stack, slotCmp(x, y, OP_GE))
 
 		case OP_EQ:
 			y := stack[len(stack)-1]
 			x := stack[len(stack)-2]
 			stack = stack[:len(stack)-2]
+			if r, ok := vmIntrinsicFallback(ctl, instrConstSym(consts, instr.B), x, y); ok {
+				stack = append(stack, r)
+				continue
+			}
 			stack = append(stack, slotEqual(x, y))
 
 		case OP_NOT:
 			x := stack[len(stack)-1]
 			stack = stack[:len(stack)-1]
+			if r, ok := vmIntrinsicFallback(ctl, instrConstSym(consts, instr.B), x); ok {
+				stack = append(stack, r)
+				continue
+			}
 			xo := x.objValue()
 			if xo == True {
 				stack = append(stack, slotFromObj(False))

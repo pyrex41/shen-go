@@ -59,9 +59,8 @@ const maxFramePool = 128
 const minFrameCap = 48
 
 // takeFrame returns a slab with len==nlocals and cap >= nlocals+16, preferably
-// from the freelist. The unused capacity is the operand-stack region. Only the
-// locals region is cleared here — putFrame does not clear (stale pointers past
-// len are invisible to the GC while the slab sits as [:0] in the pool).
+// from the freelist. The unused capacity is the operand-stack region. The
+// returned slab is cleared so pooled slots do not retain heap objects.
 func (ctl *ControlFlow) takeFrame(nlocals int) []vmSlot {
 	needCap := nlocals + 16
 	if needCap < minFrameCap {
@@ -93,6 +92,7 @@ func (ctl *ControlFlow) putFrame(frame []vmSlot) {
 		return
 	}
 	full := frame[:c]
+	clear(full)
 	if len(ctl.framePool) < maxFramePool {
 		ctl.framePool = append(ctl.framePool, full[:0])
 		return

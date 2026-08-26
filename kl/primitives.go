@@ -6,7 +6,7 @@ import (
 	"os"
 	"path"
 	"runtime"
-	"strconv"
+	"sync"
 	"time"
 	"unicode"
 )
@@ -158,7 +158,7 @@ func PrimTail(o Obj) Obj {
 }
 
 func PrimIsNumber(o Obj) Obj {
-	if *o == scmHeadNumber {
+	if IsNumber(o) {
 		return True
 	}
 	return False
@@ -184,7 +184,7 @@ func PrimStringToNumber(o Obj) Obj {
 // A lone surrogate (U+D800..DFFF) is deliberately NOT rejected here; see
 // TestNumberToStringMapsLoneSurrogates.
 func PrimNumberToString(o Obj) Obj {
-	if (*o) != scmHeadNumber {
+	if !IsNumber(o) {
 		panic(MakeError("mustNumber"))
 	}
 	f := GetNumber(o)
@@ -195,6 +195,9 @@ func PrimNumberToString(o Obj) Obj {
 }
 
 func PrimStr(o Obj) Obj {
+	if IsNumber(o) {
+		return MakeString(formatNumber(mustNumber(o)))
+	}
 	switch *o {
 	case scmHeadPair:
 		// Pair may contain recursive list.
@@ -204,15 +207,6 @@ func PrimStr(o Obj) Obj {
 	case scmHeadSymbol:
 		str := GetSymbol(o)
 		return MakeString(str)
-	case scmHeadNumber:
-		if isFixnum(o) {
-			return MakeString(strconv.Itoa(fixnum(o)))
-		}
-		// Shared with scmHead.GoString so the two printers can never drift:
-		// shortest round-trip form for fractions (issue #11), plain digits
-		// for integers that fit an int, and no narrowing for the ones that
-		// do not (1e19 used to print as 9223372036854775807).
-		return MakeString(formatNumber(mustNumber(o)))
 	case scmHeadString:
 		return MakeString(fmt.Sprintf(`"%s"`, mustString(o)))
 	case scmHeadProcedure:
@@ -409,7 +403,7 @@ func PrimVectorGet(x, y Obj) Obj {
 }
 
 func PrimIsVector(x Obj) Obj {
-	if *x == scmHeadVector {
+	if x != nil && !isFixnum(x) && *x == scmHeadVector {
 		return True
 
 	}
@@ -512,7 +506,7 @@ func PrimGetTime(x Obj) Obj {
 }
 
 func PrimIsString(x Obj) Obj {
-	if *x == scmHeadString {
+	if IsString(x) {
 		return True
 
 	}
@@ -520,7 +514,7 @@ func PrimIsString(x Obj) Obj {
 }
 
 func PrimIsPair(x Obj) Obj {
-	if *x == scmHeadPair {
+	if ok, _ := isPair(x); ok {
 		return True
 	}
 	return False
@@ -628,7 +622,7 @@ func hashKeyString(v Obj) string {
 }
 
 func PrimIsVariable(x Obj) Obj {
-	if *x != scmHeadSymbol {
+	if !IsSymbol(x) {
 		return False
 	}
 
@@ -640,7 +634,7 @@ func PrimIsVariable(x Obj) Obj {
 }
 
 func PrimIsInteger(x Obj) Obj {
-	if *x != scmHeadNumber {
+	if !IsNumber(x) {
 		return False
 
 	}
@@ -787,11 +781,14 @@ type primitiveFunction interface {
 // primitiveRegistrar constructs kernel primitive objects. Its generic method
 // gives callers compile-time checking of the function signature and derives
 // the Shen arity metadata directly from that signature.
-type primitiveRegistrar struct{}
+type primitiveRegistrar struct {
+	mu        sync.RWMutex
+	canonical map[string]Obj
+}
 
 var primitiveRegistry primitiveRegistrar
 
-func (primitiveRegistrar) register[F primitiveFunction](name string, f F) Obj {
+func (r *primitiveRegistrar) register[F primitiveFunction](name string, f F) Obj {
 	var arity int
 	var fn func(*ControlFlow)
 	switch any(f).(type) {
@@ -816,7 +813,19 @@ func (primitiveRegistrar) register[F primitiveFunction](name string, f F) Obj {
 		require: arity,
 		fn:      fn,
 	}
-	return Obj(&tmp.scmHead)
+	prim := Obj(&tmp.scmHead)
+	// The first registration establishes the canonical implementation. Later
+	// MakePrimitive calls may intentionally shadow a name, but optimized code
+	// must guard against using the canonical fast path after that happens.
+	r.mu.Lock()
+	if r.canonical == nil {
+		r.canonical = make(map[string]Obj)
+	}
+	if _, exists := r.canonical[name]; !exists {
+		r.canonical[name] = prim
+	}
+	r.mu.Unlock()
+	return prim
 }
 
 // MakePrimitive preserves the original public entry point for callers that

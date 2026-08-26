@@ -20,6 +20,7 @@ import (
 	"io"
 	"math"
 	"strconv"
+	"strings"
 
 	"github.com/pyrex41/shen-go/kl"
 )
@@ -151,15 +152,20 @@ func (cg *CodeGenerator) generateExpr(w io.Writer, sexp kl.Obj) error {
 	}
 	kind := kl.GetSymbol(kl.Car(sexp))
 	switch kind {
-	case "block":
-		for cur := kl.Cdr(sexp); cur != kl.Nil; cur = kl.Cdr(cur) {
-			p := kl.Car(cur)
-			if err := cg.generateExpr(w, p); err != nil {
-				return err
-			}
-			fmt.Fprintln(w)
+	case "$type":
+		// Typed IR metadata is advisory.  Keep the expression itself in the
+		// generated program so older artifacts and unproven annotations retain
+		// exactly the legacy Obj semantics.
+		// Source IR encodes [$type Annotation Expr].  Accept the transient
+		// expression-first spelling too, so artifacts produced by older
+		// compiler revisions remain consumable.
+		annotation, expr := kl.Cadr(sexp), kl.Car(kl.Cdr(kl.Cdr(sexp)))
+		if kl.IsSymbol(annotation) && (isTypeAnnotation(annotation) || !kl.IsSymbol(expr)) {
+			return cg.generateExpr(w, expr)
 		}
-		fmt.Fprintln(w)
+		return cg.generateExpr(w, annotation)
+	case "block":
+		return cg.generateBlock(w, sexp)
 	case "<-":
 		// (<- a b)
 		a := kl.Car(kl.Cdr(sexp))
@@ -276,6 +282,337 @@ func (cg *CodeGenerator) generateExpr(w io.Writer, sexp kl.Obj) error {
 	return nil
 }
 
+// generateBlock recognizes the flattened temporary chains emitted by the
+// Shen compiler. A pure scalar assignment is inlined only when its temporary
+// has exactly one later use; all other assignments retain their historical
+// statement form. This keeps side effects, rebinding, and evaluation order
+// unchanged while allowing scalarExpr to see across <= boundaries.
+func (cg *CodeGenerator) generateBlock(w io.Writer, sexp kl.Obj) error {
+	forms := kl.ListToSlice(kl.Cdr(sexp))
+	defs := make(map[kl.Obj]kl.Obj)
+	for i, p := range forms {
+		if kl.PrimIsPair(p) != kl.False && kl.GetSymbol(kl.Car(p)) == "<=" {
+			target, rhs := kl.Cadr(p), kl.Car(kl.Cdr(kl.Cdr(p)))
+			if kl.IsSymbol(target) {
+				// Expand only definitions already proven single-use.
+				rhs = expandScalarRefs(rhs, defs)
+				// Keep the assignment's evaluation point stable: only inline when
+				// the temporary is consumed by the immediately following form.
+				// This prevents moving even a pure-looking expression across an
+				// intervening effectful/control-flow instruction.
+				if _, ok := cg.scalarExpr(rhs); ok && len(forms) > i+1 && countSymbol([]kl.Obj{forms[i+1]}, target) == 1 && countSymbol(forms[i+1:], target) == 1 && !reassigned(forms[i+1:], target) {
+					defs[target] = rhs
+					continue
+				}
+			}
+		}
+		p = expandScalarCall(p, defs)
+		if err := cg.generateExpr(w, p); err != nil {
+			return err
+		}
+		fmt.Fprintln(w)
+		// Definitions are consumed at their sole use. Never substitute a
+		// scalar expression into a second expression, even if malformed IR
+		// reports an inaccurate use count.
+		for s := range defs {
+			if countSymbol([]kl.Obj{p}, s) > 0 {
+				delete(defs, s)
+			}
+		}
+	}
+	fmt.Fprintln(w)
+	return nil
+}
+
+func countSymbol(forms []kl.Obj, target kl.Obj) int {
+	n := 0
+	var walk func(kl.Obj)
+	walk = func(o kl.Obj) {
+		if kl.IsSymbol(o) {
+			if o == target {
+				n++
+			}
+			return
+		}
+		if kl.PrimIsPair(o) == kl.False {
+			return
+		}
+		for cur := o; cur != kl.Nil; cur = kl.Cdr(cur) {
+			walk(kl.Car(cur))
+		}
+	}
+	for _, f := range forms {
+		walk(f)
+	}
+	return n
+}
+
+func reassigned(forms []kl.Obj, target kl.Obj) bool {
+	for _, f := range forms {
+		if kl.PrimIsPair(f) != kl.False && kl.GetSymbol(kl.Car(f)) == "<=" && kl.Cadr(f) == target {
+			return true
+		}
+	}
+	return false
+}
+
+func expandScalarRefs(form kl.Obj, defs map[kl.Obj]kl.Obj) kl.Obj {
+	if kl.IsSymbol(form) {
+		if x, ok := defs[form]; ok {
+			return x
+		}
+		return form
+	}
+	if kl.PrimIsPair(form) == kl.False {
+		return form
+	}
+	items := kl.ListToSlice(form)
+	out := make([]kl.Obj, len(items))
+	for i, x := range items {
+		out[i] = expandScalarRefs(x, defs)
+	}
+	ret := kl.Nil
+	for i := len(out) - 1; i >= 0; i-- {
+		ret = kl.Cons(out[i], ret)
+	}
+	return ret
+}
+
+func expandScalarCall(form kl.Obj, defs map[kl.Obj]kl.Obj) kl.Obj {
+	if len(defs) == 0 || kl.PrimIsPair(form) == kl.False {
+		return form
+	}
+	kind := kl.GetSymbol(kl.Car(form))
+	if kind == "return" {
+		items := kl.ListToSlice(form)
+		if len(items) > 1 {
+			items[1] = expandScalarRefs(items[1], defs)
+		}
+		ret := kl.Nil
+		for i := len(items) - 1; i >= 0; i-- {
+			ret = kl.Cons(items[i], ret)
+		}
+		return ret
+	}
+	if kind != "call" && kind != "tailapply" {
+		return form
+	}
+	items := kl.ListToSlice(form)
+	for i := 2; i < len(items); i++ {
+		items[i] = expandScalarRefs(items[i], defs)
+	}
+	ret := kl.Nil
+	for i := len(items) - 1; i >= 0; i-- {
+		ret = kl.Cons(items[i], ret)
+	}
+	return ret
+}
+
+func isTypeAnnotation(sym kl.Obj) bool {
+	switch kl.GetSymbol(sym) {
+	case "number", "fixnum", "boolean", "string", "symbol", "pair", "nil", "vector", "callable", "stream", "error", "raw", "unknown":
+		return true
+	default:
+		return false
+	}
+}
+
+type scalarKind uint8
+
+const (
+	scalarNumber scalarKind = iota
+	scalarBoolean
+	scalarString
+)
+
+type scalarLeaf struct {
+	kind scalarKind
+	src  string
+}
+
+// scalarExpr is a side-effect-free expression which can be evaluated with
+// native Go values. Leaves are deliberately limited to symbols and constants,
+// so evaluation is never duplicated when the guarded path falls back.
+type scalarExpr struct {
+	kind       scalarKind
+	expr       string
+	leaves     []scalarLeaf
+	primitives []string
+}
+
+func mergeScalar(a, b []string) []string {
+	out := append([]string(nil), a...)
+	for _, x := range b {
+		seen := false
+		for _, y := range out {
+			if x == y {
+				seen = true
+				break
+			}
+		}
+		if !seen {
+			out = append(out, x)
+		}
+	}
+	return out
+}
+
+func (cg *CodeGenerator) scalarExpr(form kl.Obj) (scalarExpr, bool) {
+	// Type annotations are advisory metadata. Strip a well-formed wrapper for
+	// optimization, while preserving the underlying expression for the guarded
+	// runtime check and dynamic fallback.
+	if kl.PrimIsPair(form) != kl.False && kl.GetSymbol(kl.Car(form)) == "$type" {
+		annotation := kl.Cadr(form)
+		expr := kl.Car(kl.Cdr(kl.Cdr(form)))
+		if kl.IsSymbol(annotation) && (isTypeAnnotation(annotation) || !kl.IsSymbol(expr)) {
+			form = expr
+		} else {
+			form = annotation
+		}
+	}
+	if kl.PrimIsPair(form) == kl.False {
+		return scalarExpr{}, false
+	}
+	kind := kl.GetSymbol(kl.Car(form))
+	if kind != "call" && kind != "tailapply" {
+		return scalarExpr{}, false
+	}
+	fn := kl.Cadr(form)
+	if kl.PrimIsPair(fn) == kl.False || kl.Car(fn) != symGlobal {
+		return scalarExpr{}, false
+	}
+	name := kl.GetSymbol(kl.Cadr(fn))
+	args := kl.ListToSlice(kl.Cdr(kl.Cdr(form)))
+	var want scalarKind
+	switch name {
+	case "+", "-", "*", "/", "<", "<=", ">", ">=":
+		if len(args) != 2 {
+			return scalarExpr{}, false
+		}
+		if name == "<" || name == "<=" || name == ">" || name == ">=" {
+			want = scalarBoolean
+		} else {
+			want = scalarNumber
+		}
+	case "not":
+		if len(args) != 1 {
+			return scalarExpr{}, false
+		}
+		want = scalarBoolean
+	case "cn":
+		if len(args) != 2 {
+			return scalarExpr{}, false
+		}
+		want = scalarString
+	case "tlstr":
+		if len(args) != 1 {
+			return scalarExpr{}, false
+		}
+		want = scalarString
+	default:
+		return scalarExpr{}, false
+	}
+	parts := make([]string, len(args))
+	var leaves []scalarLeaf
+	var prims []string
+	operandKind := scalarNumber
+	if name == "cn" || name == "tlstr" {
+		operandKind = scalarString
+	}
+	if name == "not" {
+		operandKind = scalarBoolean
+	}
+	for i, a := range args {
+		wasConst := false
+		if kl.PrimIsPair(a) != kl.False && kl.GetSymbol(kl.Car(a)) == "$const" {
+			wasConst = true
+			a = kl.Cadr(a)
+		}
+		if kl.IsSymbol(a) && !wasConst {
+			idx := len(leaves)
+			leaves = append(leaves, scalarLeaf{kind: operandKind, src: symbolAsVar(a)})
+			// A symbol's type is guarded at runtime. The operation-specific
+			// extractor below determines the required kind.
+			parts[i] = fmt.Sprintf("__typedV%d", idx)
+			continue
+		}
+		if kl.IsNumber(a) || kl.IsString(a) || a == kl.True || a == kl.False {
+			idx := len(leaves)
+			k := scalarNumber
+			src := ""
+			switch {
+			case kl.IsNumber(a):
+				src = "MakeNumber(" + strconv.FormatFloat(kl.GetNumber(a), 'g', -1, 64) + ")"
+			case kl.IsString(a):
+				k, src = scalarString, fmt.Sprintf("MakeString(%#v)", kl.GetString(a))
+			case a == kl.True:
+				k, src = scalarBoolean, "True"
+			case a == kl.False:
+				k, src = scalarBoolean, "False"
+			}
+			if k != operandKind {
+				return scalarExpr{}, false
+			}
+			leaves = append(leaves, scalarLeaf{kind: k, src: src})
+			parts[i] = fmt.Sprintf("__typedV%d", idx)
+			continue
+		}
+		x, ok := cg.scalarExpr(a)
+		if !ok {
+			return scalarExpr{}, false
+		}
+		// Nested expressions must produce the argument kind expected by this
+		// operation; unknown/mixed kinds split back to the Obj path.
+		if (name == "cn" || name == "tlstr") && x.kind != scalarString {
+			return scalarExpr{}, false
+		}
+		if name == "not" && x.kind != scalarBoolean {
+			return scalarExpr{}, false
+		}
+		if name != "cn" && name != "tlstr" && name != "not" && x.kind != scalarNumber {
+			return scalarExpr{}, false
+		}
+		off := len(leaves)
+		leaves = append(leaves, x.leaves...)
+		p := x.expr
+		// Rewrite placeholders in reverse order to avoid collisions when the
+		// destination range overlaps the source (e.g. V0 -> V1, then V1 -> V2).
+		for j := len(x.leaves) - 1; j >= 0; j-- {
+			p = strings.ReplaceAll(p, fmt.Sprintf("__typedV%d", j), fmt.Sprintf("__typedV%d", off+j))
+		}
+		parts[i] = p
+		prims = mergeScalar(prims, x.primitives)
+	}
+	prims = mergeScalar(prims, []string{name})
+	var expr string
+	switch name {
+	case "cn":
+		expr = "(" + parts[0] + " + " + parts[1] + ")"
+	case "tlstr":
+		expr = "TypedStringTailValue(" + parts[0] + ")"
+	case "not":
+		expr = "(!" + parts[0] + ")"
+	case "/":
+		expr = "TypedDivideValue(" + parts[0] + ", " + parts[1] + ")"
+	default:
+		expr = "(" + parts[0] + " " + name + " " + parts[1] + ")"
+	}
+	return scalarExpr{kind: want, expr: expr, leaves: leaves, primitives: prims}, true
+}
+
+// scalarTree is retained for package-local callers and compatibility tests.
+func (cg *CodeGenerator) scalarTree(form kl.Obj) (string, []string, bool) {
+	x, ok := cg.scalarExpr(form)
+	if !ok || x.kind != scalarNumber {
+		return "", nil, false
+	}
+	leaves := make([]string, len(x.leaves))
+	for i, l := range x.leaves {
+		leaves[i] = l.src
+	}
+	return x.expr, leaves, true
+}
+
 func (cg *CodeGenerator) generateConst(w io.Writer, c kl.Obj) error {
 	switch {
 	case kl.IsNumber(c):
@@ -335,6 +672,9 @@ func (cg *CodeGenerator) primitiveCallOptimize(w io.Writer, sexp kl.Obj, tail bo
 		return false, nil
 	}
 	global := kl.Cadr(fn)
+	if scalarPrimitive[kl.GetSymbol(global)] {
+		cg.declare[global] = struct{}{}
+	}
 	str := kl.GetSymbol(global)
 	args := kl.ListToSlice(kl.Cdr(kl.Cdr(sexp)))
 	prim, ok := shenPrimitive[str]
@@ -342,6 +682,136 @@ func (cg *CodeGenerator) primitiveCallOptimize(w io.Writer, sexp kl.Obj, tail bo
 		return false, nil
 	}
 	primName := prim.Name
+	// Scalar lowering is valid only while the global still has its canonical
+	// primitive binding.  Generated code must retain the dynamic fallback: a
+	// Shen program may redefine a primitive before invoking compiled code.
+	guarded := scalarPrimitive[str]
+	if guarded {
+		if tail {
+			fmt.Fprint(w, "__e.Return(")
+		}
+		fmt.Fprint(w, "(func() Obj {\n")
+		fmt.Fprintf(w, "if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym%s) {\n", symbolAsVar(global))
+		// Fuse a pure nested numeric tree into one native expression. Every
+		// leaf is extracted once and the result is boxed only at region exit.
+		if sx, ok := cg.scalarExpr(sexp); ok && len(sx.leaves) > 0 {
+			for _, p := range sx.primitives {
+				cg.declare[kl.MakeSymbol(p)] = struct{}{}
+			}
+			for i, leaf := range sx.leaves {
+				prefix := "N"
+				if leaf.kind == scalarString {
+					prefix = "S"
+				} else if leaf.kind == scalarBoolean {
+					prefix = "B"
+				}
+				v := fmt.Sprintf("__typed%s%d", prefix, i)
+				switch leaf.kind {
+				case scalarString:
+					fmt.Fprintf(w, "%s, __typedOK%d := TypedString(%s)\n", v, i, leaf.src)
+				case scalarBoolean:
+					fmt.Fprintf(w, "%s, __typedOK%d := TypedBoolean(%s)\n", v, i, leaf.src)
+				default:
+					fmt.Fprintf(w, "%s, __typedOK%d := TypedFloat64(%s)\n", v, i, leaf.src)
+				}
+			}
+			fmt.Fprint(w, "if ")
+			for i := range sx.leaves {
+				if i > 0 {
+					fmt.Fprint(w, " && ")
+				}
+				fmt.Fprintf(w, "__typedOK%d", i)
+			}
+			for _, p := range sx.primitives {
+				fmt.Fprintf(w, " && HasCanonicalPrimitiveBinding(sym%s)", symbolAsVar(kl.MakeSymbol(p)))
+			}
+			fmt.Fprintln(w, " {")
+			expr := sx.expr
+			for i, leaf := range sx.leaves {
+				prefix := "N"
+				if leaf.kind == scalarString {
+					prefix = "S"
+				} else if leaf.kind == scalarBoolean {
+					prefix = "B"
+				}
+				expr = strings.ReplaceAll(expr, fmt.Sprintf("__typedV%d", i), fmt.Sprintf("__typed%s%d", prefix, i))
+			}
+			switch sx.kind {
+			case scalarBoolean:
+				fmt.Fprintf(w, "return TypedMaterializeBoolean(%s)\n}", expr)
+			case scalarString:
+				fmt.Fprintf(w, "return TypedMaterializeString(%s)\n}", expr)
+			default:
+				fmt.Fprintf(w, "return TypedMaterializeNumber(%s)\n}", expr)
+			}
+			fmt.Fprintln(w, "}")
+		} else {
+			// No pure scalar tree: leave the guarded region empty. Effects and
+			// raising expressions must only execute on the dynamic path below.
+			fmt.Fprintln(w, "_ = false")
+			fmt.Fprintln(w, "}")
+		}
+		// Evaluate fallback arguments exactly once, after the fast guard.
+		for i, arg := range args {
+			fmt.Fprintf(w, "__typedArg%d := ", i)
+			if kl.IsSymbol(arg) {
+				fmt.Fprintf(w, "%s", symbolAsVar(arg))
+			} else if err := cg.generateExpr(w, arg); err != nil {
+				return true, err
+			}
+			fmt.Fprintln(w)
+		}
+		fmt.Fprintf(w, "return Call(__e, PrimFunc(sym%s)", symbolAsVar(global))
+		for i := range args {
+			fmt.Fprintf(w, ", __typedArg%d", i)
+		}
+		fmt.Fprint(w, ")\n})()")
+		if tail {
+			fmt.Fprintln(w, ")\nreturn")
+		}
+		return true, nil
+	}
+	// All known primitive lowerings retain a dynamic fallback. This matters for
+	// Shen programs which redefine a primitive after generated code is loaded.
+	// Keep the guard before evaluating arguments so effectful expressions run on
+	// exactly one selected path.
+	if !guarded {
+		if tail {
+			fmt.Fprint(w, "__e.Return(")
+		}
+		fmt.Fprint(w, "(func() Obj {\n")
+		fmt.Fprintf(w, "if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym%s) {\n", symbolAsVar(global))
+		fmt.Fprintf(w, "return %s(", primName)
+		for i, arg := range args {
+			if i != 0 {
+				fmt.Fprint(w, ", ")
+			}
+			if kl.IsSymbol(arg) {
+				fmt.Fprint(w, symbolAsVar(arg))
+			} else if err := cg.generateExpr(w, arg); err != nil {
+				return true, err
+			}
+		}
+		fmt.Fprint(w, ")\n}\n")
+		for i, arg := range args {
+			fmt.Fprintf(w, "__typedArg%d := ", i)
+			if kl.IsSymbol(arg) {
+				fmt.Fprint(w, symbolAsVar(arg))
+			} else if err := cg.generateExpr(w, arg); err != nil {
+				return true, err
+			}
+			fmt.Fprintln(w)
+		}
+		fmt.Fprintf(w, "return Call(__e, PrimFunc(sym%s)", symbolAsVar(global))
+		for i := range args {
+			fmt.Fprintf(w, ", __typedArg%d", i)
+		}
+		fmt.Fprint(w, ")\n})()")
+		if tail {
+			fmt.Fprint(w, ")\nreturn\n")
+		}
+		return true, nil
+	}
 
 	// ($prim f a b c ...)
 	if tail {
@@ -367,6 +837,15 @@ func (cg *CodeGenerator) primitiveCallOptimize(w io.Writer, sexp kl.Obj, tail bo
 		fmt.Fprintf(w, ")\nreturn\n")
 	}
 	return true, nil
+}
+
+// scalarPrimitive identifies operations whose generated native implementation
+// is safe to select only behind the canonical-binding guard above.  Other
+// primitives continue to use the historical direct lowering unchanged.
+var scalarPrimitive = map[string]bool{
+	"+": true, "-": true, "*": true, "/": true,
+	"<": true, "<=": true, ">": true, ">=": true,
+	"not": true, "cn": true, "tlstr": true,
 }
 
 var shenPrimitive = map[string]struct {
