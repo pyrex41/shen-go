@@ -9,7 +9,7 @@ import (
 	"github.com/pyrex41/shen-go/kl"
 )
 
-// The Shen standard library, vendored from Tarver's S41.2 refresh Lib/StLib
+// The Shen standard library, vendored from Tarver's S42 refresh Lib/StLib
 // (see stlib/PROVENANCE.md). The kernel itself ships none of these — filter,
 // mapc, take/drop, fold*, the maths/strings/vectors/tuples helpers, etc. all
 // live here. We embed the sources and load them at startup so a bare

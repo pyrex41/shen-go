@@ -1,20 +1,19 @@
 # Provenance
 
 The KLambda kernel under this directory is vendored from Mark Tarver's
-**S41.2 (2026-07-11 refresh)**.
+**S42 (2026-08-25 refresh)**.
 
 Canonical source (the designated mirror of Tarver's uploads):
 
-- Repo: `pyrex41/shen-s41.1` (private)
-- Tag: `s41.2-pristine-20260711`
-- Commit: `11fc51b`
+- Repo: `pyrex41/shen-upstream` (private mirror)
+- Tag: `s42-pristine-20260825`
+- Archive SHA-256: `30abdc7e5a1e27b7a20109c1ed141e4712885e31f24d9710d16415fbbd4dfb23`
 - Files vendored from `KLambda/*.kl` in that tag; verified byte-identical.
 
 Upstream origin (secondary detail — what the mirror imported):
 
-- URL: https://www.shenlanguage.org/Download/S41.2.zip
-- Last-Modified: **2026-07-11** (re-upload; see caveat below)
-- Archive SHA-256: `51becbfd60fa8c93c3f8ae5b20b948eaa84c4b1d14ad2f5d2a056002a53ee836`
+- URL: https://www.shenlanguage.org/Download/S42.zip
+- Last-Modified: **2026-08-25**
 
 ## Caveat: reused version number, different lineage
 
@@ -44,7 +43,7 @@ differ structurally in the porter-facing initialisation layer:
 
 ## Files vendored
 
-15 KLambda modules from `S41/KLambda/`:
+15 KLambda modules from `S42/KLambda/`:
 
 - 14 that shen-go boots and compiles to Go: `core`, `declarations`, `load`,
   `macros`, `prolog`, `reader`, `sequent`, `sys`, `t-star`, `toplevel`, `track`,
