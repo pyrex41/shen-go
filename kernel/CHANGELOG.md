@@ -8,6 +8,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 
 ### Changed (shen-go vendoring)
 
+- Re-vendored Mark Tarver's S42 (2026-08-25) KLambda kernel and Sources.
+  Archive SHA-256: `30abdc7e5a1e27b7a20109c1ed141e4712885e31f24d9710d16415fbbd4dfb23`.
+  Community extension modules remain separate from the canonical inventory.
+
+### Changed (shen-go vendoring)
+
 - Re-vendored the KLambda kernel from Mark Tarver's **S41.2 (2026-07-11 refresh)**
   (https://www.shenlanguage.org/Download/S41.2.zip), replacing the community
   ShenOSKernel-41.2 that was previously vendored byte-identically. Upstream

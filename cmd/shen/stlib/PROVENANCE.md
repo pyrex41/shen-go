@@ -1,14 +1,14 @@
 # Provenance — Shen standard library (StLib)
 
-These sources are vendored from Mark Tarver's **S41.2 (2026-07-11 refresh)**
+These sources are vendored from Mark Tarver's **S42 (2026-08-25 refresh)**
 `Lib/StLib`, the same lineage as the kernel (see
 `kernel/klambda/PROVENANCE.md`).
 
 Canonical source (designated mirror of Tarver's uploads):
 
 - Repo: `pyrex41/shen-upstream` (formerly `pyrex41/shen-s41.1`; old URLs redirect)
-- Tag: `s41.2-pristine-20260711`
-- Commit: `11fc51b`
+- Tag: `s42-pristine-20260825`
+- Archive SHA-256: `30abdc7e5a1e27b7a20109c1ed141e4712885e31f24d9710d16415fbbd4dfb23`
 - Files vendored from `Lib/StLib/` in that tag, byte-identical.
 
 ## Why this exists

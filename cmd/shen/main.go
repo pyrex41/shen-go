@@ -33,7 +33,7 @@ func regist(e *kl.ControlFlow) {
 			fmt.Println("load ...fail")
 		}
 	}
-	// Load order follows upstream install.lsp. The Tarver S41.2 refresh has no
+	// Load order follows upstream install.lsp. The Tarver S42 refresh has no
 	// shen.initialise wrapper (unlike the community ShenOSKernel): each module
 	// runs its own top-level (set ...), (put ... arity ...) and (declare ...)
 	// forms as its Main thunk is called, so order is load-order DEPENDENT.
@@ -107,7 +107,7 @@ func repl(e *kl.ControlFlow) {
 				e.Return(kl.Nil)
 				return
 			}
-			// The Tarver S41.2 refresh has no shen.toplevel-display-exception;
+			// The Tarver S42 refresh has no shen.toplevel-display-exception;
 			// its shen.loop prints the raw error string + newline, so mirror that.
 			fmt.Println(kl.GetString(kl.PrimErrorToString(err)))
 			e.Return(kl.Nil)
@@ -241,7 +241,7 @@ func main() {
 	// See autonative.go.
 	autoNative = autoNativeFlag && os.Getenv("SHEN_NO_AUTO_NATIVE") == ""
 	installAutoNative()
-	// NB: the Tarver S41.2 refresh has no shen.initialise to call here, and the
+	// NB: the Tarver S42 refresh has no shen.initialise to call here, and the
 	// native `hash` swap now happens inside regist (after SysMain binds the
 	// interpreted hash, before DeclarationsMain/TypesMain build the property
 	// dictionaries). All top-level initialisation runs inline as the module

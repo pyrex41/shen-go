@@ -306,7 +306,10 @@ func (cg *CodeGenerator) generateBlock(w io.Writer, sexp kl.Obj) error {
 				}
 			}
 		}
-		p = expandScalarCall(p, defs)
+		// Substitution must reach predicates, return forms, and nested
+		// expressions as well as direct call arguments; otherwise a skipped
+		// single-use assignment can leave an undefined temporary behind.
+		p = expandScalarRefs(p, defs)
 		if err := cg.generateExpr(w, p); err != nil {
 			return err
 		}
@@ -384,6 +387,20 @@ func expandScalarCall(form kl.Obj, defs map[kl.Obj]kl.Obj) kl.Obj {
 	}
 	kind := kl.GetSymbol(kl.Car(form))
 	if kind == "return" {
+		items := kl.ListToSlice(form)
+		if len(items) > 1 {
+			items[1] = expandScalarRefs(items[1], defs)
+		}
+		ret := kl.Nil
+		for i := len(items) - 1; i >= 0; i-- {
+			ret = kl.Cons(items[i], ret)
+		}
+		return ret
+	}
+	if kind == "if" {
+		// Conditions are expressions too.  Scalar temporaries are often
+		// consumed directly by an `if`; leaving the temporary name here after
+		// eliding its single-use assignment produces uncompilable Go.
 		items := kl.ListToSlice(form)
 		if len(items) > 1 {
 			items[1] = expandScalarRefs(items[1], defs)

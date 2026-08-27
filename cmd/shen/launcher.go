@@ -5,126 +5,232 @@ import . "github.com/pyrex41/shen-go/kl"
 var LauncherMain = MakeNative(func(__e *ControlFlow) {
 _ = MakeString("Copyright (c) 2019 Bruno Deferrari.\nBSD 3-Clause License: http://opensource.org/licenses/BSD-3-Clause")
 
-tmp19633 := MakeNative(func(__e *ControlFlow) {
+tmp19823 := MakeNative(func(__e *ControlFlow) {
 V7102 := __e.Get(1)
 _ = V7102
-tmp19634 := MakeNative(func(__e *ControlFlow) {
+tmp19824 := MakeNative(func(__e *ControlFlow) {
 W7103 := __e.Get(1)
 _ = W7103
-tmp19635 := MakeNative(func(__e *ControlFlow) {
+tmp19825 := MakeNative(func(__e *ControlFlow) {
 Z7104 := __e.Get(1)
 _ = Z7104
 __e.TailApply(PrimFunc(symeval), Z7104)
 return
 }, 1)
 
-__e.TailApply(PrimFunc(symmap), tmp19635, W7103)
+__e.TailApply(PrimFunc(symmap), tmp19825, W7103)
 return
 
 
 }, 1)
 
-tmp19636 := Call(__e, PrimFunc(symread_1file), V7102)
+tmp19826 := Call(__e, PrimFunc(symread_1file), V7102)
 
 
-__e.TailApply(tmp19634, tmp19636)
+__e.TailApply(tmp19824, tmp19826)
 return
 
 
 }, 1)
 
-tmp19637 := Call(__e, ns2_1set, symshen_4x_4launcher_4quiet_1load, tmp19633)
+tmp19827 := Call(__e, ns2_1set, symshen_4x_4launcher_4quiet_1load, tmp19823)
 
 
-_ = tmp19637
+_ = tmp19827
 
-tmp19638 := MakeNative(func(__e *ControlFlow) {
-tmp19639 := Call(__e, PrimFunc(symversion))
-
-
-tmp19640 := Call(__e, PrimFunc(symlanguage))
+tmp19828 := MakeNative(func(__e *ControlFlow) {
+tmp19829 := Call(__e, PrimFunc(symversion))
 
 
-tmp19641 := Call(__e, PrimFunc(symport))
+tmp19830 := Call(__e, PrimFunc(symlanguage))
 
 
-tmp19642 := PrimCons(tmp19641, Nil)
-
-tmp19643 := PrimCons(tmp19640, tmp19642)
-
-tmp19644 := Call(__e, PrimFunc(symimplementation))
+tmp19831 := Call(__e, PrimFunc(symport))
 
 
-tmp19645 := Call(__e, PrimFunc(symrelease))
+tmp19832 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
+return PrimCons(tmp19831, Nil)
+}
+__typedArg0 := tmp19831
+__typedArg1 := Nil
+return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
+})()
+
+tmp19833 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
+return PrimCons(tmp19830, tmp19832)
+}
+__typedArg0 := tmp19830
+__typedArg1 := tmp19832
+return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
+})()
+
+tmp19834 := Call(__e, PrimFunc(symimplementation))
 
 
-tmp19646 := PrimCons(tmp19645, Nil)
-
-tmp19647 := PrimCons(tmp19644, tmp19646)
-
-tmp19648 := PrimCons(tmp19647, Nil)
-
-tmp19649 := PrimCons(symimplementation, tmp19648)
-
-tmp19650 := PrimCons(tmp19643, tmp19649)
-
-tmp19651 := PrimCons(symport, tmp19650)
-
-tmp19652 := Call(__e, PrimFunc(symshen_4app), tmp19651, MakeString("\n"), symshen_4r)
+tmp19835 := Call(__e, PrimFunc(symrelease))
 
 
-tmp19653 := PrimStringConcat(MakeString(" "), tmp19652)
+tmp19836 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
+return PrimCons(tmp19835, Nil)
+}
+__typedArg0 := tmp19835
+__typedArg1 := Nil
+return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
+})()
 
-__e.TailApply(PrimFunc(symshen_4app), tmp19639, tmp19653, symshen_4a)
+tmp19837 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
+return PrimCons(tmp19834, tmp19836)
+}
+__typedArg0 := tmp19834
+__typedArg1 := tmp19836
+return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
+})()
+
+tmp19838 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
+return PrimCons(tmp19837, Nil)
+}
+__typedArg0 := tmp19837
+__typedArg1 := Nil
+return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
+})()
+
+tmp19839 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
+return PrimCons(symimplementation, tmp19838)
+}
+__typedArg0 := symimplementation
+__typedArg1 := tmp19838
+return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
+})()
+
+tmp19840 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
+return PrimCons(tmp19833, tmp19839)
+}
+__typedArg0 := tmp19833
+__typedArg1 := tmp19839
+return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
+})()
+
+tmp19841 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
+return PrimCons(symport, tmp19840)
+}
+__typedArg0 := symport
+__typedArg1 := tmp19840
+return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
+})()
+
+tmp19842 := Call(__e, PrimFunc(symshen_4app), tmp19841, MakeString("\n"), symshen_4r)
+
+
+__e.TailApply(PrimFunc(symshen_4app), tmp19829, (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcn) {
+__typedS0, __typedOK0 := TypedString(MakeString(" "))
+__typedS1, __typedOK1 := TypedString(tmp19842)
+if __typedOK0 && __typedOK1 && HasCanonicalPrimitiveBinding(symcn) {
+return TypedMaterializeString((__typedS0 + __typedS1))
+}}
+__typedArg0 := MakeString(" ")
+__typedArg1 := tmp19842
+return Call(__e, PrimFunc(symcn), __typedArg0, __typedArg1)
+})(), symshen_4a)
 return
 
 
 }, 0)
 
-tmp19654 := Call(__e, ns2_1set, symshen_4x_4launcher_4version_1string, tmp19638)
+tmp19844 := Call(__e, ns2_1set, symshen_4x_4launcher_4version_1string, tmp19828)
 
 
-_ = tmp19654
+_ = tmp19844
 
-tmp19655 := MakeNative(func(__e *ControlFlow) {
+tmp19845 := MakeNative(func(__e *ControlFlow) {
 V7105 := __e.Get(1)
 _ = V7105
-tmp19656 := Call(__e, PrimFunc(symshen_4app), V7105, MakeString(" [--version] [--help] <COMMAND> [<ARGS>]\n\ncommands:\n    repl\n        Launches the interactive REPL.\n        Default action if no command is supplied.\n\n    script <FILE> [<ARGS>]\n        Runs the script in FILE. *argv* is set to [FILE | ARGS].\n\n    eval <ARGS>\n        Evaluates expressions and files. ARGS are evaluated from\n        left to right and can be a combination of:\n            -e, --eval <EXPR>\n                Evaluates EXPR and prints result.\n            -l, --load <FILE>\n                Reads and evaluates FILE.\n            -q, --quiet\n                Silences interactive output.\n            -s, --set <KEY> <VALUE>\n                Evaluates KEY, VALUE and sets as global.\n            -r, --repl\n                Launches the interactive REPL after evaluating\n                all the previous expresions."), symshen_4a)
+tmp19846 := Call(__e, PrimFunc(symshen_4app), V7105, MakeString(" [--version] [--help] <COMMAND> [<ARGS>]\n\ncommands:\n    repl\n        Launches the interactive REPL.\n        Default action if no command is supplied.\n\n    script <FILE> [<ARGS>]\n        Runs the script in FILE. *argv* is set to [FILE | ARGS].\n\n    eval <ARGS>\n        Evaluates expressions and files. ARGS are evaluated from\n        left to right and can be a combination of:\n            -e, --eval <EXPR>\n                Evaluates EXPR and prints result.\n            -l, --load <FILE>\n                Reads and evaluates FILE.\n            -q, --quiet\n                Silences interactive output.\n            -s, --set <KEY> <VALUE>\n                Evaluates KEY, VALUE and sets as global.\n            -r, --repl\n                Launches the interactive REPL after evaluating\n                all the previous expresions."), symshen_4a)
 
 
-__e.Return(PrimStringConcat(MakeString("Usage: "), tmp19656))
+__e.Return((func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcn) {
+__typedS0, __typedOK0 := TypedString(MakeString("Usage: "))
+__typedS1, __typedOK1 := TypedString(tmp19846)
+if __typedOK0 && __typedOK1 && HasCanonicalPrimitiveBinding(symcn) {
+return TypedMaterializeString((__typedS0 + __typedS1))
+}}
+__typedArg0 := MakeString("Usage: ")
+__typedArg1 := tmp19846
+return Call(__e, PrimFunc(symcn), __typedArg0, __typedArg1)
+})())
 return
 
 
 }, 1)
 
-tmp19657 := Call(__e, ns2_1set, symshen_4x_4launcher_4help_1text, tmp19655)
+tmp19847 := Call(__e, ns2_1set, symshen_4x_4launcher_4help_1text, tmp19845)
 
 
-_ = tmp19657
+_ = tmp19847
 
-tmp19658 := MakeNative(func(__e *ControlFlow) {
+tmp19848 := MakeNative(func(__e *ControlFlow) {
 V7106 := __e.Get(1)
 _ = V7106
-tmp19665 := PrimEqual(Nil, V7106)
+tmp19855 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
+return PrimEqual(Nil, V7106)
+}
+__typedArg0 := Nil
+__typedArg1 := V7106
+return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
+})()
 
-if True == tmp19665 {
-__e.Return(PrimCons(symsuccess, Nil))
+if True == tmp19855 {
+__e.Return((func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
+return PrimCons(symsuccess, Nil)
+}
+__typedArg0 := symsuccess
+__typedArg1 := Nil
+return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
+})())
 return
 } else {
-tmp19663 := PrimIsPair(V7106)
+tmp19853 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons_2) {
+return PrimIsPair(V7106)
+}
+__typedArg0 := V7106
+return Call(__e, PrimFunc(symcons_2), __typedArg0)
+})()
 
-if True == tmp19663 {
-tmp19659 := PrimHead(V7106)
+if True == tmp19853 {
+tmp19849 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symhd) {
+return PrimHead(V7106)
+}
+__typedArg0 := V7106
+return Call(__e, PrimFunc(symhd), __typedArg0)
+})()
 
-tmp19660 := Call(__e, PrimFunc(symthaw), tmp19659)
+tmp19850 := Call(__e, PrimFunc(symthaw), tmp19849)
 
 
-_ = tmp19660
+_ = tmp19850
 
-tmp19661 := PrimTail(V7106)
+tmp19851 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
+return PrimTail(V7106)
+}
+__typedArg0 := V7106
+return Call(__e, PrimFunc(symtl), __typedArg0)
+})()
 
-__e.TailApply(PrimFunc(symshen_4x_4launcher_4execute_1all), tmp19661)
+__e.TailApply(PrimFunc(symshen_4x_4launcher_4execute_1all), tmp19851)
 return
 
 
@@ -139,61 +245,96 @@ return
 
 }, 1)
 
-tmp19666 := Call(__e, ns2_1set, symshen_4x_4launcher_4execute_1all, tmp19658)
+tmp19856 := Call(__e, ns2_1set, symshen_4x_4launcher_4execute_1all, tmp19848)
 
 
-_ = tmp19666
+_ = tmp19856
 
-tmp19667 := MakeNative(func(__e *ControlFlow) {
+tmp19857 := MakeNative(func(__e *ControlFlow) {
 V7107 := __e.Get(1)
 _ = V7107
-tmp19668 := Call(__e, PrimFunc(symread_1from_1string), V7107)
+tmp19858 := Call(__e, PrimFunc(symread_1from_1string), V7107)
 
 
-tmp19669 := Call(__e, PrimFunc(symhead), tmp19668)
+tmp19859 := Call(__e, PrimFunc(symhead), tmp19858)
 
 
-__e.TailApply(PrimFunc(symeval), tmp19669)
+__e.TailApply(PrimFunc(symeval), tmp19859)
 return
 
 
 }, 1)
 
-tmp19670 := Call(__e, ns2_1set, symshen_4x_4launcher_4eval_1string, tmp19667)
+tmp19860 := Call(__e, ns2_1set, symshen_4x_4launcher_4eval_1string, tmp19857)
 
 
-_ = tmp19670
+_ = tmp19860
 
-tmp19671 := MakeNative(func(__e *ControlFlow) {
+tmp19861 := MakeNative(func(__e *ControlFlow) {
 V7110 := __e.Get(1)
 _ = V7110
-tmp19681 := PrimEqual(MakeString("-e"), V7110)
+tmp19871 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
+return PrimEqual(MakeString("-e"), V7110)
+}
+__typedArg0 := MakeString("-e")
+__typedArg1 := V7110
+return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
+})()
 
-if True == tmp19681 {
+if True == tmp19871 {
 __e.Return(MakeString("--eval"))
 return
 } else {
-tmp19679 := PrimEqual(MakeString("-l"), V7110)
+tmp19869 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
+return PrimEqual(MakeString("-l"), V7110)
+}
+__typedArg0 := MakeString("-l")
+__typedArg1 := V7110
+return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
+})()
 
-if True == tmp19679 {
+if True == tmp19869 {
 __e.Return(MakeString("--load"))
 return
 } else {
-tmp19677 := PrimEqual(MakeString("-q"), V7110)
+tmp19867 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
+return PrimEqual(MakeString("-q"), V7110)
+}
+__typedArg0 := MakeString("-q")
+__typedArg1 := V7110
+return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
+})()
 
-if True == tmp19677 {
+if True == tmp19867 {
 __e.Return(MakeString("--quiet"))
 return
 } else {
-tmp19675 := PrimEqual(MakeString("-s"), V7110)
+tmp19865 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
+return PrimEqual(MakeString("-s"), V7110)
+}
+__typedArg0 := MakeString("-s")
+__typedArg1 := V7110
+return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
+})()
 
-if True == tmp19675 {
+if True == tmp19865 {
 __e.Return(MakeString("--set"))
 return
 } else {
-tmp19673 := PrimEqual(MakeString("-r"), V7110)
+tmp19863 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
+return PrimEqual(MakeString("-r"), V7110)
+}
+__typedArg0 := MakeString("-r")
+__typedArg1 := V7110
+return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
+})()
 
-if True == tmp19673 {
+if True == tmp19863 {
 __e.Return(MakeString("--repl"))
 return
 } else {
@@ -216,426 +357,752 @@ return
 
 }, 1)
 
-tmp19682 := Call(__e, ns2_1set, symshen_4x_4launcher_4eval_1flag_1map, tmp19671)
+tmp19872 := Call(__e, ns2_1set, symshen_4x_4launcher_4eval_1flag_1map, tmp19861)
 
 
-_ = tmp19682
+_ = tmp19872
 
-tmp19683 := MakeNative(func(__e *ControlFlow) {
+tmp19873 := MakeNative(func(__e *ControlFlow) {
 V7115 := __e.Get(1)
 _ = V7115
 V7116 := __e.Get(2)
 _ = V7116
-tmp19787 := PrimEqual(Nil, V7115)
+tmp19977 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
+return PrimEqual(Nil, V7115)
+}
+__typedArg0 := Nil
+__typedArg1 := V7115
+return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
+})()
 
-if True == tmp19787 {
-tmp19684 := Call(__e, PrimFunc(symreverse), V7116)
+if True == tmp19977 {
+tmp19874 := Call(__e, PrimFunc(symreverse), V7116)
 
 
-__e.TailApply(PrimFunc(symshen_4x_4launcher_4execute_1all), tmp19684)
+__e.TailApply(PrimFunc(symshen_4x_4launcher_4execute_1all), tmp19874)
 return
 
 
 } else {
-tmp19785 := PrimIsPair(V7115)
+tmp19975 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons_2) {
+return PrimIsPair(V7115)
+}
+__typedArg0 := V7115
+return Call(__e, PrimFunc(symcons_2), __typedArg0)
+})()
 
-var ifres19777 Obj
+var ifres19967 Obj
 
-if True == tmp19785 {
-tmp19783 := PrimHead(V7115)
+if True == tmp19975 {
+tmp19973 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symhd) {
+return PrimHead(V7115)
+}
+__typedArg0 := V7115
+return Call(__e, PrimFunc(symhd), __typedArg0)
+})()
 
-tmp19784 := PrimEqual(MakeString("--eval"), tmp19783)
+tmp19974 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
+return PrimEqual(MakeString("--eval"), tmp19973)
+}
+__typedArg0 := MakeString("--eval")
+__typedArg1 := tmp19973
+return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
+})()
 
-var ifres19779 Obj
+var ifres19969 Obj
 
-if True == tmp19784 {
-tmp19781 := PrimTail(V7115)
+if True == tmp19974 {
+tmp19971 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
+return PrimTail(V7115)
+}
+__typedArg0 := V7115
+return Call(__e, PrimFunc(symtl), __typedArg0)
+})()
 
-tmp19782 := PrimIsPair(tmp19781)
+tmp19972 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons_2) {
+return PrimIsPair(tmp19971)
+}
+__typedArg0 := tmp19971
+return Call(__e, PrimFunc(symcons_2), __typedArg0)
+})()
 
-var ifres19780 Obj
+var ifres19970 Obj
 
-if True == tmp19782 {
-ifres19780 = True
+if True == tmp19972 {
+ifres19970 = True
 
 
 } else {
-ifres19780 = False
+ifres19970 = False
 
 
 }
 
-ifres19779 = ifres19780
+ifres19969 = ifres19970
 
 
 } else {
-ifres19779 = False
+ifres19969 = False
 
 
 }
 
-var ifres19778 Obj
+var ifres19968 Obj
 
-if True == ifres19779 {
-ifres19778 = True
+if True == ifres19969 {
+ifres19968 = True
 
 
 } else {
-ifres19778 = False
+ifres19968 = False
 
 
 }
 
-ifres19777 = ifres19778
+ifres19967 = ifres19968
 
 
 } else {
-ifres19777 = False
+ifres19967 = False
 
 
 }
 
-if True == ifres19777 {
-tmp19685 := PrimTail(V7115)
-
-tmp19686 := PrimTail(tmp19685)
-
-tmp19687 := MakeNative(func(__e *ControlFlow) {
-tmp19688 := PrimTail(V7115)
-
-tmp19689 := PrimHead(tmp19688)
-
-tmp19690 := Call(__e, PrimFunc(symshen_4x_4launcher_4eval_1string), tmp19689)
-
-
-tmp19691 := Call(__e, PrimFunc(symshen_4app), tmp19690, MakeString("\n"), symshen_4a)
-
-
-tmp19692 := Call(__e, PrimFunc(symstoutput))
-
-
-__e.TailApply(PrimFunc(sympr), tmp19691, tmp19692)
-return
-
-
-}, 0)
-
-tmp19693 := PrimCons(tmp19687, V7116)
-
-__e.TailApply(PrimFunc(symshen_4x_4launcher_4eval_1command_1h), tmp19686, tmp19693)
-return
-
-
-} else {
-tmp19775 := PrimIsPair(V7115)
-
-var ifres19767 Obj
-
-if True == tmp19775 {
-tmp19773 := PrimHead(V7115)
-
-tmp19774 := PrimEqual(MakeString("--load"), tmp19773)
-
-var ifres19769 Obj
-
-if True == tmp19774 {
-tmp19771 := PrimTail(V7115)
-
-tmp19772 := PrimIsPair(tmp19771)
-
-var ifres19770 Obj
-
-if True == tmp19772 {
-ifres19770 = True
-
-
-} else {
-ifres19770 = False
-
-
+if True == ifres19967 {
+tmp19875 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
+return PrimTail(V7115)
 }
+__typedArg0 := V7115
+return Call(__e, PrimFunc(symtl), __typedArg0)
+})()
 
-ifres19769 = ifres19770
-
-
-} else {
-ifres19769 = False
-
-
+tmp19876 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
+return PrimTail(tmp19875)
 }
+__typedArg0 := tmp19875
+return Call(__e, PrimFunc(symtl), __typedArg0)
+})()
 
-var ifres19768 Obj
-
-if True == ifres19769 {
-ifres19768 = True
-
-
-} else {
-ifres19768 = False
-
-
+tmp19877 := MakeNative(func(__e *ControlFlow) {
+tmp19878 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
+return PrimTail(V7115)
 }
+__typedArg0 := V7115
+return Call(__e, PrimFunc(symtl), __typedArg0)
+})()
 
-ifres19767 = ifres19768
-
-
-} else {
-ifres19767 = False
-
-
+tmp19879 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symhd) {
+return PrimHead(tmp19878)
 }
+__typedArg0 := tmp19878
+return Call(__e, PrimFunc(symhd), __typedArg0)
+})()
 
-if True == ifres19767 {
-tmp19694 := PrimTail(V7115)
+tmp19880 := Call(__e, PrimFunc(symshen_4x_4launcher_4eval_1string), tmp19879)
 
-tmp19695 := PrimTail(tmp19694)
 
-tmp19696 := MakeNative(func(__e *ControlFlow) {
-tmp19697 := PrimTail(V7115)
+tmp19881 := Call(__e, PrimFunc(symshen_4app), tmp19880, MakeString("\n"), symshen_4a)
 
-tmp19698 := PrimHead(tmp19697)
 
-__e.TailApply(PrimFunc(symload), tmp19698)
+tmp19882 := Call(__e, PrimFunc(symstoutput))
+
+
+__e.TailApply(PrimFunc(sympr), tmp19881, tmp19882)
 return
 
 
 }, 0)
 
-tmp19699 := PrimCons(tmp19696, V7116)
+tmp19883 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
+return PrimCons(tmp19877, V7116)
+}
+__typedArg0 := tmp19877
+__typedArg1 := V7116
+return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
+})()
 
-__e.TailApply(PrimFunc(symshen_4x_4launcher_4eval_1command_1h), tmp19695, tmp19699)
+__e.TailApply(PrimFunc(symshen_4x_4launcher_4eval_1command_1h), tmp19876, tmp19883)
 return
 
 
 } else {
-tmp19765 := PrimIsPair(V7115)
+tmp19965 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons_2) {
+return PrimIsPair(V7115)
+}
+__typedArg0 := V7115
+return Call(__e, PrimFunc(symcons_2), __typedArg0)
+})()
 
-var ifres19761 Obj
+var ifres19957 Obj
 
-if True == tmp19765 {
-tmp19763 := PrimHead(V7115)
+if True == tmp19965 {
+tmp19963 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symhd) {
+return PrimHead(V7115)
+}
+__typedArg0 := V7115
+return Call(__e, PrimFunc(symhd), __typedArg0)
+})()
 
-tmp19764 := PrimEqual(MakeString("--quiet"), tmp19763)
+tmp19964 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
+return PrimEqual(MakeString("--load"), tmp19963)
+}
+__typedArg0 := MakeString("--load")
+__typedArg1 := tmp19963
+return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
+})()
 
-var ifres19762 Obj
+var ifres19959 Obj
 
-if True == tmp19764 {
-ifres19762 = True
+if True == tmp19964 {
+tmp19961 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
+return PrimTail(V7115)
+}
+__typedArg0 := V7115
+return Call(__e, PrimFunc(symtl), __typedArg0)
+})()
+
+tmp19962 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons_2) {
+return PrimIsPair(tmp19961)
+}
+__typedArg0 := tmp19961
+return Call(__e, PrimFunc(symcons_2), __typedArg0)
+})()
+
+var ifres19960 Obj
+
+if True == tmp19962 {
+ifres19960 = True
 
 
 } else {
-ifres19762 = False
+ifres19960 = False
 
 
 }
 
-ifres19761 = ifres19762
+ifres19959 = ifres19960
 
 
 } else {
-ifres19761 = False
+ifres19959 = False
 
 
 }
 
-if True == ifres19761 {
-tmp19700 := PrimTail(V7115)
+var ifres19958 Obj
 
-tmp19701 := MakeNative(func(__e *ControlFlow) {
-__e.Return(PrimSet(sym_dhush_d, True))
-return
-}, 0)
-
-tmp19702 := PrimCons(tmp19701, V7116)
-
-__e.TailApply(PrimFunc(symshen_4x_4launcher_4eval_1command_1h), tmp19700, tmp19702)
-return
+if True == ifres19959 {
+ifres19958 = True
 
 
 } else {
-tmp19759 := PrimIsPair(V7115)
-
-var ifres19746 Obj
-
-if True == tmp19759 {
-tmp19757 := PrimHead(V7115)
-
-tmp19758 := PrimEqual(MakeString("--set"), tmp19757)
-
-var ifres19748 Obj
-
-if True == tmp19758 {
-tmp19755 := PrimTail(V7115)
-
-tmp19756 := PrimIsPair(tmp19755)
-
-var ifres19750 Obj
-
-if True == tmp19756 {
-tmp19752 := PrimTail(V7115)
-
-tmp19753 := PrimTail(tmp19752)
-
-tmp19754 := PrimIsPair(tmp19753)
-
-var ifres19751 Obj
-
-if True == tmp19754 {
-ifres19751 = True
-
-
-} else {
-ifres19751 = False
+ifres19958 = False
 
 
 }
 
-ifres19750 = ifres19751
+ifres19957 = ifres19958
 
 
 } else {
-ifres19750 = False
+ifres19957 = False
 
 
 }
 
-var ifres19749 Obj
-
-if True == ifres19750 {
-ifres19749 = True
-
-
-} else {
-ifres19749 = False
-
-
+if True == ifres19957 {
+tmp19884 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
+return PrimTail(V7115)
 }
+__typedArg0 := V7115
+return Call(__e, PrimFunc(symtl), __typedArg0)
+})()
 
-ifres19748 = ifres19749
-
-
-} else {
-ifres19748 = False
-
-
+tmp19885 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
+return PrimTail(tmp19884)
 }
+__typedArg0 := tmp19884
+return Call(__e, PrimFunc(symtl), __typedArg0)
+})()
 
-var ifres19747 Obj
-
-if True == ifres19748 {
-ifres19747 = True
-
-
-} else {
-ifres19747 = False
-
-
+tmp19886 := MakeNative(func(__e *ControlFlow) {
+tmp19887 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
+return PrimTail(V7115)
 }
+__typedArg0 := V7115
+return Call(__e, PrimFunc(symtl), __typedArg0)
+})()
 
-ifres19746 = ifres19747
-
-
-} else {
-ifres19746 = False
-
-
+tmp19888 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symhd) {
+return PrimHead(tmp19887)
 }
+__typedArg0 := tmp19887
+return Call(__e, PrimFunc(symhd), __typedArg0)
+})()
 
-if True == ifres19746 {
-tmp19703 := PrimTail(V7115)
-
-tmp19704 := PrimTail(tmp19703)
-
-tmp19705 := PrimTail(tmp19704)
-
-tmp19706 := MakeNative(func(__e *ControlFlow) {
-tmp19707 := PrimTail(V7115)
-
-tmp19708 := PrimHead(tmp19707)
-
-tmp19709 := Call(__e, PrimFunc(symshen_4x_4launcher_4eval_1string), tmp19708)
-
-
-tmp19710 := PrimTail(V7115)
-
-tmp19711 := PrimTail(tmp19710)
-
-tmp19712 := PrimHead(tmp19711)
-
-tmp19713 := Call(__e, PrimFunc(symshen_4x_4launcher_4eval_1string), tmp19712)
-
-
-__e.Return(PrimSet(tmp19709, tmp19713))
+__e.TailApply(PrimFunc(symload), tmp19888)
 return
 
 
 }, 0)
 
-tmp19714 := PrimCons(tmp19706, V7116)
+tmp19889 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
+return PrimCons(tmp19886, V7116)
+}
+__typedArg0 := tmp19886
+__typedArg1 := V7116
+return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
+})()
 
-__e.TailApply(PrimFunc(symshen_4x_4launcher_4eval_1command_1h), tmp19705, tmp19714)
+__e.TailApply(PrimFunc(symshen_4x_4launcher_4eval_1command_1h), tmp19885, tmp19889)
 return
 
 
 } else {
-tmp19744 := PrimIsPair(V7115)
+tmp19955 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons_2) {
+return PrimIsPair(V7115)
+}
+__typedArg0 := V7115
+return Call(__e, PrimFunc(symcons_2), __typedArg0)
+})()
 
-var ifres19740 Obj
+var ifres19951 Obj
 
-if True == tmp19744 {
-tmp19742 := PrimHead(V7115)
+if True == tmp19955 {
+tmp19953 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symhd) {
+return PrimHead(V7115)
+}
+__typedArg0 := V7115
+return Call(__e, PrimFunc(symhd), __typedArg0)
+})()
 
-tmp19743 := PrimEqual(MakeString("--repl"), tmp19742)
+tmp19954 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
+return PrimEqual(MakeString("--quiet"), tmp19953)
+}
+__typedArg0 := MakeString("--quiet")
+__typedArg1 := tmp19953
+return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
+})()
 
-var ifres19741 Obj
+var ifres19952 Obj
 
-if True == tmp19743 {
-ifres19741 = True
+if True == tmp19954 {
+ifres19952 = True
 
 
 } else {
-ifres19741 = False
+ifres19952 = False
 
 
 }
 
-ifres19740 = ifres19741
+ifres19951 = ifres19952
 
 
 } else {
-ifres19740 = False
+ifres19951 = False
 
 
 }
 
-if True == ifres19740 {
-tmp19715 := Call(__e, PrimFunc(symshen_4x_4launcher_4eval_1command_1h), Nil, V7116)
+if True == ifres19951 {
+tmp19890 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
+return PrimTail(V7115)
+}
+__typedArg0 := V7115
+return Call(__e, PrimFunc(symtl), __typedArg0)
+})()
 
+tmp19891 := MakeNative(func(__e *ControlFlow) {
+__e.Return((func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symset) {
+return PrimSet(sym_dhush_d, True)
+}
+__typedArg0 := sym_dhush_d
+__typedArg1 := True
+return Call(__e, PrimFunc(symset), __typedArg0, __typedArg1)
+})())
+return
+}, 0)
 
-_ = tmp19715
+tmp19892 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
+return PrimCons(tmp19891, V7116)
+}
+__typedArg0 := tmp19891
+__typedArg1 := V7116
+return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
+})()
 
-tmp19716 := PrimTail(V7115)
-
-__e.Return(PrimCons(symlaunch_1repl, tmp19716))
+__e.TailApply(PrimFunc(symshen_4x_4launcher_4eval_1command_1h), tmp19890, tmp19892)
 return
 
 
 } else {
-tmp19717 := MakeNative(func(__e *ControlFlow) {
+tmp19949 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons_2) {
+return PrimIsPair(V7115)
+}
+__typedArg0 := V7115
+return Call(__e, PrimFunc(symcons_2), __typedArg0)
+})()
+
+var ifres19936 Obj
+
+if True == tmp19949 {
+tmp19947 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symhd) {
+return PrimHead(V7115)
+}
+__typedArg0 := V7115
+return Call(__e, PrimFunc(symhd), __typedArg0)
+})()
+
+tmp19948 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
+return PrimEqual(MakeString("--set"), tmp19947)
+}
+__typedArg0 := MakeString("--set")
+__typedArg1 := tmp19947
+return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
+})()
+
+var ifres19938 Obj
+
+if True == tmp19948 {
+tmp19945 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
+return PrimTail(V7115)
+}
+__typedArg0 := V7115
+return Call(__e, PrimFunc(symtl), __typedArg0)
+})()
+
+tmp19946 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons_2) {
+return PrimIsPair(tmp19945)
+}
+__typedArg0 := tmp19945
+return Call(__e, PrimFunc(symcons_2), __typedArg0)
+})()
+
+var ifres19940 Obj
+
+if True == tmp19946 {
+tmp19942 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
+return PrimTail(V7115)
+}
+__typedArg0 := V7115
+return Call(__e, PrimFunc(symtl), __typedArg0)
+})()
+
+tmp19943 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
+return PrimTail(tmp19942)
+}
+__typedArg0 := tmp19942
+return Call(__e, PrimFunc(symtl), __typedArg0)
+})()
+
+tmp19944 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons_2) {
+return PrimIsPair(tmp19943)
+}
+__typedArg0 := tmp19943
+return Call(__e, PrimFunc(symcons_2), __typedArg0)
+})()
+
+var ifres19941 Obj
+
+if True == tmp19944 {
+ifres19941 = True
+
+
+} else {
+ifres19941 = False
+
+
+}
+
+ifres19940 = ifres19941
+
+
+} else {
+ifres19940 = False
+
+
+}
+
+var ifres19939 Obj
+
+if True == ifres19940 {
+ifres19939 = True
+
+
+} else {
+ifres19939 = False
+
+
+}
+
+ifres19938 = ifres19939
+
+
+} else {
+ifres19938 = False
+
+
+}
+
+var ifres19937 Obj
+
+if True == ifres19938 {
+ifres19937 = True
+
+
+} else {
+ifres19937 = False
+
+
+}
+
+ifres19936 = ifres19937
+
+
+} else {
+ifres19936 = False
+
+
+}
+
+if True == ifres19936 {
+tmp19893 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
+return PrimTail(V7115)
+}
+__typedArg0 := V7115
+return Call(__e, PrimFunc(symtl), __typedArg0)
+})()
+
+tmp19894 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
+return PrimTail(tmp19893)
+}
+__typedArg0 := tmp19893
+return Call(__e, PrimFunc(symtl), __typedArg0)
+})()
+
+tmp19895 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
+return PrimTail(tmp19894)
+}
+__typedArg0 := tmp19894
+return Call(__e, PrimFunc(symtl), __typedArg0)
+})()
+
+tmp19896 := MakeNative(func(__e *ControlFlow) {
+tmp19897 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
+return PrimTail(V7115)
+}
+__typedArg0 := V7115
+return Call(__e, PrimFunc(symtl), __typedArg0)
+})()
+
+tmp19898 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symhd) {
+return PrimHead(tmp19897)
+}
+__typedArg0 := tmp19897
+return Call(__e, PrimFunc(symhd), __typedArg0)
+})()
+
+tmp19899 := Call(__e, PrimFunc(symshen_4x_4launcher_4eval_1string), tmp19898)
+
+
+tmp19900 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
+return PrimTail(V7115)
+}
+__typedArg0 := V7115
+return Call(__e, PrimFunc(symtl), __typedArg0)
+})()
+
+tmp19901 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
+return PrimTail(tmp19900)
+}
+__typedArg0 := tmp19900
+return Call(__e, PrimFunc(symtl), __typedArg0)
+})()
+
+tmp19902 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symhd) {
+return PrimHead(tmp19901)
+}
+__typedArg0 := tmp19901
+return Call(__e, PrimFunc(symhd), __typedArg0)
+})()
+
+tmp19903 := Call(__e, PrimFunc(symshen_4x_4launcher_4eval_1string), tmp19902)
+
+
+__e.Return((func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symset) {
+return PrimSet(tmp19899, tmp19903)
+}
+__typedArg0 := tmp19899
+__typedArg1 := tmp19903
+return Call(__e, PrimFunc(symset), __typedArg0, __typedArg1)
+})())
+return
+
+
+}, 0)
+
+tmp19904 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
+return PrimCons(tmp19896, V7116)
+}
+__typedArg0 := tmp19896
+__typedArg1 := V7116
+return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
+})()
+
+__e.TailApply(PrimFunc(symshen_4x_4launcher_4eval_1command_1h), tmp19895, tmp19904)
+return
+
+
+} else {
+tmp19934 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons_2) {
+return PrimIsPair(V7115)
+}
+__typedArg0 := V7115
+return Call(__e, PrimFunc(symcons_2), __typedArg0)
+})()
+
+var ifres19930 Obj
+
+if True == tmp19934 {
+tmp19932 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symhd) {
+return PrimHead(V7115)
+}
+__typedArg0 := V7115
+return Call(__e, PrimFunc(symhd), __typedArg0)
+})()
+
+tmp19933 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
+return PrimEqual(MakeString("--repl"), tmp19932)
+}
+__typedArg0 := MakeString("--repl")
+__typedArg1 := tmp19932
+return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
+})()
+
+var ifres19931 Obj
+
+if True == tmp19933 {
+ifres19931 = True
+
+
+} else {
+ifres19931 = False
+
+
+}
+
+ifres19930 = ifres19931
+
+
+} else {
+ifres19930 = False
+
+
+}
+
+if True == ifres19930 {
+tmp19905 := Call(__e, PrimFunc(symshen_4x_4launcher_4eval_1command_1h), Nil, V7116)
+
+
+_ = tmp19905
+
+tmp19906 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
+return PrimTail(V7115)
+}
+__typedArg0 := V7115
+return Call(__e, PrimFunc(symtl), __typedArg0)
+})()
+
+__e.Return((func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
+return PrimCons(symlaunch_1repl, tmp19906)
+}
+__typedArg0 := symlaunch_1repl
+__typedArg1 := tmp19906
+return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
+})())
+return
+
+
+} else {
+tmp19907 := MakeNative(func(__e *ControlFlow) {
 Freeze7119 := __e.Get(1)
 _ = Freeze7119
-tmp19731 := PrimIsPair(V7115)
+tmp19921 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons_2) {
+return PrimIsPair(V7115)
+}
+__typedArg0 := V7115
+return Call(__e, PrimFunc(symcons_2), __typedArg0)
+})()
 
-if True == tmp19731 {
-tmp19718 := MakeNative(func(__e *ControlFlow) {
+if True == tmp19921 {
+tmp19908 := MakeNative(func(__e *ControlFlow) {
 Result7118 := __e.Get(1)
 _ = Result7118
-tmp19720 := Call(__e, PrimFunc(symfail))
+tmp19910 := Call(__e, PrimFunc(symfail))
 
 
-tmp19721 := PrimEqual(Result7118, tmp19720)
+tmp19911 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
+return PrimEqual(Result7118, tmp19910)
+}
+__typedArg0 := Result7118
+__typedArg1 := tmp19910
+return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
+})()
 
-if True == tmp19721 {
+if True == tmp19911 {
 __e.TailApply(PrimFunc(symthaw), Freeze7119)
 return
 } else {
@@ -646,20 +1113,40 @@ return
 
 }, 1)
 
-tmp19722 := MakeNative(func(__e *ControlFlow) {
+tmp19912 := MakeNative(func(__e *ControlFlow) {
 W7117 := __e.Get(1)
 _ = W7117
-tmp19726 := PrimEqual(False, W7117)
+tmp19916 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
+return PrimEqual(False, W7117)
+}
+__typedArg0 := False
+__typedArg1 := W7117
+return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
+})()
 
-if True == tmp19726 {
+if True == tmp19916 {
 __e.TailApply(PrimFunc(symfail))
 return
 } else {
-tmp19723 := PrimTail(V7115)
+tmp19913 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
+return PrimTail(V7115)
+}
+__typedArg0 := V7115
+return Call(__e, PrimFunc(symtl), __typedArg0)
+})()
 
-tmp19724 := PrimCons(W7117, tmp19723)
+tmp19914 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
+return PrimCons(W7117, tmp19913)
+}
+__typedArg0 := W7117
+__typedArg1 := tmp19913
+return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
+})()
 
-__e.TailApply(PrimFunc(symshen_4x_4launcher_4eval_1command_1h), tmp19724, V7116)
+__e.TailApply(PrimFunc(symshen_4x_4launcher_4eval_1command_1h), tmp19914, V7116)
 return
 
 
@@ -668,15 +1155,21 @@ return
 
 }, 1)
 
-tmp19727 := PrimHead(V7115)
+tmp19917 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symhd) {
+return PrimHead(V7115)
+}
+__typedArg0 := V7115
+return Call(__e, PrimFunc(symhd), __typedArg0)
+})()
 
-tmp19728 := Call(__e, PrimFunc(symshen_4x_4launcher_4eval_1flag_1map), tmp19727)
+tmp19918 := Call(__e, PrimFunc(symshen_4x_4launcher_4eval_1flag_1map), tmp19917)
 
 
-tmp19729 := Call(__e, tmp19722, tmp19728)
+tmp19919 := Call(__e, tmp19912, tmp19918)
 
 
-__e.TailApply(tmp19718, tmp19729)
+__e.TailApply(tmp19908, tmp19919)
 return
 
 
@@ -688,20 +1181,64 @@ return
 
 }, 1)
 
-tmp19732 := MakeNative(func(__e *ControlFlow) {
-tmp19738 := PrimIsPair(V7115)
+tmp19922 := MakeNative(func(__e *ControlFlow) {
+tmp19928 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons_2) {
+return PrimIsPair(V7115)
+}
+__typedArg0 := V7115
+return Call(__e, PrimFunc(symcons_2), __typedArg0)
+})()
 
-if True == tmp19738 {
-tmp19733 := PrimHead(V7115)
+if True == tmp19928 {
+tmp19923 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symhd) {
+return PrimHead(V7115)
+}
+__typedArg0 := V7115
+return Call(__e, PrimFunc(symhd), __typedArg0)
+})()
 
-tmp19734 := Call(__e, PrimFunc(symshen_4app), tmp19733, MakeString(""), symshen_4a)
+tmp19924 := Call(__e, PrimFunc(symshen_4app), tmp19923, MakeString(""), symshen_4a)
 
 
-tmp19735 := PrimStringConcat(MakeString("Invalid eval argument: "), tmp19734)
+tmp19926 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
+return PrimCons((func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcn) {
+__typedS0, __typedOK0 := TypedString(MakeString("Invalid eval argument: "))
+__typedS1, __typedOK1 := TypedString(tmp19924)
+if __typedOK0 && __typedOK1 && HasCanonicalPrimitiveBinding(symcn) {
+return TypedMaterializeString((__typedS0 + __typedS1))
+}}
+__typedArg0 := MakeString("Invalid eval argument: ")
+__typedArg1 := tmp19924
+return Call(__e, PrimFunc(symcn), __typedArg0, __typedArg1)
+})(), Nil)
+}
+__typedArg0 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcn) {
+__typedS0, __typedOK0 := TypedString(MakeString("Invalid eval argument: "))
+__typedS1, __typedOK1 := TypedString(tmp19924)
+if __typedOK0 && __typedOK1 && HasCanonicalPrimitiveBinding(symcn) {
+return TypedMaterializeString((__typedS0 + __typedS1))
+}}
+__typedArg0 := MakeString("Invalid eval argument: ")
+__typedArg1 := tmp19924
+return Call(__e, PrimFunc(symcn), __typedArg0, __typedArg1)
+})()
+__typedArg1 := Nil
+return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
+})()
 
-tmp19736 := PrimCons(tmp19735, Nil)
-
-__e.Return(PrimCons(symerror, tmp19736))
+__e.Return((func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
+return PrimCons(symerror, tmp19926)
+}
+__typedArg0 := symerror
+__typedArg1 := tmp19926
+return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
+})())
 return
 
 
@@ -713,7 +1250,7 @@ return
 
 }, 0)
 
-__e.TailApply(tmp19717, tmp19732)
+__e.TailApply(tmp19907, tmp19922)
 return
 
 
@@ -737,511 +1274,887 @@ return
 
 }, 2)
 
-tmp19788 := Call(__e, ns2_1set, symshen_4x_4launcher_4eval_1command_1h, tmp19683)
+tmp19978 := Call(__e, ns2_1set, symshen_4x_4launcher_4eval_1command_1h, tmp19873)
 
 
-_ = tmp19788
+_ = tmp19978
 
-tmp19789 := MakeNative(func(__e *ControlFlow) {
+tmp19979 := MakeNative(func(__e *ControlFlow) {
 V7120 := __e.Get(1)
 _ = V7120
 __e.TailApply(PrimFunc(symshen_4x_4launcher_4eval_1command_1h), V7120, Nil)
 return
 }, 1)
 
-tmp19790 := Call(__e, ns2_1set, symshen_4x_4launcher_4eval_1command, tmp19789)
+tmp19980 := Call(__e, ns2_1set, symshen_4x_4launcher_4eval_1command, tmp19979)
 
 
-_ = tmp19790
+_ = tmp19980
 
-tmp19791 := MakeNative(func(__e *ControlFlow) {
+tmp19981 := MakeNative(func(__e *ControlFlow) {
 V7121 := __e.Get(1)
 _ = V7121
 V7122 := __e.Get(2)
 _ = V7122
-tmp19792 := PrimCons(V7121, V7122)
+tmp19982 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
+return PrimCons(V7121, V7122)
+}
+__typedArg0 := V7121
+__typedArg1 := V7122
+return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
+})()
 
-tmp19793 := PrimSet(sym_dargv_d, tmp19792)
+tmp19983 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symset) {
+return PrimSet(sym_dargv_d, tmp19982)
+}
+__typedArg0 := sym_dargv_d
+__typedArg1 := tmp19982
+return Call(__e, PrimFunc(symset), __typedArg0, __typedArg1)
+})()
 
-_ = tmp19793
+_ = tmp19983
 
-tmp19794 := Call(__e, PrimFunc(symshen_4x_4launcher_4quiet_1load), V7121)
+tmp19984 := Call(__e, PrimFunc(symshen_4x_4launcher_4quiet_1load), V7121)
 
 
-_ = tmp19794
+_ = tmp19984
 
-__e.Return(PrimCons(symsuccess, Nil))
+__e.Return((func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
+return PrimCons(symsuccess, Nil)
+}
+__typedArg0 := symsuccess
+__typedArg1 := Nil
+return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
+})())
 return
 
 
 }, 2)
 
-tmp19795 := Call(__e, ns2_1set, symshen_4x_4launcher_4script_1command, tmp19791)
+tmp19985 := Call(__e, ns2_1set, symshen_4x_4launcher_4script_1command, tmp19981)
 
 
-_ = tmp19795
+_ = tmp19985
 
-tmp19796 := MakeNative(func(__e *ControlFlow) {
+tmp19986 := MakeNative(func(__e *ControlFlow) {
 V7123 := __e.Get(1)
 _ = V7123
-tmp19883 := PrimIsPair(V7123)
+tmp20073 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons_2) {
+return PrimIsPair(V7123)
+}
+__typedArg0 := V7123
+return Call(__e, PrimFunc(symcons_2), __typedArg0)
+})()
 
-var ifres19879 Obj
+var ifres20069 Obj
 
-if True == tmp19883 {
-tmp19881 := PrimTail(V7123)
+if True == tmp20073 {
+tmp20071 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
+return PrimTail(V7123)
+}
+__typedArg0 := V7123
+return Call(__e, PrimFunc(symtl), __typedArg0)
+})()
 
-tmp19882 := PrimEqual(Nil, tmp19881)
+tmp20072 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
+return PrimEqual(Nil, tmp20071)
+}
+__typedArg0 := Nil
+__typedArg1 := tmp20071
+return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
+})()
 
-var ifres19880 Obj
+var ifres20070 Obj
 
-if True == tmp19882 {
-ifres19880 = True
+if True == tmp20072 {
+ifres20070 = True
 
 
 } else {
-ifres19880 = False
+ifres20070 = False
 
 
 }
 
-ifres19879 = ifres19880
+ifres20069 = ifres20070
 
 
 } else {
-ifres19879 = False
+ifres20069 = False
 
 
 }
 
-if True == ifres19879 {
-__e.Return(PrimCons(symlaunch_1repl, Nil))
+if True == ifres20069 {
+__e.Return((func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
+return PrimCons(symlaunch_1repl, Nil)
+}
+__typedArg0 := symlaunch_1repl
+__typedArg1 := Nil
+return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
+})())
 return
 } else {
-tmp19877 := PrimIsPair(V7123)
+tmp20067 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons_2) {
+return PrimIsPair(V7123)
+}
+__typedArg0 := V7123
+return Call(__e, PrimFunc(symcons_2), __typedArg0)
+})()
 
-var ifres19868 Obj
+var ifres20058 Obj
 
-if True == tmp19877 {
-tmp19875 := PrimTail(V7123)
+if True == tmp20067 {
+tmp20065 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
+return PrimTail(V7123)
+}
+__typedArg0 := V7123
+return Call(__e, PrimFunc(symtl), __typedArg0)
+})()
 
-tmp19876 := PrimIsPair(tmp19875)
+tmp20066 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons_2) {
+return PrimIsPair(tmp20065)
+}
+__typedArg0 := tmp20065
+return Call(__e, PrimFunc(symcons_2), __typedArg0)
+})()
 
-var ifres19870 Obj
+var ifres20060 Obj
 
-if True == tmp19876 {
-tmp19872 := PrimTail(V7123)
+if True == tmp20066 {
+tmp20062 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
+return PrimTail(V7123)
+}
+__typedArg0 := V7123
+return Call(__e, PrimFunc(symtl), __typedArg0)
+})()
 
-tmp19873 := PrimHead(tmp19872)
+tmp20063 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symhd) {
+return PrimHead(tmp20062)
+}
+__typedArg0 := tmp20062
+return Call(__e, PrimFunc(symhd), __typedArg0)
+})()
 
-tmp19874 := PrimEqual(MakeString("--help"), tmp19873)
+tmp20064 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
+return PrimEqual(MakeString("--help"), tmp20063)
+}
+__typedArg0 := MakeString("--help")
+__typedArg1 := tmp20063
+return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
+})()
 
-var ifres19871 Obj
+var ifres20061 Obj
 
-if True == tmp19874 {
-ifres19871 = True
+if True == tmp20064 {
+ifres20061 = True
 
 
 } else {
-ifres19871 = False
+ifres20061 = False
 
 
 }
 
-ifres19870 = ifres19871
+ifres20060 = ifres20061
 
 
 } else {
-ifres19870 = False
+ifres20060 = False
 
 
 }
 
-var ifres19869 Obj
+var ifres20059 Obj
 
-if True == ifres19870 {
-ifres19869 = True
+if True == ifres20060 {
+ifres20059 = True
 
 
 } else {
-ifres19869 = False
+ifres20059 = False
 
 
 }
 
-ifres19868 = ifres19869
+ifres20058 = ifres20059
 
 
 } else {
-ifres19868 = False
+ifres20058 = False
 
 
 }
 
-if True == ifres19868 {
-tmp19797 := PrimHead(V7123)
-
-tmp19798 := Call(__e, PrimFunc(symshen_4x_4launcher_4help_1text), tmp19797)
-
-
-tmp19799 := PrimCons(tmp19798, Nil)
-
-__e.Return(PrimCons(symshow_1help, tmp19799))
-return
-
-
-} else {
-tmp19866 := PrimIsPair(V7123)
-
-var ifres19857 Obj
-
-if True == tmp19866 {
-tmp19864 := PrimTail(V7123)
-
-tmp19865 := PrimIsPair(tmp19864)
-
-var ifres19859 Obj
-
-if True == tmp19865 {
-tmp19861 := PrimTail(V7123)
-
-tmp19862 := PrimHead(tmp19861)
-
-tmp19863 := PrimEqual(MakeString("--version"), tmp19862)
-
-var ifres19860 Obj
-
-if True == tmp19863 {
-ifres19860 = True
-
-
-} else {
-ifres19860 = False
-
-
+if True == ifres20058 {
+tmp19987 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symhd) {
+return PrimHead(V7123)
 }
+__typedArg0 := V7123
+return Call(__e, PrimFunc(symhd), __typedArg0)
+})()
 
-ifres19859 = ifres19860
+tmp19988 := Call(__e, PrimFunc(symshen_4x_4launcher_4help_1text), tmp19987)
 
 
-} else {
-ifres19859 = False
-
-
+tmp19989 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
+return PrimCons(tmp19988, Nil)
 }
+__typedArg0 := tmp19988
+__typedArg1 := Nil
+return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
+})()
 
-var ifres19858 Obj
-
-if True == ifres19859 {
-ifres19858 = True
-
-
-} else {
-ifres19858 = False
-
-
+__e.Return((func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
+return PrimCons(symshow_1help, tmp19989)
 }
-
-ifres19857 = ifres19858
-
-
-} else {
-ifres19857 = False
-
-
-}
-
-if True == ifres19857 {
-tmp19800 := Call(__e, PrimFunc(symshen_4x_4launcher_4version_1string))
-
-
-tmp19801 := PrimCons(tmp19800, Nil)
-
-__e.Return(PrimCons(symsuccess, tmp19801))
-return
-
-
-} else {
-tmp19855 := PrimIsPair(V7123)
-
-var ifres19846 Obj
-
-if True == tmp19855 {
-tmp19853 := PrimTail(V7123)
-
-tmp19854 := PrimIsPair(tmp19853)
-
-var ifres19848 Obj
-
-if True == tmp19854 {
-tmp19850 := PrimTail(V7123)
-
-tmp19851 := PrimHead(tmp19850)
-
-tmp19852 := PrimEqual(MakeString("repl"), tmp19851)
-
-var ifres19849 Obj
-
-if True == tmp19852 {
-ifres19849 = True
-
-
-} else {
-ifres19849 = False
-
-
-}
-
-ifres19848 = ifres19849
-
-
-} else {
-ifres19848 = False
-
-
-}
-
-var ifres19847 Obj
-
-if True == ifres19848 {
-ifres19847 = True
-
-
-} else {
-ifres19847 = False
-
-
-}
-
-ifres19846 = ifres19847
-
-
-} else {
-ifres19846 = False
-
-
-}
-
-if True == ifres19846 {
-tmp19802 := PrimTail(V7123)
-
-tmp19803 := PrimTail(tmp19802)
-
-__e.Return(PrimCons(symlaunch_1repl, tmp19803))
+__typedArg0 := symshow_1help
+__typedArg1 := tmp19989
+return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
+})())
 return
 
 
 } else {
-tmp19844 := PrimIsPair(V7123)
+tmp20056 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons_2) {
+return PrimIsPair(V7123)
+}
+__typedArg0 := V7123
+return Call(__e, PrimFunc(symcons_2), __typedArg0)
+})()
 
-var ifres19830 Obj
+var ifres20047 Obj
 
-if True == tmp19844 {
-tmp19842 := PrimTail(V7123)
+if True == tmp20056 {
+tmp20054 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
+return PrimTail(V7123)
+}
+__typedArg0 := V7123
+return Call(__e, PrimFunc(symtl), __typedArg0)
+})()
 
-tmp19843 := PrimIsPair(tmp19842)
+tmp20055 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons_2) {
+return PrimIsPair(tmp20054)
+}
+__typedArg0 := tmp20054
+return Call(__e, PrimFunc(symcons_2), __typedArg0)
+})()
 
-var ifres19832 Obj
+var ifres20049 Obj
 
-if True == tmp19843 {
-tmp19839 := PrimTail(V7123)
+if True == tmp20055 {
+tmp20051 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
+return PrimTail(V7123)
+}
+__typedArg0 := V7123
+return Call(__e, PrimFunc(symtl), __typedArg0)
+})()
 
-tmp19840 := PrimHead(tmp19839)
+tmp20052 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symhd) {
+return PrimHead(tmp20051)
+}
+__typedArg0 := tmp20051
+return Call(__e, PrimFunc(symhd), __typedArg0)
+})()
 
-tmp19841 := PrimEqual(MakeString("script"), tmp19840)
+tmp20053 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
+return PrimEqual(MakeString("--version"), tmp20052)
+}
+__typedArg0 := MakeString("--version")
+__typedArg1 := tmp20052
+return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
+})()
 
-var ifres19834 Obj
+var ifres20050 Obj
 
-if True == tmp19841 {
-tmp19836 := PrimTail(V7123)
-
-tmp19837 := PrimTail(tmp19836)
-
-tmp19838 := PrimIsPair(tmp19837)
-
-var ifres19835 Obj
-
-if True == tmp19838 {
-ifres19835 = True
+if True == tmp20053 {
+ifres20050 = True
 
 
 } else {
-ifres19835 = False
+ifres20050 = False
 
 
 }
 
-ifres19834 = ifres19835
+ifres20049 = ifres20050
 
 
 } else {
-ifres19834 = False
+ifres20049 = False
 
 
 }
 
-var ifres19833 Obj
+var ifres20048 Obj
 
-if True == ifres19834 {
-ifres19833 = True
+if True == ifres20049 {
+ifres20048 = True
 
 
 } else {
-ifres19833 = False
+ifres20048 = False
 
 
 }
 
-ifres19832 = ifres19833
+ifres20047 = ifres20048
 
 
 } else {
-ifres19832 = False
+ifres20047 = False
 
 
 }
 
-var ifres19831 Obj
-
-if True == ifres19832 {
-ifres19831 = True
+if True == ifres20047 {
+tmp19990 := Call(__e, PrimFunc(symshen_4x_4launcher_4version_1string))
 
 
-} else {
-ifres19831 = False
-
-
+tmp19991 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
+return PrimCons(tmp19990, Nil)
 }
+__typedArg0 := tmp19990
+__typedArg1 := Nil
+return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
+})()
 
-ifres19830 = ifres19831
-
-
-} else {
-ifres19830 = False
-
-
+__e.Return((func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
+return PrimCons(symsuccess, tmp19991)
 }
-
-if True == ifres19830 {
-tmp19804 := PrimTail(V7123)
-
-tmp19805 := PrimTail(tmp19804)
-
-tmp19806 := PrimHead(tmp19805)
-
-tmp19807 := PrimTail(V7123)
-
-tmp19808 := PrimTail(tmp19807)
-
-tmp19809 := PrimTail(tmp19808)
-
-__e.TailApply(PrimFunc(symshen_4x_4launcher_4script_1command), tmp19806, tmp19809)
+__typedArg0 := symsuccess
+__typedArg1 := tmp19991
+return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
+})())
 return
 
 
 } else {
-tmp19828 := PrimIsPair(V7123)
+tmp20045 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons_2) {
+return PrimIsPair(V7123)
+}
+__typedArg0 := V7123
+return Call(__e, PrimFunc(symcons_2), __typedArg0)
+})()
 
-var ifres19819 Obj
+var ifres20036 Obj
 
-if True == tmp19828 {
-tmp19826 := PrimTail(V7123)
+if True == tmp20045 {
+tmp20043 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
+return PrimTail(V7123)
+}
+__typedArg0 := V7123
+return Call(__e, PrimFunc(symtl), __typedArg0)
+})()
 
-tmp19827 := PrimIsPair(tmp19826)
+tmp20044 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons_2) {
+return PrimIsPair(tmp20043)
+}
+__typedArg0 := tmp20043
+return Call(__e, PrimFunc(symcons_2), __typedArg0)
+})()
 
-var ifres19821 Obj
+var ifres20038 Obj
 
-if True == tmp19827 {
-tmp19823 := PrimTail(V7123)
+if True == tmp20044 {
+tmp20040 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
+return PrimTail(V7123)
+}
+__typedArg0 := V7123
+return Call(__e, PrimFunc(symtl), __typedArg0)
+})()
 
-tmp19824 := PrimHead(tmp19823)
+tmp20041 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symhd) {
+return PrimHead(tmp20040)
+}
+__typedArg0 := tmp20040
+return Call(__e, PrimFunc(symhd), __typedArg0)
+})()
 
-tmp19825 := PrimEqual(MakeString("eval"), tmp19824)
+tmp20042 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
+return PrimEqual(MakeString("repl"), tmp20041)
+}
+__typedArg0 := MakeString("repl")
+__typedArg1 := tmp20041
+return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
+})()
 
-var ifres19822 Obj
+var ifres20039 Obj
 
-if True == tmp19825 {
-ifres19822 = True
+if True == tmp20042 {
+ifres20039 = True
 
 
 } else {
-ifres19822 = False
+ifres20039 = False
 
 
 }
 
-ifres19821 = ifres19822
+ifres20038 = ifres20039
 
 
 } else {
-ifres19821 = False
+ifres20038 = False
 
 
 }
 
-var ifres19820 Obj
+var ifres20037 Obj
 
-if True == ifres19821 {
-ifres19820 = True
+if True == ifres20038 {
+ifres20037 = True
 
 
 } else {
-ifres19820 = False
+ifres20037 = False
 
 
 }
 
-ifres19819 = ifres19820
+ifres20036 = ifres20037
 
 
 } else {
-ifres19819 = False
+ifres20036 = False
 
 
 }
 
-if True == ifres19819 {
-tmp19810 := PrimTail(V7123)
+if True == ifres20036 {
+tmp19992 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
+return PrimTail(V7123)
+}
+__typedArg0 := V7123
+return Call(__e, PrimFunc(symtl), __typedArg0)
+})()
 
-tmp19811 := PrimTail(tmp19810)
+tmp19993 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
+return PrimTail(tmp19992)
+}
+__typedArg0 := tmp19992
+return Call(__e, PrimFunc(symtl), __typedArg0)
+})()
 
-__e.TailApply(PrimFunc(symshen_4x_4launcher_4eval_1command), tmp19811)
+__e.Return((func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
+return PrimCons(symlaunch_1repl, tmp19993)
+}
+__typedArg0 := symlaunch_1repl
+__typedArg1 := tmp19993
+return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
+})())
 return
 
 
 } else {
-tmp19817 := PrimIsPair(V7123)
+tmp20034 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons_2) {
+return PrimIsPair(V7123)
+}
+__typedArg0 := V7123
+return Call(__e, PrimFunc(symcons_2), __typedArg0)
+})()
 
-var ifres19813 Obj
+var ifres20020 Obj
 
-if True == tmp19817 {
-tmp19815 := PrimTail(V7123)
+if True == tmp20034 {
+tmp20032 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
+return PrimTail(V7123)
+}
+__typedArg0 := V7123
+return Call(__e, PrimFunc(symtl), __typedArg0)
+})()
 
-tmp19816 := PrimIsPair(tmp19815)
+tmp20033 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons_2) {
+return PrimIsPair(tmp20032)
+}
+__typedArg0 := tmp20032
+return Call(__e, PrimFunc(symcons_2), __typedArg0)
+})()
 
-var ifres19814 Obj
+var ifres20022 Obj
 
-if True == tmp19816 {
-ifres19814 = True
+if True == tmp20033 {
+tmp20029 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
+return PrimTail(V7123)
+}
+__typedArg0 := V7123
+return Call(__e, PrimFunc(symtl), __typedArg0)
+})()
+
+tmp20030 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symhd) {
+return PrimHead(tmp20029)
+}
+__typedArg0 := tmp20029
+return Call(__e, PrimFunc(symhd), __typedArg0)
+})()
+
+tmp20031 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
+return PrimEqual(MakeString("script"), tmp20030)
+}
+__typedArg0 := MakeString("script")
+__typedArg1 := tmp20030
+return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
+})()
+
+var ifres20024 Obj
+
+if True == tmp20031 {
+tmp20026 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
+return PrimTail(V7123)
+}
+__typedArg0 := V7123
+return Call(__e, PrimFunc(symtl), __typedArg0)
+})()
+
+tmp20027 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
+return PrimTail(tmp20026)
+}
+__typedArg0 := tmp20026
+return Call(__e, PrimFunc(symtl), __typedArg0)
+})()
+
+tmp20028 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons_2) {
+return PrimIsPair(tmp20027)
+}
+__typedArg0 := tmp20027
+return Call(__e, PrimFunc(symcons_2), __typedArg0)
+})()
+
+var ifres20025 Obj
+
+if True == tmp20028 {
+ifres20025 = True
 
 
 } else {
-ifres19814 = False
+ifres20025 = False
 
 
 }
 
-ifres19813 = ifres19814
+ifres20024 = ifres20025
 
 
 } else {
-ifres19813 = False
+ifres20024 = False
 
 
 }
 
-if True == ifres19813 {
-__e.Return(PrimCons(symunknown_1arguments, V7123))
+var ifres20023 Obj
+
+if True == ifres20024 {
+ifres20023 = True
+
+
+} else {
+ifres20023 = False
+
+
+}
+
+ifres20022 = ifres20023
+
+
+} else {
+ifres20022 = False
+
+
+}
+
+var ifres20021 Obj
+
+if True == ifres20022 {
+ifres20021 = True
+
+
+} else {
+ifres20021 = False
+
+
+}
+
+ifres20020 = ifres20021
+
+
+} else {
+ifres20020 = False
+
+
+}
+
+if True == ifres20020 {
+tmp19994 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
+return PrimTail(V7123)
+}
+__typedArg0 := V7123
+return Call(__e, PrimFunc(symtl), __typedArg0)
+})()
+
+tmp19995 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
+return PrimTail(tmp19994)
+}
+__typedArg0 := tmp19994
+return Call(__e, PrimFunc(symtl), __typedArg0)
+})()
+
+tmp19996 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symhd) {
+return PrimHead(tmp19995)
+}
+__typedArg0 := tmp19995
+return Call(__e, PrimFunc(symhd), __typedArg0)
+})()
+
+tmp19997 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
+return PrimTail(V7123)
+}
+__typedArg0 := V7123
+return Call(__e, PrimFunc(symtl), __typedArg0)
+})()
+
+tmp19998 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
+return PrimTail(tmp19997)
+}
+__typedArg0 := tmp19997
+return Call(__e, PrimFunc(symtl), __typedArg0)
+})()
+
+tmp19999 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
+return PrimTail(tmp19998)
+}
+__typedArg0 := tmp19998
+return Call(__e, PrimFunc(symtl), __typedArg0)
+})()
+
+__e.TailApply(PrimFunc(symshen_4x_4launcher_4script_1command), tmp19996, tmp19999)
+return
+
+
+} else {
+tmp20018 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons_2) {
+return PrimIsPair(V7123)
+}
+__typedArg0 := V7123
+return Call(__e, PrimFunc(symcons_2), __typedArg0)
+})()
+
+var ifres20009 Obj
+
+if True == tmp20018 {
+tmp20016 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
+return PrimTail(V7123)
+}
+__typedArg0 := V7123
+return Call(__e, PrimFunc(symtl), __typedArg0)
+})()
+
+tmp20017 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons_2) {
+return PrimIsPair(tmp20016)
+}
+__typedArg0 := tmp20016
+return Call(__e, PrimFunc(symcons_2), __typedArg0)
+})()
+
+var ifres20011 Obj
+
+if True == tmp20017 {
+tmp20013 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
+return PrimTail(V7123)
+}
+__typedArg0 := V7123
+return Call(__e, PrimFunc(symtl), __typedArg0)
+})()
+
+tmp20014 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symhd) {
+return PrimHead(tmp20013)
+}
+__typedArg0 := tmp20013
+return Call(__e, PrimFunc(symhd), __typedArg0)
+})()
+
+tmp20015 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
+return PrimEqual(MakeString("eval"), tmp20014)
+}
+__typedArg0 := MakeString("eval")
+__typedArg1 := tmp20014
+return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
+})()
+
+var ifres20012 Obj
+
+if True == tmp20015 {
+ifres20012 = True
+
+
+} else {
+ifres20012 = False
+
+
+}
+
+ifres20011 = ifres20012
+
+
+} else {
+ifres20011 = False
+
+
+}
+
+var ifres20010 Obj
+
+if True == ifres20011 {
+ifres20010 = True
+
+
+} else {
+ifres20010 = False
+
+
+}
+
+ifres20009 = ifres20010
+
+
+} else {
+ifres20009 = False
+
+
+}
+
+if True == ifres20009 {
+tmp20000 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
+return PrimTail(V7123)
+}
+__typedArg0 := V7123
+return Call(__e, PrimFunc(symtl), __typedArg0)
+})()
+
+tmp20001 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
+return PrimTail(tmp20000)
+}
+__typedArg0 := tmp20000
+return Call(__e, PrimFunc(symtl), __typedArg0)
+})()
+
+__e.TailApply(PrimFunc(symshen_4x_4launcher_4eval_1command), tmp20001)
+return
+
+
+} else {
+tmp20007 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons_2) {
+return PrimIsPair(V7123)
+}
+__typedArg0 := V7123
+return Call(__e, PrimFunc(symcons_2), __typedArg0)
+})()
+
+var ifres20003 Obj
+
+if True == tmp20007 {
+tmp20005 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
+return PrimTail(V7123)
+}
+__typedArg0 := V7123
+return Call(__e, PrimFunc(symtl), __typedArg0)
+})()
+
+tmp20006 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons_2) {
+return PrimIsPair(tmp20005)
+}
+__typedArg0 := tmp20005
+return Call(__e, PrimFunc(symcons_2), __typedArg0)
+})()
+
+var ifres20004 Obj
+
+if True == tmp20006 {
+ifres20004 = True
+
+
+} else {
+ifres20004 = False
+
+
+}
+
+ifres20003 = ifres20004
+
+
+} else {
+ifres20003 = False
+
+
+}
+
+if True == ifres20003 {
+__e.Return((func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
+return PrimCons(symunknown_1arguments, V7123)
+}
+__typedArg0 := symunknown_1arguments
+__typedArg1 := V7123
+return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
+})())
 return
 } else {
 __e.TailApply(PrimFunc(symshen_4f_1error), symshen_4x_4launcher_4launch_1shen)
@@ -1269,537 +2182,881 @@ return
 
 }, 1)
 
-tmp19884 := Call(__e, ns2_1set, symshen_4x_4launcher_4launch_1shen, tmp19796)
+tmp20074 := Call(__e, ns2_1set, symshen_4x_4launcher_4launch_1shen, tmp19986)
 
 
-_ = tmp19884
+_ = tmp20074
 
-tmp19885 := MakeNative(func(__e *ControlFlow) {
+tmp20075 := MakeNative(func(__e *ControlFlow) {
 V7126 := __e.Get(1)
 _ = V7126
-tmp19984 := PrimIsPair(V7126)
+tmp20174 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons_2) {
+return PrimIsPair(V7126)
+}
+__typedArg0 := V7126
+return Call(__e, PrimFunc(symcons_2), __typedArg0)
+})()
 
-var ifres19976 Obj
+var ifres20166 Obj
 
-if True == tmp19984 {
-tmp19982 := PrimHead(V7126)
+if True == tmp20174 {
+tmp20172 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symhd) {
+return PrimHead(V7126)
+}
+__typedArg0 := V7126
+return Call(__e, PrimFunc(symhd), __typedArg0)
+})()
 
-tmp19983 := PrimEqual(symsuccess, tmp19982)
+tmp20173 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
+return PrimEqual(symsuccess, tmp20172)
+}
+__typedArg0 := symsuccess
+__typedArg1 := tmp20172
+return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
+})()
 
-var ifres19978 Obj
+var ifres20168 Obj
 
-if True == tmp19983 {
-tmp19980 := PrimTail(V7126)
+if True == tmp20173 {
+tmp20170 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
+return PrimTail(V7126)
+}
+__typedArg0 := V7126
+return Call(__e, PrimFunc(symtl), __typedArg0)
+})()
 
-tmp19981 := PrimEqual(Nil, tmp19980)
+tmp20171 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
+return PrimEqual(Nil, tmp20170)
+}
+__typedArg0 := Nil
+__typedArg1 := tmp20170
+return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
+})()
 
-var ifres19979 Obj
+var ifres20169 Obj
 
-if True == tmp19981 {
-ifres19979 = True
+if True == tmp20171 {
+ifres20169 = True
 
 
 } else {
-ifres19979 = False
+ifres20169 = False
 
 
 }
 
-ifres19978 = ifres19979
+ifres20168 = ifres20169
 
 
 } else {
-ifres19978 = False
+ifres20168 = False
 
 
 }
 
-var ifres19977 Obj
+var ifres20167 Obj
 
-if True == ifres19978 {
-ifres19977 = True
+if True == ifres20168 {
+ifres20167 = True
 
 
 } else {
-ifres19977 = False
+ifres20167 = False
 
 
 }
 
-ifres19976 = ifres19977
+ifres20166 = ifres20167
 
 
 } else {
-ifres19976 = False
+ifres20166 = False
 
 
 }
 
-if True == ifres19976 {
+if True == ifres20166 {
 __e.Return(symshen_4x_4launcher_4done)
 return
 } else {
-tmp19974 := PrimIsPair(V7126)
+tmp20164 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons_2) {
+return PrimIsPair(V7126)
+}
+__typedArg0 := V7126
+return Call(__e, PrimFunc(symcons_2), __typedArg0)
+})()
 
-var ifres19961 Obj
+var ifres20151 Obj
 
-if True == tmp19974 {
-tmp19972 := PrimHead(V7126)
+if True == tmp20164 {
+tmp20162 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symhd) {
+return PrimHead(V7126)
+}
+__typedArg0 := V7126
+return Call(__e, PrimFunc(symhd), __typedArg0)
+})()
 
-tmp19973 := PrimEqual(symsuccess, tmp19972)
+tmp20163 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
+return PrimEqual(symsuccess, tmp20162)
+}
+__typedArg0 := symsuccess
+__typedArg1 := tmp20162
+return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
+})()
 
-var ifres19963 Obj
+var ifres20153 Obj
 
-if True == tmp19973 {
-tmp19970 := PrimTail(V7126)
+if True == tmp20163 {
+tmp20160 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
+return PrimTail(V7126)
+}
+__typedArg0 := V7126
+return Call(__e, PrimFunc(symtl), __typedArg0)
+})()
 
-tmp19971 := PrimIsPair(tmp19970)
+tmp20161 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons_2) {
+return PrimIsPair(tmp20160)
+}
+__typedArg0 := tmp20160
+return Call(__e, PrimFunc(symcons_2), __typedArg0)
+})()
 
-var ifres19965 Obj
+var ifres20155 Obj
 
-if True == tmp19971 {
-tmp19967 := PrimTail(V7126)
+if True == tmp20161 {
+tmp20157 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
+return PrimTail(V7126)
+}
+__typedArg0 := V7126
+return Call(__e, PrimFunc(symtl), __typedArg0)
+})()
 
-tmp19968 := PrimTail(tmp19967)
+tmp20158 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
+return PrimTail(tmp20157)
+}
+__typedArg0 := tmp20157
+return Call(__e, PrimFunc(symtl), __typedArg0)
+})()
 
-tmp19969 := PrimEqual(Nil, tmp19968)
+tmp20159 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
+return PrimEqual(Nil, tmp20158)
+}
+__typedArg0 := Nil
+__typedArg1 := tmp20158
+return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
+})()
 
-var ifres19966 Obj
+var ifres20156 Obj
 
-if True == tmp19969 {
-ifres19966 = True
+if True == tmp20159 {
+ifres20156 = True
 
 
 } else {
-ifres19966 = False
+ifres20156 = False
 
 
 }
 
-ifres19965 = ifres19966
+ifres20155 = ifres20156
 
 
 } else {
-ifres19965 = False
+ifres20155 = False
 
 
 }
 
-var ifres19964 Obj
+var ifres20154 Obj
 
-if True == ifres19965 {
-ifres19964 = True
+if True == ifres20155 {
+ifres20154 = True
 
 
 } else {
-ifres19964 = False
+ifres20154 = False
 
 
 }
 
-ifres19963 = ifres19964
+ifres20153 = ifres20154
 
 
 } else {
-ifres19963 = False
+ifres20153 = False
 
 
 }
 
-var ifres19962 Obj
+var ifres20152 Obj
 
-if True == ifres19963 {
-ifres19962 = True
+if True == ifres20153 {
+ifres20152 = True
 
 
 } else {
-ifres19962 = False
+ifres20152 = False
 
 
 }
 
-ifres19961 = ifres19962
+ifres20151 = ifres20152
 
 
 } else {
-ifres19961 = False
+ifres20151 = False
 
 
 }
 
-if True == ifres19961 {
-tmp19886 := PrimTail(V7126)
+if True == ifres20151 {
+tmp20076 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
+return PrimTail(V7126)
+}
+__typedArg0 := V7126
+return Call(__e, PrimFunc(symtl), __typedArg0)
+})()
 
-tmp19887 := PrimHead(tmp19886)
+tmp20077 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symhd) {
+return PrimHead(tmp20076)
+}
+__typedArg0 := tmp20076
+return Call(__e, PrimFunc(symhd), __typedArg0)
+})()
 
-tmp19888 := Call(__e, PrimFunc(symshen_4app), tmp19887, MakeString("\n"), symshen_4a)
+tmp20078 := Call(__e, PrimFunc(symshen_4app), tmp20077, MakeString("\n"), symshen_4a)
 
 
-tmp19889 := Call(__e, PrimFunc(symstoutput))
+tmp20079 := Call(__e, PrimFunc(symstoutput))
 
 
-__e.TailApply(PrimFunc(sympr), tmp19888, tmp19889)
+__e.TailApply(PrimFunc(sympr), tmp20078, tmp20079)
 return
 
 
 } else {
-tmp19959 := PrimIsPair(V7126)
+tmp20149 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons_2) {
+return PrimIsPair(V7126)
+}
+__typedArg0 := V7126
+return Call(__e, PrimFunc(symcons_2), __typedArg0)
+})()
 
-var ifres19946 Obj
+var ifres20136 Obj
 
-if True == tmp19959 {
-tmp19957 := PrimHead(V7126)
+if True == tmp20149 {
+tmp20147 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symhd) {
+return PrimHead(V7126)
+}
+__typedArg0 := V7126
+return Call(__e, PrimFunc(symhd), __typedArg0)
+})()
 
-tmp19958 := PrimEqual(symerror, tmp19957)
+tmp20148 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
+return PrimEqual(symerror, tmp20147)
+}
+__typedArg0 := symerror
+__typedArg1 := tmp20147
+return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
+})()
 
-var ifres19948 Obj
+var ifres20138 Obj
 
-if True == tmp19958 {
-tmp19955 := PrimTail(V7126)
+if True == tmp20148 {
+tmp20145 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
+return PrimTail(V7126)
+}
+__typedArg0 := V7126
+return Call(__e, PrimFunc(symtl), __typedArg0)
+})()
 
-tmp19956 := PrimIsPair(tmp19955)
+tmp20146 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons_2) {
+return PrimIsPair(tmp20145)
+}
+__typedArg0 := tmp20145
+return Call(__e, PrimFunc(symcons_2), __typedArg0)
+})()
 
-var ifres19950 Obj
+var ifres20140 Obj
 
-if True == tmp19956 {
-tmp19952 := PrimTail(V7126)
+if True == tmp20146 {
+tmp20142 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
+return PrimTail(V7126)
+}
+__typedArg0 := V7126
+return Call(__e, PrimFunc(symtl), __typedArg0)
+})()
 
-tmp19953 := PrimTail(tmp19952)
+tmp20143 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
+return PrimTail(tmp20142)
+}
+__typedArg0 := tmp20142
+return Call(__e, PrimFunc(symtl), __typedArg0)
+})()
 
-tmp19954 := PrimEqual(Nil, tmp19953)
+tmp20144 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
+return PrimEqual(Nil, tmp20143)
+}
+__typedArg0 := Nil
+__typedArg1 := tmp20143
+return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
+})()
 
-var ifres19951 Obj
+var ifres20141 Obj
 
-if True == tmp19954 {
-ifres19951 = True
+if True == tmp20144 {
+ifres20141 = True
 
 
 } else {
-ifres19951 = False
+ifres20141 = False
 
 
 }
 
-ifres19950 = ifres19951
+ifres20140 = ifres20141
 
 
 } else {
-ifres19950 = False
+ifres20140 = False
 
 
 }
 
-var ifres19949 Obj
+var ifres20139 Obj
 
-if True == ifres19950 {
-ifres19949 = True
+if True == ifres20140 {
+ifres20139 = True
 
 
 } else {
-ifres19949 = False
+ifres20139 = False
 
 
 }
 
-ifres19948 = ifres19949
+ifres20138 = ifres20139
 
 
 } else {
-ifres19948 = False
+ifres20138 = False
 
 
 }
 
-var ifres19947 Obj
+var ifres20137 Obj
 
-if True == ifres19948 {
-ifres19947 = True
+if True == ifres20138 {
+ifres20137 = True
 
 
 } else {
-ifres19947 = False
+ifres20137 = False
 
 
 }
 
-ifres19946 = ifres19947
+ifres20136 = ifres20137
 
 
 } else {
-ifres19946 = False
+ifres20136 = False
 
 
 }
 
-if True == ifres19946 {
-tmp19890 := PrimTail(V7126)
+if True == ifres20136 {
+tmp20080 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
+return PrimTail(V7126)
+}
+__typedArg0 := V7126
+return Call(__e, PrimFunc(symtl), __typedArg0)
+})()
 
-tmp19891 := PrimHead(tmp19890)
+tmp20081 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symhd) {
+return PrimHead(tmp20080)
+}
+__typedArg0 := tmp20080
+return Call(__e, PrimFunc(symhd), __typedArg0)
+})()
 
-tmp19892 := Call(__e, PrimFunc(symshen_4app), tmp19891, MakeString("\n"), symshen_4a)
+tmp20082 := Call(__e, PrimFunc(symshen_4app), tmp20081, MakeString("\n"), symshen_4a)
 
 
-tmp19893 := PrimStringConcat(MakeString("ERROR: "), tmp19892)
+tmp20083 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcn) {
+__typedS0, __typedOK0 := TypedString(MakeString("ERROR: "))
+__typedS1, __typedOK1 := TypedString(tmp20082)
+if __typedOK0 && __typedOK1 && HasCanonicalPrimitiveBinding(symcn) {
+return TypedMaterializeString((__typedS0 + __typedS1))
+}}
+__typedArg0 := MakeString("ERROR: ")
+__typedArg1 := tmp20082
+return Call(__e, PrimFunc(symcn), __typedArg0, __typedArg1)
+})()
 
-tmp19894 := Call(__e, PrimFunc(symstoutput))
+tmp20084 := Call(__e, PrimFunc(symstoutput))
 
 
-__e.TailApply(PrimFunc(sympr), tmp19893, tmp19894)
+__e.TailApply(PrimFunc(sympr), tmp20083, tmp20084)
 return
 
 
 } else {
-tmp19944 := PrimIsPair(V7126)
+tmp20134 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons_2) {
+return PrimIsPair(V7126)
+}
+__typedArg0 := V7126
+return Call(__e, PrimFunc(symcons_2), __typedArg0)
+})()
 
-var ifres19940 Obj
+var ifres20130 Obj
 
-if True == tmp19944 {
-tmp19942 := PrimHead(V7126)
+if True == tmp20134 {
+tmp20132 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symhd) {
+return PrimHead(V7126)
+}
+__typedArg0 := V7126
+return Call(__e, PrimFunc(symhd), __typedArg0)
+})()
 
-tmp19943 := PrimEqual(symlaunch_1repl, tmp19942)
+tmp20133 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
+return PrimEqual(symlaunch_1repl, tmp20132)
+}
+__typedArg0 := symlaunch_1repl
+__typedArg1 := tmp20132
+return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
+})()
 
-var ifres19941 Obj
+var ifres20131 Obj
 
-if True == tmp19943 {
-ifres19941 = True
+if True == tmp20133 {
+ifres20131 = True
 
 
 } else {
-ifres19941 = False
+ifres20131 = False
 
 
 }
 
-ifres19940 = ifres19941
+ifres20130 = ifres20131
 
 
 } else {
-ifres19940 = False
+ifres20130 = False
 
 
 }
 
-if True == ifres19940 {
+if True == ifres20130 {
 __e.TailApply(PrimFunc(symshen_4repl))
 return
 } else {
-tmp19938 := PrimIsPair(V7126)
+tmp20128 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons_2) {
+return PrimIsPair(V7126)
+}
+__typedArg0 := V7126
+return Call(__e, PrimFunc(symcons_2), __typedArg0)
+})()
 
-var ifres19925 Obj
+var ifres20115 Obj
 
-if True == tmp19938 {
-tmp19936 := PrimHead(V7126)
+if True == tmp20128 {
+tmp20126 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symhd) {
+return PrimHead(V7126)
+}
+__typedArg0 := V7126
+return Call(__e, PrimFunc(symhd), __typedArg0)
+})()
 
-tmp19937 := PrimEqual(symshow_1help, tmp19936)
+tmp20127 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
+return PrimEqual(symshow_1help, tmp20126)
+}
+__typedArg0 := symshow_1help
+__typedArg1 := tmp20126
+return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
+})()
 
-var ifres19927 Obj
+var ifres20117 Obj
 
-if True == tmp19937 {
-tmp19934 := PrimTail(V7126)
+if True == tmp20127 {
+tmp20124 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
+return PrimTail(V7126)
+}
+__typedArg0 := V7126
+return Call(__e, PrimFunc(symtl), __typedArg0)
+})()
 
-tmp19935 := PrimIsPair(tmp19934)
+tmp20125 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons_2) {
+return PrimIsPair(tmp20124)
+}
+__typedArg0 := tmp20124
+return Call(__e, PrimFunc(symcons_2), __typedArg0)
+})()
 
-var ifres19929 Obj
+var ifres20119 Obj
 
-if True == tmp19935 {
-tmp19931 := PrimTail(V7126)
+if True == tmp20125 {
+tmp20121 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
+return PrimTail(V7126)
+}
+__typedArg0 := V7126
+return Call(__e, PrimFunc(symtl), __typedArg0)
+})()
 
-tmp19932 := PrimTail(tmp19931)
+tmp20122 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
+return PrimTail(tmp20121)
+}
+__typedArg0 := tmp20121
+return Call(__e, PrimFunc(symtl), __typedArg0)
+})()
 
-tmp19933 := PrimEqual(Nil, tmp19932)
+tmp20123 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
+return PrimEqual(Nil, tmp20122)
+}
+__typedArg0 := Nil
+__typedArg1 := tmp20122
+return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
+})()
 
-var ifres19930 Obj
+var ifres20120 Obj
 
-if True == tmp19933 {
-ifres19930 = True
+if True == tmp20123 {
+ifres20120 = True
 
 
 } else {
-ifres19930 = False
+ifres20120 = False
 
 
 }
 
-ifres19929 = ifres19930
+ifres20119 = ifres20120
 
 
 } else {
-ifres19929 = False
+ifres20119 = False
 
 
 }
 
-var ifres19928 Obj
+var ifres20118 Obj
 
-if True == ifres19929 {
-ifres19928 = True
+if True == ifres20119 {
+ifres20118 = True
 
 
 } else {
-ifres19928 = False
+ifres20118 = False
 
 
 }
 
-ifres19927 = ifres19928
+ifres20117 = ifres20118
 
 
 } else {
-ifres19927 = False
+ifres20117 = False
 
 
 }
 
-var ifres19926 Obj
+var ifres20116 Obj
 
-if True == ifres19927 {
-ifres19926 = True
+if True == ifres20117 {
+ifres20116 = True
 
 
 } else {
-ifres19926 = False
+ifres20116 = False
 
 
 }
 
-ifres19925 = ifres19926
+ifres20115 = ifres20116
 
 
 } else {
-ifres19925 = False
+ifres20115 = False
 
 
 }
 
-if True == ifres19925 {
-tmp19895 := PrimTail(V7126)
+if True == ifres20115 {
+tmp20085 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
+return PrimTail(V7126)
+}
+__typedArg0 := V7126
+return Call(__e, PrimFunc(symtl), __typedArg0)
+})()
 
-tmp19896 := PrimHead(tmp19895)
+tmp20086 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symhd) {
+return PrimHead(tmp20085)
+}
+__typedArg0 := tmp20085
+return Call(__e, PrimFunc(symhd), __typedArg0)
+})()
 
-tmp19897 := Call(__e, PrimFunc(symshen_4app), tmp19896, MakeString("\n"), symshen_4a)
+tmp20087 := Call(__e, PrimFunc(symshen_4app), tmp20086, MakeString("\n"), symshen_4a)
 
 
-tmp19898 := Call(__e, PrimFunc(symstoutput))
+tmp20088 := Call(__e, PrimFunc(symstoutput))
 
 
-__e.TailApply(PrimFunc(sympr), tmp19897, tmp19898)
+__e.TailApply(PrimFunc(sympr), tmp20087, tmp20088)
 return
 
 
 } else {
-tmp19923 := PrimIsPair(V7126)
+tmp20113 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons_2) {
+return PrimIsPair(V7126)
+}
+__typedArg0 := V7126
+return Call(__e, PrimFunc(symcons_2), __typedArg0)
+})()
 
-var ifres19910 Obj
+var ifres20100 Obj
 
-if True == tmp19923 {
-tmp19921 := PrimHead(V7126)
+if True == tmp20113 {
+tmp20111 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symhd) {
+return PrimHead(V7126)
+}
+__typedArg0 := V7126
+return Call(__e, PrimFunc(symhd), __typedArg0)
+})()
 
-tmp19922 := PrimEqual(symunknown_1arguments, tmp19921)
+tmp20112 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
+return PrimEqual(symunknown_1arguments, tmp20111)
+}
+__typedArg0 := symunknown_1arguments
+__typedArg1 := tmp20111
+return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
+})()
 
-var ifres19912 Obj
+var ifres20102 Obj
 
-if True == tmp19922 {
-tmp19919 := PrimTail(V7126)
+if True == tmp20112 {
+tmp20109 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
+return PrimTail(V7126)
+}
+__typedArg0 := V7126
+return Call(__e, PrimFunc(symtl), __typedArg0)
+})()
 
-tmp19920 := PrimIsPair(tmp19919)
+tmp20110 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons_2) {
+return PrimIsPair(tmp20109)
+}
+__typedArg0 := tmp20109
+return Call(__e, PrimFunc(symcons_2), __typedArg0)
+})()
 
-var ifres19914 Obj
+var ifres20104 Obj
 
-if True == tmp19920 {
-tmp19916 := PrimTail(V7126)
+if True == tmp20110 {
+tmp20106 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
+return PrimTail(V7126)
+}
+__typedArg0 := V7126
+return Call(__e, PrimFunc(symtl), __typedArg0)
+})()
 
-tmp19917 := PrimTail(tmp19916)
+tmp20107 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
+return PrimTail(tmp20106)
+}
+__typedArg0 := tmp20106
+return Call(__e, PrimFunc(symtl), __typedArg0)
+})()
 
-tmp19918 := PrimIsPair(tmp19917)
+tmp20108 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons_2) {
+return PrimIsPair(tmp20107)
+}
+__typedArg0 := tmp20107
+return Call(__e, PrimFunc(symcons_2), __typedArg0)
+})()
 
-var ifres19915 Obj
+var ifres20105 Obj
 
-if True == tmp19918 {
-ifres19915 = True
+if True == tmp20108 {
+ifres20105 = True
 
 
 } else {
-ifres19915 = False
+ifres20105 = False
 
 
 }
 
-ifres19914 = ifres19915
+ifres20104 = ifres20105
 
 
 } else {
-ifres19914 = False
+ifres20104 = False
 
 
 }
 
-var ifres19913 Obj
+var ifres20103 Obj
 
-if True == ifres19914 {
-ifres19913 = True
+if True == ifres20104 {
+ifres20103 = True
 
 
 } else {
-ifres19913 = False
+ifres20103 = False
 
 
 }
 
-ifres19912 = ifres19913
+ifres20102 = ifres20103
 
 
 } else {
-ifres19912 = False
+ifres20102 = False
 
 
 }
 
-var ifres19911 Obj
+var ifres20101 Obj
 
-if True == ifres19912 {
-ifres19911 = True
+if True == ifres20102 {
+ifres20101 = True
 
 
 } else {
-ifres19911 = False
+ifres20101 = False
 
 
 }
 
-ifres19910 = ifres19911
+ifres20100 = ifres20101
 
 
 } else {
-ifres19910 = False
+ifres20100 = False
 
 
 }
 
-if True == ifres19910 {
-tmp19899 := PrimTail(V7126)
+if True == ifres20100 {
+tmp20089 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
+return PrimTail(V7126)
+}
+__typedArg0 := V7126
+return Call(__e, PrimFunc(symtl), __typedArg0)
+})()
 
-tmp19900 := PrimTail(tmp19899)
+tmp20090 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
+return PrimTail(tmp20089)
+}
+__typedArg0 := tmp20089
+return Call(__e, PrimFunc(symtl), __typedArg0)
+})()
 
-tmp19901 := PrimHead(tmp19900)
+tmp20091 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symhd) {
+return PrimHead(tmp20090)
+}
+__typedArg0 := tmp20090
+return Call(__e, PrimFunc(symhd), __typedArg0)
+})()
 
-tmp19902 := PrimTail(V7126)
+tmp20092 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
+return PrimTail(V7126)
+}
+__typedArg0 := V7126
+return Call(__e, PrimFunc(symtl), __typedArg0)
+})()
 
-tmp19903 := PrimHead(tmp19902)
+tmp20093 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symhd) {
+return PrimHead(tmp20092)
+}
+__typedArg0 := tmp20092
+return Call(__e, PrimFunc(symhd), __typedArg0)
+})()
 
-tmp19904 := Call(__e, PrimFunc(symshen_4app), tmp19903, MakeString(" --help' for more information.\n"), symshen_4a)
-
-
-tmp19905 := PrimStringConcat(MakeString("\nTry `"), tmp19904)
-
-tmp19906 := Call(__e, PrimFunc(symshen_4app), tmp19901, tmp19905, symshen_4a)
-
-
-tmp19907 := PrimStringConcat(MakeString("ERROR: Invalid argument: "), tmp19906)
-
-tmp19908 := Call(__e, PrimFunc(symstoutput))
+tmp20094 := Call(__e, PrimFunc(symshen_4app), tmp20093, MakeString(" --help' for more information.\n"), symshen_4a)
 
 
-__e.TailApply(PrimFunc(sympr), tmp19907, tmp19908)
+tmp20096 := Call(__e, PrimFunc(symshen_4app), tmp20091, (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcn) {
+__typedS0, __typedOK0 := TypedString(MakeString("\nTry `"))
+__typedS1, __typedOK1 := TypedString(tmp20094)
+if __typedOK0 && __typedOK1 && HasCanonicalPrimitiveBinding(symcn) {
+return TypedMaterializeString((__typedS0 + __typedS1))
+}}
+__typedArg0 := MakeString("\nTry `")
+__typedArg1 := tmp20094
+return Call(__e, PrimFunc(symcn), __typedArg0, __typedArg1)
+})(), symshen_4a)
+
+
+tmp20097 := (func() Obj {
+if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcn) {
+__typedS0, __typedOK0 := TypedString(MakeString("ERROR: Invalid argument: "))
+__typedS1, __typedOK1 := TypedString(tmp20096)
+if __typedOK0 && __typedOK1 && HasCanonicalPrimitiveBinding(symcn) {
+return TypedMaterializeString((__typedS0 + __typedS1))
+}}
+__typedArg0 := MakeString("ERROR: Invalid argument: ")
+__typedArg1 := tmp20096
+return Call(__e, PrimFunc(symcn), __typedArg0, __typedArg1)
+})()
+
+tmp20098 := Call(__e, PrimFunc(symstoutput))
+
+
+__e.TailApply(PrimFunc(sympr), tmp20097, tmp20098)
 return
 
 
@@ -1826,24 +3083,24 @@ return
 
 }, 1)
 
-tmp19985 := Call(__e, ns2_1set, symshen_4x_4launcher_4default_1handle_1result, tmp19885)
+tmp20175 := Call(__e, ns2_1set, symshen_4x_4launcher_4default_1handle_1result, tmp20075)
 
 
-_ = tmp19985
+_ = tmp20175
 
-tmp19986 := MakeNative(func(__e *ControlFlow) {
+tmp20176 := MakeNative(func(__e *ControlFlow) {
 V7127 := __e.Get(1)
 _ = V7127
-tmp19987 := Call(__e, PrimFunc(symshen_4x_4launcher_4launch_1shen), V7127)
+tmp20177 := Call(__e, PrimFunc(symshen_4x_4launcher_4launch_1shen), V7127)
 
 
-__e.TailApply(PrimFunc(symshen_4x_4launcher_4default_1handle_1result), tmp19987)
+__e.TailApply(PrimFunc(symshen_4x_4launcher_4default_1handle_1result), tmp20177)
 return
 
 
 }, 1)
 
-__e.TailApply(ns2_1set, symshen_4x_4launcher_4main, tmp19986)
+__e.TailApply(ns2_1set, symshen_4x_4launcher_4main, tmp20176)
 return
 
 
@@ -1851,917 +3108,920 @@ return
 
 }, 0)
 
-var symeval_1kl = MakeSymbol("eval-kl")
-var symY = MakeSymbol("Y")
-var symshen_4_5s_1exprs1_6 = MakeSymbol("shen.<s-exprs1>")
-var symtrap_1error = MakeSymbol("trap-error")
-var sym_5 = MakeSymbol("<")
-var symis = MakeSymbol("is")
-var symshen_4_5hterm2_6 = MakeSymbol("shen.<hterm2>")
-var symshen_4unlock = MakeSymbol("shen.unlock")
-var symfix = MakeSymbol("fix")
-var symshen_4scan_1body = MakeSymbol("shen.scan-body")
-var symshen_4_5sym_6 = MakeSymbol("shen.<sym>")
-var symshen_4_5c_1rule_6 = MakeSymbol("shen.<c-rule>")
-var symshen_4free_1var_1chk = MakeSymbol("shen.free-var-chk")
-var symshen_4constructor_1error = MakeSymbol("shen.constructor-error")
-var symshen_4_5pattern1_6 = MakeSymbol("shen.<pattern1>")
-var symshen_4received = MakeSymbol("shen.received")
-var symshen_4gc = MakeSymbol("shen.gc")
-var symshen_4p_1hyps = MakeSymbol("shen.p-hyps")
-var symeval = MakeSymbol("eval")
-var symfst = MakeSymbol("fst")
-var symshen_4rfas_1h = MakeSymbol("shen.rfas-h")
-var symshen_4_5lrb_6 = MakeSymbol("shen.<lrb>")
-var symassoc = MakeSymbol("assoc")
-var symshen_4string_1_6byte = MakeSymbol("shen.string->byte")
-var symshen_4_5alpha_6 = MakeSymbol("shen.<alpha>")
-var symshen_4print_1prolog_1vector = MakeSymbol("shen.print-prolog-vector")
-var symintern = MakeSymbol("intern")
-var symshen_4occurs_1check_2 = MakeSymbol("shen.occurs-check?")
-var symcond = MakeSymbol("cond")
-var symshen_4vector_1_6str = MakeSymbol("shen.vector->str")
-var symshen_4_5numeral_6 = MakeSymbol("shen.<numeral>")
-var symshen_4type_1F = MakeSymbol("shen.type-F")
-var symshen_4lzy_a = MakeSymbol("shen.lzy=")
-var symshen_4curry = MakeSymbol("shen.curry")
-var symshen_4key_1in_1sequent_1calculus_2 = MakeSymbol("shen.key-in-sequent-calculus?")
-var symshen_4show_1p = MakeSymbol("shen.show-p")
-var symshen_4_dgensym_d = MakeSymbol("shen.*gensym*")
-var symshen_4tuple = MakeSymbol("shen.tuple")
-var symcd = MakeSymbol("cd")
-var symread_1from_1string_1unprocessed = MakeSymbol("read-from-string-unprocessed")
-var symshen_4_5s_1exprs2_6 = MakeSymbol("shen.<s-exprs2>")
-var symnumber_2 = MakeSymbol("number?")
-var symretract = MakeSymbol("retract")
-var symshen_4update_1history = MakeSymbol("shen.update-history")
-var symshen_4_dsize_1prolog_1vector_d = MakeSymbol("shen.*size-prolog-vector*")
-var symshen_4_dmaxinferences_d = MakeSymbol("shen.*maxinferences*")
-var sym_6_a = MakeSymbol(">=")
-var symshen_4_5single_6 = MakeSymbol("shen.<single>")
-var symshen_4repl = MakeSymbol("shen.repl")
-var sym_8s = MakeSymbol("@s")
-var symshen_4_dit_d = MakeSymbol("shen.*it*")
-var symstr = MakeSymbol("str")
-var symshen_4tracked_2 = MakeSymbol("shen.tracked?")
-var symshen_4x_4launcher_4main = MakeSymbol("shen.x.launcher.main")
-var symshen_4out_1of_1bounds = MakeSymbol("shen.out-of-bounds")
-var symshen_4macro_1_8ch = MakeSymbol("shen.macro-@ch")
-var symshen_4colon_1equal_2 = MakeSymbol("shen.colon-equal?")
-var symshen_4x_4launcher_4default_1handle_1result = MakeSymbol("shen.x.launcher.default-handle-result")
-var symunion = MakeSymbol("union")
-var symshen_4insert_1l = MakeSymbol("shen.insert-l")
-var symfn = MakeSymbol("fn")
-var symshen_4_5multiline_6 = MakeSymbol("shen.<multiline>")
-var symexternal = MakeSymbol("external")
-var sym_dport_d = MakeSymbol("*port*")
-var symrelease = MakeSymbol("release")
-var symshen_4fn_1call = MakeSymbol("shen.fn-call")
-var symshen_4hascut_2 = MakeSymbol("shen.hascut?")
-var symshen_4deref_1calls = MakeSymbol("shen.deref-calls")
-var symshen_4tame = MakeSymbol("shen.tame")
-var symread_1from_1string = MakeSymbol("read-from-string")
-var symshen_4predicate = MakeSymbol("shen.predicate")
-var symmapcan = MakeSymbol("mapcan")
-var symshen_4simple_1curry = MakeSymbol("shen.simple-curry")
-var symshen_4terms = MakeSymbol("shen.terms")
-var symshen_4overbind = MakeSymbol("shen.overbind")
-var symshen_4profiled_2 = MakeSymbol("shen.profiled?")
-var symshen_4mod = MakeSymbol("shen.mod")
-var sym_5_a = MakeSymbol("<=")
-var symshen_4_5backslash_6 = MakeSymbol("shen.<backslash>")
-var symshen_4rules_1_6prolog = MakeSymbol("shen.rules->prolog")
-var symshen_4store_1arity = MakeSymbol("shen.store-arity")
-var symFinish = MakeSymbol("Finish")
-var symsubst = MakeSymbol("subst")
-var symshen_4unprotect = MakeSymbol("shen.unprotect")
-var symn_1_6string = MakeSymbol("n->string")
-var symshen_4assert_d = MakeSymbol("shen.assert*")
-var symshen_4pvar_2 = MakeSymbol("shen.pvar?")
-var symshen_4_5packagenames_6 = MakeSymbol("shen.<packagenames>")
-var symshen_4length_1h = MakeSymbol("shen.length-h")
-var symL = MakeSymbol("L")
-var symshen_4prolog_1abstraction = MakeSymbol("shen.prolog-abstraction")
-var symshen_4build_1lambda_1table = MakeSymbol("shen.build-lambda-table")
-var symshen_4monomorphic_2 = MakeSymbol("shen.monomorphic?")
-var symshen_4_5stop_6 = MakeSymbol("shen.<stop>")
-var symput = MakeSymbol("put")
-var symy_1or_1n_2 = MakeSymbol("y-or-n?")
-var symshen_4record_1external = MakeSymbol("shen.record-external")
-var symshen_4overapplication_2 = MakeSymbol("shen.overapplication?")
-var symatom_2 = MakeSymbol("atom?")
-var symshen_4deref_1forked_1literals = MakeSymbol("shen.deref-forked-literals")
-var symoccurrences = MakeSymbol("occurrences")
-var symshen_4this_1symbol_1is_1unbound = MakeSymbol("shen.this-symbol-is-unbound")
-var symshen_4f_1error = MakeSymbol("shen.f-error")
-var symshen_4process_1def = MakeSymbol("shen.process-def")
-var symshen_4output_1track = MakeSymbol("shen.output-track")
-var symshen_4uppercase_2 = MakeSymbol("shen.uppercase?")
-var symshen_4string_1_6bytes = MakeSymbol("shen.string->bytes")
-var symshen_4sysfunc_2 = MakeSymbol("shen.sysfunc?")
-var symsynonyms = MakeSymbol("synonyms")
-var symshen_4check_1eval_1and_1print = MakeSymbol("shen.check-eval-and-print")
-var symshen_4read_1file_1as_1bytelist_1help = MakeSymbol("shen.read-file-as-bytelist-help")
-var symshen_4_5minus_6 = MakeSymbol("shen.<minus>")
-var symshen_4type_1error = MakeSymbol("shen.type-error")
-var symshen_4c_1rules_1_6shen = MakeSymbol("shen.c-rules->shen")
-var symshen_4_dprolog_1memory_d = MakeSymbol("shen.*prolog-memory*")
-var symreturn = MakeSymbol("return")
-var symshen_4make_1uppercase = MakeSymbol("shen.make-uppercase")
-var symunprofile = MakeSymbol("unprofile")
-var symshen_4evaluate_1lineread = MakeSymbol("shen.evaluate-lineread")
-var symshen_4call_1prolog = MakeSymbol("shen.call-prolog")
-var symshen_4coll_1formulae = MakeSymbol("shen.coll-formulae")
-var symremove = MakeSymbol("remove")
-var symshen_4record_1it = MakeSymbol("shen.record-it")
-var symshen_4_dalldatatypes_d = MakeSymbol("shen.*alldatatypes*")
-var symshen_4unlocked_2 = MakeSymbol("shen.unlocked?")
-var symshen_4str_1_6bytes = MakeSymbol("shen.str->bytes")
-var symshen_4extraspecial_2 = MakeSymbol("shen.extraspecial?")
-var symshen_4initialise_1lambda_1tables = MakeSymbol("shen.initialise-lambda-tables")
-var symvalue = MakeSymbol("value")
-var symnl = MakeSymbol("nl")
-var symshen_4_dextraspecial_d = MakeSymbol("shen.*extraspecial*")
-var symStart = MakeSymbol("Start")
-var symlanguage = MakeSymbol("language")
-var symshen_4_5bar_6 = MakeSymbol("shen.<bar>")
-var symshen_4process_1lambda = MakeSymbol("shen.process-lambda")
-var symshen_4horn_1clause_1procedure = MakeSymbol("shen.horn-clause-procedure")
-var symshen_4consume = MakeSymbol("shen.consume")
-var symshen_4prhush = MakeSymbol("shen.prhush")
-var sym_dimplementation_d = MakeSymbol("*implementation*")
-var symshen_4t_d_1correct = MakeSymbol("shen.t*-correct")
-var symshen_4multiples = MakeSymbol("shen.multiples")
-var sym_dhome_1directory_d = MakeSymbol("*home-directory*")
-var symstoutput = MakeSymbol("stoutput")
-var symshen_4initialise_1arity_1table = MakeSymbol("shen.initialise-arity-table")
-var symshen_4_dpackage_d = MakeSymbol("shen.*package*")
-var symshen_4insert_1h = MakeSymbol("shen.insert-h")
-var symZ = MakeSymbol("Z")
-var symshen_4sng_2 = MakeSymbol("shen.sng?")
-var symRecord = MakeSymbol("Record")
-var symnot = MakeSymbol("not")
-var sym_dporters_d = MakeSymbol("*porters*")
-var symshen_4atom_1_6str = MakeSymbol("shen.atom->str")
-var symshen_4vector_1dereference = MakeSymbol("shen.vector-dereference")
-var symAction = MakeSymbol("Action")
-var symshen_4factor_1recognisors = MakeSymbol("shen.factor-recognisors")
-var symshen_4_5shortnatters_6 = MakeSymbol("shen.<shortnatters>")
-var symshen_4_5number_6 = MakeSymbol("shen.<number>")
-var sym_5_1_1 = MakeSymbol("<--")
-var symshen_4peek_1history = MakeSymbol("shen.peek-history")
-var symshen_4recursive_1string_1match = MakeSymbol("shen.recursive-string-match")
-var symshen_4newpv = MakeSymbol("shen.newpv")
-var symshen_4yacc_1syntax = MakeSymbol("shen.yacc-syntax")
-var symread_1file_1as_1bytelist = MakeSymbol("read-file-as-bytelist")
-var symshen_4mu_1h = MakeSymbol("shen.mu-h")
-var symshen_4_5wildcard_6 = MakeSymbol("shen.<wildcard>")
-var symshen_4deref_1terms = MakeSymbol("shen.deref-terms")
-var symshen_4insert_1tracking_1code = MakeSymbol("shen.insert-tracking-code")
-var symshen_4decons = MakeSymbol("shen.decons")
-var symshen_4x_4launcher_4done = MakeSymbol("shen.x.launcher.done")
-var symshen_4_5longnatter_6 = MakeSymbol("shen.<longnatter>")
-var symshen_4special_2 = MakeSymbol("shen.special?")
-var symshen_4_5define_6 = MakeSymbol("shen.<define>")
-var symdo = MakeSymbol("do")
-var symoptimise_2 = MakeSymbol("optimise?")
-var symshen_4show = MakeSymbol("shen.show")
-var symshen_4variants_2 = MakeSymbol("shen.variants?")
-var symelement_2 = MakeSymbol("element?")
-var symshen_4_5e_1number_6 = MakeSymbol("shen.<e-number>")
-var symshen_4_5fraction_6 = MakeSymbol("shen.<fraction>")
-var symshen_4_5hterm1_6 = MakeSymbol("shen.<hterm1>")
-var symshen_4read_1loop = MakeSymbol("shen.read-loop")
-var symvector = MakeSymbol("vector")
-var symunabsolute = MakeSymbol("unabsolute")
-var symshen_4unpackage = MakeSymbol("shen.unpackage")
-var symshen_4non_1terminal_2 = MakeSymbol("shen.non-terminal?")
-var symshen_4print_1vector_2 = MakeSymbol("shen.print-vector?")
-var symshen_4_5simple_1pattern_6 = MakeSymbol("shen.<simple-pattern>")
-var symshen_4extract_1vars = MakeSymbol("shen.extract-vars")
-var symshen_4kl_1body = MakeSymbol("shen.kl-body")
-var symshen_4prolog_1track = MakeSymbol("shen.prolog-track")
-var symport = MakeSymbol("port")
-var symshen_4arity_1chk = MakeSymbol("shen.arity-chk")
-var symshen_4reader_1error = MakeSymbol("shen.reader-error")
-var symshen_4compute_1fraction = MakeSymbol("shen.compute-fraction")
-var symshen_4terpri_1or_1read_1char = MakeSymbol("shen.terpri-or-read-char")
-var symmacroexpand = MakeSymbol("macroexpand")
-var symcons = MakeSymbol("cons")
-var symshen_4dbl_2 = MakeSymbol("shen.dbl?")
-var symread_1file = MakeSymbol("read-file")
-var symshen_4return_2 = MakeSymbol("shen.return?")
-var symshen_4freshterm_2 = MakeSymbol("shen.freshterm?")
-var symshen_4process_1applications = MakeSymbol("shen.process-applications")
-var symshen_4add_1sexpr = MakeSymbol("shen.add-sexpr")
-var symshen_4wildcard_2 = MakeSymbol("shen.wildcard?")
-var symshen_4constructor_2 = MakeSymbol("shen.constructor?")
-var symshen_4process_1cases = MakeSymbol("shen.process-cases")
-var symshen_4free_1variable_1error_1message = MakeSymbol("shen.free-variable-error-message")
-var symfreeze = MakeSymbol("freeze")
-var symshen_4process_1assoc = MakeSymbol("shen.process-assoc")
-var symshen_4combine_1c_1code = MakeSymbol("shen.combine-c-code")
-var symshen_4compute_1fraction_1h = MakeSymbol("shen.compute-fraction-h")
-var symsave = MakeSymbol("save")
-var sym_e = MakeSymbol("&")
-var symvector_1_6 = MakeSymbol("vector->")
-var sym_a_a = MakeSymbol("==")
-var symshen_4rcons__form = MakeSymbol("shen.rcons_form")
-var symshen_4_dsystem_d = MakeSymbol("shen.*system*")
-var symshen_4_dstep_d = MakeSymbol("shen.*step*")
-var symshen_4_5double_6 = MakeSymbol("shen.<double>")
-var symshen_4rule_1_6body = MakeSymbol("shen.rule->body")
-var symshen_4factor_1selectors_1h = MakeSymbol("shen.factor-selectors-h")
-var symshen_4assoc_1_6 = MakeSymbol("shen.assoc->")
-var sympreclude_1all_1but = MakeSymbol("preclude-all-but")
-var symshen_4iter_1vector = MakeSymbol("shen.iter-vector")
-var symdefine = MakeSymbol("define")
-var symshen_4maxinfexceeded_2 = MakeSymbol("shen.maxinfexceeded?")
-var symshen_4dynamic_1default = MakeSymbol("shen.dynamic-default")
-var symshen_4_5sng_6 = MakeSymbol("shen.<sng>")
-var symshen_4x_4launcher_4version_1string = MakeSymbol("shen.x.launcher.version-string")
-var sym__ = MakeSymbol("_")
-var symshen_4assumetypes = MakeSymbol("shen.assumetypes")
-var syminferences = MakeSymbol("inferences")
-var symshen_4unpack_1foreign = MakeSymbol("shen.unpack-foreign")
-var symstream = MakeSymbol("stream")
-var symunspecialise = MakeSymbol("unspecialise")
-var symshen_4_dfactorise_2_d = MakeSymbol("shen.*factorise?*")
-var symshen_4t_d_1rule_1h = MakeSymbol("shen.t*-rule-h")
-var symshen_4x_4launcher_4eval_1flag_1map = MakeSymbol("shen.x.launcher.eval-flag-map")
-var symshen_4c_1rule_1_6shen = MakeSymbol("shen.c-rule->shen")
-var syminput_7 = MakeSymbol("input+")
-var symshen_4_5lowC_6 = MakeSymbol("shen.<lowC>")
-var symlazy = MakeSymbol("lazy")
-var symB = MakeSymbol("B")
-var symshen_4proc_1nl = MakeSymbol("shen.proc-nl")
-var symshen_4update_1lambdatable = MakeSymbol("shen.update-lambdatable")
-var symshen_4package_1user_1input = MakeSymbol("shen.package-user-input")
-var symshen_4update_1assoc = MakeSymbol("shen.update-assoc")
-var symshen_4autocomplete = MakeSymbol("shen.autocomplete")
-var symshen_4variablecode = MakeSymbol("shen.variablecode")
-var symshen_4x_4launcher_4launch_1shen = MakeSymbol("shen.x.launcher.launch-shen")
-var symvariable_2 = MakeSymbol("variable?")
-var symhdv = MakeSymbol("hdv")
-var symshen_4remove_1bystanders = MakeSymbol("shen.remove-bystanders")
-var symshen_4reverse_1help = MakeSymbol("shen.reverse-help")
-var symshen_4op1 = MakeSymbol("shen.op1")
-var symshen_4_5iscomma_6 = MakeSymbol("shen.<iscomma>")
-var symshen_4track_1function = MakeSymbol("shen.track-function")
-var symS = MakeSymbol("S")
-var symshen_4parse_1failure_2 = MakeSymbol("shen.parse-failure?")
-var symshen_4_5rules_6 = MakeSymbol("shen.<rules>")
-var symbar_b = MakeSymbol("bar!")
-var symclose = MakeSymbol("close")
-var symshen_4_5prem_6 = MakeSymbol("shen.<prem>")
-var symshen_4dbl_1h_2 = MakeSymbol("shen.dbl-h?")
-var symshen_4hashkey = MakeSymbol("shen.hashkey")
-var symshen_4_dhistory_d = MakeSymbol("shen.*history*")
-var symshen_4macroexpand_1h = MakeSymbol("shen.macroexpand-h")
-var symshen_4demode = MakeSymbol("shen.demode")
-var symshen_4my_1read_1byte = MakeSymbol("shen.my-read-byte")
-var symsqts = MakeSymbol("sqts")
-var symshen_4initialise__environment = MakeSymbol("shen.initialise_environment")
-var symshen_4pui_1h = MakeSymbol("shen.pui-h")
-var symdeclare = MakeSymbol("declare")
-var symshen_4curry_1type = MakeSymbol("shen.curry-type")
-var symshen_4_5literal_6 = MakeSymbol("shen.<literal>")
-var symshen_4goto_1h = MakeSymbol("shen.goto-h")
-var symshen_4_5colon_1equal_6 = MakeSymbol("shen.<colon-equal>")
-var symRemainder = MakeSymbol("Remainder")
-var symshen_4free_1variable_2 = MakeSymbol("shen.free-variable?")
-var symit = MakeSymbol("it")
-var symshen_4explode_1h = MakeSymbol("shen.explode-h")
-var symshen_4_5rule_6 = MakeSymbol("shen.<rule>")
-var symshen_4prtl = MakeSymbol("shen.prtl")
-var symshen_4_7vector_2 = MakeSymbol("shen.+vector?")
-var symshen_4_5plus_6 = MakeSymbol("shen.<plus>")
-var symshen_4_5yaccsig_6 = MakeSymbol("shen.<yaccsig>")
-var symshen_4_5_1out = MakeSymbol("shen.<-out")
-var symshen_4member = MakeSymbol("shen.member")
-var symshen_4ok = MakeSymbol("shen.ok")
-var symshen_4compile_1to_1kl = MakeSymbol("shen.compile-to-kl")
-var symNewV = MakeSymbol("NewV")
-var symshen_4integer_1test_2 = MakeSymbol("shen.integer-test?")
-var symshen_4_8c = MakeSymbol("shen.@c")
-var symshen_4record_1macro = MakeSymbol("shen.record-macro")
-var symshen_4incinfs = MakeSymbol("shen.incinfs")
-var symshen_4_5rules_d_6 = MakeSymbol("shen.<rules*>")
-var symfresh = MakeSymbol("fresh")
-var symshen_4_5notdbq_6 = MakeSymbol("shen.<notdbq>")
-var symshen_4compute_1integer = MakeSymbol("shen.compute-integer")
-var sym_5_1address = MakeSymbol("<-address")
-var symget_1time = MakeSymbol("get-time")
-var symshen_4_5datatype_1rule_6 = MakeSymbol("shen.<datatype-rule>")
-var symcn = MakeSymbol("cn")
-var symfunction = MakeSymbol("function")
-var sym_1_1_6 = MakeSymbol("-->")
-var symshen_4yacc_1_6shen = MakeSymbol("shen.yacc->shen")
-var symshen_4_5syntax_6 = MakeSymbol("shen.<syntax>")
-var symV = MakeSymbol("V")
-var symhash = MakeSymbol("hash")
-var symctxt = MakeSymbol("ctxt")
-var symshen_4string_1prefix_2 = MakeSymbol("shen.string-prefix?")
-var symshen_4prolog_1parameters = MakeSymbol("shen.prolog-parameters")
-var symshen_4prolog_1vector_1size = MakeSymbol("shen.prolog-vector-size")
-var syminternal = MakeSymbol("internal")
-var symshen_4lch = MakeSymbol("shen.lch")
-var symmap = MakeSymbol("map")
-var symexception = MakeSymbol("exception")
-var symshen_4in_1_6 = MakeSymbol("shen.in->")
-var symshen_4packaged_2 = MakeSymbol("shen.packaged?")
-var symshen_4_5c_1rules_6 = MakeSymbol("shen.<c-rules>")
-var symshen_4funexstring = MakeSymbol("shen.funexstring")
-var symResult = MakeSymbol("Result")
-var symshen_4_5pattern_6 = MakeSymbol("shen.<pattern>")
-var symshen_4_5datatype_6 = MakeSymbol("shen.<datatype>")
-var symshen_4fn_1print = MakeSymbol("shen.fn-print")
-var symshen_4create_1skeleton = MakeSymbol("shen.create-skeleton")
-var symshen_4call_1dynamic = MakeSymbol("shen.call-dynamic")
-var symshen_4newname = MakeSymbol("shen.newname")
-var symshen_4invoke = MakeSymbol("shen.invoke")
-var symshen_4syntax_1item_2 = MakeSymbol("shen.syntax-item?")
-var symshen_4a = MakeSymbol("shen.a")
-var symunput = MakeSymbol("unput")
-var symsystem_1S_2 = MakeSymbol("system-S?")
-var symwhen = MakeSymbol("when")
-var symspy = MakeSymbol("spy")
-var symshow_1help = MakeSymbol("show-help")
-var symshen_4fillvector = MakeSymbol("shen.fillvector")
-var symbound_2 = MakeSymbol("bound?")
-var symshen_4skip = MakeSymbol("shen.skip")
-var symshen_4rectify_1test = MakeSymbol("shen.rectify-test")
-var symassertz = MakeSymbol("assertz")
-var symshen_4bindv = MakeSymbol("shen.bindv")
-var symAssumptions = MakeSymbol("Assumptions")
-var symboolean_2 = MakeSymbol("boolean?")
-var symshen_4factor_1selectors = MakeSymbol("shen.factor-selectors")
-var symshen_4_8ch = MakeSymbol("shen.@ch")
-var symshen_4system_1S_1h = MakeSymbol("shen.system-S-h")
-var symshen_4_dsigf_d = MakeSymbol("shen.*sigf*")
-var symshen_4read_1unit_1string = MakeSymbol("shen.read-unit-string")
-var symshen_4_5clauses_6 = MakeSymbol("shen.<clauses>")
-var symshen_4op2 = MakeSymbol("shen.op2")
-var symfork = MakeSymbol("fork")
-var symshen_4rdecons = MakeSymbol("shen.rdecons")
-var symnull = MakeSymbol("null")
-var symprotect = MakeSymbol("protect")
-var sym_4_4_4 = MakeSymbol("...")
-var symshen_4_5formula_6 = MakeSymbol("shen.<formula>")
-var symshen_4system_1S = MakeSymbol("shen.system-S")
-var symshen_4print_1freshterm = MakeSymbol("shen.print-freshterm")
-var symshen_4write_1kl = MakeSymbol("shen.write-kl")
-var symfactorise_2 = MakeSymbol("factorise?")
-var symshen_4analyse_1symbol_2 = MakeSymbol("shen.analyse-symbol?")
-var sym_c_4 = MakeSymbol("/.")
-var symshen_4lr_1rule = MakeSymbol("shen.lr-rule")
-var symshen_4f = MakeSymbol("shen.f")
-var symforeign = MakeSymbol("foreign")
-var symreverse = MakeSymbol("reverse")
-var symshen_4freshterm = MakeSymbol("shen.freshterm")
-var symshen_4insert = MakeSymbol("shen.insert")
-var symdefun = MakeSymbol("defun")
-var symshen_4_5equal_6 = MakeSymbol("shen.<equal>")
-var symshen_4zero_1place_2 = MakeSymbol("shen.zero-place?")
-var symshen_4work_1through = MakeSymbol("shen.work-through")
-var symW = MakeSymbol("W")
-var symshen_4process_1after_1type = MakeSymbol("shen.process-after-type")
-var symshen_4objectcode = MakeSymbol("shen.objectcode")
-var sym_dargv_d = MakeSymbol("*argv*")
-var sym_dproperty_1vector_d = MakeSymbol("*property-vector*")
-var symlength = MakeSymbol("length")
-var symshen_4_5colon_6 = MakeSymbol("shen.<colon>")
-var symshen_4t_d_1rule = MakeSymbol("shen.t*-rule")
-var symshen_4find_1types = MakeSymbol("shen.find-types")
-var symlaunch_1repl = MakeSymbol("launch-repl")
-var symshen_4str_1_6str = MakeSymbol("shen.str->str")
-var symshen_4prompt = MakeSymbol("shen.prompt")
-var symshen_4prolog_1fbody = MakeSymbol("shen.prolog-fbody")
-var symshen_4passive_1bind = MakeSymbol("shen.passive-bind")
-var symshen_4prterm = MakeSymbol("shen.prterm")
-var symappend = MakeSymbol("append")
-var symshen_4t = MakeSymbol("shen.t")
-var symoccurs_1check = MakeSymbol("occurs-check")
-var symshen_4freshterms = MakeSymbol("shen.freshterms")
-var symhead = MakeSymbol("head")
-var symshen_4remove_1indirection = MakeSymbol("shen.remove-indirection")
-var symshen_4factor = MakeSymbol("shen.factor")
-var symshen_4_dnames_d = MakeSymbol("shen.*names*")
-var symsystemf = MakeSymbol("systemf")
-var symshen_4macro_1_8c = MakeSymbol("shen.macro-@c")
-var symshen_4wildcardcode = MakeSymbol("shen.wildcardcode")
-var symshen_4r = MakeSymbol("shen.r")
-var symdifference = MakeSymbol("difference")
-var sym_dhush_d = MakeSymbol("*hush*")
-var symshen_4typecheck = MakeSymbol("shen.typecheck")
-var symshen_4_5iscolon_6 = MakeSymbol("shen.<iscolon>")
-var symshen_4primitive = MakeSymbol("shen.primitive")
-var symshen_4record_1and_1evaluate = MakeSymbol("shen.record-and-evaluate")
-var symshen_4i_1failed_b = MakeSymbol("shen.i-failed!")
-var symloaded = MakeSymbol("loaded")
-var symshen_4l_1rules = MakeSymbol("shen.l-rules")
-var symshen_4_doccurs_d = MakeSymbol("shen.*occurs*")
-var symversion = MakeSymbol("version")
-var symlet = MakeSymbol("let")
-var symshen_4_5lsb_6 = MakeSymbol("shen.<lsb>")
-var symshen_4partial_1application_d_2 = MakeSymbol("shen.partial-application*?")
-var symshen_4partial_1parse_1failure_2 = MakeSymbol("shen.partial-parse-failure?")
-var symempty_2 = MakeSymbol("empty?")
-var symshen_4_5constructor_6 = MakeSymbol("shen.<constructor>")
-var symshen_4non_1application_2 = MakeSymbol("shen.non-application?")
-var symuntrack = MakeSymbol("untrack")
-var symshen_4process_1read_1byte = MakeSymbol("shen.process-read-byte")
-var symshen_4profile_1func = MakeSymbol("shen.profile-func")
-var symsuccess = MakeSymbol("success")
-var sym_8v = MakeSymbol("@v")
-var symprint = MakeSymbol("print")
-var symsum = MakeSymbol("sum")
-var symshen_4_7m = MakeSymbol("shen.+m")
-var symshen_4compile_1head = MakeSymbol("shen.compile-head")
-var symshen_4show_1assumptions = MakeSymbol("shen.show-assumptions")
-var symmaxinferences = MakeSymbol("maxinferences")
-var symshen_4_dcall_d = MakeSymbol("shen.*call*")
-var symstep = MakeSymbol("step")
-var symshen_4_5conc_6 = MakeSymbol("shen.<conc>")
-var symAssumption = MakeSymbol("Assumption")
-var symshen_4parameters = MakeSymbol("shen.parameters")
-var symC = MakeSymbol("C")
-var symshen_4find_1arities = MakeSymbol("shen.find-arities")
-var symshen_4_5alphanum_6 = MakeSymbol("shen.<alphanum>")
-var symprofile_1results = MakeSymbol("profile-results")
-var symshen_4shen_1_6kl = MakeSymbol("shen.shen->kl")
-var symcons_2 = MakeSymbol("cons?")
-var symaddress_1_6 = MakeSymbol("address->")
-var symshen_4load_1help = MakeSymbol("shen.load-help")
-var symshen_4_5sc_6 = MakeSymbol("shen.<sc>")
-var symshen_4stpart = MakeSymbol("shen.stpart")
-var symshen_4x_4launcher_4quiet_1load = MakeSymbol("shen.x.launcher.quiet-load")
-var symunknown_1arguments = MakeSymbol("unknown-arguments")
-var symshen_4comb = MakeSymbol("shen.comb")
-var symshen_4tuple_1up = MakeSymbol("shen.tuple-up")
-var symshen_4t_d = MakeSymbol("shen.t*")
-var symshen_4_duserdefs_d = MakeSymbol("shen.*userdefs*")
-var symshen_4trim_1it = MakeSymbol("shen.trim-it")
-var symshen_4x_4launcher_4eval_1command_1h = MakeSymbol("shen.x.launcher.eval-command-h")
-var sym_5_1 = MakeSymbol("<-")
-var symfactorise = MakeSymbol("factorise")
-var symshen_4find_1arity = MakeSymbol("shen.find-arity")
-var symopen = MakeSymbol("open")
-var symfail = MakeSymbol("fail")
-var symshen_4process_1synonyms = MakeSymbol("shen.process-synonyms")
-var symshen_4remove_1h = MakeSymbol("shen.remove-h")
-var symshen_4_5hash_6 = MakeSymbol("shen.<hash>")
-var symshen_4shen_1call_2 = MakeSymbol("shen.shen-call?")
-var symshen_4klfile = MakeSymbol("shen.klfile")
-var symor = MakeSymbol("or")
-var symshen_4mkstr_1l = MakeSymbol("shen.mkstr-l")
-var symshen_4_5patterns_6 = MakeSymbol("shen.<patterns>")
-var symcases = MakeSymbol("cases")
-var symTime = MakeSymbol("Time")
-var symwrite_1to_1file = MakeSymbol("write-to-file")
-var symshen_4shendef_1_6kldef_1h = MakeSymbol("shen.shendef->kldef-h")
-var symshen_4choicepoint_2 = MakeSymbol("shen.choicepoint?")
-var symshen_4_5singleline_6 = MakeSymbol("shen.<singleline>")
-var symsymbol = MakeSymbol("symbol")
-var symshen_4input_1track = MakeSymbol("shen.input-track")
-var symshen_4t_d_1integrity = MakeSymbol("shen.t*-integrity")
-var symtc = MakeSymbol("tc")
-var symshen_4execute_1store_1arity = MakeSymbol("shen.execute-store-arity")
-var symshen_4_5sig_drules_6 = MakeSymbol("shen.<sig*rules>")
-var symshen_4t_d_1rules = MakeSymbol("shen.t*-rules")
-var symlimit = MakeSymbol("limit")
-var symshen_4foreign_2 = MakeSymbol("shen.foreign?")
-var symshen_4typetable = MakeSymbol("shen.typetable")
-var symshen_4fits_2 = MakeSymbol("shen.fits?")
-var symshen_4line = MakeSymbol("shen.line")
-var symshen_4freshen_1rule = MakeSymbol("shen.freshen-rule")
-var symshen_4terminalcode = MakeSymbol("shen.terminalcode")
-var symvector_2 = MakeSymbol("vector?")
-var syminput = MakeSymbol("input")
-var symshen_4unpackage_emacroexpand = MakeSymbol("shen.unpackage&macroexpand")
-var symshen_4intern_1type = MakeSymbol("shen.intern-type")
-var symshen_4freeze_1literals = MakeSymbol("shen.freeze-literals")
-var symshen_4_dtracking_d = MakeSymbol("shen.*tracking*")
-var symshen_4_5lowE_6 = MakeSymbol("shen.<lowE>")
-var symnumber = MakeSymbol("number")
-var symshen_4rule_1_6clause = MakeSymbol("shen.rule->clause")
-var symshen_4rule_1_6head = MakeSymbol("shen.rule->head")
-var symshen_4consume_1clause = MakeSymbol("shen.consume-clause")
-var symshen_4map_1h = MakeSymbol("shen.map-h")
-var sym_a = MakeSymbol("=")
-var symshen_4application_2 = MakeSymbol("shen.application?")
-var symshen_4shendef_1_6kldef = MakeSymbol("shen.shendef->kldef")
-var symshen_4_dspy_d = MakeSymbol("shen.*spy*")
-var symbootstrap = MakeSymbol("bootstrap")
-var symshen_4insert_1info = MakeSymbol("shen.insert-info")
-var symshen_4list_2 = MakeSymbol("shen.list?")
-var symshen_4expt = MakeSymbol("shen.expt")
-var symshen_4record_1internal = MakeSymbol("shen.record-internal")
-var symmode = MakeSymbol("mode")
-var sym_1 = MakeSymbol("-")
-var symtype = MakeSymbol("type")
-var symshen_4choicepoint_b = MakeSymbol("shen.choicepoint!")
-var symshen_4_5returns_6 = MakeSymbol("shen.<returns>")
-var symshen_4lowercase_2 = MakeSymbol("shen.lowercase?")
-var symspy_2 = MakeSymbol("spy?")
-var symerror_1to_1string = MakeSymbol("error-to-string")
-var symTl = MakeSymbol("Tl")
-var symtlv = MakeSymbol("tlv")
-var symshen_4beta = MakeSymbol("shen.beta")
-var symtlstr = MakeSymbol("tlstr")
-var symshen_4write_1kl_1h = MakeSymbol("shen.write-kl-h")
-var symshen_4conscode = MakeSymbol("shen.conscode")
-var symshen_4abs = MakeSymbol("shen.abs")
-var symshen_4_doptimise_d = MakeSymbol("shen.*optimise*")
-var symcompile = MakeSymbol("compile")
-var symshen_4type_1theory_1enabled_2 = MakeSymbol("shen.type-theory-enabled?")
-var symprolog_1memory = MakeSymbol("prolog-memory")
-var sym_d = MakeSymbol("*")
-var symvar_2 = MakeSymbol("var?")
-var symshen_4_1null_1 = MakeSymbol("shen.-null-")
-var symdatatypes = MakeSymbol("datatypes")
-var symshen_4function_1calls = MakeSymbol("shen.function-calls")
-var symshen_4yacc_1semantics = MakeSymbol("shen.yacc-semantics")
-var symabsolute = MakeSymbol("absolute")
-var symshen_4g = MakeSymbol("shen.g")
-var symshen_4_5formulae_6 = MakeSymbol("shen.<formulae>")
-var symshen_4char_1stoutput_2 = MakeSymbol("shen.char-stoutput?")
-var symshen_4byte_1_6digit = MakeSymbol("shen.byte->digit")
-var sym_dstinput_d = MakeSymbol("*stinput*")
-var symshen_4alphanums_2 = MakeSymbol("shen.alphanums?")
-var symstring_2 = MakeSymbol("string?")
-var symshen_4nvars = MakeSymbol("shen.nvars")
-var symps = MakeSymbol("ps")
-var symin_1package = MakeSymbol("in-package")
-var sym_1_6 = MakeSymbol("->")
-var symshen_4char_1stinput_2 = MakeSymbol("shen.char-stinput?")
-var symshen_4_5strc_6 = MakeSymbol("shen.<strc>")
-var symprolog_2 = MakeSymbol("prolog?")
-var sym_6_6 = MakeSymbol(">>")
-var symA = MakeSymbol("A")
-var symtc_2 = MakeSymbol("tc?")
-var symread = MakeSymbol("read")
-var symshen_4recursively_1print = MakeSymbol("shen.recursively-print")
-var symshen_4digit_2 = MakeSymbol("shen.digit?")
-var symshen_4_dshen_1type_1theory_1enabled_2_d = MakeSymbol("shen.*shen-type-theory-enabled?*")
-var symshen_4op_1test = MakeSymbol("shen.op-test")
-var symshen = MakeSymbol("shen")
-var symshen_4process_1let = MakeSymbol("shen.process-let")
-var symtuple_2 = MakeSymbol("tuple?")
-var symimplementation = MakeSymbol("implementation")
-var symshen_4unassoc = MakeSymbol("shen.unassoc")
-var symshen_4bytes_1_6string = MakeSymbol("shen.bytes->string")
-var symshen_4_5strcontents_6 = MakeSymbol("shen.<strcontents>")
-var sympr = MakeSymbol("pr")
-var symshen_4_5lcurly_6 = MakeSymbol("shen.<lcurly>")
-var symasserta = MakeSymbol("asserta")
-var symshen_4profile_1help = MakeSymbol("shen.profile-help")
-var symadjoin = MakeSymbol("adjoin")
-var symshen_4x_4launcher_4script_1command = MakeSymbol("shen.x.launcher.script-command")
-var sym_i = MakeSymbol("{")
-var symupdate_1lambda_1table = MakeSymbol("update-lambda-table")
-var sympreclude = MakeSymbol("preclude")
-var symshen_4read_1evaluate_1print = MakeSymbol("shen.read-evaluate-print")
-var symshen_4cons_1form = MakeSymbol("shen.cons-form")
-var symshen_4package_1symbols = MakeSymbol("shen.package-symbols")
-var sym_a_a_6 = MakeSymbol("==>")
 var sym_5_1vector = MakeSymbol("<-vector")
-var symintersection = MakeSymbol("intersection")
-var symshen_4write_1chars = MakeSymbol("shen.write-chars")
-var symshen_4hds_a_2 = MakeSymbol("shen.hds=?")
-var symshen_4_5dbq_6 = MakeSymbol("shen.<dbq>")
-var symshen_4_ddatatypes_d = MakeSymbol("shen.*datatypes*")
-var symgensym = MakeSymbol("gensym")
-var symexplode = MakeSymbol("explode")
-var symshen_4_5head_6 = MakeSymbol("shen.<head>")
-var symshen_4show_1datatypes = MakeSymbol("shen.show-datatypes")
-var symshen_4_5comma_6 = MakeSymbol("shen.<comma>")
-var symtrack = MakeSymbol("track")
-var symlist = MakeSymbol("list")
-var symshen_4change_1pointer_1value = MakeSymbol("shen.change-pointer-value")
-var symprofile = MakeSymbol("profile")
-var symdefprolog = MakeSymbol("defprolog")
-var symshen_4process_1yacc_1semantics = MakeSymbol("shen.process-yacc-semantics")
-var symspecialise = MakeSymbol("specialise")
-var symshen_4typename = MakeSymbol("shen.typename")
-var symshen_4prolog_1arity_1check = MakeSymbol("shen.prolog-arity-check")
-var symshen_4external_1symbols = MakeSymbol("shen.external-symbols")
-var symshen_4continue = MakeSymbol("shen.continue")
-var symshen_4top = MakeSymbol("shen.top")
-var symshen_4mkstr_1r = MakeSymbol("shen.mkstr-r")
-var symshen_4_5digits_6 = MakeSymbol("shen.<digits>")
-var symboolean = MakeSymbol("boolean")
-var symtracked = MakeSymbol("tracked")
-var symconcat = MakeSymbol("concat")
-var symshen_4nothing_1doing_2 = MakeSymbol("shen.nothing-doing?")
-var symshen_4_5rcurly_6 = MakeSymbol("shen.<rcurly>")
-var sym_dmacros_d = MakeSymbol("*macros*")
-var symset = MakeSymbol("set")
-var symshen_4goto = MakeSymbol("shen.goto")
-var symHypotheses = MakeSymbol("Hypotheses")
-var symshen_4_5signature_6 = MakeSymbol("shen.<signature>")
-var symabsvector = MakeSymbol("absvector")
-var symshen_4search_1user_1datatypes = MakeSymbol("shen.search-user-datatypes")
-var symshen_4s = MakeSymbol("shen.s")
-var symshen_4_5whitespaces_6 = MakeSymbol("shen.<whitespaces>")
-var symshen_4dynamic = MakeSymbol("shen.dynamic")
-var symshen_4lzy_a_b = MakeSymbol("shen.lzy=!")
-var symwhere = MakeSymbol("where")
-var symshen_4cons_1form_1respect_1modes = MakeSymbol("shen.cons-form-respect-modes")
-var symshen_4nextticket = MakeSymbol("shen.nextticket")
-var symshen_4_dspecial_d = MakeSymbol("shen.*special*")
-var symabsvector_2 = MakeSymbol("absvector?")
-var symK = MakeSymbol("K")
-var symshen_4compile_1body = MakeSymbol("shen.compile-body")
-var symshen_4cons_1case_1minus = MakeSymbol("shen.cons-case-minus")
-var symshen_4_5non_1terminal_2_6 = MakeSymbol("shen.<non-terminal?>")
-var symshen_4misc_2 = MakeSymbol("shen.misc?")
-var symis_b = MakeSymbol("is!")
-var symcall = MakeSymbol("call")
-var symdefcc = MakeSymbol("defcc")
-var symshen_4lookupsig = MakeSymbol("shen.lookupsig")
-var symshen_4internal_1to_1shen_2 = MakeSymbol("shen.internal-to-shen?")
-var symshen_4ticket_1number = MakeSymbol("shen.ticket-number")
-var symshen_4passive_1variables = MakeSymbol("shen.passive-variables")
-var symshen_4cons_1case_1plus = MakeSymbol("shen.cons-case-plus")
-var symshen_4_5expr_6 = MakeSymbol("shen.<expr>")
-var symshen_4side_1conditions_1_6goals = MakeSymbol("shen.side-conditions->goals")
-var symuserdefs = MakeSymbol("userdefs")
-var symshen_4_5whitespace_6 = MakeSymbol("shen.<whitespace>")
-var symshen_4check_1byte = MakeSymbol("shen.check-byte")
-var symshen_4input_1h_7 = MakeSymbol("shen.input-h+")
-var symshen_4premises_1_6goals = MakeSymbol("shen.premises->goals")
-var syminteger_2 = MakeSymbol("integer?")
-var symshen_4_5digit_6 = MakeSymbol("shen.<digit>")
-var sym_c = MakeSymbol("/")
-var symread_1byte = MakeSymbol("read-byte")
-var symshen_4make_1prolog_1variable = MakeSymbol("shen.make-prolog-variable")
-var symshen_4freshen_1type = MakeSymbol("shen.freshen-type")
-var symshen_4_5shortnatter_6 = MakeSymbol("shen.<shortnatter>")
-var symshen_4loading_2 = MakeSymbol("shen.loading?")
-var symshen_4pause_1for_1user = MakeSymbol("shen.pause-for-user")
-var symshen_4reader_1error_1message = MakeSymbol("shen.reader-error-message")
-var symrun = MakeSymbol("run")
-var symif = MakeSymbol("if")
-var symshen_4lowercase_1symbol_2 = MakeSymbol("shen.lowercase-symbol?")
-var symincluded = MakeSymbol("included")
-var symreceive = MakeSymbol("receive")
-var symshen_4unwind_1types = MakeSymbol("shen.unwind-types")
-var symshen_4rectify_1type = MakeSymbol("shen.rectify-type")
-var symshen_4_5clause_6 = MakeSymbol("shen.<clause>")
-var symshen_4printF = MakeSymbol("shen.printF")
-var sym_3 = MakeSymbol("$")
-var symdatatype = MakeSymbol("datatype")
-var symshen_4process_1_8s = MakeSymbol("shen.process-@s")
-var symshen_4compile_1synonyms = MakeSymbol("shen.compile-synonyms")
-var symshen_4credits = MakeSymbol("shen.credits")
-var symshen_4walk = MakeSymbol("shen.walk")
-var symshen_4_5sides_6 = MakeSymbol("shen.<sides>")
-var symshen_4correct = MakeSymbol("shen.correct")
-var symshen_4bad_1pivot_2 = MakeSymbol("shen.bad-pivot?")
-var symoutput = MakeSymbol("output")
-var sym_e_e = MakeSymbol("&&")
-var symshen_4_5defprolog_6 = MakeSymbol("shen.<defprolog>")
-var symshen_4triple_1stack = MakeSymbol("shen.triple-stack")
-var symshen_4_5integer_6 = MakeSymbol("shen.<integer>")
-var symhush = MakeSymbol("hush")
-var symshen_4choicepoint = MakeSymbol("shen.choicepoint")
-var symshen_4lambda_1entry = MakeSymbol("shen.lambda-entry")
-var symshen_4process_1time = MakeSymbol("shen.process-time")
-var symshen_4_5bterms_6 = MakeSymbol("shen.<bterms>")
-var symshen_4atom_1case_1plus = MakeSymbol("shen.atom-case-plus")
-var symshen_4sigxrules = MakeSymbol("shen.sigxrules")
+var symtuple_2 = MakeSymbol("tuple?")
+var symstoutput = MakeSymbol("stoutput")
 var symshen_4eos = MakeSymbol("shen.eos")
-var symshen_4rep_1X = MakeSymbol("shen.rep-X")
-var symshen_4internal_2 = MakeSymbol("shen.internal?")
-var symshen_4typename_1h = MakeSymbol("shen.typename-h")
-var symshen_4_5dbl_6 = MakeSymbol("shen.<dbl>")
-var symNewAssumptions = MakeSymbol("NewAssumptions")
-var symshen_4use_1type_1info = MakeSymbol("shen.use-type-info")
-var symshen_4x_4launcher_4execute_1all = MakeSymbol("shen.x.launcher.execute-all")
-var symget = MakeSymbol("get")
-var symtail = MakeSymbol("tail")
-var symshen_4sng_1h_2 = MakeSymbol("shen.sng-h?")
-var symParse = MakeSymbol("Parse")
-var symshen_4_5rrb_6 = MakeSymbol("shen.<rrb>")
-var symstep_2 = MakeSymbol("step?")
-var sym_6 = MakeSymbol(">")
-var symunix = MakeSymbol("unix")
-var symshen_4loop = MakeSymbol("shen.loop")
-var symshen_4remove_1datatypes = MakeSymbol("shen.remove-datatypes")
-var symshen_4spaces = MakeSymbol("shen.spaces")
-var symshen_4_5semantics_6 = MakeSymbol("shen.<semantics>")
-var symshen_4fbound_2 = MakeSymbol("shen.fbound?")
-var symshen_4_5body_6 = MakeSymbol("shen.<body>")
-var symshen_4bottom = MakeSymbol("shen.bottom")
-var symshen_4prolog_1keyword_2 = MakeSymbol("shen.prolog-keyword?")
-var sym_5e_6 = MakeSymbol("<e>")
-var symtl = MakeSymbol("tl")
-var symshen_4macros = MakeSymbol("shen.macros")
-var symbind = MakeSymbol("bind")
-var symshen_4lchh = MakeSymbol("shen.lchh")
-var symshen_4_5hterm_6 = MakeSymbol("shen.<hterm>")
-var symshen_4openlock = MakeSymbol("shen.openlock")
-var symshen_4insert_1prolog_1variables = MakeSymbol("shen.insert-prolog-variables")
-var sym_dmaximum_1print_1sequence_1size_d = MakeSymbol("*maximum-print-sequence-size*")
-var symlineread = MakeSymbol("lineread")
-var symshen_4_5atom_6 = MakeSymbol("shen.<atom>")
-var symshen_4atom_1case_1minus = MakeSymbol("shen.atom-case-minus")
-var symshen_4myassume = MakeSymbol("shen.myassume")
-var symshen_4iter_1list = MakeSymbol("shen.iter-list")
-var symshen_4_5name_6 = MakeSymbol("shen.<name>")
-var symshen_4_5float_6 = MakeSymbol("shen.<float>")
-var symshen_4remember_1datatype = MakeSymbol("shen.remember-datatype")
-var symshen_4by_1hypothesis = MakeSymbol("shen.by-hypothesis")
-var symFreeze = MakeSymbol("Freeze")
-var symshen_4lambda_1function = MakeSymbol("shen.lambda-function")
-var syminclude_1all_1but = MakeSymbol("include-all-but")
-var symshen_4x_4launcher_4help_1text = MakeSymbol("shen.x.launcher.help-text")
-var symshen_4arg_1_6str = MakeSymbol("shen.arg->str")
-var symshen_4find_1free_1vars = MakeSymbol("shen.find-free-vars")
-var symshen_4_5return_6 = MakeSymbol("shen.<return>")
-var symshen_4string_1match = MakeSymbol("shen.string-match")
-var symshen_4process_1input_7 = MakeSymbol("shen.process-input+")
-var symshen_4process_1datatype = MakeSymbol("shen.process-datatype")
-var symshen_4_dloading_2_d = MakeSymbol("shen.*loading?*")
-var symshen_4extract_1free_1vars = MakeSymbol("shen.extract-free-vars")
-var symshen_4source = MakeSymbol("shen.source")
-var symshen_4x_4launcher_4eval_1string = MakeSymbol("shen.x.launcher.eval-string")
-var sympackage_2 = MakeSymbol("package?")
-var sym_dos_d = MakeSymbol("*os*")
-var symshen_4_5comment_6 = MakeSymbol("shen.<comment>")
-var symshen_4_5rsb_6 = MakeSymbol("shen.<rsb>")
-var symshen_4raise_1syntax_1error = MakeSymbol("shen.raise-syntax-error")
-var symshen_4_8v_1help = MakeSymbol("shen.@v-help")
-var symporters = MakeSymbol("porters")
-var symshen_4_5log10_6 = MakeSymbol("shen.<log10>")
-var symunit = MakeSymbol("unit")
-var symshen_4_5type_6 = MakeSymbol("shen.<type>")
-var symKey = MakeSymbol("Key")
-var symstring = MakeSymbol("string")
-var symshen_4pac_1h = MakeSymbol("shen.pac-h")
-var symshen_4parse_1failure = MakeSymbol("shen.parse-failure")
-var symshen_4x_4launcher_4eval_1command = MakeSymbol("shen.x.launcher.eval-command")
-var symabort = MakeSymbol("abort")
-var symshen_4pivot_1on = MakeSymbol("shen.pivot-on")
-var symshen_4monotype = MakeSymbol("shen.monotype")
-var symshen_4lock = MakeSymbol("shen.lock")
-var symshen_4specialise_1member = MakeSymbol("shen.specialise-member")
-var symshen_4_1m = MakeSymbol("shen.-m")
-var symoptimise = MakeSymbol("optimise")
-var symshen_4maxseq = MakeSymbol("shen.maxseq")
-var symshen_4undefined_1f_2 = MakeSymbol("shen.undefined-f?")
-var symshen_4callrec = MakeSymbol("shen.callrec")
-var symnth = MakeSymbol("nth")
-var symhd = MakeSymbol("hd")
-var symfail_1if = MakeSymbol("fail-if")
-var symshen_4analyse_1variable_2 = MakeSymbol("shen.analyse-variable?")
-var symshen_4_dinfs_d = MakeSymbol("shen.*infs*")
-var symstring_1_6n = MakeSymbol("string->n")
-var symshen_4_5datatype_1rules_6 = MakeSymbol("shen.<datatype-rules>")
-var symthaw = MakeSymbol("thaw")
-var symarity = MakeSymbol("arity")
-var symin = MakeSymbol("in")
-var syminclude = MakeSymbol("include")
-var symshen_4construct_1context = MakeSymbol("shen.construct-context")
-var symfindall = MakeSymbol("findall")
-var symmake_1string = MakeSymbol("make-string")
-var symshen_4demodulate = MakeSymbol("shen.demodulate")
-var symshen_4_5yacc_6 = MakeSymbol("shen.<yacc>")
-var symshen_4_5packagechar_6 = MakeSymbol("shen.<packagechar>")
-var symsymbol_2 = MakeSymbol("symbol?")
-var symshen_4fix_1help = MakeSymbol("shen.fix-help")
-var symtime = MakeSymbol("time")
-var symverified = MakeSymbol("verified")
-var symshen_4locked_2 = MakeSymbol("shen.locked?")
-var symshen_4freshen_1sig = MakeSymbol("shen.freshen-sig")
-var symshen_4_dtc_d = MakeSymbol("shen.*tc*")
-var symshen_4modh = MakeSymbol("shen.modh")
-var symshen_4compute_1integer_1h = MakeSymbol("shen.compute-integer-h")
-var symTm = MakeSymbol("Tm")
-var symshen_4unwind = MakeSymbol("shen.unwind")
-var symshen_4_5packagename_6 = MakeSymbol("shen.<packagename>")
-var symSelect = MakeSymbol("Select")
-var symshen_4_5syntax_1item_6 = MakeSymbol("shen.<syntax-item>")
-var symdestroy = MakeSymbol("destroy")
-var symshen_4process_1application = MakeSymbol("shen.process-application")
-var symshen_4non_1terminalcode = MakeSymbol("shen.non-terminalcode")
-var symshen_4partial = MakeSymbol("shen.partial")
-var symshen_4sigf = MakeSymbol("shen.sigf")
-var symshen_4syntax_1error_1message = MakeSymbol("shen.syntax-error-message")
-var symshen_4_5times_6 = MakeSymbol("shen.<times>")
-var symshen_4remove_1pointer = MakeSymbol("shen.remove-pointer")
-var symsimple_1error = MakeSymbol("simple-error")
-var sympos = MakeSymbol("pos")
-var symMessage = MakeSymbol("Message")
-var symshen_4_5bterm_6 = MakeSymbol("shen.<bterm>")
-var symshen_4findall_1h = MakeSymbol("shen.findall-h")
-var symshen_4variancy = MakeSymbol("shen.variancy")
-var symshen_4tlv_1help = MakeSymbol("shen.tlv-help")
-var symenable_1type_1theory = MakeSymbol("enable-type-theory")
-var symshen_4factor_1cn = MakeSymbol("shen.factor-cn")
-var symshen_4op = MakeSymbol("shen.op")
-var symshen_4compute_1E = MakeSymbol("shen.compute-E")
-var symshen_4lazyderef = MakeSymbol("shen.lazyderef")
-var symshen_4record_1kl = MakeSymbol("shen.record-kl")
-var symshen_4posint_2 = MakeSymbol("shen.posint?")
-var symlambda = MakeSymbol("lambda")
-var symshen_4_5ass_6 = MakeSymbol("shen.<ass>")
-var symshen_4_5rule_d_6 = MakeSymbol("shen.<rule*>")
-var symand = MakeSymbol("and")
-var symshen_4whitespace_2 = MakeSymbol("shen.whitespace?")
-var symshen_4processed = MakeSymbol("shen.processed")
-var symos = MakeSymbol("os")
-var symread_1file_1as_1string = MakeSymbol("read-file-as-string")
-var symshen_4_5alphanums_6 = MakeSymbol("shen.<alphanums>")
-var symshen_4use_1history = MakeSymbol("shen.use-history")
-var symshen_4compile_1prolog = MakeSymbol("shen.compile-prolog")
-var symshen_4freshen = MakeSymbol("shen.freshen")
-var symshen_4_5non_1terminal_1name_6 = MakeSymbol("shen.<non-terminal-name>")
-var symshen_4hush = MakeSymbol("shen.hush")
-var symshen_4try_1parse = MakeSymbol("shen.try-parse")
-var symX = MakeSymbol("X")
-var symshen_4app = MakeSymbol("shen.app")
-var symstinput = MakeSymbol("stinput")
-var symshen_4_dsynonyms_d = MakeSymbol("shen.*synonyms*")
-var symshen_4retract_1clause = MakeSymbol("shen.retract-clause")
-var symshen_4_5side_6 = MakeSymbol("shen.<side>")
-var symshen_4linearise_1h = MakeSymbol("shen.linearise-h")
-var symwrite_1byte = MakeSymbol("write-byte")
-var symshen_4_5prems_6 = MakeSymbol("shen.<prems>")
-var symHd = MakeSymbol("Hd")
-var symshen_4copyfromvector = MakeSymbol("shen.copyfromvector")
-var symshen_4magless = MakeSymbol("shen.magless")
-var symshen_4pretty_1type = MakeSymbol("shen.pretty-type")
-var symshen_4get_1profile = MakeSymbol("shen.get-profile")
-var sym_drelease_d = MakeSymbol("*release*")
-var sympackage = MakeSymbol("package")
-var symshen_4toplevel_1forms = MakeSymbol("shen.toplevel-forms")
-var symshen_4_dresidue_d = MakeSymbol("shen.*residue*")
-var symshen_4fn_1call_2 = MakeSymbol("shen.fn-call?")
-var symshen_4eval_1and_1print = MakeSymbol("shen.eval-and-print")
-var symshen_4signal_1def = MakeSymbol("shen.signal-def")
-var sym_j = MakeSymbol("}")
-var symshen_4_7string_2 = MakeSymbol("shen.+string?")
-var symshen_4_5str_6 = MakeSymbol("shen.<str>")
-var symshen_4shen = MakeSymbol("shen.shen")
-var symshen_4prolog_1vector = MakeSymbol("shen.prolog-vector")
-var symshen_4bind_b = MakeSymbol("shen.bind!")
-var symshen_4_5pattern2_6 = MakeSymbol("shen.<pattern2>")
-var symshen_4internal_1to_1P_2 = MakeSymbol("shen.internal-to-P?")
-var symfile = MakeSymbol("file")
-var symshen_4internal_1symbols = MakeSymbol("shen.internal-symbols")
-var sym_dversion_d = MakeSymbol("*version*")
-var symshen_4write_1string = MakeSymbol("shen.write-string")
-var symshen_4_5control_6 = MakeSymbol("shen.<control>")
-var symshen_4decrement_1ticket = MakeSymbol("shen.decrement-ticket")
-var symshen_4specialise_1consume = MakeSymbol("shen.specialise-consume")
-var symshen_4vector_1parameter = MakeSymbol("shen.vector-parameter")
-var symshen_4list_1_6str = MakeSymbol("shen.list->str")
-var sym_8p = MakeSymbol("@p")
-var symout = MakeSymbol("out")
-var symload = MakeSymbol("load")
-var symshen_4linearise_1clause = MakeSymbol("shen.linearise-clause")
-var symshen_4cut = MakeSymbol("shen.cut")
-var symGoTo = MakeSymbol("GoTo")
-var symshen_4deref = MakeSymbol("shen.deref")
-var sym_dabsolute_d = MakeSymbol("*absolute*")
-var sym_5end_6 = MakeSymbol("<end>")
-var symshen_4cond_1form = MakeSymbol("shen.cond-form")
-var symshen_4intern_1in_1package = MakeSymbol("shen.intern-in-package")
-var symshen_4special_1case = MakeSymbol("shen.special-case")
-var symshen_4alpha_2 = MakeSymbol("shen.alpha?")
+var symshen_4_5define_6 = MakeSymbol("shen.<define>")
+var symshen_4input_1track = MakeSymbol("shen.input-track")
+var symprint = MakeSymbol("print")
+var symshen_4rfas_1h = MakeSymbol("shen.rfas-h")
+var symshen_4_5single_6 = MakeSymbol("shen.<single>")
 var symshen_4ccons_2 = MakeSymbol("shen.ccons?")
-var symshen_4pvar = MakeSymbol("shen.pvar")
-var symshen_4shen_1_6kl_1h = MakeSymbol("shen.shen->kl-h")
-var symdefmacro = MakeSymbol("defmacro")
-var symshen_4put_1profile = MakeSymbol("shen.put-profile")
-var symsnd = MakeSymbol("snd")
-var symhush_2 = MakeSymbol("hush?")
-var sym_5_b_6 = MakeSymbol("<!>")
-var symshen_4process_1sexprs = MakeSymbol("shen.process-sexprs")
-var symu_b = MakeSymbol("u!")
-var symP = MakeSymbol("P")
-var symshen_4linearise = MakeSymbol("shen.linearise")
-var symshen_4_5s_1exprs_6 = MakeSymbol("shen.<s-exprs>")
-var symundefmacro = MakeSymbol("undefmacro")
-var symshen_4semicolon_2 = MakeSymbol("shen.semicolon?")
-var symshen_4alpha_1convert = MakeSymbol("shen.alpha-convert")
-var symshen_4variable_1case = MakeSymbol("shen.variable-case")
-var symhdstr = MakeSymbol("hdstr")
-var sym_dlanguage_d = MakeSymbol("*language*")
-var symerror = MakeSymbol("error")
-var sym_b = MakeSymbol("!")
-var symoccurs_2 = MakeSymbol("occurs?")
-var symshen_4demod = MakeSymbol("shen.demod")
-var symshen_4member_1clause = MakeSymbol("shen.member-clause")
+var symshen_4_dhistory_d = MakeSymbol("shen.*history*")
+var symshen_4_dresidue_d = MakeSymbol("shen.*residue*")
+var symshen_4unpackage_emacroexpand = MakeSymbol("shen.unpackage&macroexpand")
+var symwhen = MakeSymbol("when")
+var symshen_4toplevel_1forms = MakeSymbol("shen.toplevel-forms")
+var symshen_4out_1of_1bounds = MakeSymbol("shen.out-of-bounds")
+var symshen_4_5rules_6 = MakeSymbol("shen.<rules>")
+var symshen_4factor = MakeSymbol("shen.factor")
+var symshen_4_5integer_6 = MakeSymbol("shen.<integer>")
+var symshen_4mu_1h = MakeSymbol("shen.mu-h")
+var symshen_4construct_1context = MakeSymbol("shen.construct-context")
+var symshen_4show = MakeSymbol("shen.show")
+var symshen_4lookupsig = MakeSymbol("shen.lookupsig")
+var symhd = MakeSymbol("hd")
+var symshen_4_5alphanum_6 = MakeSymbol("shen.<alphanum>")
+var symenable_1type_1theory = MakeSymbol("enable-type-theory")
 var symshen_4prodbutzero = MakeSymbol("shen.prodbutzero")
-var sym_dstoutput_d = MakeSymbol("*stoutput*")
-var symshen_4factorise_1code = MakeSymbol("shen.factorise-code")
-var symshen_4_dprofiled_d = MakeSymbol("shen.*profiled*")
-var symshen_4_5semicolon_6 = MakeSymbol("shen.<semicolon>")
-var symstring_1_6symbol = MakeSymbol("string->symbol")
-var sym_7 = MakeSymbol("+")
-var symshen_4synonyms_1h = MakeSymbol("shen.synonyms-h")
+var symread = MakeSymbol("read")
+var symread_1file = MakeSymbol("read-file")
+var symshen_4intern_1in_1package = MakeSymbol("shen.intern-in-package")
+var symshen_4prterm = MakeSymbol("shen.prterm")
+var sym_a_a = MakeSymbol("==")
+var symcond = MakeSymbol("cond")
+var symfreeze = MakeSymbol("freeze")
+var symsimple_1error = MakeSymbol("simple-error")
+var symshen_4_5clause_6 = MakeSymbol("shen.<clause>")
+var symshen_4side_1conditions_1_6goals = MakeSymbol("shen.side-conditions->goals")
+var syminternal = MakeSymbol("internal")
+var symin_1package = MakeSymbol("in-package")
+var symunspecialise = MakeSymbol("unspecialise")
+var symsystem_1S_2 = MakeSymbol("system-S?")
+var symshen_4pretty_1type = MakeSymbol("shen.pretty-type")
+var symshen_4lzy_a = MakeSymbol("shen.lzy=")
+var symshen_4terpri_1or_1read_1char = MakeSymbol("shen.terpri-or-read-char")
+var symshen_4prtl = MakeSymbol("shen.prtl")
+var symsymbol_2 = MakeSymbol("symbol?")
+var symshen_4remove_1pointer = MakeSymbol("shen.remove-pointer")
+var symshen_4read_1unit_1string = MakeSymbol("shen.read-unit-string")
+var symshen_4pause_1for_1user = MakeSymbol("shen.pause-for-user")
+var symshen_4check_1eval_1and_1print = MakeSymbol("shen.check-eval-and-print")
+var symshen_4_5digit_6 = MakeSymbol("shen.<digit>")
+var sym_6_6 = MakeSymbol(">>")
+var sym_dargv_d = MakeSymbol("*argv*")
+var symunabsolute = MakeSymbol("unabsolute")
+var symshen_4parse_1failure_2 = MakeSymbol("shen.parse-failure?")
+var symreceive = MakeSymbol("receive")
+var symB = MakeSymbol("B")
+var symshen_4bind_b = MakeSymbol("shen.bind!")
+var symshen_4ticket_1number = MakeSymbol("shen.ticket-number")
+var symshen_4_dstep_d = MakeSymbol("shen.*step*")
+var symunix = MakeSymbol("unix")
+var symshen_4trim_1it = MakeSymbol("shen.trim-it")
+var symshen_4_dtracking_d = MakeSymbol("shen.*tracking*")
+var symshen_4parameters = MakeSymbol("shen.parameters")
+var symshen_4return_2 = MakeSymbol("shen.return?")
+var symshen_4use_1history = MakeSymbol("shen.use-history")
+var symshen_4bottom = MakeSymbol("shen.bottom")
+var symshen_4rep_1X = MakeSymbol("shen.rep-X")
+var symshen_4_5wildcard_6 = MakeSymbol("shen.<wildcard>")
+var symshen_4type_1theory_1enabled_2 = MakeSymbol("shen.type-theory-enabled?")
+var symabort = MakeSymbol("abort")
+var symshen_4analyse_1symbol_2 = MakeSymbol("shen.analyse-symbol?")
+var symport = MakeSymbol("port")
+var symshen_4compile_1to_1kl = MakeSymbol("shen.compile-to-kl")
+var symshen_4print_1freshterm = MakeSymbol("shen.print-freshterm")
+var symshen_4kl_1body = MakeSymbol("shen.kl-body")
+var symshen_4_5lowC_6 = MakeSymbol("shen.<lowC>")
+var sym_dmacros_d = MakeSymbol("*macros*")
+var symshen_4type_1error = MakeSymbol("shen.type-error")
+var symshen_4_7m = MakeSymbol("shen.+m")
+var symshen_4t_d_1correct = MakeSymbol("shen.t*-correct")
+var symParse = MakeSymbol("Parse")
+var symshen_4arity_1chk = MakeSymbol("shen.arity-chk")
+var symshen_4_5pattern1_6 = MakeSymbol("shen.<pattern1>")
+var symdo = MakeSymbol("do")
+var symshen_4atom_1_6str = MakeSymbol("shen.atom->str")
+var symshen_4constructor_2 = MakeSymbol("shen.constructor?")
+var symshen_4_5rcurly_6 = MakeSymbol("shen.<rcurly>")
+var symshen_4_dspy_d = MakeSymbol("shen.*spy*")
+var symshen_4_5sng_6 = MakeSymbol("shen.<sng>")
+var symshen_4_5packagechar_6 = MakeSymbol("shen.<packagechar>")
+var symhead = MakeSymbol("head")
+var symstep_2 = MakeSymbol("step?")
+var symshen_4arg_1_6str = MakeSymbol("shen.arg->str")
+var symand = MakeSymbol("and")
+var symshen_4typename = MakeSymbol("shen.typename")
+var symshen_4_5formulae_6 = MakeSymbol("shen.<formulae>")
+var symshen_4monotype = MakeSymbol("shen.monotype")
+var symshen_4packaged_2 = MakeSymbol("shen.packaged?")
+var symshen_4pvar_2 = MakeSymbol("shen.pvar?")
+var symshen_4p_1hyps = MakeSymbol("shen.p-hyps")
+var symshen_4x_4launcher_4quiet_1load = MakeSymbol("shen.x.launcher.quiet-load")
+var symshen_4op1 = MakeSymbol("shen.op1")
+var symshen_4fn_1call_2 = MakeSymbol("shen.fn-call?")
+var symerror_1to_1string = MakeSymbol("error-to-string")
+var symrun = MakeSymbol("run")
+var symshen_4x_4launcher_4help_1text = MakeSymbol("shen.x.launcher.help-text")
+var symshen_4fbound_2 = MakeSymbol("shen.fbound?")
+var symshen_4lowercase_1symbol_2 = MakeSymbol("shen.lowercase-symbol?")
+var symshen_4_5yacc_6 = MakeSymbol("shen.<yacc>")
+var symshen_4processed = MakeSymbol("shen.processed")
+var symcd = MakeSymbol("cd")
+var symshen_4_dinfs_d = MakeSymbol("shen.*infs*")
+var symis = MakeSymbol("is")
+var symout = MakeSymbol("out")
+var symshen_4use_1type_1info = MakeSymbol("shen.use-type-info")
+var sym_8p = MakeSymbol("@p")
+var symit = MakeSymbol("it")
+var symshen_4_5head_6 = MakeSymbol("shen.<head>")
+var symshen_4_1m = MakeSymbol("shen.-m")
+var symshen_4_5lrb_6 = MakeSymbol("shen.<lrb>")
+var sympackage = MakeSymbol("package")
+var symsave = MakeSymbol("save")
+var symshen_4_5clauses_6 = MakeSymbol("shen.<clauses>")
+var symshen_4show_1p = MakeSymbol("shen.show-p")
+var symshen_4tuple_1up = MakeSymbol("shen.tuple-up")
+var symshen_4_5type_6 = MakeSymbol("shen.<type>")
+var symshen_4maxinfexceeded_2 = MakeSymbol("shen.maxinfexceeded?")
+var symshen_4x_4launcher_4script_1command = MakeSymbol("shen.x.launcher.script-command")
+var symfail_1if = MakeSymbol("fail-if")
+var symin = MakeSymbol("in")
+var symshen_4x_4launcher_4eval_1string = MakeSymbol("shen.x.launcher.eval-string")
+var symbound_2 = MakeSymbol("bound?")
+var symshen_4read_1loop = MakeSymbol("shen.read-loop")
+var symdatatypes = MakeSymbol("datatypes")
+var symshen_4hascut_2 = MakeSymbol("shen.hascut?")
+var symhush_2 = MakeSymbol("hush?")
+var symadjoin = MakeSymbol("adjoin")
+var symshen_4constructor_1error = MakeSymbol("shen.constructor-error")
+var symshen_4i_1failed_b = MakeSymbol("shen.i-failed!")
+var symshen_4parse_1failure = MakeSymbol("shen.parse-failure")
+var symshen_4_5float_6 = MakeSymbol("shen.<float>")
 var symshen_4_dlambdatable_d = MakeSymbol("shen.*lambdatable*")
+var symshen_4lambda_1function = MakeSymbol("shen.lambda-function")
+var symshen_4_5bterms_6 = MakeSymbol("shen.<bterms>")
+var symshen_4alphanums_2 = MakeSymbol("shen.alphanums?")
+var symread_1file_1as_1bytelist = MakeSymbol("read-file-as-bytelist")
+var symis_b = MakeSymbol("is!")
+var symclose = MakeSymbol("close")
+var symshen_4fits_2 = MakeSymbol("shen.fits?")
+var symRemainder = MakeSymbol("Remainder")
+var symshen_4beta = MakeSymbol("shen.beta")
+var symlineread = MakeSymbol("lineread")
+var symshen_4_5colon_6 = MakeSymbol("shen.<colon>")
+var symshen_4loop = MakeSymbol("shen.loop")
+var symshen_4package_1user_1input = MakeSymbol("shen.package-user-input")
+var symshen_4passive_1variables = MakeSymbol("shen.passive-variables")
+var symRecord = MakeSymbol("Record")
+var symexternal = MakeSymbol("external")
+var sym_dstinput_d = MakeSymbol("*stinput*")
+var symshen_4pivot_1on = MakeSymbol("shen.pivot-on")
+var symshen_4variable_1case = MakeSymbol("shen.variable-case")
+var symshen_4consume = MakeSymbol("shen.consume")
+var symunknown_1arguments = MakeSymbol("unknown-arguments")
+var symshen_4_5pattern_6 = MakeSymbol("shen.<pattern>")
+var symshen_4expt = MakeSymbol("shen.expt")
+var sym_c = MakeSymbol("/")
+var symboolean = MakeSymbol("boolean")
+var symoutput = MakeSymbol("output")
+var symshen_4_5hterm_6 = MakeSymbol("shen.<hterm>")
+var symshen_4_5bterm_6 = MakeSymbol("shen.<bterm>")
+var symshen_4lock = MakeSymbol("shen.lock")
+var symshen_4reverse_1help = MakeSymbol("shen.reverse-help")
+var symoptimise = MakeSymbol("optimise")
+var symshen_4cond_1form = MakeSymbol("shen.cond-form")
+var symshen_4_5comma_6 = MakeSymbol("shen.<comma>")
+var symshen_4_5c_1rules_6 = MakeSymbol("shen.<c-rules>")
+var symshen_4restore_1P = MakeSymbol("shen.restore-P")
+var symshen_4_dsize_1prolog_1vector_d = MakeSymbol("shen.*size-prolog-vector*")
+var sym_1 = MakeSymbol("-")
+var symupdate_1lambda_1table = MakeSymbol("update-lambda-table")
+var symsqts = MakeSymbol("sqts")
+var symshen_4spaces = MakeSymbol("shen.spaces")
+var symshen_4autocomplete = MakeSymbol("shen.autocomplete")
+var symshen_4shen_1_6kl = MakeSymbol("shen.shen->kl")
+var symtracked = MakeSymbol("tracked")
+var symFinish = MakeSymbol("Finish")
+var symshen_4incinfs = MakeSymbol("shen.incinfs")
+var symshen_4invoke = MakeSymbol("shen.invoke")
+var symshen_4unprotect = MakeSymbol("shen.unprotect")
+var symshen_4reader_1error = MakeSymbol("shen.reader-error")
+var symshen_4find_1arities = MakeSymbol("shen.find-arities")
+var symwrite_1byte = MakeSymbol("write-byte")
+var syminclude = MakeSymbol("include")
+var symshen_4process_1cases = MakeSymbol("shen.process-cases")
+var symTime = MakeSymbol("Time")
+var symshen_4c_1rule_1_6shen = MakeSymbol("shen.c-rule->shen")
+var symoccurs_2 = MakeSymbol("occurs?")
+var symshen_4digit_2 = MakeSymbol("shen.digit?")
+var symshen_4process_1sexprs = MakeSymbol("shen.process-sexprs")
+var symshen_4_dmaxinferences_d = MakeSymbol("shen.*maxinferences*")
+var symshen_4free_1variable_1error_1message = MakeSymbol("shen.free-variable-error-message")
+var sym_5_1address = MakeSymbol("<-address")
+var symdefcc = MakeSymbol("defcc")
+var symshen_4_5double_6 = MakeSymbol("shen.<double>")
+var symshen_4multiples = MakeSymbol("shen.multiples")
+var symshen_4nothing_1doing_2 = MakeSymbol("shen.nothing-doing?")
+var symshen_4findall_1h = MakeSymbol("shen.findall-h")
+var symshen_4prolog_1abstraction = MakeSymbol("shen.prolog-abstraction")
+var symsuccess = MakeSymbol("success")
+var symshen_4sysfunc_2 = MakeSymbol("shen.sysfunc?")
+var symshen_4skip = MakeSymbol("shen.skip")
+var symshen_4_5e_1number_6 = MakeSymbol("shen.<e-number>")
+var symshen_4application_2 = MakeSymbol("shen.application?")
+var symshen_4predicate = MakeSymbol("shen.predicate")
+var symshen_4curry = MakeSymbol("shen.curry")
+var symshen_4change_1pointer_1value = MakeSymbol("shen.change-pointer-value")
+var symaddress_1_6 = MakeSymbol("address->")
+var symshen_4combine_1c_1code = MakeSymbol("shen.combine-c-code")
+var symshen_4app = MakeSymbol("shen.app")
+var symsubst = MakeSymbol("subst")
+var symshen_4_dit_d = MakeSymbol("shen.*it*")
+var symshen_4_8c = MakeSymbol("shen.@c")
+var symshen_4_5times_6 = MakeSymbol("shen.<times>")
+var symshen_4_dsystem_d = MakeSymbol("shen.*system*")
+var symunprofile = MakeSymbol("unprofile")
+var symshen_4decrement_1ticket = MakeSymbol("shen.decrement-ticket")
+var symshen_4variancy = MakeSymbol("shen.variancy")
+var sym_d = MakeSymbol("*")
+var symshen_4read_1evaluate_1print = MakeSymbol("shen.read-evaluate-print")
+var symshen_4variants_2 = MakeSymbol("shen.variants?")
+var symshen_4_5stop_6 = MakeSymbol("shen.<stop>")
+var symshen_4_5sig_drules_6 = MakeSymbol("shen.<sig*rules>")
+var symshen_4_5simple_1pattern_6 = MakeSymbol("shen.<simple-pattern>")
+var symshen_4record_1external = MakeSymbol("shen.record-external")
+var symprolog_1memory = MakeSymbol("prolog-memory")
+var symshen_4remove_1h = MakeSymbol("shen.remove-h")
+var symshen_4fillvector = MakeSymbol("shen.fillvector")
+var symhush = MakeSymbol("hush")
+var symshen_4_5body_6 = MakeSymbol("shen.<body>")
+var symshen_4_5dbl_6 = MakeSymbol("shen.<dbl>")
+var symconcat = MakeSymbol("concat")
+var symunion = MakeSymbol("union")
+var symbind = MakeSymbol("bind")
+var symshen_4passive_1bind = MakeSymbol("shen.passive-bind")
+var symshen_4factor_1selectors = MakeSymbol("shen.factor-selectors")
+var symthaw = MakeSymbol("thaw")
+var symshen_4tuple = MakeSymbol("shen.tuple")
+var symoccurrences = MakeSymbol("occurrences")
+var symshen_4_dshen_1type_1theory_1enabled_2_d = MakeSymbol("shen.*shen-type-theory-enabled?*")
+var symshen_4factorise_1code = MakeSymbol("shen.factorise-code")
+var symshen_4deref_1terms = MakeSymbol("shen.deref-terms")
+var symshen_4primitive = MakeSymbol("shen.primitive")
+var symwrite_1to_1file = MakeSymbol("write-to-file")
+var symshen_4insert_1l = MakeSymbol("shen.insert-l")
+var symshen_4f_1error = MakeSymbol("shen.f-error")
+var symW = MakeSymbol("W")
+var symfunction = MakeSymbol("function")
+var symsystemf = MakeSymbol("systemf")
+var symshen_4call_1prolog = MakeSymbol("shen.call-prolog")
+var symshen_4freshen_1type = MakeSymbol("shen.freshen-type")
+var sym_5_1 = MakeSymbol("<-")
+var sym_e = MakeSymbol("&")
+var symshen_4_5non_1terminal_2_6 = MakeSymbol("shen.<non-terminal?>")
+var symshen_4store_1arity = MakeSymbol("shen.store-arity")
+var symshen_4terms = MakeSymbol("shen.terms")
+var symshen_4unwind = MakeSymbol("shen.unwind")
+var symshen_4continue = MakeSymbol("shen.continue")
+var symA = MakeSymbol("A")
+var symshen_4make_1prolog_1variable = MakeSymbol("shen.make-prolog-variable")
+var symnth = MakeSymbol("nth")
+var symshen_4this_1symbol_1is_1unbound = MakeSymbol("shen.this-symbol-is-unbound")
+var symtype = MakeSymbol("type")
+var symshen_4unpackage = MakeSymbol("shen.unpackage")
+var symshen_4process_1input_7 = MakeSymbol("shen.process-input+")
+var symshen_4deref = MakeSymbol("shen.deref")
+var symTm = MakeSymbol("Tm")
+var sym_i = MakeSymbol("{")
+var symshen_4_5c_1rule_6 = MakeSymbol("shen.<c-rule>")
+var symset = MakeSymbol("set")
+var symshen_4_8ch = MakeSymbol("shen.@ch")
+var symnl = MakeSymbol("nl")
+var symshen_4choicepoint = MakeSymbol("shen.choicepoint")
+var symshen_4remove_1indirection = MakeSymbol("shen.remove-indirection")
+var symshen_4_5strcontents_6 = MakeSymbol("shen.<strcontents>")
+var symshen_4freshterms = MakeSymbol("shen.freshterms")
+var sym_8v = MakeSymbol("@v")
+var symshen_4_5whitespace_6 = MakeSymbol("shen.<whitespace>")
+var symasserta = MakeSymbol("asserta")
+var symshen_4_7string_2 = MakeSymbol("shen.+string?")
+var symfst = MakeSymbol("fst")
+var symshen_4callrec = MakeSymbol("shen.callrec")
+var symshen_4mod = MakeSymbol("shen.mod")
+var sym__ = MakeSymbol("_")
+var symFreeze = MakeSymbol("Freeze")
+var symn_1_6string = MakeSymbol("n->string")
+var symshen_4goto_1h = MakeSymbol("shen.goto-h")
+var symtlv = MakeSymbol("tlv")
+var symlength = MakeSymbol("length")
+var symshen_4_5constructor_6 = MakeSymbol("shen.<constructor>")
+var symread_1from_1string_1unprocessed = MakeSymbol("read-from-string-unprocessed")
+var symor = MakeSymbol("or")
+var symshen_4rule_1_6clause = MakeSymbol("shen.rule->clause")
+var symshen_4abs = MakeSymbol("shen.abs")
+var sym_dabsolute_d = MakeSymbol("*absolute*")
+var symshen_4insert_1h = MakeSymbol("shen.insert-h")
+var symshen_4try_1parse = MakeSymbol("shen.try-parse")
+var symshen_4yacc_1_6shen = MakeSymbol("shen.yacc->shen")
+var symTl = MakeSymbol("Tl")
+var symshen_4record_1internal = MakeSymbol("shen.record-internal")
+var symshen_4shen_1call_2 = MakeSymbol("shen.shen-call?")
+var symshen_4_5defprolog_6 = MakeSymbol("shen.<defprolog>")
+var symshen_4lzy_a_b = MakeSymbol("shen.lzy=!")
+var sym_dversion_d = MakeSymbol("*version*")
+var symlambda = MakeSymbol("lambda")
+var symshen_4_5lowE_6 = MakeSymbol("shen.<lowE>")
+var symshen_4non_1application_2 = MakeSymbol("shen.non-application?")
+var symshen_4lchh = MakeSymbol("shen.lchh")
+var symshen_4output_1track = MakeSymbol("shen.output-track")
+var symarity = MakeSymbol("arity")
+var symshen_4maxseq = MakeSymbol("shen.maxseq")
+var symshen_4hds_a_2 = MakeSymbol("shen.hds=?")
+var symshen_4find_1free_1vars = MakeSymbol("shen.find-free-vars")
+var symshen_4unpack_1foreign = MakeSymbol("shen.unpack-foreign")
+var symshen_4tame = MakeSymbol("shen.tame")
+var symshen_4x_4launcher_4default_1handle_1result = MakeSymbol("shen.x.launcher.default-handle-result")
+var symcn = MakeSymbol("cn")
+var sym_j = MakeSymbol("}")
+var symL = MakeSymbol("L")
+var symshen_4consume_1clause = MakeSymbol("shen.consume-clause")
+var symshen_4objectcode = MakeSymbol("shen.objectcode")
+var symshen_4_dgensym_d = MakeSymbol("shen.*gensym*")
+var symspecialise = MakeSymbol("specialise")
+var symshen_4funexstring = MakeSymbol("shen.funexstring")
+var symshen_4_5s_1exprs_6 = MakeSymbol("shen.<s-exprs>")
+var symshen_4_5lsb_6 = MakeSymbol("shen.<lsb>")
+var symu_b = MakeSymbol("u!")
+var symshen_4make_1uppercase = MakeSymbol("shen.make-uppercase")
+var symshen_4atom_1case_1plus = MakeSymbol("shen.atom-case-plus")
+var symshen_4_5datatype_1rule_6 = MakeSymbol("shen.<datatype-rule>")
+var symshen_4_5sides_6 = MakeSymbol("shen.<sides>")
+var symHd = MakeSymbol("Hd")
+var symappend = MakeSymbol("append")
+var symmaxinferences = MakeSymbol("maxinferences")
+var symshen_4_dsigf_d = MakeSymbol("shen.*sigf*")
+var symshen_4rectify_1test = MakeSymbol("shen.rectify-test")
+var symshen_4_5literal_6 = MakeSymbol("shen.<literal>")
+var symshen_4free_1var_1chk = MakeSymbol("shen.free-var-chk")
+var symshen_4print_1prolog_1vector = MakeSymbol("shen.print-prolog-vector")
+var symshen_4prhush = MakeSymbol("shen.prhush")
+var symshen_4shendef_1_6kldef_1h = MakeSymbol("shen.shendef->kldef-h")
+var symshen_4_5s_1exprs2_6 = MakeSymbol("shen.<s-exprs2>")
+var sym_3 = MakeSymbol("$")
+var symshen_4unlock = MakeSymbol("shen.unlock")
+var symshen_4iter_1vector = MakeSymbol("shen.iter-vector")
+var symshen_4assert_d = MakeSymbol("shen.assert*")
+var symvector = MakeSymbol("vector")
+var symshen_4s = MakeSymbol("shen.s")
+var symshen_4t = MakeSymbol("shen.t")
+var symshen_4initialise_1lambda_1tables = MakeSymbol("shen.initialise-lambda-tables")
+var symshen_4partial = MakeSymbol("shen.partial")
+var symshen_4prolog_1track = MakeSymbol("shen.prolog-track")
+var symshen_4x_4launcher_4eval_1flag_1map = MakeSymbol("shen.x.launcher.eval-flag-map")
+var symfn = MakeSymbol("fn")
+var symshen_4pvar = MakeSymbol("shen.pvar")
+var sym_dimplementation_d = MakeSymbol("*implementation*")
+var symshen_4dbl_2 = MakeSymbol("shen.dbl?")
+var symshen_4_5colon_1equal_6 = MakeSymbol("shen.<colon-equal>")
+var symshen_4uppercase_2 = MakeSymbol("shen.uppercase?")
+var symZ = MakeSymbol("Z")
+var symshen_4_5s_1exprs1_6 = MakeSymbol("shen.<s-exprs1>")
+var symshen_4misc_2 = MakeSymbol("shen.misc?")
+var symdeclare = MakeSymbol("declare")
+var sym_dporters_d = MakeSymbol("*porters*")
+var symshen_4_5return_6 = MakeSymbol("shen.<return>")
+var symshen_4internal_1to_1shen_2 = MakeSymbol("shen.internal-to-shen?")
+var symshen_4insert_1prolog_1variables = MakeSymbol("shen.insert-prolog-variables")
+var symshen_4t_d_1rule = MakeSymbol("shen.t*-rule")
+var symctxt = MakeSymbol("ctxt")
+var symshen_4key_1in_1sequent_1calculus_2 = MakeSymbol("shen.key-in-sequent-calculus?")
+var symshen_4hashkey = MakeSymbol("shen.hashkey")
+var sympackage_2 = MakeSymbol("package?")
+var symshen_4_5shortnatter_6 = MakeSymbol("shen.<shortnatter>")
+var symshen_4_dalldatatypes_d = MakeSymbol("shen.*alldatatypes*")
+var symshen_4compile_1synonyms = MakeSymbol("shen.compile-synonyms")
+var symshen_4dynamic_1default = MakeSymbol("shen.dynamic-default")
+var symshen_4line = MakeSymbol("shen.line")
+var symshen_4cons_1case_1minus = MakeSymbol("shen.cons-case-minus")
+var symshen_4bindv = MakeSymbol("shen.bindv")
+var symshen_4undefined_1f_2 = MakeSymbol("shen.undefined-f?")
+var symshen_4_dcall_d = MakeSymbol("shen.*call*")
+var symshen_4_doptimise_d = MakeSymbol("shen.*optimise*")
+var sym_5e_6 = MakeSymbol("<e>")
+var symshen_4_5log10_6 = MakeSymbol("shen.<log10>")
+var symspy_2 = MakeSymbol("spy?")
+var symshen_4nvars = MakeSymbol("shen.nvars")
+var symshen_4build_1lambda_1table = MakeSymbol("shen.build-lambda-table")
+var symshen_4record_1kl = MakeSymbol("shen.record-kl")
+var symshen_4process_1after_1type = MakeSymbol("shen.process-after-type")
+var symshen_4load_1help = MakeSymbol("shen.load-help")
+var symcons_2 = MakeSymbol("cons?")
+var symshen_4_dprolog_1memory_d = MakeSymbol("shen.*prolog-memory*")
+var sym_dproperty_1vector_d = MakeSymbol("*property-vector*")
+var symshen_4_doccurs_d = MakeSymbol("shen.*occurs*")
+var symshen_4_5iscolon_6 = MakeSymbol("shen.<iscolon>")
+var symshen_4find_1types = MakeSymbol("shen.find-types")
+var symshen_4explode_1h = MakeSymbol("shen.explode-h")
+var symshen_4fn_1call = MakeSymbol("shen.fn-call")
+var symintern = MakeSymbol("intern")
+var symshen_4create_1skeleton = MakeSymbol("shen.create-skeleton")
+var symshen_4mkstr_1r = MakeSymbol("shen.mkstr-r")
+var symshen_4show_1datatypes = MakeSymbol("shen.show-datatypes")
+var symgensym = MakeSymbol("gensym")
+var symshen_4proc_1nl = MakeSymbol("shen.proc-nl")
+var symshen_4integer_1test_2 = MakeSymbol("shen.integer-test?")
+var symoptimise_2 = MakeSymbol("optimise?")
+var symshen_4string_1_6byte = MakeSymbol("shen.string->byte")
+var symlist = MakeSymbol("list")
+var symshen_4dynamic = MakeSymbol("shen.dynamic")
+var symshen_4compile_1body = MakeSymbol("shen.compile-body")
+var symfork = MakeSymbol("fork")
+var symshen_4remove_1bystanders = MakeSymbol("shen.remove-bystanders")
+var symS = MakeSymbol("S")
+var symshen_4choicepoint_b = MakeSymbol("shen.choicepoint!")
+var symshen_4specialise_1member = MakeSymbol("shen.specialise-member")
+var symshen_4terminalcode = MakeSymbol("shen.terminalcode")
+var symsum = MakeSymbol("sum")
+var sympr = MakeSymbol("pr")
+var symshen_4function_1calls = MakeSymbol("shen.function-calls")
+var symshen = MakeSymbol("shen")
+var symshen_4peek_1history = MakeSymbol("shen.peek-history")
+var symshen_4cons_1form_1respect_1modes = MakeSymbol("shen.cons-form-respect-modes")
+var symshen_4demode = MakeSymbol("shen.demode")
+var symshen_4system_1S_1h = MakeSymbol("shen.system-S-h")
+var symshen_4alpha_1convert = MakeSymbol("shen.alpha-convert")
+var symshen_4print_1vector_2 = MakeSymbol("shen.print-vector?")
+var symshen_4special_2 = MakeSymbol("shen.special?")
+var symopen = MakeSymbol("open")
+var symshen_4bytes_1_6string = MakeSymbol("shen.bytes->string")
+var symshen_4macros = MakeSymbol("shen.macros")
+var symNewAssumptions = MakeSymbol("NewAssumptions")
+var symshen_4write_1kl = MakeSymbol("shen.write-kl")
+var symAssumptions = MakeSymbol("Assumptions")
+var symshen_4string_1_6bytes = MakeSymbol("shen.string->bytes")
+var symshen_4compute_1integer = MakeSymbol("shen.compute-integer")
+var symshen_4rectify_1type = MakeSymbol("shen.rectify-type")
+var symshen_4t_d_1integrity = MakeSymbol("shen.t*-integrity")
+var symnot = MakeSymbol("not")
+var symshen_4_duserdefs_d = MakeSymbol("shen.*userdefs*")
+var syminput = MakeSymbol("input")
+var symload = MakeSymbol("load")
+var symshen_4deref_1forked_1literals = MakeSymbol("shen.deref-forked-literals")
+var symshen_4lambda_1entry = MakeSymbol("shen.lambda-entry")
+var symforeign = MakeSymbol("foreign")
+var symshen_4_5prem_6 = MakeSymbol("shen.<prem>")
+var symshen_4f = MakeSymbol("shen.f")
+var symprofile = MakeSymbol("profile")
+var symshen_4process_1time = MakeSymbol("shen.process-time")
+var symshen_4colon_1equal_2 = MakeSymbol("shen.colon-equal?")
+var symshen_4_5iscomma_6 = MakeSymbol("shen.<iscomma>")
+var symshen_4my_1read_1byte = MakeSymbol("shen.my-read-byte")
+var symshen_4recursive_1string_1match = MakeSymbol("shen.recursive-string-match")
+var symshen_4pac_1h = MakeSymbol("shen.pac-h")
+var symshen_4compile_1head = MakeSymbol("shen.compile-head")
+var symy_1or_1n_2 = MakeSymbol("y-or-n?")
+var symhdstr = MakeSymbol("hdstr")
+var symshen_4freshterm = MakeSymbol("shen.freshterm")
+var symshen_4mkstr_1l = MakeSymbol("shen.mkstr-l")
+var symfix = MakeSymbol("fix")
+var symabsolute = MakeSymbol("absolute")
+var symshen_4rdecons = MakeSymbol("shen.rdecons")
+var symlaunch_1repl = MakeSymbol("launch-repl")
+var symshen_4_5plus_6 = MakeSymbol("shen.<plus>")
+var symdefmacro = MakeSymbol("defmacro")
+var symshen_4call_1dynamic = MakeSymbol("shen.call-dynamic")
+var symshen_4system_1S = MakeSymbol("shen.system-S")
+var sym_dmaximum_1print_1sequence_1size_d = MakeSymbol("*maximum-print-sequence-size*")
+var sym_6_a = MakeSymbol(">=")
+var sym_dport_d = MakeSymbol("*port*")
+var symshen_4linearise_1h = MakeSymbol("shen.linearise-h")
+var symshen_4_dnames_d = MakeSymbol("shen.*names*")
+var symshen_4prolog_1parameters = MakeSymbol("shen.prolog-parameters")
+var symwhere = MakeSymbol("where")
+var symif = MakeSymbol("if")
+var symshen_4typename_1h = MakeSymbol("shen.typename-h")
+var symstr = MakeSymbol("str")
+var symshen_4prolog_1arity_1check = MakeSymbol("shen.prolog-arity-check")
+var symshen_4_5hterm1_6 = MakeSymbol("shen.<hterm1>")
+var symshen_4_5notdbq_6 = MakeSymbol("shen.<notdbq>")
+var symshen_4insert = MakeSymbol("shen.insert")
+var symshen_4internal_1symbols = MakeSymbol("shen.internal-symbols")
+var symshen_4analyse_1variable_2 = MakeSymbol("shen.analyse-variable?")
+var symshen_4credits = MakeSymbol("shen.credits")
+var symshen_4tracked_2 = MakeSymbol("shen.tracked?")
+var symshen_4demodulate = MakeSymbol("shen.demodulate")
+var symshen_4sigf = MakeSymbol("shen.sigf")
+var symshen_4freshen = MakeSymbol("shen.freshen")
+var symlanguage = MakeSymbol("language")
+var sym_4_4_4 = MakeSymbol("...")
+var symshen_4factor_1selectors_1h = MakeSymbol("shen.factor-selectors-h")
+var sym_dstoutput_d = MakeSymbol("*stoutput*")
+var symuntrack = MakeSymbol("untrack")
+var symshen_4lazyderef = MakeSymbol("shen.lazyderef")
+var symshen_4sigxrules = MakeSymbol("shen.sigxrules")
+var symshen_4insert_1tracking_1code = MakeSymbol("shen.insert-tracking-code")
+var symtc = MakeSymbol("tc")
+var symfactorise = MakeSymbol("factorise")
+var symshen_4write_1kl_1h = MakeSymbol("shen.write-kl-h")
+var symshen_4newpv = MakeSymbol("shen.newpv")
+var symshen_4factor_1cn = MakeSymbol("shen.factor-cn")
+var symshen_4_5fraction_6 = MakeSymbol("shen.<fraction>")
+var symmapcan = MakeSymbol("mapcan")
+var sym_e_e = MakeSymbol("&&")
+var symboolean_2 = MakeSymbol("boolean?")
+var symshen_4simple_1curry = MakeSymbol("shen.simple-curry")
+var symshen_4assumetypes = MakeSymbol("shen.assumetypes")
+var symshen_4_dtc_d = MakeSymbol("shen.*tc*")
+var symshen_4record_1it = MakeSymbol("shen.record-it")
+var symshen_4_5minus_6 = MakeSymbol("shen.<minus>")
+var symstring_2 = MakeSymbol("string?")
+var symshen_4prolog_1vector = MakeSymbol("shen.prolog-vector")
+var symshen_4work_1through = MakeSymbol("shen.work-through")
+var sym_drelease_d = MakeSymbol("*release*")
+var symshen_4op_1test = MakeSymbol("shen.op-test")
+var symshen_4input_1h_7 = MakeSymbol("shen.input-h+")
+var symshen_4_dsynonyms_d = MakeSymbol("shen.*synonyms*")
+var symcall = MakeSymbol("call")
+var symmode = MakeSymbol("mode")
+var symshen_4_5comment_6 = MakeSymbol("shen.<comment>")
+var symsynonyms = MakeSymbol("synonyms")
+var symfile = MakeSymbol("file")
+var symshen_4recursively_1print = MakeSymbol("shen.recursively-print")
+var symshow_1help = MakeSymbol("show-help")
+var symtlstr = MakeSymbol("tlstr")
+var symshen_4_5pattern2_6 = MakeSymbol("shen.<pattern2>")
+var symlet = MakeSymbol("let")
+var symshen_4recursively_1factor_1selectors = MakeSymbol("shen.recursively-factor-selectors")
+var symshen_4_5equal_6 = MakeSymbol("shen.<equal>")
+var symcases = MakeSymbol("cases")
+var sym_8s = MakeSymbol("@s")
+var symshen_4_dfactorise_2_d = MakeSymbol("shen.*factorise?*")
+var symshen_4_dextraspecial_d = MakeSymbol("shen.*extraspecial*")
+var symshen_4_5_1out = MakeSymbol("shen.<-out")
+var symshen_4_5returns_6 = MakeSymbol("shen.<returns>")
+var symshen_4check_1byte = MakeSymbol("shen.check-byte")
+var symexplode = MakeSymbol("explode")
+var symshen_4choicepoint_2 = MakeSymbol("shen.choicepoint?")
+var symshen_4str_1_6bytes = MakeSymbol("shen.str->bytes")
+var symshen_4add_1sexpr = MakeSymbol("shen.add-sexpr")
+var symshen_4pui_1h = MakeSymbol("shen.pui-h")
+var symshen_4atom_1case_1minus = MakeSymbol("shen.atom-case-minus")
+var symP = MakeSymbol("P")
+var symshen_4x_4launcher_4main = MakeSymbol("shen.x.launcher.main")
+var syminput_7 = MakeSymbol("input+")
+var symSelect = MakeSymbol("Select")
+var symshen_4_5strc_6 = MakeSymbol("shen.<strc>")
+var symshen_4sng_2 = MakeSymbol("shen.sng?")
+var symshen_4t_d = MakeSymbol("shen.t*")
+var symshen_4_5rule_d_6 = MakeSymbol("shen.<rule*>")
+var symshen_4factor_1recognisors = MakeSymbol("shen.factor-recognisors")
+var symshen_4reader_1error_1message = MakeSymbol("shen.reader-error-message")
+var symshen_4_5rsb_6 = MakeSymbol("shen.<rsb>")
+var symshen_4macroexpand_1h = MakeSymbol("shen.macroexpand-h")
+var symshen_4process_1datatype = MakeSymbol("shen.process-datatype")
+var symshen_4_5datatype_6 = MakeSymbol("shen.<datatype>")
+var symshen_4unlocked_2 = MakeSymbol("shen.unlocked?")
+var symshen_4variablecode = MakeSymbol("shen.variablecode")
+var symshen_4source = MakeSymbol("shen.source")
+var symread_1file_1as_1string = MakeSymbol("read-file-as-string")
+var symshen_4_1null_1 = MakeSymbol("shen.-null-")
+var symvector_1_6 = MakeSymbol("vector->")
+var symshen_4unassoc = MakeSymbol("shen.unassoc")
+var symshen_4g = MakeSymbol("shen.g")
+var symget_1time = MakeSymbol("get-time")
+var symexception = MakeSymbol("exception")
+var symshen_4typetable = MakeSymbol("shen.typetable")
+var symshen_4rule_1_6body = MakeSymbol("shen.rule->body")
+var symshen_4_5atom_6 = MakeSymbol("shen.<atom>")
+var symlazy = MakeSymbol("lazy")
+var symshen_4evaluate_1lineread = MakeSymbol("shen.evaluate-lineread")
+var symshen_4_5syntax_1item_6 = MakeSymbol("shen.<syntax-item>")
+var symshen_4process_1yacc_1semantics = MakeSymbol("shen.process-yacc-semantics")
+var symshen_4str_1_6str = MakeSymbol("shen.str->str")
+var symshen_4bad_1pivot_2 = MakeSymbol("shen.bad-pivot?")
+var symshen_4prolog_1keyword_2 = MakeSymbol("shen.prolog-keyword?")
+var symshen_4extract_1free_1vars = MakeSymbol("shen.extract-free-vars")
+var symshen_4nextticket = MakeSymbol("shen.nextticket")
+var symshen_4raise_1syntax_1error = MakeSymbol("shen.raise-syntax-error")
+var symshen_4linearise = MakeSymbol("shen.linearise")
+var symshen_4lowercase_2 = MakeSymbol("shen.lowercase?")
+var symshen_4initialise__environment = MakeSymbol("shen.initialise_environment")
+var symshen_4intern_1type = MakeSymbol("shen.intern-type")
+var symprotect = MakeSymbol("protect")
+var symshen_4write_1string = MakeSymbol("shen.write-string")
+var symshen_4profile_1help = MakeSymbol("shen.profile-help")
+var symshen_4list_1_6str = MakeSymbol("shen.list->str")
+var symshen_4iter_1list = MakeSymbol("shen.iter-list")
+var symdefun = MakeSymbol("defun")
+var sym_dlanguage_d = MakeSymbol("*language*")
+var symshen_4scan_1body = MakeSymbol("shen.scan-body")
+var symbar_b = MakeSymbol("bar!")
+var symshen_4goto = MakeSymbol("shen.goto")
+var symshen_4r = MakeSymbol("shen.r")
+var symshen_4shen = MakeSymbol("shen.shen")
+var symshen_4coll_1formulae = MakeSymbol("shen.coll-formulae")
+var symshen_4get_1profile = MakeSymbol("shen.get-profile")
+var symshen_4_5longnatter_6 = MakeSymbol("shen.<longnatter>")
+var symshen_4compute_1integer_1h = MakeSymbol("shen.compute-integer-h")
+var symatom_2 = MakeSymbol("atom?")
+var symshen_4correct = MakeSymbol("shen.correct")
+var symuserdefs = MakeSymbol("userdefs")
+var symdestroy = MakeSymbol("destroy")
+var symeval_1kl = MakeSymbol("eval-kl")
+var symfail = MakeSymbol("fail")
+var symshen_4internal_2 = MakeSymbol("shen.internal?")
+var symstep = MakeSymbol("step")
+var symshen_4process_1read_1byte = MakeSymbol("shen.process-read-byte")
+var symshen_4_5rules_d_6 = MakeSymbol("shen.<rules*>")
+var symshen_4shen_1_6kl_1h = MakeSymbol("shen.shen->kl-h")
+var symshen_4walk = MakeSymbol("shen.walk")
+var symshen_4macro_1_8ch = MakeSymbol("shen.macro-@ch")
+var symshen_4ok = MakeSymbol("shen.ok")
+var symoccurs_1check = MakeSymbol("occurs-check")
+var symshen_4_5ass_6 = MakeSymbol("shen.<ass>")
+var symassoc = MakeSymbol("assoc")
+var symput = MakeSymbol("put")
+var symshen_4record_1macro = MakeSymbol("shen.record-macro")
+var symHypotheses = MakeSymbol("Hypotheses")
+var sym_dhome_1directory_d = MakeSymbol("*home-directory*")
+var symshen_4_5semicolon_6 = MakeSymbol("shen.<semicolon>")
+var symshen_4_5str_6 = MakeSymbol("shen.<str>")
+var symshen_4write_1chars = MakeSymbol("shen.write-chars")
+var symGoTo = MakeSymbol("GoTo")
+var symread_1from_1string = MakeSymbol("read-from-string")
+var symshen_4conscode = MakeSymbol("shen.conscode")
+var symshen_4tlv_1help = MakeSymbol("shen.tlv-help")
+var symY = MakeSymbol("Y")
+var symdatatype = MakeSymbol("datatype")
+var symshen_4remember_1datatype = MakeSymbol("shen.remember-datatype")
+var symstinput = MakeSymbol("stinput")
+var symreverse = MakeSymbol("reverse")
+var symshen_4macro_1_8c = MakeSymbol("shen.macro-@c")
+var symshen_4update_1lambdatable = MakeSymbol("shen.update-lambdatable")
+var sym_a_a_6 = MakeSymbol("==>")
+var symshen_4_5expr_6 = MakeSymbol("shen.<expr>")
+var symshen_4l_1rules = MakeSymbol("shen.l-rules")
+var symunput = MakeSymbol("unput")
+var symshen_4remove_1datatypes = MakeSymbol("shen.remove-datatypes")
+var symshen_4update_1history = MakeSymbol("shen.update-history")
+var symshen_4freshen_1rule = MakeSymbol("shen.freshen-rule")
+var symAction = MakeSymbol("Action")
+var symvector_2 = MakeSymbol("vector?")
+var symnumber_2 = MakeSymbol("number?")
+var symshen_4process_1_8s = MakeSymbol("shen.process-@s")
+var symshen_4semicolon_2 = MakeSymbol("shen.semicolon?")
+var symshen_4x_4launcher_4launch_1shen = MakeSymbol("shen.x.launcher.launch-shen")
+var symshen_4lr_1rule = MakeSymbol("shen.lr-rule")
+var symeval = MakeSymbol("eval")
+var symreturn = MakeSymbol("return")
+var symvalue = MakeSymbol("value")
+var symK = MakeSymbol("K")
+var symshen_4retract_1clause = MakeSymbol("shen.retract-clause")
+var symshen_4wildcard_2 = MakeSymbol("shen.wildcard?")
+var symKey = MakeSymbol("Key")
+var symshen_4repl = MakeSymbol("shen.repl")
+var symshen_4_5rule_6 = MakeSymbol("shen.<rule>")
+var symshen_4horn_1clause_1procedure = MakeSymbol("shen.horn-clause-procedure")
+var symshen_4linearise_1clause = MakeSymbol("shen.linearise-clause")
+var symshen_4restore_1local = MakeSymbol("shen.restore-local")
+var symerror = MakeSymbol("error")
+var symstring = MakeSymbol("string")
+var symshen_4locked_2 = MakeSymbol("shen.locked?")
+var symremove = MakeSymbol("remove")
+var symshen_4compute_1E = MakeSymbol("shen.compute-E")
+var symshen_4x_4launcher_4eval_1command = MakeSymbol("shen.x.launcher.eval-command")
+var symshen_4vector_1_6str = MakeSymbol("shen.vector->str")
+var symV = MakeSymbol("V")
+var symshen_4package_1symbols = MakeSymbol("shen.package-symbols")
+var symshen_4process_1assoc = MakeSymbol("shen.process-assoc")
+var symshen_4premises_1_6goals = MakeSymbol("shen.premises->goals")
+var symcompile = MakeSymbol("compile")
+var symshen_4extract_1vars = MakeSymbol("shen.extract-vars")
+var symshen_4eval_1and_1print = MakeSymbol("shen.eval-and-print")
+var symC = MakeSymbol("C")
+var symshen_4put_1profile = MakeSymbol("shen.put-profile")
+var symtc_2 = MakeSymbol("tc?")
+var symshen_4printF = MakeSymbol("shen.printF")
+var symshen_4_5digits_6 = MakeSymbol("shen.<digits>")
+var symshen_4type_1F = MakeSymbol("shen.type-F")
+var symshen_4partial_1parse_1failure_2 = MakeSymbol("shen.partial-parse-failure?")
+var symshen_4non_1terminal_2 = MakeSymbol("shen.non-terminal?")
+var symverified = MakeSymbol("verified")
+var symshen_4compile_1prolog = MakeSymbol("shen.compile-prolog")
+var symshen_4_dpackage_d = MakeSymbol("shen.*package*")
+var symshen_4_5hash_6 = MakeSymbol("shen.<hash>")
+var symshen_4initialise_1arity_1table = MakeSymbol("shen.initialise-arity-table")
+var symshen_4process_1let = MakeSymbol("shen.process-let")
+var symshen_4top = MakeSymbol("shen.top")
+var symshen_4signal_1def = MakeSymbol("shen.signal-def")
+var symshen_4syntax_1error_1message = MakeSymbol("shen.syntax-error-message")
+var symcons = MakeSymbol("cons")
+var symshen_4_5datatype_1rules_6 = MakeSymbol("shen.<datatype-rules>")
+var symshen_4t_d_1rules = MakeSymbol("shen.t*-rules")
+var symshen_4x_4launcher_4done = MakeSymbol("shen.x.launcher.done")
+var sym_7 = MakeSymbol("+")
+var symshen_4zero_1place_2 = MakeSymbol("shen.zero-place?")
+var symempty_2 = MakeSymbol("empty?")
+var symvariable_2 = MakeSymbol("variable?")
+var symshen_4deref_1calls = MakeSymbol("shen.deref-calls")
+var symshen_4x_4launcher_4version_1string = MakeSymbol("shen.x.launcher.version-string")
+var symshen_4in_1_6 = MakeSymbol("shen.in->")
+var symshen_4synonyms_1h = MakeSymbol("shen.synonyms-h")
+var symshen_4fix_1help = MakeSymbol("shen.fix-help")
+var symshen_4compute_1fraction = MakeSymbol("shen.compute-fraction")
+var symshen_4copyfromvector = MakeSymbol("shen.copyfromvector")
+var symshen_4search_1user_1datatypes = MakeSymbol("shen.search-user-datatypes")
+var symincluded = MakeSymbol("included")
+var symshen_4_5rrb_6 = MakeSymbol("shen.<rrb>")
+var symshen_4vector_1dereference = MakeSymbol("shen.vector-dereference")
+var symshen_4t_d_1rule_1h = MakeSymbol("shen.t*-rule-h")
+var symshen_4_5yaccsig_6 = MakeSymbol("shen.<yaccsig>")
+var symshen_4modh = MakeSymbol("shen.modh")
+var symshen_4hush = MakeSymbol("shen.hush")
+var symshen_4_5signature_6 = MakeSymbol("shen.<signature>")
+var symshen_4received = MakeSymbol("shen.received")
+var symshen_4specialise_1consume = MakeSymbol("shen.specialise-consume")
+var symspy = MakeSymbol("spy")
+var symnumber = MakeSymbol("number")
+var sym_c_4 = MakeSymbol("/.")
+var sym_5_1_1 = MakeSymbol("<--")
+var symX = MakeSymbol("X")
+var symshen_4cut = MakeSymbol("shen.cut")
+var sym_5end_6 = MakeSymbol("<end>")
+var symshen_4compute_1fraction_1h = MakeSymbol("shen.compute-fraction-h")
+var symshen_4special_1case = MakeSymbol("shen.special-case")
+var symAssumption = MakeSymbol("Assumption")
+var symtail = MakeSymbol("tail")
+var symporters = MakeSymbol("porters")
+var symshen_4process_1def = MakeSymbol("shen.process-def")
+var symshen_4external_1symbols = MakeSymbol("shen.external-symbols")
+var symshen_4_dprofiled_d = MakeSymbol("shen.*profiled*")
+var symshen_4by_1hypothesis = MakeSymbol("shen.by-hypothesis")
+var symshen_4list_2 = MakeSymbol("shen.list?")
+var symshen_4_5name_6 = MakeSymbol("shen.<name>")
+var symshen_4curry_1type = MakeSymbol("shen.curry-type")
+var symMessage = MakeSymbol("Message")
+var symshen_4_8v_1help = MakeSymbol("shen.@v-help")
+var symshen_4_5lcurly_6 = MakeSymbol("shen.<lcurly>")
+var symundefmacro = MakeSymbol("undefmacro")
+var symshen_4cons_1case_1plus = MakeSymbol("shen.cons-case-plus")
+var symshen_4_7vector_2 = MakeSymbol("shen.+vector?")
+var symshen_4internal_1to_1P_2 = MakeSymbol("shen.internal-to-P?")
+var sym_1_1_6 = MakeSymbol("-->")
+var symprolog_2 = MakeSymbol("prolog?")
+var symshen_4free_1variable_2 = MakeSymbol("shen.free-variable?")
+var symshen_4partial_1application_d_2 = MakeSymbol("shen.partial-application*?")
+var symshen_4char_1stinput_2 = MakeSymbol("shen.char-stinput?")
+var symshen_4unwind_1types = MakeSymbol("shen.unwind-types")
+var symshen_4syntax_1item_2 = MakeSymbol("shen.syntax-item?")
+var symshen_4monomorphic_2 = MakeSymbol("shen.monomorphic?")
+var sym_5_a = MakeSymbol("<=")
+var symread_1byte = MakeSymbol("read-byte")
+var symbootstrap = MakeSymbol("bootstrap")
+var symshen_4lch = MakeSymbol("shen.lch")
+var symshen_4_5packagenames_6 = MakeSymbol("shen.<packagenames>")
+var symps = MakeSymbol("ps")
+var symshen_4_dspecial_d = MakeSymbol("shen.*special*")
+var symshen_4_5patterns_6 = MakeSymbol("shen.<patterns>")
+var symshen_4wildcardcode = MakeSymbol("shen.wildcardcode")
+var symget = MakeSymbol("get")
+var symshen_4_5shortnatters_6 = MakeSymbol("shen.<shortnatters>")
+var symelement_2 = MakeSymbol("element?")
+var symshen_4_5bar_6 = MakeSymbol("shen.<bar>")
+var symshen_4_5alphanums_6 = MakeSymbol("shen.<alphanums>")
+var symshen_4rules_1_6prolog = MakeSymbol("shen.rules->prolog")
+var symshen_4profiled_2 = MakeSymbol("shen.profiled?")
+var symfactorise_2 = MakeSymbol("factorise?")
+var sym_6 = MakeSymbol(">")
+var sym_a = MakeSymbol("=")
+var symshen_4op = MakeSymbol("shen.op")
+var symshen_4overapplication_2 = MakeSymbol("shen.overapplication?")
+var symshen_4prolog_1vector_1size = MakeSymbol("shen.prolog-vector-size")
+var symshen_4process_1applications = MakeSymbol("shen.process-applications")
+var symtl = MakeSymbol("tl")
+var symtrap_1error = MakeSymbol("trap-error")
+var sympreclude = MakeSymbol("preclude")
+var symshen_4member_1clause = MakeSymbol("shen.member-clause")
+var symshen_4_5semantics_6 = MakeSymbol("shen.<semantics>")
+var symshen_4alpha_2 = MakeSymbol("shen.alpha?")
+var symversion = MakeSymbol("version")
+var symshen_4read_1file_1as_1bytelist_1help = MakeSymbol("shen.read-file-as-bytelist-help")
+var symabsvector_2 = MakeSymbol("absvector?")
+var symshen_4x_4launcher_4execute_1all = MakeSymbol("shen.x.launcher.execute-all")
+var symshen_4process_1application = MakeSymbol("shen.process-application")
+var symshen_4vector_1parameter = MakeSymbol("shen.vector-parameter")
+var symshen_4profile_1func = MakeSymbol("shen.profile-func")
+var symmap = MakeSymbol("map")
+var symfresh = MakeSymbol("fresh")
+var symshen_4_5number_6 = MakeSymbol("shen.<number>")
+var symshen_4prompt = MakeSymbol("shen.prompt")
+var symshen_4update_1assoc = MakeSymbol("shen.update-assoc")
+var symshen_4stpart = MakeSymbol("shen.stpart")
+var symshen_4length_1h = MakeSymbol("shen.length-h")
+var symshen_4comb = MakeSymbol("shen.comb")
+var symshen_4execute_1store_1arity = MakeSymbol("shen.execute-store-arity")
+var symshen_4process_1lambda = MakeSymbol("shen.process-lambda")
+var symrelease = MakeSymbol("release")
+var symshen_4_5sym_6 = MakeSymbol("shen.<sym>")
+var symvar_2 = MakeSymbol("var?")
+var symretract = MakeSymbol("retract")
+var symshen_4non_1terminalcode = MakeSymbol("shen.non-terminalcode")
+var symshen_4_5whitespaces_6 = MakeSymbol("shen.<whitespaces>")
+var symshen_4demod = MakeSymbol("shen.demod")
+var symshen_4freeze_1literals = MakeSymbol("shen.freeze-literals")
+var symshen_4gc = MakeSymbol("shen.gc")
+var symshen_4typecheck = MakeSymbol("shen.typecheck")
+var symshen_4process_1synonyms = MakeSymbol("shen.process-synonyms")
+var symshen_4sng_1h_2 = MakeSymbol("shen.sng-h?")
+var symshen_4_5syntax_6 = MakeSymbol("shen.<syntax>")
+var symshen_4_5non_1terminal_1name_6 = MakeSymbol("shen.<non-terminal-name>")
+var symshen_4record_1and_1evaluate = MakeSymbol("shen.record-and-evaluate")
+var sym_5 = MakeSymbol("<")
+var symshen_4_5control_6 = MakeSymbol("shen.<control>")
+var symshen_4insert_1info = MakeSymbol("shen.insert-info")
+var symshen_4char_1stoutput_2 = MakeSymbol("shen.char-stoutput?")
+var symdefprolog = MakeSymbol("defprolog")
+var symshen_4a = MakeSymbol("shen.a")
+var symshen_4_5numeral_6 = MakeSymbol("shen.<numeral>")
+var symstream = MakeSymbol("stream")
+var symshen_4_5formula_6 = MakeSymbol("shen.<formula>")
+var symnull = MakeSymbol("null")
+var symimplementation = MakeSymbol("implementation")
+var symunit = MakeSymbol("unit")
+var symshen_4prolog_1fbody = MakeSymbol("shen.prolog-fbody")
+var symhdv = MakeSymbol("hdv")
+var syminferences = MakeSymbol("inferences")
+var sym_dhush_d = MakeSymbol("*hush*")
+var symtrack = MakeSymbol("track")
+var symprofile_1results = MakeSymbol("profile-results")
+var symmake_1string = MakeSymbol("make-string")
+var symhash = MakeSymbol("hash")
+var symshen_4myassume = MakeSymbol("shen.myassume")
+var symshen_4magless = MakeSymbol("shen.magless")
+var symsnd = MakeSymbol("snd")
+var symshen_4foreign_2 = MakeSymbol("shen.foreign?")
+var symstring_1_6n = MakeSymbol("string->n")
+var sympreclude_1all_1but = MakeSymbol("preclude-all-but")
+var symfindall = MakeSymbol("findall")
+var symshen_4overbind = MakeSymbol("shen.overbind")
+var symshen_4_5conc_6 = MakeSymbol("shen.<conc>")
+var symshen_4shendef_1_6kldef = MakeSymbol("shen.shendef->kldef")
+var symdefine = MakeSymbol("define")
+var symResult = MakeSymbol("Result")
+var symshen_4_5multiline_6 = MakeSymbol("shen.<multiline>")
+var symshen_4_dloading_2_d = MakeSymbol("shen.*loading?*")
+var symshen_4yacc_1semantics = MakeSymbol("shen.yacc-semantics")
+var syminteger_2 = MakeSymbol("integer?")
+var symNewV = MakeSymbol("NewV")
+var symshen_4_5backslash_6 = MakeSymbol("shen.<backslash>")
+var sympos = MakeSymbol("pos")
+var symshen_4freshterm_2 = MakeSymbol("shen.freshterm?")
+var sym_dos_d = MakeSymbol("*os*")
+var symabsvector = MakeSymbol("absvector")
+var symStart = MakeSymbol("Start")
+var symshen_4string_1prefix_2 = MakeSymbol("shen.string-prefix?")
+var symshen_4newname = MakeSymbol("shen.newname")
+var symshen_4openlock = MakeSymbol("shen.openlock")
+var symshen_4posint_2 = MakeSymbol("shen.posint?")
+var symshen_4find_1arity = MakeSymbol("shen.find-arity")
+var symshen_4op2 = MakeSymbol("shen.op2")
+var symshen_4_ddatatypes_d = MakeSymbol("shen.*datatypes*")
+var symshen_4klfile = MakeSymbol("shen.klfile")
+var symshen_4_5hterm2_6 = MakeSymbol("shen.<hterm2>")
+var symshen_4_5side_6 = MakeSymbol("shen.<side>")
+var symshen_4dbl_1h_2 = MakeSymbol("shen.dbl-h?")
+var symshen_4rcons__form = MakeSymbol("shen.rcons_form")
+var symshen_4extraspecial_2 = MakeSymbol("shen.extraspecial?")
+var symtime = MakeSymbol("time")
+var symshen_4_5prems_6 = MakeSymbol("shen.<prems>")
+var symshen_4track_1function = MakeSymbol("shen.track-function")
+var symstring_1_6symbol = MakeSymbol("string->symbol")
+var symsymbol = MakeSymbol("symbol")
+var symshen_4_5alpha_6 = MakeSymbol("shen.<alpha>")
+var sym_1_6 = MakeSymbol("->")
+var symshen_4triple_1stack = MakeSymbol("shen.triple-stack")
+var symshen_4byte_1_6digit = MakeSymbol("shen.byte->digit")
+var symintersection = MakeSymbol("intersection")
+var symshen_4map_1h = MakeSymbol("shen.map-h")
+var symshen_4yacc_1syntax = MakeSymbol("shen.yacc-syntax")
+var symshen_4fn_1print = MakeSymbol("shen.fn-print")
+var symshen_4_5singleline_6 = MakeSymbol("shen.<singleline>")
+var symassertz = MakeSymbol("assertz")
+var symshen_4occurs_1check_2 = MakeSymbol("shen.occurs-check?")
+var symshen_4member = MakeSymbol("shen.member")
+var symshen_4cons_1form = MakeSymbol("shen.cons-form")
+var symmacroexpand = MakeSymbol("macroexpand")
+var symdifference = MakeSymbol("difference")
+var symos = MakeSymbol("os")
 var symshen_4mkstr = MakeSymbol("shen.mkstr")
+var sym_5_b_6 = MakeSymbol("<!>")
+var symshen_4_5dbq_6 = MakeSymbol("shen.<dbq>")
+var syminclude_1all_1but = MakeSymbol("include-all-but")
+var symshen_4string_1match = MakeSymbol("shen.string-match")
+var symshen_4show_1assumptions = MakeSymbol("shen.show-assumptions")
+var symlimit = MakeSymbol("limit")
+var symshen_4assoc_1_6 = MakeSymbol("shen.assoc->")
+var sym_b = MakeSymbol("!")
+var symshen_4rule_1_6head = MakeSymbol("shen.rule->head")
+var symshen_4c_1rules_1_6shen = MakeSymbol("shen.c-rules->shen")
+var symshen_4whitespace_2 = MakeSymbol("shen.whitespace?")
+var symshen_4loading_2 = MakeSymbol("shen.loading?")
+var symloaded = MakeSymbol("loaded")
+var symshen_4freshen_1sig = MakeSymbol("shen.freshen-sig")
+var symshen_4_5packagename_6 = MakeSymbol("shen.<packagename>")
+var symshen_4decons = MakeSymbol("shen.decons")
+var symshen_4_5sc_6 = MakeSymbol("shen.<sc>")
+var symshen_4x_4launcher_4eval_1command_1h = MakeSymbol("shen.x.launcher.eval-command-h")

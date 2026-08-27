@@ -204,7 +204,7 @@ kernel, loads the KL->IR compiler (`src/compiler.shen`), compiles each module to
 its intermediate representation (`*.tmp`), and emits the Go sources under
 `cmd/shen/`. The full transformation path is Shen -> KL -> IR -> Go.
 
-The vendored kernel (Tarver's S41.2 refresh — see `kernel/klambda/PROVENANCE.md`)
+The vendored kernel (Tarver's S42 refresh — see `kernel/klambda/PROVENANCE.md`)
 is **load-order dependent**: there is no `shen.initialise`, so each module runs
 its own top-level `(set ...)`/`(put ... arity ...)`/`(declare ...)` forms as it
 loads. `script.kl` loads the modules in upstream `install.lsp` order; do not
