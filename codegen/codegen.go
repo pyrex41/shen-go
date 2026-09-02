@@ -19,8 +19,8 @@ import (
 	"fmt"
 	"io"
 	"math"
+	"regexp"
 	"strconv"
-	"strings"
 
 	"github.com/pyrex41/shen-go/kl"
 )
@@ -457,6 +457,35 @@ type scalarExpr struct {
 	primitives []string
 }
 
+// typedVPlaceholderRe matches a generic scalar-leaf placeholder emitted by
+// scalarExpr, e.g. "__typedV0" or "__typedV17".
+var typedVPlaceholderRe = regexp.MustCompile(`__typedV(\d+)`)
+
+// rewriteTypedVPlaceholders atomically rewrites every __typedV<N> placeholder
+// in expr to newName(N), in a single regexp pass.
+//
+// This must NOT be done with a sequence of strings.ReplaceAll calls, one per
+// index (as prior code did, in both increasing and reverse order): the
+// search key for one index is a literal-string *prefix* of the placeholder
+// for any index that starts with the same digits (e.g. the 9-character key
+// "__typedV1" is a prefix of "__typedV10", "__typedV11", ..., "__typedV19").
+// Once an expression accumulates 10 or more scalar leaves -- e.g. a nested
+// `cn` message chain with 10+ arguments -- replacing index 1 before (or
+// after) index 10 mangles the other's placeholder mid-string, producing
+// declared-vs-referenced temporary mismatches like `__typedS10` declared but
+// `__typedS20`/`__typedS30` referenced. A single regexp pass matches each
+// placeholder's full digit run atomically, so indices can never bleed into
+// one another regardless of how many leaves an expression has.
+func rewriteTypedVPlaceholders(expr string, newName func(idx int) string) string {
+	return typedVPlaceholderRe.ReplaceAllStringFunc(expr, func(m string) string {
+		idx, err := strconv.Atoi(m[len("__typedV"):])
+		if err != nil {
+			return m
+		}
+		return newName(idx)
+	})
+}
+
 func mergeScalar(a, b []string) []string {
 	out := append([]string(nil), a...)
 	for _, x := range b {
@@ -591,13 +620,13 @@ func (cg *CodeGenerator) scalarExpr(form kl.Obj) (scalarExpr, bool) {
 		}
 		off := len(leaves)
 		leaves = append(leaves, x.leaves...)
-		p := x.expr
-		// Rewrite placeholders in reverse order to avoid collisions when the
-		// destination range overlaps the source (e.g. V0 -> V1, then V1 -> V2).
-		for j := len(x.leaves) - 1; j >= 0; j-- {
-			p = strings.ReplaceAll(p, fmt.Sprintf("__typedV%d", j), fmt.Sprintf("__typedV%d", off+j))
-		}
-		parts[i] = p
+		// Shift this subexpression's local placeholder indices up by off so
+		// they land in the outer expression's combined leaf-index space. See
+		// rewriteTypedVPlaceholders for why this must be a single atomic
+		// pass rather than one strings.ReplaceAll per index.
+		parts[i] = rewriteTypedVPlaceholders(x.expr, func(j int) string {
+			return fmt.Sprintf("__typedV%d", off+j)
+		})
 		prims = mergeScalar(prims, x.primitives)
 	}
 	prims = mergeScalar(prims, []string{name})
@@ -743,16 +772,21 @@ func (cg *CodeGenerator) primitiveCallOptimize(w io.Writer, sexp kl.Obj, tail bo
 				fmt.Fprintf(w, " && HasCanonicalPrimitiveBinding(sym%s)", symbolAsVar(kl.MakeSymbol(p)))
 			}
 			fmt.Fprintln(w, " {")
-			expr := sx.expr
-			for i, leaf := range sx.leaves {
+			// Rename generic __typedV<N> placeholders to their kind-specific
+			// final names (__typedS<N>/__typedN<N>/__typedB<N>) in a single
+			// atomic pass -- see rewriteTypedVPlaceholders.
+			expr := rewriteTypedVPlaceholders(sx.expr, func(i int) string {
 				prefix := "N"
-				if leaf.kind == scalarString {
-					prefix = "S"
-				} else if leaf.kind == scalarBoolean {
-					prefix = "B"
+				if i < len(sx.leaves) {
+					switch sx.leaves[i].kind {
+					case scalarString:
+						prefix = "S"
+					case scalarBoolean:
+						prefix = "B"
+					}
 				}
-				expr = strings.ReplaceAll(expr, fmt.Sprintf("__typedV%d", i), fmt.Sprintf("__typed%s%d", prefix, i))
-			}
+				return fmt.Sprintf("__typed%s%d", prefix, i)
+			})
 			switch sx.kind {
 			case scalarBoolean:
 				fmt.Fprintf(w, "return TypedMaterializeBoolean(%s)\n}", expr)
