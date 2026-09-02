@@ -83,7 +83,21 @@ func pow10(n int) float64 {
 // interpreted expt so its behaviour is untouched.
 func InstallExactPow10() {
 	sym := MakeSymbol("shen.expt")
-	interpreted := PrimFunc(sym)
+	// shen.expt lives in reader.kl, so a kernel that does not include the
+	// reader never defines it. That is the normal shape of an eval-free
+	// Yggdrasil shake: dropping eval drops the reader, and PrimFunc PANICS on
+	// an unbound symbol (primitives.go). Every eval-free shaken artifact
+	// therefore died at boot with a bare `panic: (kl.Obj) 0x...`, because the
+	// generated main calls this helper outside its own error reporter.
+	//
+	// Guard the same way InstallIntegerGuard does: with nothing to delegate
+	// to, there is nothing to optimise, so leave the binding alone. The
+	// reader is what asks for base-10 expt, and a kernel without the reader
+	// never makes that call.
+	interpreted := mustSymbol(sym).function
+	if interpreted == nil {
+		return
+	}
 	native := MakeNative(func(e *ControlFlow) {
 		base, exp := e.Get(1), e.Get(2)
 		if *base == scmHeadNumber && *exp == scmHeadNumber {
