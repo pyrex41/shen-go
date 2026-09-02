@@ -33,7 +33,14 @@ func TestGenMainInstallsMatchReference(t *testing.T) {
 		src := genMainForTest(needsEval)
 		var got []string
 		for _, name := range referenceInstalls {
-			if strings.Contains(src, name) {
+			// Match the CALL, not the bare name. The emitted template also
+			// discusses these helpers in comments, and a substring match on the
+			// name was satisfied by the comment alone -- deleting the
+			// InstallIntegerGuard call left this test passing. It was asymmetric
+			// only by luck: InstallKernelFast's comment happens not to spell its
+			// own name, and any future comment that did would silently kill that
+			// half too.
+			if strings.Contains(src, "runHelper(\""+name+"\"") {
 				got = append(got, name)
 			}
 		}
