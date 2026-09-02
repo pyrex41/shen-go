@@ -13,7 +13,7 @@
 // the shared codegen package — the same pipeline that generated cmd/shen
 // itself. The emitted module contains one 0-arity thunk per chunk plus a
 // main.go that runs kernel chunks in order, calls the manifest's init
-// function if one is declared (the Tarver S41.2 refresh has none -- init runs
+// function if one is declared (the Tarver S42 kernel has none -- init runs
 // inline as the kernel chunks load), then runs the user chunks (whose toplevel
 // non-defun forms execute in source order, after init, as the Yggdrasil
 // builder contract requires).
@@ -30,6 +30,7 @@ import (
 	"io"
 	"os"
 	"path/filepath"
+	"regexp"
 	"sort"
 	"strings"
 	"time"
@@ -42,7 +43,7 @@ import (
 // mirrored from compiled/precompile.kl. The builder needs the full kernel
 // only to host the compiler; the program being built loads the *shaken*
 // kernel from the manifest instead.
-// Order follows upstream install.lsp (Tarver S41.2 refresh). This kernel has
+// Order follows upstream install.lsp (Tarver S42). This kernel has
 // no shen.initialise: each module runs its own top-level init forms as it loads
 // (load-order DEPENDENT), so this order must not be reordered. sys.kl is first
 // so the native hash can be swapped in immediately after it (see the boot code).
@@ -108,7 +109,7 @@ func parseManifest(dir string) (*manifest, error) {
 	if m.kernel == "" {
 		return nil, fmt.Errorf("manifest has no kernel= entry")
 	}
-	// init= is optional: the Tarver S41.2 refresh has no shen.initialise (init
+	// init= is optional: the Tarver S42 kernel has no shen.initialise (init
 	// runs inline as the kernel loads), so a shaken dir for that kernel may omit
 	// it. When present it is still called after the kernel chunks.
 	return m, nil
@@ -316,7 +317,7 @@ func main() {
 		fatal("%v", err)
 	}
 
-	// Boot the compiler image: full kernel + compiler.shen. The Tarver S41.2
+	// Boot the compiler image: full kernel + compiler.shen. The Tarver S42
 	// refresh has no shen.initialise -- each module runs its top-level init
 	// forms inline as it loads (load-order DEPENDENT), so we just load the
 	// modules in kernelLoadOrder.
@@ -458,10 +459,30 @@ func main() {
 	if err := os.WriteFile(filepath.Join(outDir, "main.go"), []byte(genMain(m, kernelUnits, userUnits, userArities)), 0644); err != nil {
 		fatal("%v", err)
 	}
-	gomod := fmt.Sprintf("module yggdrasil.local/%s\n\ngo 1.27\n\nrequire github.com/pyrex41/shen-go v0.0.0\n\nreplace github.com/pyrex41/shen-go => %s\n",
-		moduleName(m), root)
+	// Mirror shen-go's own requirements into the generated module. Building it
+	// compiles shen-go's kl package, which pulls transitive deps (go-zeromq/zmq4
+	// via kl/shenx_zmq.go, added 2026-08-06). A go.mod naming only shen-go is
+	// incomplete for those, so the default -mod=readonly refuses with "updates
+	// to go.mod needed" and the module builds only under GOFLAGS=-mod=mod -- an
+	// undocumented step that silently made every generated module unbuildable
+	// by default the day that dep landed.
+	gomod := fmt.Sprintf("module yggdrasil.local/%s\n\ngo 1.27\n\nrequire github.com/pyrex41/shen-go v0.0.0\n%s\nreplace github.com/pyrex41/shen-go => %s\n",
+		moduleName(m), inheritedRequires(root), root)
 	if err := os.WriteFile(filepath.Join(outDir, "go.mod"), []byte(gomod), 0644); err != nil {
 		fatal("%v", err)
+	}
+	// Copy shen-go's go.sum alongside it. The replace directive above points at
+	// a local tree, but building this module still compiles shen-go's kl
+	// package, which pulls transitive deps (go-zeromq/zmq4 via kl/shenx_zmq.go,
+	// added 2026-08-06). Without checksums for those, the default -mod=readonly
+	// fails with "missing go.sum entry" and the generated module only builds
+	// under GOFLAGS=-mod=mod -- an undocumented step that silently made every
+	// generated module unbuildable by default the day that dep landed.
+	// Non-fatal: a shen-go tree with no go.sum (no external deps) is fine.
+	if sum, err := os.ReadFile(filepath.Join(root, "go.sum")); err == nil {
+		if err := os.WriteFile(filepath.Join(outDir, "go.sum"), sum, 0644); err != nil {
+			fatal("%v", err)
+		}
 	}
 
 	if !*keepWork {
@@ -539,6 +560,7 @@ func run(e *ControlFlow, name string, f Obj) {
 		if r := recover(); r != nil {
 			if x, ok := r.(Obj); ok && IsError(x) {
 				fail(name, x)
+				return
 			}
 			fmt.Fprintf(os.Stderr, "yggdrasil: panic during %s\n", name)
 			panic(r)
@@ -549,12 +571,33 @@ func run(e *ControlFlow, name string, f Obj) {
 	}
 }
 
+// runHelper invokes a Go-side boot helper under the same reporting contract
+// as run(). These helpers are plain Go calls rather than KL thunks, but
+// several of them read kernel bindings, and PrimFunc panics on an unbound
+// symbol -- which a shaken (sparse) kernel readily produces. Called bare from
+// main(), such a panic escaped as an unreadable raw kl.Obj pointer naming
+// neither the helper nor the missing symbol. That is how an eval-free target
+// could stay broken without anyone being told why.
+func runHelper(name string, fn func()) {
+	defer func() {
+		if r := recover(); r != nil {
+			if x, ok := r.(Obj); ok && IsError(x) {
+				fail(name, x)
+				return
+			}
+			fmt.Fprintf(os.Stderr, "yggdrasil: panic during %s\n", name)
+			panic(r)
+		}
+	}()
+	fn()
+}
+
 func main() {
 	ns2_1set = PrimFunc(MakeSymbol("defun"))
 	try_1catch = PrimFunc(MakeSymbol("try-catch"))
 
 	var e ControlFlow
-	// Swap in the native hash BEFORE running any kernel chunk. The Tarver S41.2
+	// Swap in the native hash BEFORE running any kernel chunk. The Tarver S42
 	// refresh builds the property dictionaries inline while the declarations /
 	// types chunks load (there is no separate shen.initialise pass that runs
 	// after the kernel), so the hash must already be its final form when the
@@ -568,11 +611,11 @@ func main() {
 	// which drifts past 10^22 / 10^-5 in a float64 tower. Answer base-10
 	// integer powers exactly instead. After the kernel chunks (which define
 	// shen.expt), before any source is read.
-	InstallExactPow10()
+	runHelper("InstallExactPow10", InstallExactPow10)
 	// Optional shen.x host extensions (SHA-256 via crypto/sha256).
 	// Must run after kernel chunks so property/globals exist, before user
 	// code that may call shen.x.sha256-octets. SHEN_X_SHA256=pure disables.
-	InstallShenX()
+	runHelper("InstallShenX", InstallShenX)
 `)
 	if m.init != "" {
 		fmt.Fprintf(&b, "\trun(&e, %q, PrimFunc(MakeSymbol(%q)))\n", m.init, m.init)
@@ -589,10 +632,58 @@ func main() {
 	}
 `)
 	}
-	b.WriteString(`	for i, c := range userChunks {
+	b.WriteString(`	// Swap the interpreted arity/fn for the natives that read the same kernel
+	// structures (the *property-vector* dict and the shen.*lambdatable* alist)
+	// without per-call trap-error closures. cmd/shen/main.go's regist() does
+	// this in the equivalent spot; the generated boot omitted it, so shaken
+	// artifacts silently ran the slower interpreted path.
+	//
+	// Placed after shen.initialise (which builds those structures here, in
+	// place of the module Mains cmd/shen relies on) and after any arity replay,
+	// so the natives see the same fully-built state.
+	//
+	// Unconditional, including on an eval-stripped kernel: kernelArity returns
+	// the kernel's own trap-error default (-1) when *property-vector* is
+	// unbound, too short, or missing the entry, and the lambdatable lookup
+	// raises the identical unbound-variable condition the interpreted (value
+	// shen.*lambdatable*) would. So on a sparse kernel these fail exactly the
+	// way the code they replace fails -- never worse.
+	runHelper("InstallKernelFast", InstallKernelFast)
+	// The kernel's own integer? (sys.kl, via shen.magless) never terminates on
+	// +-Inf or NaN. Wrap whatever is bound to integer? with the native
+	// non-finite guard. Also unconditional: InstallIntegerGuard self-guards,
+	// returning early when integer? has no interpreted binding to delegate to.
+	runHelper("InstallIntegerGuard", InstallIntegerGuard)
+	for i, c := range userChunks {
 		run(&e, fmt.Sprintf("user chunk %d", i), c)
 	}
 }
 `)
 	return b.String()
+}
+
+// inheritedRequires returns shen-go's own require entries, re-emitted as
+// indirect requirements of the generated module. Without them the generated
+// go.mod is incomplete for anything kl imports transitively and the build fails
+// under the default -mod=readonly. Returns "" when the parent has no external
+// deps, or cannot be read -- both leave the previous behaviour untouched.
+func inheritedRequires(root string) string {
+	b, err := os.ReadFile(filepath.Join(root, "go.mod"))
+	if err != nil {
+		return ""
+	}
+	var mods []string
+	seen := map[string]bool{}
+	for _, m := range regexp.MustCompile(`(?m)^\s*(?:require\s+)?([\w.\-]+\.[\w.\-/]+)\s+(v[\w.\-+]+)`).FindAllStringSubmatch(string(b), -1) {
+		line := m[1] + " " + m[2]
+		if seen[line] {
+			continue
+		}
+		seen[line] = true
+		mods = append(mods, "\t"+line+" // indirect")
+	}
+	if len(mods) == 0 {
+		return ""
+	}
+	return "\nrequire (\n" + strings.Join(mods, "\n") + "\n)\n"
 }
