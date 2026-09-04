@@ -13,7 +13,7 @@
   # package fails with "error obtaining VCS status".
   description = "shen-go development environment";
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-  outputs = { nixpkgs, ... }: let systems = [ "aarch64-darwin" "x86_64-darwin" "aarch64-linux" "x86_64-linux" ]; each = f: nixpkgs.lib.genAttrs systems (system: f nixpkgs.legacyPackages.${system}); in {
+  outputs = { nixpkgs, ... }: let systems = [ "aarch64-darwin" "aarch64-linux" "x86_64-linux" ]; each = f: nixpkgs.lib.genAttrs systems (system: f nixpkgs.legacyPackages.${system}); in {
     # NOTE: buildEnv has no `env` argument, so these package outputs carry the
     # 1.27 compiler but NOT GOTOOLCHAIN=local. Consumers of `packages.toolchain`
     # must set GOTOOLCHAIN=local themselves to get a genuinely pinned build; the
