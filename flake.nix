@@ -13,30 +13,72 @@
   # package fails with "error obtaining VCS status".
   description = "shen-go development environment";
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-  outputs = { nixpkgs, ... }: let systems = [ "aarch64-darwin" "x86_64-darwin" "aarch64-linux" "x86_64-linux" ]; each = f: nixpkgs.lib.genAttrs systems (system: f nixpkgs.legacyPackages.${system}); in {
-    # NOTE: buildEnv has no `env` argument, so these package outputs carry the
-    # 1.27 compiler but NOT GOTOOLCHAIN=local. Consumers of `packages.toolchain`
-    # must set GOTOOLCHAIN=local themselves to get a genuinely pinned build; the
-    # devShell below is the fully-pinned entry point.
-    packages = each (pkgs: let
-      toolchain = pkgs.buildEnv {
-        name = "shen-go-toolchain";
-        paths = [ pkgs.go_1_27 pkgs.git ];
-      };
-      shen-go = (pkgs.buildGoModule.override { go = pkgs.go_1_27; }) {
-        pname = "shen-go";
-        version = "0.1.0";
-        src = ./.;
-        vendorHash = "sha256-iTtlmSlY0qbH/1waOlfRMc1qAkBacQxI6pohRPni/so=";
-        subPackages = [ "cmd/shen" ];
-        nativeBuildInputs = [ pkgs.git ];
-        env.GOTOOLCHAIN = "local";
-        meta.mainProgram = "shen";
-      };
-    in {
-      inherit shen-go toolchain;
-      default = toolchain;
-    });
-    devShells = each (pkgs: { default = pkgs.mkShell { packages = [ pkgs.go_1_27 pkgs.git ]; env.GOTOOLCHAIN = "local"; }; });
-  };
+  # This Nixpkgs revision no longer supports x86_64-darwin.
+  outputs =
+    { self, nixpkgs, ... }:
+    let
+      systems = [
+        "aarch64-darwin"
+        "aarch64-linux"
+        "x86_64-linux"
+      ];
+      each = f: nixpkgs.lib.genAttrs systems (system: f nixpkgs.legacyPackages.${system});
+    in
+    {
+      # NOTE: buildEnv has no `env` argument, so these package outputs carry the
+      # 1.27 compiler but NOT GOTOOLCHAIN=local. Consumers of `packages.toolchain`
+      # must set GOTOOLCHAIN=local themselves to get a genuinely pinned build; the
+      # devShell below is the fully-pinned entry point.
+      packages = each (
+        pkgs:
+        let
+          toolchain = pkgs.buildEnv {
+            name = "shen-go-toolchain";
+            paths = [
+              pkgs.go_1_27
+              pkgs.git
+            ];
+          };
+          shen-go = (pkgs.buildGoModule.override { go = pkgs.go_1_27; }) {
+            pname = "shen-go";
+            version = "0.1.0";
+            src = ./.;
+            vendorHash = "sha256-iTtlmSlY0qbH/1waOlfRMc1qAkBacQxI6pohRPni/so=";
+            subPackages = [ "cmd/shen" ];
+            nativeBuildInputs = [ pkgs.git ];
+            env.GOTOOLCHAIN = "local";
+            meta.mainProgram = "shen";
+          };
+        in
+        {
+          inherit shen-go toolchain;
+          default = toolchain;
+        }
+      );
+      devShells = each (pkgs: {
+        default = pkgs.mkShell {
+          packages = [
+            pkgs.go_1_27
+            pkgs.git
+          ];
+          env.GOTOOLCHAIN = "local";
+        };
+      });
+      checks = each (pkgs: {
+        interpreter =
+          pkgs.runCommand "shen-go-interpreter-smoke"
+            {
+              nativeBuildInputs = [ self.packages.${pkgs.stdenv.hostPlatform.system}.shen-go ];
+            }
+            ''
+              cd "$TMPDIR"
+              mkdir -p "$out"
+              shen eval -e '(+ 1 2)' > "$out/arithmetic.txt"
+              grep -Fx '3' "$out/arithmetic.txt"
+              shen eval -e '(reverse [1 2 3])' > "$out/stdlib.txt"
+              grep -Fx '[3 2 1]' "$out/stdlib.txt"
+            '';
+      });
+      formatter = each (pkgs: pkgs.nixfmt);
+    };
 }
