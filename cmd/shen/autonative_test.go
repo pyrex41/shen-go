@@ -12,6 +12,7 @@ package main
 //     compilation, so it is skipped under -short (which is what CI runs).
 
 import (
+	"context"
 	"crypto/sha256"
 	"fmt"
 	"os"
@@ -20,6 +21,7 @@ import (
 	"runtime"
 	"strings"
 	"testing"
+	"time"
 )
 
 // TestEngageDecision pins the decision table. The stale case is the one that
@@ -124,6 +126,24 @@ func TestAutoNativeEngagesAfterLoad(t *testing.T) {
 	if runtime.GOOS != "linux" && runtime.GOOS != "darwin" {
 		t.Skipf("go plugins are not supported on %s", runtime.GOOS)
 	}
+	// Keep cold compiler work outside the runtime deadline. In particular,
+	// Nix removes -trimpath for tests, so package-build caches do not guarantee
+	// that a subsequent `go run` finishes compiling inside runCLI's deadline.
+	bin := buildShen(t)
+	runPluginCLI := func(args ...string) string {
+		t.Helper()
+		ctx, cancel := context.WithTimeout(context.Background(), 60*time.Second)
+		defer cancel()
+		cmd := exec.CommandContext(ctx, bin, args...)
+		out, err := cmd.CombinedOutput()
+		if ctx.Err() != nil {
+			t.Fatalf("shen %v did not finish execution: %v\n%s", args, ctx.Err(), out)
+		}
+		if err != nil {
+			t.Fatalf("shen %v exited with error: %v\n%s", args, err, out)
+		}
+		return string(out)
+	}
 
 	dir := t.TempDir()
 	srcPath := filepath.Join(dir, "mod.shen")
@@ -138,8 +158,13 @@ func TestAutoNativeEngagesAfterLoad(t *testing.T) {
 	writeSource("(define probe -> \"vm\")\n")
 
 	// Build the plugin from the fixture package.
-	build := exec.Command("go", "build", "-buildmode=plugin", "-o", soPath, "./../plugintest/probeplugin")
+	buildCtx, cancelBuild := context.WithTimeout(context.Background(), 120*time.Second)
+	defer cancelBuild()
+	build := exec.CommandContext(buildCtx, "go", "build", "-buildmode=plugin", "-o", soPath, "./../plugintest/probeplugin")
 	if out, err := build.CombinedOutput(); err != nil {
+		if buildCtx.Err() != nil {
+			t.Fatalf("plugin compilation timed out: %v\n%s", buildCtx.Err(), out)
+		}
 		t.Skipf("go build -buildmode=plugin unavailable here: %v\n%s", err, out)
 	}
 
@@ -165,13 +190,13 @@ func TestAutoNativeEngagesAfterLoad(t *testing.T) {
 	}
 
 	// Default: the plugin must be back in force after the load.
-	out, _ := runCLI(t, "-precompiled", soPath, "script", driver)
+	out := runPluginCLI("-precompiled", soPath, "script", driver)
 	if !strings.Contains(out, "native") {
 		t.Fatalf("auto-engage did not re-install the plugin after (load ...):\n%s", out)
 	}
 
 	// Opt-out: the load wins, exactly as it did before this feature.
-	out, _ = runCLI(t, "-auto-native=false", "-precompiled", soPath, "script", driver)
+	out = runPluginCLI("-auto-native=false", "-precompiled", soPath, "script", driver)
 	if !strings.Contains(out, "vm") || strings.Contains(out, "native") {
 		t.Fatalf("-auto-native=false should have left the VM definition in force:\n%s", out)
 	}
@@ -179,7 +204,7 @@ func TestAutoNativeEngagesAfterLoad(t *testing.T) {
 	// Diverged source: the .so is now stale. The freshly loaded definition must
 	// win and the user must be told, rather than silently running old code.
 	writeSource("(define probe -> \"vm2\")\n")
-	out, _ = runCLI(t, "-precompiled", soPath, "script", driver)
+	out = runPluginCLI("-precompiled", soPath, "script", driver)
 	if strings.Contains(out, "native") {
 		t.Fatalf("stale plugin was engaged for an edited source:\n%s", out)
 	}

@@ -23,6 +23,10 @@ The interpreter smoke check evaluates arithmetic and an embedded standard-librar
 function from a temporary working directory. It is packaging evidence, separate
 from interpreter conformance and downstream application validation.
 
+The package also runs the existing CLI tests, including the native-plugin case.
+That case compiles its launcher and plugin under separate build deadlines before
+measuring execution, so cold compiler work does not consume the runtime budget.
+
 Use `nix develop` for the existing Go development shell. Its default package remains
 the toolchain for compatibility; downstream executable consumers must use `shen-go`.
 When module dependencies change, update the package's vendor hash and rebuild.

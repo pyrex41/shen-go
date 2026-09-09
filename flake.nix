@@ -71,12 +71,12 @@
               nativeBuildInputs = [ self.packages.${pkgs.stdenv.hostPlatform.system}.shen-go ];
             }
             ''
-              cd "$TMPDIR"
-              mkdir -p "$out"
-              shen eval -e '(+ 1 2)' > "$out/arithmetic.txt"
-              grep -Fx '3' "$out/arithmetic.txt"
-              shen eval -e '(reverse [1 2 3])' > "$out/stdlib.txt"
-              grep -Fx '[3 2 1]' "$out/stdlib.txt"
+                cd "$TMPDIR"
+                mkdir -p "$out"
+                shen eval -e '(+ 1 2)' > "$out/arithmetic.txt"
+                grep -Fx '3' "$out/arithmetic.txt"
+              shen eval -e '(filter (/. X (> X 2)) [1 2 3 4])' > "$out/stdlib.txt"
+              grep -Fx '[3 4]' "$out/stdlib.txt"
             '';
       });
       formatter = each (pkgs: pkgs.nixfmt);
