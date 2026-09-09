@@ -18,7 +18,25 @@
     # 1.27 compiler but NOT GOTOOLCHAIN=local. Consumers of `packages.toolchain`
     # must set GOTOOLCHAIN=local themselves to get a genuinely pinned build; the
     # devShell below is the fully-pinned entry point.
-    packages = each (pkgs: { toolchain = pkgs.buildEnv { name = "shen-go-toolchain"; paths = [ pkgs.go_1_27 pkgs.git ]; }; default = pkgs.buildEnv { name = "shen-go-toolchain"; paths = [ pkgs.go_1_27 pkgs.git ]; }; });
+    packages = each (pkgs: let
+      toolchain = pkgs.buildEnv {
+        name = "shen-go-toolchain";
+        paths = [ pkgs.go_1_27 pkgs.git ];
+      };
+      shen-go = (pkgs.buildGoModule.override { go = pkgs.go_1_27; }) {
+        pname = "shen-go";
+        version = "0.1.0";
+        src = ./.;
+        vendorHash = "sha256-iTtlmSlY0qbH/1waOlfRMc1qAkBacQxI6pohRPni/so=";
+        subPackages = [ "cmd/shen" ];
+        nativeBuildInputs = [ pkgs.git ];
+        env.GOTOOLCHAIN = "local";
+        meta.mainProgram = "shen";
+      };
+    in {
+      inherit shen-go toolchain;
+      default = toolchain;
+    });
     devShells = each (pkgs: { default = pkgs.mkShell { packages = [ pkgs.go_1_27 pkgs.git ]; env.GOTOOLCHAIN = "local"; }; });
   };
 }
