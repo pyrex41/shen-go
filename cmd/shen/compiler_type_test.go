@@ -25,9 +25,14 @@ func compileSource(t *testing.T, source string) string {
 	}
 	expr := "(do (load " + shenString(compiler) + ") (compile-file " +
 		shenString(in) + " " + shenString(out) + "))"
+	// Build the interpreter once through the shared bounded helper. Using
+	// `go run` here makes the test's runtime deadline include a cold rebuild;
+	// under the Nix check hook that rebuild can exceed 30 seconds before the
+	// child has produced any output.
+	bin := buildShen(t)
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
-	cmd := exec.CommandContext(ctx, "go", "run", ".", "eval", "-e", expr)
+	cmd := exec.CommandContext(ctx, bin, "eval", "-e", expr)
 	result, err := cmd.CombinedOutput()
 	if err != nil {
 		t.Fatalf("compile-file failed: %v\n%s", err, result)
