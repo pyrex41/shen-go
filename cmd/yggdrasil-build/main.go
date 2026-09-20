@@ -435,9 +435,11 @@ func main() {
 		fmt.Printf("  %-24s %6.1f KB kl -> %s\n", u.name, float64(len(u.src))/1024, u.goFile)
 	}
 	fmt.Printf("compiling %d kernel + %d user chunks\n", len(kernelUnits), len(userUnits))
+	cg.Sealed = true
 	for _, u := range kernelUnits {
 		compileUnit(u)
 	}
+	cg.Sealed = false
 	for _, u := range userUnits {
 		compileUnit(u)
 	}

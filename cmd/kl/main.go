@@ -45,6 +45,7 @@ func main() {
 	var ctl kl.ControlFlow
 	kl.BindSymbolFunc(kl.MakeSymbol("bc->go"), bcToGo)
 	kl.BindSymbolFunc(kl.MakeSymbol("make-code-generator"), makeCodeGenerator)
+	kl.BindSymbolFunc(kl.MakeSymbol("make-sealed-code-generator"), makeSealedCodeGenerator)
 	kl.BindSymbolFunc(kl.MakeSymbol("go-build-and-load"), goBuildAndLoad)
 	kl.BindSymbolFunc(kl.MakeSymbol("go-build-plugin"), goBuildPlugin)
 	kl.BindSymbolFunc(kl.MakeSymbol("emit-arities"), emitArities)
