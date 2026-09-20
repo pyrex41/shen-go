@@ -632,9 +632,8 @@ func main() {
 	}
 `)
 	}
-	b.WriteString(`	// Swap the interpreted arity/fn for the natives that read the same kernel
-	// structures (the *property-vector* dict and the shen.*lambdatable* alist)
-	// without per-call trap-error closures. cmd/shen/main.go's regist() does
+	b.WriteString(`	// Swap interpreted kernel functions for natives (arity/fn, empty?, get/put,
+	// integer?, not, list/vector helpers, …). cmd/shen/main.go's regist() does
 	// this in the equivalent spot; the generated boot omitted it, so shaken
 	// artifacts silently ran the slower interpreted path.
 	//

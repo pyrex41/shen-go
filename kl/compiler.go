@@ -296,7 +296,117 @@ func (c *klCompiler) compileLambda(params []Obj, body Obj) {
 	c.emit(OP_MAKE_CLOSURE, innerConst, int32(len(inner.upvals)))
 }
 
+func isFreezeForm(o Obj) (Obj, bool) {
+	ok, p := isPair(o)
+	if !ok || p.car != symFreeze {
+		return nil, false
+	}
+	return car(p.cdr), true
+}
+
+func walkThawUses(form, sym Obj) (thaws, others int) {
+	if form == nil || form == Nil {
+		return 0, 0
+	}
+	if form == sym {
+		return 0, 1
+	}
+	ok, p := isPair(form)
+	if !ok {
+		return 0, 0
+	}
+	head, rest := p.car, p.cdr
+	if head == MakeSymbol("thaw") {
+		args := ListToSlice(rest)
+		if len(args) == 1 && args[0] == sym {
+			return 1, 0
+		}
+	}
+	if head == symLambda {
+		param := car(rest)
+		if param == sym {
+			return 0, 0
+		}
+		return walkThawUses(cadr(rest), sym)
+	}
+	if head == symFreeze {
+		return walkThawUses(car(rest), sym)
+	}
+	if head == symLet {
+		x := car(rest)
+		t, o := walkThawUses(cadr(rest), sym)
+		if x == sym {
+			return t, o
+		}
+		t2, o2 := walkThawUses(caddr(rest), sym)
+		return t + t2, o + o2
+	}
+	t, o := walkThawUses(head, sym)
+	for _, a := range ListToSlice(rest) {
+		t1, o1 := walkThawUses(a, sym)
+		t += t1
+		o += o1
+	}
+	return t, o
+}
+
+func substThaw(form, sym, replacement Obj) Obj {
+	if form == nil || form == Nil {
+		return form
+	}
+	if form == sym {
+		return form
+	}
+	ok, p := isPair(form)
+	if !ok {
+		return form
+	}
+	head, rest := p.car, p.cdr
+	if head == MakeSymbol("thaw") {
+		args := ListToSlice(rest)
+		if len(args) == 1 && args[0] == sym {
+			return replacement
+		}
+	}
+	if head == symLambda {
+		param := car(rest)
+		if param == sym {
+			return form
+		}
+		return cons(head, cons(param, cons(substThaw(cadr(rest), sym, replacement), Nil)))
+	}
+	if head == symLet {
+		x := car(rest)
+		val := substThaw(cadr(rest), sym, replacement)
+		if x == sym {
+			return cons(head, cons(x, cons(val, cons(caddr(rest), Nil))))
+		}
+		return cons(head, cons(x, cons(val, cons(substThaw(caddr(rest), sym, replacement), Nil))))
+	}
+	return cons(substThaw(head, sym, replacement), substThawList(rest, sym, replacement))
+}
+
+func substThawList(l, sym, replacement Obj) Obj {
+	if l == Nil || l == nil {
+		return l
+	}
+	ok, p := isPair(l)
+	if !ok {
+		return substThaw(l, sym, replacement)
+	}
+	return cons(substThaw(p.car, sym, replacement), substThawList(p.cdr, sym, replacement))
+}
+
 func (c *klCompiler) compileLet(x, val, body Obj, tail bool) {
+	// S37+ factoriser: (let Go (freeze Else) ... (thaw Go) ...).
+	// If Go is only thawed, inline Else — a jump/fall-through, not a closure.
+	if fb, ok := isFreezeForm(val); ok {
+		thaws, others := walkThawUses(body, x)
+		if others == 0 && thaws > 0 {
+			c.compileExpr(substThaw(body, x, fb), tail)
+			return
+		}
+	}
 	// Evaluate val.
 	c.compileExpr(val, false)
 	// Assign to a new local slot (or reuse if x is already a local).
@@ -369,20 +479,102 @@ func (c *klCompiler) compileCond(clauses Obj, tail bool) {
 // compileTrapError lowers (trap-error body handler) to (try-catch (freeze body) handler).
 // Stack layout for CALL/TAIL_CALL 2: [..., fn, arg1, arg2]
 func (c *klCompiler) compileTrapError(body, handler Obj, tail bool) {
-	// 1. Push try-catch global function.
+	// Recognised absence checks: trap-error is only recovering a missing
+	// binding or vector slot, and the handler ignores the error object.
+	// Port-performance.md: these are presence tests, not general exceptions.
+	if def, ok := trapHandlerDefault(handler); ok {
+		if c.tryCompileValueOr(body, def, tail) {
+			return
+		}
+		if c.tryCompileVectorRefOr(body, def, tail) {
+			return
+		}
+	}
 	tryCatchSym := c.addConst(MakeSymbol("try-catch"))
 	c.emit(OP_LOAD_GLOBAL, tryCatchSym, 0)
-	// 2. Push (freeze body) as arg1.
 	c.compileLambda(nil, body)
-	// 3. Push handler as arg2.
 	c.compileExpr(handler, false)
-	// 4. Call try-catch with 2 args.
 	// trap-error must NOT be a tail call: the panic/recover in try-catch
 	// needs a real Go stack frame to catch from.
 	c.emit(OP_CALL, 2, 0)
 	if tail {
 		c.emit(OP_RETURN, 0, 0)
 	}
+}
+
+func trapHandlerDefault(handler Obj) (Obj, bool) {
+	ok, p := isPair(handler)
+	if !ok || p.car != MakeSymbol("lambda") {
+		return nil, false
+	}
+	param := car(p.cdr)
+	body := cadr(p.cdr)
+	if formContainsSym(body, param) {
+		return nil, false
+	}
+	return body, true
+}
+
+func formContainsSym(form, sym Obj) bool {
+	if form == sym {
+		return true
+	}
+	ok, p := isPair(form)
+	if !ok {
+		return false
+	}
+	return formContainsSym(p.car, sym) || formContainsSym(p.cdr, sym)
+}
+
+func callForm(form Obj, name string, arity int) ([]Obj, bool) {
+	ok, p := isPair(form)
+	if !ok || !IsSymbol(p.car) || GetSymbol(p.car) != name {
+		return nil, false
+	}
+	var args []Obj
+	for l := p.cdr; l != Nil && l != nil; {
+		aok, ap := isPair(l)
+		if !aok {
+			return nil, false
+		}
+		args = append(args, ap.car)
+		l = ap.cdr
+	}
+	if len(args) != arity {
+		return nil, false
+	}
+	return args, true
+}
+
+func (c *klCompiler) tryCompileValueOr(body, def Obj, tail bool) bool {
+	args, ok := callForm(body, "value", 1)
+	if !ok {
+		return false
+	}
+	c.emit(OP_LOAD_GLOBAL, c.addConst(MakeSymbol("_kl.value/or")), 0)
+	c.compileExpr(args[0], false)
+	c.compileLambda(nil, def)
+	c.emit(OP_CALL, 2, 0)
+	if tail {
+		c.emit(OP_RETURN, 0, 0)
+	}
+	return true
+}
+
+func (c *klCompiler) tryCompileVectorRefOr(body, def Obj, tail bool) bool {
+	args, ok := callForm(body, "<-vector", 2)
+	if !ok {
+		return false
+	}
+	c.emit(OP_LOAD_GLOBAL, c.addConst(MakeSymbol("_kl.<-vector/or")), 0)
+	c.compileExpr(args[0], false)
+	c.compileExpr(args[1], false)
+	c.compileLambda(nil, def)
+	c.emit(OP_CALL, 3, 0)
+	if tail {
+		c.emit(OP_RETURN, 0, 0)
+	}
+	return true
 }
 
 // intrinsicOp maps a 2-arg primitive symbol to a fast-path opcode.
@@ -417,7 +609,7 @@ func guardedPrimitiveArity(sym Obj) int {
 		return 0
 	}
 	switch GetSymbol(sym) {
-	case "number?", "integer?", "string?", "symbol?", "cons?", "absvector?", "variable?", "hd", "tl", "tlstr", "string->n", "n->string", "absvector":
+	case "number?", "integer?", "string?", "symbol?", "cons?", "absvector?", "variable?", "empty?", "boolean?", "hd", "tl", "tlstr", "string->n", "n->string", "absvector":
 		return 1
 	case "cn", "pos", "cons", "<-address":
 		return 2
@@ -430,6 +622,22 @@ func guardedPrimitiveArity(sym Obj) int {
 // foldFixnum2 folds only tagged-integer literals. No type information is
 // inferred through locals or calls, so floats and other dynamic numeric
 // boundaries remain on the existing runtime paths.
+func (c *klCompiler) constValue(o Obj) (Obj, bool) {
+	if o == nil {
+		return nil, false
+	}
+	switch *o {
+	case scmHeadNumber, scmHeadString, scmHeadBoolean, scmHeadNull:
+		return o, true
+	case scmHeadSymbol:
+		kind, _ := c.resolveVar(o)
+		if kind == varGlobal {
+			return o, true
+		}
+	}
+	return nil, false
+}
+
 func foldFixnum2(sym Obj, x, y Obj) (Obj, bool) {
 	if !isFixnum(x) || !isFixnum(y) {
 		return nil, false
@@ -469,6 +677,36 @@ func (c *klCompiler) compileCall(fn Obj, args Obj, tail bool) {
 			}
 			return
 		}
+	}
+
+	// ---- (thaw (freeze E)) => E ----
+	if IsSymbol(fn) && nArgs == 1 && GetSymbol(fn) == "thaw" {
+		if fb, ok := isFreezeForm(argList[0]); ok {
+			c.compileExpr(fb, tail)
+			return
+		}
+	}
+
+	// ---- fold (= literal literal) ----
+	if nArgs == 2 && fn == symNumEq && HasCanonicalPrimitiveBinding(fn) {
+		if a, ok := c.constValue(argList[0]); ok {
+			if b, ok := c.constValue(argList[1]); ok {
+				c.emit(OP_LOAD_CONST, c.addConst(equal(a, b)), 0)
+				if tail {
+					c.emit(OP_RETURN, 0, 0)
+				}
+				return
+			}
+		}
+	}
+
+	// ---- intern of a string literal: fold to the interned symbol/bool ----
+	if IsSymbol(fn) && nArgs == 1 && GetSymbol(fn) == "intern" && HasCanonicalPrimitiveBinding(fn) && IsString(argList[0]) {
+		c.emit(OP_LOAD_CONST, c.addConst(PrimIntern(argList[0])), 0)
+		if tail {
+			c.emit(OP_RETURN, 0, 0)
+		}
+		return
 	}
 
 	// ---- 1-arg intrinsics ----

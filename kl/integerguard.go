@@ -38,6 +38,13 @@ func InstallIntegerGuard() {
 		// non-finite values correctly on its own) is still in place.
 		return
 	}
+	// InstallKernelFast restores the canonical PrimIsInteger, which already
+	// answers false for +-Inf/NaN. Wrapping it would add a trampoline for
+	// no semantic gain and would make HasCanonicalPrimitiveBinding fail,
+	// disabling the AOT/VM integer? fast path we just re-enabled.
+	if HasCanonicalPrimitiveBinding(sym) {
+		return
+	}
 	BindSymbolFunc(sym, MakeNative(func(e *ControlFlow) {
 		x := e.Get(1)
 		if IsNumber(x) {

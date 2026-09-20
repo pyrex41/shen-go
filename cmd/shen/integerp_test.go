@@ -81,8 +81,9 @@ func TestIntegerPTerminatesOnNonFinite(t *testing.T) {
 	}
 }
 
-// The guard must not change the answer for anything finite: those still go
-// through the kernel's own definition.
+// Native integer? (PrimIsInteger, reinstalled after the kernel defun) must
+// match the kernel on every finite value. Non-finite values are answered
+// false instead of looping.
 func TestIntegerPFiniteAnswersUnchanged(t *testing.T) {
 	bin := buildShen(t)
 
