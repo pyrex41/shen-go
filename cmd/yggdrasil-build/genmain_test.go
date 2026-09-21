@@ -15,6 +15,7 @@ var referenceInstalls = []string{
 	"InstallIntegerGuard",
 	"InstallExactPow10",
 	"InstallShenX",
+	"InstallPr",
 }
 
 func genMainForTest(needsEval bool) string {

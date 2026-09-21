@@ -650,6 +650,7 @@ func main() {
 	// shen.*lambdatable*) would. So on a sparse kernel these fail exactly the
 	// way the code they replace fails -- never worse.
 	runHelper("InstallKernelFast", InstallKernelFast)
+	runHelper("InstallPr", InstallPr)
 	// The kernel's own integer? (sys.kl, via shen.magless) never terminates on
 	// +-Inf or NaN. Wrap whatever is bound to integer? with the native
 	// non-finite guard. Also unconditional: InstallIntegerGuard self-guards,
