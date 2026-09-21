@@ -35,12 +35,25 @@ import (
 type CodeGenerator struct {
 	ScmHead int
 	declare map[kl.Obj]struct{}
+	// Sealed emits direct PrimX calls for KLambda primitives with no
+	// HasCanonicalPrimitiveBinding guard and no PrimFunc fallback. Kernel
+	// and runtime modules should set this: their call graph is a closed
+	// unit (Shen/Scheme's sealed library). User/plugin code must leave it
+	// false so (defun + ...) still reaches generated calls.
+	Sealed bool
 }
 
 func New() *CodeGenerator {
 	return &CodeGenerator{
 		declare: make(map[kl.Obj]struct{}),
 	}
+}
+
+// NewSealed is New with Sealed set. Use it for kernel bootstrap, not plugins.
+func NewSealed() *CodeGenerator {
+	cg := New()
+	cg.Sealed = true
+	return cg
 }
 
 // HandleBody reads one bytecode IR form from f and writes a complete Go file
@@ -728,6 +741,11 @@ func (cg *CodeGenerator) primitiveCallOptimize(w io.Writer, sexp kl.Obj, tail bo
 		return false, nil
 	}
 	primName := prim.Name
+	// Sealed kernel: the primitive is a Go call, not a Shen binding lookup.
+	// User redefinition of `cons`/`+`/`not` does not rewrite this site.
+	if cg.Sealed {
+		return cg.emitDirectPrimitive(w, primName, args, tail)
+	}
 	// Scalar lowering is valid only while the global still has its canonical
 	// primitive binding.  Generated code must retain the dynamic fallback: a
 	// Shen program may redefine a primitive before invoking compiled code.
@@ -864,28 +882,27 @@ func (cg *CodeGenerator) primitiveCallOptimize(w io.Writer, sexp kl.Obj, tail bo
 		return true, nil
 	}
 
-	// ($prim f a b c ...)
-	if tail {
-		fmt.Fprintf(w, "__e.Return(")
-	}
+	return cg.emitDirectPrimitive(w, primName, args, tail)
+}
 
+func (cg *CodeGenerator) emitDirectPrimitive(w io.Writer, primName string, args []kl.Obj, tail bool) (bool, error) {
+	if tail {
+		fmt.Fprint(w, "__e.Return(")
+	}
 	fmt.Fprintf(w, "%s(", primName)
 	for i, arg := range args {
 		if i != 0 {
-			fmt.Fprintf(w, ", ")
+			fmt.Fprint(w, ", ")
 		}
 		if kl.IsSymbol(arg) {
-			fmt.Fprintf(w, "%s", symbolAsVar(arg))
-		} else {
-			if err := cg.generateExpr(w, arg); err != nil {
-				return true, err
-			}
+			fmt.Fprint(w, symbolAsVar(arg))
+		} else if err := cg.generateExpr(w, arg); err != nil {
+			return true, err
 		}
 	}
-	fmt.Fprintf(w, ")")
-
+	fmt.Fprint(w, ")")
 	if tail {
-		fmt.Fprintf(w, ")\nreturn\n")
+		fmt.Fprint(w, ")\nreturn\n")
 	}
 	return true, nil
 }

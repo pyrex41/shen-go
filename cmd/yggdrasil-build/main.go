@@ -435,9 +435,11 @@ func main() {
 		fmt.Printf("  %-24s %6.1f KB kl -> %s\n", u.name, float64(len(u.src))/1024, u.goFile)
 	}
 	fmt.Printf("compiling %d kernel + %d user chunks\n", len(kernelUnits), len(userUnits))
+	cg.Sealed = true
 	for _, u := range kernelUnits {
 		compileUnit(u)
 	}
+	cg.Sealed = false
 	for _, u := range userUnits {
 		compileUnit(u)
 	}
@@ -632,9 +634,8 @@ func main() {
 	}
 `)
 	}
-	b.WriteString(`	// Swap the interpreted arity/fn for the natives that read the same kernel
-	// structures (the *property-vector* dict and the shen.*lambdatable* alist)
-	// without per-call trap-error closures. cmd/shen/main.go's regist() does
+	b.WriteString(`	// Swap interpreted kernel functions for natives (arity/fn, empty?, get/put,
+	// integer?, not, list/vector helpers, …). cmd/shen/main.go's regist() does
 	// this in the equivalent spot; the generated boot omitted it, so shaken
 	// artifacts silently ran the slower interpreted path.
 	//
@@ -649,6 +650,7 @@ func main() {
 	// shen.*lambdatable*) would. So on a sparse kernel these fail exactly the
 	// way the code they replace fails -- never worse.
 	runHelper("InstallKernelFast", InstallKernelFast)
+	runHelper("InstallPr", InstallPr)
 	// The kernel's own integer? (sys.kl, via shen.magless) never terminates on
 	// +-Inf or NaN. Wrap whatever is bound to integer? with the native
 	// non-finite guard. Also unconditional: InstallIntegerGuard self-guards,

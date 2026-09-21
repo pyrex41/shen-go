@@ -262,7 +262,7 @@ func vmGuardedPrimitive(sym Obj, args []vmSlot) (vmSlot, bool) {
 		return vmSlot{obj: o}, true
 	}
 	switch name {
-	case "number?", "integer?", "string?", "symbol?", "cons?", "absvector?", "variable?":
+	case "number?", "integer?", "string?", "symbol?", "cons?", "absvector?", "variable?", "empty?", "boolean?":
 		var r Obj
 		switch name {
 		case "number?":
@@ -277,6 +277,10 @@ func vmGuardedPrimitive(sym Obj, args []vmSlot) (vmSlot, bool) {
 			r = PrimIsPair(obj(0))
 		case "absvector?":
 			r = PrimIsVector(obj(0))
+		case "empty?":
+			r = primEmptyp(obj(0))
+		case "boolean?":
+			r = primBooleanp(obj(0))
 		default:
 			r = PrimIsVariable(obj(0))
 		}
@@ -819,6 +823,12 @@ func vmExecSlots(ctl *ControlFlow, bf *scmBytecodeFunc, args []vmSlot) {
 			y := stack[len(stack)-1]
 			x := stack[len(stack)-2]
 			stack = stack[:len(stack)-2]
+			// Identity first: interned symbols, booleans, [], (fail), and any
+			// shared heap object skip structural equal().
+			if x.obj != nil && x.obj == y.obj {
+				stack = append(stack, slotFromObj(True))
+				continue
+			}
 			if r, ok := vmIntrinsicFallback(ctl, instrConstSym(consts, instr.B), x, y); ok {
 				stack = append(stack, r)
 				continue

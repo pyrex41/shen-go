@@ -127,6 +127,8 @@ var primitiveSpecs = map[string]PrimitiveSpec{
 	"cons?":           {ID: "cons?", Name: "cons?", Arity: 1, Args: []KindSet{Kinds(KindUnknown)}, Result: Kinds(KindBoolean), Effects: EffectPure, Scalar: true},
 	"absvector?":      {ID: "absvector?", Name: "absvector?", Arity: 1, Args: []KindSet{Kinds(KindUnknown)}, Result: Kinds(KindBoolean), Effects: EffectPure, Scalar: true},
 	"variable?":       {ID: "variable?", Name: "variable?", Arity: 1, Args: []KindSet{Kinds(KindUnknown)}, Result: Kinds(KindBoolean), Effects: EffectPure, Scalar: true},
+	"empty?":          {ID: "empty?", Name: "empty?", Arity: 1, Args: []KindSet{Kinds(KindUnknown)}, Result: Kinds(KindBoolean), Effects: EffectPure, Scalar: true},
+	"boolean?":        {ID: "boolean?", Name: "boolean?", Arity: 1, Args: []KindSet{Kinds(KindUnknown)}, Result: Kinds(KindBoolean), Effects: EffectPure, Scalar: true},
 	"not":             {ID: "not", Name: "not", Arity: 1, Args: []KindSet{Kinds(KindBoolean)}, Result: Kinds(KindBoolean), Effects: EffectPure | EffectMayRaise, Scalar: true},
 	"if":              {ID: "if", Name: "if", Arity: 3, Args: []KindSet{Kinds(KindBoolean), Kinds(KindUnknown), Kinds(KindUnknown)}, Result: Kinds(KindUnknown), Effects: EffectPure | EffectMayRaise},
 	"cn":              {ID: "cn", Name: "cn", Arity: 2, Args: []KindSet{Kinds(KindString), Kinds(KindString)}, Result: Kinds(KindString), Effects: EffectPure | EffectMayRaise, Scalar: true},

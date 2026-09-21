@@ -13,10 +13,15 @@ import (
 )
 
 var makeCodeGenerator = kl.MakeNative(func(e *kl.ControlFlow) {
-	// (make-code-generator 'cora)
+	// (make-code-generator) — open: user/plugin code keeps PrimFunc fallback.
 	cg := codegen.New()
 	e.Return(kl.MakeRaw(&cg.ScmHead))
+}, 0)
 
+var makeSealedCodeGenerator = kl.MakeNative(func(e *kl.ControlFlow) {
+	// (make-sealed-code-generator) — kernel bootstrap: direct PrimX, no guard.
+	cg := codegen.NewSealed()
+	e.Return(kl.MakeRaw(&cg.ScmHead))
 }, 0)
 
 var bcToGo = kl.MakeNative(func(e *kl.ControlFlow) {

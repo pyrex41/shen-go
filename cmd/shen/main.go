@@ -276,12 +276,14 @@ func main() {
 // way). Since shen-go's PrimCharStOutput is stubbed to false, pr here
 // effectively ignores *hush* altogether — the same behavior as shen-cl, whose
 // native pr writes unconditionally. With *hush* false (the default: REPL and
-// certification) behavior is identical to stock.
+// certification) behavior is identical to stock. Only the byte-stream loop is
+// native: keep this wrapper (including shen.write-string) for character streams.
 func fixPrHush(e *kl.ControlFlow) {
+	kl.InstallPr()
 	const def = `(defun pr (V S)
 	(if (shen.char-stoutput? S)
 		(if (value *hush*) V (shen.write-string V S))
-		(shen.write-chars V S (shen.string->byte V 0) 1)))`
+		(shen.native-pr V S)))`
 	exp, err := kl.NewSexpReader(strings.NewReader(def), false).Read()
 	if err != nil {
 		panic(err)

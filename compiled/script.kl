@@ -32,7 +32,7 @@
 (do (compile-file "../kernel/klambda/types.kl" "types.tmp") ())
 (do (compile-file "../kernel/klambda/extension-launcher.kl" "launcher.tmp") ())
 
-(let Cg (make-code-generator)
+(let Cg (make-sealed-code-generator)
   (do (bc->go Cg "SysMain" false "sys.tmp" "../cmd/shen/sys.go")
     (do (bc->go Cg "WriterMain" false "writer.tmp" "../cmd/shen/writer.go")
     (do (bc->go Cg "CoreMain" false "core.tmp" "../cmd/shen/core.go")
