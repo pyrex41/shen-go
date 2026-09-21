@@ -3,6 +3,7 @@
 package main
 
 import (
+	"bytes"
 	"context"
 	"fmt"
 	"os"
@@ -61,6 +62,27 @@ func TestLauncherEval(t *testing.T) {
 	}
 	if !strings.Contains(out, "3") {
 		t.Fatalf("expected eval result 3, got:\n%s", out)
+	}
+}
+
+// TestLauncherNativePrOutput captures stdout, stderr and exit independently.
+func TestLauncherNativePrOutput(t *testing.T) {
+	for _, tc := range []struct{ name, expr, want string }{
+		{"eval", "(+ 1 2)", "3"},
+		{"pr", `(pr "HELLO" (stoutput))`, "HELLO"},
+		{"write-byte", `(write-byte 88 (stoutput))`, "X"},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			ctx, cancel := context.WithTimeout(context.Background(), 60*time.Second)
+			defer cancel()
+			cmd := exec.CommandContext(ctx, "go", "run", ".", "eval", "-e", tc.expr)
+			var stdout, stderr bytes.Buffer
+			cmd.Stdout, cmd.Stderr = &stdout, &stderr
+			err := cmd.Run()
+			if err != nil || !strings.Contains(stdout.String(), tc.want) || stderr.Len() != 0 {
+				t.Fatalf("exit: %v; stdout: %q; stderr: %q", err, stdout.String(), stderr.String())
+			}
+		})
 	}
 }
 
