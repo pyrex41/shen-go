@@ -7,6 +7,14 @@ type klCompiler struct {
 	upvals []upvalInfo // upvalues captured from outer scope
 	outer  *klCompiler // enclosing compiler (for closures)
 	hints  []TypeHint
+	thunks map[int]inlineThunk // local slot -> nonescaping freeze
+}
+
+// Keep the definition's lexical environment, not the thaw site's bindings.
+// Slots are never reused, so shadowing cannot change the captured values.
+type inlineThunk struct {
+	body   Obj
+	locals map[Obj]int
 }
 
 type upvalInfo struct {
@@ -327,10 +335,39 @@ func walkThawUses(form, sym Obj) (thaws, others int) {
 		if param == sym {
 			return 0, 0
 		}
-		return walkThawUses(cadr(rest), sym)
+		t, o := walkThawUses(cadr(rest), sym)
+		return 0, t + o // A reference captured by another closure may escape.
 	}
 	if head == symFreeze {
-		return walkThawUses(car(rest), sym)
+		t, o := walkThawUses(car(rest), sym)
+		return 0, t + o
+	}
+	if head == symDefun {
+		for _, param := range ListToSlice(cadr(rest)) {
+			if param == sym {
+				return 0, 0
+			}
+		}
+		t, o := walkThawUses(caddr(rest), sym)
+		return 0, t + o
+	}
+	if head == symTrapError {
+		// trap-error compiles its protected body as a zero-argument closure.
+		t, o := walkThawUses(car(rest), sym)
+		t2, o2 := walkThawUses(cadr(rest), sym)
+		return t2, t + o + o2
+	}
+	if head == symCond {
+		// Clauses are syntax, not calls (in particular, (thaw Go) is a
+		// test named thaw and a value Go, not a thaw of Go).
+		for _, clause := range ListToSlice(rest) {
+			for _, expr := range ListToSlice(clause) {
+				t, o := walkThawUses(expr, sym)
+				thaws += t
+				others += o
+			}
+		}
+		return thaws, others
 	}
 	if head == symLet {
 		x := car(rest)
@@ -350,60 +387,29 @@ func walkThawUses(form, sym Obj) (thaws, others int) {
 	return t, o
 }
 
-func substThaw(form, sym, replacement Obj) Obj {
-	if form == nil || form == Nil {
-		return form
-	}
-	if form == sym {
-		return form
-	}
-	ok, p := isPair(form)
-	if !ok {
-		return form
-	}
-	head, rest := p.car, p.cdr
-	if head == MakeSymbol("thaw") {
-		args := ListToSlice(rest)
-		if len(args) == 1 && args[0] == sym {
-			return replacement
-		}
-	}
-	if head == symLambda {
-		param := car(rest)
-		if param == sym {
-			return form
-		}
-		return cons(head, cons(param, cons(substThaw(cadr(rest), sym, replacement), Nil)))
-	}
-	if head == symLet {
-		x := car(rest)
-		val := substThaw(cadr(rest), sym, replacement)
-		if x == sym {
-			return cons(head, cons(x, cons(val, cons(caddr(rest), Nil))))
-		}
-		return cons(head, cons(x, cons(val, cons(substThaw(caddr(rest), sym, replacement), Nil))))
-	}
-	return cons(substThaw(head, sym, replacement), substThawList(rest, sym, replacement))
-}
-
-func substThawList(l, sym, replacement Obj) Obj {
-	if l == Nil || l == nil {
-		return l
-	}
-	ok, p := isPair(l)
-	if !ok {
-		return substThaw(l, sym, replacement)
-	}
-	return cons(substThaw(p.car, sym, replacement), substThawList(p.cdr, sym, replacement))
-}
-
 func (c *klCompiler) compileLet(x, val, body Obj, tail bool) {
 	// S37+ factoriser: (let Go (freeze Else) ... (thaw Go) ...).
-	// If Go is only thawed, inline Else — a jump/fall-through, not a closure.
+	// If Go is only thawed locally, inline Else in its definition's scope.
 	if fb, ok := isFreezeForm(val); ok {
 		thaws, others := walkThawUses(body, x)
 		if others == 0 && thaws > 0 {
-			c.compileExpr(substThaw(body, x, fb), tail)
+			captured := make(map[Obj]int, len(c.locals))
+			for sym, slot := range c.locals {
+				captured[sym] = slot
+			}
+			oldIdx, hadOld := c.locals[x]
+			slot := int(c.newLocal(x))
+			if c.thunks == nil {
+				c.thunks = make(map[int]inlineThunk)
+			}
+			c.thunks[slot] = inlineThunk{body: fb, locals: captured}
+			c.compileExpr(body, tail)
+			delete(c.thunks, slot)
+			if hadOld {
+				c.locals[x] = oldIdx
+			} else {
+				delete(c.locals, x)
+			}
 			return
 		}
 	}
@@ -684,6 +690,15 @@ func (c *klCompiler) compileCall(fn Obj, args Obj, tail bool) {
 		if fb, ok := isFreezeForm(argList[0]); ok {
 			c.compileExpr(fb, tail)
 			return
+		}
+		if slot, local := c.locals[argList[0]]; local && IsSymbol(argList[0]) {
+			if thunk, ok := c.thunks[slot]; ok {
+				locals := c.locals
+				c.locals = thunk.locals
+				c.compileExpr(thunk.body, tail)
+				c.locals = locals
+				return
+			}
 		}
 	}
 
