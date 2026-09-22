@@ -2,20 +2,20 @@
   "port": "shen-go",
   "kernel": "S42",
   "harness": {
-    "kl_side": "equiv.NAME: the kernel's own (defun NAME …) from kernel/klambda, run as KL bytecode, with every kernel defun its body reaches loaded the same way (kl_helpers) so no native under test runs on this side; hash (the port's native hash, installed at boot before any property vector exists) and fail (see that row) stay native",
-    "native_side": "NAME as bound after kl.InstallKernelFast: the Go function in `native`",
-    "inputs": "each input is evaluated once per side, natives installed, in the order setup, args, the call, observe; both sides must return equal values (kernel =; functions equal when the same object, or two KL closures of one arity) or raise errors with identical text, and every observe value must be equal",
-    "verified": "true when every input agreed when the table was generated on this port; false rows keep the first disagreeing input in reason as \"case=NAME kl=OUT native=OUT\" (OUT is the value printed as KL source, vectors as #vector[limit slot…] with never-written slots as #unset, or error(\"text\") with the text Go-quoted, followed by one observe[i]=OUT per observe form), its kind in disagreement (raise: one side raised; value: both returned, values differ; error-text: both raised, messages differ; effect: an observed value differs; harness: an input form itself failed) and, when the origin is known, prose in note",
-    "cases": "the number of inputs (len(inputs))",
-    "source": "provenance of the native as kl/FILE.go:GoIdentifier (the Go function bound to kernel_fn), not a line location",
-    "effects": "global symbols the native reads or writes; \"(value X)\" means the value cell of the argument symbol; rows without effects are pure",
+    "kl_side": "equiv.NAME is the kernel's own (defun NAME …) from kernel/klambda, run as KL bytecode. Every kernel defun its body reaches is loaded the same way and is listed in kl_helpers, so no native under test runs on this side. Two names stay native: hash, the port's native hash, which is installed at boot before any property vector exists, and fail, for the reason the fail row gives.",
+    "native_side": "NAME as bound after kl.InstallKernelFast. That is the Go function named in the native field.",
+    "inputs": "The cases for this row. Each case is evaluated once per side, with the natives installed, in the order setup, args, the call, observe. Both sides must return equal values, or raise errors with identical text, and every observe value must be equal. Values are compared with the kernel's =, extended to functions: two functions are equal when they are the same object, or when both are KL closures of the same arity.",
+    "verified": "True when every case agreed at the time the table was generated on this port. A false row records the first disagreeing case in reason, as \"case=NAME kl=OUT native=OUT\". OUT is the value printed as KL source, with a vector as #vector[limit slot…] and never-written slots as #unset, or error(\"text\") with the text Go-quoted, followed by one observe[i]=OUT per observe form. The kind of disagreement is in disagreement: raise means one side raised and the other returned; value means both returned and the values differ; error-text means both raised and the messages differ; effect means an observed value differs; harness means a form of the case itself failed. When the origin of the divergence is known, note explains it in prose.",
+    "cases": "The number of cases in inputs.",
+    "source": "Provenance of the native, as kl/FILE.go:GoIdentifier naming the Go function bound to kernel_fn. It is not a line location.",
+    "effects": "The global symbols this native reads or writes. \"(value X)\" means the value cell of the symbol passed as an argument. A row with no effects is pure.",
     "vocabulary": {
-      "equiv.*calls*": "global holding the equiv.note log; reset by setup, compared by observe",
-      "equiv.*pv*": "global holding a fresh property vector for put/get/unput cases; both sides start from an identical fresh vector and the vector is compared by observe",
-      "equiv.NAME": "the kernel's (defun NAME …) loaded as KL bytecode with every reachable kernel defun renamed the same way, except hash and fail",
+      "equiv.*calls*": "the global holding the equiv.note log; setup resets it and observe compares it",
+      "equiv.*pv*": "the global holding a fresh property vector for the put, get and unput cases; both sides start from an identical fresh vector, and observe compares it",
+      "equiv.NAME": "the kernel's own (defun NAME …) loaded as KL bytecode, with every kernel defun its body reaches renamed the same way; hash and fail are the two exceptions and stay native",
       "equiv.iota N": "the list (1 2 … N)",
-      "equiv.native-of F": "the function object currently bound to symbol F (a Go native for a rebound name)",
-      "equiv.note X": "conses X onto (value equiv.*calls*) and returns X; used to count and order calls of a function argument"
+      "equiv.native-of F": "the function object currently bound to the symbol F, which for a rebound name is the Go native",
+      "equiv.note X": "conses X onto (value equiv.*calls*) and returns X; this is how a case counts and orders the calls made to a function argument"
     },
     "kl_helpers": [
       "shen.app",
@@ -4837,7 +4837,7 @@
       "cases": 51,
       "reason": "case=boundary:24 kl=false native=error(\"mustNumber\")",
       "disagreement": "raise",
-      "note": "the KL body is (element? X \u003clist of codes\u003e), so a non-number answers false; the native requires a number and raises. The kernel only ever passes string-\u003en results.",
+      "note": "The KL body is (element? X \u003clist of codes\u003e), so a non-number answers false, while the native requires a number and raises. The kernel only ever passes string-\u003en results.",
       "source": "kl/kernelfast.go:primMiscp",
       "inputs": [
         {
@@ -7681,7 +7681,7 @@
       "cases": 89,
       "reason": "case=boundary:31 kl=3 native=error(\"cannot access 0th element of a vector\\n\")",
       "disagreement": "raise",
-      "note": "a float index (-0.5) reaches (\u003c-address V -0.5), which on this port truncates to slot 0 and returns the limit; the native truncates first and raises the 0th-element error. Integer indices agree, including 0 and out-of-range.",
+      "note": "A float index such as -0.5 reaches (\u003c-address V -0.5), which on this port truncates to slot 0 and returns the limit. The native truncates first and raises the 0th-element error. Integer indices agree, including 0 and indices out of range.",
       "source": "kl/kernelfast.go:primShenVectorRef",
       "inputs": [
         {
@@ -8317,7 +8317,7 @@
       "cases": 287,
       "reason": "case=boundary:31 kl=#vector[1 ... ... ...] native=error(\"cannot access 0th element of a vector\\n\")",
       "disagreement": "raise",
-      "note": "a float index (-0.5) reaches (address-\u003e V -0.5 X), which on this port truncates to slot 0 and overwrites the limit; the native truncates first and raises the 0th-element error. Integer indices agree, including 0 and out-of-range.",
+      "note": "A float index such as -0.5 reaches (address-\u003e V -0.5 X), which on this port truncates to slot 0 and overwrites the limit. The native truncates first and raises the 0th-element error. Integer indices agree, including 0 and indices out of range.",
       "source": "kl/kernelfast.go:primShenVectorSet",
       "inputs": [
         {
@@ -12174,7 +12174,7 @@
       "cases": 26,
       "reason": "case=boundary:0 kl=shen.fail! native=...",
       "disagreement": "value",
-      "note": "the vendored kernel/klambda/sys.kl (and kernel/sources/sys.shen: (define fail -\u003e fail!)) returns shen.fail!; the native (kl/kernelfast.go nativeFail) and the port's compiled kernel (cmd/shen/sys.go) return the symbol ... . The harness leaves fail unrenamed inside the other KL copies so every other row is judged with the port's filler; this row alone carries the divergence.",
+      "note": "The KL side returns shen.fail!, as the vendored kernel/klambda/sys.kl says (defun fail () shen.fail!) and kernel/sources/sys.shen says (define fail -\u003e fail!). The native (nativeFail in kl/kernelfast.go) and the port's compiled kernel (cmd/shen/sys.go) return the symbol ... instead. The harness leaves fail unrenamed inside the other KL copies, so every other row is judged with the port's filler and this row alone carries the divergence.",
       "source": "kl/kernelfast.go:nativeFail",
       "inputs": [
         {
@@ -19575,7 +19575,7 @@
       ],
       "reason": "case=explicit:missing kl=a observe[0]=#vector[20 ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... () ... ... ... ...] native=a observe[0]=#vector[20 ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ...]",
       "disagreement": "effect",
-      "note": "on a key with no bucket the KL body stores the empty bucket () in the slot (vector-\u003e of (shen.remove-pointer K A ())); the native leaves the slot unset. Lookups agree (both raise on get), the vector contents do not.",
+      "note": "On a key with no bucket, the KL body stores the empty bucket () in the slot: it calls vector-\u003e with (shen.remove-pointer K A ()). The native leaves the slot unset. Lookups agree, since both sides raise on get, but the vector contents do not.",
       "source": "kl/kernelfast.go:nativeUnput",
       "inputs": [
         {

@@ -1,18 +1,22 @@
 package main
 
-// `kl equiv-check kl/equiv.json`: re-run the differential cases recorded in
-// the equivalence table (see kl/equiv.go) against the natives InstallKernelFast
-// binds, on this host, and print one line per row:
+// `kl equiv-check kl/equiv.json` re-runs, on this host, the differential
+// cases recorded in the equivalence table, and checks them against the natives
+// InstallKernelFast binds. kl/equiv.go describes the harness and the table.
+// The command prints one line per row:
 //
 //	equiv NAME ok cases=N
 //	equiv NAME FAIL case=... kl=... native=...
 //
-// followed by one summary line, "equiv-check: PORT KERNEL: R rows, C cases,
-// F FAIL, DURATION". Nothing else reaches stdout: the runtime's own traces on
-// recovered errors are discarded while the cases run. Exit status is 1 when
-// any row fails, 2 when the table or the kernel could not be loaded. This is
-// the harness Yggdrasil's conformance report invokes to check the port's
-// declared lowering table.
+// then one summary line:
+//
+//	equiv-check: PORT KERNEL: R rows, C cases, F FAIL, DURATION
+//
+// Nothing else reaches stdout; the runtime's own traces on recovered errors
+// are discarded while the cases run. The exit status is 1 when any row fails
+// and 2 when the table or the kernel could not be loaded. This is the harness
+// Yggdrasil's conformance report invokes to check the port's declared lowering
+// table.
 
 import (
 	"encoding/json"
@@ -48,9 +52,9 @@ func equivCheckMain(args []string, stdout, stderr io.Writer) int {
 	return rc
 }
 
-// runEquivCheck boots the kernel, replays every row's cases and reports to
-// out. It returns the exit status (0 ok, 1 any FAIL) and the number of
-// failing rows.
+// runEquivCheck boots the kernel, replays every row's cases, and writes the
+// report to out. It returns the exit status, 0 when every row is ok and 1 when
+// any row fails, and the number of failing rows.
 func runEquivCheck(jsonPath, kernelDir string, out io.Writer) (int, int, error) {
 	start := time.Now()
 	data, err := os.ReadFile(jsonPath)
@@ -74,8 +78,8 @@ func runEquivCheck(jsonPath, kernelDir string, out io.Writer) (int, int, error) 
 	var e kl.ControlFlow
 	failed, cases := 0, 0
 	// Booting the kernel and running the cases both hit runtime error paths
-	// that trace to os.Stdout; out was captured by the caller before this
-	// point, so the report itself is unaffected by the redirect.
+	// that trace to os.Stdout. The caller captured out before this point, so
+	// the report itself is unaffected by the redirect.
 	var bootErr error
 	quietErr := kl.WithQuietStdout(func() {
 		if bootErr = kl.BootKernel(&e, kernelDir); bootErr != nil {

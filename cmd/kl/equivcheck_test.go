@@ -11,8 +11,8 @@ import (
 	"github.com/pyrex41/shen-go/kl"
 )
 
-// TestEquivCheckReplaysTable runs `kl equiv-check` over the committed table and
-// checks that every row's verdict matches what the JSON records, that the
+// TestEquivCheckReplaysTable runs `kl equiv-check` over the committed table.
+// It checks that every row's verdict matches what the JSON records, that the
 // output has the documented one-line-per-row shape, and that the exit status
 // is non-zero exactly when a row fails.
 func TestEquivCheckReplaysTable(t *testing.T) {

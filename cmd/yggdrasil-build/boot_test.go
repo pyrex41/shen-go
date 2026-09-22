@@ -6,13 +6,13 @@ import (
 	"github.com/pyrex41/shen-go/kl"
 )
 
-// TestBuilderBootsKernel pins issue #46: since 5edf47e the builder's boot
-// panicked inside declarations.kl ("implementation error in
-// shen.change-pointer-value") because it loaded the kernel on the interpreted
-// put/get without ever calling kl.InstallKernelFast in its own process. The
-// boot now goes through kl.BootKernel, which installs the natives as the
-// modules load; this test boots the full compiler image the way main does
-// and checks the pieces the build step needs are there.
+// TestBuilderBootsKernel pins issue #46. Since 5edf47e the builder's boot
+// panicked inside declarations.kl with "implementation error in
+// shen.change-pointer-value", because it loaded the kernel on the interpreted
+// put/get and never called kl.InstallKernelFast in its own process. The boot
+// now goes through kl.BootKernel, which installs the natives as the modules
+// load. This test boots the full compiler image the way main does and checks
+// that the pieces the build step needs are there.
 func TestBuilderBootsKernel(t *testing.T) {
 	root, err := findShenGoRoot(".")
 	if err != nil {

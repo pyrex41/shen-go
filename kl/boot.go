@@ -1,9 +1,9 @@
 package kl
 
-// Booting the KLambda kernel from source (kernel/klambda). cmd/yggdrasil-build
-// and the equivalence harness (equiv.go, cmd/kl equiv-check) boot this way;
-// cmd/shen boots its precompiled modules in the same order (cmd/shen/main.go
-// regist).
+// Booting the KLambda kernel from source, out of kernel/klambda.
+// cmd/yggdrasil-build and the equivalence harness (equiv.go and
+// cmd/kl equiv-check) boot this way. cmd/shen boots its precompiled modules in
+// the same order; see regist in cmd/shen/main.go.
 
 import (
 	"fmt"
@@ -22,27 +22,32 @@ var KernelLoadOrder = []string{
 	"extension-launcher.kl",
 }
 
-// BootKernel loads the KLambda kernel from dir (a kernel/klambda directory)
+// BootKernel loads the KLambda kernel from dir, a kernel/klambda directory,
 // into the process the same way cmd/shen boots its compiled kernel:
 //
-//   - sys.kl defines the interpreted `hash`; the native FNV-1a hash is swapped
-//     in right after, before declarations.kl builds the first property
-//     dictionary, so every dictionary is written and read with one hash;
-//   - InstallKernelFast runs after every module. In cmd/shen it runs once, after
-//     all modules, because the compiled modules never execute the interpreted
-//     put/get. Here the modules are interpreted, and since 5edf47e the
-//     interpreted `put` (a tail call inside trap-error) escapes the
-//     interpreter's recover during declarations.kl (issue #46), so the natives
-//     have to be in place as soon as sys.kl has defined the names they replace.
-//     InstallKernelFast only rebinds names the kernel has defined, so calling
-//     it per module is the way to catch each module's definitions;
-//   - InstallIntegerGuard runs after the natives, as in cmd/shen; with the
-//     canonical integer? restored by InstallKernelFast it is a no-op, and is
-//     called so the two boots stay step-for-step the same;
-//   - InstallPr binds shen.native-pr, as cmd/shen's fixPrHush does.
+//   - sys.kl defines the interpreted `hash`. The native FNV-1a hash is swapped
+//     in right after, before declarations.kl builds the first property vector,
+//     so that every property vector is written and read with one hash.
+//   - InstallKernelFast runs after every module. In cmd/shen it runs once,
+//     after all the modules, because the compiled modules never execute the
+//     interpreted put/get. Here the modules are interpreted, and since 5edf47e
+//     the interpreted `put` escapes the interpreter's recover during
+//     declarations.kl, because of a tail call inside trap-error (issue #46).
+//     So the natives have to be in place as soon as sys.kl has defined the
+//     names they replace. InstallKernelFast only rebinds names the kernel has
+//     already defined, so calling it per module is what catches each module's
+//     definitions.
+//   - InstallIntegerGuard runs after the natives, as in cmd/shen. With the
+//     canonical integer? restored by InstallKernelFast it is a no-op. It is
+//     called so that the two boots stay step for step the same.
+//   - InstallPr binds shen.native-pr, which is the first thing cmd/shen's
+//     fixPrHush does.
 //
-// cmd/shen additionally wraps read-file and registers load-native's arity;
-// those are REPL/plugin concerns and are not part of booting the kernel.
+// cmd/shen does more than this. It also installs the exact base-10 power and
+// the shen.x extensions (InstallExactPow10 and InstallShenX), redefines `pr`
+// on top of shen.native-pr, wraps read-file, and registers load-native's
+// arity. Those are reader-precision, REPL and plugin concerns, not part of
+// booting the kernel.
 func BootKernel(e *ControlFlow, dir string) error {
 	for i, f := range KernelLoadOrder {
 		p := filepath.Join(dir, f)
