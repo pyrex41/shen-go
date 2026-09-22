@@ -36,6 +36,8 @@ go run . --impls shen-go
 
 Kernel 134 stays in this repo. Bifrost is the cross-port corpus (predicates, equality, tuples, property-vector, …).
 
+**Do the natives match the kernel?** `kl.InstallKernelFast` rebinds 58 kernel functions to Go. [`kl/equiv.json`](kl/equiv.json) is the audited table: one row per rebound symbol with its native, arity, effects, a `verified` verdict and the differential cases behind it. `go test ./kl -run TestEquiv` regenerates and checks it (`EQUIV_WRITE=1` to rewrite); `kl equiv-check kl/equiv.json` replays the stored cases on any host and prints `equiv NAME ok|FAIL` per row (filter on `^equiv ` — kernel error paths print stray debug lines), exiting non-zero on a FAIL. Rows are marked unverified rather than the natives changed; see the `reason` field.
+
 ## Optional: compile hot files to Go
 
 The REPL and `define` run on the bytecode VM. For a hot file you can AOT-compile to a plugin and load it at startup (Linux/macOS; same Go module and toolchain as `./shen`):
