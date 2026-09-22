@@ -21,6 +21,11 @@ func init() {
 }
 
 func main() {
+	// Subcommands come before flag parsing so their own flags are not
+	// mistaken for the interpreter's.
+	if len(os.Args) > 1 && os.Args[1] == "equiv-check" {
+		os.Exit(equivCheckMain(os.Args[2:], os.Stdout, os.Stderr))
+	}
 	flag.Parse()
 
 	// -sha256 is a tiny utility mode, not part of the KL interpreter: it

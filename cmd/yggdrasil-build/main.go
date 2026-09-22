@@ -39,21 +39,6 @@ import (
 	"github.com/pyrex41/shen-go/kl"
 )
 
-// kernelLoadOrder is the canonical load order of the full shen-go kernel,
-// mirrored from compiled/precompile.kl. The builder needs the full kernel
-// only to host the compiler; the program being built loads the *shaken*
-// kernel from the manifest instead.
-// Order follows upstream install.lsp (Tarver S42). This kernel has
-// no shen.initialise: each module runs its own top-level init forms as it loads
-// (load-order DEPENDENT), so this order must not be reordered. sys.kl is first
-// so the native hash can be swapped in immediately after it (see the boot code).
-var kernelLoadOrder = []string{
-	"sys.kl", "writer.kl", "core.kl", "reader.kl", "declarations.kl",
-	"toplevel.kl", "macros.kl", "load.kl", "prolog.kl", "sequent.kl",
-	"track.kl", "t-star.kl", "yacc.kl", "types.kl",
-	"extension-launcher.kl",
-}
-
 // chunkTarget is the rough upper bound on the KL source size compiled into a
 // single Go function. compile-file wraps each chunk in one nested-do thunk
 // and bc->go emits it as one Go function; keeping chunks bounded keeps both
@@ -195,6 +180,30 @@ func evalKLValue(e *kl.ControlFlow, src string) (kl.Obj, error) {
 	}
 }
 
+// bootCompilerImage boots the builder's own compiler image: the full shen-go
+// kernel plus the Shen-side bytecode compiler (src/compiler.shen).
+//
+// The kernel is booted by kl.BootKernel, the same way cmd/shen boots: native
+// hash after sys.kl, InstallKernelFast after each module and InstallPr at the
+// end. The Tarver S42 refresh has no shen.initialise -- each module runs its
+// top-level init forms inline as it loads (load-order DEPENDENT), and since
+// 5edf47e those init forms cannot run on the interpreted put/get (issue #46:
+// the interpreted put's tail call inside trap-error escapes the interpreter's
+// recover while declarations.kl loads), so the natives have to be installed
+// as the modules load, not after.
+func bootCompilerImage(e *kl.ControlFlow, root string) error {
+	if err := kl.BootKernel(e, filepath.Join(root, "kernel", "klambda")); err != nil {
+		return err
+	}
+	if err := evalKL(e, "(load "+klPath(filepath.Join(root, "src", "compiler.shen"))+")"); err != nil {
+		return fmt.Errorf("load compiler.shen: %v", err)
+	}
+	if err := evalKL(e, "(set *maximum-print-sequence-size* 100000)"); err != nil {
+		return err
+	}
+	return nil
+}
+
 func klPath(p string) string {
 	if strings.ContainsAny(p, `"\`) {
 		fatal("path %q cannot be written as a KL string literal", p)
@@ -317,28 +326,9 @@ func main() {
 		fatal("%v", err)
 	}
 
-	// Boot the compiler image: full kernel + compiler.shen. The Tarver S42
-	// refresh has no shen.initialise -- each module runs its top-level init
-	// forms inline as it loads (load-order DEPENDENT), so we just load the
-	// modules in kernelLoadOrder.
 	t0 := time.Now()
 	var e kl.ControlFlow
-	for i, f := range kernelLoadOrder {
-		p := filepath.Join(root, "kernel", "klambda", f)
-		if err := evalKL(&e, "(load-file "+klPath(p)+")"); err != nil {
-			fatal("boot kernel: %v", err)
-		}
-		// sys.kl (first) binds the interpreted hash and defines get/put; swap in
-		// the native hash right after so the property dictionaries built inline
-		// by declarations.kl / types.kl (and every later read) use one hash.
-		if i == 0 {
-			kl.BindSymbolFunc(kl.MakeSymbol("hash"), kl.MakePrimitive("hash", 2, kl.PrimHash))
-		}
-	}
-	if err := evalKL(&e, "(load "+klPath(filepath.Join(root, "src", "compiler.shen"))+")"); err != nil {
-		fatal("load compiler.shen: %v", err)
-	}
-	if err := evalKL(&e, "(set *maximum-print-sequence-size* 100000)"); err != nil {
+	if err := bootCompilerImage(&e, root); err != nil {
 		fatal("%v", err)
 	}
 	bootDur := time.Since(t0)

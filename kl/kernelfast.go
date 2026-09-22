@@ -964,6 +964,11 @@ func nativeGetRaise(e *ControlFlow, key, attr Obj, noAttrs bool) {
 // versions and build the *property-vector* / shen.*lambdatable* structures the
 // natives read). On a sparse kernel it degrades to binding arity/fn only;
 // everything else is a no-op if the symbol was never defined.
+//
+// Every rebinding here is audited against the kernel's KL definition by
+// TestEquivTable (equiv_test.go), which parses this function's body and writes
+// the verdicts to kl/equiv.json; adding or removing a rebinding fails that test
+// until the table is regenerated.
 func InstallKernelFast() {
 	BindSymbolFunc(symArity, canonicalOrMake("arity", 1, primArityFast))
 	BindSymbolFunc(MakeSymbol("fn"), MakeNative(nativeFn, 1))
