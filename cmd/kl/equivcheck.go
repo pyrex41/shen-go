@@ -7,8 +7,12 @@ package main
 //	equiv NAME ok cases=N
 //	equiv NAME FAIL case=... kl=... native=...
 //
-// Exit status is non-zero when any row fails. This is the harness Yggdrasil's
-// conformance report invokes to check the port's declared lowering table.
+// followed by one summary line, "equiv-check: PORT KERNEL: R rows, C cases,
+// F FAIL, DURATION". Nothing else reaches stdout: the runtime's own traces on
+// recovered errors are discarded while the cases run. Exit status is 1 when
+// any row fails, 2 when the table or the kernel could not be loaded. This is
+// the harness Yggdrasil's conformance report invokes to check the port's
+// declared lowering table.
 
 import (
 	"encoding/json"
@@ -44,8 +48,9 @@ func equivCheckMain(args []string, stdout, stderr io.Writer) int {
 	return rc
 }
 
-// runEquivCheck boots the kernel, replays every row's cases and reports. It
-// returns the exit status (0 ok, 1 any FAIL) and the number of failing rows.
+// runEquivCheck boots the kernel, replays every row's cases and reports to
+// out. It returns the exit status (0 ok, 1 any FAIL) and the number of
+// failing rows.
 func runEquivCheck(jsonPath, kernelDir string, out io.Writer) (int, int, error) {
 	start := time.Now()
 	data, err := os.ReadFile(jsonPath)
@@ -62,33 +67,44 @@ func runEquivCheck(jsonPath, kernelDir string, out io.Writer) (int, int, error) 
 			return 2, 0, err
 		}
 	}
-	var e kl.ControlFlow
-	if err := kl.BootKernel(&e, kernelDir); err != nil {
-		return 2, 0, err
-	}
 	names := make([]string, 0, len(table.Rows))
 	for _, r := range table.Rows {
 		names = append(names, r.KernelFn)
 	}
-	if err := kl.InstallEquivDefinitions(&e, kernelDir, names); err != nil {
-		return 2, 0, err
-	}
+	var e kl.ControlFlow
 	failed, cases := 0, 0
-	for _, r := range table.Rows {
-		cases += len(r.Inputs)
-		var first string
-		for _, c := range r.Inputs {
-			if msg := kl.RunEquivCase(&e, r.KernelFn, c); msg != "" {
-				first = msg
-				break
+	// Booting the kernel and running the cases both hit runtime error paths
+	// that trace to os.Stdout; out was captured by the caller before this
+	// point, so the report itself is unaffected by the redirect.
+	var bootErr error
+	quietErr := kl.WithQuietStdout(func() {
+		if bootErr = kl.BootKernel(&e, kernelDir); bootErr != nil {
+			return
+		}
+		if _, bootErr = kl.InstallEquivDefinitions(&e, kernelDir, names); bootErr != nil {
+			return
+		}
+		for _, r := range table.Rows {
+			cases += len(r.Inputs)
+			var first *kl.EquivMismatch
+			for _, c := range r.Inputs {
+				if first = kl.RunEquivCase(&e, r.KernelFn, c); first != nil {
+					break
+				}
+			}
+			if first == nil {
+				fmt.Fprintf(out, "equiv %s ok cases=%d\n", r.KernelFn, len(r.Inputs))
+			} else {
+				failed++
+				fmt.Fprintf(out, "equiv %s FAIL %s\n", r.KernelFn, first)
 			}
 		}
-		if first == "" {
-			fmt.Fprintf(out, "equiv %s ok cases=%d\n", r.KernelFn, len(r.Inputs))
-		} else {
-			failed++
-			fmt.Fprintf(out, "equiv %s FAIL %s\n", r.KernelFn, first)
-		}
+	})
+	if quietErr != nil {
+		return 2, 0, quietErr
+	}
+	if bootErr != nil {
+		return 2, 0, bootErr
 	}
 	fmt.Fprintf(out, "equiv-check: %s %s: %d rows, %d cases, %d FAIL, %s\n",
 		table.Port, table.Kernel, len(table.Rows), cases, failed, time.Since(start).Round(time.Millisecond))

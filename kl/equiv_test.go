@@ -18,6 +18,7 @@ import (
 	"math/rand"
 	"os"
 	"path/filepath"
+	"reflect"
 	"sort"
 	"strconv"
 	"strings"
@@ -299,18 +300,20 @@ var rowSignature = map[string][]kind{
 	"map":                    {kFunc, kList},
 }
 
-// rowEffects lists the globals a native reads or writes. put/get/unput take the
-// vector as an argument; the kernel only ever passes (value *property-vector*),
-// which is why the table names it. bound? reads the global value cell of its
-// argument symbol.
+// rowEffects lists the globals a native reads or writes, by symbol name.
+// put/get/unput mutate the vector they are handed; the kernel only ever
+// passes (value *property-vector*), which is why the table names it. bound?
+// reads the value cell of whatever symbol it is given, written "(value X)".
 var rowEffects = map[string][]string{
 	"arity":  {"*property-vector*"},
 	"fn":     {"*property-vector*", "shen.*lambdatable*"},
 	"put":    {"*property-vector*"},
 	"get":    {"*property-vector*"},
 	"unput":  {"*property-vector*"},
-	"bound?": {"symbol-value-table"},
+	"bound?": {"(value X)"},
 }
+
+const effectsDoc = "global symbols the native reads or writes; \"(value X)\" means the value cell of the argument symbol; rows without effects are pure"
 
 // propertyRows take the property vector as their last argument.
 var propertyRows = map[string]bool{"put": true, "get": true, "unput": true}
@@ -390,18 +393,28 @@ var explicitCases = map[string][]EquivCase{
 		{Name: "unset-slot-raises", Args: []string{"(vector 1)", "1"}},
 		{Name: "set-slot", Args: []string{"(let V (vector 1) (do (vector-> V 1 x) V))", "1"}},
 	},
-	"shen.string->bytes": {{Name: "lambda-utf8", Args: []string{`"λ"`}}, {Name: "mixed", Args: []string{`"aλ€"`}}},
+	// On this port string->n yields the code point, so the KL body (and the
+	// native) return (955) for "λ", not its UTF-8 bytes (206 187); the case
+	// checks the two agree on that, not the byte claim.
+	"shen.string->bytes": {{Name: "lambda-codepoint", Args: []string{`"λ"`}}, {Name: "mixed", Args: []string{`"aλ€"`}}},
 	"string->symbol":     {{Name: "stars", Args: []string{`"*foo*"`}}, {Name: "digit-raises", Args: []string{`"1"`}}},
 	"symbol?":            {{Name: "intern-digit", Args: []string{`(intern "1")`}}, {Name: "intern-empty", Args: []string{`(intern "")`}}},
+	// arity and fn read the kernel's own tables, so these cases seed the real
+	// *property-vector* (identically for both sides); the last observe form
+	// is teardown, it unputs the seed so nothing leaks into later rows (its
+	// value, the key, is compared like any observe).
 	"arity": {
 		{Name: "kernel-fn", Args: []string{"reverse"}},
 		{Name: "unknown", Args: []string{"equiv.undefined-fn"}},
-		{Name: "custom-arity", Setup: []string{"(put equiv.zero arity 0 (value *property-vector*))"}, Args: []string{"equiv.zero"}},
+		{Name: "custom-arity", Setup: []string{"(put equiv.zero arity 0 (value *property-vector*))"}, Args: []string{"equiv.zero"},
+			Observe: []string{"(unput equiv.zero arity (value *property-vector*))"}},
 	},
 	"fn": {
 		{Name: "kernel-fn", Args: []string{"reverse"}},
+		{Name: "kl-fn", Args: []string{"shen.app"}},
 		{Name: "undefined-raises", Args: []string{"equiv.undefined-fn"}},
-		{Name: "zero-arity-applies", Setup: []string{"(defun equiv.zero () 42)", "(put equiv.zero arity 0 (value *property-vector*))"}, Args: []string{"equiv.zero"}},
+		{Name: "zero-arity-applies", Setup: []string{"(defun equiv.zero () 42)", "(put equiv.zero arity 0 (value *property-vector*))"}, Args: []string{"equiv.zero"},
+			Observe: []string{"(unput equiv.zero arity (value *property-vector*))"}},
 		{Name: "fail-applies", Args: []string{"fail"}},
 	},
 	"bound?": {
@@ -411,6 +424,19 @@ var explicitCases = map[string][]EquivCase{
 	},
 	"put": {
 		{Name: "fresh", Args: []string{"a", "b", "c"}},
+		// The spec's sequence: put, then get, unput, get-raises, with the
+		// vector observed after every step. Only the put is the function
+		// under test; the later steps run the kernel's own get/unput on both
+		// sides so the observed vectors show what the put left behind.
+		{Name: "put-get-unput-get", Args: []string{"a", "b", "c"}, Observe: []string{
+			"(value equiv.*pv*)",
+			"(get a b (value equiv.*pv*))",
+			"(value equiv.*pv*)",
+			"(unput a b (value equiv.*pv*))",
+			"(value equiv.*pv*)",
+			"(trap-error (get a b (value equiv.*pv*)) (lambda E (error-to-string E)))",
+			"(value equiv.*pv*)",
+		}},
 		{Name: "overwrite", Setup: []string{"(put a b c (value equiv.*pv*))"}, Args: []string{"a", "b", "d"}},
 		{Name: "second-attr", Setup: []string{"(put a b c (value equiv.*pv*))"}, Args: []string{"a", "e", "f"}},
 		{Name: "collision", Setup: []string{"(set equiv.*pv* (vector 1))", "(put a b c (value equiv.*pv*))", "(put x y z (value equiv.*pv*))"}, Args: []string{"q", "r", "s"}},
@@ -506,13 +532,18 @@ func boundaryCases(row string, sig []kind) []EquivCase {
 }
 
 // kernelUsageCases extracts every call of row inside kernel/klambda/*.kl whose
-// arguments are all literals (numbers, strings, booleans, (), non-variable
-// symbols, and cons/intern of literals), mechanically.
+// arguments are all literals the reader can round-trip (numbers, strings
+// without quotes or backslashes, booleans, (), non-variable symbols, and
+// cons/intern of literals), mechanically. For the property-vector rows the
+// vector argument is never a literal but always (value *property-vector*);
+// those call sites are taken with the vector dropped, and finishCase supplies
+// the fresh vector.
 func kernelUsageCases(t *testing.T, dir, row string, arity int) []EquivCase {
 	t.Helper()
 	var out []EquivCase
 	seen := map[string]bool{}
 	sym := MakeSymbol(row)
+	pvArg, _ := ReadForm("(value *property-vector*)")
 	for _, f := range KernelLoadOrder {
 		fh, err := os.Open(filepath.Join(dir, f))
 		if err != nil {
@@ -531,7 +562,17 @@ func kernelUsageCases(t *testing.T, dir, row string, arity int) []EquivCase {
 			}
 			if p.car == sym {
 				args := ListToSlice(p.cdr)
-				if len(args) == arity && allLiteral(args) {
+				want := arity
+				if propertyRows[row] {
+					// Only call sites on the kernel's own vector count; the
+					// vector argument is dropped and finishCase supplies one.
+					if len(args) != arity || equal(args[arity-1], pvArg) != True {
+						args, want = nil, -1
+					} else {
+						args, want = args[:arity-1], arity-1
+					}
+				}
+				if len(args) == want && allLiteral(args) {
 					strs := make([]string, len(args))
 					for i, a := range args {
 						strs[i] = klExprString(a)
@@ -643,7 +684,10 @@ func (g *gen) number() string {
 	case 3:
 		return floatLit(float64(g.r.Intn(130)) + 0.5)
 	default:
-		return floatLit(g.r.Float64()*200 - 100)
+		// Drawn as an integer number of thousandths so the literal is the
+		// same on every architecture: a Float64()*200-100 draw was fused
+		// into an FMA on arm64 and printed one ulp away from amd64's value.
+		return floatLit(float64(g.r.Intn(200001)-100000) / 1000)
 	}
 }
 
@@ -792,11 +836,12 @@ var (
 	equivBootOnce sync.Once
 	equivBootErr  error
 	equivKernel   string
+	equivHelpers  []string
 	equivCF       ControlFlow
 )
 
 // bootEquivKernel boots the KLambda kernel into this test process once and
-// installs the equiv.* copies of the rebound functions.
+// installs the equiv.* copies of the rebound functions and their helpers.
 func bootEquivKernel(t *testing.T, names []string) *ControlFlow {
 	t.Helper()
 	equivBootOnce.Do(func() {
@@ -807,7 +852,7 @@ func bootEquivKernel(t *testing.T, names []string) *ControlFlow {
 		if equivBootErr = BootKernel(&equivCF, equivKernel); equivBootErr != nil {
 			return
 		}
-		equivBootErr = InstallEquivDefinitions(&equivCF, equivKernel, names)
+		equivHelpers, equivBootErr = InstallEquivDefinitions(&equivCF, equivKernel, names)
 	})
 	if equivBootErr != nil {
 		t.Fatal(equivBootErr)
@@ -815,37 +860,27 @@ func bootEquivKernel(t *testing.T, names []string) *ControlFlow {
 	return &equivCF
 }
 
-// failAliasNote is appended to the reason of a row that disagrees only because
-// of what (fail) returns. The vendored KL text defines (defun fail () shen.fail!)
-// but that is the KL writer's printed alias (see shen.write-kl-h in load.kl)
-// for the value the kernel really uses, the interned symbol `...`, which is
-// what the natives and the compiled cmd/shen kernel return. Vector slots are
-// filled with (fail) and <-vector/put/get/unput compare against it, so those
-// rows inherit the disagreement. The table records the text as written; the
-// note says the row verifies under the alias reading.
-const failAliasNote = "; verifies when the KL (fail) is read as ... (the compiled kernel's value) instead of the vendored text's shen.fail!"
-
-// passesWithFailAlias re-runs the row's cases with equiv.fail temporarily
-// returning `...` like the native.
-func passesWithFailAlias(e *ControlFlow, kernelFn string, cases []EquivCase) bool {
-	sym := MakeSymbol(EquivName("fail"))
-	saved := mustSymbol(sym).function
-	if saved == nil {
-		return false
-	}
-	BindSymbolFunc(sym, MakeNative(func(e *ControlFlow) { e.Return(MakeSymbol("...")) }, 0))
-	defer BindSymbolFunc(sym, saved)
-	for _, c := range cases {
-		if RunEquivCase(e, kernelFn, c) != "" {
-			return false
-		}
-	}
-	return true
+// rowNotes is prose attached to rows whose disagreement has a known origin.
+// It is data for the reader of equiv.json, not an excuse: the row stays
+// unverified.
+var rowNotes = map[string]string{
+	"fail": "the vendored kernel/klambda/sys.kl (and kernel/sources/sys.shen: (define fail -> fail!)) returns shen.fail!; " +
+		"the native (kl/kernelfast.go nativeFail) and the port's compiled kernel (cmd/shen/sys.go) return the symbol ... . " +
+		"The harness leaves fail unrenamed inside the other KL copies so every other row is judged with the port's filler; " +
+		"this row alone carries the divergence.",
+	"unput": "on a key with no bucket the KL body stores the empty bucket () in the slot (vector-> of (shen.remove-pointer K A ())); " +
+		"the native leaves the slot unset. Lookups agree (both raise on get), the vector contents do not.",
+	"<-vector": "a float index (-0.5) reaches (<-address V -0.5), which on this port truncates to slot 0 and returns the limit; " +
+		"the native truncates first and raises the 0th-element error. Integer indices agree, including 0 and out-of-range.",
+	"vector->": "a float index (-0.5) reaches (address-> V -0.5 X), which on this port truncates to slot 0 and overwrites the limit; " +
+		"the native truncates first and raises the 0th-element error. Integer indices agree, including 0 and out-of-range.",
+	"shen.misc?": "the KL body is (element? X <list of codes>), so a non-number answers false; the native requires a number and raises. " +
+		"The kernel only ever passes string->n results.",
 }
 
 func defunArity(t *testing.T, dir, name string) int {
 	t.Helper()
-	defuns, err := KernelDefuns(dir, []string{name})
+	defuns, err := KernelDefuns(dir)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -854,6 +889,29 @@ func defunArity(t *testing.T, dir, name string) int {
 		t.Fatalf("%s: no kernel defun", name)
 	}
 	return len(ListToSlice(Car(Cdr(Cdr(d)))))
+}
+
+func equivHarnessDoc() EquivHarness {
+	return EquivHarness{
+		KLSide: "equiv.NAME: the kernel's own (defun NAME …) from kernel/klambda, run as KL bytecode, with every kernel defun " +
+			"its body reaches loaded the same way (kl_helpers) so no native under test runs on this side; hash (the port's " +
+			"native hash, installed at boot before any property vector exists) and fail (see that row) stay native",
+		NativeSide: "NAME as bound after kl.InstallKernelFast: the Go function in `native`",
+		Inputs: "each input is evaluated once per side, natives installed, in the order setup, args, the call, observe; " +
+			"both sides must return equal values (kernel =; functions equal when the same object, or two KL closures of " +
+			"one arity) or raise errors with identical text, and every observe value must be equal",
+		Verified: "true when every input agreed when the table was generated on this port; false rows keep the first " +
+			"disagreeing input in reason as \"case=NAME kl=OUT native=OUT\" (OUT is the value printed as KL source, vectors as " +
+			"#vector[limit slot…] with never-written slots as #unset, or error(\"text\") with the text Go-quoted, followed by " +
+			"one observe[i]=OUT per observe form), its kind in disagreement (raise: one side raised; value: both returned, " +
+			"values differ; error-text: both raised, messages differ; effect: an observed value differs; harness: an input " +
+			"form itself failed) and, when the origin is known, prose in note",
+		Cases:      "the number of inputs (len(inputs))",
+		Source:     "provenance of the native as kl/FILE.go:GoIdentifier (the Go function bound to kernel_fn), not a line location",
+		Effects:    effectsDoc,
+		Vocabulary: EquivVocabulary,
+		KLHelpers:  equivHelpers,
+	}
 }
 
 // ---- the test ----------------------------------------------------------------
@@ -898,7 +956,7 @@ func buildEquivTable(t *testing.T) EquivTable {
 	}
 
 	e := bootEquivKernel(t, names)
-	table := EquivTable{Port: "shen-go", Kernel: "S42"}
+	table := EquivTable{Port: "shen-go", Kernel: "S42", Harness: equivHarnessDoc()}
 	for _, b := range bindings {
 		sig := rowSignature[b.kernelFn]
 		if len(sig) != b.arity {
@@ -927,9 +985,7 @@ func buildEquivTable(t *testing.T) EquivTable {
 			cases = append(cases, c)
 		}
 		cases = append(cases, boundaryCases(b.kernelFn, genSig)...)
-		if !propertyRows[b.kernelFn] {
-			cases = append(cases, kernelUsageCases(t, equivKernel, b.kernelFn, b.arity)...)
-		}
+		cases = append(cases, kernelUsageCases(t, equivKernel, b.kernelFn, b.arity)...)
 		cases = append(cases, randomCases(b.kernelFn, genSig)...)
 		row.Verified = true
 		if os.Getenv("EQUIV_TRACE") != "" {
@@ -938,18 +994,20 @@ func buildEquivTable(t *testing.T) EquivTable {
 		for _, c := range cases {
 			c = finishCase(b.kernelFn, c)
 			row.Inputs = append(row.Inputs, c)
-			if msg := RunEquivCase(e, b.kernelFn, c); msg != "" {
+			if m := RunEquivCase(e, b.kernelFn, c); m != nil {
+				if m.Kind == MismatchHarness {
+					t.Errorf("equiv %s: harness cannot run %s", b.kernelFn, m)
+				}
 				if row.Verified {
 					row.Verified = false
-					row.Reason = msg
+					row.Reason = m.String()
+					row.Disagreement = string(m.Kind)
+					row.Note = rowNotes[b.kernelFn]
 				}
-				t.Logf("equiv %s FAIL %s", b.kernelFn, msg)
+				t.Logf("equiv %s FAIL %s", b.kernelFn, m)
 			}
 		}
 		row.Cases = len(row.Inputs)
-		if !row.Verified && b.kernelFn != "fail" && passesWithFailAlias(e, b.kernelFn, row.Inputs) {
-			row.Reason += failAliasNote
-		}
 		table.Rows = append(table.Rows, row)
 	}
 	return table
@@ -1019,6 +1077,17 @@ func describeDrift(old, cur EquivTable) string {
 			msgs = append(msgs, fmt.Sprintf("%s: cases %d -> %d", name, or.Cases, r.Cases))
 		case or.Native != r.Native || or.Arity != r.Arity:
 			msgs = append(msgs, name+": native/arity changed")
+		case or.Reason != r.Reason || or.Note != r.Note || or.Disagreement != r.Disagreement:
+			msgs = append(msgs, name+": reason/note changed")
+		case !reflect.DeepEqual(or.Effects, r.Effects):
+			msgs = append(msgs, name+": effects changed")
+		default:
+			for i := range r.Inputs {
+				if !reflect.DeepEqual(or.Inputs[i], r.Inputs[i]) {
+					msgs = append(msgs, fmt.Sprintf("%s: input %s differs: committed %v, generated %v", name, r.Inputs[i].Name, or.Inputs[i], r.Inputs[i]))
+					break
+				}
+			}
 		}
 	}
 	for name := range o {
@@ -1028,7 +1097,10 @@ func describeDrift(old, cur EquivTable) string {
 	}
 	sort.Strings(msgs)
 	if len(msgs) == 0 {
-		return "(row contents differ)"
+		if !reflect.DeepEqual(old.Harness, cur.Harness) || old.Port != cur.Port || old.Kernel != cur.Kernel {
+			return "(the harness/port/kernel header differs)"
+		}
+		return "(files differ but no row does: formatting?)"
 	}
 	return strings.Join(msgs, "; ")
 }
@@ -1051,14 +1123,14 @@ func TestEquivJSONReplays(t *testing.T) {
 	}
 	e := bootEquivKernel(t, names)
 	for _, r := range table.Rows {
-		var first string
+		var first *EquivMismatch
 		for _, c := range r.Inputs {
-			if msg := RunEquivCase(e, r.KernelFn, c); msg != "" && first == "" {
-				first = msg
+			if m := RunEquivCase(e, r.KernelFn, c); m != nil && first == nil {
+				first = m
 			}
 		}
-		if (first == "") != r.Verified {
-			t.Errorf("%s: JSON says verified=%v, replay says %q", r.KernelFn, r.Verified, first)
+		if (first == nil) != r.Verified {
+			t.Errorf("%s: JSON says verified=%v, replay says %v", r.KernelFn, r.Verified, first)
 		}
 	}
 }
