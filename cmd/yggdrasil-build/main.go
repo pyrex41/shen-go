@@ -596,8 +596,29 @@ func main() {
 	// first dict is written. Whatever hash is live when the first dict op runs
 	// stays live for every later read -- no mid-boot swap, so no mismatch.
 	BindSymbolFunc(MakeSymbol("hash"), MakePrimitive("hash", 2, PrimHash))
+	// Swap interpreted kernel functions for natives (arity/fn, empty?, get/put,
+	// integer?, not, list/vector helpers, …) after every kernel chunk, the way
+	// kl.BootKernel does after every module. InstallKernelFast only rebinds
+	// names the kernel has defined so far, so this catches each chunk's
+	// definitions as they appear, and the property vectors the S42 kernel
+	// builds inline (declarations.kl, types.kl) are made by the native vector
+	// and probed by the native put/get from the start -- one fail filler for
+	// the whole process. The natives read *property-vector* and
+	// shen.*lambdatable* at call time, not at install time, so nothing is
+	// gained by installing later; the kernel's init pass (shen.initialise,
+	// when the manifest has one) and any arity replay run on the natives.
+	// Yggdrasil's conformance gate records that order.
+	//
+	// Unconditional, including on an eval-stripped kernel: every override is
+	// guarded by kernelBound, kernelArity returns the kernel's own trap-error
+	// default (-1) when *property-vector* is unbound, too short, or missing
+	// the entry, and the lambdatable lookup raises the identical
+	// unbound-variable condition the interpreted (value shen.*lambdatable*)
+	// would. So on a sparse kernel these fail exactly the way the code they
+	// replace fails -- never worse.
 	for i, c := range kernelChunks {
 		run(&e, fmt.Sprintf("kernel chunk %d", i), c)
+		runHelper("InstallKernelFast", InstallKernelFast)
 	}
 	// The kernel reader computes a literal's value with its own (expt 10 N),
 	// which drifts past 10^22 / 10^-5 in a float64 tower. Answer base-10
@@ -608,6 +629,13 @@ func main() {
 	// Must run after kernel chunks so property/globals exist, before user
 	// code that may call shen.x.sha256-octets. SHEN_X_SHA256=pure disables.
 	runHelper("InstallShenX", InstallShenX)
+	// shen.native-pr: the hush-aware pr the kernel's own pr defers to.
+	runHelper("InstallPr", InstallPr)
+	// The kernel's own integer? (sys.kl, via shen.magless) never terminates on
+	// +-Inf or NaN. Wrap whatever is bound to integer? with the native
+	// non-finite guard. Also unconditional: InstallIntegerGuard self-guards,
+	// returning early when integer? has no interpreted binding to delegate to.
+	runHelper("InstallIntegerGuard", InstallIntegerGuard)
 `)
 	if m.init != "" {
 		fmt.Fprintf(&b, "\trun(&e, %q, PrimFunc(MakeSymbol(%q)))\n", m.init, m.init)
@@ -624,29 +652,7 @@ func main() {
 	}
 `)
 	}
-	b.WriteString(`	// Swap interpreted kernel functions for natives (arity/fn, empty?, get/put,
-	// integer?, not, list/vector helpers, …). cmd/shen/main.go's regist() does
-	// this in the equivalent spot; the generated boot omitted it, so shaken
-	// artifacts silently ran the slower interpreted path.
-	//
-	// Placed after shen.initialise (which builds those structures here, in
-	// place of the module Mains cmd/shen relies on) and after any arity replay,
-	// so the natives see the same fully-built state.
-	//
-	// Unconditional, including on an eval-stripped kernel: kernelArity returns
-	// the kernel's own trap-error default (-1) when *property-vector* is
-	// unbound, too short, or missing the entry, and the lambdatable lookup
-	// raises the identical unbound-variable condition the interpreted (value
-	// shen.*lambdatable*) would. So on a sparse kernel these fail exactly the
-	// way the code they replace fails -- never worse.
-	runHelper("InstallKernelFast", InstallKernelFast)
-	runHelper("InstallPr", InstallPr)
-	// The kernel's own integer? (sys.kl, via shen.magless) never terminates on
-	// +-Inf or NaN. Wrap whatever is bound to integer? with the native
-	// non-finite guard. Also unconditional: InstallIntegerGuard self-guards,
-	// returning early when integer? has no interpreted binding to delegate to.
-	runHelper("InstallIntegerGuard", InstallIntegerGuard)
-	for i, c := range userChunks {
+	b.WriteString(`	for i, c := range userChunks {
 		run(&e, fmt.Sprintf("user chunk %d", i), c)
 	}
 }
