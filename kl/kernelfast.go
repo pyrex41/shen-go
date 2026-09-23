@@ -11,10 +11,14 @@ package kl
 // trap-error, `shen.pvar?`/`tuple?`/`vector?` do the same, and `symbol?` /
 // `variable?` explode the name and walk it character by character.
 //
-// A Shen-specific tripwire: `(fail)` returns the interned symbol `...`, not
-// `shen.fail!` (that name is only a printer alias in write-kl). Vector slots
-// and `<-vector` compare against `...`. Filling or comparing `shen.fail!`
-// makes `put` feed a non-list to change-pointer-value and die at boot.
+// A Shen-specific tripwire: this port's `(fail)` returns the interned symbol
+// `...`, and so does its compiled kernel (cmd/shen/sys.go), while the kernel
+// text (sys.kl, and (define fail -> fail!) in sys.shen) returns `shen.fail!`;
+// `...` is how the Shen printer shows the fail value. The natives here fill
+// vector slots with `...` and `<-vector` compares against it. A vector built
+// by one world and read by the other must still agree on "unassigned", or
+// `put` feeds a non-list to change-pointer-value and dies at boot; see
+// nativeVectorRefOr and kernelArity, which accept either filler.
 //
 // Shen/Scheme's approach (src/overrides.shen, src/compiler.shen) is to leave
 // the kernel sources alone and rebind those functions to natives after load,
@@ -41,8 +45,8 @@ var (
 	symLambdaTable    Obj
 	symShenApp        Obj
 	symShenA          Obj
-	symShenFailBang   Obj // "shen.fail!" — printer alias, NOT what (fail) returns
-	symFailDots       Obj // "..." — the value (fail) returns and vector slots are filled with
+	symShenFailBang   Obj // "shen.fail!" — what the kernel text's (fail) returns; fills KL-built vectors
+	symFailDots       Obj // "..." — what this port's native (fail) returns; fills native-built vectors
 	symShenTuple      Obj
 	symShenPvar       Obj
 	symShenS          Obj
@@ -108,8 +112,8 @@ func kernelArity(f Obj) Obj {
 		return fixnumMinusOne
 	}
 	bucket := vec[h]
-	// (<-vector V h) raises for the never-written filler (fail) == "...".
-	// Older comments said shen.fail!; that is only a printer alias.
+	// (<-vector V h) raises for the never-written filler: `...` from the
+	// native vector, shen.fail! from the kernel's KL vector.
 	if bucket == nil || bucket == symFailDots || bucket == symShenFailBang {
 		return fixnumMinusOne
 	}
@@ -555,7 +559,14 @@ func nativeVectorRefOr(e *ControlFlow) {
 	if ret == nil {
 		ret = undefined
 	}
-	if ret == symFailDots {
+	// An unassigned slot holds whatever (fail) returned when the vector was
+	// built: `...` from the native vector, shen.fail! from the kernel's own
+	// KL vector (sys.kl's fail). Compiled KL runs in both worlds -- cmd/kl and
+	// the equivalence harness boot the KL kernel without the natives -- so
+	// both fillers mean absent here, as they do in kernelArity. Before this,
+	// a KL-built property vector handed shen.fail! back as a present value and
+	// the kernel's put died in shen.change-pointer-value (issue #46).
+	if ret == symFailDots || ret == symShenFailBang {
 		e.TailApply(thunk)
 		return
 	}
@@ -677,7 +688,9 @@ func shenVectorBucket(vec, key Obj) (slots []Obj, h int, bucket Obj, missing boo
 	if bucket == nil {
 		bucket = undefined
 	}
-	if bucket == symFailDots {
+	// Either fail filler means the bucket was never written; see the file
+	// comment and nativeVectorRefOr.
+	if bucket == symFailDots || bucket == symShenFailBang {
 		return slots, h, Nil, true
 	}
 	return slots, h, bucket, false

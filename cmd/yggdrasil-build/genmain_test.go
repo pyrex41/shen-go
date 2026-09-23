@@ -91,3 +91,34 @@ func TestGenMainGuardsBootHelpers(t *testing.T) {
 		}
 	}
 }
+
+// TestGenMainInstallsNativesBeforeInit pins the boot order Yggdrasil's
+// conformance gate checks: the natives go in after each kernel chunk, as
+// kl.BootKernel does after each module, so the kernel's inline init, its init
+// pass and any arity replay all run on them. The template used to install them
+// after shen.initialise, which the gate records as
+// native_overrides_installed_after and refuses.
+func TestGenMainInstallsNativesBeforeInit(t *testing.T) {
+	for _, needsEval := range []bool{false, true} {
+		src := genMainForTest(needsEval)
+		install := strings.Index(src, `runHelper("InstallKernelFast"`)
+		afterChunks := strings.Index(src, `runHelper("InstallExactPow10"`)
+		initCall := strings.Index(src, `PrimFunc(MakeSymbol("shen.initialise"))`)
+		replay := strings.Index(src, `MakeSymbol("shen.store-arity")`)
+		user := strings.Index(src, "range userChunks")
+		kernel := strings.Index(src, "range kernelChunks")
+		if install < 0 || initCall < 0 || user < 0 || kernel < 0 {
+			t.Fatalf("needsEval=%v: generated main lacks an expected step:\n%s", needsEval, src)
+		}
+		// The install sits inside the kernel-chunk loop (before the first
+		// post-loop helper), so each chunk's definitions are replaced as they
+		// appear and the kernel's inline init runs on the natives.
+		if !(kernel < install && install < afterChunks && afterChunks < initCall && initCall < user) {
+			t.Errorf("needsEval=%v: want kernel chunk loop containing InstallKernelFast < post-loop helpers < init < user chunks; "+
+				"offsets kernel=%d install=%d post-loop=%d init=%d user=%d", needsEval, kernel, install, afterChunks, initCall, user)
+		}
+		if needsEval && !(install < replay) {
+			t.Errorf("InstallKernelFast (%d) must precede the arity replay (%d)", install, replay)
+		}
+	}
+}
