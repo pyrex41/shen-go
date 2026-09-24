@@ -33,6 +33,7 @@ type fastBinding struct {
 	native   string
 	arity    int
 	source   string // "kl/FILE.go:Ident"
+	helper   string // the InstallKernelFast call that binds it: overridePrimitive, overrideNative, BindSymbolFunc, restoreCanonicalPrimitive
 }
 
 // parseInstallKernelFast extracts the kernel name, the native Go identifier
@@ -133,7 +134,7 @@ func parseInstallKernelFast(t *testing.T) []fastBinding {
 			if !ok1 || !ok2 || native == "" {
 				t.Fatalf("cannot decode %s call at %s", fn.Name, fset.Position(c.Pos()))
 			}
-			rows = append(rows, fastBinding{name, native, arity, src(native)})
+			rows = append(rows, fastBinding{name, native, arity, src(native), fn.Name})
 		case "BindSymbolFunc":
 			var name string
 			switch a := c.Args[0].(type) {
@@ -161,14 +162,14 @@ func parseInstallKernelFast(t *testing.T) []fastBinding {
 			default:
 				t.Fatalf("cannot decode BindSymbolFunc value at %s", fset.Position(c.Pos()))
 			}
-			rows = append(rows, fastBinding{name, native, arity, src(native)})
+			rows = append(rows, fastBinding{name, native, arity, src(native), fn.Name})
 		case "restoreCanonicalPrimitive":
 			name, _ := strLit(c.Args[0])
 			native, ok := canonical[name]
 			if !ok {
 				t.Fatalf("restoreCanonicalPrimitive(%q): no primitiveRegistry.register in primitives.go", name)
 			}
-			rows = append(rows, fastBinding{name, native, declArity[native], src(native)})
+			rows = append(rows, fastBinding{name, native, declArity[native], src(native), fn.Name})
 		}
 	}
 	return rows

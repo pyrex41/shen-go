@@ -598,24 +598,27 @@ func main() {
 	BindSymbolFunc(MakeSymbol("hash"), MakePrimitive("hash", 2, PrimHash))
 	// Swap interpreted kernel functions for natives (arity/fn, empty?, get/put,
 	// integer?, not, list/vector helpers, …) after every kernel chunk, the way
-	// kl.BootKernel does after every module. InstallKernelFast only rebinds
-	// names the kernel has defined so far, so this catches each chunk's
-	// definitions as they appear, and the property vectors the S42 kernel
-	// builds inline (declarations.kl, types.kl) are made by the native vector
-	// and probed by the native put/get from the start -- one fail filler for
-	// the whole process. The natives read *property-vector* and
-	// shen.*lambdatable* at call time, not at install time, so nothing is
-	// gained by installing later; the kernel's init pass (shen.initialise,
-	// when the manifest has one) and any arity replay run on the natives.
-	// Yggdrasil's conformance gate records that order.
+	// kl.BootKernel does after every module. Every rebinding is installed
+	// after every chunk regardless of whether the chunk (or any chunk) defined
+	// the name (issue #49) -- which is what lets Yggdrasil's lower pass drop
+	// the KL body of a declared native_override -- and a later chunk's own
+	// defun of a rebound name is undone by the next InstallKernelFast. The
+	// property vectors the S42 kernel builds inline (declarations.kl,
+	// types.kl) are therefore made by the native vector and probed by the
+	// native put/get from the start -- one fail filler for the whole process.
+	// The natives read *property-vector* and shen.*lambdatable* at call time,
+	// not at install time, so nothing is gained by installing later; the
+	// kernel's init pass (shen.initialise, when the manifest has one) and any
+	// arity replay run on the natives. Yggdrasil's conformance gate records
+	// that order.
 	//
-	// Unconditional, including on an eval-stripped kernel: every override is
-	// guarded by kernelBound, kernelArity returns the kernel's own trap-error
-	// default (-1) when *property-vector* is unbound, too short, or missing
-	// the entry, and the lambdatable lookup raises the identical
+	// Safe on an eval-stripped kernel: kernelArity returns the kernel's own
+	// trap-error default (-1) when *property-vector* is unbound, too short,
+	// or missing the entry, the lambdatable lookup raises the identical
 	// unbound-variable condition the interpreted (value shen.*lambdatable*)
-	// would. So on a sparse kernel these fail exactly the way the code they
-	// replace fails -- never worse.
+	// would, and nativeGetRaise falls back to a plain message when shen.app
+	// is unbound. So on a sparse kernel these fail no worse than the unbound
+	// symbol they replace.
 	for i, c := range kernelChunks {
 		run(&e, fmt.Sprintf("kernel chunk %d", i), c)
 		runHelper("InstallKernelFast", InstallKernelFast)

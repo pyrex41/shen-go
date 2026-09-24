@@ -36,10 +36,22 @@ import "strconv"
 // `integer?` sites) instead of trampolined Calls.
 //
 // New natives (`empty?`, `boolean?`, …) are registered as canonical
-// primitives so subsequently compiled VM code can use OP_GUARDED_PRIM. They
-// are only bound when the kernel already defined the name, so an eval-free
-// shaken artifact without sys.kl is left alone (see
-// TestInstallHelpersToleratesSparseKernel).
+// primitives so subsequently compiled VM code can use OP_GUARDED_PRIM.
+//
+// Every rebinding is unconditional: it is installed whether or not the kernel
+// defined the name (issue #49). kl/equiv.json is a table of replacements, and
+// Yggdrasil's `lower` pass relies on that by deleting the KL (defun NAME …) of
+// each declared native_override; a native that was only installed once its
+// defun had run would leave such a slice with "variable vector not bound". On
+// a sparse (eval-free) kernel a native that is called behaves at least as
+// well as the unbound symbol it replaces: every native is self-contained
+// except the two error paths that call shen.app (nativeFn's "fn: X is
+// undefined" and nativeGetRaise's get failures), which fall back to a plain
+// message when shen.app is unbound; TestNativeFnUndefinedWithoutShenApp
+// pins the former.
+// TestInstallHelpersToleratesSparseKernel pins only that nothing panics on an
+// empty symbol table; TestInstallKernelFastBindsEveryOverride pins that every
+// row is bound afterwards.
 
 var (
 	symArity          Obj
@@ -176,7 +188,13 @@ func nativeFn(e *ControlFlow) {
 		panic(MakeError("attempt to search a non-list with assoc\n"))
 	}
 	// (simple-error (cn "fn: " (shen.app F " is undefined\n" shen.a)))
-	msg := Call(e, PrimFunc(symShenApp), f, MakeString(" is undefined\n"), symShenA)
+	app := kernelBound("shen.app")
+	if app == nil {
+		// Sparse kernel (issue #49): fn is installed even when shen.app was
+		// lowered away, so fall back to a plain message as nativeGetRaise does.
+		panic(MakeError("fn: " + ObjString(f) + " is undefined\n"))
+	}
+	msg := Call(e, app, f, MakeString(" is undefined\n"), symShenA)
 	panic(MakeError("fn: " + mustString(msg)))
 }
 
@@ -184,10 +202,10 @@ func kernelBound(name string) Obj {
 	return mustSymbol(MakeSymbol(name)).function
 }
 
+// restoreCanonicalPrimitive puts the init-registered primitive object back
+// on a name the kernel's defun overwrote (or never defined), so the AOT
+// HasCanonicalPrimitiveBinding guards see the canonical object again.
 func restoreCanonicalPrimitive(name string) {
-	if kernelBound(name) == nil {
-		return
-	}
 	primitiveRegistry.mu.RLock()
 	canonical, ok := primitiveRegistry.canonical[name]
 	primitiveRegistry.mu.RUnlock()
@@ -206,21 +224,21 @@ func canonicalOrMake(name string, arity int, fn interface{}) Obj {
 	return MakePrimitive(name, arity, fn)
 }
 
-// overridePrimitive rebinds a kernel function to a native primitive, but only
-// if the kernel actually defined it. Sparse (eval-free) kernels are left
-// unchanged. Reuses the canonical primitive object so InstallKernelFast is
-// idempotent under HasCanonicalPrimitiveBinding.
+// overridePrimitive rebinds a kernel function to a native primitive whether
+// or not the kernel defined the name, so a kernel slice whose KL body was
+// dropped (Yggdrasil lower) still gets the binding. Reuses the canonical
+// primitive object so InstallKernelFast is idempotent under
+// HasCanonicalPrimitiveBinding.
 func overridePrimitive(name string, arity int, fn interface{}) {
-	if kernelBound(name) == nil {
-		return
-	}
 	BindSymbolFunc(MakeSymbol(name), canonicalOrMake(name, arity, fn))
 }
 
+// overrideNative is overridePrimitive for natives that need the ControlFlow
+// (symbol?, variable?, thaw, fail, put, get, unput, map). A fresh MakeNative
+// object never satisfies HasCanonicalPrimitiveBinding, which is deliberate
+// for symbol?/variable?: the canonical PrimIsSymbol/PrimIsVariable are weaker
+// type-tag checks than the kernel's analyse-symbol?/analyse-variable?.
 func overrideNative(name string, arity int, fn func(*ControlFlow)) {
-	if kernelBound(name) == nil {
-		return
-	}
 	BindSymbolFunc(MakeSymbol(name), MakeNative(fn, arity))
 }
 
@@ -1008,11 +1026,13 @@ func nativeGetRaise(e *ControlFlow, key, attr Obj, noAttrs bool) {
 	panic(MakeError("attribute " + mustString(mid)))
 }
 
-// InstallKernelFast rebinds hot kernel functions to the natives above. It must
-// be called after the kernel modules have run (they define the interpreted
-// versions and build the *property-vector* / shen.*lambdatable* structures the
-// natives read). On a sparse kernel it degrades to binding arity/fn only;
-// everything else is a no-op if the symbol was never defined.
+// InstallKernelFast rebinds hot kernel functions to the natives above. Every
+// rebinding happens on any kernel, including one whose defuns were lowered
+// away (issue #49) and an empty symbol table. It is called after each kernel
+// module (kl.BootKernel) or chunk (cmd/yggdrasil-build), because a later
+// module's own (defun …) of a rebound name overwrites the native until the
+// next call restores it; the natives read *property-vector* and
+// shen.*lambdatable* at call time, not at install time.
 //
 // Every rebinding here is audited against the kernel's KL definition by
 // TestEquivTable (equiv_test.go), which parses this function's body and writes
