@@ -12,8 +12,7 @@ package main
 //
 //	equiv-check: PORT KERNEL: R rows, C cases, F FAIL, DURATION
 //
-// Nothing else reaches stdout; the runtime's own traces on recovered errors
-// are discarded while the cases run. The exit status is 1 when any row fails
+// Nothing else reaches stdout. The exit status is 1 when any row fails
 // and 2 when the table or the kernel could not be loaded. This is the harness
 // Yggdrasil's conformance report invokes to check the port's declared lowering
 // table.
@@ -77,38 +76,26 @@ func runEquivCheck(jsonPath, kernelDir string, out io.Writer) (int, int, error) 
 	}
 	var e kl.ControlFlow
 	failed, cases := 0, 0
-	// Booting the kernel and running the cases both hit runtime error paths
-	// that trace to os.Stdout. The caller captured out before this point, so
-	// the report itself is unaffected by the redirect.
-	var bootErr error
-	quietErr := kl.WithQuietStdout(func() {
-		if bootErr = kl.BootKernel(&e, kernelDir); bootErr != nil {
-			return
-		}
-		if _, bootErr = kl.InstallEquivDefinitions(&e, kernelDir, names); bootErr != nil {
-			return
-		}
-		for _, r := range table.Rows {
-			cases += len(r.Inputs)
-			var first *kl.EquivMismatch
-			for _, c := range r.Inputs {
-				if first = kl.RunEquivCase(&e, r.KernelFn, c); first != nil {
-					break
-				}
-			}
-			if first == nil {
-				fmt.Fprintf(out, "equiv %s ok cases=%d\n", r.KernelFn, len(r.Inputs))
-			} else {
-				failed++
-				fmt.Fprintf(out, "equiv %s FAIL %s\n", r.KernelFn, first)
-			}
-		}
-	})
-	if quietErr != nil {
-		return 2, 0, quietErr
+	if err := kl.BootKernel(&e, kernelDir); err != nil {
+		return 2, 0, err
 	}
-	if bootErr != nil {
-		return 2, 0, bootErr
+	if _, err := kl.InstallEquivDefinitions(&e, kernelDir, names); err != nil {
+		return 2, 0, err
+	}
+	for _, r := range table.Rows {
+		cases += len(r.Inputs)
+		var first *kl.EquivMismatch
+		for _, c := range r.Inputs {
+			if first = kl.RunEquivCase(&e, r.KernelFn, c); first != nil {
+				break
+			}
+		}
+		if first == nil {
+			fmt.Fprintf(out, "equiv %s ok cases=%d\n", r.KernelFn, len(r.Inputs))
+		} else {
+			failed++
+			fmt.Fprintf(out, "equiv %s FAIL %s\n", r.KernelFn, first)
+		}
 	}
 	fmt.Fprintf(out, "equiv-check: %s %s: %d rows, %d cases, %d FAIL, %s\n",
 		table.Port, table.Kernel, len(table.Rows), cases, failed, time.Since(start).Round(time.Millisecond))

@@ -2,6 +2,7 @@ package kl
 
 import (
 	"fmt"
+	"os"
 	"runtime"
 )
 
@@ -283,20 +284,45 @@ func (ctl *ControlFlow) callSlice(f Obj, args []Obj) Obj {
 	return trampoline(ctl)
 }
 
+// debugRecover enables a stderr trace (expression, message, Go stack) each
+// time Eval recovers a raised KL error. KL error paths are ordinary control
+// flow -- (trap-error (tl 5) H) is a normal program -- so the runtime never
+// writes to the program's stdout there, and by default not to stderr either;
+// set SHEN_DEBUG_RECOVER=1 when debugging the interpreter itself. A non-Obj Go
+// panic (a runtime.Error or a bare string from a native) is a bug rather than
+// control flow, so traceRecover always reports those on stderr.
+var debugRecover = os.Getenv("SHEN_DEBUG_RECOVER") != ""
+
+// traceRecover writes the trace for a panic r recovered in where while
+// evaluating exp. A raised KL error is reported only when debugRecover is
+// set; anything else is reported unconditionally. Nothing goes to stdout.
+func traceRecover(where string, exp Obj, r interface{}) {
+	if x, ok := r.(Obj); ok && IsError(x) {
+		if !debugRecover {
+			return
+		}
+		fmt.Fprintf(os.Stderr, "kl: recovered in %s: %s\n  raised: %s\n", where, ObjString(exp), mustError(x).err)
+	} else {
+		fmt.Fprintf(os.Stderr, "kl: recovered in %s: %s\n  panic: %v\n", where, ObjString(exp), r)
+	}
+	var buf [4096]byte
+	n := runtime.Stack(buf[:], false)
+	os.Stderr.Write(buf[:n])
+}
+
+// Eval evaluates exp at top level. A KL error raised and not caught inside
+// exp is returned as the raised error object itself, so callers see the
+// kernel's message; any other Go panic is returned as an Error carrying the
+// panic value's text.
 func Eval(e *ControlFlow, exp Obj) (res Obj) {
 	defer func() {
 		if r := recover(); r != nil {
-			var buf [4096]byte
-			n := runtime.Stack(buf[:], false)
+			traceRecover("Eval", exp, r)
 			if x, ok := r.(Obj); ok && IsError(x) {
-				fmt.Println("Panic:", mustError(x))
-			} else {
-				fmt.Println("Panic:", r)
+				res = x
+				return
 			}
-			fmt.Println("Recovered in Eval:", ObjString(exp))
-			str := string(buf[:n])
-			// fmt.Println(str)
-			res = MakeError(str)
+			res = MakeError(fmt.Sprint(r))
 		}
 	}()
 	res = evalExp(e, exp, Nil)
@@ -318,11 +344,7 @@ func Try(e *ControlFlow, f Obj) (res tryResult) {
 				}
 			}
 			// Unexpected panic?
-			var buf [4096]byte
-			n := runtime.Stack(buf[:], false)
-			fmt.Println("Panic:", err)
-			fmt.Println("Recovered in Try:", ObjString(f))
-			fmt.Println(string(buf[:n]))
+			traceRecover("Try", f, err)
 			res = tryResult{e: e, data: MakeError(fmt.Sprintf("%v", err))}
 		}
 	}()
@@ -531,11 +553,7 @@ func evalTrapError(e *ControlFlow, exp Obj, env Obj) {
 				}
 			}
 			// Unexpected panic?
-			var buf [4096]byte
-			n := runtime.Stack(buf[:], false)
-			fmt.Println("Panic:", err)
-			fmt.Println("Recovered in trap-error:", ObjString(exp))
-			fmt.Println(string(buf[:n]))
+			traceRecover("trap-error", exp, err)
 			e.Return(MakeError("trap-error result is not Obj"))
 			return
 		}

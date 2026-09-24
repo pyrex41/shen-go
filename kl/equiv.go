@@ -438,7 +438,7 @@ func safeCall(f Obj, args []Obj) (val Obj, errMsg string, isErr bool) {
 }
 
 // evalQuiet evaluates one KL source expression. It returns any raised error
-// without Eval's stdout panic trace.
+// as a Go error, without going through Eval.
 func evalQuiet(e *ControlFlow, src string) (val Obj, err error) {
 	form, perr := ReadForm(src)
 	if perr != nil {
@@ -629,26 +629,6 @@ func RunEquivCase(e *ControlFlow, kernelFn string, c EquivCase) *EquivMismatch {
 		return nil
 	}
 	return &EquivMismatch{c.Name, kl.String(), native.String(), kind}
-}
-
-// WithQuietStdout runs f with os.Stdout pointed at the null device, so that
-// the runtime's stdout traces on recovered errors do not interleave with a
-// report. Those traces come from kl/eval.go and from mustPair in kl/types.go.
-// A writer captured before the call, such as the real os.Stdout, is
-// unaffected.
-func WithQuietStdout(f func()) error {
-	devnull, err := os.OpenFile(os.DevNull, os.O_WRONLY, 0)
-	if err != nil {
-		return err
-	}
-	saved := os.Stdout
-	os.Stdout = devnull
-	defer func() {
-		os.Stdout = saved
-		devnull.Close()
-	}()
-	f()
-	return nil
 }
 
 // KernelArity returns the kernel's registered arity for name via (arity NAME),
