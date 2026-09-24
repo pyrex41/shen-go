@@ -39,6 +39,14 @@ type scmSymbol struct {
 	str      string
 	value    Obj
 	function Obj
+	// canonical is the first primitive registered under this name (see
+	// primitiveRegistrar.register); nil means no primitive was ever
+	// registered for it. HasCanonicalPrimitiveBinding compares function
+	// against it with two loads instead of a locked string-keyed map lookup.
+	// Written once, under primitiveRegistry.mu, by register() during
+	// registration (package init / InstallKernelFast, single-threaded boot);
+	// read unlocked like function.
+	canonical Obj
 }
 
 type scmPair struct {
