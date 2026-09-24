@@ -616,8 +616,8 @@ func main() {
 	// trap-error default (-1) when *property-vector* is unbound, too short,
 	// or missing the entry, the lambdatable lookup raises the identical
 	// unbound-variable condition the interpreted (value shen.*lambdatable*)
-	// would, and nativeGetRaise falls back to a plain message when shen.app
-	// is unbound. So on a sparse kernel these fail no worse than the unbound
+	// would, and nativeFn and nativeGetRaise fall back to a plain message
+	// when shen.app is unbound. So on a sparse kernel these fail no worse than the unbound
 	// symbol they replace.
 	for i, c := range kernelChunks {
 		run(&e, fmt.Sprintf("kernel chunk %d", i), c)

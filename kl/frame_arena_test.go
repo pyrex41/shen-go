@@ -132,7 +132,8 @@ const (
 // frameRetainSlots; before the fix every return past depth ~10,900 dropped
 // that block and the next descent re-made and re-zeroed it (measured: 8.7 MB
 // and one extra alloc per (mk 11000), a 2x cliff versus (mk 10000)). Spare
-// blocks are now trimmed only at a top-level return or a recover site, so
+// blocks are now trimmed only at a top-level return, a recover site or the
+// periodic idle check (frameTrimInterval), never on an ordinary return, so
 // the only permitted extra allocation per run is block 10 coming back once
 // after the trim at the end of the previous Eval. The iteration count makes
 // the loop cross more than frameTrimInterval block boundaries, so the
