@@ -1,5 +1,7 @@
 package kl
 
+import "strconv"
+
 // Native fast paths for hot kernel functions.
 //
 // The portable Shen kernel (sys.kl and friends) implements many frequently
@@ -380,6 +382,10 @@ func primLowercasep(n Obj) Obj { return numberInRange(n, 97, 122) }
 func primUppercasep(n Obj) Obj { return numberInRange(n, 65, 90) }
 
 func primMiscp(n Obj) Obj {
+	// (element? X <codes>): a non-number is simply not in the list.
+	if !IsNumber(n) {
+		return False
+	}
 	f := mustNumber(n)
 	if f >= 0 && f < 128 && shenMisc[byte(f)] && float64(byte(f)) == f {
 		return True
@@ -460,27 +466,41 @@ func primAtp(x, y Obj) Obj {
 }
 
 func primShenVector(n Obj) Obj {
-	size := mustInteger(n)
-	if size < 0 {
-		panic(MakeError("absvector wrong argument"))
+	// Mirror the kernel body step for step, so that a bad N raises the same
+	// primitive error the KL raises:
+	//   (let V (absvector (+ N 1))
+	//     (address-> V 0 N)
+	//     (if (= N 0) V (shen.fillvector V 1 N (fail))))
+	f := mustNumber(n)
+	v := PrimAbsvector(MakeNumber(f + 1))
+	// Kernel stores the original N at slot 0 (the limit); (vector -1) makes a
+	// 0-slot absvector and fails here.
+	PrimVectorSet(v, fixnumZero, n)
+	if f == 0 {
+		return v
 	}
-	if size+1 > maxAbsvectorSize {
-		panic(MakeError("absvector wrong argument"))
-	}
-	v := MakeVector(size + 1)
 	slots := mustVector(v)
-	// Kernel stores the original N at slot 0 (the limit).
-	slots[0] = n
+	// shen.fillvector writes slots 1..N and stops when its counter equals N.
+	// A fractional N is never reached, so the counter walks off the end and
+	// address-> raises, exactly as the KL does.
 	// (fail) returns the interned symbol "...", not "shen.fail!".
-	for i := 1; i <= size; i++ {
+	i := 1
+	for float64(i) != f {
+		if i >= len(slots) {
+			panic(MakeError("index " + strconv.Itoa(i) + " out of range " + strconv.Itoa(len(slots))))
+		}
 		slots[i] = symFailDots
+		i++
 	}
+	slots[i] = symFailDots
 	return v
 }
 
 func primShenVectorRef(v, n Obj) Obj {
-	off := mustInteger(n)
-	if off == 0 {
+	// (if (= N 0) (simple-error ...) (<-address V N)): only an exact 0 is the
+	// 0th-element error; anything else, including a fractional or non-number
+	// index, is <-address's own error.
+	if IsNumber(n) && GetNumber(n) == 0 {
 		panic(MakeError("cannot access 0th element of a vector\n"))
 	}
 	ret := PrimVectorGet(v, n)
@@ -492,8 +512,7 @@ func primShenVectorRef(v, n Obj) Obj {
 }
 
 func primShenVectorSet(v, n, x Obj) Obj {
-	off := mustInteger(n)
-	if off == 0 {
+	if IsNumber(n) && GetNumber(n) == 0 {
 		panic(MakeError("cannot access 0th element of a vector\n"))
 	}
 	return PrimVectorSet(v, n, x)
@@ -734,8 +753,9 @@ func nativeUnput(e *ControlFlow) {
 	key, attr, vec := e.Get(1), e.Get(2), e.Get(3)
 	_, h, bucket, missing := shenVectorBucket(vec, key)
 	if missing {
-		e.Return(key)
-		return
+		// The kernel's trap-error maps a never-written slot to (), and its
+		// vector-> then stores (shen.remove-pointer K A ()) = () in the slot.
+		bucket = Nil
 	}
 	primShenVectorSet(vec, MakeInteger(h), removePointer(key, attr, bucket))
 	e.Return(key)
@@ -777,23 +797,38 @@ func primTailShen(x Obj) Obj {
 	return p.cdr
 }
 
-func primNth(n, l Obj) Obj {
-	if !IsNumber(n) {
+// nativeNth mirrors the kernel's nth including its error: the kernel counts N
+// down and drops heads until the list runs out, so the message names what is
+// left, formatted by shen.app in shen.a mode:
+//
+//	(cond ((and (= 1 N) (cons? L)) (hd L))
+//	      ((cons? L) (nth (- N 1) (tl L)))
+//	      (true (simple-error (cn "nth applied to " (shen.app N (cn ", " (shen.app L "\n" shen.a)) shen.a)))))
+//
+// The error path calls back into KL, so nth is a ControlFlow native like
+// nativeGetRaise; a kernel without shen.app gets a Go-formatted fallback.
+func nativeNth(e *ControlFlow) {
+	n, l := e.Get(1), e.Get(2)
+	one := MakeInteger(1)
+	for {
+		ok, p := isPair(l)
+		if !ok {
+			break
+		}
+		if equal(one, n) == True {
+			e.Return(p.car)
+			return
+		}
+		n = PrimNumberSubtract(n, one)
+		l = p.cdr
+	}
+	app := kernelBound("shen.app")
+	if app == nil {
 		panic(MakeError("nth applied to " + ObjString(n) + ", " + ObjString(l) + "\n"))
 	}
-	k := GetNumber(n)
-	cur := l
-	for {
-		ok, p := isPair(cur)
-		if !ok {
-			panic(MakeError("nth applied to " + ObjString(n) + ", " + ObjString(l) + "\n"))
-		}
-		if k == 1 {
-			return p.car
-		}
-		k--
-		cur = p.cdr
-	}
+	inner := Call(e, app, l, MakeString("\n"), symShenA)
+	msg := Call(e, app, n, PrimStringConcat(MakeString(", "), inner), symShenA)
+	panic(MakeError("nth applied to " + mustString(msg)))
 }
 
 func primBoundp(x Obj) Obj {
@@ -869,7 +904,8 @@ func primStringToSymbol(s Obj) Obj {
 	if primSymbolp(w) == True {
 		return w
 	}
-	panic(MakeError("cannot intern " + mustString(s) + " to a symbol"))
+	// (shen.app S " to a symbol" shen.s) prints the string quoted.
+	panic(MakeError("cannot intern \"" + mustString(s) + "\" to a symbol"))
 }
 
 func primStringToBytes(s Obj) Obj {
@@ -1039,7 +1075,7 @@ func InstallKernelFast() {
 
 	overridePrimitive("head", 1, primHeadShen)
 	overridePrimitive("tail", 1, primTailShen)
-	overridePrimitive("nth", 2, primNth)
+	overrideNative("nth", 2, nativeNth)
 	overridePrimitive("bound?", 1, primBoundp)
 	overridePrimitive("concat", 2, primConcat)
 	overridePrimitive("==", 2, PrimEqual)

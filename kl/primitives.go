@@ -376,7 +376,7 @@ func PrimAbsvector(o Obj) Obj {
 
 func PrimVectorSet(x, y, z Obj) Obj {
 	vec := mustVector(x)
-	off := mustInteger(y)
+	off := mustIndex(y)
 	// address-> had no bounds check at all: any out-of-range offset went
 	// straight into the Go slice and panicked with a runtime error that
 	// trap-error could not catch ("trap-error result is not Obj"). Raise the
@@ -391,7 +391,7 @@ func PrimVectorSet(x, y, z Obj) Obj {
 
 func PrimVectorGet(x, y Obj) Obj {
 	vec := mustVector(x)
-	off := mustInteger(y)
+	off := mustIndex(y)
 	if off < 0 || off >= len(vec) {
 		panic(MakeError(fmt.Sprintf("index %d out of range %d", off, len(vec))))
 	}
@@ -527,7 +527,9 @@ func PrimNot(x Obj) Obj {
 	case True:
 		return False
 	}
-	panic(MakeError("PrimNot"))
+	// The kernel's (defun not (X) (if X false true)) raises the VM's own if
+	// error on a non-boolean; say the same thing.
+	panic(MakeError("if requires a boolean"))
 }
 
 func PrimIf(x, y, z Obj) Obj {
