@@ -25,6 +25,8 @@ Stdout must stay byte-identical aside from the suite's own printed run times.
 | after call-path alloc cuts `f5e1899` | ~3.3s wall claimed | — | slab merge + skip arg copies |
 | after arity/fn native `e61c724` | ~4.3–6.1s | ~3.5–5.5s | ~25% vs prior on loaded box |
 | after VM frame pool (this branch tip) | **~2.5–3.3s** | **~2.6–2.8s** | freelist + OP_CALL fast paths |
+| master `30ab469` (natives, PR #48) | ~1.7–1.8s (loaded box) | — | before the guard fix below; ~1.2–1.5s quieter |
+| symbol-cached canonical guard (#51/#55) | **~1.2–1.4s** (loaded box) | — | `HasCanonicalPrimitiveBinding` lock-free; -24..-30% vs the row above, interleaved |
 | shen-cl (SBCL, same machine) | **~0.55–0.7s** | **~0.75–0.8s** | target |
 
 Absolute numbers swing with machine load; ratios from interleaved runs are more
@@ -51,6 +53,18 @@ prng and **~20–30%** on world in quiet interleaved runs.
   remaining heap is mostly semantic `cons` / `MakeInteger` / startup natives.
 - Residual CPU is interpreter overhead: `vmExec` dispatch, `tick`, primitive
   wrappers, and still ~5× behind SBCL on this workload.
+- After the frame pool and the natives, the largest single item was the
+  specialization guard: `HasCanonicalPrimitiveBinding` took an RWMutex and a
+  string-keyed map lookup (`runtime.mapaccess2_faststr`) on every guarded
+  primitive site — 16–20% of CPU samples on the kernel test suite and ~18% on
+  prng (issues #51, #55). Caching the canonical primitive on the interned
+  symbol makes the guard a two-load pointer compare (7.6–12 ns → ~2 ns/op,
+  `BenchmarkHasCanonicalPrimitiveBinding`), inlined at every VM and AOT site.
+  Measured on a loaded M4 (load 23–29, interleaved, user CPU): kernel suite
+  13.3–14.5 s → 10.9–12.0 s (-15..-18%), prng 1.7–1.8 s → 1.2–1.4 s
+  (-24..-30%). The remaining suite profile is `vmExecSlots` dispatch (~13%
+  flat), GC (`gcDrain` ~17%, `mallocgc*` ~10%), and `MakeNative` closure
+  allocation from the AOT kernel (~6%, cmd/shen/prolog.go).
 
 ## Remaining gap vs shen-cl
 
