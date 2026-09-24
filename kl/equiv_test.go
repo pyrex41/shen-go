@@ -875,13 +875,7 @@ func bootEquivKernel(t *testing.T, names []string) *ControlFlow {
 // rowNotes is prose attached to rows whose disagreement has a known origin.
 // It is data for the reader of equiv.json, not an excuse: the row stays
 // unverified.
-var rowNotes = map[string]string{
-	"fail": "The KL side returns shen.fail!, as the vendored kernel/klambda/sys.kl says (defun fail () shen.fail!) " +
-		"and kernel/sources/sys.shen says (define fail -> fail!). " +
-		"The native (nativeFail in kl/kernelfast.go) and the port's compiled kernel (cmd/shen/sys.go) return the symbol ... instead. " +
-		"The harness leaves fail unrenamed inside the other KL copies, so every other row is judged with the port's filler " +
-		"and this row alone carries the divergence.",
-}
+var rowNotes = map[string]string{}
 
 func defunArity(t *testing.T, dir, name string) int {
 	t.Helper()
@@ -900,8 +894,7 @@ func equivHarnessDoc() EquivHarness {
 	return EquivHarness{
 		KLSide: "equiv.NAME is the kernel's own (defun NAME …) from kernel/klambda, run as KL bytecode. " +
 			"Every kernel defun its body reaches is loaded the same way and is listed in kl_helpers, so no native under test runs on this side. " +
-			"Two names stay native: hash, the port's native hash, which is installed at boot before any property vector exists, " +
-			"and fail, for the reason the fail row gives.",
+			"One name stays native: hash, the port's native hash, which is installed at boot before any property vector exists.",
 		NativeSide: "NAME as bound after kl.InstallKernelFast. That is the Go function named in the native field.",
 		Inputs: "The cases for this row. Each case is evaluated once per side, with the natives installed, in the order setup, args, the call, observe. " +
 			"Both sides must return equal values, or raise errors with identical text, and every observe value must be equal. " +

@@ -18,18 +18,16 @@ package kl
 // head-position calls is loaded the same way, transitively: shen.map-h under
 // map, shen.app under the error paths, and so on down. The KL side therefore
 // runs as KL bytecode all the way to the primitives and never enters a native
-// under test. Two names are deliberately left alone:
-//
-//   - hash. BootKernel swaps in the native FNV-1a hash before the first
-//     property vector is built, the way cmd/shen does, so every vector in the
-//     process is keyed by it. A KL-side hash would key the same vector
-//     differently, and the two sides would compare nothing.
-//   - fail. The vendored sys.kl says (defun fail () shen.fail!), while the
-//     port's natives and its compiled kernel (cmd/shen/sys.go) return the
-//     symbol `...`. That divergence is the fail row's own finding. The other
-//     KL copies call the port's fail, so both sides share one vector filler,
-//     and the rows that depend on it (vector, <-vector, put, get, unput) are
-//     judged on their own logic.
+// under test. One name is deliberately left alone: hash. BootKernel swaps in
+// the native FNV-1a hash before the first property vector is built, the way
+// cmd/shen does, so every vector in the process is keyed by it. A KL-side
+// hash would key the same vector differently, and the two sides would compare
+// nothing. (fail used to be the second exception, while the native returned
+// the symbol `...` and the kernel's defun shen.fail!; since issue #54 both
+// return shen.fail!, so the rows that reach fail — vector, <-vector, put,
+// get, unput and their callers — call the renamed equiv.fail like any other
+// row they reach. fail is a row of its own, so like every root it is absent
+// from kl_helpers.)
 //
 // The native side of a row is the rebound symbol itself. A case is a list of
 // KL expressions for the arguments, plus optional setup forms run before the
@@ -118,11 +116,11 @@ func EquivName(kernelFn string) string { return EquivPrefix + kernelFn }
 
 // equivKeepNative are the kernel defuns the KL side keeps calling by their
 // real, native name. The file comment says why.
-var equivKeepNative = map[string]bool{"hash": true, "fail": true}
+var equivKeepNative = map[string]bool{"hash": true}
 
 // EquivVocabulary describes the harness-only names a case may use.
 var EquivVocabulary = map[string]string{
-	"equiv.NAME":        "the kernel's own (defun NAME …) loaded as KL bytecode, with every kernel defun its body reaches renamed the same way; hash and fail are the two exceptions and stay native",
+	"equiv.NAME":        "the kernel's own (defun NAME …) loaded as KL bytecode, with every kernel defun its body reaches renamed the same way; hash is the one exception and stays native",
 	"equiv.iota N":      "the list (1 2 … N)",
 	"equiv.note X":      "conses X onto (value equiv.*calls*) and returns X; this is how a case counts and orders the calls made to a function argument",
 	"equiv.native-of F": "the function object currently bound to the symbol F, which for a rebound name is the Go native",

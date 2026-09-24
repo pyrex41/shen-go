@@ -2,15 +2,17 @@ package kl
 
 import "testing"
 
-// TestVectorRefOrAcceptsBothFailFillers pins the fix for issue #46's actual
-// cause. The VM compiler lowers (trap-error (<-vector V N) (lambda E D)) to
-// the _kl.<-vector/or presence check. An unassigned slot holds whatever (fail)
-// returned when the vector was built: `...` from the native vector, shen.fail!
-// from the kernel's own KL vector. The check used to know only `...`, so a
-// kernel booted without InstallKernelFast (cmd/kl, the equivalence harness)
-// got shen.fail! back as a present value from every fresh property-vector
-// slot, and put died in shen.change-pointer-value.
-func TestVectorRefOrAcceptsBothFailFillers(t *testing.T) {
+// TestVectorRefOrTreatsOnlyShenFailAsAbsent pins the presence check behind
+// issue #46's fix, as issue #54 settled it. The VM compiler lowers
+// (trap-error (<-vector V N) (lambda E D)) to the _kl.<-vector/or check. An
+// unassigned slot holds what (fail) returned when the vector was built, and
+// after #54 that is the symbol shen.fail! in every world: the native vector,
+// the kernel's own KL vector (cmd/kl, the equivalence harness) and the
+// compiled kernel. The symbol `...` is only how the printer shows the fail
+// value; as a slot value it is present, as on shen-cl and shen-scheme. The
+// check used to accept `...` as a second filler, which misread that value
+// as absent.
+func TestVectorRefOrTreatsOnlyShenFailAsAbsent(t *testing.T) {
 	var e ControlFlow
 	eval := func(src string) Obj {
 		form, err := ReadForm(src)
@@ -31,8 +33,8 @@ func TestVectorRefOrAcceptsBothFailFillers(t *testing.T) {
 	eval(`(address-> (value t.v) 3 present)`)
 	for _, tc := range []struct{ n, want string }{
 		{"0", "absent"}, // slot 0 is the limit, never a value
-		{"1", "absent"}, // KL kernel's filler
-		{"2", "absent"}, // native filler
+		{"1", "absent"}, // the fail filler, in every world
+		{"2", "..."},    // an ordinary symbol
 		{"3", "present"},
 		{"4", "absent"}, // out of range
 	} {

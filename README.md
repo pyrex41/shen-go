@@ -67,6 +67,8 @@ make shen
 
 `kl` is a small KLambda interpreter. `script.kl` loads the kernel in upstream `install.lsp` order (S42 has no `shen.initialise`; do not reorder), compiles Shen → KL → IR → Go. Provenance: `kernel/klambda/PROVENANCE.md`.
 
+The generator named in `script.kl` must match the committed kernel: `cmd/shen/*.go` is the output of `make-code-generator` (unsealed, with `HasCanonicalPrimitiveBinding` guards), and regenerating with `make-sealed-code-generator` rewrites every file. `script.kl` pins `shen.*gensym*` after loading `compiler.shen` because the `tmp`/`ifres` register names in the IR, and so in the Go, continue from wherever compiling `compiler.shen` left the counter; without the pin an edit to `compiler.shen` renames every register (the KL reader has no comment syntax, so the pin is explained here). Symbol declarations in `launcher.go` come out in map order, so a fresh regeneration reorders that block; the content is the same. `cmd/shen`'s `TestCompiledKernelHasNoFailDots` rejects a kernel whose IR went through the `~R` printer (issue #54).
+
 ## Nix
 
 Optional. `nix develop` or `direnv allow` for a pinned toolchain. `nix shell .#toolchain` is what [Bifrost](https://github.com/pyrex41/bifrost) composes. Nix is never required at runtime.

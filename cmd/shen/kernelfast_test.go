@@ -33,7 +33,14 @@ func TestKernelFastAfterBoot(t *testing.T) {
 		{`(tuple? (@p 1 2))`, "true"},
 		{`(vector? (@p 1 2))`, "false"},
 		{`(hdstr "xy")`, `x`},
-		{`(fail)`, `...`},
+		{`(fail)`, `...`}, // the printer's rendering of the fail value, on every port
+		// Issue #54: the fail value is the symbol shen.fail!, as on shen-cl
+		// and shen-scheme; `...` is only how it prints.
+		{`(= (fail) shen.fail!)`, "true"},
+		{`(str (fail))`, "shen.fail!"},
+		{`(= (<-address (vector 1) 1) shen.fail!)`, "true"},
+		{`(trap-error (<-vector (address-> (vector 3) 1 shen.fail!) 1) (/. E (error-to-string E)))`, "vector element not found"},
+		{`(<-vector (address-> (vector 3) 1 (intern "...")) 1)`, "..."},
 		{`(let V (vector 2) (do (vector-> V 1 9) (<-vector V 1)))`, "9"},
 		{`(let D (vector 8) (do (put a b 1 D) (get a b D)))`, "1"},
 		{`(let D (vector 8) (do (put a b 1 D) (put a b 2 D) (get a b D)))`, "2"},

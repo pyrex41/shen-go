@@ -77,8 +77,10 @@ func TestKernelOverrideTupleAndVector(t *testing.T) {
 	InstallKernelFast()
 
 	var e ControlFlow
-	if Call(&e, PrimFunc(MakeSymbol("fail"))) != MakeSymbol("...") {
-		t.Fatalf("fail should return ...")
+	// (fail) is the symbol shen.fail!, as sys.kl's (defun fail () shen.fail!)
+	// says; `...` is only how the printer shows it (issue #54).
+	if got := Call(&e, PrimFunc(MakeSymbol("fail"))); got != symShenFailBang {
+		t.Fatalf("fail should return shen.fail!, got %s", ObjString(got))
 	}
 	tup := Call(&e, PrimFunc(MakeSymbol("@p")), MakeInteger(1), MakeInteger(2))
 	if Call(&e, PrimFunc(MakeSymbol("tuple?")), tup) != True {
@@ -103,14 +105,45 @@ func TestKernelOverrideTupleAndVector(t *testing.T) {
 		t.Fatalf("<-vector after vector->")
 	}
 
-	func() {
+	mustRaise := func(what, want string, f func()) {
+		t.Helper()
 		defer func() {
-			if recover() == nil {
-				t.Fatalf("<-vector of unwritten slot should raise")
+			r := recover()
+			if r == nil {
+				t.Fatalf("%s should raise", what)
+			}
+			obj, ok := r.(Obj)
+			if !ok || !IsError(obj) {
+				t.Fatalf("%s: raised %v, want a Shen error", what, r)
+			}
+			if got := GetString(PrimErrorToString(obj)); got != want {
+				t.Fatalf("%s: raised %q, want %q", what, got, want)
 			}
 		}()
+		f()
+	}
+	mustRaise("<-vector of unwritten slot", "vector element not found\n", func() {
 		Call(&e, PrimFunc(MakeSymbol("<-vector")), v, MakeInteger(2))
-	}()
+	})
+	// The unwritten slot holds the kernel's own fail filler, so a Shen
+	// program sees (= (<-address (vector 2) 1) shen.fail!) as true, as it
+	// does on shen-cl and shen-scheme.
+	if slot := PrimVectorGet(v, MakeInteger(2)); slot != symShenFailBang {
+		t.Fatalf("(<-address (vector 2) 2) = %s, want shen.fail!", ObjString(slot))
+	}
+	// Issue #54's mixed-read case: a slot that a program set to shen.fail! is
+	// indistinguishable from an unwritten one, so <-vector raises for it too.
+	w := Call(&e, PrimFunc(MakeSymbol("vector")), MakeInteger(3))
+	Call(&e, PrimFunc(MakeSymbol("vector->")), w, MakeInteger(1), symShenFailBang)
+	mustRaise("<-vector of a slot holding shen.fail!", "vector element not found\n", func() {
+		Call(&e, PrimFunc(MakeSymbol("<-vector")), w, MakeInteger(1))
+	})
+	// The symbol `...` is an ordinary value, not a filler.
+	dots := MakeSymbol("...")
+	Call(&e, PrimFunc(MakeSymbol("vector->")), w, MakeInteger(2), dots)
+	if got := Call(&e, PrimFunc(MakeSymbol("<-vector")), w, MakeInteger(2)); got != dots {
+		t.Fatalf("<-vector of a slot holding the symbol ... = %s, want ...", ObjString(got))
+	}
 
 	d := Call(&e, PrimFunc(MakeSymbol("vector")), MakeInteger(8))
 	Call(&e, PrimFunc(MakeSymbol("put")), MakeSymbol("a"), MakeSymbol("b"), MakeInteger(1), d)
