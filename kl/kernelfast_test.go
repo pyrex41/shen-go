@@ -393,3 +393,57 @@ func TestAnalyseSymbolName(t *testing.T) {
 		}
 	}
 }
+
+// TestInstallKernelFastBindsEveryOverride pins issue #49: InstallKernelFast
+// installs every rebinding whether or not the kernel defined the name. A
+// Yggdrasil `lower` slice deletes the KL (defun NAME …) of each declared
+// native_override, so if a native were only installed when the name was
+// already bound, the lowered artifact would die with "variable vector not
+// bound". The rows come from the same parser TestEquivTable uses, so a new
+// rebinding is covered automatically. The names no other kl test bindDummy's
+// (shen.abs, sum, union, string->symbol, …) are exactly the ones that were
+// left unbound before, so this test fails under the old guard in any order.
+func TestInstallKernelFastBindsEveryOverride(t *testing.T) {
+	rows := parseInstallKernelFast(t)
+	if len(rows) == 0 {
+		t.Fatal("parseInstallKernelFast returned no rows")
+	}
+	InstallKernelFast()
+	for _, b := range rows {
+		sym := MakeSymbol(b.kernelFn)
+		fn := func() (f Obj) {
+			defer func() {
+				if r := recover(); r != nil {
+					t.Errorf("%s is not bound after InstallKernelFast (%v); the kernelBound guard is back", b.kernelFn, r)
+					f = nil
+				}
+			}()
+			return PrimFunc(sym)
+		}()
+		if fn == nil {
+			continue
+		}
+		if !IsNativeBinding(fn) {
+			t.Errorf("%s: bound to %s after InstallKernelFast, want the Go native %s", b.kernelFn, ObjString(fn), b.native)
+		}
+		canonical := HasCanonicalPrimitiveBinding(sym)
+		switch b.helper {
+		case "overridePrimitive", "restoreCanonicalPrimitive":
+			// canonicalOrMake / the registry object is what makes the install
+			// idempotent under the AOT HasCanonicalPrimitiveBinding guards.
+			if !canonical {
+				t.Errorf("%s (%s): not the canonical primitive after InstallKernelFast", b.kernelFn, b.helper)
+			}
+		case "overrideNative":
+			// MakeNative objects must never satisfy the canonical guard: for
+			// symbol?/variable? that would reinstall the weaker type-tag check.
+			if canonical {
+				t.Errorf("%s (%s): unexpectedly canonical after InstallKernelFast", b.kernelFn, b.helper)
+			}
+		case "BindSymbolFunc":
+			// arity via canonicalOrMake, fn via MakeNative: either is fine.
+		default:
+			t.Errorf("%s: unknown helper %q", b.kernelFn, b.helper)
+		}
+	}
+}
