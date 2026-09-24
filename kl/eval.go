@@ -42,72 +42,143 @@ type ControlFlow struct {
 	stepLimit int64
 	steps     int64
 
-	// framePool recycles VM activation slabs (locals + operand stack). On the
-	// urdr SHA/prng path every bytecode call previously allocated a fresh
-	// []vmSlot; pooling cuts that to near-zero after warmup and shrinks GC time.
-	// Single-threaded per ControlFlow — no locking. Bounded so a deep
-	// one-shot recursion can't pin an unbounded amount of memory forever.
-	framePool [][]vmSlot
+	// Frame arena: VM activation slabs (locals + operand stack) are carved
+	// LIFO out of contiguous blocks. takeFrame bumps frameTop; putFrame resets
+	// it to the frame's base. Blocks double as recursion deepens, and on
+	// unwind the spare blocks above the current one are retained only while
+	// they total at most frameRetainSlots, so a one-shot deep recursion
+	// cannot pin an unbounded amount of memory forever but a repeated one
+	// does not reallocate its blocks on every descent. Replaces a freelist
+	// capped at 128 slabs which allocated one slab per frame past the cap and
+	// scanned the whole pool on every return (issue #50). Single-threaded
+	// per ControlFlow — no locking.
+	frameBlocks [][]vmSlot
+	frameCur    int
+	frameTop    int
 }
 
-// maxFramePool is the cap on recycled VM frames held on a ControlFlow.
-const maxFramePool = 128
+// frameBlockMin is the size in slots of the first arena block: 512 slots =
+// 8 KiB, i.e. room for ten minimum-size frames. It is chosen small on purpose:
+// every ControlFlow that runs any bytecode pays for one zeroed block, and
+// production constructs throwaway ControlFlows per call (equiv.go safeCall and
+// evalQuiet, one per audit probe) as do many tests. A deep recursion reaches
+// any depth in O(log depth) block transitions anyway since blocks double.
+const frameBlockMin = 512
 
-// minFrameCap is the minimum slab capacity. Rounding small frames up makes
-// them interchangeable and stops the freelist from filling with tiny slabs
-// that can never serve a larger activation (which then allocates forever).
+// frameRetainSlots bounds the spare arena blocks kept after unwinding
+// (1<<19 slots = 8 MiB), see frameReset.
+const frameRetainSlots = 1 << 19
+
+// frameHeadroom is the operand-stack capacity reserved per frame beyond
+// Nlocals. If a frame needs more, append reallocates its operand stack away
+// from the arena, which is rare and still correct.
+const frameHeadroom = 16
+
+// minFrameCap is the minimum slab capacity. Small frames are rounded up so a
+// shallow frame keeps the same operand headroom the old freelist gave it
+// (measured: without the floor the kernel test suite reallocated ~10x more
+// operand stacks off-slab). Arena space is free, so the round-up only costs
+// the clear on release.
 const minFrameCap = 48
 
-// takeFrame returns a slab with len==nlocals and cap >= nlocals+16, preferably
-// from the freelist. The unused capacity is the operand-stack region. The
-// returned slab is cleared so pooled slots do not retain heap objects.
-func (ctl *ControlFlow) takeFrame(nlocals int) []vmSlot {
-	needCap := nlocals + 16
-	if needCap < minFrameCap {
-		needCap = minFrameCap
-	}
-	frames := ctl.framePool
-	// LIFO scan: most recently freed frames are most likely the right size
-	// on a recursive SHA-style workload.
-	for i := len(frames) - 1; i >= 0; i-- {
-		if cap(frames[i]) >= needCap {
-			s := frames[i]
-			frames[i] = frames[len(frames)-1]
-			ctl.framePool = frames[:len(frames)-1]
-			out := s[:nlocals]
-			clear(out)
-			return out
-		}
-	}
-	return make([]vmSlot, nlocals, needCap)
+// frameMark is an arena position: takeFrame returns the mark to reset to.
+type frameMark struct{ cur, top int }
+
+// frameMarkNow returns the current arena position, for a recover site to
+// frameReset to after a panic abandons the frames above it.
+func (ctl *ControlFlow) frameMarkNow() frameMark {
+	return frameMark{ctl.frameCur, ctl.frameTop}
 }
 
-// putFrame returns a slab to the freelist. frame must be the locals view
-// (len may be nlocals; cap is the full slab). If the pool is full, a larger
-// incoming slab displaces the smallest resident one so we don't thrash on
-// mixed frame sizes.
-func (ctl *ControlFlow) putFrame(frame []vmSlot) {
-	c := cap(frame)
-	if c == 0 {
+// takeFrame returns a slab with len==nlocals and cap==max(nlocals+frameHeadroom,
+// minFrameCap) carved from the arena top, cleared, plus the mark to putFrame
+// later. The unused capacity is the operand-stack region; the 3-index slice
+// guarantees append can never write into the next frame.
+func (ctl *ControlFlow) takeFrame(nlocals int) ([]vmSlot, frameMark) {
+	need := nlocals + frameHeadroom
+	if need < minFrameCap {
+		need = minFrameCap
+	}
+	mark := frameMark{ctl.frameCur, ctl.frameTop}
+	top := ctl.frameTop
+	if ctl.frameCur >= len(ctl.frameBlocks) || top+need > len(ctl.frameBlocks[ctl.frameCur]) {
+		ctl.advanceFrameBlock(need)
+		top = 0
+	}
+	blk := ctl.frameBlocks[ctl.frameCur]
+	ctl.frameTop = top + need
+	slab := blk[top : top+nlocals : top+need]
+	clear(slab)
+	return slab, mark
+}
+
+// advanceFrameBlock moves to the next block, allocating (or replacing a spare
+// that is too small) so it holds at least need slots.
+func (ctl *ControlFlow) advanceFrameBlock(need int) {
+	if len(ctl.frameBlocks) > 0 {
+		ctl.frameCur++
+	}
+	ctl.frameTop = 0
+	if ctl.frameCur < len(ctl.frameBlocks) && len(ctl.frameBlocks[ctl.frameCur]) >= need {
 		return
 	}
-	full := frame[:c]
-	clear(full)
-	if len(ctl.framePool) < maxFramePool {
-		ctl.framePool = append(ctl.framePool, full[:0])
+	size := frameBlockMin
+	if ctl.frameCur > 0 {
+		size = 2 * len(ctl.frameBlocks[ctl.frameCur-1])
+	}
+	for size < need {
+		size *= 2
+	}
+	blk := make([]vmSlot, size)
+	if ctl.frameCur < len(ctl.frameBlocks) {
+		ctl.frameBlocks[ctl.frameCur] = blk
+	} else {
+		ctl.frameBlocks = append(ctl.frameBlocks, blk)
+	}
+}
+
+// putFrame releases the slab taken at mark. The slab is cleared so the arena
+// does not retain heap objects. Frames must be released in strict LIFO order;
+// if frames above this one were abandoned (a panic that skipped their
+// putFrame), the whole region above mark is reset and cleared instead.
+func (ctl *ControlFlow) putFrame(slab []vmSlot, mark frameMark) {
+	clear(slab[:cap(slab)])
+	if mark.cur == ctl.frameCur && ctl.frameTop == mark.top+cap(slab) {
+		ctl.frameTop = mark.top
 		return
 	}
-	// Pool full: keep the larger slabs.
-	minI, minC := 0, cap(ctl.framePool[0])
-	for i := 1; i < len(ctl.framePool); i++ {
-		if cc := cap(ctl.framePool[i]); cc < minC {
-			minI, minC = i, cc
+	ctl.frameReset(mark)
+}
+
+// frameReset unwinds the arena to mark, clearing everything above it and
+// trimming spare blocks past the retention budget. Recover sites call it so
+// frames abandoned by a panic neither leak arena space nor retain objects.
+func (ctl *ControlFlow) frameReset(mark frameMark) {
+	for c := mark.cur; c <= ctl.frameCur && c < len(ctl.frameBlocks); c++ {
+		lo, hi := 0, len(ctl.frameBlocks[c])
+		if c == mark.cur {
+			lo = mark.top
+		}
+		if c == ctl.frameCur {
+			hi = ctl.frameTop
+		}
+		if lo < hi {
+			clear(ctl.frameBlocks[c][lo:hi])
 		}
 	}
-	if c <= minC {
-		return
+	ctl.frameCur, ctl.frameTop = mark.cur, mark.top
+	// Keep spare blocks above the current one only while they total at most
+	// frameRetainSlots, so a one-shot deep recursion pins a bounded amount of
+	// memory but a repeated one does not reallocate its blocks every descent.
+	keep, total := mark.cur+1, 0
+	for keep < len(ctl.frameBlocks) && total+len(ctl.frameBlocks[keep]) <= frameRetainSlots {
+		total += len(ctl.frameBlocks[keep])
+		keep++
 	}
-	ctl.framePool[minI] = full[:0]
+	if keep < len(ctl.frameBlocks) {
+		clear(ctl.frameBlocks[keep:])
+		ctl.frameBlocks = ctl.frameBlocks[:keep]
+	}
 }
 
 // stepLimited reports whether this ControlFlow carries a step budget.
@@ -284,8 +355,10 @@ func (ctl *ControlFlow) callSlice(f Obj, args []Obj) Obj {
 }
 
 func Eval(e *ControlFlow, exp Obj) (res Obj) {
+	fmark := e.frameMarkNow()
 	defer func() {
 		if r := recover(); r != nil {
+			e.frameReset(fmark)
 			var buf [4096]byte
 			n := runtime.Stack(buf[:], false)
 			if x, ok := r.(Obj); ok && IsError(x) {
@@ -309,8 +382,10 @@ type tryResult struct {
 }
 
 func Try(e *ControlFlow, f Obj) (res tryResult) {
+	fmark := e.frameMarkNow()
 	defer func() {
 		if err := recover(); err != nil {
+			e.frameReset(fmark)
 			if val, ok := err.(Obj); ok {
 				if IsError(val) {
 					res = tryResult{e: e, data: val}
@@ -519,8 +594,10 @@ func evalCond(e *ControlFlow, l Obj, env Obj) {
 
 func evalTrapError(e *ControlFlow, exp Obj, env Obj) {
 	savePOS := e.pos
+	fmark := e.frameMarkNow()
 	defer func() {
 		if err := recover(); err != nil {
+			e.frameReset(fmark)
 			if val, ok := err.(Obj); ok {
 				if IsError(val) {
 					e.pos = savePOS
