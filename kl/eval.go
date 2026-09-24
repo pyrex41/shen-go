@@ -44,17 +44,23 @@ type ControlFlow struct {
 
 	// Frame arena: VM activation slabs (locals + operand stack) are carved
 	// LIFO out of contiguous blocks. takeFrame bumps frameTop; putFrame resets
-	// it to the frame's base. Blocks double as recursion deepens, and on
-	// unwind the spare blocks above the current one are retained only while
-	// they total at most frameRetainSlots, so a one-shot deep recursion
-	// cannot pin an unbounded amount of memory forever but a repeated one
-	// does not reallocate its blocks on every descent. Replaces a freelist
-	// capped at 128 slabs which allocated one slab per frame past the cap and
-	// scanned the whole pool on every return (issue #50). Single-threaded
-	// per ControlFlow — no locking.
+	// it to the frame's base. Blocks double as recursion deepens. Spare
+	// blocks above the current one are kept until a trim point (a return to
+	// an empty arena at a Go entry point, a recover site, or the periodic
+	// idle check in frameCrossed), where they are cut back to at most
+	// frameRetainSlots, so a one-shot deep recursion cannot pin an unbounded
+	// amount of memory forever but a repeated one does not reallocate its
+	// blocks on every descent. Replaces a freelist capped at 128 slabs which
+	// allocated one slab per frame past the cap and scanned the whole pool
+	// on every return (issue #50). Single-threaded per ControlFlow — no
+	// locking.
 	frameBlocks [][]vmSlot
 	frameCur    int
 	frameTop    int
+	// frameHigh is the highest block index any frame has entered since the
+	// last trim; frameCross counts block-boundary returns since then.
+	frameHigh  int
+	frameCross int
 }
 
 // frameBlockMin is the size in slots of the first arena block: 512 slots =
@@ -65,9 +71,33 @@ type ControlFlow struct {
 // any depth in O(log depth) block transitions anyway since blocks double.
 const frameBlockMin = 512
 
-// frameRetainSlots bounds the spare arena blocks kept after unwinding
-// (1<<19 slots = 8 MiB), see frameReset.
+// frameRetainSlots bounds the spare arena blocks kept at a trim point
+// (1<<19 slots = 8 MiB). Blocks double from frameBlockMin, so the budget keeps
+// blocks 1..9 (523,264 slots); with block 0 the retained arena holds 523,776
+// slots = 10,912 minimum-size (48-slot) frames, i.e. a non-tail recursion up
+// to ~10,900 deep re-descends with no allocation after a trim, and a deeper
+// one reallocates only the blocks above that, once, on its first descent
+// after a trim. Trimming happens only where frameTrim is called: at a Go
+// entry point returning to an empty arena (frameSettle), at a recover site
+// (frameReset) and at the periodic idle check (frameCrossed). It never
+// happens on an ordinary return that merely crosses a block boundary: that
+// would drop and re-zero the top 8 MiB block on every return past depth
+// ~10,900 of a repeated deep recursion.
 const frameRetainSlots = 1 << 19
+
+// frameTrimInterval is the number of block-boundary returns between the trim
+// decisions taken inside a long-lived enclosing frame. A loop that runs
+// inside one top-level form (a server loop, a long computation that once
+// recursed deeply) never returns to an empty arena, so without these
+// decisions one deep call would pin its peak for the rest of that form
+// (measured: 284 MB live after a single 300,000-deep call, against 36 MB
+// with them; CPU flat). Such a decision keeps every block some frame has
+// entered since the previous one, so a repeated deep recursion never loses
+// the blocks it uses; only blocks idle for a whole interval are released
+// past the budget. 1024 is large against the ~10 crossings per descent of a
+// 20,000-deep recursion and small against the time a shallow workload needs
+// to make that many.
+const frameTrimInterval = 1024
 
 // frameHeadroom is the operand-stack capacity reserved per frame beyond
 // Nlocals. If a frame needs more, append reallocates its operand stack away
@@ -118,6 +148,9 @@ func (ctl *ControlFlow) advanceFrameBlock(need int) {
 	if len(ctl.frameBlocks) > 0 {
 		ctl.frameCur++
 	}
+	if ctl.frameCur > ctl.frameHigh {
+		ctl.frameHigh = ctl.frameCur
+	}
 	ctl.frameTop = 0
 	if ctl.frameCur < len(ctl.frameBlocks) && len(ctl.frameBlocks[ctl.frameCur]) >= need {
 		return
@@ -138,22 +171,31 @@ func (ctl *ControlFlow) advanceFrameBlock(need int) {
 }
 
 // putFrame releases the slab taken at mark. The slab is cleared so the arena
-// does not retain heap objects. Frames must be released in strict LIFO order;
-// if frames above this one were abandoned (a panic that skipped their
-// putFrame), the whole region above mark is reset and cleared instead.
+// does not retain heap objects. Frames must be released in strict LIFO order.
+// A frame that sits at the start of the next block (it did not fit after
+// mark) returns through the boundary path; if frames above this one were
+// abandoned (a panic that skipped their putFrame and was recovered without a
+// frameReset), the whole region above mark is reset and cleared instead.
+// Neither path trims spare blocks (see frameRetainSlots); both count as a
+// crossing for the periodic idle check.
 func (ctl *ControlFlow) putFrame(slab []vmSlot, mark frameMark) {
 	clear(slab[:cap(slab)])
 	if mark.cur == ctl.frameCur && ctl.frameTop == mark.top+cap(slab) {
 		ctl.frameTop = mark.top
 		return
 	}
-	ctl.frameReset(mark)
+	if mark.cur+1 == ctl.frameCur && ctl.frameTop == cap(slab) {
+		// Block boundary: the tail of block mark.cur above mark.top was
+		// skipped by takeFrame and has been zero since its last release.
+		ctl.frameCur, ctl.frameTop = mark.cur, mark.top
+	} else {
+		ctl.frameUnwind(mark)
+	}
+	ctl.frameCrossed()
 }
 
-// frameReset unwinds the arena to mark, clearing everything above it and
-// trimming spare blocks past the retention budget. Recover sites call it so
-// frames abandoned by a panic neither leak arena space nor retain objects.
-func (ctl *ControlFlow) frameReset(mark frameMark) {
+// frameUnwind resets the arena to mark, clearing everything above it.
+func (ctl *ControlFlow) frameUnwind(mark frameMark) {
 	for c := mark.cur; c <= ctl.frameCur && c < len(ctl.frameBlocks); c++ {
 		lo, hi := 0, len(ctl.frameBlocks[c])
 		if c == mark.cur {
@@ -167,18 +209,55 @@ func (ctl *ControlFlow) frameReset(mark frameMark) {
 		}
 	}
 	ctl.frameCur, ctl.frameTop = mark.cur, mark.top
-	// Keep spare blocks above the current one only while they total at most
-	// frameRetainSlots, so a one-shot deep recursion pins a bounded amount of
-	// memory but a repeated one does not reallocate its blocks every descent.
-	keep, total := mark.cur+1, 0
-	for keep < len(ctl.frameBlocks) && total+len(ctl.frameBlocks[keep]) <= frameRetainSlots {
-		total += len(ctl.frameBlocks[keep])
-		keep++
+}
+
+// frameReset unwinds the arena to mark and trims the spare blocks to the
+// retention budget. Recover sites call it so frames abandoned by a panic
+// neither leak arena space nor retain objects, and so retention is bounded
+// after every caught error.
+func (ctl *ControlFlow) frameReset(mark frameMark) {
+	ctl.frameUnwind(mark)
+	ctl.frameTrim(0)
+}
+
+// frameSettle is the normal-return counterpart of frameReset at a Go entry
+// point (Eval, Try): when the entry point took the arena empty and every frame
+// since has been released, this is a top-level return and the spare blocks
+// are trimmed to the retention budget.
+func (ctl *ControlFlow) frameSettle(mark frameMark) {
+	if mark == (frameMark{}) && ctl.frameCur == 0 && ctl.frameTop == 0 {
+		ctl.frameTrim(0)
 	}
-	if keep < len(ctl.frameBlocks) {
-		clear(ctl.frameBlocks[keep:])
-		ctl.frameBlocks = ctl.frameBlocks[:keep]
+}
+
+// frameCrossed accounts for a return that crossed a block boundary and, every
+// frameTrimInterval of them, trims the spare blocks beyond the budget that no
+// frame has entered since the previous decision.
+func (ctl *ControlFlow) frameCrossed() {
+	ctl.frameCross++
+	if ctl.frameCross >= frameTrimInterval {
+		ctl.frameTrim(ctl.frameHigh + 1)
 	}
+}
+
+// frameTrim releases the spare blocks above the current one that exceed
+// frameRetainSlots, keeping at least blocks [0:keep), and starts a new trim
+// epoch.
+func (ctl *ControlFlow) frameTrim(keep int) {
+	k, total := ctl.frameCur+1, 0
+	for k < len(ctl.frameBlocks) && total+len(ctl.frameBlocks[k]) <= frameRetainSlots {
+		total += len(ctl.frameBlocks[k])
+		k++
+	}
+	if k < keep {
+		k = keep
+	}
+	if k < len(ctl.frameBlocks) {
+		clear(ctl.frameBlocks[k:])
+		ctl.frameBlocks = ctl.frameBlocks[:k]
+	}
+	ctl.frameHigh = ctl.frameCur
+	ctl.frameCross = 0
 }
 
 // stepLimited reports whether this ControlFlow carries a step budget.
@@ -373,6 +452,7 @@ func Eval(e *ControlFlow, exp Obj) (res Obj) {
 		}
 	}()
 	res = evalExp(e, exp, Nil)
+	e.frameSettle(fmark)
 	return
 }
 
@@ -403,6 +483,7 @@ func Try(e *ControlFlow, f Obj) (res tryResult) {
 	}()
 	// f must be a 0-arity callable (native thunk or bytecode closure).
 	val := Call(e, f)
+	e.frameSettle(fmark)
 	res = tryResult{e: e, data: val}
 	return
 }
