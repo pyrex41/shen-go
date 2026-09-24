@@ -31,7 +31,7 @@ func TestInstallHelpersToleratesSparseKernel(t *testing.T) {
 			defer func() {
 				if r := recover(); r != nil {
 					t.Fatalf("%s panicked on a kernel lacking its symbols: %v\n"+
-						"Boot helpers must degrade to a no-op, as InstallIntegerGuard does; "+
+						"Boot helpers must tolerate an empty symbol table (InstallKernelFast binds its natives, InstallIntegerGuard is a no-op); "+
 						"a panic here breaks every eval-free shaken artifact at boot.", tc.name, r)
 				}
 			}()

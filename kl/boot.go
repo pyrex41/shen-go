@@ -34,9 +34,12 @@ var KernelLoadOrder = []string{
 //     the interpreted `put` escapes the interpreter's recover during
 //     declarations.kl, because of a tail call inside trap-error (issue #46).
 //     So the natives have to be in place as soon as sys.kl has defined the
-//     names they replace. InstallKernelFast only rebinds names the kernel has
-//     already defined, so calling it per module is what catches each module's
-//     definitions.
+//     names they replace. InstallKernelFast is unconditional (issue #49); it
+//     is called per module because each module's own (defun ...) of a rebound
+//     name (fn in reader.kl, arity in declarations.kl, shen.pvar? in
+//     prolog.kl, remove in track.kl, ...) overwrites the native until the
+//     next call restores it, and the interpreted put/get must not be live
+//     during declarations.kl (issue #46).
 //   - InstallIntegerGuard runs after the natives, as in cmd/shen. With the
 //     canonical integer? restored by InstallKernelFast it is a no-op. It is
 //     called so that the two boots stay step for step the same.

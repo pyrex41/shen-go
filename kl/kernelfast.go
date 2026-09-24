@@ -1,5 +1,7 @@
 package kl
 
+import "strconv"
+
 // Native fast paths for hot kernel functions.
 //
 // The portable Shen kernel (sys.kl and friends) implements many frequently
@@ -11,14 +13,17 @@ package kl
 // trap-error, `shen.pvar?`/`tuple?`/`vector?` do the same, and `symbol?` /
 // `variable?` explode the name and walk it character by character.
 //
-// A Shen-specific tripwire: this port's `(fail)` returns the interned symbol
-// `...`, and so does its compiled kernel (cmd/shen/sys.go), while the kernel
-// text (sys.kl, and (define fail -> fail!) in sys.shen) returns `shen.fail!`;
-// `...` is how the Shen printer shows the fail value. The natives here fill
-// vector slots with `...` and `<-vector` compares against it. A vector built
-// by one world and read by the other must still agree on "unassigned", or
-// `put` feeds a non-list to change-pointer-value and dies at boot; see
-// nativeVectorRefOr and kernelArity, which accept either filler.
+// A Shen-specific tripwire: `(fail)` returns the interned symbol `shen.fail!`,
+// as the kernel text does (sys.kl's (defun fail () shen.fail!), (define fail
+// -> fail!) in sys.shen) and as shen-cl and shen-scheme do. `...` is only how
+// the Shen printer (shen.arg->str) shows the fail value; as a symbol it is an
+// ordinary value. The natives here fill vector slots with shen.fail! and
+// `<-vector` compares against it, so a vector built by any world (native,
+// interpreted KL, the compiled kernel) reads the same everywhere. The
+// compiled kernel once returned `...` because compile-file serialized the IR
+// through ~R, which printed the constant shen.fail! as `...` (issue #54);
+// src/compiler.shen's pr-ir now prints symbols with str, and cmd/shen's
+// TestCompiledKernelHasNoFailDots guards a regeneration through ~R.
 //
 // Shen/Scheme's approach (src/overrides.shen, src/compiler.shen) is to leave
 // the kernel sources alone and rebind those functions to natives after load,
@@ -34,10 +39,22 @@ package kl
 // `integer?` sites) instead of trampolined Calls.
 //
 // New natives (`empty?`, `boolean?`, …) are registered as canonical
-// primitives so subsequently compiled VM code can use OP_GUARDED_PRIM. They
-// are only bound when the kernel already defined the name, so an eval-free
-// shaken artifact without sys.kl is left alone (see
-// TestInstallHelpersToleratesSparseKernel).
+// primitives so subsequently compiled VM code can use OP_GUARDED_PRIM.
+//
+// Every rebinding is unconditional: it is installed whether or not the kernel
+// defined the name (issue #49). kl/equiv.json is a table of replacements, and
+// Yggdrasil's `lower` pass relies on that by deleting the KL (defun NAME …) of
+// each declared native_override; a native that was only installed once its
+// defun had run would leave such a slice with "variable vector not bound". On
+// a sparse (eval-free) kernel a native that is called behaves at least as
+// well as the unbound symbol it replaces: every native is self-contained
+// except the two error paths that call shen.app (nativeFn's "fn: X is
+// undefined" and nativeGetRaise's get failures), which fall back to a plain
+// message when shen.app is unbound; TestNativeFnUndefinedWithoutShenApp
+// pins the former.
+// TestInstallHelpersToleratesSparseKernel pins only that nothing panics on an
+// empty symbol table; TestInstallKernelFastBindsEveryOverride pins that every
+// row is bound afterwards.
 
 var (
 	symArity          Obj
@@ -45,8 +62,7 @@ var (
 	symLambdaTable    Obj
 	symShenApp        Obj
 	symShenA          Obj
-	symShenFailBang   Obj // "shen.fail!" — what the kernel text's (fail) returns; fills KL-built vectors
-	symFailDots       Obj // "..." — what this port's native (fail) returns; fills native-built vectors
+	symShenFailBang   Obj // "shen.fail!" — what (fail) returns; fills never-written vector slots
 	symShenTuple      Obj
 	symShenPvar       Obj
 	symShenS          Obj
@@ -66,7 +82,6 @@ func init() {
 	symShenApp = MakeSymbol("shen.app")
 	symShenA = MakeSymbol("shen.a")
 	symShenFailBang = MakeSymbol("shen.fail!")
-	symFailDots = MakeSymbol("...")
 	symShenTuple = MakeSymbol("shen.tuple")
 	symShenPvar = MakeSymbol("shen.pvar")
 	symShenS = MakeSymbol("shen.s")
@@ -112,9 +127,8 @@ func kernelArity(f Obj) Obj {
 		return fixnumMinusOne
 	}
 	bucket := vec[h]
-	// (<-vector V h) raises for the never-written filler: `...` from the
-	// native vector, shen.fail! from the kernel's KL vector.
-	if bucket == nil || bucket == symFailDots || bucket == symShenFailBang {
+	// (<-vector V h) raises for the never-written filler shen.fail!.
+	if bucket == nil || bucket == symShenFailBang {
 		return fixnumMinusOne
 	}
 	// (assoc (cons F (cons arity ())) bucket): each entry is ((F attr) . val).
@@ -174,7 +188,13 @@ func nativeFn(e *ControlFlow) {
 		panic(MakeError("attempt to search a non-list with assoc\n"))
 	}
 	// (simple-error (cn "fn: " (shen.app F " is undefined\n" shen.a)))
-	msg := Call(e, PrimFunc(symShenApp), f, MakeString(" is undefined\n"), symShenA)
+	app := kernelBound("shen.app")
+	if app == nil {
+		// Sparse kernel (issue #49): fn is installed even when shen.app was
+		// lowered away, so fall back to a plain message as nativeGetRaise does.
+		panic(MakeError("fn: " + ObjString(f) + " is undefined\n"))
+	}
+	msg := Call(e, app, f, MakeString(" is undefined\n"), symShenA)
 	panic(MakeError("fn: " + mustString(msg)))
 }
 
@@ -182,10 +202,10 @@ func kernelBound(name string) Obj {
 	return mustSymbol(MakeSymbol(name)).function
 }
 
+// restoreCanonicalPrimitive puts the init-registered primitive object back
+// on a name the kernel's defun overwrote (or never defined), so the AOT
+// HasCanonicalPrimitiveBinding guards see the canonical object again.
 func restoreCanonicalPrimitive(name string) {
-	if kernelBound(name) == nil {
-		return
-	}
 	primitiveRegistry.mu.RLock()
 	canonical, ok := primitiveRegistry.canonical[name]
 	primitiveRegistry.mu.RUnlock()
@@ -204,21 +224,21 @@ func canonicalOrMake(name string, arity int, fn interface{}) Obj {
 	return MakePrimitive(name, arity, fn)
 }
 
-// overridePrimitive rebinds a kernel function to a native primitive, but only
-// if the kernel actually defined it. Sparse (eval-free) kernels are left
-// unchanged. Reuses the canonical primitive object so InstallKernelFast is
-// idempotent under HasCanonicalPrimitiveBinding.
+// overridePrimitive rebinds a kernel function to a native primitive whether
+// or not the kernel defined the name, so a kernel slice whose KL body was
+// dropped (Yggdrasil lower) still gets the binding. Reuses the canonical
+// primitive object so InstallKernelFast is idempotent under
+// HasCanonicalPrimitiveBinding.
 func overridePrimitive(name string, arity int, fn interface{}) {
-	if kernelBound(name) == nil {
-		return
-	}
 	BindSymbolFunc(MakeSymbol(name), canonicalOrMake(name, arity, fn))
 }
 
+// overrideNative is overridePrimitive for natives that need the ControlFlow
+// (symbol?, variable?, thaw, fail, put, get, unput, map). A fresh MakeNative
+// object never satisfies HasCanonicalPrimitiveBinding, which is deliberate
+// for symbol?/variable?: the canonical PrimIsSymbol/PrimIsVariable are weaker
+// type-tag checks than the kernel's analyse-symbol?/analyse-variable?.
 func overrideNative(name string, arity int, fn func(*ControlFlow)) {
-	if kernelBound(name) == nil {
-		return
-	}
 	BindSymbolFunc(MakeSymbol(name), MakeNative(fn, arity))
 }
 
@@ -380,6 +400,10 @@ func primLowercasep(n Obj) Obj { return numberInRange(n, 97, 122) }
 func primUppercasep(n Obj) Obj { return numberInRange(n, 65, 90) }
 
 func primMiscp(n Obj) Obj {
+	// (element? X <codes>): a non-number is simply not in the list.
+	if !IsNumber(n) {
+		return False
+	}
 	f := mustNumber(n)
 	if f >= 0 && f < 128 && shenMisc[byte(f)] && float64(byte(f)) == f {
 		return True
@@ -460,40 +484,54 @@ func primAtp(x, y Obj) Obj {
 }
 
 func primShenVector(n Obj) Obj {
-	size := mustInteger(n)
-	if size < 0 {
-		panic(MakeError("absvector wrong argument"))
+	// Mirror the kernel body step for step, so that a bad N raises the same
+	// primitive error the KL raises:
+	//   (let V (absvector (+ N 1))
+	//     (address-> V 0 N)
+	//     (if (= N 0) V (shen.fillvector V 1 N (fail))))
+	f := mustNumber(n)
+	v := PrimAbsvector(MakeNumber(f + 1))
+	// Kernel stores the original N at slot 0 (the limit); (vector -1) makes a
+	// 0-slot absvector and fails here.
+	PrimVectorSet(v, fixnumZero, n)
+	if f == 0 {
+		return v
 	}
-	if size+1 > maxAbsvectorSize {
-		panic(MakeError("absvector wrong argument"))
-	}
-	v := MakeVector(size + 1)
 	slots := mustVector(v)
-	// Kernel stores the original N at slot 0 (the limit).
-	slots[0] = n
-	// (fail) returns the interned symbol "...", not "shen.fail!".
-	for i := 1; i <= size; i++ {
-		slots[i] = symFailDots
+	// shen.fillvector writes slots 1..N and stops when its counter equals N.
+	// A fractional N is never reached, so the counter walks off the end and
+	// address-> raises, exactly as the KL does.
+	// The kernel's (fail) is the symbol shen.fail!; `...` is only how the
+	// printer shows it.
+	i := 1
+	for float64(i) != f {
+		if i >= len(slots) {
+			panic(MakeError("index " + strconv.Itoa(i) + " out of range " + strconv.Itoa(len(slots))))
+		}
+		slots[i] = symShenFailBang
+		i++
 	}
+	slots[i] = symShenFailBang
 	return v
 }
 
 func primShenVectorRef(v, n Obj) Obj {
-	off := mustInteger(n)
-	if off == 0 {
+	// (if (= N 0) (simple-error ...) (<-address V N)): only an exact 0 is the
+	// 0th-element error; anything else, including a fractional or non-number
+	// index, is <-address's own error.
+	if IsNumber(n) && GetNumber(n) == 0 {
 		panic(MakeError("cannot access 0th element of a vector\n"))
 	}
 	ret := PrimVectorGet(v, n)
 	// Kernel: (if (= W (fail)) (simple-error "vector element not found\n") W)
-	if ret == symFailDots {
+	if ret == symShenFailBang {
 		panic(MakeError("vector element not found\n"))
 	}
 	return ret
 }
 
 func primShenVectorSet(v, n, x Obj) Obj {
-	off := mustInteger(n)
-	if off == 0 {
+	if IsNumber(n) && GetNumber(n) == 0 {
 		panic(MakeError("cannot access 0th element of a vector\n"))
 	}
 	return PrimVectorSet(v, n, x)
@@ -504,7 +542,7 @@ func primLimit(v Obj) Obj {
 }
 
 func nativeFail(e *ControlFlow) {
-	e.Return(symFailDots)
+	e.Return(symShenFailBang)
 }
 
 func primFst(v Obj) Obj {
@@ -559,14 +597,16 @@ func nativeVectorRefOr(e *ControlFlow) {
 	if ret == nil {
 		ret = undefined
 	}
-	// An unassigned slot holds whatever (fail) returned when the vector was
-	// built: `...` from the native vector, shen.fail! from the kernel's own
-	// KL vector (sys.kl's fail). Compiled KL runs in both worlds -- cmd/kl and
-	// the equivalence harness boot the KL kernel without the natives -- so
-	// both fillers mean absent here, as they do in kernelArity. Before this,
-	// a KL-built property vector handed shen.fail! back as a present value and
-	// the kernel's put died in shen.change-pointer-value (issue #46).
-	if ret == symFailDots || ret == symShenFailBang {
+	// An unassigned slot holds what (fail) returned when the vector was
+	// built, and that is shen.fail! in every world: the native vector, the
+	// kernel's own KL vector (cmd/kl and the equivalence harness boot the KL
+	// kernel without the natives) and the compiled kernel. Before the native
+	// filler agreed with the kernel's, a KL-built property vector handed
+	// shen.fail! back as a present value here and the kernel's put died in
+	// shen.change-pointer-value (issue #46); the two-filler tolerance that
+	// patched that went with issue #54, since it misread the ordinary symbol
+	// `...` as absent.
+	if ret == symShenFailBang {
 		e.TailApply(thunk)
 		return
 	}
@@ -688,9 +728,9 @@ func shenVectorBucket(vec, key Obj) (slots []Obj, h int, bucket Obj, missing boo
 	if bucket == nil {
 		bucket = undefined
 	}
-	// Either fail filler means the bucket was never written; see the file
+	// The fail filler means the bucket was never written; see the file
 	// comment and nativeVectorRefOr.
-	if bucket == symFailDots || bucket == symShenFailBang {
+	if bucket == symShenFailBang {
 		return slots, h, Nil, true
 	}
 	return slots, h, bucket, false
@@ -734,8 +774,9 @@ func nativeUnput(e *ControlFlow) {
 	key, attr, vec := e.Get(1), e.Get(2), e.Get(3)
 	_, h, bucket, missing := shenVectorBucket(vec, key)
 	if missing {
-		e.Return(key)
-		return
+		// The kernel's trap-error maps a never-written slot to (), and its
+		// vector-> then stores (shen.remove-pointer K A ()) = () in the slot.
+		bucket = Nil
 	}
 	primShenVectorSet(vec, MakeInteger(h), removePointer(key, attr, bucket))
 	e.Return(key)
@@ -777,23 +818,38 @@ func primTailShen(x Obj) Obj {
 	return p.cdr
 }
 
-func primNth(n, l Obj) Obj {
-	if !IsNumber(n) {
+// nativeNth mirrors the kernel's nth including its error: the kernel counts N
+// down and drops heads until the list runs out, so the message names what is
+// left, formatted by shen.app in shen.a mode:
+//
+//	(cond ((and (= 1 N) (cons? L)) (hd L))
+//	      ((cons? L) (nth (- N 1) (tl L)))
+//	      (true (simple-error (cn "nth applied to " (shen.app N (cn ", " (shen.app L "\n" shen.a)) shen.a)))))
+//
+// The error path calls back into KL, so nth is a ControlFlow native like
+// nativeGetRaise; a kernel without shen.app gets a Go-formatted fallback.
+func nativeNth(e *ControlFlow) {
+	n, l := e.Get(1), e.Get(2)
+	one := MakeInteger(1)
+	for {
+		ok, p := isPair(l)
+		if !ok {
+			break
+		}
+		if equal(one, n) == True {
+			e.Return(p.car)
+			return
+		}
+		n = PrimNumberSubtract(n, one)
+		l = p.cdr
+	}
+	app := kernelBound("shen.app")
+	if app == nil {
 		panic(MakeError("nth applied to " + ObjString(n) + ", " + ObjString(l) + "\n"))
 	}
-	k := GetNumber(n)
-	cur := l
-	for {
-		ok, p := isPair(cur)
-		if !ok {
-			panic(MakeError("nth applied to " + ObjString(n) + ", " + ObjString(l) + "\n"))
-		}
-		if k == 1 {
-			return p.car
-		}
-		k--
-		cur = p.cdr
-	}
+	inner := Call(e, app, l, MakeString("\n"), symShenA)
+	msg := Call(e, app, n, PrimStringConcat(MakeString(", "), inner), symShenA)
+	panic(MakeError("nth applied to " + mustString(msg)))
 }
 
 func primBoundp(x Obj) Obj {
@@ -869,7 +925,8 @@ func primStringToSymbol(s Obj) Obj {
 	if primSymbolp(w) == True {
 		return w
 	}
-	panic(MakeError("cannot intern " + mustString(s) + " to a symbol"))
+	// (shen.app S " to a symbol" shen.s) prints the string quoted.
+	panic(MakeError("cannot intern \"" + mustString(s) + "\" to a symbol"))
 }
 
 func primStringToBytes(s Obj) Obj {
@@ -972,11 +1029,13 @@ func nativeGetRaise(e *ControlFlow, key, attr Obj, noAttrs bool) {
 	panic(MakeError("attribute " + mustString(mid)))
 }
 
-// InstallKernelFast rebinds hot kernel functions to the natives above. It must
-// be called after the kernel modules have run (they define the interpreted
-// versions and build the *property-vector* / shen.*lambdatable* structures the
-// natives read). On a sparse kernel it degrades to binding arity/fn only;
-// everything else is a no-op if the symbol was never defined.
+// InstallKernelFast rebinds hot kernel functions to the natives above. Every
+// rebinding happens on any kernel, including one whose defuns were lowered
+// away (issue #49) and an empty symbol table. It is called after each kernel
+// module (kl.BootKernel) or chunk (cmd/yggdrasil-build), because a later
+// module's own (defun …) of a rebound name overwrites the native until the
+// next call restores it; the natives read *property-vector* and
+// shen.*lambdatable* at call time, not at install time.
 //
 // Every rebinding here is audited against the kernel's KL definition by
 // TestEquivTable (equiv_test.go), which parses this function's body and writes
@@ -1039,7 +1098,7 @@ func InstallKernelFast() {
 
 	overridePrimitive("head", 1, primHeadShen)
 	overridePrimitive("tail", 1, primTailShen)
-	overridePrimitive("nth", 2, primNth)
+	overrideNative("nth", 2, nativeNth)
 	overridePrimitive("bound?", 1, primBoundp)
 	overridePrimitive("concat", 2, primConcat)
 	overridePrimitive("==", 2, PrimEqual)

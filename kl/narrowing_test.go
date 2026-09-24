@@ -71,6 +71,18 @@ func TestUnnarrowableIndexRaisesCatchableError(t *testing.T) {
 			`(address-> (absvector 3) 1e19 1)`,
 			`"10000000000000000000 is not a valid integer"`,
 		},
+		// A fractional index used to be truncated by mustInteger, so -0.5
+		// read slot 0 and 0.5 overwrote it.
+		{
+			"<-address on a fractional index",
+			`(<-address (absvector 3) -0.5)`,
+			`"-0.5 is not a valid integer"`,
+		},
+		{
+			"address-> on a fractional index",
+			`(address-> (absvector 3) 0.5 1)`,
+			`"0.5 is not a valid integer"`,
+		},
 		{
 			"n->string on a huge finite float",
 			`(n->string 1e19)`,

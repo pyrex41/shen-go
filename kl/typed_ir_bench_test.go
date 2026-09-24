@@ -62,3 +62,26 @@ func BenchmarkTypedVMDynamicApply(b *testing.B) {
 func BenchmarkTypedVMFallbackHeavy(b *testing.B) {
 	benchEval(b, `(defun fallback-heavy (N X) (if (= N 0) X (fallback-heavy (- N 1) (if (number? X) (+ X 1) (cn X "x")))))`, `(fallback-heavy 2000 "x")`)
 }
+
+// BenchmarkHasCanonicalPrimitiveBinding measures the guard that every
+// specialized primitive site (VM OP_GUARDED_PRIM/OP_GUARDED_CONST/intrinsic
+// fallback and every AOT-compiled kernel guard) executes. It is the hot-path
+// cost issues #51 and #55 attribute the suite residual to.
+func BenchmarkHasCanonicalPrimitiveBinding(b *testing.B) {
+	sym := MakeSymbol("+")
+	old := mustSymbol(sym).function
+	defer func() { mustSymbol(sym).function = old }()
+	primitiveRegistry.mu.RLock()
+	canonical := primitiveRegistry.canonical["+"]
+	primitiveRegistry.mu.RUnlock()
+	BindSymbolFunc(sym, canonical)
+	var sink bool
+	b.ReportAllocs()
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		sink = HasCanonicalPrimitiveBinding(sym)
+	}
+	if !sink {
+		b.Fatal("canonical + binding was not recognized")
+	}
+}

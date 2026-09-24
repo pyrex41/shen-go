@@ -39,6 +39,14 @@ type scmSymbol struct {
 	str      string
 	value    Obj
 	function Obj
+	// canonical is the first primitive registered under this name (see
+	// primitiveRegistrar.register); nil means no primitive was ever
+	// registered for it. HasCanonicalPrimitiveBinding compares function
+	// against it with two loads instead of a locked string-keyed map lookup.
+	// Written once, under primitiveRegistry.mu, by register() during
+	// registration (package init / InstallKernelFast, single-threaded boot);
+	// read unlocked like function.
+	canonical Obj
 }
 
 type scmPair struct {
@@ -248,6 +256,23 @@ func mustInteger(o Obj) int {
 	return narrowToInt((*scmNumber)(unsafe.Pointer(o)).val)
 }
 
+// mustIndex narrows a vector index for <-address and address->. mustInteger
+// truncates a fractional number, so (<-address V -0.5) used to read slot 0
+// (the limit) and (address-> V 0.5 X) used to overwrite it; the kernel's
+// <-vector and vector-> only guard against an exact 0, so both leaked
+// through. A fractional index is an ordinary catchable error instead, with
+// the wording kl/narrowing_test.go pins for inf and out-of-range indices.
+func mustIndex(o Obj) int {
+	if isFixnum(o) {
+		return fixnum(o)
+	}
+	f := mustNumber(o)
+	if !isPreciseInteger(f) {
+		panic(MakeError(fmt.Sprintf("%s is not a valid integer", formatNumber(f))))
+	}
+	return narrowToInt(f)
+}
+
 func GetInteger(o Obj) int {
 	if isFixnum(o) {
 		return fixnum(o)
@@ -303,7 +328,6 @@ func mustStream(o Obj) *scmStream {
 
 func mustPair(o Obj) *scmPair {
 	if (*o) != scmHeadPair {
-		fmt.Println(ObjString(o))
 		panic(MakeError("mustPair"))
 	}
 	return (*scmPair)(unsafe.Pointer(o))

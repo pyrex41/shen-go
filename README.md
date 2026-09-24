@@ -51,6 +51,8 @@ After `(load F)`, a plugin compiled from the same bytes is re-engaged automatica
 
 Profile a run with `./shen -cpuprofile FILE script …`.
 
+A caught or uncaught Shen error leaves nothing on stdout. To see where the interpreter recovered a raised error (expression, message and Go stack, on stderr), run with `SHEN_DEBUG_RECOVER=1`. A Go panic inside a native is a bug rather than an error path, and is always traced to stderr.
+
 ## Bootstrap
 
 To regenerate `cmd/shen/*.go` from the KLambda kernel:
@@ -64,6 +66,8 @@ make shen
 ```
 
 `kl` is a small KLambda interpreter. `script.kl` loads the kernel in upstream `install.lsp` order (S42 has no `shen.initialise`; do not reorder), compiles Shen → KL → IR → Go. Provenance: `kernel/klambda/PROVENANCE.md`.
+
+The generator named in `script.kl` must match the committed kernel: `cmd/shen/*.go` is the output of `make-code-generator` (unsealed, with `HasCanonicalPrimitiveBinding` guards), and regenerating with `make-sealed-code-generator` rewrites every file. `script.kl` pins `shen.*gensym*` after loading `compiler.shen` because the `tmp`/`ifres` register names in the IR, and so in the Go, continue from wherever compiling `compiler.shen` left the counter; without the pin an edit to `compiler.shen` renames every register (the KL reader has no comment syntax, so the pin is explained here). Symbol declarations in `launcher.go` come out in map order, so a fresh regeneration reorders that block; the content is the same. `cmd/shen`'s `TestCompiledKernelHasNoFailDots` rejects a kernel whose IR went through the `~R` printer (issue #54).
 
 ## Nix
 

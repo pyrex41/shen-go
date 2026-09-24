@@ -376,7 +376,7 @@ func PrimAbsvector(o Obj) Obj {
 
 func PrimVectorSet(x, y, z Obj) Obj {
 	vec := mustVector(x)
-	off := mustInteger(y)
+	off := mustIndex(y)
 	// address-> had no bounds check at all: any out-of-range offset went
 	// straight into the Go slice and panicked with a runtime error that
 	// trap-error could not catch ("trap-error result is not Obj"). Raise the
@@ -391,7 +391,7 @@ func PrimVectorSet(x, y, z Obj) Obj {
 
 func PrimVectorGet(x, y Obj) Obj {
 	vec := mustVector(x)
-	off := mustInteger(y)
+	off := mustIndex(y)
 	if off < 0 || off >= len(vec) {
 		panic(MakeError(fmt.Sprintf("index %d out of range %d", off, len(vec))))
 	}
@@ -527,7 +527,9 @@ func PrimNot(x Obj) Obj {
 	case True:
 		return False
 	}
-	panic(MakeError("PrimNot"))
+	// The kernel's (defun not (X) (if X false true)) raises the VM's own if
+	// error on a non-boolean; say the same thing.
+	panic(MakeError("if requires a boolean"))
 }
 
 func PrimIf(x, y, z Obj) Obj {
@@ -782,7 +784,12 @@ type primitiveFunction interface {
 // gives callers compile-time checking of the function signature and derives
 // the Shen arity metadata directly from that signature.
 type primitiveRegistrar struct {
-	mu        sync.RWMutex
+	mu sync.RWMutex
+	// canonical maps a primitive name to the first object registered under
+	// it. It serves the name-keyed paths (registration, kernelfast's
+	// canonicalOrMake / restoreCanonicalPrimitive, tests). The interned
+	// symbol carries the same pointer in scmSymbol.canonical for the hot
+	// guard; register() is the only writer of both and must keep them equal.
 	canonical map[string]Obj
 }
 
@@ -817,12 +824,17 @@ func (r *primitiveRegistrar) register[F primitiveFunction](name string, f F) Obj
 	// The first registration establishes the canonical implementation. Later
 	// MakePrimitive calls may intentionally shadow a name, but optimized code
 	// must guard against using the canonical fast path after that happens.
+	// The interned symbol caches the same pointer so that guard
+	// (HasCanonicalPrimitiveBinding) is a lock-free pointer compare.
+	// MakeSymbol interns through the trie and never takes r.mu, so there is
+	// no lock-order issue.
 	r.mu.Lock()
 	if r.canonical == nil {
 		r.canonical = make(map[string]Obj)
 	}
 	if _, exists := r.canonical[name]; !exists {
 		r.canonical[name] = prim
+		mustSymbol(MakeSymbol(name)).canonical = prim
 	}
 	r.mu.Unlock()
 	return prim

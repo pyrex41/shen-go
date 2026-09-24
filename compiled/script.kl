@@ -15,6 +15,7 @@
 (load-file "../kernel/klambda/extension-launcher.kl")
 
 (load "../src/compiler.shen")
+(set shen.*gensym* 1163)
 (set *maximum-print-sequence-size* 100000)
 (do (compile-file "../kernel/klambda/sys.kl" "sys.tmp") ())
 (do (compile-file "../kernel/klambda/writer.kl" "writer.tmp") ())
@@ -32,7 +33,7 @@
 (do (compile-file "../kernel/klambda/types.kl" "types.tmp") ())
 (do (compile-file "../kernel/klambda/extension-launcher.kl" "launcher.tmp") ())
 
-(let Cg (make-sealed-code-generator)
+(let Cg (make-code-generator)
   (do (bc->go Cg "SysMain" false "sys.tmp" "../cmd/shen/sys.go")
     (do (bc->go Cg "WriterMain" false "writer.tmp" "../cmd/shen/writer.go")
     (do (bc->go Cg "CoreMain" false "core.tmp" "../cmd/shen/core.go")

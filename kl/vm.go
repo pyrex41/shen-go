@@ -554,12 +554,19 @@ func vmExecSlots(ctl *ControlFlow, bf *scmBytecodeFunc, args []vmSlot) {
 
 	// Locals and the operand stack share one slab (stack starts at len==0 just
 	// past the locals; append only ever writes at indices >= Nlocals, so the
-	// regions never overlap). Slabs are recycled via ctl.framePool — the
-	// previous per-activation make() dominated alloc_space on SHA/prng. If a
-	// frame needs more than 16 stack slots append reallocates the stack away
-	// from the slab, which is rare and still correct (the original slab is
-	// what we putFrame).
-	slab := ctl.takeFrame(fn.Nlocals)
+	// regions never overlap). Slabs are carved LIFO from the contiguous frame
+	// arena on ctl (takeFrame/putFrame in eval.go) — a per-activation make()
+	// dominated alloc_space on SHA/prng, and the bounded freelist that
+	// replaced it allocated again past 128 nested frames (issue #50). If a
+	// frame needs more stack slots than its headroom, append reallocates the
+	// stack away from the slab, which is rare and still correct: the 3-index
+	// slice from takeFrame means append can never write into the next frame,
+	// and the original slab is what we putFrame. The arena requires strict
+	// LIFO release: the only exits below are OP_TAIL_CALL and OP_RETURN, both
+	// putFrame, and a panic that skips them is repaired by frameReset at the
+	// recover sites. Any future non-LIFO frame lifetime (continuations,
+	// coroutines sharing a ControlFlow) must go through frameReset.
+	slab, fmark := ctl.takeFrame(fn.Nlocals)
 	locals := slab
 	copy(locals, args)
 
@@ -689,12 +696,12 @@ func vmExecSlots(ctl *ControlFlow, bf *scmBytecodeFunc, args []vmSlot) {
 			base := len(stack) - n - 1
 			callee := stack[base].objValue()
 			ctl.tailApplySlots(callee, stack[base+1:])
-			ctl.putFrame(slab)
+			ctl.putFrame(slab, fmark)
 			return
 
 		case OP_RETURN:
 			ctl.Return(stack[len(stack)-1].objValue())
-			ctl.putFrame(slab)
+			ctl.putFrame(slab, fmark)
 			return
 
 		case OP_JUMP:

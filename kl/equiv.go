@@ -18,18 +18,16 @@ package kl
 // head-position calls is loaded the same way, transitively: shen.map-h under
 // map, shen.app under the error paths, and so on down. The KL side therefore
 // runs as KL bytecode all the way to the primitives and never enters a native
-// under test. Two names are deliberately left alone:
-//
-//   - hash. BootKernel swaps in the native FNV-1a hash before the first
-//     property vector is built, the way cmd/shen does, so every vector in the
-//     process is keyed by it. A KL-side hash would key the same vector
-//     differently, and the two sides would compare nothing.
-//   - fail. The vendored sys.kl says (defun fail () shen.fail!), while the
-//     port's natives and its compiled kernel (cmd/shen/sys.go) return the
-//     symbol `...`. That divergence is the fail row's own finding. The other
-//     KL copies call the port's fail, so both sides share one vector filler,
-//     and the rows that depend on it (vector, <-vector, put, get, unput) are
-//     judged on their own logic.
+// under test. One name is deliberately left alone: hash. BootKernel swaps in
+// the native FNV-1a hash before the first property vector is built, the way
+// cmd/shen does, so every vector in the process is keyed by it. A KL-side
+// hash would key the same vector differently, and the two sides would compare
+// nothing. (fail used to be the second exception, while the native returned
+// the symbol `...` and the kernel's defun shen.fail!; since issue #54 both
+// return shen.fail!, so the rows that reach fail — vector, <-vector, put,
+// get, unput and their callers — call the renamed equiv.fail like any other
+// row they reach. fail is a row of its own, so like every root it is absent
+// from kl_helpers.)
 //
 // The native side of a row is the rebound symbol itself. A case is a list of
 // KL expressions for the arguments, plus optional setup forms run before the
@@ -118,11 +116,11 @@ func EquivName(kernelFn string) string { return EquivPrefix + kernelFn }
 
 // equivKeepNative are the kernel defuns the KL side keeps calling by their
 // real, native name. The file comment says why.
-var equivKeepNative = map[string]bool{"hash": true, "fail": true}
+var equivKeepNative = map[string]bool{"hash": true}
 
 // EquivVocabulary describes the harness-only names a case may use.
 var EquivVocabulary = map[string]string{
-	"equiv.NAME":        "the kernel's own (defun NAME …) loaded as KL bytecode, with every kernel defun its body reaches renamed the same way; hash and fail are the two exceptions and stay native",
+	"equiv.NAME":        "the kernel's own (defun NAME …) loaded as KL bytecode, with every kernel defun its body reaches renamed the same way; hash is the one exception and stays native",
 	"equiv.iota N":      "the list (1 2 … N)",
 	"equiv.note X":      "conses X onto (value equiv.*calls*) and returns X; this is how a case counts and orders the calls made to a function argument",
 	"equiv.native-of F": "the function object currently bound to the symbol F, which for a rebound name is the Go native",
@@ -438,7 +436,7 @@ func safeCall(f Obj, args []Obj) (val Obj, errMsg string, isErr bool) {
 }
 
 // evalQuiet evaluates one KL source expression. It returns any raised error
-// without Eval's stdout panic trace.
+// as a Go error, without going through Eval.
 func evalQuiet(e *ControlFlow, src string) (val Obj, err error) {
 	form, perr := ReadForm(src)
 	if perr != nil {
@@ -629,26 +627,6 @@ func RunEquivCase(e *ControlFlow, kernelFn string, c EquivCase) *EquivMismatch {
 		return nil
 	}
 	return &EquivMismatch{c.Name, kl.String(), native.String(), kind}
-}
-
-// WithQuietStdout runs f with os.Stdout pointed at the null device, so that
-// the runtime's stdout traces on recovered errors do not interleave with a
-// report. Those traces come from kl/eval.go and from mustPair in kl/types.go.
-// A writer captured before the call, such as the real os.Stdout, is
-// unaffected.
-func WithQuietStdout(f func()) error {
-	devnull, err := os.OpenFile(os.DevNull, os.O_WRONLY, 0)
-	if err != nil {
-		return err
-	}
-	saved := os.Stdout
-	os.Stdout = devnull
-	defer func() {
-		os.Stdout = saved
-		devnull.Close()
-	}()
-	f()
-	return nil
 }
 
 // KernelArity returns the kernel's registered arity for name via (arity NAME),

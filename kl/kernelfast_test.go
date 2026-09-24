@@ -77,8 +77,10 @@ func TestKernelOverrideTupleAndVector(t *testing.T) {
 	InstallKernelFast()
 
 	var e ControlFlow
-	if Call(&e, PrimFunc(MakeSymbol("fail"))) != MakeSymbol("...") {
-		t.Fatalf("fail should return ...")
+	// (fail) is the symbol shen.fail!, as sys.kl's (defun fail () shen.fail!)
+	// says; `...` is only how the printer shows it (issue #54).
+	if got := Call(&e, PrimFunc(MakeSymbol("fail"))); got != symShenFailBang {
+		t.Fatalf("fail should return shen.fail!, got %s", ObjString(got))
 	}
 	tup := Call(&e, PrimFunc(MakeSymbol("@p")), MakeInteger(1), MakeInteger(2))
 	if Call(&e, PrimFunc(MakeSymbol("tuple?")), tup) != True {
@@ -103,14 +105,45 @@ func TestKernelOverrideTupleAndVector(t *testing.T) {
 		t.Fatalf("<-vector after vector->")
 	}
 
-	func() {
+	mustRaise := func(what, want string, f func()) {
+		t.Helper()
 		defer func() {
-			if recover() == nil {
-				t.Fatalf("<-vector of unwritten slot should raise")
+			r := recover()
+			if r == nil {
+				t.Fatalf("%s should raise", what)
+			}
+			obj, ok := r.(Obj)
+			if !ok || !IsError(obj) {
+				t.Fatalf("%s: raised %v, want a Shen error", what, r)
+			}
+			if got := GetString(PrimErrorToString(obj)); got != want {
+				t.Fatalf("%s: raised %q, want %q", what, got, want)
 			}
 		}()
+		f()
+	}
+	mustRaise("<-vector of unwritten slot", "vector element not found\n", func() {
 		Call(&e, PrimFunc(MakeSymbol("<-vector")), v, MakeInteger(2))
-	}()
+	})
+	// The unwritten slot holds the kernel's own fail filler, so a Shen
+	// program sees (= (<-address (vector 2) 1) shen.fail!) as true, as it
+	// does on shen-cl and shen-scheme.
+	if slot := PrimVectorGet(v, MakeInteger(2)); slot != symShenFailBang {
+		t.Fatalf("(<-address (vector 2) 2) = %s, want shen.fail!", ObjString(slot))
+	}
+	// Issue #54's mixed-read case: a slot that a program set to shen.fail! is
+	// indistinguishable from an unwritten one, so <-vector raises for it too.
+	w := Call(&e, PrimFunc(MakeSymbol("vector")), MakeInteger(3))
+	Call(&e, PrimFunc(MakeSymbol("vector->")), w, MakeInteger(1), symShenFailBang)
+	mustRaise("<-vector of a slot holding shen.fail!", "vector element not found\n", func() {
+		Call(&e, PrimFunc(MakeSymbol("<-vector")), w, MakeInteger(1))
+	})
+	// The symbol `...` is an ordinary value, not a filler.
+	dots := MakeSymbol("...")
+	Call(&e, PrimFunc(MakeSymbol("vector->")), w, MakeInteger(2), dots)
+	if got := Call(&e, PrimFunc(MakeSymbol("<-vector")), w, MakeInteger(2)); got != dots {
+		t.Fatalf("<-vector of a slot holding the symbol ... = %s, want ...", ObjString(got))
+	}
 
 	d := Call(&e, PrimFunc(MakeSymbol("vector")), MakeInteger(8))
 	Call(&e, PrimFunc(MakeSymbol("put")), MakeSymbol("a"), MakeSymbol("b"), MakeInteger(1), d)
@@ -263,6 +296,70 @@ func TestKernelOverrideHeadTailNthBound(t *testing.T) {
 	}
 }
 
+// nativeNth formats its error the way the kernel does: it counts N down while
+// dropping heads, then hands what is left to shen.app. Without shen.app (a
+// lowered kernel slice that keeps nth but drops writer.kl) it must still raise
+// a sane message naming the same remaining N and L.
+func TestNativeNthErrorWithAndWithoutShenApp(t *testing.T) {
+	bindDummy("nth", 2)
+	InstallKernelFast()
+	if kernelBound("nth") == nil {
+		t.Fatalf("nth not bound")
+	}
+
+	appSym := MakeSymbol("shen.app")
+	saved := kernelBound("shen.app")
+	defer BindSymbolFunc(appSym, saved)
+
+	var e ControlFlow
+	lst := cons(MakeSymbol("a"), cons(MakeSymbol("b"), Nil))
+	nth := func(n Obj, l Obj) (msg string) {
+		defer func() {
+			r := recover()
+			if r == nil {
+				t.Fatalf("nth %s: expected an error", ObjString(n))
+			}
+			o, ok := r.(Obj)
+			if !ok {
+				t.Fatalf("nth %s: raised %v, not a Shen error", ObjString(n), r)
+			}
+			msg = mustString(PrimErrorToString(o))
+		}()
+		Call(&e, PrimFunc(MakeSymbol("nth")), n, l)
+		return ""
+	}
+
+	// With a shen.app in place, nth calls it with the remaining N and L.
+	var calls []string
+	BindSymbolFunc(appSym, MakeNative(func(e *ControlFlow) {
+		x, s := e.Get(1), e.Get(2)
+		calls = append(calls, ObjString(x)+"|"+ObjString(e.Get(3)))
+		e.Return(MakeString("<" + ObjString(x) + ">" + mustString(s)))
+	}, 3))
+	if got, want := nth(MakeInteger(3), lst), "nth applied to <1>, <()>\n"; got != want {
+		t.Errorf("with shen.app: got %q, want %q", got, want)
+	}
+	if got, want := len(calls), 2; got != want {
+		t.Fatalf("shen.app calls: got %d (%v), want %d", got, calls, want)
+	}
+	if calls[0] != "()|shen.a" || calls[1] != "1|shen.a" {
+		t.Errorf("shen.app calls: got %v, want [()|shen.a 1|shen.a]", calls)
+	}
+
+	// Without shen.app, the fallback prints the same remaining N and L.
+	BindSymbolFunc(appSym, nil)
+	if got, want := nth(MakeInteger(3), lst), "nth applied to 1, ()\n"; got != want {
+		t.Errorf("without shen.app: got %q, want %q", got, want)
+	}
+	if got, want := nth(MakeInteger(0), lst), "nth applied to -2, ()\n"; got != want {
+		t.Errorf("without shen.app, index 0: got %q, want %q", got, want)
+	}
+	// The success path never touches shen.app.
+	if got := Call(&e, PrimFunc(MakeSymbol("nth")), MakeInteger(2), lst); got != MakeSymbol("b") {
+		t.Errorf("nth 2: got %s, want b", ObjString(got))
+	}
+}
+
 func TestReaderCharPredicates(t *testing.T) {
 	bindDummy("shen.digit?", 1)
 	bindDummy("shen.uppercase?", 1)
@@ -391,5 +488,120 @@ func TestAnalyseSymbolName(t *testing.T) {
 		if analyseSymbolName(s) {
 			t.Errorf("analyseSymbolName(%q) = true, want false", s)
 		}
+	}
+}
+
+// TestInstallKernelFastBindsEveryOverride pins issue #49: InstallKernelFast
+// installs every rebinding whether or not the kernel defined the name. A
+// Yggdrasil `lower` slice deletes the KL (defun NAME …) of each declared
+// native_override, so if a native were only installed when the name was
+// already bound, the lowered artifact would die with "variable vector not
+// bound". The rows come from the same parser TestEquivTable uses, so a new
+// rebinding is covered automatically. Every row's function binding is
+// cleared first: the process-global symbol table is shared by the whole
+// package, and TestEquivTable's BootKernel (kl/equiv_test.go sorts before
+// this file) would otherwise have defined all 58 names already, masking the
+// old guard under a plain `go test ./kl`. With the clearing, this test fails
+// under the old guard in any order and passes without it.
+func TestInstallKernelFastBindsEveryOverride(t *testing.T) {
+	rows := parseInstallKernelFast(t)
+	if len(rows) == 0 {
+		t.Fatal("parseInstallKernelFast returned no rows")
+	}
+	for _, b := range rows {
+		mustSymbol(MakeSymbol(b.kernelFn)).function = nil
+	}
+	InstallKernelFast()
+	for _, b := range rows {
+		sym := MakeSymbol(b.kernelFn)
+		fn := func() (f Obj) {
+			defer func() {
+				if r := recover(); r != nil {
+					t.Errorf("%s is not bound after InstallKernelFast (%v); the kernelBound guard is back", b.kernelFn, r)
+					f = nil
+				}
+			}()
+			return PrimFunc(sym)
+		}()
+		if fn == nil {
+			continue
+		}
+		if !IsNativeBinding(fn) {
+			t.Errorf("%s: bound to %s after InstallKernelFast, want the Go native %s", b.kernelFn, ObjString(fn), b.native)
+		}
+		canonical := HasCanonicalPrimitiveBinding(sym)
+		switch b.helper {
+		case "overridePrimitive", "restoreCanonicalPrimitive":
+			// canonicalOrMake / the registry object is what makes the install
+			// idempotent under the AOT HasCanonicalPrimitiveBinding guards.
+			if !canonical {
+				t.Errorf("%s (%s): not the canonical primitive after InstallKernelFast", b.kernelFn, b.helper)
+			}
+		case "overrideNative":
+			// MakeNative objects must never satisfy the canonical guard: for
+			// symbol?/variable? that would reinstall the weaker type-tag check.
+			if canonical {
+				t.Errorf("%s (%s): unexpectedly canonical after InstallKernelFast", b.kernelFn, b.helper)
+			}
+		case "BindSymbolFunc":
+			// arity via canonicalOrMake, fn via MakeNative: either is fine.
+		default:
+			t.Errorf("%s: unknown helper %q", b.kernelFn, b.helper)
+		}
+	}
+}
+
+// TestNativeFnUndefinedWithoutShenApp pins nativeFn's error path on a sparse
+// kernel. Since #49 `fn` is installed whether or not the kernel defined
+// shen.app, so a lowered slice that dropped shen.app must still get the
+// kernel's "fn: X is undefined" message rather than "variable shen.app not
+// bound". With shen.app bound, the message still goes through shen.app, as
+// the kernel's (simple-error (cn "fn: " (shen.app F " is undefined\n"
+// shen.a))) does.
+func TestNativeFnUndefinedWithoutShenApp(t *testing.T) {
+	InstallKernelFast()
+	fn := PrimFunc(MakeSymbol("fn"))
+	if !IsNativeBinding(fn) {
+		t.Fatalf("fn is bound to %s, want the Go native", ObjString(fn))
+	}
+	// Empty lambda table, no property vector: (arity F) is -1 and the assoc
+	// misses, which is the undefined-function path.
+	lt, pv := mustSymbol(symLambdaTable), mustSymbol(symPropertyVector)
+	savedLT, savedPV := lt.value, pv.value
+	defer func() { lt.value, pv.value = savedLT, savedPV }()
+	PrimSet(symLambdaTable, Nil)
+	PrimSet(symPropertyVector, Nil)
+	callFn := func(name string) (msg string) {
+		defer func() {
+			r := recover()
+			if r == nil {
+				t.Fatalf("(fn %s) returned instead of raising", name)
+			}
+			o, ok := r.(Obj)
+			if !ok || !IsError(o) {
+				t.Fatalf("(fn %s) panicked with %v, want a KL error", name, r)
+			}
+			msg = mustError(o).err
+		}()
+		var e ControlFlow
+		Call(&e, fn, MakeSymbol(name))
+		return ""
+	}
+
+	app := mustSymbol(symShenApp)
+	saved := app.function
+	defer func() { app.function = saved }()
+
+	app.function = nil
+	if got, want := callFn("equiv.undefined-fn"), "fn: equiv.undefined-fn is undefined\n"; got != want {
+		t.Errorf("shen.app unbound: (fn equiv.undefined-fn) raised %q, want %q", got, want)
+	}
+
+	// A stand-in shen.app proves the bound path still delegates to it.
+	app.function = MakeNative(func(e *ControlFlow) {
+		e.Return(MakeString("<app " + ObjString(e.Get(1)) + ">" + mustString(e.Get(2))))
+	}, 3)
+	if got, want := callFn("equiv.undefined-fn"), "fn: <app equiv.undefined-fn> is undefined\n"; got != want {
+		t.Errorf("shen.app bound: (fn equiv.undefined-fn) raised %q, want %q", got, want)
 	}
 }

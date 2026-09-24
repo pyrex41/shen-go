@@ -169,24 +169,46 @@ var typedIRMode atomic.Uint32 // 0 unset, 1 enabled, 2 disabled
 // HasCanonicalPrimitiveBinding reports whether sym still points at the first
 // registered implementation for its name. This is the guard required before
 // executing a specialized primitive region.
+//
+// It runs on the per-instruction hot path: every VM OP_GUARDED_PRIM,
+// OP_GUARDED_CONST and intrinsic fallback, and every guard site of the
+// AOT-compiled kernel (thousands of sites in cmd/shen). The canonical object
+// is cached on the interned symbol at registration
+// (primitiveRegistrar.register), so the check is two loads and a pointer
+// compare with no lock and no map lookup; it must stay lock-free and small
+// enough to inline. A symbol with no registered primitive has a nil
+// canonical and is never a canonical binding.
 func HasCanonicalPrimitiveBinding(sym Obj) bool {
 	if sym == nil || isFixnum(sym) || *sym != scmHeadSymbol {
 		return false
 	}
-	name := GetSymbol(sym)
-	primitiveRegistry.mu.RLock()
-	canonical, ok := primitiveRegistry.canonical[name]
-	primitiveRegistry.mu.RUnlock()
-	return ok && mustSymbol(sym).function == canonical
+	s := mustSymbol(sym)
+	return s.canonical != nil && s.function == s.canonical
 }
 
 // TypedIRModeEnabled controls specialization. The default is enabled; only an
 // explicit SHEN_GO_TYPED_IR=off disables it. Unknown values retain the safe
 // default so a typo cannot silently select the slower compatibility mode.
-func TypedIRModeEnabled() bool {
+// It is the same check as TypedIREnabled, which holds the body because it is
+// the name the hot guard sites call.
+func TypedIRModeEnabled() bool { return TypedIREnabled() }
+
+// TypedIREnabled is the concise form the compiler, the VM and every guard
+// site of the AOT-compiled kernel call, paired with
+// HasCanonicalPrimitiveBinding. The resolved-mode fast path is kept small
+// enough to inline (the two together stay within the compiler's budget); the
+// one-time environment lookup lives in typedIRModeSlow.
+func TypedIREnabled() bool {
 	if mode := typedIRMode.Load(); mode != 0 {
 		return mode == 1
 	}
+	return typedIRModeSlow()
+}
+
+// typedIRModeSlow resolves the mode from the environment on first use and
+// publishes it; a concurrent first caller may have published already, and
+// both callers computed the same value from the same environment.
+func typedIRModeSlow() bool {
 	mode := uint32(1)
 	if strings.EqualFold(strings.TrimSpace(os.Getenv("SHEN_GO_TYPED_IR")), "off") {
 		mode = 2
@@ -194,9 +216,6 @@ func TypedIRModeEnabled() bool {
 	typedIRMode.CompareAndSwap(0, mode)
 	return mode == 1
 }
-
-// TypedIREnabled is a concise alias for callers in compiler and VM packages.
-func TypedIREnabled() bool { return TypedIRModeEnabled() }
 
 // ResetTypedIRModeForTest clears the cached environment decision. Production
 // callers should set SHEN_GO_TYPED_IR before process startup and never reset it.
