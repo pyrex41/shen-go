@@ -1,9 +1,22 @@
 package kl
 
 import (
+	"fmt"
+	"sync/atomic"
 	"testing"
 	"time"
 )
+
+// canonicalProbeSeq numbers the probe names the registration tests below
+// hand to MakePrimitive. Registration is global and first-wins, so a fixed
+// name would leave the second run of the same test (go test -count=N)
+// finding the first run's object cached on the symbol; a fresh name per run
+// keeps each run's assertions about "first registration" true.
+var canonicalProbeSeq atomic.Uint64
+
+func canonicalProbeName(prefix string) string {
+	return fmt.Sprintf("%s-%d", prefix, canonicalProbeSeq.Add(1))
+}
 
 // TestHasCanonicalPrimitiveBindingIsLockFree pins the property issues #51 and
 // #55 depend on: the guard executed at every specialized primitive site must
@@ -47,7 +60,7 @@ func registryCanonical(name string) (Obj, bool) {
 // field: false while unbound, true when bound to the canonical object, false
 // when shadowed, true again when rebound to the canonical object.
 func TestCanonicalPrimitiveCachedOnSymbol(t *testing.T) {
-	const name = "canon-probe-55"
+	name := canonicalProbeName("canon-probe-55")
 	first := MakePrimitive(name, 1, func(x Obj) Obj { return x })
 	sym := MakeSymbol(name)
 	if got := mustSymbol(sym).canonical; got != first {
@@ -88,7 +101,7 @@ func TestCanonicalPrimitiveCachedOnSymbol(t *testing.T) {
 // order: when the symbol already exists in the trie before registration,
 // register must find that node (not create another) and cache on it.
 func TestCanonicalPrimitiveCachedOnPreInternedSymbol(t *testing.T) {
-	const name = "canon-test-preinterned"
+	name := canonicalProbeName("canon-test-preinterned")
 	sym := MakeSymbol(name)
 	if mustSymbol(sym).canonical != nil {
 		t.Fatal("fresh symbol already has a canonical primitive")

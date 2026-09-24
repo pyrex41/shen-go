@@ -58,8 +58,10 @@ prng and **~20–30%** on world in quiet interleaved runs.
   string-keyed map lookup (`runtime.mapaccess2_faststr`) on every guarded
   primitive site — 16–20% of CPU samples on the kernel test suite and ~18% on
   prng (issues #51, #55). Caching the canonical primitive on the interned
-  symbol makes the guard a two-load pointer compare (7.6–12 ns → ~2 ns/op,
-  `BenchmarkHasCanonicalPrimitiveBinding`), inlined at every VM and AOT site.
+  symbol makes the guard a two-load pointer compare
+  (`BenchmarkHasCanonicalPrimitiveBinding`: ~8–33 ns/op before, depending on
+  machine load and cache state, → ~2 ns/op after; ~2–3 ns/op on the same
+  loaded box), inlined at every VM and AOT site.
   Measured on a loaded M4 (load 23–29, interleaved, user CPU): kernel suite
   13.3–14.5 s → 10.9–12.0 s (-15..-18%), prng 1.7–1.8 s → 1.2–1.4 s
   (-24..-30%). The remaining suite profile is `vmExecSlots` dispatch (~13%
