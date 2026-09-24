@@ -51,6 +51,8 @@ After `(load F)`, a plugin compiled from the same bytes is re-engaged automatica
 
 Profile a run with `./shen -cpuprofile FILE script …`.
 
+A caught or uncaught Shen error leaves nothing on stdout. To see where the interpreter recovered a raised error (expression, message and Go stack, on stderr), run with `SHEN_DEBUG_RECOVER=1`. A Go panic inside a native is a bug rather than an error path, and is always traced to stderr.
+
 ## Bootstrap
 
 To regenerate `cmd/shen/*.go` from the KLambda kernel:

@@ -225,3 +225,16 @@ func TestLauncherEvalReportsError(t *testing.T) {
 		t.Fatalf("launcher leaked a Go goroutine dump:\n%s", out)
 	}
 }
+
+// TestTrapErrorKeepsStdoutClean is issue #52: a caught error must leave no
+// trace on stdout. runCLI returns combined stdout and stderr, so this also
+// pins that nothing reaches stderr without SHEN_DEBUG_RECOVER.
+func TestTrapErrorKeepsStdoutClean(t *testing.T) {
+	out, err := runCLI(t, "eval", "-e", "(trap-error (tl 5) (/. E ok))")
+	if err != nil {
+		t.Fatalf("shen eval exited with error: %v\n%s", err, out)
+	}
+	if out != "ok\n" {
+		t.Fatalf("stdout should be exactly %q, got:\n%s", "ok\n", out)
+	}
+}

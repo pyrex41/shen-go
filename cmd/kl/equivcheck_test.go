@@ -3,6 +3,7 @@ package main
 import (
 	"bytes"
 	"encoding/json"
+	"io"
 	"os"
 	"regexp"
 	"strings"
@@ -13,8 +14,10 @@ import (
 
 // TestEquivCheckReplaysTable runs `kl equiv-check` over the committed table.
 // It checks that every row's verdict matches what the JSON records, that the
-// output has the documented one-line-per-row shape, and that the exit status
-// is non-zero exactly when a row fails.
+// output has the documented one-line-per-row shape, that the exit status
+// is non-zero exactly when a row fails, and that nothing but the report is
+// written: the cases exercise the runtime's error paths, which once traced
+// to os.Stdout (issue #52).
 func TestEquivCheckReplaysTable(t *testing.T) {
 	const path = "../../kl/equiv.json"
 	data, err := os.ReadFile(path)
@@ -26,9 +29,15 @@ func TestEquivCheckReplaysTable(t *testing.T) {
 		t.Fatal(err)
 	}
 	var out bytes.Buffer
-	rc, failed, err := runEquivCheck(path, "", &out)
+	var rc, failed int
+	stray := captureStdout(t, func() {
+		rc, failed, err = runEquivCheck(path, "", &out)
+	})
 	if err != nil {
 		t.Fatal(err)
+	}
+	if stray != "" {
+		t.Errorf("equiv-check wrote %d bytes to os.Stdout besides its report:\n%s", len(stray), stray)
 	}
 	wantFailed := 0
 	for _, r := range table.Rows {
@@ -70,4 +79,31 @@ func TestEquivCheckReplaysTable(t *testing.T) {
 	if !strings.HasPrefix(lines[len(lines)-1], "equiv-check: shen-go S42: ") {
 		t.Errorf("missing summary line, got %q", lines[len(lines)-1])
 	}
+}
+
+// captureStdout runs f with os.Stdout redirected to a pipe and returns what
+// was written. The read end is drained in a goroutine so a chatty f cannot
+// block on a full pipe buffer.
+func captureStdout(t *testing.T, f func()) string {
+	t.Helper()
+	r, w, err := os.Pipe()
+	if err != nil {
+		t.Fatal(err)
+	}
+	saved := os.Stdout
+	os.Stdout = w
+	done := make(chan string)
+	go func() {
+		b, _ := io.ReadAll(r)
+		r.Close()
+		done <- string(b)
+	}()
+	func() {
+		defer func() {
+			os.Stdout = saved
+			w.Close()
+		}()
+		f()
+	}()
+	return <-done
 }
