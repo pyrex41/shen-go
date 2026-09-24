@@ -55,6 +55,22 @@ func TestKernelFastAfterBoot(t *testing.T) {
 		{`(shen.alphanums? "Foo-1")`, "true"},
 		{`(let D (vector 8) (do (put a b 1 D) (do (unput a b D) (trap-error (get a b D) (/. E true)))))`, "true"},
 		{`(trap-error (value missing-xyz-123) (/. E 42))`, "42"},
+		// Error texts and edge behaviour the equivalence audit (kl/equiv.json)
+		// found diverging from the kernel bodies; each is pinned to the KL.
+		{`(trap-error (not 0) (/. E (error-to-string E)))`, "if requires a boolean"},
+		{`(trap-error (vector -1) (/. E (error-to-string E)))`, "index 0 out of range 0"},
+		{`(trap-error (vector 1.5) (/. E (error-to-string E)))`, "index 2 out of range 2"},
+		{`(trap-error (nth 0 [a b]) (/. E (error-to-string E)))`, "nth applied to -2, []"},
+		{`(trap-error (nth 3 [a b]) (/. E (error-to-string E)))`, "nth applied to 1, []"},
+		{`(trap-error (nth a [a b]) (/. E (error-to-string E)))`, "mustNumber"},
+		{`(trap-error (string->symbol "1") (/. E (error-to-string E)))`, `cannot intern "1" to a symbol`},
+		{`(shen.misc? "a")`, "false"},
+		{`(trap-error (<-vector (vector 3) -0.5) (/. E (error-to-string E)))`, "-0.5 is not a valid integer"},
+		{`(trap-error (vector-> (vector 3) -0.5 x) (/. E (error-to-string E)))`, "-0.5 is not a valid integer"},
+		{`(let V (vector 5) (do (unput zz yy V) (trap-error (<-vector V (hash zz 5)) (/. E none))))`, "[]"},
+		{`(trap-error (unput a b (vector 0)) (/. E (error-to-string E)))`, "index 1 out of range 1"},
+		// nth's error path runs shen.app in KL; nothing may leak to stdout.
+		{`(trap-error (nth 0 [a b]) (/. E ok))`, "ok"},
 	} {
 		if got := evalBounded(t, bin, tc.expr, 30*time.Second); got != tc.want {
 			t.Errorf("%s: got %q, want %q", tc.expr, got, tc.want)

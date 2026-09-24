@@ -374,6 +374,7 @@ var explicitCases = map[string][]EquivCase{
 		{Name: "index-3-out-of-range", Args: []string{"3", "(cons a (cons b ()))"}},
 		{Name: "negative", Args: []string{"-1", "(cons a (cons b ()))"}},
 		{Name: "float-index", Args: []string{"1.0", "(cons a (cons b ()))"}},
+		{Name: "non-number-index", Args: []string{"a", "(cons a ())"}},
 	},
 	"map": {
 		{Name: "never-called", Args: []string{"(lambda X (equiv.note X))", "()"}},
@@ -385,16 +386,18 @@ var explicitCases = map[string][]EquivCase{
 		{Name: "freeze-effect-once", Args: []string{"(freeze (equiv.note 1))"}},
 		{Name: "native-thunk", Args: []string{"(equiv.native-of fail)"}},
 	},
-	"vector": {{Name: "zero", Args: []string{"0"}}, {Name: "negative", Args: []string{"-1"}}},
+	"vector": {{Name: "zero", Args: []string{"0"}}, {Name: "negative", Args: []string{"-1"}}, {Name: "fractional", Args: []string{"1.5"}}},
 	"vector->": {
 		{Name: "zero-size-slot-0", Args: []string{"(vector 0)", "0", "x"}},
 		{Name: "zero-size-slot-1", Args: []string{"(vector 0)", "1", "x"}},
 		{Name: "slot-1", Args: []string{"(vector 1)", "1", "x"}},
+		{Name: "fractional-index", Args: []string{"(vector 3)", "-0.5", "x"}},
 	},
 	"<-vector": {
 		{Name: "zero-size-slot-0", Args: []string{"(vector 0)", "0"}},
 		{Name: "unset-slot-raises", Args: []string{"(vector 1)", "1"}},
 		{Name: "set-slot", Args: []string{"(let V (vector 1) (do (vector-> V 1 x) V))", "1"}},
+		{Name: "fractional-index", Args: []string{"(vector 3)", "-0.5"}},
 	},
 	// On this port string->n yields the code point, so both the KL body and
 	// the native return (955) for "λ" rather than its UTF-8 bytes 206 187.
@@ -402,6 +405,8 @@ var explicitCases = map[string][]EquivCase{
 	// bytes.
 	"shen.string->bytes": {{Name: "lambda-codepoint", Args: []string{`"λ"`}}, {Name: "mixed", Args: []string{`"aλ€"`}}},
 	"string->symbol":     {{Name: "stars", Args: []string{`"*foo*"`}}, {Name: "digit-raises", Args: []string{`"1"`}}},
+	"shen.misc?":         {{Name: "non-number", Args: []string{`"a"`}}},
+	"not":                {{Name: "non-boolean", Args: []string{"0"}}},
 	"symbol?":            {{Name: "intern-digit", Args: []string{`(intern "1")`}}, {Name: "intern-empty", Args: []string{`(intern "")`}}},
 	// arity and fn read the kernel's own tables, so these cases seed the real
 	// *property-vector*, identically for both sides. The last observe form is
@@ -875,14 +880,6 @@ var rowNotes = map[string]string{
 		"The native (nativeFail in kl/kernelfast.go) and the port's compiled kernel (cmd/shen/sys.go) return the symbol ... instead. " +
 		"The harness leaves fail unrenamed inside the other KL copies, so every other row is judged with the port's filler " +
 		"and this row alone carries the divergence.",
-	"unput": "On a key with no bucket, the KL body stores the empty bucket () in the slot: it calls vector-> with (shen.remove-pointer K A ()). " +
-		"The native leaves the slot unset. Lookups agree, since both sides raise on get, but the vector contents do not.",
-	"<-vector": "A float index such as -0.5 reaches (<-address V -0.5), which on this port truncates to slot 0 and returns the limit. " +
-		"The native truncates first and raises the 0th-element error. Integer indices agree, including 0 and indices out of range.",
-	"vector->": "A float index such as -0.5 reaches (address-> V -0.5 X), which on this port truncates to slot 0 and overwrites the limit. " +
-		"The native truncates first and raises the 0th-element error. Integer indices agree, including 0 and indices out of range.",
-	"shen.misc?": "The KL body is (element? X <list of codes>), so a non-number answers false, while the native requires a number and raises. " +
-		"The kernel only ever passes string->n results.",
 }
 
 func defunArity(t *testing.T, dir, name string) int {

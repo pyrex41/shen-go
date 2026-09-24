@@ -263,6 +263,70 @@ func TestKernelOverrideHeadTailNthBound(t *testing.T) {
 	}
 }
 
+// nativeNth formats its error the way the kernel does: it counts N down while
+// dropping heads, then hands what is left to shen.app. Without shen.app (a
+// lowered kernel slice that keeps nth but drops writer.kl) it must still raise
+// a sane message naming the same remaining N and L.
+func TestNativeNthErrorWithAndWithoutShenApp(t *testing.T) {
+	bindDummy("nth", 2)
+	InstallKernelFast()
+	if kernelBound("nth") == nil {
+		t.Fatalf("nth not bound")
+	}
+
+	appSym := MakeSymbol("shen.app")
+	saved := kernelBound("shen.app")
+	defer BindSymbolFunc(appSym, saved)
+
+	var e ControlFlow
+	lst := cons(MakeSymbol("a"), cons(MakeSymbol("b"), Nil))
+	nth := func(n Obj, l Obj) (msg string) {
+		defer func() {
+			r := recover()
+			if r == nil {
+				t.Fatalf("nth %s: expected an error", ObjString(n))
+			}
+			o, ok := r.(Obj)
+			if !ok {
+				t.Fatalf("nth %s: raised %v, not a Shen error", ObjString(n), r)
+			}
+			msg = mustString(PrimErrorToString(o))
+		}()
+		Call(&e, PrimFunc(MakeSymbol("nth")), n, l)
+		return ""
+	}
+
+	// With a shen.app in place, nth calls it with the remaining N and L.
+	var calls []string
+	BindSymbolFunc(appSym, MakeNative(func(e *ControlFlow) {
+		x, s := e.Get(1), e.Get(2)
+		calls = append(calls, ObjString(x)+"|"+ObjString(e.Get(3)))
+		e.Return(MakeString("<" + ObjString(x) + ">" + mustString(s)))
+	}, 3))
+	if got, want := nth(MakeInteger(3), lst), "nth applied to <1>, <()>\n"; got != want {
+		t.Errorf("with shen.app: got %q, want %q", got, want)
+	}
+	if got, want := len(calls), 2; got != want {
+		t.Fatalf("shen.app calls: got %d (%v), want %d", got, calls, want)
+	}
+	if calls[0] != "()|shen.a" || calls[1] != "1|shen.a" {
+		t.Errorf("shen.app calls: got %v, want [()|shen.a 1|shen.a]", calls)
+	}
+
+	// Without shen.app, the fallback prints the same remaining N and L.
+	BindSymbolFunc(appSym, nil)
+	if got, want := nth(MakeInteger(3), lst), "nth applied to 1, ()\n"; got != want {
+		t.Errorf("without shen.app: got %q, want %q", got, want)
+	}
+	if got, want := nth(MakeInteger(0), lst), "nth applied to -2, ()\n"; got != want {
+		t.Errorf("without shen.app, index 0: got %q, want %q", got, want)
+	}
+	// The success path never touches shen.app.
+	if got := Call(&e, PrimFunc(MakeSymbol("nth")), MakeInteger(2), lst); got != MakeSymbol("b") {
+		t.Errorf("nth 2: got %s, want b", ObjString(got))
+	}
+}
+
 func TestReaderCharPredicates(t *testing.T) {
 	bindDummy("shen.digit?", 1)
 	bindDummy("shen.uppercase?", 1)
