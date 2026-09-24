@@ -400,13 +400,19 @@ func TestAnalyseSymbolName(t *testing.T) {
 // native_override, so if a native were only installed when the name was
 // already bound, the lowered artifact would die with "variable vector not
 // bound". The rows come from the same parser TestEquivTable uses, so a new
-// rebinding is covered automatically. The names no other kl test bindDummy's
-// (shen.abs, sum, union, string->symbol, …) are exactly the ones that were
-// left unbound before, so this test fails under the old guard in any order.
+// rebinding is covered automatically. Every row's function binding is
+// cleared first: the process-global symbol table is shared by the whole
+// package, and TestEquivTable's BootKernel (kl/equiv_test.go sorts before
+// this file) would otherwise have defined all 58 names already, masking the
+// old guard under a plain `go test ./kl`. With the clearing, this test fails
+// under the old guard in any order and passes without it.
 func TestInstallKernelFastBindsEveryOverride(t *testing.T) {
 	rows := parseInstallKernelFast(t)
 	if len(rows) == 0 {
 		t.Fatal("parseInstallKernelFast returned no rows")
+	}
+	for _, b := range rows {
+		mustSymbol(MakeSymbol(b.kernelFn)).function = nil
 	}
 	InstallKernelFast()
 	for _, b := range rows {
@@ -445,5 +451,60 @@ func TestInstallKernelFastBindsEveryOverride(t *testing.T) {
 		default:
 			t.Errorf("%s: unknown helper %q", b.kernelFn, b.helper)
 		}
+	}
+}
+
+// TestNativeFnUndefinedWithoutShenApp pins nativeFn's error path on a sparse
+// kernel. Since #49 `fn` is installed whether or not the kernel defined
+// shen.app, so a lowered slice that dropped shen.app must still get the
+// kernel's "fn: X is undefined" message rather than "variable shen.app not
+// bound". With shen.app bound, the message still goes through shen.app, as
+// the kernel's (simple-error (cn "fn: " (shen.app F " is undefined\n"
+// shen.a))) does.
+func TestNativeFnUndefinedWithoutShenApp(t *testing.T) {
+	InstallKernelFast()
+	fn := PrimFunc(MakeSymbol("fn"))
+	if !IsNativeBinding(fn) {
+		t.Fatalf("fn is bound to %s, want the Go native", ObjString(fn))
+	}
+	// Empty lambda table, no property vector: (arity F) is -1 and the assoc
+	// misses, which is the undefined-function path.
+	lt, pv := mustSymbol(symLambdaTable), mustSymbol(symPropertyVector)
+	savedLT, savedPV := lt.value, pv.value
+	defer func() { lt.value, pv.value = savedLT, savedPV }()
+	PrimSet(symLambdaTable, Nil)
+	PrimSet(symPropertyVector, Nil)
+	callFn := func(name string) (msg string) {
+		defer func() {
+			r := recover()
+			if r == nil {
+				t.Fatalf("(fn %s) returned instead of raising", name)
+			}
+			o, ok := r.(Obj)
+			if !ok || !IsError(o) {
+				t.Fatalf("(fn %s) panicked with %v, want a KL error", name, r)
+			}
+			msg = mustError(o).err
+		}()
+		var e ControlFlow
+		Call(&e, fn, MakeSymbol(name))
+		return ""
+	}
+
+	app := mustSymbol(symShenApp)
+	saved := app.function
+	defer func() { app.function = saved }()
+
+	app.function = nil
+	if got, want := callFn("equiv.undefined-fn"), "fn: equiv.undefined-fn is undefined\n"; got != want {
+		t.Errorf("shen.app unbound: (fn equiv.undefined-fn) raised %q, want %q", got, want)
+	}
+
+	// A stand-in shen.app proves the bound path still delegates to it.
+	app.function = MakeNative(func(e *ControlFlow) {
+		e.Return(MakeString("<app " + ObjString(e.Get(1)) + ">" + mustString(e.Get(2))))
+	}, 3)
+	if got, want := callFn("equiv.undefined-fn"), "fn: <app equiv.undefined-fn> is undefined\n"; got != want {
+		t.Errorf("shen.app bound: (fn equiv.undefined-fn) raised %q, want %q", got, want)
 	}
 }

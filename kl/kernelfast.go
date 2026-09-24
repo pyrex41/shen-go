@@ -43,8 +43,10 @@ package kl
 // defun had run would leave such a slice with "variable vector not bound". On
 // a sparse (eval-free) kernel a native that is called behaves at least as
 // well as the unbound symbol it replaces: every native is self-contained
-// except the error paths that call shen.app, which fall back to a plain
-// message when shen.app is unbound (nativeGetRaise).
+// except the two error paths that call shen.app (nativeFn's "fn: X is
+// undefined" and nativeGetRaise's get failures), which fall back to a plain
+// message when shen.app is unbound; TestNativeFnUndefinedWithoutShenApp
+// pins the former.
 // TestInstallHelpersToleratesSparseKernel pins only that nothing panics on an
 // empty symbol table; TestInstallKernelFastBindsEveryOverride pins that every
 // row is bound afterwards.
@@ -184,7 +186,13 @@ func nativeFn(e *ControlFlow) {
 		panic(MakeError("attempt to search a non-list with assoc\n"))
 	}
 	// (simple-error (cn "fn: " (shen.app F " is undefined\n" shen.a)))
-	msg := Call(e, PrimFunc(symShenApp), f, MakeString(" is undefined\n"), symShenA)
+	app := kernelBound("shen.app")
+	if app == nil {
+		// Sparse kernel (issue #49): fn is installed even when shen.app was
+		// lowered away, so fall back to a plain message as nativeGetRaise does.
+		panic(MakeError("fn: " + ObjString(f) + " is undefined\n"))
+	}
+	msg := Call(e, app, f, MakeString(" is undefined\n"), symShenA)
 	panic(MakeError("fn: " + mustString(msg)))
 }
 
@@ -982,8 +990,8 @@ func nativeGetRaise(e *ControlFlow, key, attr Obj, noAttrs bool) {
 	panic(MakeError("attribute " + mustString(mid)))
 }
 
-// InstallKernelFast rebinds hot kernel functions to the natives above. All 58
-// rebindings happen on any kernel, including one whose defuns were lowered
+// InstallKernelFast rebinds hot kernel functions to the natives above. Every
+// rebinding happens on any kernel, including one whose defuns were lowered
 // away (issue #49) and an empty symbol table. It is called after each kernel
 // module (kl.BootKernel) or chunk (cmd/yggdrasil-build), because a later
 // module's own (defun …) of a rebound name overwrites the native until the
