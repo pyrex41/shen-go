@@ -87,5 +87,27 @@
     Fin Fout -> (let Expr (read-file Fin)
 		     Expr1 (macroexpand [do | Expr])
 		     (let BC (codegen Expr1)
-			  Str (make-string "~R" BC)
-			  (write-to-file Fout Str))))
+			  Sink (open Fout out)
+			  Write (pr-ir BC Sink)
+			  Close (close Sink)
+			  Fout)))
+
+\\ The IR used to be serialized with (make-string "~R" BC). ~R goes through
+\\ shen.arg->str, whose first clause renders any value equal to (fail) as
+\\ "...", so the kernel's (defun fail () shen.fail!) was written as
+\\ ($const ...) and the compiled fail returned the wrong symbol (issue #54).
+\\ pr-ir prints symbols with str and every other atom through ~R, so its
+\\ output is byte-identical to ~R except where a symbol equals (fail),
+\\ including the "| X" of an improper list tail, which the IR never has.
+\\ It is keyed on symbol? rather than on (fail), so it does not depend on
+\\ what (fail) returns in the world that runs the regeneration.
+(define pr-ir
+  [] Sink -> (pr "()" Sink)
+  [X | Xs] Sink -> (do (pr "(" Sink) (do (pr-ir X Sink) (pr-ir-tail Xs Sink)))
+  X Sink -> (pr (str X) Sink) where (symbol? X)
+  X Sink -> (pr (make-string "~R" X) Sink))
+
+(define pr-ir-tail
+  [] Sink -> (pr ")" Sink)
+  [X | Xs] Sink -> (do (pr " " Sink) (do (pr-ir X Sink) (pr-ir-tail Xs Sink)))
+  X Sink -> (do (pr " | " Sink) (do (pr-ir X Sink) (pr ")" Sink))))

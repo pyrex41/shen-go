@@ -6784,7 +6784,7 @@ tmp1985 := Call(__e, ns2_1set, sympackage_2, tmp1979)
 _ = tmp1985
 
 tmp1986 := MakeNative(func(__e *ControlFlow) {
-__e.Return(sym_4_4_4)
+__e.Return(symshen_4fail_b)
 return
 }, 0)
 

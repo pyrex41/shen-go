@@ -2,7 +2,7 @@
   "port": "shen-go",
   "kernel": "S42",
   "harness": {
-    "kl_side": "equiv.NAME is the kernel's own (defun NAME …) from kernel/klambda, run as KL bytecode. Every kernel defun its body reaches is loaded the same way and is listed in kl_helpers, so no native under test runs on this side. Two names stay native: hash, the port's native hash, which is installed at boot before any property vector exists, and fail, for the reason the fail row gives.",
+    "kl_side": "equiv.NAME is the kernel's own (defun NAME …) from kernel/klambda, run as KL bytecode. Every kernel defun its body reaches is loaded the same way and is listed in kl_helpers, so no native under test runs on this side. One name stays native: hash, the port's native hash, which is installed at boot before any property vector exists.",
     "native_side": "NAME as bound after kl.InstallKernelFast. That is the Go function named in the native field.",
     "inputs": "The cases for this row. Each case is evaluated once per side, with the natives installed, in the order setup, args, the call, observe. Both sides must return equal values, or raise errors with identical text, and every observe value must be equal. Values are compared with the kernel's =, extended to functions: two functions are equal when they are the same object, or when both are KL closures of the same arity.",
     "verified": "True when every case agreed at the time the table was generated on this port. A false row records the first disagreeing case in reason, as \"case=NAME kl=OUT native=OUT\". OUT is the value printed as KL source, with a vector as #vector[limit slot…] and never-written slots as #unset, or error(\"text\") with the text Go-quoted, followed by one observe[i]=OUT per observe form. The kind of disagreement is in disagreement: raise means one side raised and the other returned; value means both returned and the values differ; error-text means both raised and the messages differ; effect means an observed value differs; harness means a form of the case itself failed. When the origin of the divergence is known, note explains it in prose.",
@@ -12,7 +12,7 @@
     "vocabulary": {
       "equiv.*calls*": "the global holding the equiv.note log; setup resets it and observe compares it",
       "equiv.*pv*": "the global holding a fresh property vector for the put, get and unput cases; both sides start from an identical fresh vector, and observe compares it",
-      "equiv.NAME": "the kernel's own (defun NAME …) loaded as KL bytecode, with every kernel defun its body reaches renamed the same way; hash and fail are the two exceptions and stay native",
+      "equiv.NAME": "the kernel's own (defun NAME …) loaded as KL bytecode, with every kernel defun its body reaches renamed the same way; hash is the one exception and stays native",
       "equiv.iota N": "the list (1 2 … N)",
       "equiv.native-of F": "the function object currently bound to the symbol F, which for a rebound name is the Go native",
       "equiv.note X": "conses X onto (value equiv.*calls*) and returns X; this is how a case counts and orders the calls made to a function argument"
@@ -12190,11 +12190,8 @@
       "kernel_fn": "fail",
       "native": "nativeFail",
       "arity": 0,
-      "verified": false,
+      "verified": true,
       "cases": 26,
-      "reason": "case=boundary:0 kl=shen.fail! native=...",
-      "disagreement": "value",
-      "note": "The KL side returns shen.fail!, as the vendored kernel/klambda/sys.kl says (defun fail () shen.fail!) and kernel/sources/sys.shen says (define fail -\u003e fail!). The native (nativeFail in kl/kernelfast.go) and the port's compiled kernel (cmd/shen/sys.go) return the symbol ... instead. The harness leaves fail unrenamed inside the other KL copies, so every other row is judged with the port's filler and this row alone carries the divergence.",
       "source": "kl/kernelfast.go:nativeFail",
       "inputs": [
         {
