@@ -4,6 +4,55 @@ Machine: Linux amd64
 Kernel: S39.2  
 Date: 2026-05-05  
 
+## Wide fixnums and cheaper number construction (2026-09)
+
+- **Fixnums widened to [-2^35, 2^35)** (`kl/types.go`, `kl/fixnum_span_*.go`).
+  On 64-bit unix the fixnum span is a 2^36-byte `PROT_READ` anonymous mapping
+  reserved at startup, not the 2^26-byte BSS array. Every uint32, and sums of
+  several, is now unboxed. The mapping costs address space (VmSize +64 GB),
+  not RSS. Other platforms, or a failed reservation, keep [-2^25, 2^25);
+  `SHEN_GO_NARROW_FIXNUM=1` forces that. Fixnum products multiply as `int`
+  only when both factors are below 2^31, since two 35-bit values overflow
+  int64. Constant folding only folds operands that fit its `int32` fields.
+- **`isPreciseInteger` is `f == math.Trunc(f)`**, not `Ilogb` plus a shift.
+  `MakeNumber` and `slotFromNumber` range-check first and then narrow.
+  `HasCanonicalPrimitiveBinding` drops a redundant `isFixnum` test.
+
+`bench/word32.shen` covers 32-bit word arithmetic of the kind a pure-Shen
+SHA-256 or PRNG does, using only `+ -` and comparisons. The figures are
+medians of 6 interleaved runs, in seconds:
+
+| | original | after `let`/VM work | now |
+|---|---|---|---|
+| fib32 ×3M | 0.634 | 0.646 | **0.494 (−22%)** |
+| mix 64 words ×40k | 1.756 | 1.809 | **1.335 (−24%)** |
+| word list 1M | 0.538 | 0.576 | **0.430 (−20%)** |
+
+Allocation on that benchmark fell from 325 MB to 83 MB (`makeInteger` had been
+78% of it). Across all of this work, the kernel cert suite went from 7.31 to
+5.06 s wall and from 9.81 to 6.06 s CPU. Startup went from 186 to 153 ms.
+Cert output is identical to the original build's.
+
+Measured and not kept:
+
+- **Integer-ID dispatch for `vmGuardedPrimitive`**, in place of its string
+  `switch`: no gain on the cert suite, and about 2% slower on `word32`.
+- **Running top-level `eval-kl` forms on the VM** instead of the tree-walker.
+  A top-level `(foldl (/. A X ...) 0 L)` ran 4–5× faster. It was neutral on
+  the cert suite, where the tree-walker's own time is only ~2.5%. It changes
+  REPL error text, though, because the VM and the interpreter word the same
+  errors differently. An unbound function gives `function F not bound` rather
+  than `can't apply non function: F`. `(not 0)` gives `not: expected boolean`
+  rather than `if requires a boolean`. Tests pin the interpreter's wording.
+  Unify the messages first, then this is a small change.
+
+Found, not changed: the stdlib's `floor`, and so `mod`, `round` and `ceiling`
+(`cmd/shen/stlib/Maths/maths.shen`), is a pure-Shen decimal digit-guessing
+loop, about 100 µs per call. Word arithmetic written with `mod` is two orders
+of magnitude slower than the `+`/compare version above, for that reason
+alone. Native versions would need the same equivalence audit as the
+`kl/equiv.json` kernel natives.
+
 ## Kernel `let` lowering and VM frame/closure allocation (2026-09)
 
 Profiled the kernel certification suite (`kernel/tests/runme.shen`) with
