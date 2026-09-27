@@ -61,10 +61,10 @@ tmp19039 := Call(__e, PrimFunc(symshen_4prolog_1vector))
 tmp19040 := Call(__e, tmp19033, tmp19039)
 
 
-tmp19041 := Call(__e, PrimFunc(symvector), MakeNumber(0))
+tmp19041 := Call(__e, PrimFunc(symvector), MakeInteger(0))
 
 
-tmp19042 := Call(__e, PrimFunc(sym_8v), MakeNumber(0), tmp19041)
+tmp19042 := Call(__e, PrimFunc(sym_8v), MakeInteger(0), tmp19041)
 
 
 tmp19043 := Call(__e, PrimFunc(sym_8v), True, tmp19042)
@@ -73,7 +73,7 @@ tmp19043 := Call(__e, PrimFunc(sym_8v), True, tmp19042)
 tmp19044 := Call(__e, tmp19040, tmp19043)
 
 
-tmp19045 := Call(__e, tmp19044, MakeNumber(0))
+tmp19045 := Call(__e, tmp19044, MakeInteger(0))
 
 
 tmp19046 := MakeNative(func(__e *ControlFlow) {
@@ -151,7 +151,7 @@ if __typedOK0 && __typedOK1 && HasCanonicalPrimitiveBinding(sym_7) {
 return TypedMaterializeNumber((__typedN0 + __typedN1))
 }}
 __typedArg0 := V5521
-__typedArg1 := MakeNumber(1)
+__typedArg1 := MakeInteger(1)
 return Call(__e, PrimFunc(sym_7), __typedArg0, __typedArg1)
 })()
 _ = let__19007
@@ -190,10 +190,10 @@ tmp19062 := Call(__e, PrimFunc(symarity), tmp19061)
 
 tmp19063 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
-return PrimEqual(tmp19062, MakeNumber(0))
+return PrimEqual(tmp19062, MakeInteger(0))
 }
 __typedArg0 := tmp19062
-__typedArg1 := MakeNumber(0)
+__typedArg1 := MakeInteger(0)
 return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
 })()
 

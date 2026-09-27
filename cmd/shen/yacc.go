@@ -84,7 +84,7 @@ __typedArg0 := sym_dmaximum_1print_1sequence_1size_d
 return Call(__e, PrimFunc(symvalue), __typedArg0)
 })()
 
-tmp17936 := Call(__e, PrimFunc(symshen_4syntax_1error_1message), tmp17935, MakeNumber(0), V115)
+tmp17936 := Call(__e, PrimFunc(symshen_4syntax_1error_1message), tmp17935, MakeInteger(0), V115)
 
 
 tmp17938 := Call(__e, PrimFunc(symshen_4proc_1nl), (func() Obj {
@@ -178,7 +178,7 @@ if __typedOK0 && __typedOK1 && HasCanonicalPrimitiveBinding(sym_7) {
 return TypedMaterializeNumber((__typedN0 + __typedN1))
 }}
 __typedArg0 := V124
-__typedArg1 := MakeNumber(1)
+__typedArg1 := MakeInteger(1)
 return Call(__e, PrimFunc(sym_7), __typedArg0, __typedArg1)
 })()
 

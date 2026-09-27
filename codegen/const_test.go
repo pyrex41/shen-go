@@ -22,9 +22,12 @@ func TestGenerateConstPreservesFractionalNumbers(t *testing.T) {
 		{-2.25, "MakeNumber(-2.25)"},
 		{1e-9, "MakeNumber(1e-09)"},
 		// Integral values must keep emitting cleanly, not as 3.0 or 3e+00.
-		{3, "MakeNumber(3)"},
-		{0, "MakeNumber(0)"},
-		{-7, "MakeNumber(-7)"},
+		// Those in fixnum range are emitted as the fixnum itself.
+		{3, "MakeInteger(3)"},
+		{0, "MakeInteger(0)"},
+		{-7, "MakeInteger(-7)"},
+		{1 << 25, "MakeNumber(3.3554432e+07)"},
+		{1e19, "MakeNumber(1e+19)"},
 	} {
 		var buf bytes.Buffer
 		if err := New().generateConst(&buf, kl.MakeNumber(tc.in)); err != nil {
@@ -46,7 +49,7 @@ func TestGenerateConstRoundTripsExactly(t *testing.T) {
 		if err := New().generateConst(&buf, kl.MakeNumber(f)); err != nil {
 			t.Fatalf("%v: %v", f, err)
 		}
-		lit := strings.TrimSuffix(strings.TrimPrefix(buf.String(), "MakeNumber("), ")")
+		lit := strings.TrimSuffix(strings.TrimPrefix(strings.TrimPrefix(buf.String(), "MakeNumber("), "MakeInteger("), ")")
 		back, err := strconv.ParseFloat(lit, 64)
 		if err != nil {
 			t.Fatalf("%v emitted %q, which is not a parseable literal: %v", f, lit, err)

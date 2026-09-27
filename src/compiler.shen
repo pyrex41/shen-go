@@ -6,7 +6,7 @@
   Env [do X Y] -> [$do (parse Env X) (parse Env Y)]
   Env [lambda X Y] -> [$lambda [X] (parse (cons X Env) Y)]
 
-  Env [defun F X Y] -> [ns2-set [$const F] [$lambda X (parse X Y)]]
+  Env [defun F X Y] -> [ns2-set [$const F] [$lambda X (mark-self F (length X) (parse X Y))]]
   Env [let X Y Z] -> (let X1 (gensym (intern "let_"))
                         [$let X1 (parse Env Y) (parse (cons X1 Env) (rename-var X1 X Z))])
   Env [trap-error Body Handler] -> [try-catch [$lambda [] (parse Env Body)] (parse Env Handler)]
@@ -36,6 +36,17 @@
   New Old [X | Y] -> (map (rename-var New Old) [X | Y])
   _ _ X -> X)
 
+\\ A call from a defun's body to itself with its full arity, outside any
+\\ nested lambda, becomes [[$self F] | Args]. In tail position that is a
+\\ selftail, which the Go code generator turns into a jump back to the top
+\\ of the function while F is still bound to this code; anywhere else it is
+\\ an ordinary call of [$global F].
+(define mark-self
+  F N [[$global F] | Args] -> [[$self F] | (map (mark-self F N) Args)] where (= N (length Args))
+  _ _ [$lambda | X] -> [$lambda | X]
+  F N [X | Y] -> (map (mark-self F N) [X | Y])
+  _ _ X -> X)
+
 (define parse-app
   Env F -> F where (element? F Env)
   _ F -> [$global F])
@@ -60,6 +71,9 @@
       BC [$let X Y Z] -> (peval BC Y (/. BC1 (/. Y1
 				    (peval-t (cons [bind X Y1] BC1) Z))))
       BC [$lambda Args Body] -> (cons [return [lambda Args (peval0 Body)]] BC)
+      BC [[$self F] | Args] -> (peval-call BC Args []
+				   (/. BC1 (/. REGS
+				     (cons [selftail F | REGS] BC1))))
       BC [F | Args] -> (peval-call BC [F | Args] []
 				   (/. BC1 (/. REGS
 				     (cons [tailapply | REGS] BC1))))
@@ -68,6 +82,7 @@
 (define peval
     BC [$const X] CC -> (CC BC [$const X])
     BC [$global X] CC -> (CC BC [$global X])
+    BC [$self X] CC -> (CC BC [$global X])
     BC [$type A Exp] CC -> (peval BC Exp (/. BC1 (/. X1
 							(CC BC1 [$type A X1]))))
     BC [$if X Y Z] CC -> (let TMP (gensym ifres)

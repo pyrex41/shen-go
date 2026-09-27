@@ -21,6 +21,7 @@ import (
 	"math"
 	"regexp"
 	"strconv"
+	"strings"
 
 	"github.com/pyrex41/shen-go/kl"
 )
@@ -41,6 +42,9 @@ type CodeGenerator struct {
 	// unit (Shen/Scheme's sealed library). User/plugin code must leave it
 	// false so (defun + ...) still reaches generated calls.
 	Sealed bool
+	// selfArity is a stack with one entry per enclosing lambda being
+	// generated: its arity when it opened a self-tail loop, else -1.
+	selfArity []int
 }
 
 func New() *CodeGenerator {
@@ -219,15 +223,77 @@ func (cg *CodeGenerator) generateExpr(w io.Writer, sexp kl.Obj) error {
 		// (lambda (p1 p2 ...) ...)
 		tmp := kl.Car(kl.Cdr(sexp))
 		args := kl.ListToSlice(tmp)
+		body := kl.Car(kl.Cdr(kl.Cdr(sexp)))
 		fmt.Fprintf(w, "MakeNative(func(__e *ControlFlow) {\n")
+		if hasSelfTail(body, len(args)) {
+			// A defun whose body tail-calls itself: the parameters live in
+			// __selfN, and each iteration re-declares the named variables
+			// from them, so a closure made in one iteration keeps that
+			// iteration's values.
+			fmt.Fprintf(w, "__self := __e.Get(0)\n")
+			for i := range args {
+				fmt.Fprintf(w, "__self%d := __e.Get(%d)\n", i+1, i+1)
+			}
+			fmt.Fprintf(w, "__selftop:\n")
+			for i, arg := range args {
+				fmt.Fprintf(w, "%s := __self%d\n", symbolAsVar(arg), i+1)
+				fmt.Fprintf(w, "_ = %s\n", symbolAsVar(arg))
+			}
+			cg.selfArity = append(cg.selfArity, len(args))
+			err := cg.generateExpr(w, body)
+			cg.selfArity = cg.selfArity[:len(cg.selfArity)-1]
+			if err != nil {
+				return err
+			}
+			fmt.Fprintf(w, "}, %d)", len(args))
+			return nil
+		}
+		cg.selfArity = append(cg.selfArity, -1)
 		for i, arg := range args {
 			fmt.Fprintf(w, "%s := __e.Get(%d)\n", symbolAsVar(arg), i+1)
 			fmt.Fprintf(w, "_ = %s\n", symbolAsVar(arg))
 		}
-		if err := cg.generateExpr(w, kl.Car(kl.Cdr(kl.Cdr(sexp)))); err != nil {
+		err := cg.generateExpr(w, body)
+		cg.selfArity = cg.selfArity[:len(cg.selfArity)-1]
+		if err != nil {
 			return err
 		}
 		fmt.Fprintf(w, "}, %d)", len(args))
+	case "selftail":
+		// (selftail F a b ...): a defun's tail call of itself. While F is
+		// still bound to the running code, loop; after a redefinition (or
+		// outside a function that set up the loop) it is a tail call.
+		f := kl.Cadr(sexp)
+		args := kl.ListToSlice(kl.Cdr(kl.Cdr(sexp)))
+		cg.declare[f] = struct{}{}
+		argStr := make([]string, len(args))
+		for i, arg := range args {
+			var b bytes.Buffer
+			if kl.IsSymbol(arg) {
+				b.WriteString(symbolAsVar(arg))
+			} else if err := cg.generateExpr(&b, arg); err != nil {
+				return err
+			}
+			argStr[i] = b.String()
+		}
+		if n := len(cg.selfArity); n > 0 && cg.selfArity[n-1] == len(args) {
+			fmt.Fprintf(w, "if PrimFunc(sym%s) == __self {\n", symbolAsVar(f))
+			if len(args) > 0 {
+				for i := range args {
+					if i > 0 {
+						fmt.Fprint(w, ", ")
+					}
+					fmt.Fprintf(w, "__self%d", i+1)
+				}
+				fmt.Fprintf(w, " = %s\n", strings.Join(argStr, ", "))
+			}
+			fmt.Fprintf(w, "__e.Tick()\ngoto __selftop\n}\n")
+		}
+		fmt.Fprintf(w, "__e.TailApply(PrimFunc(sym%s)", symbolAsVar(f))
+		for _, a := range argStr {
+			fmt.Fprintf(w, ", %s", a)
+		}
+		fmt.Fprintf(w, ")\nreturn\n")
 	case "if":
 		// (if a b c)
 		a := kl.Cadr(sexp)
@@ -349,6 +415,28 @@ func (cg *CodeGenerator) generateBlock(w io.Writer, sexp kl.Obj) error {
 	}
 	fmt.Fprintln(w)
 	return nil
+}
+
+// hasSelfTail reports whether body, a lambda's IR, contains a selftail of
+// the lambda's own arity outside any nested lambda.
+func hasSelfTail(body kl.Obj, arity int) bool {
+	if kl.PrimIsPair(body) == kl.False {
+		return false
+	}
+	if head := kl.Car(body); kl.IsSymbol(head) {
+		switch kl.GetSymbol(head) {
+		case "lambda":
+			return false
+		case "selftail":
+			return len(kl.ListToSlice(kl.Cdr(kl.Cdr(body)))) == arity
+		}
+	}
+	for cur := body; kl.PrimIsPair(cur) != kl.False; cur = kl.Cdr(cur) {
+		if hasSelfTail(kl.Car(cur), arity) {
+			return true
+		}
+	}
+	return false
 }
 
 func countSymbol(forms []kl.Obj, target kl.Obj) int {
@@ -694,6 +782,13 @@ func (cg *CodeGenerator) generateConst(w io.Writer, c kl.Obj) error {
 		f := kl.GetNumber(c)
 		if math.IsInf(f, 0) || math.IsNaN(f) {
 			return fmt.Errorf("cannot emit non-finite number constant %v", f)
+		}
+		if f == math.Trunc(f) && f >= -(1<<25) && f < 1<<25 && !(f == 0 && math.Signbit(f)) {
+			// A small integer is a fixnum: MakeInteger is pointer arithmetic,
+			// where MakeNumber would test the float for integrality on every
+			// evaluation of the constant.
+			fmt.Fprintf(w, "MakeInteger(%d)", int(f))
+			return nil
 		}
 		fmt.Fprintf(w, "MakeNumber(%s)", strconv.FormatFloat(f, 'g', -1, 64))
 	case kl.IsString(c):

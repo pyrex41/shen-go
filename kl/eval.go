@@ -294,6 +294,22 @@ func (ctl *ControlFlow) tick() {
 	}
 }
 
+// SetStepLimit sets the evaluation budget (see stepLimited); zero means
+// unlimited. It is for harnesses outside this package, such as tests of
+// generated code.
+func (ctl *ControlFlow) SetStepLimit(n int64) {
+	ctl.stepLimit = n
+}
+
+// Tick charges one step when a step limit is set. Generated code calls it
+// on each iteration of a loop that does not go through the trampoline (a
+// compiled self-tail-call), so the budget still bounds it.
+func (ctl *ControlFlow) Tick() {
+	if ctl.stepLimit != 0 {
+		ctl.tick()
+	}
+}
+
 func (ctl *ControlFlow) tripStepLimit() {
 	panic(MakeError("eval step limit exceeded"))
 }

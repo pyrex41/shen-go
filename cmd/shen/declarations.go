@@ -25,7 +25,7 @@ return Call(__e, PrimFunc(symset), __typedArg0, __typedArg1)
 
 _ = tmp7870
 
-tmp7871 := Call(__e, PrimFunc(symvector), MakeNumber(20000))
+tmp7871 := Call(__e, PrimFunc(symvector), MakeInteger(20000))
 
 
 tmp7872 := (func() Obj {
@@ -77,10 +77,10 @@ _ = tmp7876
 
 tmp7877 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symset) {
-return PrimSet(symshen_4_dgensym_d, MakeNumber(0))
+return PrimSet(symshen_4_dgensym_d, MakeInteger(0))
 }
 __typedArg0 := symshen_4_dgensym_d
-__typedArg1 := MakeNumber(0)
+__typedArg1 := MakeInteger(0)
 return Call(__e, PrimFunc(symset), __typedArg0, __typedArg1)
 })()
 
@@ -352,10 +352,10 @@ _ = tmp7903
 
 tmp7904 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symset) {
-return PrimSet(symshen_4_dmaxinferences_d, MakeNumber(1e+06))
+return PrimSet(symshen_4_dmaxinferences_d, MakeInteger(1000000))
 }
 __typedArg0 := symshen_4_dmaxinferences_d
-__typedArg1 := MakeNumber(1e+06)
+__typedArg1 := MakeInteger(1000000)
 return Call(__e, PrimFunc(symset), __typedArg0, __typedArg1)
 })()
 
@@ -363,10 +363,10 @@ _ = tmp7904
 
 tmp7905 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symset) {
-return PrimSet(sym_dmaximum_1print_1sequence_1size_d, MakeNumber(20))
+return PrimSet(sym_dmaximum_1print_1sequence_1size_d, MakeInteger(20))
 }
 __typedArg0 := sym_dmaximum_1print_1sequence_1size_d
-__typedArg1 := MakeNumber(20)
+__typedArg1 := MakeInteger(20)
 return Call(__e, PrimFunc(symset), __typedArg0, __typedArg1)
 })()
 
@@ -374,10 +374,10 @@ _ = tmp7905
 
 tmp7906 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symset) {
-return PrimSet(symshen_4_dcall_d, MakeNumber(0))
+return PrimSet(symshen_4_dcall_d, MakeInteger(0))
 }
 __typedArg0 := symshen_4_dcall_d
-__typedArg1 := MakeNumber(0)
+__typedArg1 := MakeInteger(0)
 return Call(__e, PrimFunc(symset), __typedArg0, __typedArg1)
 })()
 
@@ -385,10 +385,10 @@ _ = tmp7906
 
 tmp7907 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symset) {
-return PrimSet(symshen_4_dinfs_d, MakeNumber(0))
+return PrimSet(symshen_4_dinfs_d, MakeInteger(0))
 }
 __typedArg0 := symshen_4_dinfs_d
-__typedArg1 := MakeNumber(0)
+__typedArg1 := MakeInteger(0)
 return Call(__e, PrimFunc(symset), __typedArg0, __typedArg1)
 })()
 
@@ -473,10 +473,10 @@ _ = tmp7914
 
 tmp7915 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symset) {
-return PrimSet(symshen_4_dprolog_1memory_d, MakeNumber(1000))
+return PrimSet(symshen_4_dprolog_1memory_d, MakeInteger(1000))
 }
 __typedArg0 := symshen_4_dprolog_1memory_d
-__typedArg1 := MakeNumber(1000)
+__typedArg1 := MakeInteger(1000)
 return Call(__e, PrimFunc(symset), __typedArg0, __typedArg1)
 })()
 
@@ -699,7 +699,7 @@ if __typedOK0 && __typedOK1 && HasCanonicalPrimitiveBinding(sym_5) {
 return TypedMaterializeBoolean((__typedN0 < __typedN1))
 }}
 __typedArg0 := V5765
-__typedArg1 := MakeNumber(0)
+__typedArg1 := MakeInteger(0)
 return Call(__e, PrimFunc(sym_5), __typedArg0, __typedArg1)
 })() {
 __e.Return((func() Obj {
@@ -917,7 +917,7 @@ return
 tmp7968 := MakeNative(func(__e *ControlFlow) {
 Z5771 := __e.Get(1)
 _ = Z5771
-__e.Return(MakeNumber(-1))
+__e.Return(MakeInteger(-1))
 return
 }, 1)
 
@@ -933,7 +933,10 @@ tmp7969 := Call(__e, ns2_1set, symarity, tmp7965)
 _ = tmp7969
 
 tmp7970 := MakeNative(func(__e *ControlFlow) {
-V5774 := __e.Get(1)
+__self := __e.Get(0)
+__self1 := __e.Get(1)
+__selftop:
+V5774 := __self1
 _ = V5774
 tmp7985 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
@@ -1051,6 +1054,11 @@ __typedArg0 := tmp7976
 return Call(__e, PrimFunc(symtl), __typedArg0)
 })()
 
+if PrimFunc(symshen_4initialise_1arity_1table) == __self {
+__self1 = tmp7977
+__e.Tick()
+goto __selftop
+}
 __e.TailApply(PrimFunc(symshen_4initialise_1arity_1table), tmp7977)
 return
 
@@ -1079,9 +1087,9 @@ _ = tmp7986
 
 tmp7987 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(2), Nil)
+return PrimCons(MakeInteger(2), Nil)
 }
-__typedArg0 := MakeNumber(2)
+__typedArg0 := MakeInteger(2)
 __typedArg1 := Nil
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -1097,9 +1105,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp7989 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(2), tmp7988)
+return PrimCons(MakeInteger(2), tmp7988)
 }
-__typedArg0 := MakeNumber(2)
+__typedArg0 := MakeInteger(2)
 __typedArg1 := tmp7988
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -1115,9 +1123,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp7991 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(2), tmp7990)
+return PrimCons(MakeInteger(2), tmp7990)
 }
-__typedArg0 := MakeNumber(2)
+__typedArg0 := MakeInteger(2)
 __typedArg1 := tmp7990
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -1133,9 +1141,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp7993 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp7992)
+return PrimCons(MakeInteger(1), tmp7992)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp7992
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -1151,9 +1159,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp7995 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp7994)
+return PrimCons(MakeInteger(1), tmp7994)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp7994
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -1169,9 +1177,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp7997 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp7996)
+return PrimCons(MakeInteger(1), tmp7996)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp7996
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -1187,9 +1195,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp7999 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(2), tmp7998)
+return PrimCons(MakeInteger(2), tmp7998)
 }
-__typedArg0 := MakeNumber(2)
+__typedArg0 := MakeInteger(2)
 __typedArg1 := tmp7998
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -1205,9 +1213,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8001 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(2), tmp8000)
+return PrimCons(MakeInteger(2), tmp8000)
 }
-__typedArg0 := MakeNumber(2)
+__typedArg0 := MakeInteger(2)
 __typedArg1 := tmp8000
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -1223,9 +1231,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8003 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(2), tmp8002)
+return PrimCons(MakeInteger(2), tmp8002)
 }
-__typedArg0 := MakeNumber(2)
+__typedArg0 := MakeInteger(2)
 __typedArg1 := tmp8002
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -1241,9 +1249,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8005 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(2), tmp8004)
+return PrimCons(MakeInteger(2), tmp8004)
 }
-__typedArg0 := MakeNumber(2)
+__typedArg0 := MakeInteger(2)
 __typedArg1 := tmp8004
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -1259,9 +1267,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8007 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(2), tmp8006)
+return PrimCons(MakeInteger(2), tmp8006)
 }
-__typedArg0 := MakeNumber(2)
+__typedArg0 := MakeInteger(2)
 __typedArg1 := tmp8006
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -1277,9 +1285,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8009 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8008)
+return PrimCons(MakeInteger(1), tmp8008)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8008
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -1295,9 +1303,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8011 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(2), tmp8010)
+return PrimCons(MakeInteger(2), tmp8010)
 }
-__typedArg0 := MakeNumber(2)
+__typedArg0 := MakeInteger(2)
 __typedArg1 := tmp8010
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -1313,9 +1321,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8013 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(2), tmp8012)
+return PrimCons(MakeInteger(2), tmp8012)
 }
-__typedArg0 := MakeNumber(2)
+__typedArg0 := MakeInteger(2)
 __typedArg1 := tmp8012
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -1331,9 +1339,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8015 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(5), tmp8014)
+return PrimCons(MakeInteger(5), tmp8014)
 }
-__typedArg0 := MakeNumber(5)
+__typedArg0 := MakeInteger(5)
 __typedArg1 := tmp8014
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -1349,9 +1357,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8017 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(0), tmp8016)
+return PrimCons(MakeInteger(0), tmp8016)
 }
-__typedArg0 := MakeNumber(0)
+__typedArg0 := MakeInteger(0)
 __typedArg1 := tmp8016
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -1367,9 +1375,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8019 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(5), tmp8018)
+return PrimCons(MakeInteger(5), tmp8018)
 }
-__typedArg0 := MakeNumber(5)
+__typedArg0 := MakeInteger(5)
 __typedArg1 := tmp8018
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -1385,9 +1393,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8021 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8020)
+return PrimCons(MakeInteger(1), tmp8020)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8020
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -1403,9 +1411,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8023 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8022)
+return PrimCons(MakeInteger(1), tmp8022)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8022
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -1421,9 +1429,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8025 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(3), tmp8024)
+return PrimCons(MakeInteger(3), tmp8024)
 }
-__typedArg0 := MakeNumber(3)
+__typedArg0 := MakeInteger(3)
 __typedArg1 := tmp8024
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -1439,9 +1447,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8027 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8026)
+return PrimCons(MakeInteger(1), tmp8026)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8026
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -1457,9 +1465,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8029 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8028)
+return PrimCons(MakeInteger(1), tmp8028)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8028
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -1475,9 +1483,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8031 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(0), tmp8030)
+return PrimCons(MakeInteger(0), tmp8030)
 }
-__typedArg0 := MakeNumber(0)
+__typedArg0 := MakeInteger(0)
 __typedArg1 := tmp8030
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -1493,9 +1501,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8033 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(2), tmp8032)
+return PrimCons(MakeInteger(2), tmp8032)
 }
-__typedArg0 := MakeNumber(2)
+__typedArg0 := MakeInteger(2)
 __typedArg1 := tmp8032
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -1511,9 +1519,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8035 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8034)
+return PrimCons(MakeInteger(1), tmp8034)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8034
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -1529,9 +1537,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8037 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8036)
+return PrimCons(MakeInteger(1), tmp8036)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8036
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -1547,9 +1555,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8039 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(2), tmp8038)
+return PrimCons(MakeInteger(2), tmp8038)
 }
-__typedArg0 := MakeNumber(2)
+__typedArg0 := MakeInteger(2)
 __typedArg1 := tmp8038
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -1565,9 +1573,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8041 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8040)
+return PrimCons(MakeInteger(1), tmp8040)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8040
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -1583,9 +1591,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8043 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(3), tmp8042)
+return PrimCons(MakeInteger(3), tmp8042)
 }
-__typedArg0 := MakeNumber(3)
+__typedArg0 := MakeInteger(3)
 __typedArg1 := tmp8042
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -1601,9 +1609,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8045 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8044)
+return PrimCons(MakeInteger(1), tmp8044)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8044
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -1619,9 +1627,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8047 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8046)
+return PrimCons(MakeInteger(1), tmp8046)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8046
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -1637,9 +1645,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8049 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(5), tmp8048)
+return PrimCons(MakeInteger(5), tmp8048)
 }
-__typedArg0 := MakeNumber(5)
+__typedArg0 := MakeInteger(5)
 __typedArg1 := tmp8048
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -1655,9 +1663,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8051 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(2), tmp8050)
+return PrimCons(MakeInteger(2), tmp8050)
 }
-__typedArg0 := MakeNumber(2)
+__typedArg0 := MakeInteger(2)
 __typedArg1 := tmp8050
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -1673,9 +1681,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8053 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8052)
+return PrimCons(MakeInteger(1), tmp8052)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8052
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -1691,9 +1699,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8055 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(2), tmp8054)
+return PrimCons(MakeInteger(2), tmp8054)
 }
-__typedArg0 := MakeNumber(2)
+__typedArg0 := MakeInteger(2)
 __typedArg1 := tmp8054
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -1709,9 +1717,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8057 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(0), tmp8056)
+return PrimCons(MakeInteger(0), tmp8056)
 }
-__typedArg0 := MakeNumber(0)
+__typedArg0 := MakeInteger(0)
 __typedArg1 := tmp8056
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -1727,9 +1735,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8059 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8058)
+return PrimCons(MakeInteger(1), tmp8058)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8058
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -1745,9 +1753,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8061 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8060)
+return PrimCons(MakeInteger(1), tmp8060)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8060
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -1763,9 +1771,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8063 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8062)
+return PrimCons(MakeInteger(1), tmp8062)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8062
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -1781,9 +1789,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8065 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(0), tmp8064)
+return PrimCons(MakeInteger(0), tmp8064)
 }
-__typedArg0 := MakeNumber(0)
+__typedArg0 := MakeInteger(0)
 __typedArg1 := tmp8064
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -1799,9 +1807,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8067 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8066)
+return PrimCons(MakeInteger(1), tmp8066)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8066
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -1817,9 +1825,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8069 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8068)
+return PrimCons(MakeInteger(1), tmp8068)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8068
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -1835,9 +1843,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8071 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8070)
+return PrimCons(MakeInteger(1), tmp8070)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8070
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -1853,9 +1861,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8073 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8072)
+return PrimCons(MakeInteger(1), tmp8072)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8072
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -1871,9 +1879,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8075 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8074)
+return PrimCons(MakeInteger(1), tmp8074)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8074
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -1889,9 +1897,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8077 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8076)
+return PrimCons(MakeInteger(1), tmp8076)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8076
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -1907,9 +1915,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8079 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(3), tmp8078)
+return PrimCons(MakeInteger(3), tmp8078)
 }
-__typedArg0 := MakeNumber(3)
+__typedArg0 := MakeInteger(3)
 __typedArg1 := tmp8078
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -1925,9 +1933,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8081 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8080)
+return PrimCons(MakeInteger(1), tmp8080)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8080
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -1943,9 +1951,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8083 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8082)
+return PrimCons(MakeInteger(1), tmp8082)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8082
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -1961,9 +1969,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8085 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8084)
+return PrimCons(MakeInteger(1), tmp8084)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8084
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -1979,9 +1987,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8087 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8086)
+return PrimCons(MakeInteger(1), tmp8086)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8086
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -1997,9 +2005,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8089 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(0), tmp8088)
+return PrimCons(MakeInteger(0), tmp8088)
 }
-__typedArg0 := MakeNumber(0)
+__typedArg0 := MakeInteger(0)
 __typedArg1 := tmp8088
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -2015,9 +2023,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8091 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(0), tmp8090)
+return PrimCons(MakeInteger(0), tmp8090)
 }
-__typedArg0 := MakeNumber(0)
+__typedArg0 := MakeInteger(0)
 __typedArg1 := tmp8090
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -2033,9 +2041,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8093 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(0), tmp8092)
+return PrimCons(MakeInteger(0), tmp8092)
 }
-__typedArg0 := MakeNumber(0)
+__typedArg0 := MakeInteger(0)
 __typedArg1 := tmp8092
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -2051,9 +2059,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8095 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8094)
+return PrimCons(MakeInteger(1), tmp8094)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8094
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -2069,9 +2077,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8097 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(0), tmp8096)
+return PrimCons(MakeInteger(0), tmp8096)
 }
-__typedArg0 := MakeNumber(0)
+__typedArg0 := MakeInteger(0)
 __typedArg1 := tmp8096
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -2087,9 +2095,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8099 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8098)
+return PrimCons(MakeInteger(1), tmp8098)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8098
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -2105,9 +2113,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8101 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(2), tmp8100)
+return PrimCons(MakeInteger(2), tmp8100)
 }
-__typedArg0 := MakeNumber(2)
+__typedArg0 := MakeInteger(2)
 __typedArg1 := tmp8100
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -2123,9 +2131,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8103 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8102)
+return PrimCons(MakeInteger(1), tmp8102)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8102
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -2141,9 +2149,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8105 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8104)
+return PrimCons(MakeInteger(1), tmp8104)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8104
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -2159,9 +2167,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8107 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(2), tmp8106)
+return PrimCons(MakeInteger(2), tmp8106)
 }
-__typedArg0 := MakeNumber(2)
+__typedArg0 := MakeInteger(2)
 __typedArg1 := tmp8106
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -2177,9 +2185,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8109 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8108)
+return PrimCons(MakeInteger(1), tmp8108)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8108
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -2195,9 +2203,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8111 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(2), tmp8110)
+return PrimCons(MakeInteger(2), tmp8110)
 }
-__typedArg0 := MakeNumber(2)
+__typedArg0 := MakeInteger(2)
 __typedArg1 := tmp8110
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -2213,9 +2221,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8113 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(0), tmp8112)
+return PrimCons(MakeInteger(0), tmp8112)
 }
-__typedArg0 := MakeNumber(0)
+__typedArg0 := MakeInteger(0)
 __typedArg1 := tmp8112
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -2231,9 +2239,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8115 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8114)
+return PrimCons(MakeInteger(1), tmp8114)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8114
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -2249,9 +2257,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8117 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8116)
+return PrimCons(MakeInteger(1), tmp8116)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8116
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -2267,9 +2275,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8119 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8118)
+return PrimCons(MakeInteger(1), tmp8118)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8118
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -2285,9 +2293,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8121 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8120)
+return PrimCons(MakeInteger(1), tmp8120)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8120
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -2303,9 +2311,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8123 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8122)
+return PrimCons(MakeInteger(1), tmp8122)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8122
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -2321,9 +2329,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8125 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8124)
+return PrimCons(MakeInteger(1), tmp8124)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8124
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -2339,9 +2347,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8127 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8126)
+return PrimCons(MakeInteger(1), tmp8126)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8126
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -2357,9 +2365,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8129 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8128)
+return PrimCons(MakeInteger(1), tmp8128)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8128
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -2375,9 +2383,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8131 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8130)
+return PrimCons(MakeInteger(1), tmp8130)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8130
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -2393,9 +2401,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8133 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(4), tmp8132)
+return PrimCons(MakeInteger(4), tmp8132)
 }
-__typedArg0 := MakeNumber(4)
+__typedArg0 := MakeInteger(4)
 __typedArg1 := tmp8132
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -2411,9 +2419,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8135 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8134)
+return PrimCons(MakeInteger(1), tmp8134)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8134
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -2429,9 +2437,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8137 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8136)
+return PrimCons(MakeInteger(1), tmp8136)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8136
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -2447,9 +2455,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8139 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8138)
+return PrimCons(MakeInteger(1), tmp8138)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8138
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -2465,9 +2473,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8141 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8140)
+return PrimCons(MakeInteger(1), tmp8140)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8140
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -2483,9 +2491,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8143 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(2), tmp8142)
+return PrimCons(MakeInteger(2), tmp8142)
 }
-__typedArg0 := MakeNumber(2)
+__typedArg0 := MakeInteger(2)
 __typedArg1 := tmp8142
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -2501,9 +2509,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8145 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8144)
+return PrimCons(MakeInteger(1), tmp8144)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8144
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -2519,9 +2527,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8147 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8146)
+return PrimCons(MakeInteger(1), tmp8146)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8146
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -2537,9 +2545,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8149 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8148)
+return PrimCons(MakeInteger(1), tmp8148)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8148
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -2555,9 +2563,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8151 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8150)
+return PrimCons(MakeInteger(1), tmp8150)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8150
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -2573,9 +2581,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8153 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8152)
+return PrimCons(MakeInteger(1), tmp8152)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8152
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -2591,9 +2599,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8155 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8154)
+return PrimCons(MakeInteger(1), tmp8154)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8154
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -2609,9 +2617,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8157 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8156)
+return PrimCons(MakeInteger(1), tmp8156)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8156
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -2627,9 +2635,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8159 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8158)
+return PrimCons(MakeInteger(1), tmp8158)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8158
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -2645,9 +2653,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8161 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(2), tmp8160)
+return PrimCons(MakeInteger(2), tmp8160)
 }
-__typedArg0 := MakeNumber(2)
+__typedArg0 := MakeInteger(2)
 __typedArg1 := tmp8160
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -2663,9 +2671,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8163 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(0), tmp8162)
+return PrimCons(MakeInteger(0), tmp8162)
 }
-__typedArg0 := MakeNumber(0)
+__typedArg0 := MakeInteger(0)
 __typedArg1 := tmp8162
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -2681,9 +2689,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8165 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(0), tmp8164)
+return PrimCons(MakeInteger(0), tmp8164)
 }
-__typedArg0 := MakeNumber(0)
+__typedArg0 := MakeInteger(0)
 __typedArg1 := tmp8164
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -2699,9 +2707,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8167 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8166)
+return PrimCons(MakeInteger(1), tmp8166)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8166
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -2717,9 +2725,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8169 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(3), tmp8168)
+return PrimCons(MakeInteger(3), tmp8168)
 }
-__typedArg0 := MakeNumber(3)
+__typedArg0 := MakeInteger(3)
 __typedArg1 := tmp8168
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -2735,9 +2743,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8171 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(0), tmp8170)
+return PrimCons(MakeInteger(0), tmp8170)
 }
-__typedArg0 := MakeNumber(0)
+__typedArg0 := MakeInteger(0)
 __typedArg1 := tmp8170
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -2753,9 +2761,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8173 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(2), tmp8172)
+return PrimCons(MakeInteger(2), tmp8172)
 }
-__typedArg0 := MakeNumber(2)
+__typedArg0 := MakeInteger(2)
 __typedArg1 := tmp8172
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -2771,9 +2779,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8175 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(0), tmp8174)
+return PrimCons(MakeInteger(0), tmp8174)
 }
-__typedArg0 := MakeNumber(0)
+__typedArg0 := MakeInteger(0)
 __typedArg1 := tmp8174
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -2789,9 +2797,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8177 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8176)
+return PrimCons(MakeInteger(1), tmp8176)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8176
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -2807,9 +2815,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8179 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(2), tmp8178)
+return PrimCons(MakeInteger(2), tmp8178)
 }
-__typedArg0 := MakeNumber(2)
+__typedArg0 := MakeInteger(2)
 __typedArg1 := tmp8178
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -2825,9 +2833,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8181 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8180)
+return PrimCons(MakeInteger(1), tmp8180)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8180
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -2843,9 +2851,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8183 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(0), tmp8182)
+return PrimCons(MakeInteger(0), tmp8182)
 }
-__typedArg0 := MakeNumber(0)
+__typedArg0 := MakeInteger(0)
 __typedArg1 := tmp8182
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -2861,9 +2869,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8185 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(2), tmp8184)
+return PrimCons(MakeInteger(2), tmp8184)
 }
-__typedArg0 := MakeNumber(2)
+__typedArg0 := MakeInteger(2)
 __typedArg1 := tmp8184
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -2879,9 +2887,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8187 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8186)
+return PrimCons(MakeInteger(1), tmp8186)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8186
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -2897,9 +2905,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8189 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8188)
+return PrimCons(MakeInteger(1), tmp8188)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8188
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -2915,9 +2923,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8191 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8190)
+return PrimCons(MakeInteger(1), tmp8190)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8190
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -2933,9 +2941,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8193 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(2), tmp8192)
+return PrimCons(MakeInteger(2), tmp8192)
 }
-__typedArg0 := MakeNumber(2)
+__typedArg0 := MakeInteger(2)
 __typedArg1 := tmp8192
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -2951,9 +2959,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8195 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8194)
+return PrimCons(MakeInteger(1), tmp8194)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8194
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -2969,9 +2977,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8197 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8196)
+return PrimCons(MakeInteger(1), tmp8196)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8196
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -2987,9 +2995,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8199 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8198)
+return PrimCons(MakeInteger(1), tmp8198)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8198
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -3005,9 +3013,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8201 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(2), tmp8200)
+return PrimCons(MakeInteger(2), tmp8200)
 }
-__typedArg0 := MakeNumber(2)
+__typedArg0 := MakeInteger(2)
 __typedArg1 := tmp8200
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -3023,9 +3031,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8203 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(2), tmp8202)
+return PrimCons(MakeInteger(2), tmp8202)
 }
-__typedArg0 := MakeNumber(2)
+__typedArg0 := MakeInteger(2)
 __typedArg1 := tmp8202
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -3041,9 +3049,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8205 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8204)
+return PrimCons(MakeInteger(1), tmp8204)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8204
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -3059,9 +3067,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8207 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8206)
+return PrimCons(MakeInteger(1), tmp8206)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8206
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -3077,9 +3085,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8209 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(2), tmp8208)
+return PrimCons(MakeInteger(2), tmp8208)
 }
-__typedArg0 := MakeNumber(2)
+__typedArg0 := MakeInteger(2)
 __typedArg1 := tmp8208
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -3095,9 +3103,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8211 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(2), tmp8210)
+return PrimCons(MakeInteger(2), tmp8210)
 }
-__typedArg0 := MakeNumber(2)
+__typedArg0 := MakeInteger(2)
 __typedArg1 := tmp8210
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -3113,9 +3121,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8213 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8212)
+return PrimCons(MakeInteger(1), tmp8212)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8212
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -3131,9 +3139,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8215 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8214)
+return PrimCons(MakeInteger(1), tmp8214)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8214
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -3149,9 +3157,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8217 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8216)
+return PrimCons(MakeInteger(1), tmp8216)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8216
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -3167,9 +3175,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8219 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8218)
+return PrimCons(MakeInteger(1), tmp8218)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8218
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -3185,9 +3193,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8221 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8220)
+return PrimCons(MakeInteger(1), tmp8220)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8220
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -3203,9 +3211,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8223 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(0), tmp8222)
+return PrimCons(MakeInteger(0), tmp8222)
 }
-__typedArg0 := MakeNumber(0)
+__typedArg0 := MakeInteger(0)
 __typedArg1 := tmp8222
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -3221,9 +3229,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8225 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(6), tmp8224)
+return PrimCons(MakeInteger(6), tmp8224)
 }
-__typedArg0 := MakeNumber(6)
+__typedArg0 := MakeInteger(6)
 __typedArg1 := tmp8224
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -3239,9 +3247,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8227 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(6), tmp8226)
+return PrimCons(MakeInteger(6), tmp8226)
 }
-__typedArg0 := MakeNumber(6)
+__typedArg0 := MakeInteger(6)
 __typedArg1 := tmp8226
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -3257,9 +3265,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8229 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(0), tmp8228)
+return PrimCons(MakeInteger(0), tmp8228)
 }
-__typedArg0 := MakeNumber(0)
+__typedArg0 := MakeInteger(0)
 __typedArg1 := tmp8228
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -3275,9 +3283,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8231 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8230)
+return PrimCons(MakeInteger(1), tmp8230)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8230
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -3293,9 +3301,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8233 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(2), tmp8232)
+return PrimCons(MakeInteger(2), tmp8232)
 }
-__typedArg0 := MakeNumber(2)
+__typedArg0 := MakeInteger(2)
 __typedArg1 := tmp8232
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -3311,9 +3319,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8235 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8234)
+return PrimCons(MakeInteger(1), tmp8234)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8234
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -3329,9 +3337,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8237 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(0), tmp8236)
+return PrimCons(MakeInteger(0), tmp8236)
 }
-__typedArg0 := MakeNumber(0)
+__typedArg0 := MakeInteger(0)
 __typedArg1 := tmp8236
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -3347,9 +3355,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8239 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(2), tmp8238)
+return PrimCons(MakeInteger(2), tmp8238)
 }
-__typedArg0 := MakeNumber(2)
+__typedArg0 := MakeInteger(2)
 __typedArg1 := tmp8238
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -3365,9 +3373,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8241 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8240)
+return PrimCons(MakeInteger(1), tmp8240)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8240
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -3383,9 +3391,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8243 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(0), tmp8242)
+return PrimCons(MakeInteger(0), tmp8242)
 }
-__typedArg0 := MakeNumber(0)
+__typedArg0 := MakeInteger(0)
 __typedArg1 := tmp8242
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -3401,9 +3409,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8245 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8244)
+return PrimCons(MakeInteger(1), tmp8244)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8244
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -3419,9 +3427,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8247 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8246)
+return PrimCons(MakeInteger(1), tmp8246)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8246
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -3437,9 +3445,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8249 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8248)
+return PrimCons(MakeInteger(1), tmp8248)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8248
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -3455,9 +3463,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8251 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8250)
+return PrimCons(MakeInteger(1), tmp8250)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8250
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -3473,9 +3481,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8253 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(0), tmp8252)
+return PrimCons(MakeInteger(0), tmp8252)
 }
-__typedArg0 := MakeNumber(0)
+__typedArg0 := MakeInteger(0)
 __typedArg1 := tmp8252
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -3491,9 +3499,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8255 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8254)
+return PrimCons(MakeInteger(1), tmp8254)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8254
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -3509,9 +3517,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8257 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(3), tmp8256)
+return PrimCons(MakeInteger(3), tmp8256)
 }
-__typedArg0 := MakeNumber(3)
+__typedArg0 := MakeInteger(3)
 __typedArg1 := tmp8256
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -3527,9 +3535,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8259 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8258)
+return PrimCons(MakeInteger(1), tmp8258)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8258
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -3545,9 +3553,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8261 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(0), tmp8260)
+return PrimCons(MakeInteger(0), tmp8260)
 }
-__typedArg0 := MakeNumber(0)
+__typedArg0 := MakeInteger(0)
 __typedArg1 := tmp8260
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -3563,9 +3571,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8263 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8262)
+return PrimCons(MakeInteger(1), tmp8262)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8262
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -3581,9 +3589,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8265 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8264)
+return PrimCons(MakeInteger(1), tmp8264)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8264
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -3599,9 +3607,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8267 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8266)
+return PrimCons(MakeInteger(1), tmp8266)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8266
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -3617,9 +3625,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8269 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8268)
+return PrimCons(MakeInteger(1), tmp8268)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8268
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -3635,9 +3643,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8271 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(2), tmp8270)
+return PrimCons(MakeInteger(2), tmp8270)
 }
-__typedArg0 := MakeNumber(2)
+__typedArg0 := MakeInteger(2)
 __typedArg1 := tmp8270
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -3653,9 +3661,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8273 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(2), tmp8272)
+return PrimCons(MakeInteger(2), tmp8272)
 }
-__typedArg0 := MakeNumber(2)
+__typedArg0 := MakeInteger(2)
 __typedArg1 := tmp8272
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -3671,9 +3679,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8275 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(2), tmp8274)
+return PrimCons(MakeInteger(2), tmp8274)
 }
-__typedArg0 := MakeNumber(2)
+__typedArg0 := MakeInteger(2)
 __typedArg1 := tmp8274
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -3689,9 +3697,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8277 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(2), tmp8276)
+return PrimCons(MakeInteger(2), tmp8276)
 }
-__typedArg0 := MakeNumber(2)
+__typedArg0 := MakeInteger(2)
 __typedArg1 := tmp8276
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -3707,9 +3715,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8279 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(2), tmp8278)
+return PrimCons(MakeInteger(2), tmp8278)
 }
-__typedArg0 := MakeNumber(2)
+__typedArg0 := MakeInteger(2)
 __typedArg1 := tmp8278
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -3725,9 +3733,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8281 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(2), tmp8280)
+return PrimCons(MakeInteger(2), tmp8280)
 }
-__typedArg0 := MakeNumber(2)
+__typedArg0 := MakeInteger(2)
 __typedArg1 := tmp8280
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -3743,9 +3751,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8283 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(3), tmp8282)
+return PrimCons(MakeInteger(3), tmp8282)
 }
-__typedArg0 := MakeNumber(3)
+__typedArg0 := MakeInteger(3)
 __typedArg1 := tmp8282
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -3761,9 +3769,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8285 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8284)
+return PrimCons(MakeInteger(1), tmp8284)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8284
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -3779,9 +3787,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8287 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(3), tmp8286)
+return PrimCons(MakeInteger(3), tmp8286)
 }
-__typedArg0 := MakeNumber(3)
+__typedArg0 := MakeInteger(3)
 __typedArg1 := tmp8286
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -3797,9 +3805,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8289 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8288)
+return PrimCons(MakeInteger(1), tmp8288)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8288
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -3815,9 +3823,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8291 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8290)
+return PrimCons(MakeInteger(1), tmp8290)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8290
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -3833,9 +3841,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8293 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8292)
+return PrimCons(MakeInteger(1), tmp8292)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8292
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -3851,9 +3859,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8295 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8294)
+return PrimCons(MakeInteger(1), tmp8294)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8294
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -3869,9 +3877,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8297 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(0), tmp8296)
+return PrimCons(MakeInteger(0), tmp8296)
 }
-__typedArg0 := MakeNumber(0)
+__typedArg0 := MakeInteger(0)
 __typedArg1 := tmp8296
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -3887,9 +3895,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8299 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8298)
+return PrimCons(MakeInteger(1), tmp8298)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8298
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -3905,9 +3913,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8301 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(5), tmp8300)
+return PrimCons(MakeInteger(5), tmp8300)
 }
-__typedArg0 := MakeNumber(5)
+__typedArg0 := MakeInteger(5)
 __typedArg1 := tmp8300
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -3923,9 +3931,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8303 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8302)
+return PrimCons(MakeInteger(1), tmp8302)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8302
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -3941,9 +3949,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8305 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(7), tmp8304)
+return PrimCons(MakeInteger(7), tmp8304)
 }
-__typedArg0 := MakeNumber(7)
+__typedArg0 := MakeInteger(7)
 __typedArg1 := tmp8304
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -3959,9 +3967,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8307 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(2), tmp8306)
+return PrimCons(MakeInteger(2), tmp8306)
 }
-__typedArg0 := MakeNumber(2)
+__typedArg0 := MakeInteger(2)
 __typedArg1 := tmp8306
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -3977,9 +3985,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8309 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(0), tmp8308)
+return PrimCons(MakeInteger(0), tmp8308)
 }
-__typedArg0 := MakeNumber(0)
+__typedArg0 := MakeInteger(0)
 __typedArg1 := tmp8308
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -3995,9 +4003,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8311 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(2), tmp8310)
+return PrimCons(MakeInteger(2), tmp8310)
 }
-__typedArg0 := MakeNumber(2)
+__typedArg0 := MakeInteger(2)
 __typedArg1 := tmp8310
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -4013,9 +4021,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8313 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(0), tmp8312)
+return PrimCons(MakeInteger(0), tmp8312)
 }
-__typedArg0 := MakeNumber(0)
+__typedArg0 := MakeInteger(0)
 __typedArg1 := tmp8312
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -4031,9 +4039,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8315 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8314)
+return PrimCons(MakeInteger(1), tmp8314)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8314
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -4049,9 +4057,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8317 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8316)
+return PrimCons(MakeInteger(1), tmp8316)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8316
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -4067,9 +4075,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8319 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8318)
+return PrimCons(MakeInteger(1), tmp8318)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8318
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -4085,9 +4093,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8321 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8320)
+return PrimCons(MakeInteger(1), tmp8320)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8320
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -4103,9 +4111,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8323 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8322)
+return PrimCons(MakeInteger(1), tmp8322)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8322
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -4121,9 +4129,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8325 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8324)
+return PrimCons(MakeInteger(1), tmp8324)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8324
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -4139,9 +4147,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8327 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8326)
+return PrimCons(MakeInteger(1), tmp8326)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8326
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -4157,9 +4165,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8329 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8328)
+return PrimCons(MakeInteger(1), tmp8328)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8328
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -4175,9 +4183,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8331 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8330)
+return PrimCons(MakeInteger(1), tmp8330)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8330
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -4193,9 +4201,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8333 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(2), tmp8332)
+return PrimCons(MakeInteger(2), tmp8332)
 }
-__typedArg0 := MakeNumber(2)
+__typedArg0 := MakeInteger(2)
 __typedArg1 := tmp8332
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -4211,9 +4219,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8335 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(2), tmp8334)
+return PrimCons(MakeInteger(2), tmp8334)
 }
-__typedArg0 := MakeNumber(2)
+__typedArg0 := MakeInteger(2)
 __typedArg1 := tmp8334
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -4229,9 +4237,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8337 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(2), tmp8336)
+return PrimCons(MakeInteger(2), tmp8336)
 }
-__typedArg0 := MakeNumber(2)
+__typedArg0 := MakeInteger(2)
 __typedArg1 := tmp8336
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -4247,9 +4255,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8339 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8338)
+return PrimCons(MakeInteger(1), tmp8338)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8338
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -4265,9 +4273,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8341 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(2), tmp8340)
+return PrimCons(MakeInteger(2), tmp8340)
 }
-__typedArg0 := MakeNumber(2)
+__typedArg0 := MakeInteger(2)
 __typedArg1 := tmp8340
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -4283,9 +4291,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8343 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(0), tmp8342)
+return PrimCons(MakeInteger(0), tmp8342)
 }
-__typedArg0 := MakeNumber(0)
+__typedArg0 := MakeInteger(0)
 __typedArg1 := tmp8342
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -4301,9 +4309,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8345 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8344)
+return PrimCons(MakeInteger(1), tmp8344)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8344
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -4319,9 +4327,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8347 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(2), tmp8346)
+return PrimCons(MakeInteger(2), tmp8346)
 }
-__typedArg0 := MakeNumber(2)
+__typedArg0 := MakeInteger(2)
 __typedArg1 := tmp8346
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -4337,9 +4345,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8349 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8348)
+return PrimCons(MakeInteger(1), tmp8348)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8348
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -4355,9 +4363,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8351 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(2), tmp8350)
+return PrimCons(MakeInteger(2), tmp8350)
 }
-__typedArg0 := MakeNumber(2)
+__typedArg0 := MakeInteger(2)
 __typedArg1 := tmp8350
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -4373,9 +4381,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8353 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(2), tmp8352)
+return PrimCons(MakeInteger(2), tmp8352)
 }
-__typedArg0 := MakeNumber(2)
+__typedArg0 := MakeInteger(2)
 __typedArg1 := tmp8352
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -4391,9 +4399,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8355 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(2), tmp8354)
+return PrimCons(MakeInteger(2), tmp8354)
 }
-__typedArg0 := MakeNumber(2)
+__typedArg0 := MakeInteger(2)
 __typedArg1 := tmp8354
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -4409,9 +4417,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8357 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8356)
+return PrimCons(MakeInteger(1), tmp8356)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8356
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -4427,9 +4435,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8359 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(5), tmp8358)
+return PrimCons(MakeInteger(5), tmp8358)
 }
-__typedArg0 := MakeNumber(5)
+__typedArg0 := MakeInteger(5)
 __typedArg1 := tmp8358
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -4445,9 +4453,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8361 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(6), tmp8360)
+return PrimCons(MakeInteger(6), tmp8360)
 }
-__typedArg0 := MakeNumber(6)
+__typedArg0 := MakeInteger(6)
 __typedArg1 := tmp8360
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -4463,9 +4471,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8363 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8362)
+return PrimCons(MakeInteger(1), tmp8362)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8362
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -4481,9 +4489,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8365 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8364)
+return PrimCons(MakeInteger(1), tmp8364)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8364
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -4499,9 +4507,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8367 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8366)
+return PrimCons(MakeInteger(1), tmp8366)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8366
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -4517,9 +4525,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8369 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8368)
+return PrimCons(MakeInteger(1), tmp8368)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8368
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -4535,9 +4543,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8371 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(2), tmp8370)
+return PrimCons(MakeInteger(2), tmp8370)
 }
-__typedArg0 := MakeNumber(2)
+__typedArg0 := MakeInteger(2)
 __typedArg1 := tmp8370
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -4553,9 +4561,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8373 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8372)
+return PrimCons(MakeInteger(1), tmp8372)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8372
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -4571,9 +4579,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8375 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(2), tmp8374)
+return PrimCons(MakeInteger(2), tmp8374)
 }
-__typedArg0 := MakeNumber(2)
+__typedArg0 := MakeInteger(2)
 __typedArg1 := tmp8374
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -4589,9 +4597,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8377 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(2), tmp8376)
+return PrimCons(MakeInteger(2), tmp8376)
 }
-__typedArg0 := MakeNumber(2)
+__typedArg0 := MakeInteger(2)
 __typedArg1 := tmp8376
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -4607,9 +4615,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8379 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(2), tmp8378)
+return PrimCons(MakeInteger(2), tmp8378)
 }
-__typedArg0 := MakeNumber(2)
+__typedArg0 := MakeInteger(2)
 __typedArg1 := tmp8378
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -4625,9 +4633,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8381 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(3), tmp8380)
+return PrimCons(MakeInteger(3), tmp8380)
 }
-__typedArg0 := MakeNumber(3)
+__typedArg0 := MakeInteger(3)
 __typedArg1 := tmp8380
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -4643,9 +4651,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8383 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8382)
+return PrimCons(MakeInteger(1), tmp8382)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8382
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -4661,9 +4669,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8385 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8384)
+return PrimCons(MakeInteger(1), tmp8384)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8384
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -4679,9 +4687,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8387 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(1), tmp8386)
+return PrimCons(MakeInteger(1), tmp8386)
 }
-__typedArg0 := MakeNumber(1)
+__typedArg0 := MakeInteger(1)
 __typedArg1 := tmp8386
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -4697,9 +4705,9 @@ return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 
 tmp8389 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(MakeNumber(0), tmp8388)
+return PrimCons(MakeInteger(0), tmp8388)
 }
-__typedArg0 := MakeNumber(0)
+__typedArg0 := MakeInteger(0)
 __typedArg1 := tmp8388
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -4826,7 +4834,7 @@ __typedArg0 := MakeString(",")
 return Call(__e, PrimFunc(symintern), __typedArg0)
 })()
 
-tmp8407 := Call(__e, PrimFunc(symvector), MakeNumber(0))
+tmp8407 := Call(__e, PrimFunc(symvector), MakeInteger(0))
 
 
 tmp8408 := (func() Obj {
@@ -7300,10 +7308,10 @@ _ = let__7867
 
 tmp8691 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
-return PrimEqual(let__7867, MakeNumber(-1))
+return PrimEqual(let__7867, MakeInteger(-1))
 }
 __typedArg0 := let__7867
-__typedArg1 := MakeNumber(-1)
+__typedArg1 := MakeInteger(-1)
 return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
 })()
 
@@ -7316,10 +7324,10 @@ ifres8688 = True
 } else {
 tmp8690 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
-return PrimEqual(let__7867, MakeNumber(0))
+return PrimEqual(let__7867, MakeInteger(0))
 }
 __typedArg0 := let__7867
-__typedArg1 := MakeNumber(0)
+__typedArg1 := MakeInteger(0)
 return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
 })()
 

@@ -470,8 +470,10 @@ func MakeNumber(f float64) Obj {
 	// A float beyond the int range is still mathematically integral, but
 	// narrowing it overflows -- int(1e300) saturates to maxint64, turning the
 	// value into a different one. Keep those as float64 instead.
-	if isPreciseInteger(f) && f >= minIntAsFloat && f < maxIntAsFloat {
-		return MakeInteger(int(f))
+	if f >= minIntAsFloat && f < maxIntAsFloat {
+		if i := int(f); float64(i) == f {
+			return MakeInteger(i)
+		}
 	}
 
 	tmp := scmNumber{scmHeadNumber, f}

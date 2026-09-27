@@ -145,25 +145,14 @@ func Cons(x, y Obj) Obj {
 // isInteger determinate whether a float64 is actually a precise integer.
 // Judge is according to IEEE754 standard.
 func isPreciseInteger(f float64) bool {
-	// math.Ilogb answers math.MaxInt32 for +-Inf and NaN, which would fall
-	// straight into the `exp >= 52` shortcut below and report them as
-	// integers. They are not integers under any reading, and callers narrow
-	// on the strength of this answer.
-	if math.IsInf(f, 0) || math.IsNaN(f) {
-		return false
+	// Inside the int64 range, truncation is exact and reversible exactly
+	// when f has no fractional part (-0 included). Outside it every finite
+	// float64 is a whole number; +-Inf and NaN are not integers under any
+	// reading, and callers narrow on the strength of this answer.
+	if f > -maxIntAsFloat && f < maxIntAsFloat {
+		return float64(int64(f)) == f
 	}
-
-	exp := math.Ilogb(f)
-	if exp < 0 && exp != math.MinInt32 {
-		return false
-	}
-
-	if exp >= 52 {
-		return true
-	}
-
-	bits := math.Float64bits(f)
-	return (bits << uint(12+exp)) == 0
+	return !math.IsNaN(f) && !math.IsInf(f, 0)
 }
 
 // fitsInt reports whether f can be converted to Go's int without changing its

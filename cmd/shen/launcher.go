@@ -172,7 +172,10 @@ tmp20201 := Call(__e, ns2_1set, symshen_4x_4launcher_4help_1text, tmp20199)
 _ = tmp20201
 
 tmp20202 := MakeNative(func(__e *ControlFlow) {
-V7106 := __e.Get(1)
+__self := __e.Get(0)
+__self1 := __e.Get(1)
+__selftop:
+V7106 := __self1
 _ = V7106
 tmp20209 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
@@ -224,6 +227,11 @@ __typedArg0 := V7106
 return Call(__e, PrimFunc(symtl), __typedArg0)
 })()
 
+if PrimFunc(symshen_4x_4launcher_4execute_1all) == __self {
+__self1 = tmp20205
+__e.Tick()
+goto __selftop
+}
 __e.TailApply(PrimFunc(symshen_4x_4launcher_4execute_1all), tmp20205)
 return
 
@@ -357,9 +365,13 @@ tmp20226 := Call(__e, ns2_1set, symshen_4x_4launcher_4eval_1flag_1map, tmp20215)
 _ = tmp20226
 
 tmp20227 := MakeNative(func(__e *ControlFlow) {
-V7115 := __e.Get(1)
+__self := __e.Get(0)
+__self1 := __e.Get(1)
+__self2 := __e.Get(2)
+__selftop:
+V7115 := __self1
 _ = V7115
-V7116 := __e.Get(2)
+V7116 := __self2
 _ = V7116
 tmp20329 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
@@ -526,6 +538,11 @@ __typedArg1 := V7116
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
 
+if PrimFunc(symshen_4x_4launcher_4eval_1command_1h) == __self {
+__self1, __self2 = tmp20230, tmp20237
+__e.Tick()
+goto __selftop
+}
 __e.TailApply(PrimFunc(symshen_4x_4launcher_4eval_1command_1h), tmp20230, tmp20237)
 return
 
@@ -669,6 +686,11 @@ __typedArg1 := V7116
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
 
+if PrimFunc(symshen_4x_4launcher_4eval_1command_1h) == __self {
+__self1, __self2 = tmp20239, tmp20243
+__e.Tick()
+goto __selftop
+}
 __e.TailApply(PrimFunc(symshen_4x_4launcher_4eval_1command_1h), tmp20239, tmp20243)
 return
 
@@ -753,6 +775,11 @@ __typedArg1 := V7116
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
 
+if PrimFunc(symshen_4x_4launcher_4eval_1command_1h) == __self {
+__self1, __self2 = tmp20244, tmp20246
+__e.Tick()
+goto __selftop
+}
 __e.TailApply(PrimFunc(symshen_4x_4launcher_4eval_1command_1h), tmp20244, tmp20246)
 return
 
@@ -989,6 +1016,11 @@ __typedArg1 := V7116
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
 
+if PrimFunc(symshen_4x_4launcher_4eval_1command_1h) == __self {
+__self1, __self2 = tmp20249, tmp20258
+__e.Tick()
+goto __selftop
+}
 __e.TailApply(PrimFunc(symshen_4x_4launcher_4eval_1command_1h), tmp20249, tmp20258)
 return
 
