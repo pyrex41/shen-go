@@ -192,6 +192,17 @@ func (cg *CodeGenerator) generateExpr(w io.Writer, sexp kl.Obj) error {
 		fmt.Fprintf(w, "%s := ", symbolAsVar(a))
 		cg.generateExpr(w, b)
 		fmt.Fprintln(w)
+	case "bind":
+		// (bind x v): a KL let. The compiler gives every binder a fresh
+		// name, so this is the only declaration of x in its scope; x may
+		// go unused in the body.
+		a := kl.Car(kl.Cdr(sexp))
+		b := kl.Car(kl.Cdr(kl.Cdr(sexp)))
+		fmt.Fprintf(w, "%s := ", symbolAsVar(a))
+		if err := cg.generateExpr(w, b); err != nil {
+			return err
+		}
+		fmt.Fprintf(w, "\n_ = %s\n", symbolAsVar(a))
 	case "$global":
 		sym := kl.Car(kl.Cdr(sexp))
 		cg.declare[sym] = struct{}{}
@@ -746,6 +757,10 @@ func (cg *CodeGenerator) primitiveCallOptimize(w io.Writer, sexp kl.Obj, tail bo
 	if cg.Sealed {
 		return cg.emitDirectPrimitive(w, primName, args, tail)
 	}
+	// Both guarded shapes below name sym<global> in the guard and in the
+	// fallback. The kernel happens to declare every primitive's symbol
+	// elsewhere; a small plugin that only uses, say, cons? does not.
+	cg.declare[global] = struct{}{}
 	// Scalar lowering is valid only while the global still has its canonical
 	// primitive binding.  Generated code must retain the dynamic fallback: a
 	// Shen program may redefine a primitive before invoking compiled code.

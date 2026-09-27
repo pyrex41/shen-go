@@ -7,7 +7,8 @@
   Env [lambda X Y] -> [$lambda [X] (parse (cons X Env) Y)]
 
   Env [defun F X Y] -> [ns2-set [$const F] [$lambda X (parse X Y)]]
-  Env [let X Y Z] -> [[$lambda [X] (parse (cons X Env) Z)] (parse Env Y)]
+  Env [let X Y Z] -> (let X1 (gensym (intern "let_"))
+                        [$let X1 (parse Env Y) (parse (cons X1 Env) (rename-var X1 X Z))])
   Env [trap-error Body Handler] -> [try-catch [$lambda [] (parse Env Body)] (parse Env Handler)]
 
   Env [or X Y] -> (parse Env [if X true [if Y true false]])
@@ -21,6 +22,19 @@
   Env [F | X] -> [(parse-app Env F) | (map (parse Env) X)] where (symbol? F)
   Env [F | X] -> (map (parse Env) [F | X]))
 
+
+\\ A let used to become [[$lambda [X] Z] Y]: a closure allocated and
+\\ tail-applied on every evaluation, which was half of all allocation on the
+\\ kernel test suite. It is now bound to a fresh Go local instead. The
+\\ binder is renamed so that sequential or nested lets of the same name
+\\ never declare one Go variable twice in a scope.
+(define rename-var
+  New Old Old -> New
+  New Old [let Old V B] -> [let Old (rename-var New Old V) B]
+  New Old [lambda Old B] -> [lambda Old B]
+  New Old [defun F Args B] -> [defun F Args B]
+  New Old [X | Y] -> (map (rename-var New Old) [X | Y])
+  _ _ X -> X)
 
 (define parse-app
   Env F -> F where (element? F Env)
@@ -43,6 +57,8 @@
 					   (cons [if REG1 Y1 Z1] BC1)))))
       BC [$do X Y] -> (peval BC X (/. BC1 (/. X1
 				    (peval-t (cons [ignore X1] BC1) Y))))
+      BC [$let X Y Z] -> (peval BC Y (/. BC1 (/. Y1
+				    (peval-t (cons [bind X Y1] BC1) Z))))
       BC [$lambda Args Body] -> (cons [return [lambda Args (peval0 Body)]] BC)
       BC [F | Args] -> (peval-call BC [F | Args] []
 				   (/. BC1 (/. REGS
@@ -61,6 +77,8 @@
 							   (CC [[if REG1 Y1 Z1] [var TMP] | BC1] TMP))))))
       BC [$do X Y] CC -> (peval BC X (/. BC1 (/. X1
 				(peval (cons [ignore X1] BC1) Y CC))))
+      BC [$let X Y Z] CC -> (peval BC Y (/. BC1 (/. Y1
+				(peval (cons [bind X Y1] BC1) Z CC))))
       BC [$lambda ARGS BODY] CC -> (let TMP (gensym tmp)
 					 (CC (cons [<= TMP [lambda ARGS (peval0 BODY)]] BC) TMP))
       BC [F | ARGS] CC -> (peval-call BC [F | ARGS] []

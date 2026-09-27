@@ -232,3 +232,44 @@ func compileAndRunGenerated(t *testing.T, body kl.Obj, harness string) {
 		t.Fatalf("generated Go execution failed: %v\n%s\nsource:\n%s", err, out, src.String())
 	}
 }
+
+// TestAOTBindIsALocalNotAClosure covers the IR's let: (bind x v) must declare
+// a Go local, tolerate a binder the body never reads, and be visible to a
+// closure created later in the same body.
+func TestAOTBindIsALocalNotAClosure(t *testing.T) {
+	sym := kl.MakeSymbol
+	c := func(n float64) kl.Obj { return irList(sym("$const"), kl.MakeNumber(n)) }
+	body := irList(sym("block"),
+		irList(sym("bind"), sym("let_1"), c(40)),
+		irList(sym("bind"), sym("let_2"), c(0)),
+		irList(sym("<="), sym("tmp1"), irList(sym("lambda"), irList(sym("Y")),
+			irList(sym("return"), sym("let_1")))),
+		irList(sym("tailapply"), sym("tmp1"), c(2)))
+	var src bytes.Buffer
+	if err := New().HandleBodyObj(body, "Generated", &src); err != nil {
+		t.Fatal(err)
+	}
+	if strings.Count(src.String(), "MakeNative(") != 2 {
+		t.Fatalf("bind allocated a closure:\n%s", src.String())
+	}
+	compileAndRunGenerated(t, body, `
+		_ = os.Args
+		got := kl.Call(&kl.ControlFlow{}, Generated)
+		if n, ok := kl.TypedFloat64(got); !ok || n != 40 { t.Fatalf("got %s", kl.ObjString(got)) }
+	`)
+}
+
+// TestAOTGuardedNonScalarPrimitiveDeclaresItsSymbol: the guard for a
+// primitive outside the scalar set (cons?) names sym<prim>. A module that
+// mentions no other use of the symbol must still declare it, or a plugin
+// built from a small file fails with "undefined: symcons_2".
+func TestAOTGuardedNonScalarPrimitiveDeclaresItsSymbol(t *testing.T) {
+	sym := kl.MakeSymbol
+	body := irList(sym("return"), irList(sym("call"), irList(sym("$global"), sym("cons?")),
+		irList(sym("$const"), kl.MakeNumber(1))))
+	compileAndRunGenerated(t, body, `
+		_ = os.Args
+		got := kl.Call(&kl.ControlFlow{}, Generated)
+		if got != kl.False { t.Fatalf("got %s", kl.ObjString(got)) }
+	`)
+}
