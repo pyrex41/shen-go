@@ -445,6 +445,25 @@ func makeTempSymbols(n int) []Obj {
 }
 
 func Call(e *ControlFlow, f Obj, args ...Obj) Obj {
+	// The compiled kernel calls natives almost exclusively: run an
+	// exact-arity one without captured arguments directly, and enter the
+	// trampoline only if it tail-calls. This is the same shortcut as the
+	// VM's OP_CALL, and like the trampoline it charges the step budget.
+	if f != nil && !isFixnum(f) && *f == scmHeadNative {
+		if nf := MustNative(f); len(nf.captured) == 0 && nf.require == len(args) {
+			if e.stepLimit != 0 {
+				e.tick()
+			}
+			e.tailApplySlice(f, args)
+			nf.fn(e)
+			if e.kind == ControlFlowReturn {
+				ret := e.data[e.pos]
+				e.data = e.data[:e.pos]
+				return ret
+			}
+			return trampoline(e)
+		}
+	}
 	e.tailApplySlice(f, args)
 	return trampoline(e)
 }
