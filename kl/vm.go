@@ -3,6 +3,7 @@ package kl
 import (
 	"fmt"
 	"math"
+	"sync/atomic"
 	"unsafe"
 )
 
@@ -57,6 +58,12 @@ type BytecodeFunc struct {
 	// TypeHints preserves advisory (type ...) annotations for later typed-IR
 	// passes. Hints never alter runtime behavior or introduce errors.
 	TypeHints []TypeHint
+	// stackNeed is the operand-stack capacity an earlier activation grew to
+	// after outgrowing its frame's headroom (0 until that happens). takeFrame
+	// reserves it so later activations stay on the arena instead of
+	// reallocating their operand stack on every call. Read and written
+	// atomically: one BytecodeFunc may run on several goroutines.
+	stackNeed int32
 }
 
 type TypeHint struct {
@@ -438,6 +445,67 @@ func makeBytecodeObj(fn *BytecodeFunc, upvals []Obj) Obj {
 	return &tmp.scmHead
 }
 
+// noteStackNeed records that an activation's operand stack outgrew its frame
+// and was reallocated to capacity n, so takeFrame reserves n from now on.
+func (fn *BytecodeFunc) noteStackNeed(n int) {
+	if int32(n) > atomic.LoadInt32(&fn.stackNeed) {
+		atomic.StoreInt32(&fn.stackNeed, int32(n))
+	}
+}
+
+// Closures with up to four upvalues carry them inline, so OP_MAKE_CLOSURE
+// costs one allocation instead of two (the upvals slice and the closure).
+type scmBytecodeClosure1 struct {
+	scmBytecodeFunc
+	buf [1]Obj
+}
+
+type scmBytecodeClosure2 struct {
+	scmBytecodeFunc
+	buf [2]Obj
+}
+
+type scmBytecodeClosure3 struct {
+	scmBytecodeFunc
+	buf [3]Obj
+}
+
+type scmBytecodeClosure4 struct {
+	scmBytecodeFunc
+	buf [4]Obj
+}
+
+// makeBytecodeClosure allocates a closure over fn with n zeroed upvalues and
+// returns it with its upvals slice for the caller to fill.
+func makeBytecodeClosure(fn *BytecodeFunc, n int) (Obj, []Obj) {
+	var bf *scmBytecodeFunc
+	switch n {
+	case 0:
+		return makeBytecodeObj(fn, []Obj{}), nil
+	case 1:
+		c := &scmBytecodeClosure1{}
+		c.upvals = c.buf[:]
+		bf = &c.scmBytecodeFunc
+	case 2:
+		c := &scmBytecodeClosure2{}
+		c.upvals = c.buf[:]
+		bf = &c.scmBytecodeFunc
+	case 3:
+		c := &scmBytecodeClosure3{}
+		c.upvals = c.buf[:]
+		bf = &c.scmBytecodeFunc
+	case 4:
+		c := &scmBytecodeClosure4{}
+		c.upvals = c.buf[:]
+		bf = &c.scmBytecodeFunc
+	default:
+		bf = &scmBytecodeFunc{upvals: make([]Obj, n)}
+	}
+	bf.scmHead = scmHeadBytecodeFunc
+	bf.fn = fn
+	return &bf.scmHead, bf.upvals
+}
+
 func mustBytecodeFunc(o Obj) *scmBytecodeFunc {
 	return (*scmBytecodeFunc)(unsafe.Pointer(o))
 }
@@ -566,11 +634,12 @@ func vmExecSlots(ctl *ControlFlow, bf *scmBytecodeFunc, args []vmSlot) {
 	// putFrame, and a panic that skips them is repaired by frameReset at the
 	// recover sites. Any future non-LIFO frame lifetime (continuations,
 	// coroutines sharing a ControlFlow) must go through frameReset.
-	slab, fmark := ctl.takeFrame(fn.Nlocals)
+	slab, fmark := ctl.takeFrame(fn.Nlocals, int(atomic.LoadInt32(&fn.stackNeed)))
 	locals := slab
 	copy(locals, args)
 
 	stack := slab[fn.Nlocals:]
+	stackCap := cap(stack)
 	pc := 0
 	code := fn.Code
 	consts := fn.Consts
@@ -696,11 +765,17 @@ func vmExecSlots(ctl *ControlFlow, bf *scmBytecodeFunc, args []vmSlot) {
 			base := len(stack) - n - 1
 			callee := stack[base].objValue()
 			ctl.tailApplySlots(callee, stack[base+1:])
+			if cap(stack) > stackCap {
+				fn.noteStackNeed(cap(stack))
+			}
 			ctl.putFrame(slab, fmark)
 			return
 
 		case OP_RETURN:
 			ctl.Return(stack[len(stack)-1].objValue())
+			if cap(stack) > stackCap {
+				fn.noteStackNeed(cap(stack))
+			}
 			ctl.putFrame(slab, fmark)
 			return
 
@@ -721,13 +796,12 @@ func vmExecSlots(ctl *ControlFlow, bf *scmBytecodeFunc, args []vmSlot) {
 			nUpvals := int(instr.B)
 			innerBFObj := consts[instr.A]
 			innerBF := mustBytecodeFunc(innerBFObj)
-			captured := make([]Obj, nUpvals)
+			closure, captured := makeBytecodeClosure(innerBF.fn, nUpvals)
 			base := len(stack) - nUpvals
 			for i := range captured {
 				captured[i] = stack[base+i].objValue()
 			}
 			stack = stack[:base]
-			closure := makeBytecodeObj(innerBF.fn, captured)
 			stack = append(stack, slotFromObj(closure))
 
 		case OP_POP:

@@ -121,12 +121,14 @@ func (ctl *ControlFlow) frameMarkNow() frameMark {
 	return frameMark{ctl.frameCur, ctl.frameTop}
 }
 
-// takeFrame returns a slab with len==nlocals and cap==max(nlocals+frameHeadroom,
-// minFrameCap) carved from the arena top, cleared, plus the mark to putFrame
+// takeFrame returns a slab with len==nlocals and
+// cap==max(nlocals+max(frameHeadroom, stackNeed), minFrameCap) carved from the
+// arena top (stackNeed is the function's learned operand-stack need, see
+// BytecodeFunc.stackNeed), cleared, plus the mark to putFrame
 // later. The unused capacity is the operand-stack region; the 3-index slice
 // guarantees append can never write into the next frame.
-func (ctl *ControlFlow) takeFrame(nlocals int) ([]vmSlot, frameMark) {
-	need := nlocals + frameHeadroom
+func (ctl *ControlFlow) takeFrame(nlocals, stackNeed int) ([]vmSlot, frameMark) {
+	need := nlocals + max(frameHeadroom, stackNeed)
 	if need < minFrameCap {
 		need = minFrameCap
 	}
