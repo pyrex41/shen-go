@@ -7,7 +7,8 @@
   Env [lambda X Y] -> [$lambda [X] (parse (cons X Env) Y)]
 
   Env [defun F X Y] -> [ns2-set [$const F] [$lambda X (parse X Y)]]
-  Env [let X Y Z] -> [[$lambda [X] (parse (cons X Env) Z)] (parse Env Y)]
+  Env [let X Y Z] -> (let X1 (gensym X)
+                        [$let X1 (parse Env Y) (parse (cons X1 Env) (rename-var X X1 Z))])
   Env [trap-error Body Handler] -> [try-catch [$lambda [] (parse Env Body)] (parse Env Handler)]
 
   Env [or X Y] -> (parse Env [if X true [if Y true false]])
@@ -21,6 +22,22 @@
   Env [F | X] -> [(parse-app Env F) | (map (parse Env) X)] where (symbol? F)
   Env [F | X] -> (map (parse Env) [F | X]))
 
+
+\\ let is lowered to a register binding ([bind X Value]) followed by the body
+\\ inline, not to ((lambda [X] Body) Value): that shape allocated a closure
+\\ per let and entered its body through TailApply. The binder is renamed to a
+\\ fresh symbol so that shadowing lets, and lets reusing a parameter's name,
+\\ never declare the same Go variable twice in one scope. rename-var stops at
+\\ an inner binder of the same name and leaves type annotations alone.
+(define rename-var
+  Old New [let Old Y Z] -> [let Old (rename-var Old New Y) Z]
+  Old New [let X Y Z] -> [let X (rename-var Old New Y) (rename-var Old New Z)]
+  Old New [lambda Old Y] -> [lambda Old Y]
+  Old New [lambda X Y] -> [lambda X (rename-var Old New Y)]
+  Old New [type X T] -> [type (rename-var Old New X) T]
+  Old New Old -> New
+  Old New [X | Y] -> (map (/. Z (rename-var Old New Z)) [X | Y])
+  _ _ X -> X)
 
 (define parse-app
   Env F -> F where (element? F Env)
@@ -43,6 +60,8 @@
 					   (cons [if REG1 Y1 Z1] BC1)))))
       BC [$do X Y] -> (peval BC X (/. BC1 (/. X1
 				    (peval-t (cons [ignore X1] BC1) Y))))
+      BC [$let X Y Z] -> (peval BC Y (/. BC1 (/. Y1
+				    (peval-t (cons [bind X Y1] BC1) Z))))
       BC [$lambda Args Body] -> (cons [return [lambda Args (peval0 Body)]] BC)
       BC [F | Args] -> (peval-call BC [F | Args] []
 				   (/. BC1 (/. REGS
@@ -61,6 +80,8 @@
 							   (CC [[if REG1 Y1 Z1] [var TMP] | BC1] TMP))))))
       BC [$do X Y] CC -> (peval BC X (/. BC1 (/. X1
 				(peval (cons [ignore X1] BC1) Y CC))))
+      BC [$let X Y Z] CC -> (peval BC Y (/. BC1 (/. Y1
+				(peval (cons [bind X Y1] BC1) Z CC))))
       BC [$lambda ARGS BODY] CC -> (let TMP (gensym tmp)
 					 (CC (cons [<= TMP [lambda ARGS (peval0 BODY)]] BC) TMP))
       BC [F | ARGS] CC -> (peval-call BC [F | ARGS] []

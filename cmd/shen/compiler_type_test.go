@@ -5,6 +5,7 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"regexp"
 	"strings"
 	"testing"
 	"time"
@@ -68,5 +69,35 @@ func TestCompileFileMalformedTypeRemainsLegacy(t *testing.T) {
 	}
 	if !strings.Contains(compiled, "($global type)") {
 		t.Fatalf("malformed type form did not retain legacy global call: %s", compiled)
+	}
+}
+
+// TestCompileFileLowersLetToBind pins the let lowering: a let becomes a
+// (bind X V) register binding, not ((lambda [X] Body) V), which allocated a
+// closure per let and entered the body through TailApply. Binders are renamed
+// apart so shadowing lets and a let reusing a parameter's name never declare
+// one Go variable twice, and an inner lambda rebinding the name keeps its own.
+func TestCompileFileLowersLetToBind(t *testing.T) {
+	compiled := compileSource(t, "(defun f (X) (let X (+ X 1) (let X (* X 2) (let _ (g X) (lambda X X)))))")
+	if strings.Contains(compiled, "tailapply tmp") || strings.Contains(compiled, "call tmp") {
+		t.Fatalf("let still applied through a closure: %s", compiled)
+	}
+	binds := regexp.MustCompile(`\(bind (\S+) `).FindAllStringSubmatch(compiled, -1)
+	if len(binds) != 3 {
+		t.Fatalf("want 3 bind forms, got %d: %s", len(binds), compiled)
+	}
+	seen := map[string]bool{"X": true}
+	for _, b := range binds {
+		if seen[b[1]] {
+			t.Fatalf("bind target %s is not fresh: %s", b[1], compiled)
+		}
+		seen[b[1]] = true
+	}
+	// The second let's value reads the first binder, (g X) reads the second.
+	if !strings.Contains(compiled, "($global *) "+binds[0][1]+" ") || !strings.Contains(compiled, "($global g) "+binds[1][1]+")") {
+		t.Fatalf("let values do not read the enclosing binders: %s", compiled)
+	}
+	if !strings.Contains(compiled, "(lambda (X) (return X))") {
+		t.Fatalf("inner lambda X was renamed: %s", compiled)
 	}
 }

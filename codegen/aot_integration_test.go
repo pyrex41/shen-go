@@ -232,3 +232,44 @@ func compileAndRunGenerated(t *testing.T, body kl.Obj, harness string) {
 		t.Fatalf("generated Go execution failed: %v\n%s\nsource:\n%s", err, out, src.String())
 	}
 }
+
+// TestAOTGeneratedBind executes the (bind X V) let lowering. An unused
+// binding must still compile, a lambda must capture the bound value, and the
+// value must be computed where the let is: a failing value whose only use is
+// inside a lambda that never runs still raises.
+func TestAOTGeneratedBind(t *testing.T) {
+	sym := kl.MakeSymbol
+	c := func(n float64) kl.Obj { return irList(sym("$const"), kl.MakeNumber(n)) }
+	call := func(name string, args ...kl.Obj) kl.Obj {
+		return irList(append([]kl.Obj{sym("call"), irList(sym("$global"), sym(name))}, args...)...)
+	}
+	ret := func(x kl.Obj) kl.Obj { return irList(sym("return"), x) }
+	lambda := func(arg string, body kl.Obj) kl.Obj { return irList(sym("lambda"), irList(sym(arg)), body) }
+
+	// (let Unused (+ 1 2) (let X (* 4 5) (lambda Y (+ X Y)))) applied to 1.
+	captured := irList(sym("block"),
+		irList(sym("bind"), sym("Unused"), call("+", c(1), c(2))),
+		irList(sym("bind"), sym("X"), call("*", c(4), c(5))),
+		irList(sym("<="), sym("tmp1"), lambda("Y", ret(call("+", sym("X"), sym("Y"))))),
+		irList(sym("tailapply"), sym("tmp1"), c(1)))
+	compileAndRunGenerated(t, captured, `
+		for _, mode := range []string{"on", "off"} {
+			os.Setenv("SHEN_GO_TYPED_IR", mode)
+			kl.ResetTypedIRModeForTest()
+			got := kl.Call(&kl.ControlFlow{}, Generated)
+			if n, ok := kl.TypedFloat64(got); !ok || n != 21 { t.Fatalf("%s: got %s", mode, kl.ObjString(got)) }
+		}
+	`)
+
+	// (let X (/ 4 0) (lambda Y X)): the division raises at the let.
+	eager := irList(sym("block"),
+		irList(sym("bind"), sym("X"), call("/", c(4), c(0))),
+		ret(lambda("Y", ret(sym("X")))))
+	compileAndRunGenerated(t, eager, `
+		os.Setenv("SHEN_GO_TYPED_IR", "on")
+		kl.ResetTypedIRModeForTest()
+		identity := kl.MakeNative(func(e *kl.ControlFlow) { e.Return(e.Get(1)) }, 1)
+		got := kl.Try(&kl.ControlFlow{}, Generated).Catch(identity)
+		if !kl.IsError(got) { t.Fatalf("division by zero in a let was deferred: got %s", kl.ObjString(got)) }
+	`)
+}

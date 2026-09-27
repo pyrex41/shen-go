@@ -192,6 +192,18 @@ func (cg *CodeGenerator) generateExpr(w io.Writer, sexp kl.Obj) error {
 		fmt.Fprintf(w, "%s := ", symbolAsVar(a))
 		cg.generateExpr(w, b)
 		fmt.Fprintln(w)
+	case "bind":
+		// (bind x v) is a let binding. Unlike a <= temporary it may be used
+		// any number of times, inside lambdas and branches, or not at all,
+		// so it is always a statement (never inlined by generateBlock) and
+		// is marked used.
+		a := kl.Car(kl.Cdr(sexp))
+		b := kl.Car(kl.Cdr(kl.Cdr(sexp)))
+		fmt.Fprintf(w, "%s := ", symbolAsVar(a))
+		if err := cg.generateExpr(w, b); err != nil {
+			return err
+		}
+		fmt.Fprintf(w, "\n_ = %s\n", symbolAsVar(a))
 	case "$global":
 		sym := kl.Car(kl.Cdr(sexp))
 		cg.declare[sym] = struct{}{}
