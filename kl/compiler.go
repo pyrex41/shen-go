@@ -41,6 +41,7 @@ func CompileFunc(name string, params []Obj, body Obj) Obj {
 	c := newCompiler(name, len(params), params, nil)
 	c.compileExpr(body, true)
 	c.fn.TypeHints = append([]TypeHint(nil), c.hints...)
+	c.fn.MaxStack = maxStackDepth(c.fn.Code)
 	return makeBytecodeObj(c.fn, nil)
 }
 
@@ -262,6 +263,7 @@ func (c *klCompiler) compileDefun(name, params, body Obj) {
 	inner := newCompiler(nameStr, len(paramSlice), paramSlice, c)
 	inner.compileExpr(body, true)
 	inner.fn.TypeHints = append([]TypeHint(nil), inner.hints...)
+	inner.fn.MaxStack = maxStackDepth(inner.fn.Code)
 
 	defunSym := c.addConst(MakeSymbol("defun"))
 	nameConst := c.addConst(name)
@@ -288,6 +290,7 @@ func (c *klCompiler) compileLambda(params []Obj, body Obj) {
 	inner := newCompiler("lambda", len(params), params, c)
 	inner.compileExpr(body, true)
 	inner.fn.TypeHints = append([]TypeHint(nil), inner.hints...)
+	inner.fn.MaxStack = maxStackDepth(inner.fn.Code)
 
 	// The inner compiler may have discovered upvalues; emit loads for them.
 	for _, uv := range inner.upvals {
@@ -677,7 +680,8 @@ func (c *klCompiler) compileCall(fn Obj, args Obj, tail bool) {
 			for _, a := range argList {
 				c.compileExpr(a, false)
 			}
-			c.emit(OP_GUARDED_PRIM, int32(n), c.addConst(fn))
+			idx := c.emit(OP_GUARDED_PRIM, int32(n), c.addConst(fn))
+			c.fn.Code[idx].C = guardedPrimID(fn) + 1
 			if tail {
 				c.emit(OP_RETURN, 0, 0)
 			}

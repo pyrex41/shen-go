@@ -125,10 +125,16 @@ func (ctl *ControlFlow) frameMarkNow() frameMark {
 // minFrameCap) carved from the arena top, cleared, plus the mark to putFrame
 // later. The unused capacity is the operand-stack region; the 3-index slice
 // guarantees append can never write into the next frame.
-func (ctl *ControlFlow) takeFrame(nlocals int) ([]vmSlot, frameMark) {
-	need := nlocals + frameHeadroom
-	if need < minFrameCap {
-		need = minFrameCap
+func (ctl *ControlFlow) takeFrame(nlocals, maxStack int) ([]vmSlot, frameMark) {
+	// A compiled function knows its operand-stack peak, so its slab is exact
+	// and putFrame clears only what the activation could have written. A
+	// function built without that fact keeps the old generous headroom.
+	need := nlocals + maxStack
+	if maxStack <= 0 {
+		need = nlocals + frameHeadroom
+		if need < minFrameCap {
+			need = minFrameCap
+		}
 	}
 	mark := frameMark{ctl.frameCur, ctl.frameTop}
 	top := ctl.frameTop

@@ -54,6 +54,10 @@ type BytecodeFunc struct {
 	Nlocals int // number of local slots (includes arity slots for params)
 	Code    []Instr
 	Consts  []Obj // constant pool (numbers, strings, symbols, nested BytecodeFunc objs)
+	// MaxStack is the deepest the operand stack gets (maxStackDepth), so an
+	// activation takes exactly Nlocals+MaxStack arena slots. Zero means
+	// unknown (a hand-built function): the frame gets frameHeadroom instead.
+	MaxStack int
 	// TypeHints preserves advisory (type ...) annotations for later typed-IR
 	// passes. Hints never alter runtime behavior or introduce errors.
 	TypeHints []TypeHint
@@ -245,122 +249,167 @@ func slotEqual(x, y vmSlot) vmSlot {
 	return vmSlot{obj: equal(slotArithmetic(x), slotArithmetic(y))}
 }
 
+// Guarded primitive ids. The compiler stores id+1 in OP_GUARDED_PRIM's C
+// operand, so the VM switches on a small integer instead of the symbol's
+// name; C == 0 (a hand-built instruction) looks the id up by name.
+const (
+	gpNone int32 = iota
+	gpNumberp
+	gpIntegerp
+	gpStringp
+	gpSymbolp
+	gpConsp
+	gpAbsvectorp
+	gpVariablep
+	gpEmptyp
+	gpBooleanp
+	gpNot
+	gpCons
+	gpHd
+	gpTl
+	gpCn
+	gpTlstr
+	gpPos
+	gpStringToN
+	gpNToString
+	gpDivide
+	gpVectorGet
+	gpVectorSet
+	gpAbsvector
+)
+
+var guardedPrimIDs = map[string]int32{
+	"number?": gpNumberp, "integer?": gpIntegerp, "string?": gpStringp,
+	"symbol?": gpSymbolp, "cons?": gpConsp, "absvector?": gpAbsvectorp,
+	"variable?": gpVariablep, "empty?": gpEmptyp, "boolean?": gpBooleanp,
+	"not": gpNot, "cons": gpCons, "hd": gpHd, "tl": gpTl, "cn": gpCn,
+	"tlstr": gpTlstr, "pos": gpPos, "string->n": gpStringToN,
+	"n->string": gpNToString, "/": gpDivide, "<-address": gpVectorGet,
+	"address->": gpVectorSet, "absvector": gpAbsvector,
+}
+
+func guardedPrimID(sym Obj) int32 {
+	if !IsSymbol(sym) {
+		return gpNone
+	}
+	return guardedPrimIDs[GetSymbol(sym)]
+}
+
 // vmGuardedPrimitive executes the small, side-effect-free primitive subset
 // that has a typed representation. It returns ok=false when the arguments
 // are not suitable for specialization; callers must then use the ordinary
 // dynamic call so that the primitive's exact error behavior is retained.
-func vmGuardedPrimitive(sym Obj, args []vmSlot) (vmSlot, bool) {
+// id is the instruction's C operand (id+1, or 0 when unknown).
+func vmGuardedPrimitive(sym Obj, id int32, args []vmSlot) (vmSlot, bool) {
 	if !TypedIREnabled() || !HasCanonicalPrimitiveBinding(sym) {
 		return vmSlot{}, false
 	}
-	name := GetSymbol(sym)
-	obj := func(i int) Obj { return args[i].objValue() }
-	boolResult := func(o Obj) (vmSlot, bool) {
-		if o != True && o != False {
-			return vmSlot{}, false
-		}
-		return vmSlot{obj: o}, true
+	if id > 0 {
+		id--
+	} else {
+		id = guardedPrimID(sym)
 	}
-	switch name {
-	case "number?", "integer?", "string?", "symbol?", "cons?", "absvector?", "variable?", "empty?", "boolean?":
-		var r Obj
-		switch name {
-		case "number?":
-			r = PrimIsNumber(obj(0))
-		case "integer?":
-			r = PrimIsInteger(obj(0))
-		case "string?":
-			r = PrimIsString(obj(0))
-		case "symbol?":
-			r = PrimIsSymbol(obj(0))
-		case "cons?":
-			r = PrimIsPair(obj(0))
-		case "absvector?":
-			r = PrimIsVector(obj(0))
-		case "empty?":
-			r = primEmptyp(obj(0))
-		case "boolean?":
-			r = primBooleanp(obj(0))
-		default:
-			r = PrimIsVariable(obj(0))
-		}
-		return boolResult(r)
-	case "not":
-		o := obj(0)
+	boolResult := func(o Obj) (vmSlot, bool) {
+		return vmSlot{obj: o}, o == True || o == False
+	}
+	switch id {
+	case gpNumberp:
+		return boolResult(PrimIsNumber(args[0].objValue()))
+	case gpIntegerp:
+		return boolResult(PrimIsInteger(args[0].objValue()))
+	case gpStringp:
+		return boolResult(PrimIsString(args[0].objValue()))
+	case gpSymbolp:
+		return boolResult(PrimIsSymbol(args[0].objValue()))
+	case gpConsp:
+		return boolResult(PrimIsPair(args[0].objValue()))
+	case gpAbsvectorp:
+		return boolResult(PrimIsVector(args[0].objValue()))
+	case gpEmptyp:
+		return boolResult(primEmptyp(args[0].objValue()))
+	case gpBooleanp:
+		return boolResult(primBooleanp(args[0].objValue()))
+	case gpVariablep:
+		return boolResult(PrimIsVariable(args[0].objValue()))
+	case gpNot:
+		o := args[0].objValue()
 		if o != True && o != False {
 			return vmSlot{}, false
 		}
 		return slotFromObj(PrimNot(o)), true
-	case "cons":
-		return slotFromObj(PrimCons(obj(0), obj(1))), true
-	case "hd", "tl":
-		if TypedObjectKind(obj(0)) != KindPair {
+	case gpCons:
+		return vmSlot{obj: PrimCons(args[0].objValue(), args[1].objValue())}, true
+	case gpHd, gpTl:
+		o := args[0].objValue()
+		if TypedObjectKind(o) != KindPair {
 			return vmSlot{}, false
 		}
-		if name == "hd" {
-			h, _ := TypedPairHead(obj(0))
+		if id == gpHd {
+			h, _ := TypedPairHead(o)
 			return slotFromObj(h), true
 		}
-		t, _ := TypedPairTail(obj(0))
+		t, _ := TypedPairTail(o)
 		return slotFromObj(t), true
-	case "cn":
-		x, okx := TypedString(obj(0))
-		y, oky := TypedString(obj(1))
+	case gpCn:
+		x, okx := TypedString(args[0].objValue())
+		y, oky := TypedString(args[1].objValue())
 		if !okx || !oky {
 			return vmSlot{}, false
 		}
 		return slotFromObj(TypedMaterializeString(x + y)), true
-	case "tlstr":
-		x, ok := TypedString(obj(0))
+	case gpTlstr:
+		x, ok := TypedString(args[0].objValue())
 		if !ok {
 			return vmSlot{}, false
 		}
 		return slotFromObj(TypedMaterializeString(TypedStringTailValue(x))), true
-	case "pos":
-		x, ok := TypedString(obj(0))
+	case gpPos:
+		x, ok := TypedString(args[0].objValue())
 		n, okn := slotNumber(args[1])
 		if !ok || !okn || !isPreciseInteger(n) || !fitsInt(n) {
 			return vmSlot{}, false
 		}
 		return slotFromObj(TypedMaterializeString(TypedStringIndexValue(x, int(n)))), true
-	case "string->n":
-		x, ok := TypedString(obj(0))
+	case gpStringToN:
+		x, ok := TypedString(args[0].objValue())
 		if !ok || len([]rune(x)) == 0 {
 			return vmSlot{}, false
 		}
 		return slotFromInteger(int([]rune(x)[0])), true
-	case "n->string":
+	case gpNToString:
 		n, ok := slotNumber(args[0])
 		if !ok || !isPreciseInteger(n) || !fitsInt(n) || n < 0 || n > unicodeMaxRune {
 			return vmSlot{}, false
 		}
 		return slotFromObj(TypedMaterializeString(string(rune(int(n))))), true
-	case "/":
+	case gpDivide:
 		x, okx := slotNumber(args[0])
 		y, oky := slotNumber(args[1])
 		if !okx || !oky {
 			return vmSlot{}, false
 		}
 		return slotFromNumber(TypedDivideValue(x, y)), true
-	case "<-address":
-		if TypedObjectKind(obj(0)) != KindVector {
+	case gpVectorGet:
+		o := args[0].objValue()
+		if TypedObjectKind(o) != KindVector {
 			return vmSlot{}, false
 		}
 		n, ok := slotNumber(args[1])
 		if !ok || !isPreciseInteger(n) || !fitsInt(n) {
 			return vmSlot{}, false
 		}
-		return slotFromObj(TypedVectorGet(obj(0), int(n))), true
-	case "address->":
-		if TypedObjectKind(obj(0)) != KindVector {
+		return slotFromObj(TypedVectorGet(o, int(n))), true
+	case gpVectorSet:
+		o := args[0].objValue()
+		if TypedObjectKind(o) != KindVector {
 			return vmSlot{}, false
 		}
 		n, ok := slotNumber(args[1])
 		if !ok || !isPreciseInteger(n) || !fitsInt(n) {
 			return vmSlot{}, false
 		}
-		return slotFromObj(TypedVectorSet(obj(0), int(n), obj(2))), true
-	case "absvector":
+		return slotFromObj(TypedVectorSet(o, int(n), args[2].objValue())), true
+	case gpAbsvector:
 		n, ok := slotNumber(args[0])
 		if !ok || !isPreciseInteger(n) || !fitsInt(n) {
 			return vmSlot{}, false
@@ -428,6 +477,79 @@ func intrinsicSymbolForOp(op uint8) Obj {
 }
 
 const scmHeadBytecodeFunc scmHead = 50
+
+// maxStackDepth is the deepest the operand stack of code can get, found by
+// walking every path from pc 0 with the stack effect of each instruction.
+// It returns 0 ("unknown", see BytecodeFunc.MaxStack) for anything it does
+// not recognise; an underestimate would still be correct, since append then
+// moves the operand stack off the slab, but it would allocate.
+func maxStackDepth(code []Instr) int {
+	depth := make([]int, len(code))
+	for i := range depth {
+		depth[i] = -1
+	}
+	type item struct{ pc, d int }
+	work := []item{{0, 0}}
+	peak := 0
+	budget := 16 * (len(code) + 1)
+	for len(work) > 0 {
+		if budget--; budget < 0 {
+			return 0
+		}
+		it := work[len(work)-1]
+		work = work[:len(work)-1]
+		pc, d := it.pc, it.d
+		for pc < len(code) {
+			if depth[pc] >= d {
+				break
+			}
+			depth[pc] = d
+			in := code[pc]
+			pc++
+			switch in.Op {
+			case OP_LOAD_CONST, OP_LOAD_LOCAL, OP_LOAD_GLOBAL, OP_LOAD_UPVAL, OP_GUARDED_CONST:
+				d++
+			case OP_STORE_LOCAL, OP_POP, OP_ADD, OP_SUB, OP_MUL, OP_DIV,
+				OP_LT, OP_LE, OP_GT, OP_GE, OP_EQ:
+				d--
+			case OP_NOT:
+			case OP_CALL:
+				d -= int(in.A)
+			case OP_GUARDED_PRIM, OP_MAKE_CLOSURE:
+				n := int(in.A)
+				if in.Op == OP_MAKE_CLOSURE {
+					n = int(in.B)
+				}
+				d += 1 - n
+			case OP_JUMP:
+				pc += int(in.A)
+				if in.A < 0 {
+					return 0
+				}
+			case OP_JUMP_FALSE:
+				d--
+				if in.A < 0 {
+					return 0
+				}
+				work = append(work, item{pc + int(in.A), d})
+			case OP_RETURN, OP_TAIL_CALL, OP_SELF_TAIL_CALL:
+				pc = len(code)
+			default:
+				return 0
+			}
+			if d < 0 {
+				return 0
+			}
+			if d > peak {
+				peak = d
+			}
+		}
+	}
+	if peak == 0 {
+		peak = 1
+	}
+	return peak
+}
 
 func makeBytecodeObj(fn *BytecodeFunc, upvals []Obj) Obj {
 	tmp := &scmBytecodeFunc{
@@ -566,7 +688,7 @@ func vmExecSlots(ctl *ControlFlow, bf *scmBytecodeFunc, args []vmSlot) {
 	// putFrame, and a panic that skips them is repaired by frameReset at the
 	// recover sites. Any future non-LIFO frame lifetime (continuations,
 	// coroutines sharing a ControlFlow) must go through frameReset.
-	slab, fmark := ctl.takeFrame(fn.Nlocals)
+	slab, fmark := ctl.takeFrame(fn.Nlocals, fn.MaxStack)
 	locals := slab
 	copy(locals, args)
 
@@ -575,15 +697,16 @@ func vmExecSlots(ctl *ControlFlow, bf *scmBytecodeFunc, args []vmSlot) {
 	code := fn.Code
 	consts := fn.Consts
 
-	// Hoisted out of the loop: see ControlFlow.stepLimited. In every
-	// non-fuzz process this is false and the per-instruction cost of the
-	// step counter collapses to one predictable register test.
+	// The step budget is charged once per activation and once per
+	// self-tail-call iteration, not per instruction: bytecode only jumps
+	// forward, so every unbounded execution passes through one of those two
+	// points. In every non-fuzz process limited is false.
 	limited := ctl.stepLimited()
+	if limited {
+		ctl.tick()
+	}
 
 	for {
-		if limited {
-			ctl.tick()
-		}
 		instr := code[pc]
 		pc++
 		switch instr.Op {
@@ -615,7 +738,7 @@ func vmExecSlots(ctl *ControlFlow, bf *scmBytecodeFunc, args []vmSlot) {
 				panic("vmExec: malformed guarded primitive")
 			}
 			args := stack[base:]
-			if r, ok := vmGuardedPrimitive(consts[instr.B], args); ok {
+			if r, ok := vmGuardedPrimitive(consts[instr.B], instr.C, args); ok {
 				stack = append(stack[:base], r)
 				continue
 			}
@@ -739,6 +862,9 @@ func vmExecSlots(ctl *ControlFlow, bf *scmBytecodeFunc, args []vmSlot) {
 			copy(locals[:n], stack[len(stack)-n:])
 			stack = stack[:len(stack)-n]
 			pc = 0
+			if limited {
+				ctl.tick()
+			}
 
 		case OP_ADD:
 			y := stack[len(stack)-1]
