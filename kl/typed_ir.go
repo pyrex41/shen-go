@@ -178,8 +178,11 @@ var typedIRMode atomic.Uint32 // 0 unset, 1 enabled, 2 disabled
 // compare with no lock and no map lookup; it must stay lock-free and small
 // enough to inline. A symbol with no registered primitive has a nil
 // canonical and is never a canonical binding.
+//
+// No isFixnum test is needed: the fixnum span is zero-filled readable memory,
+// so *sym on a fixnum reads scmHeadNumber and fails the symbol test.
 func HasCanonicalPrimitiveBinding(sym Obj) bool {
-	if sym == nil || isFixnum(sym) || *sym != scmHeadSymbol {
+	if sym == nil || *sym != scmHeadSymbol {
 		return false
 	}
 	s := mustSymbol(sym)

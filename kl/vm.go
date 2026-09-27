@@ -117,8 +117,10 @@ func slotFromNumber(f float64) vmSlot {
 	if math.IsNaN(f) || math.IsInf(f, 0) {
 		return vmSlot{obj: MakeNumber(f)}
 	}
-	if isPreciseInteger(f) && f >= float64(fixnumMin) && f < float64(fixnumMax) {
-		return vmSlot{obj: MakeInteger(int(f))}
+	if f >= fixnumMinFloat && f < fixnumMaxFloat {
+		if i := int(f); float64(i) == f {
+			return vmSlot{obj: MakeInteger(i)}
+		}
 	}
 	return vmSlot{number: f}
 }

@@ -387,6 +387,8 @@ var (
 	fixnumEndAddr               = unsafe.Add(fixnumBaseAddr, fixnumCount)
 	fixnumMin                   = -(fixnumCount / 2) // smallest fixnum
 	fixnumMax                   = fixnumCount / 2    // one past the largest fixnum
+	fixnumMinFloat              = float64(fixnumMin)
+	fixnumMaxFloat              = float64(fixnumMax)
 )
 
 // initFixnumSpace reserves the widest fixnum span it can, trying 2^36 then
@@ -503,6 +505,16 @@ const (
 )
 
 func MakeNumber(f float64) Obj {
+	// Fast path: an integral value in the fixnum range. The range test also
+	// rejects NaN and keeps the int conversion defined; -0 becomes fixnum 0,
+	// as it always has.
+	if f >= fixnumMinFloat && f < fixnumMaxFloat {
+		if i := int(f); float64(i) == f {
+			return MakeInteger(i)
+		}
+		tmp := scmNumber{scmHeadNumber, f}
+		return &tmp.scmHead
+	}
 	// A float beyond the int range is still mathematically integral, but
 	// narrowing it overflows -- int(1e300) saturates to maxint64, turning the
 	// value into a different one. Keep those as float64 instead.
