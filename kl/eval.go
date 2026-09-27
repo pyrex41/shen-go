@@ -125,10 +125,16 @@ func (ctl *ControlFlow) frameMarkNow() frameMark {
 // minFrameCap) carved from the arena top, cleared, plus the mark to putFrame
 // later. The unused capacity is the operand-stack region; the 3-index slice
 // guarantees append can never write into the next frame.
-func (ctl *ControlFlow) takeFrame(nlocals int) ([]vmSlot, frameMark) {
-	need := nlocals + frameHeadroom
-	if need < minFrameCap {
-		need = minFrameCap
+func (ctl *ControlFlow) takeFrame(nlocals, maxStack int) ([]vmSlot, frameMark) {
+	// A compiled function knows its operand-stack peak, so its slab is exact
+	// and putFrame clears only what the activation could have written. A
+	// function built without that fact keeps the old generous headroom.
+	need := nlocals + maxStack
+	if maxStack <= 0 {
+		need = nlocals + frameHeadroom
+		if need < minFrameCap {
+			need = minFrameCap
+		}
 	}
 	mark := frameMark{ctl.frameCur, ctl.frameTop}
 	top := ctl.frameTop
@@ -288,6 +294,22 @@ func (ctl *ControlFlow) tick() {
 	}
 }
 
+// SetStepLimit sets the evaluation budget (see stepLimited); zero means
+// unlimited. It is for harnesses outside this package, such as tests of
+// generated code.
+func (ctl *ControlFlow) SetStepLimit(n int64) {
+	ctl.stepLimit = n
+}
+
+// Tick charges one step when a step limit is set. Generated code calls it
+// on each iteration of a loop that does not go through the trampoline (a
+// compiled self-tail-call), so the budget still bounds it.
+func (ctl *ControlFlow) Tick() {
+	if ctl.stepLimit != 0 {
+		ctl.tick()
+	}
+}
+
 func (ctl *ControlFlow) tripStepLimit() {
 	panic(MakeError("eval step limit exceeded"))
 }
@@ -423,6 +445,25 @@ func makeTempSymbols(n int) []Obj {
 }
 
 func Call(e *ControlFlow, f Obj, args ...Obj) Obj {
+	// The compiled kernel calls natives almost exclusively: run an
+	// exact-arity one without captured arguments directly, and enter the
+	// trampoline only if it tail-calls. This is the same shortcut as the
+	// VM's OP_CALL, and like the trampoline it charges the step budget.
+	if f != nil && !isFixnum(f) && *f == scmHeadNative {
+		if nf := MustNative(f); len(nf.captured) == 0 && nf.require == len(args) {
+			if e.stepLimit != 0 {
+				e.tick()
+			}
+			e.tailApplySlice(f, args)
+			nf.fn(e)
+			if e.kind == ControlFlowReturn {
+				ret := e.data[e.pos]
+				e.data = e.data[:e.pos]
+				return ret
+			}
+			return trampoline(e)
+		}
+	}
 	e.tailApplySlice(f, args)
 	return trampoline(e)
 }

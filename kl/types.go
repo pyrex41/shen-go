@@ -4,6 +4,8 @@ import (
 	"bytes"
 	"fmt"
 	"io"
+	"strings"
+	"sync"
 	"time"
 	"unsafe"
 )
@@ -376,28 +378,29 @@ var addrForFixnum [fixnumCount]byte
 var fixnumBaseAddr = unsafe.Pointer(&addrForFixnum[0])
 var fixnumEndAddr = unsafe.Add(fixnumBaseAddr, fixnumCount)
 
-type trieNode struct {
-	children [256]*trieNode
-	value    scmSymbol
-}
+// symbolTable interns symbols by name. It used to be a byte trie whose
+// every node held [256]*trieNode (2 KiB) and a symbol of its own, so
+// interning "shen.some-long-name" allocated a node per prefix, ~40 KiB,
+// all of it live for the life of the process and re-scanned by every GC
+// cycle. gensym-heavy code (Prolog variables, the typechecker) interns
+// tens of thousands of fresh names. A map holds one entry per symbol.
+var symbolTable = struct {
+	sync.Mutex
+	m map[string]*scmSymbol
+}{m: make(map[string]*scmSymbol, 8192)}
 
-var symbolRoot trieNode
-
-func trieFindOrInsert(str string) *trieNode {
-	p := &symbolRoot
-	for i := 0; i < len(str); i++ {
-		v := str[i]
-		if p.children[v] == nil {
-			p.children[v] = &trieNode{
-				value: scmSymbol{
-					scmHead: scmHeadSymbol,
-					str:     str[:i+1],
-				},
-			}
-		}
-		p = p.children[v]
+func internSymbol(str string) *scmSymbol {
+	symbolTable.Lock()
+	sym, ok := symbolTable.m[str]
+	if !ok {
+		// Clone: str may be a slice of a much larger string (a file the
+		// reader split), which the table would otherwise keep alive.
+		str = strings.Clone(str)
+		sym = &scmSymbol{scmHead: scmHeadSymbol, str: str}
+		symbolTable.m[str] = sym
 	}
-	return p
+	symbolTable.Unlock()
+	return sym
 }
 
 func init() {
@@ -470,8 +473,10 @@ func MakeNumber(f float64) Obj {
 	// A float beyond the int range is still mathematically integral, but
 	// narrowing it overflows -- int(1e300) saturates to maxint64, turning the
 	// value into a different one. Keep those as float64 instead.
-	if isPreciseInteger(f) && f >= minIntAsFloat && f < maxIntAsFloat {
-		return MakeInteger(int(f))
+	if f >= minIntAsFloat && f < maxIntAsFloat {
+		if i := int(f); float64(i) == f {
+			return MakeInteger(i)
+		}
 	}
 
 	tmp := scmNumber{scmHeadNumber, f}
@@ -529,8 +534,7 @@ func MakeString(s string) Obj {
 }
 
 func MakeSymbol(s string) Obj {
-	p := trieFindOrInsert(s)
-	return &p.value.scmHead
+	return &internSymbol(s).scmHead
 }
 
 func makeProcedure(arg Obj, body Obj, env Obj) Obj {
@@ -609,6 +613,8 @@ func (o *scmHead) GoString() string {
 		return "#stream"
 	case scmHeadRaw:
 		return "#raw"
+	case scmHeadMap:
+		return mapString(o)
 	case scmHeadNative:
 		prim := MustNative(o)
 		if len(prim.name) > 0 {

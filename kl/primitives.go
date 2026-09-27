@@ -231,6 +231,8 @@ func PrimStr(o Obj) Obj {
 		return MakeString("#<stream >")
 	case scmHeadRaw:
 		return MakeString("#<raw >")
+	case scmHeadMap:
+		return MakeString("#" + mapString(o))
 	case scmHeadNative:
 		n := MustNative(o)
 		if len(n.name) > 0 {

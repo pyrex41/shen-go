@@ -10,6 +10,7 @@ import (
 func InstallShenX() {
 	InstallShenXFeatures()
 	installShenXZmq()
+	installShenXMap()
 	if os.Getenv("SHEN_X_SHA256") == "pure" {
 		return
 	}

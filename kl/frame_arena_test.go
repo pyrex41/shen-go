@@ -177,16 +177,20 @@ func TestTryResetsFrameArena(t *testing.T) {
 
 // TestFrameArenaIdleTrimInsideLongLivedFrame: a frame that never returns (a
 // script's load loop, a server loop) must not pin the peak of a one-shot
-// deep recursion for its whole lifetime. Inside one enclosing frame: (mk
-// 60000) once (blocks up to 12, 4.2M slots), then a shallow loop whose
-// (mk 100) calls cross three block boundaries each, more than
-// frameTrimInterval crossings in all. A Go probe called from inside the
+// deep recursion for its whole lifetime. Inside one enclosing frame: one
+// deep (mk N) whose frames span more than twice frameRetainSlots, then a
+// shallow loop whose (mk n) calls cross three block boundaries each, more
+// than frameTrimInterval crossings in all. A Go probe called from inside the
 // frame records the spare slots right after the deep call (still all
 // retained: no trim point has been crossed) and after the shallow loop (cut
 // back to the budget by the periodic idle trim, while the blocks the shallow
 // loop uses are of course kept). The loop spans more than two intervals: the
 // first decision after the deep call still counts its blocks as entered
 // since the previous trim and keeps them; the second releases them.
+//
+// Both depths are derived from mk's compiled frame (Nlocals+MaxStack), since
+// frames are sized exactly: blocks are 512, 1024, 2048, ... slots, so three
+// crossings from block 0 need more than 512+1024+2048 slots of mk frames.
 func TestFrameArenaIdleTrimInsideLongLivedFrame(t *testing.T) {
 	const shallowIters = 1000 // 3 crossings each: 3000 > 2*frameTrimInterval
 	var ctx ControlFlow
@@ -202,20 +206,46 @@ func TestFrameArenaIdleTrimInsideLongLivedFrame(t *testing.T) {
 	}, 0))
 	defer BindSymbolFunc(probe, nil)
 	mustDefun(t, &ctx, defMk)
-	mustDefun(t, &ctx, `(defun shallow-loop (K) (if (= K 0) done (do (mk 100) (shallow-loop (- K 1)))))`)
-	mustDefun(t, &ctx, fmt.Sprintf(`(defun long-lived () (do (mk 60000) (do (frame-arena-probe) (do (shallow-loop %d) (frame-arena-probe)))))`, shallowIters))
+	mk := mustBytecodeFunc(PrimFunc(MakeSymbol("mk"))).fn
+	frame := mk.Nlocals + mk.MaxStack
+	if mk.MaxStack <= 0 {
+		frame = mk.Nlocals + frameHeadroom
+		if frame < minFrameCap {
+			frame = minFrameCap
+		}
+	}
+	deep := 2*frameRetainSlots/frame + 1
+	shallow := (512+1024+2048)/frame + 2
+	mustDefun(t, &ctx, fmt.Sprintf(`(defun shallow-loop (K) (if (= K 0) done (do (mk %d) (shallow-loop (- K 1)))))`, shallow))
+	mustDefun(t, &ctx, fmt.Sprintf(`(defun long-lived () (do (mk %d) (do (frame-arena-probe) (do (shallow-loop %d) (frame-arena-probe)))))`, deep, shallowIters))
 	if res := evalString(&ctx, `(long-lived)`); IsError(res) {
 		t.Fatal(ObjString(res))
 	}
 	if len(readings) != 2 {
 		t.Fatalf("probe ran %d times, want 2", len(readings))
 	}
-	t.Logf("spare slots after (mk 60000): %d; after %d x (mk 100): %d (budget %d)", readings[0], shallowIters, readings[1], frameRetainSlots)
+	t.Logf("frame %d slots; spare slots after (mk %d): %d; after %d x (mk %d): %d (budget %d)", frame, deep, readings[0], shallowIters, shallow, readings[1], frameRetainSlots)
 	if readings[0] <= frameRetainSlots {
-		t.Errorf("after (mk 60000) inside the frame: %d spare slots, expected the peak to still be retained (> %d)", readings[0], frameRetainSlots)
+		t.Errorf("after (mk %d) inside the frame: %d spare slots, expected the peak to still be retained (> %d)", deep, readings[0], frameRetainSlots)
 	}
 	if readings[1] > frameRetainSlots {
 		t.Errorf("after the shallow loop: %d spare slots retained > %d; the idle trim did not run", readings[1], frameRetainSlots)
+	}
+}
+
+// TestFrameIsSizedToTheOperandStack: an activation takes Nlocals+MaxStack
+// slots, not a fixed 48, so returning clears only what it could have used.
+func TestFrameIsSizedToTheOperandStack(t *testing.T) {
+	var ctx ControlFlow
+	mustDefun(t, &ctx, `(defun tak (X Y Z) (if (not (< Y X)) Z (tak (tak (- X 1) Y Z) (tak (- Y 1) Z X) (tak (- Z 1) X Y))))`)
+	fn := mustBytecodeFunc(PrimFunc(MakeSymbol("tak"))).fn
+	// fn tak, then three nested (tak ...) argument calls: the third one's
+	// callee plus its three operands sit above two finished results.
+	if fn.MaxStack < 4 || fn.MaxStack > 8 {
+		t.Fatalf("tak MaxStack = %d, want a tight bound in [4, 8]", fn.MaxStack)
+	}
+	if res := evalString(&ctx, `(tak 18 12 6)`); res != MakeInteger(7) {
+		t.Fatalf("(tak 18 12 6) => %s", ObjString(res))
 	}
 }
 
