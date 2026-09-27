@@ -609,6 +609,8 @@ func (o *scmHead) GoString() string {
 		return "#stream"
 	case scmHeadRaw:
 		return "#raw"
+	case scmHeadMap:
+		return mapString(o)
 	case scmHeadNative:
 		prim := MustNative(o)
 		if len(prim.name) > 0 {
