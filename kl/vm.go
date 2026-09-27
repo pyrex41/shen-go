@@ -569,6 +569,55 @@ func makeBytecodeObj(fn *BytecodeFunc, upvals []Obj) Obj {
 	return &tmp.scmHead
 }
 
+// Closures with a few upvalues carry them inline, so OP_MAKE_CLOSURE is
+// one allocation rather than a closure plus its captured slice.
+type (
+	scmClosure1 struct {
+		scmBytecodeFunc
+		inline [1]Obj
+	}
+	scmClosure2 struct {
+		scmBytecodeFunc
+		inline [2]Obj
+	}
+	scmClosure3 struct {
+		scmBytecodeFunc
+		inline [3]Obj
+	}
+	scmClosure4 struct {
+		scmBytecodeFunc
+		inline [4]Obj
+	}
+)
+
+// makeClosure builds a closure of fn over n upvalues and returns it with
+// its (zeroed) upvalue slice for the caller to fill.
+func makeClosure(fn *BytecodeFunc, n int) (Obj, []Obj) {
+	var bf *scmBytecodeFunc
+	switch n {
+	case 0:
+		return makeBytecodeObj(fn, nil), nil
+	case 1:
+		c := &scmClosure1{}
+		c.upvals, bf = c.inline[:], &c.scmBytecodeFunc
+	case 2:
+		c := &scmClosure2{}
+		c.upvals, bf = c.inline[:], &c.scmBytecodeFunc
+	case 3:
+		c := &scmClosure3{}
+		c.upvals, bf = c.inline[:], &c.scmBytecodeFunc
+	case 4:
+		c := &scmClosure4{}
+		c.upvals, bf = c.inline[:], &c.scmBytecodeFunc
+	default:
+		o := makeBytecodeObj(fn, make([]Obj, n))
+		return o, mustBytecodeFunc(o).upvals
+	}
+	bf.scmHead = scmHeadBytecodeFunc
+	bf.fn = fn
+	return &bf.scmHead, bf.upvals
+}
+
 func mustBytecodeFunc(o Obj) *scmBytecodeFunc {
 	return (*scmBytecodeFunc)(unsafe.Pointer(o))
 }
@@ -904,14 +953,13 @@ func vmExecSlots(ctl *ControlFlow, bf *scmBytecodeFunc, args []vmSlot) {
 			nUpvals := int(instr.B)
 			innerBFObj := consts[instr.A]
 			innerBF := mustBytecodeFunc(innerBFObj)
-			captured := make([]Obj, nUpvals)
+			closure, captured := makeClosure(innerBF.fn, nUpvals)
 			base := len(stack) - nUpvals
 			for i := range captured {
 				captured[i] = stack[base+i].objValue()
 			}
 			stack = stack[:base]
-			closure := makeBytecodeObj(innerBF.fn, captured)
-			stack = append(stack, slotFromObj(closure))
+			stack = append(stack, vmSlot{obj: closure})
 
 		case OP_POP:
 			stack = stack[:len(stack)-1]
