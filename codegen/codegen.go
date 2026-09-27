@@ -20,6 +20,7 @@ import (
 	"io"
 	"math"
 	"regexp"
+	"sort"
 	"strconv"
 	"strings"
 
@@ -100,10 +101,15 @@ func (cg *CodeGenerator) HandleBodyObj(bc kl.Obj, export string, out io.Writer) 
 // HandleSymbol writes `var symXXX = MakeSymbol(...)` declarations for every
 // symbol referenced by all files generated so far.
 func (cg *CodeGenerator) HandleSymbol(out io.Writer) {
+	syms := make([]kl.Obj, 0, len(cg.declare))
 	for sym := range cg.declare {
+		syms = append(syms, sym)
+	}
+	sort.Slice(syms, func(i, j int) bool { return kl.GetSymbol(syms[i]) < kl.GetSymbol(syms[j]) })
+	for _, sym := range syms {
 		symStr := kl.GetSymbol(sym)
 		symVar := "sym" + symbolAsVar(sym)
-		fmt.Fprintf(out, "var %s = MakeSymbol(\"%s\")\n", symVar, symStr)
+		fmt.Fprintf(out, "var %s = MakeSymbol(%q)\n", symVar, symStr)
 	}
 }
 
@@ -155,7 +161,12 @@ func symbolAsVar(sym kl.Obj) string {
 		case ',':
 			buf.WriteString("_l")
 		default:
-			buf.WriteByte(str[i])
+			b := str[i]
+			if b >= 'a' && b <= 'z' || b >= 'A' && b <= 'Z' || b >= '0' && b <= '9' {
+				buf.WriteByte(b)
+			} else {
+				fmt.Fprintf(&buf, "_x%02x_", b)
+			}
 		}
 	}
 	return buf.String()

@@ -2,12 +2,37 @@ package codegen
 
 import (
 	"bytes"
+	"go/parser"
+	"go/token"
 	"strconv"
 	"strings"
 	"testing"
 
 	"github.com/pyrex41/shen-go/kl"
 )
+
+// StLib contains names such as ~. Every interned symbol must produce a valid,
+// unique Go identifier and a correctly quoted MakeSymbol argument.
+func TestSymbolNamesGenerateValidGo(t *testing.T) {
+	names := []string{"~", "_x7e_", "a-b", "a_b", "λ", "a\"b", "a\\b"}
+	cg := New()
+	seen := make(map[string]bool)
+	for _, name := range names {
+		sym := kl.MakeSymbol(name)
+		id := symbolAsVar(sym)
+		if !token.IsIdentifier("sym"+id) || seen[id] {
+			t.Fatalf("%q generated invalid or duplicate identifier %q", name, id)
+		}
+		seen[id] = true
+		cg.declare[sym] = struct{}{}
+	}
+	var out bytes.Buffer
+	out.WriteString("package generated\nvar MakeSymbol = func(s string) string { return s }\n")
+	cg.HandleSymbol(&out)
+	if _, err := parser.ParseFile(token.NewFileSet(), "symbols.go", out.Bytes(), 0); err != nil {
+		t.Fatalf("generated declarations are invalid Go: %v\n%s", err, out.String())
+	}
+}
 
 // Shen numbers are float64. Emitting them through GetInteger truncated every
 // constant to a whole number, so compiled output saw 1.5 as 1 while the
