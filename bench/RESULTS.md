@@ -1,5 +1,16 @@
 # shen-go Benchmark Results
 
+## Compiled StLib startup (2026-09-27, issue #33)
+
+On Apple M4 / Go 1.27, seven interleaved cold processes per path ran
+`shen eval -e '(+ 20 22)'`, verifying stdout `42` on every run. Median child
+user CPU was **0.046 s** with the generated StLib module and **0.142 s** with
+`SHEN_STDLIB_INTERPRETED=1`. Median wall time was 0.226 s vs 0.610 s on a
+loaded host; user CPU is the more stable comparison. The generated module
+replays arities and package metadata plus six macro forms; cold-process
+parity tests compare those effects with the interpreted loader. Regenerate it
+with `python3 scripts/generate-stlib.py` after source or compiler changes.
+
 Machine: Linux amd64  
 Kernel: S39.2  
 Date: 2026-05-05  

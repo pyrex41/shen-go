@@ -1,11 +1,13 @@
 package main
 
 import (
+	"crypto/sha256"
 	"embed"
 	"fmt"
 	"os"
 	"strings"
 
+	"github.com/pyrex41/shen-go/cmd/shen/stlibcompiled"
 	"github.com/pyrex41/shen-go/kl"
 )
 
@@ -45,10 +47,12 @@ var stlibInstallOrder = []string{
 	"stlib/package-stlib.shen",
 }
 
-// loadStdlib loads the embedded standard library into the running image. The
-// sources are concatenated (their top-level forms just run in sequence — no
-// cross-file loads) into one temp file and loaded with type-checking OFF: the
-// library is known-good, and skipping the check keeps startup fast (~0.12s).
+// loadStdlib installs the standard library into the running image. Normally it
+// uses source-bound generated Go and replays the reader's arity, package, and
+// macro effects. SHEN_STDLIB_INTERPRETED=1 selects the original load path for
+// comparison; a stale generated source hash also falls back to that path.
+// The interpreted path concatenates the sources and loads them with
+// type-checking off.
 // Loader chatter (one "(fn X)" per defun, plus the "run time:" line) is
 // silenced by rebinding `pr` to a no-op for the duration, then restoring the
 // real pr via fixPrHush. Errors are non-fatal — a broken stdlib must not stop
@@ -63,6 +67,11 @@ func loadStdlib(e *kl.ControlFlow) {
 		}
 		b.Write(data)
 		b.WriteByte('\n')
+	}
+	if os.Getenv("SHEN_STDLIB_INTERPRETED") == "" &&
+		fmt.Sprintf("%x", sha256.Sum256([]byte(b.String()))) == stlibcompiled.SourceSHA256 {
+		loadStdlibCompiled(e)
+		return
 	}
 
 	tmp, err := os.CreateTemp("", "shen-stdlib-*.shen")

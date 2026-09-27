@@ -10,17 +10,56 @@ import (
 	"os/exec"
 	"path/filepath"
 	"strings"
+	"sync"
 	"testing"
 	"time"
 )
 
+var (
+	cliBuildOnce sync.Once
+	cliBin       string
+	cliTempDir   string
+	cliBuildErr  error
+	cliBuildOut  []byte
+)
+
+func TestMain(m *testing.M) {
+	code := m.Run()
+	if cliTempDir != "" {
+		os.RemoveAll(cliTempDir)
+	}
+	os.Exit(code)
+}
+
+func cliBinary(t *testing.T) string {
+	t.Helper()
+	cliBuildOnce.Do(func() {
+		cliTempDir, cliBuildErr = os.MkdirTemp("", "shen-go-cli-tests-")
+		if cliBuildErr != nil {
+			return
+		}
+		cliBin = filepath.Join(cliTempDir, "shen")
+		ctx, cancel := context.WithTimeout(context.Background(), 240*time.Second)
+		defer cancel()
+		cliBuildOut, cliBuildErr = exec.CommandContext(ctx, "go", "build", "-o", cliBin, ".").CombinedOutput()
+		if ctx.Err() != nil {
+			cliBuildErr = ctx.Err()
+		}
+	})
+	if cliBuildErr != nil {
+		t.Fatalf("build shen CLI: %v\n%s", cliBuildErr, cliBuildOut)
+	}
+	return cliBin
+}
+
 // TestPipedStdinEOFExitsRepl verifies the CLI exits cleanly when piped stdin
 // reaches EOF, rather than looping forever on "error: empty stream".
 func TestPipedStdinEOFExitsRepl(t *testing.T) {
-	ctx, cancel := context.WithTimeout(context.Background(), 60*time.Second)
+	bin := cliBinary(t)
+	ctx, cancel := context.WithTimeout(context.Background(), 180*time.Second)
 	defer cancel()
 
-	cmd := exec.CommandContext(ctx, "go", "run", ".")
+	cmd := exec.CommandContext(ctx, bin)
 	cmd.Stdin = strings.NewReader("(version)\n")
 
 	output, err := cmd.CombinedOutput()
@@ -43,9 +82,10 @@ func TestPipedStdinEOFExitsRepl(t *testing.T) {
 // runCLI runs the shen CLI with the given arguments and returns combined output.
 func runCLI(t *testing.T, args ...string) (string, error) {
 	t.Helper()
-	ctx, cancel := context.WithTimeout(context.Background(), 60*time.Second)
+	bin := cliBinary(t)
+	ctx, cancel := context.WithTimeout(context.Background(), 180*time.Second)
 	defer cancel()
-	cmd := exec.CommandContext(ctx, "go", append([]string{"run", "."}, args...)...)
+	cmd := exec.CommandContext(ctx, bin, args...)
 	output, err := cmd.CombinedOutput()
 	if ctx.Err() == context.DeadlineExceeded {
 		t.Fatalf("shen %v did not exit; output:\n%s", args, output)
@@ -73,9 +113,10 @@ func TestLauncherNativePrOutput(t *testing.T) {
 		{"write-byte", `(write-byte 88 (stoutput))`, "X"},
 	} {
 		t.Run(tc.name, func(t *testing.T) {
-			ctx, cancel := context.WithTimeout(context.Background(), 60*time.Second)
+			bin := cliBinary(t)
+			ctx, cancel := context.WithTimeout(context.Background(), 180*time.Second)
 			defer cancel()
-			cmd := exec.CommandContext(ctx, "go", "run", ".", "eval", "-e", tc.expr)
+			cmd := exec.CommandContext(ctx, bin, "eval", "-e", tc.expr)
 			var stdout, stderr bytes.Buffer
 			cmd.Stdout, cmd.Stderr = &stdout, &stderr
 			err := cmd.Run()
@@ -129,9 +170,10 @@ func TestLauncherVersionAndBadArgs(t *testing.T) {
 // returns combined output and the exit error.
 func runCLIStdin(t *testing.T, stdin string, args ...string) (string, error) {
 	t.Helper()
-	ctx, cancel := context.WithTimeout(context.Background(), 60*time.Second)
+	bin := cliBinary(t)
+	ctx, cancel := context.WithTimeout(context.Background(), 180*time.Second)
 	defer cancel()
-	cmd := exec.CommandContext(ctx, "go", append([]string{"run", "."}, args...)...)
+	cmd := exec.CommandContext(ctx, bin, args...)
 	cmd.Stdin = strings.NewReader(stdin)
 	output, err := cmd.CombinedOutput()
 	if ctx.Err() == context.DeadlineExceeded {

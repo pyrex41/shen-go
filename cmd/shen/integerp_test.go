@@ -21,23 +21,14 @@ package main
 import (
 	"context"
 	"os/exec"
-	"path/filepath"
 	"strings"
 	"testing"
 	"time"
 )
 
-// buildShen compiles the CLI once for the calling test and returns its path.
+// buildShen shares the package's one compiled CLI across subprocess tests.
 func buildShen(t *testing.T) string {
-	t.Helper()
-	ctx, cancel := context.WithTimeout(context.Background(), 120*time.Second)
-	defer cancel()
-	bin := filepath.Join(t.TempDir(), "shen")
-	build := exec.CommandContext(ctx, "go", "build", "-o", bin, ".")
-	if out, err := build.CombinedOutput(); err != nil {
-		t.Fatalf("failed to build shen: %v\n%s", err, out)
-	}
-	return bin
+	return cliBinary(t)
 }
 
 // evalBounded evaluates expr with the given binary under a hard deadline, so a
