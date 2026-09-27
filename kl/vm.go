@@ -35,6 +35,10 @@ const (
 	OP_NOT           = uint8(21) // pop x: push (not x)
 	OP_GUARDED_CONST = uint8(22) // A=result const, B=symbol const, C=x const, D=y const
 	OP_GUARDED_PRIM  = uint8(23) // A=arity, B=symbol const; args are on stack
+	// Fused instructions, emitted by the compiler where nothing jumps
+	// between the parts they replace.
+	OP_GP1_LOCAL = uint8(25) // OP_LOAD_LOCAL A; OP_GUARDED_PRIM 1 (B=symbol const, C=id+1)
+	OP_EQ_JF     = uint8(26) // OP_EQ (B=symbol const); OP_JUMP_FALSE A
 )
 
 // Instr is a single VM instruction. A-D are signed operands; C/D are used by
@@ -526,8 +530,13 @@ func maxStackDepth(code []Instr) int {
 				if in.A < 0 {
 					return 0
 				}
-			case OP_JUMP_FALSE:
+			case OP_GP1_LOCAL:
+				d++
+			case OP_JUMP_FALSE, OP_EQ_JF:
 				d--
+				if in.Op == OP_EQ_JF {
+					d--
+				}
 				if in.A < 0 {
 					return 0
 				}
@@ -750,6 +759,57 @@ func vmExecSlots(ctl *ControlFlow, bf *scmBytecodeFunc, args []vmSlot) {
 
 		case OP_LOAD_LOCAL:
 			stack = append(stack, locals[instr.A])
+
+		case OP_GP1_LOCAL:
+			x := locals[instr.A]
+			sym := consts[instr.B]
+			if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym) {
+				if o := x.obj; o != nil && !isFixnum(o) {
+					switch instr.C - 1 {
+					case gpHd:
+						if *o == scmHeadPair {
+							stack = append(stack, slotFromObj(mustPair(o).car))
+							continue
+						}
+					case gpTl:
+						if *o == scmHeadPair {
+							stack = append(stack, slotFromObj(mustPair(o).cdr))
+							continue
+						}
+					case gpConsp:
+						stack = append(stack, slotBool(*o == scmHeadPair))
+						continue
+					}
+				}
+				one := [1]vmSlot{x}
+				if r, ok := vmGuardedPrimitive(sym, instr.C, one[:]); ok {
+					stack = append(stack, r)
+					continue
+				}
+			}
+			if r, ok := vmDynamicCall(ctl, sym, x); ok {
+				stack = append(stack, r)
+				continue
+			}
+			panic("vmExec: guarded primitive failed without fallback")
+
+		case OP_EQ_JF:
+			y := stack[len(stack)-1]
+			x := stack[len(stack)-2]
+			stack = stack[:len(stack)-2]
+			var r Obj
+			if x.obj != nil && x.obj == y.obj {
+				r = True
+			} else if f, ok := vmIntrinsicFallback(ctl, instrConstSym(consts, instr.B), x, y); ok {
+				r = f.objValue()
+			} else {
+				r = slotEqual(x, y).objValue()
+			}
+			if r == False {
+				pc += int(instr.A)
+			} else if r != True {
+				panic(MakeError("if requires a boolean"))
+			}
 
 		case OP_STORE_LOCAL:
 			locals[instr.A] = stack[len(stack)-1]

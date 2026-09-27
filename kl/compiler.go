@@ -8,6 +8,10 @@ type klCompiler struct {
 	outer  *klCompiler // enclosing compiler (for closures)
 	hints  []TypeHint
 	thunks map[int]inlineThunk // local slot -> nonescaping freeze
+	// maxTarget is the highest code index any patched jump lands on. An
+	// instruction can be fused with the next one only while nothing jumps
+	// between them, i.e. while maxTarget < len(fn.Code).
+	maxTarget int
 }
 
 // Keep the definition's lexical environment, not the thaw site's bindings.
@@ -112,6 +116,21 @@ func (c *klCompiler) resolveVar(sym Obj) (varKind, int) {
 func (c *klCompiler) patchJump(instrIdx int) {
 	target := len(c.fn.Code)
 	c.fn.Code[instrIdx].A = int32(target - instrIdx - 1)
+	if target > c.maxTarget {
+		c.maxTarget = target
+	}
+}
+
+// emitJumpFalse emits the conditional jump after a compiled condition. A
+// condition that ended in (= X Y) becomes one compare-and-branch
+// instruction, unless a jump already lands right after the compare.
+func (c *klCompiler) emitJumpFalse() int {
+	if n := len(c.fn.Code); n > 0 && c.maxTarget < n && c.fn.Code[n-1].Op == OP_EQ {
+		c.fn.Code[n-1].Op = OP_EQ_JF
+		c.fn.Code[n-1].A = 0
+		return n - 1
+	}
+	return c.emit(OP_JUMP_FALSE, 0, 0)
 }
 
 // compileExpr compiles a KL expression.  tail indicates whether this is
@@ -436,7 +455,7 @@ func (c *klCompiler) compileLet(x, val, body Obj, tail bool) {
 func (c *klCompiler) compileIf(cond, thenExpr, elseExpr Obj, tail bool) {
 	c.compileExpr(cond, false)
 	// Emit JUMP_FALSE with placeholder; patch after then-branch.
-	jumpFalseIdx := c.emit(OP_JUMP_FALSE, 0, 0)
+	jumpFalseIdx := c.emitJumpFalse()
 	c.compileExpr(thenExpr, tail)
 	if !tail {
 		// Emit JUMP over else-branch; patch after else.
@@ -472,7 +491,7 @@ func (c *klCompiler) compileCond(clauses Obj, tail bool) {
 	}
 
 	c.compileExpr(cond, false)
-	jumpFalseIdx := c.emit(OP_JUMP_FALSE, 0, 0)
+	jumpFalseIdx := c.emitJumpFalse()
 	c.compileExpr(action, tail)
 	if !tail {
 		jumpOverIdx := c.emit(OP_JUMP, 0, 0)
@@ -677,6 +696,15 @@ func (c *klCompiler) compileCall(fn Obj, args Obj, tail bool) {
 	if IsSymbol(fn) {
 		n := guardedPrimitiveArity(fn)
 		if n != 0 && n == nArgs {
+			if n == 1 && IsSymbol(argList[0]) {
+				if kind, idx := c.resolveVar(argList[0]); kind == varLocal {
+					c.fn.Code = append(c.fn.Code, Instr{Op: OP_GP1_LOCAL, A: int32(idx), B: c.addConst(fn), C: guardedPrimID(fn) + 1})
+					if tail {
+						c.emit(OP_RETURN, 0, 0)
+					}
+					return
+				}
+			}
 			for _, a := range argList {
 				c.compileExpr(a, false)
 			}
