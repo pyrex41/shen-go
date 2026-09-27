@@ -15,18 +15,19 @@ import (
 
 // TestMathsNativesMatchStdlib is the equivalence audit for mathsnative.go.
 // Every case runs twice through the same binary, once with the native
-// floor/ceiling/round/mod and once with SHEN_NO_MATHS_NATIVE=1 (StLib's own
+// floor/ceiling/round/mod/power/gcd/lcd/isqrt and once with SHEN_NO_MATHS_NATIVE=1 (StLib's own
 // Shen definitions), and the printed results, error text included, must be
 // byte-identical. Numbers print shortest-round-trip, so equal text is equal
 // float64 values.
 //
-// Inputs are confined to where the Shen definitions terminate: finite values
-// below 2^53 in magnitude. Outside that the natives defer to the Shen
-// definitions (mathsnative.go), which the non-number and division-by-zero
-// cases exercise.
+// Inputs are confined to where the Shen definitions terminate in reasonable
+// time: finite values below 2^53 in magnitude, power exponents 0..100000,
+// small gcd/lcd arguments, isqrt up to 10^12. Outside their domains the
+// natives defer to the Shen definitions (mathsnative.go), which the
+// non-number, non-integer, zero and division-by-zero cases exercise.
 func TestMathsNativesMatchStdlib(t *testing.T) {
 	if testing.Short() {
-		t.Skip("runs the stdlib's digit-loop floor on ~2000 cases")
+		t.Skip("runs the stdlib's Shen maths loops on ~4000 cases")
 	}
 	exprs := mathsAuditExprs()
 	var script strings.Builder
@@ -143,6 +144,62 @@ func mathsAuditExprs() []string {
 		"(modf 3.75)", "(modf -3.75)", "(maths.float->pair 12.5)", "(maths.float->pair -12.5)",
 		"(do (set maths.*seed* 95795) [(random 1 100) (random 1 100) (random -50 50)])",
 	)
+
+	// power: only integer exponents 0..100000; the original's recursion
+	// overflows the Go stack on anything else.
+	for _, n := range []string{"0", "1", "-1", "2", "-2", "3", "10", "1.5", "-0.5", "0.1", "(/ 1 3)", "1e10", "1e300", "-1e300"} {
+		for _, m := range []string{"0", "1", "2", "3", "10", "31", "52", "53", "64", "100", "1023", "1100"} {
+			exprs = append(exprs, "(power "+n+" "+m+")")
+		}
+	}
+	exprs = append(exprs, "(power 1 100000)", "(power 1.0000001 100000)", "(power -1 99999)",
+		"(power a 0)", "(power a 2)", "(power 2 a)", "(map (power 2) [0 1 8])")
+
+	// gcd, lcd: the originals loop up to the smaller argument, so random
+	// pairs stay small; the large-magnitude cases keep one argument small.
+	pairs := [][2]string{
+		{"12", "18"}, {"-12", "18"}, {"12", "-18"}, {"-12", "-18"}, {"5", "5"}, {"-5", "5"},
+		{"0", "7"}, {"7", "0"}, {"0", "0"}, {"1", "1"}, {"1", "9"}, {"9", "1"}, {"2", "4"},
+		{"4", "6"}, {"9", "15"}, {"-9", "15"}, {"-4", "6"}, {"7", "11"}, {"21", "35"}, {"49", "77"},
+		{"4503599627370495", "15"}, {"15", "4503599627370495"}, {"4503599627370495", "4503599627370490"},
+		{"9007199254740991", "7"}, {"-9007199254740991", "3"}, {"4294967296", "96"}, {"96", "4294967296"},
+		{"7.5", "3"}, {"3", "7.5"}, {"9.5", "3"}, {"a", "3"}, {"3", "a"}, {"\"x\"", "2"},
+	}
+	for i := 0; i < 150; i++ {
+		a, b := r.Int63n(20000)-2000, r.Int63n(20000)-2000
+		if i%3 == 0 { // share a factor
+			f := r.Int63n(60) + 2
+			a, b = a/f*f, b/f*f
+		}
+		pairs = append(pairs, [2]string{strconv.FormatInt(a, 10), strconv.FormatInt(b, 10)})
+	}
+	for _, fn := range []string{"gcd", "lcd"} {
+		for _, p := range pairs {
+			exprs = append(exprs, "("+fn+" "+p[0]+" "+p[1]+")")
+		}
+	}
+
+	// isqrt counts up to the root, so N stays at or below 10^12.
+	for _, n := range []string{"0", "1", "2", "3", "4", "15", "16", "17", "-1", "-5", "-0.5", "2.5", "0.99",
+		"1e-300", "999999999999", "1000000000000", "999998000001", "999998000000", "123456.789",
+		"(/ 1 3)", "a", "\"x\"", "[]"} {
+		exprs = append(exprs, "(isqrt "+n+")")
+	}
+	for i := 0; i < 100; i++ {
+		v := r.Int63n(1_000_000_000)
+		if i%4 == 0 {
+			w := r.Int63n(30000)
+			v = w * w
+		}
+		if i%4 == 1 {
+			w := r.Int63n(30000) + 1
+			v = w*w - 1
+		}
+		exprs = append(exprs, "(isqrt "+strconv.FormatInt(v, 10)+")")
+		if i%5 == 0 {
+			exprs = append(exprs, "(isqrt "+num(float64(v)+0.5)+")")
+		}
+	}
 	return exprs
 }
 

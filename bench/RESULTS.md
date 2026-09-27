@@ -75,10 +75,41 @@ integer rounding. `SHEN_NO_MATHS_NATIVE=1` keeps the StLib definitions.
 | LCG via `mod` ×20000 | 2.19 s | **0.0039 s (~560×)** |
 | rotate via `floor`/`mod`/`div` ×5000 | 1.63 s | **0.022 s (~75×)** |
 
-The rotate case is now bounded by StLib's pure-Shen `power`. Other StLib
-Maths functions are also linear-time loops and are unchanged: `gcd` and
-`lcd` scan divisors down from the smaller argument, and `isqrt` counts up
-to the root.
+**Native `power`, `gcd`, `lcd` and `isqrt`.** These are also loops in
+StLib. `power` recurses once per unit of the exponent. `gcd` tries every
+divisor down from the smaller argument. `lcd` tries every odd divisor up to
+it. `isqrt` counts up to the root. The natives keep each function's quirks:
+
+- `gcd` raises `division by zero` when either argument is 0 or |M| = |N|,
+  because its loop starts at a divisor of 0.
+- `lcd` answers 1 whenever the smaller argument is ≤ 0, and 2 when both are
+  even.
+- `isqrt` is −1 for any negative number.
+- `power` performs M rounded multiplications in the original's order. It is
+  not `math.Pow`, which rounds differently.
+
+`power` with a negative, fractional or very large exponent recurses until
+the Go stack overflows, which is fatal and cannot be caught. Somewhere
+between 10^5 and 10^6 the overflow starts. Those exponents still go to the
+original, so the native covers exponents from 0 to 100000 only.
+
+`TestMathsNativesMatchStdlib` now runs 2433 cases. Four more planted bugs
+each fail it: `gcd` answering |M| = |N|, `lcd` taking absolute values,
+`isqrt` of a negative number giving 0, and `power` via `math.Pow`.
+
+`bench/modarith.shen` (identical results):
+
+| | StLib | native |
+|---|---|---|
+| rotate via `floor`/`mod`/`power`/`div` ×5000 | 1.55 s | **0.0034 s** |
+| `gcd` ×200 (arguments ~2×10^5) | 0.26 s | **0.00006 s** |
+| `lcd` ×200 (arguments ~10^5) | 0.23 s | **0.00007 s** |
+| `isqrt` ×200 (N up to 2×10^8) | 0.24 s | **0.00003 s** |
+| `power` ×2000 (exponents 100–2100) | 0.36 s | **0.0034 s** |
+
+StLib's `gcd`, `lcd` and `isqrt` are linear in their input, so the gap grows
+without bound. `lcm` is still StLib's own loop, stepping by the greatest
+argument, and so are `prime?` and `factorial`.
 
 ## Kernel `let` lowering and VM frame/closure allocation (2026-09)
 
