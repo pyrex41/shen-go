@@ -51,4 +51,8 @@ These are the levers the profile points at, none of them SIMD:
 - Dispatch overhead in `vmExecSlots`/`apply`.
 - AOT via `make precompile` for hot files.
 
+The allocation lever has since been acted on, along with the trampoline dispatch that every kernel `let` went through. See "Kernel `let` lowering and VM
+frame/closure allocation" in `bench/RESULTS.md`: the cert suite dropped about
+30% in wall time and 40% in CPU.
+
 SIMD becomes relevant only if shen-go grows an unboxed numeric vector type, for example a typed-IR `float64`/`int64` array. Bulk primitives over such a type (map, fold, dot product, comparison) could then use the portable `simd` package.

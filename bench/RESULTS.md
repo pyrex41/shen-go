@@ -4,6 +4,45 @@ Machine: Linux amd64
 Kernel: S39.2  
 Date: 2026-05-05  
 
+## Kernel `let` lowering and VM frame/closure allocation (2026-09)
+
+Profiled the kernel certification suite (`kernel/tests/runme.shen`) with
+`-cpuprofile`/`-memprofile`. About 30% of its CPU time was GC. Nearly half of
+all bytes allocated (1.42 of 2.94 GB) came from `MakeNative` in the compiled
+kernel, because `src/compiler.shen` lowered `(let X V Body)` to
+`((lambda [X] Body) V)`. Every `let` in the kernel (the type checker and Prolog
+engine are full of them) allocated a Go closure plus an `scmNative`, and
+entered its body through `TailApply` and the trampoline.
+
+Changes:
+
+- **`let` → `(bind X V)`** (`src/compiler.shen`, `codegen/codegen.go`,
+  regenerated `cmd/shen/*.go`). A `let` is now `X := V` followed by the body
+  inline. Binders are alpha-renamed to fresh symbols, so shadowing lets and
+  lets reusing a parameter name never redeclare a Go variable in one scope.
+  `bind` is always a statement and is never scalar-inlined like a `<=`
+  temporary. A let variable can be used inside a lambda or an `if` branch, and
+  inlining it there would defer or skip an error in V such as `(/ 4 0)`.
+- **VM operand stack learns its size** (`kl/vm.go`, `kl/eval.go`). A function
+  whose operand stack outgrew the fixed 16-slot frame headroom used to
+  reallocate its stack off the arena on every call. It now records the
+  capacity it needed, and later frames reserve it.
+- **Closures with ≤4 upvalues are one allocation** (`makeBytecodeClosure`),
+  not an upvals slice plus a closure object.
+
+Kernel certification suite, 8 interleaved runs, medians. linux/amd64, go1.27.0:
+
+| | wall | CPU (user+sys) | bytes allocated |
+|---|---|---|---|
+| before | 6.74 s | 9.76 s | 2.94 GB |
+| `let` lowering | 4.78 s | 5.96 s | 1.18 GB |
+| + VM stack/closure | **4.74 s (−30%)** | **5.84 s (−40%)** | **1.06 GB (−64%)** |
+
+Startup (`shen eval -e '(+ 1 2)'`) went from about 170 ms to about 145 ms.
+User code defined at the REPL runs on the bytecode VM, so `bench/bench.shen`
+and the `BenchmarkVM*` micro-benchmarks are unchanged within noise
+(interleaved geomean −3%). Cert output is byte-identical apart from timings.
+
 ## Allocation-reduction work (2026-06)
 
 Profiled with the Go-level VM micro-benchmarks in `kl/vm_bench_test.go`
