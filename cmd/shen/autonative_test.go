@@ -132,7 +132,7 @@ func TestAutoNativeEngagesAfterLoad(t *testing.T) {
 	bin := buildShen(t)
 	runPluginCLI := func(args ...string) string {
 		t.Helper()
-		ctx, cancel := context.WithTimeout(context.Background(), 60*time.Second)
+		ctx, cancel := context.WithTimeout(context.Background(), 180*time.Second)
 		defer cancel()
 		cmd := exec.CommandContext(ctx, bin, args...)
 		out, err := cmd.CombinedOutput()

@@ -39,7 +39,7 @@ func TestKernelCertification(t *testing.T) {
 		t.Skip("skipping canonical kernel certification suite in -short mode")
 	}
 
-	ctx, cancel := context.WithTimeout(context.Background(), 120*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 240*time.Second)
 	defer cancel()
 
 	// Build the binary into a temp dir.

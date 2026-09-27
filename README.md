@@ -17,6 +17,8 @@ Windows: `make shen-exe`. The binary has no runtime dependencies.
 
 A standard library (filter, mapc, fold, sort, …) loads at startup from Tarver's StLib. Set `SHEN_NO_STDLIB=1` to skip it. See `cmd/shen/stlib/PROVENANCE.md`.
 
+StLib is compiled into the binary for faster startup. Regenerate it after changing the vendored sources or compiler with `python3 scripts/generate-stlib.py`. The source digest test detects stale artifacts. Set `SHEN_STDLIB_INTERPRETED=1` to compare with the original loader.
+
 ## Tests
 
 Three layers, three questions:

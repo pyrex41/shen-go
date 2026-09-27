@@ -18,18 +18,21 @@ The Shen **kernel** ships no standard library — `map`, `append`, `reverse`,
 `foldl`/`foldr`, `sort`, and the Maths/Strings/Vectors/Tuples/Symbols helpers
 live only in StLib. Before this, shen-go shipped **no** stdlib at all (the
 community `stlib.kl` was vendored historically but never actually booted). This
-directory is loaded into the image at startup (see `cmd/shen/stlib.go`) so those
+directory is compiled into the image at startup (see `cmd/shen/stlib.go`) so those
 functions work out of the box.
 
 ## What is loaded, and in what order
 
-`cmd/shen/stlib.go` loads the subset and order of upstream `install.shen`
+`cmd/shen/stlib.go` uses the subset and order of upstream `install.shen`
 (`stlibInstallOrder`): Symbols → Maths (macros, then the `.dtype`s and their
 sources) → Lists → Strings → Vectors → IO → Tuples → `package-stlib.shen`, then
 declares the `stlib` externals as system functions (the tail of `install.shen`).
-It is loaded with **type-checking off** — the sources are known-good and the
-kernel would otherwise type-check the whole library on every startup (~0.37s vs
-~0.12s). Set `SHEN_NO_STDLIB=1` to skip loading entirely.
+`python3 scripts/generate-stlib.py` compiles this ordered set to
+`cmd/shen/stlibcompiled/` and snapshots the source digest, arities, package
+metadata, and six macro forms. Startup replays the reader effects before
+exposing the compiled functions. A source-digest mismatch falls back to the
+interpreted load; `SHEN_STDLIB_INTERPRETED=1` selects that path explicitly.
+Both paths turn type-checking off. Set `SHEN_NO_STDLIB=1` to skip StLib entirely.
 
 ## Files present but NOT loaded by default
 
