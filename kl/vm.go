@@ -927,6 +927,18 @@ func vmExecSlots(ctl *ControlFlow, bf *scmBytecodeFunc, args []vmSlot) {
 			n := int(instr.A)
 			base := len(stack) - n - 1
 			callee := stack[base].objValue()
+			// A call through a local or closure may still target this exact
+			// activation. Reuse its frame when the arity is complete; partial
+			// and over-application retain the normal trampoline semantics.
+			if callee == &bf.scmHead && n == fn.Arity {
+				copy(locals[:n], stack[base+1:])
+				stack = stack[:0]
+				pc = 0
+				if limited {
+					ctl.tick()
+				}
+				continue
+			}
 			ctl.tailApplySlots(callee, stack[base+1:])
 			ctl.putFrame(slab, fmark)
 			return
