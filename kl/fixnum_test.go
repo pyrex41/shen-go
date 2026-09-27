@@ -5,7 +5,13 @@ package kl
 // fixnum/boxed boundaries, and that values just outside the fixnum range fall
 // back to a boxed scmNumber that still reads back correctly.
 
-import "testing"
+import (
+	"math"
+	"os"
+	"os/exec"
+	"runtime"
+	"testing"
+)
 
 func TestFixnumRoundTrip(t *testing.T) {
 	vals := []int{
@@ -41,7 +47,7 @@ func TestFixnumRangeClassification(t *testing.T) {
 			t.Errorf("MakeInteger(%d) expected to be a fixnum (unboxed)", v)
 		}
 	}
-	boxed := []int{fixnumMin - 1, fixnumMax, 1 << 30, -(1 << 30)}
+	boxed := []int{fixnumMin - 1, fixnumMax, 1 << 40, -(1 << 40), 1 << 53}
 	for _, v := range boxed {
 		if isFixnum(MakeInteger(v)) {
 			t.Errorf("MakeInteger(%d) expected to be boxed (out of fixnum range)", v)
@@ -93,3 +99,70 @@ func TestFixnumArithmeticEquality(t *testing.T) {
 		t.Errorf("equal boxed integers compared unequal")
 	}
 }
+
+// TestFixnumSpanCoversWords pins the widened range on the platforms that
+// reserve it: every uint32 and the sum of a few of them is unboxed, which is
+// what keeps pure-Shen SHA-256 / PRNG word arithmetic off the heap.
+func TestFixnumSpanCoversWords(t *testing.T) {
+	if os.Getenv("SHEN_GO_NARROW_FIXNUM") != "" {
+		t.Skip("narrow fixnums requested")
+	}
+	if runtime.GOOS != "linux" && runtime.GOOS != "darwin" || unsafeWordBits() != 64 {
+		t.Skipf("no fixnum reservation on %s/%s", runtime.GOOS, runtime.GOARCH)
+	}
+	if fixnumMax < 1<<33 || fixnumMin > -(1<<33) {
+		t.Fatalf("fixnum range [%d, %d) does not cover sums of 32-bit words", fixnumMin, fixnumMax)
+	}
+	for _, v := range []int{math.MaxUint32, 3 * math.MaxUint32, -math.MaxUint32} {
+		if !isFixnum(MakeInteger(v)) || !isFixnum(MakeNumber(float64(v))) {
+			t.Errorf("%d is boxed", v)
+		}
+	}
+}
+
+// TestFixnumMultiplyDoesNotOverflow: two wide fixnums multiply past int64. The
+// product must be Shen's float64 product, on every path that multiplies
+// fixnums (the kl.* primitive, the VM slot op, and compile-time folding).
+func TestFixnumMultiplyDoesNotOverflow(t *testing.T) {
+	cases := []int{fixnumMax - 1, fixnumMin, 1 << 31, 3037000500}
+	for _, a := range cases {
+		for _, b := range cases {
+			want := float64(a) * float64(b)
+			x, y := MakeInteger(a), MakeInteger(b)
+			if got := GetNumber(numMul(x, y)); got != want {
+				t.Errorf("numMul(%d, %d) = %v, want %v", a, b, got, want)
+			}
+			if got := GetNumber(slotMul(slotFromObj(x), slotFromObj(y)).objValue()); got != want {
+				t.Errorf("slotMul(%d, %d) = %v, want %v", a, b, got, want)
+			}
+			// A body of two constants makes the compiler fold the product.
+			fn := CompileFunc("fold-mul", nil, cons(symMul, cons(x, cons(y, Nil))))
+			got := GetNumber(Call(&ControlFlow{}, fn))
+			if got != want {
+				t.Errorf("(* %d %d) = %v, want %v", a, b, got, want)
+			}
+		}
+	}
+}
+
+// TestNarrowFixnumFallback re-runs the fixnum tests with the reservation
+// disabled, so the static-array fallback (other platforms, a failed mmap)
+// stays exercised on the machines that normally get the wide span.
+func TestNarrowFixnumFallback(t *testing.T) {
+	if os.Getenv("SHEN_GO_NARROW_FIXNUM") != "" {
+		if fixnumMax != 1<<25 || fixnumMin != -(1<<25) {
+			t.Fatalf("fallback range is [%d, %d), want [-2^25, 2^25)", fixnumMin, fixnumMax)
+		}
+		return
+	}
+	if testing.Short() {
+		t.Skip("re-exec skipped in -short")
+	}
+	cmd := exec.Command(os.Args[0], "-test.run", "^(TestFixnum|TestNarrowFixnumFallback)", "-test.count=1")
+	cmd.Env = append(os.Environ(), "SHEN_GO_NARROW_FIXNUM=1")
+	if out, err := cmd.CombinedOutput(); err != nil {
+		t.Fatalf("narrow-fixnum run failed: %v\n%s", err, out)
+	}
+}
+
+func unsafeWordBits() int { return 32 << (^uint(0) >> 63) }

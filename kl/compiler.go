@@ -649,12 +649,20 @@ func foldFixnum2(sym Obj, x, y Obj) (Obj, bool) {
 		return nil, false
 	}
 	a, b := fixnum(x), fixnum(y)
+	// The folded instruction keeps both operands in its int32 C and D fields
+	// (for the dynamic fallback), so only fold operands that fit there.
+	if a != int(int32(a)) || b != int(int32(b)) {
+		return nil, false
+	}
 	switch sym {
 	case symAdd:
 		return MakeInteger(a + b), true
 	case symSub:
 		return MakeInteger(a - b), true
 	case symMul:
+		if !fixnumMulFits(a, b) {
+			return nil, false
+		}
 		return MakeInteger(a * b), true
 	}
 	return nil, false

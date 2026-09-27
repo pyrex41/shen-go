@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"fmt"
 	"io"
+	"os"
 	"time"
 	"unsafe"
 )
@@ -349,32 +350,67 @@ var symType Obj
 // Arithmetic intrinsic symbols for the compiler fast-path detection.
 var symAdd, symSub, symMul, symLT, symLE, symGT, symGE, symNumEq, symNot Obj
 
-// Fixnum representation: small integers are encoded as pointers into a dedicated
-// sentinel byte array, costing zero heap allocation. The array's contents are
-// never read or written — only the *addresses* of its bytes are used — so the
-// array is pure virtual address space (BSS): it is never paged in and costs ~0
-// RSS regardless of size, and the GC never scans it (a [N]byte has no pointers).
+// Fixnum representation: small integers are encoded as pointers into a
+// dedicated span of address space, costing zero heap allocation. Only the
+// *addresses* are used; the span is zero-filled read-only memory, so code that
+// peeks at *o on a fixnum reads scmHeadNumber (0), which is what the rest of the
+// package relies on. The GC never scans it and never follows pointers into it.
 //
 // The range is signed and centered, so the byte at offset 0 represents
-// fixnumMin. Widening from the original unsigned [0, 2^20) to a signed
-// [-2^25, 2^25) removes heap boxing for two large classes of common integers
-// that previously always allocated a scmNumber: every negative integer, and
-// every integer between 2^20 and 2^25. makeInteger (the boxed fallback) was the
-// single largest allocation source in the VM (per the alloc profile of integer
-// arithmetic), so widening its fixnum fast path directly cuts GC pressure for
-// real integer workloads.
+// fixnumMin. On 64-bit unix the span is an anonymous PROT_READ mapping reserved
+// at startup (reserveFixnumSpace): 2^36 bytes, so fixnums cover [-2^35, 2^35),
+// which holds every 32-bit word and sums of several of them. That is the range
+// hashing and PRNG code in pure Shen (SHA-256 words, LCG state) lives in, and
+// where every intermediate used to be a heap-boxed scmNumber. A read-only
+// private mapping is not committed memory and is only paged in as the shared
+// zero page where read, so the reservation costs address space, not RSS. If
+// the reservation fails (32-bit, other OSes, a tight ulimit -v) the span falls
+// back to the static 2^26-byte array below, i.e. [-2^25, 2^25) as before.
+//
+// fixnumMin and fixnumMax are therefore variables fixed at package init.
+// Anything that must hold a fixnum's value in a narrower type (the compiler's
+// folded int32 operands) or multiply two fixnums (the product of two 35-bit
+// values overflows int64) has to check the range itself; see fixnumMulFits.
 const (
-	fixnumBits  = 26                       // sentinel array is 2^26 bytes = 64 MiB of pure address space
-	fixnumCount = 1 << fixnumBits          // number of distinct fixnum values
-	fixnumMin   = -(1 << (fixnumBits - 1)) // smallest fixnum, i.e. -2^25
-	fixnumMax   = 1 << (fixnumBits - 1)    // one past the largest fixnum, i.e. 2^25
+	fixnumStaticBits = 26 // the fallback span: 2^26 bytes = 64 MiB of BSS
+	// fixnumSpanTail is readable slack past the last fixnum address, so a
+	// stray scmNumber-sized read at the top of the range stays inside mapped
+	// memory as it always did with the static array (which BSS follows).
+	fixnumSpanTail = 1 << 16
 )
 
-var addrForFixnum [fixnumCount]byte
+var addrForFixnum [1<<fixnumStaticBits + fixnumSpanTail]byte
 
-// fixnumBaseAddr is the address representing the integer fixnumMin.
-var fixnumBaseAddr = unsafe.Pointer(&addrForFixnum[0])
-var fixnumEndAddr = unsafe.Add(fixnumBaseAddr, fixnumCount)
+var (
+	// fixnumBaseAddr is the address representing the integer fixnumMin.
+	fixnumBaseAddr, fixnumCount = initFixnumSpace()
+	fixnumEndAddr               = unsafe.Add(fixnumBaseAddr, fixnumCount)
+	fixnumMin                   = -(fixnumCount / 2) // smallest fixnum
+	fixnumMax                   = fixnumCount / 2    // one past the largest fixnum
+)
+
+// initFixnumSpace reserves the widest fixnum span it can, trying 2^36 then
+// 2^34 bytes, and falls back to the static array.
+func initFixnumSpace() (unsafe.Pointer, int) {
+	if unsafe.Sizeof(uintptr(0)) == 8 && os.Getenv("SHEN_GO_NARROW_FIXNUM") == "" {
+		for _, bits := range []uint{36, 34} {
+			n := 1 << bits
+			if base := reserveFixnumSpace(n + fixnumSpanTail); base != nil {
+				return base, n
+			}
+		}
+	}
+	return unsafe.Pointer(&addrForFixnum[0]), 1 << fixnumStaticBits
+}
+
+// fixnumMulFits reports whether a*b is computed exactly in int: true when both
+// magnitudes are below 2^31. Otherwise the product is taken in float64, which
+// is Shen's number semantics anyway (the exact int product rounded once equals
+// the IEEE product of the two exact operands).
+func fixnumMulFits(a, b int) bool {
+	const lim = 1 << 31
+	return a > -lim && a < lim && b > -lim && b < lim
+}
 
 type trieNode struct {
 	children [256]*trieNode
@@ -440,7 +476,7 @@ func init() {
 }
 
 func MakeInteger(v int) Obj {
-	if v >= fixnumMin && v < fixnumMax {
+	if uint(v-fixnumMin) < uint(fixnumCount) {
 		return Obj(unsafe.Pointer(unsafe.Add(fixnumBaseAddr, v-fixnumMin)))
 	}
 	return makeInteger(v)

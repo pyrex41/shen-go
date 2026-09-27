@@ -183,7 +183,7 @@ func slotSub(x, y vmSlot) vmSlot {
 }
 func slotMul(x, y vmSlot) vmSlot {
 	if a, ok := slotFixnum(x); ok {
-		if b, ok := slotFixnum(y); ok {
+		if b, ok := slotFixnum(y); ok && fixnumMulFits(a, b) {
 			return slotFromInteger(a * b)
 		}
 	}
@@ -527,7 +527,7 @@ func numSub(x, y Obj) Obj {
 }
 
 func numMul(x, y Obj) Obj {
-	if isFixnum(x) && isFixnum(y) {
+	if isFixnum(x) && isFixnum(y) && fixnumMulFits(fixnum(x), fixnum(y)) {
 		return MakeInteger(fixnum(x) * fixnum(y))
 	}
 	return MakeNumber(mustNumber(x) * mustNumber(y))
