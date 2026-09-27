@@ -259,6 +259,10 @@ func main() {
 	// a bare (filter ...) work in the REPL, launcher, and scripts.
 	if os.Getenv("SHEN_NO_STDLIB") == "" {
 		loadStdlib(&e)
+		// Replace the stdlib's digit-loop floor/ceiling/round/mod with exact
+		// natives (see mathsnative.go). After loadStdlib, which binds the
+		// Shen definitions the natives fall back to.
+		installMathsNatives()
 	}
 	loadPrecompiled(&e, precompiled)
 	if len(launcherArgs) > 0 {

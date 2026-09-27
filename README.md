@@ -15,7 +15,7 @@ make shen
 
 Windows: `make shen-exe`. The binary has no runtime dependencies.
 
-A standard library (filter, mapc, fold, sort, …) loads at startup from Tarver's StLib. Set `SHEN_NO_STDLIB=1` to skip it. See `cmd/shen/stlib/PROVENANCE.md`.
+A standard library (filter, mapc, fold, sort, …) loads at startup from Tarver's StLib. Set `SHEN_NO_STDLIB=1` to skip it. See `cmd/shen/stlib/PROVENANCE.md`. Its `floor`, `ceiling`, `round` and `mod` are replaced after loading by exact Go natives. The StLib versions are a pure-Shen digit loop of about 100 µs a call. The natives fall back to StLib's definitions for any input outside their proven domain. `SHEN_NO_MATHS_NATIVE=1` keeps the StLib definitions. See `cmd/shen/mathsnative.go`.
 
 ## Tests
 

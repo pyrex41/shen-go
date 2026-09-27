@@ -31,6 +31,14 @@ It is loaded with **type-checking off** — the sources are known-good and the
 kernel would otherwise type-check the whole library on every startup (~0.37s vs
 ~0.12s). Set `SHEN_NO_STDLIB=1` to skip loading entirely.
 
+The sources here stay byte-identical to upstream. After they load,
+`cmd/shen/mathsnative.go` rebinds four Maths functions to Go natives:
+`floor`, `ceiling`, `round` and `mod`. Each native is exact on finite
+inputs below 2^53 in magnitude, and passes every other input to the StLib
+definition it replaced. `TestMathsNativesMatchStdlib` checks about 1750
+cases against the StLib definitions and requires byte-identical output.
+`SHEN_NO_MATHS_NATIVE=1` keeps the StLib definitions.
+
 ## Files present but NOT loaded by default
 
 The full `Lib/StLib` tree is vendored for provenance/source-of-truth. These are

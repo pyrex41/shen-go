@@ -46,12 +46,39 @@ Measured and not kept:
   rather than `if requires a boolean`. Tests pin the interpreter's wording.
   Unify the messages first, then this is a small change.
 
-Found, not changed: the stdlib's `floor`, and so `mod`, `round` and `ceiling`
-(`cmd/shen/stlib/Maths/maths.shen`), is a pure-Shen decimal digit-guessing
-loop, about 100 µs per call. Word arithmetic written with `mod` is two orders
-of magnitude slower than the `+`/compare version above, for that reason
-alone. Native versions would need the same equivalence audit as the
-`kl/equiv.json` kernel natives.
+**Native stdlib `floor`, `ceiling`, `round` and `mod`**
+(`cmd/shen/mathsnative.go`). StLib computes `floor`, `ceiling` and `round`
+with `maths.rounding-loop`, a decimal digit-guessing loop from 10^15 down
+that calls `power` at each step. `mod`, `div`, `modf` and `random` go
+through it too, so each call cost about 100 µs.
+
+Where that loop terminates and every intermediate is exact (finite inputs
+below 2^53 in magnitude), it computes exactly `math.Floor`, `math.Ceil` and
+`math.Round`. That is round-half-away-from-zero, and its tie test is exact
+there by Sterbenz. The natives return those on that domain. `mod` keeps
+StLib's float formula rather than becoming integer modulus. Any other input
+goes to the StLib definition captured before the rebinding: non-numbers, a
+zero divisor, NaN, ±Inf, or 2^53 and above. Error text and even
+non-termination are therefore unchanged.
+
+`TestMathsNativesMatchStdlib` runs 1749 cases both ways and requires
+byte-identical output. The cases cover edge values, halves, random floats
+from 10^-3 to 10^15, large-integer and float `mod` pairs, errors, partial
+application, and `div`, `modf` and `random`. Three planted bugs each fail
+it: `floor` as truncation, `round` as ties-to-even, and `mod` without its
+integer rounding. `SHEN_NO_MATHS_NATIVE=1` keeps the StLib definitions.
+
+`bench/modarith.shen`, with StLib definitions vs natives:
+
+| | StLib | native |
+|---|---|---|
+| LCG via `mod` ×20000 | 2.19 s | **0.0039 s (~560×)** |
+| rotate via `floor`/`mod`/`div` ×5000 | 1.63 s | **0.022 s (~75×)** |
+
+The rotate case is now bounded by StLib's pure-Shen `power`. Other StLib
+Maths functions are also linear-time loops and are unchanged: `gcd` and
+`lcd` scan divisors down from the smaller argument, and `isqrt` counts up
+to the root.
 
 ## Kernel `let` lowering and VM frame/closure allocation (2026-09)
 

@@ -205,6 +205,11 @@ func formatNumber(f float64) string {
 	}
 }
 
+// SymbolFunction is the function bound to sym, or nil when none is.
+func SymbolFunction(sym Obj) Obj {
+	return mustSymbol(sym).function
+}
+
 func BindSymbolFunc(sym Obj, f Obj) {
 	mustSymbol(sym).function = f
 }
