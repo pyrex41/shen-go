@@ -4,6 +4,67 @@ Machine: Linux amd64
 Kernel: S39.2  
 Date: 2026-05-05  
 
+## Open perf issues, round 2 (2026-09, issues #32 #33 #55 #57)
+
+Measured on a 4-core linux/amd64 container, Go 1.27, user CPU / wall /
+peak RSS, three interleaved runs each, `0fa60ea` (before) against this
+branch. `kernel/tests/runme.shen` stdout is byte-identical before and
+after, apart from its own `run time:` lines.
+
+| Workload | before | after |
+|---|---|---|
+| `kernel/tests/runme.shen` | 10.8-11.2 s / 7.9-8.3 s / 212 MB | **5.0-5.3 s / 4.7-5.0 s / 122 MB** |
+| trivial script (startup, StLib load) | 0.26-0.28 s / 0.21-0.23 s / 69 MB | **0.11-0.12 s / 0.13-0.14 s / 45 MB** |
+| `bench/bitlist.shen` (SHA-style bit lists) | 1.55-1.66 s / 1.36-1.45 s | **1.09-1.13 s / 1.15-1.18 s** |
+| BFS, put/get visited set (`bfs-portable`) | 1.46-1.67 s | **1.01-1.06 s** |
+| `(map (fn inc) L)` + a left fold, 300 x 5000 | 1.26-1.31 s | **0.75-0.80 s** |
+| tak(18,12,6) x 400 | 2.96-3.07 s / 70 MB | **2.47-2.52 s / 45 MB** |
+| StLib `(floor X)` / `(mod X Y)` per call | ~45 us / ~110 us | **~0.15 us / ~0.12 us** |
+| BFS visited set, `shen.x.map` vs put/get | (no native map) | **2.2x faster than put/get** |
+
+What changed, in order of effect:
+
+1. **`let` in the compiled kernel** (`src/compiler.shen`, `codegen`). A KL
+   `let` was compiled as `((lambda X Z) Y)`: a closure allocated and
+   tail-applied per evaluation, 47% of all bytes allocated on the kernel
+   suite. It is now a Go local (`bind`), with binders renamed so repeated
+   names never collide. Suite: 12.2 s -> 7.2 s user on its own.
+2. **Symbol table**. Symbols were interned in a byte trie whose every node
+   held `[256]*trieNode` (2 KiB) plus a symbol: ~40 KiB per long name,
+   77 of the suite's 88 MB live heap. A map replaced it; the smaller live
+   heap then made GOGC=100 collect 155 times instead of 24, so `cmd/shen`
+   now also sets a 64 MiB pointer-free GC ballast (never scanned, never
+   resident; off when GOGC or GOMEMLIMIT is set).
+3. **VM**: frames sized to each function's computed operand-stack peak
+   (`MaxStack`) instead of >= 48 slots cleared on every return; the step
+   budget charged per activation instead of per instruction; guarded
+   primitives dispatched on a compile-time id instead of a string switch
+   on the symbol name; fused `OP_GP1_LOCAL` (hd/tl/cons?/... of a local)
+   and `OP_EQ_JF` (`=` and its branch); closures over <= 4 upvalues in one
+   allocation.
+4. **Compiled kernel**: a defun's full-arity tail call of itself is a
+   `goto` while the name is still bound to the running code (117 kernel
+   functions); integer constants are fixnums (`MakeInteger`) rather than
+   `MakeNumber`, which re-tested integrality on every evaluation; `Call`
+   runs an exact-arity native directly. `MakeNumber`/`isPreciseInteger`
+   test integrality with a truncation instead of `math.Ilogb`.
+5. **Natives**: StLib `floor`/`ceiling`/`round`/`mod`/`div`, bit-identical
+   to the library (see `stlibmath_test.go`); the `shen.x.map` host map
+   keyed by any Shen value under `=` (feature `shen.x/map`).
+
+Not done, with the reason:
+
+- **#32, a slab/arena allocator for conses.** In Go a slab lives as long
+  as any cell in it, and the GC scans its dead cells too, so their
+  car/cdr keep other garbage alive transitively: a long-running program
+  that keeps one cell per slab could retain everything it ever built.
+  Cons allocation plus its GC scan is still ~30% of `bench/bitlist.shen`.
+- **#33, compiling StLib to Go or caching its load.** Both need every
+  load-time side effect (arities, types, macros, datatypes, package
+  externals) replayed exactly; that is its own change. Startup is down
+  from ~0.21 s to ~0.13 s wall anyway, since the load runs on the
+  compiled kernel.
+
 ## Allocation-reduction work (2026-06)
 
 Profiled with the Go-level VM micro-benchmarks in `kl/vm_bench_test.go`
