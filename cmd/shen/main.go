@@ -195,7 +195,24 @@ func stopProfiles() {
 	}
 }
 
+// gcBallast sets a floor under the GC's heap goal. A Shen process's live
+// heap is often small (~10 MB for the kernel test suite) while it
+// allocates at a high rate (conses, Prolog bindings, closures), so with
+// GOGC=100 it would collect every few MB: 155 cycles on
+// kernel/tests/runme.shen, against 24 with the ballast. The ballast holds
+// no pointers, so the GC never scans it, and nothing writes to it, so its
+// pages are never made resident: it costs address space, not memory.
+// Unlike a higher GOGC it adds a constant, rather than multiplying the
+// goal of a program whose live heap is large. Setting GOGC (or
+// GOMEMLIMIT) in the environment turns it off, leaving tuning to the user.
+var gcBallast []byte
+
+const gcBallastSize = 64 << 20
+
 func main() {
+	if os.Getenv("GOGC") == "" && os.Getenv("GOMEMLIMIT") == "" {
+		gcBallast = make([]byte, gcBallastSize)
+	}
 	goFlags, launcherArgs := splitArgs(os.Args[1:])
 	flag.CommandLine.Parse(goFlags)
 
