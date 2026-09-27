@@ -259,6 +259,9 @@ func main() {
 	// a bare (filter ...) work in the REPL, launcher, and scripts.
 	if os.Getenv("SHEN_NO_STDLIB") == "" {
 		loadStdlib(&e)
+		if os.Getenv("SHEN_NO_STLIB_NATIVE") == "" {
+			installStlibMath()
+		}
 	}
 	loadPrecompiled(&e, precompiled)
 	if len(launcherArgs) > 0 {
