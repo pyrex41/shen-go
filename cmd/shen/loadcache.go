@@ -24,7 +24,12 @@ package main
 // from a cold load; only the redundant parsing is elided.
 //
 // Invalidation is by content hash: any change to the file bytes (size or
-// content) produces a different key and forces a cold re-parse. We deliberately
+// content) produces a different key and forces a cold re-parse. read-file's
+// result is also the output of macro and source-form expansion
+// (shen.process-sexprs: source-form handlers first, then macroexpand, as
+// ShenOSKernel 42.1 requires), so an entry is only reused while *macros* and
+// shen.*source-form-handlers* hold the same values they held when it was
+// parsed; a defmacro or a (un)registered source-form handler forces a re-parse. We deliberately
 // do not key on mtime alone — content hashing is immune to mtime resolution and
 // to edit-in-place-with-preserved-mtime, and the byte read it requires is cheap
 // next to the parse it saves.
@@ -44,7 +49,32 @@ import (
 // the form list read-file produced.
 type loadCacheEntry struct {
 	hash  [32]byte
+	env   expansionEnv
 	forms kl.Obj
+}
+
+// expansionEnv is the expansion state a parse depended on: the values of
+// *macros* and shen.*source-form-handlers*, compared by identity (both are
+// replaced, never mutated, when a macro or handler is added or removed).
+type expansionEnv [2]kl.Obj
+
+var (
+	symMacros             = kl.MakeSymbol("*macros*")
+	symSourceFormHandlers = kl.MakeSymbol("shen.*source-form-handlers*")
+)
+
+func currentExpansionEnv() expansionEnv {
+	return expansionEnv{boundValue(symMacros), boundValue(symSourceFormHandlers)}
+}
+
+// boundValue is (value Sym), or nil when Sym is unbound.
+func boundValue(sym kl.Obj) (v kl.Obj) {
+	defer func() {
+		if recover() != nil {
+			v = nil
+		}
+	}()
+	return kl.PrimValue(sym)
 }
 
 // loadCache memoizes read-file results keyed by absolute file path. It is
@@ -93,10 +123,11 @@ func (c *loadCacheT) lookup(path string) (kl.Obj, bool) {
 		return nil, false
 	}
 	h := sha256.Sum256(data)
+	env := currentExpansionEnv()
 
 	c.mu.Lock()
 	defer c.mu.Unlock()
-	if e, ok := c.entries[resolved]; ok && e.hash == h {
+	if e, ok := c.entries[resolved]; ok && e.hash == h && e.env == env {
 		c.hits++
 		return e.forms, true
 	}
@@ -108,7 +139,7 @@ func (c *loadCacheT) lookup(path string) (kl.Obj, bool) {
 // file rather than trusting a hash threaded from lookup so the stored key always
 // reflects what was actually parsed. Like lookup, it keys on the
 // *home-directory*-resolved path.
-func (c *loadCacheT) store(path string, forms kl.Obj) {
+func (c *loadCacheT) store(path string, env expansionEnv, forms kl.Obj) {
 	resolved := kl.ResolveHomePath(path)
 	data, err := os.ReadFile(resolved)
 	if err != nil {
@@ -117,7 +148,7 @@ func (c *loadCacheT) store(path string, forms kl.Obj) {
 	h := sha256.Sum256(data)
 	c.mu.Lock()
 	defer c.mu.Unlock()
-	c.entries[resolved] = loadCacheEntry{hash: h, forms: forms}
+	c.entries[resolved] = loadCacheEntry{hash: h, env: env, forms: forms}
 }
 
 // installLoadCache rebinds the kernel's read-file with a caching wrapper. It must
@@ -140,9 +171,12 @@ func installLoadCache() {
 
 		// Miss: run the real read-file (tokenize/parse/lower). Only cache a
 		// clean parse — never an error result.
+		// The expansion state is taken before the parse: expansion only
+		// reads it, so this is what the forms were expanded under.
+		env := currentExpansionEnv()
 		forms := kl.Call(e, orig, arg)
 		if !kl.IsError(forms) {
-			loadCache.store(path, forms)
+			loadCache.store(path, env, forms)
 		}
 		e.Return(forms)
 	}, 1)
