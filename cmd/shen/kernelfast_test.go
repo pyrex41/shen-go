@@ -42,8 +42,8 @@ func TestKernelFastAfterBoot(t *testing.T) {
 		{`(trap-error (<-vector (address-> (vector 3) 1 shen.fail!) 1) (/. E (error-to-string E)))`, "vector element not found"},
 		{`(<-vector (address-> (vector 3) 1 (intern "...")) 1)`, "..."},
 		{`(let V (vector 2) (do (vector-> V 1 9) (<-vector V 1)))`, "9"},
-		{`(let D (vector 8) (do (put a b 1 D) (get a b D)))`, "1"},
-		{`(let D (vector 8) (do (put a b 1 D) (put a b 2 D) (get a b D)))`, "2"},
+		{`(let D (shen.dict 8) (do (put a b 1 D) (get a b D)))`, "1"},
+		{`(let D (shen.dict 8) (do (put a b 1 D) (put a b 2 D) (get a b D)))`, "2"},
 		{`(trap-error (<-vector (vector 1) 1) (/. E true))`, "true"},
 		{`(head [1 2 3])`, "1"},
 		{`(tail [1 2])`, "[2]"},
@@ -60,7 +60,7 @@ func TestKernelFastAfterBoot(t *testing.T) {
 		{`(shen.digit? 48)`, "true"},
 		{`(shen.uppercase? 65)`, "true"},
 		{`(shen.alphanums? "Foo-1")`, "true"},
-		{`(let D (vector 8) (do (put a b 1 D) (do (unput a b D) (trap-error (get a b D) (/. E true)))))`, "true"},
+		{`(let D (shen.dict 8) (do (put a b 1 D) (do (unput a b D) (trap-error (get a b D) (/. E true)))))`, "true"},
 		{`(trap-error (value missing-xyz-123) (/. E 42))`, "42"},
 		// Error texts and edge behaviour the equivalence audit (kl/equiv.json)
 		// found diverging from the kernel bodies; each is pinned to the KL.
@@ -74,8 +74,9 @@ func TestKernelFastAfterBoot(t *testing.T) {
 		{`(shen.misc? "a")`, "false"},
 		{`(trap-error (<-vector (vector 3) -0.5) (/. E (error-to-string E)))`, "-0.5 is not a valid integer"},
 		{`(trap-error (vector-> (vector 3) -0.5 x) (/. E (error-to-string E)))`, "-0.5 is not a valid integer"},
-		{`(let V (vector 5) (do (unput zz yy V) (trap-error (<-vector V (hash zz 5)) (/. E none))))`, "[]"},
-		{`(trap-error (unput a b (vector 0)) (/. E (error-to-string E)))`, "index 1 out of range 1"},
+		// unput of an absent key still stores (zz . ()), as shen.dict-> does.
+		{`(let D (shen.dict 5) (do (unput zz yy D) (shen.dict-count D)))`, "1"},
+		{`(trap-error (get a b (vector 3)) (/. E (error-to-string E)))`, "a has no attributes: b"},
 		// nth's error path runs shen.app in KL; nothing may leak to stdout.
 		{`(trap-error (nth 0 [a b]) (/. E ok))`, "ok"},
 	} {

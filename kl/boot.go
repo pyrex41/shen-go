@@ -2,8 +2,8 @@ package kl
 
 // Booting the KLambda kernel from source, out of kernel/klambda.
 // cmd/yggdrasil-build and the equivalence harness (equiv.go and
-// cmd/kl equiv-check) boot this way. cmd/shen boots its precompiled modules in
-// the same order; see regist in cmd/shen/main.go.
+// cmd/kl equiv-check) boot this way. cmd/shen boots its precompiled modules the
+// same way; see regist in cmd/shen/main.go.
 
 import (
 	"fmt"
@@ -11,35 +11,36 @@ import (
 	"path/filepath"
 )
 
-// KernelLoadOrder is the canonical load order of the KLambda kernel under
-// kernel/klambda, mirrored from compiled/precompile.kl and cmd/shen's regist().
-// The Tarver S42 kernel has no shen.initialise: each module runs its own
-// top-level init forms as it loads, so this order must not change.
+// KernelLoadOrder is the load order of the KLambda kernel under
+// kernel/klambda, mirrored from compiled/script.kl, compiled/precompile.kl
+// and cmd/shen's regist(). ShenOSKernel 42.2 (community lineage) modules are
+// plain lists of (defun ...) forms, so the order is not significant; all
+// top-level state is set up afterwards by KernelInitForm.
 var KernelLoadOrder = []string{
 	"sys.kl", "writer.kl", "core.kl", "reader.kl", "declarations.kl",
 	"toplevel.kl", "macros.kl", "load.kl", "prolog.kl", "sequent.kl",
-	"track.kl", "t-star.kl", "yacc.kl", "types.kl",
+	"track.kl", "t-star.kl", "yacc.kl", "types.kl", "dict.kl", "init.kl",
 	"extension-launcher.kl",
 }
+
+// KernelInitForm is the form that initialises a kernel loaded from
+// KernelLoadOrder: init.kl's shen.initialise builds *property-vector*, the
+// arity table, the lambda forms and the datatype declarations.
+const KernelInitForm = "(shen.initialise)"
 
 // BootKernel loads the KLambda kernel from dir, a kernel/klambda directory,
 // into the process the same way cmd/shen boots its compiled kernel:
 //
-//   - sys.kl defines the interpreted `hash`. The native FNV-1a hash is swapped
-//     in right after, before declarations.kl builds the first property vector,
-//     so that every property vector is written and read with one hash.
-//   - InstallKernelFast runs after every module. In cmd/shen it runs once,
-//     after all the modules, because the compiled modules never execute the
-//     interpreted put/get. Here the modules are interpreted, and since 5edf47e
-//     the interpreted `put` escapes the interpreter's recover during
-//     declarations.kl, because of a tail call inside trap-error (issue #46).
-//     So the natives have to be in place as soon as sys.kl has defined the
-//     names they replace. InstallKernelFast is unconditional (issue #49); it
-//     is called per module because each module's own (defun ...) of a rebound
-//     name (fn in reader.kl, arity in declarations.kl, shen.pvar? in
-//     prolog.kl, remove in track.kl, ...) overwrites the native until the
-//     next call restores it, and the interpreted put/get must not be live
-//     during declarations.kl (issue #46).
+//   - Every module in KernelLoadOrder is loaded (defuns only).
+//   - The native FNV-1a `hash` replaces sys.kl's interpreted one, before
+//     shen.initialise builds *property-vector*, so that every dict is
+//     written and read with one hash.
+//   - InstallKernelFast rebinds the hot kernel functions (get/put/unput on
+//     the property dict, arity, fn, ...) to natives. It runs before
+//     shen.initialise so the arity table and lambda forms are built by the
+//     same get/put that later read them, and so the interpreted put never runs
+//     during initialisation (issue #46).
+//   - shen.initialise (KernelInitForm) runs last.
 //   - InstallIntegerGuard runs after the natives, as in cmd/shen. With the
 //     canonical integer? restored by InstallKernelFast it is a no-op. It is
 //     called so that the two boots stay step for step the same.
@@ -52,7 +53,7 @@ var KernelLoadOrder = []string{
 // arity. Those are reader-precision, REPL and plugin concerns, not part of
 // booting the kernel.
 func BootKernel(e *ControlFlow, dir string) error {
-	for i, f := range KernelLoadOrder {
+	for _, f := range KernelLoadOrder {
 		p := filepath.Join(dir, f)
 		if _, err := os.Stat(p); err != nil {
 			return fmt.Errorf("boot kernel: %v", err)
@@ -61,10 +62,15 @@ func BootKernel(e *ControlFlow, dir string) error {
 		if res := Eval(e, form); IsError(res) {
 			return fmt.Errorf("boot kernel: load-file %s: %s", p, GetString(PrimErrorToString(res)))
 		}
-		if i == 0 {
-			BindSymbolFunc(MakeSymbol("hash"), MakePrimitive("hash", 2, PrimHash))
-		}
-		InstallKernelFast()
+	}
+	BindSymbolFunc(MakeSymbol("hash"), MakePrimitive("hash", 2, PrimHash))
+	InstallKernelFast()
+	init, err := ReadForm(KernelInitForm)
+	if err != nil {
+		return err
+	}
+	if res := Eval(e, init); IsError(res) {
+		return fmt.Errorf("boot kernel: %s: %s", KernelInitForm, GetString(PrimErrorToString(res)))
 	}
 	InstallIntegerGuard()
 	InstallPr()

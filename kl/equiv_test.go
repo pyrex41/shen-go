@@ -309,7 +309,7 @@ var rowSignature = map[string][]kind{
 // "(value X)".
 var rowEffects = map[string][]string{
 	"arity":  {"*property-vector*"},
-	"fn":     {"*property-vector*", "shen.*lambdatable*"},
+	"fn":     {"*property-vector*"},
 	"put":    {"*property-vector*"},
 	"get":    {"*property-vector*"},
 	"unput":  {"*property-vector*"},
@@ -449,27 +449,26 @@ var explicitCases = map[string][]EquivCase{
 		}},
 		{Name: "overwrite", Setup: []string{"(put a b c (value equiv.*pv*))"}, Args: []string{"a", "b", "d"}},
 		{Name: "second-attr", Setup: []string{"(put a b c (value equiv.*pv*))"}, Args: []string{"a", "e", "f"}},
-		{Name: "collision", Setup: []string{"(set equiv.*pv* (vector 1))", "(put a b c (value equiv.*pv*))", "(put x y z (value equiv.*pv*))"}, Args: []string{"q", "r", "s"}},
-		{Name: "zero-size-vector", Setup: []string{"(set equiv.*pv* (vector 0))"}, Args: []string{"a", "b", "c"}},
+		{Name: "collision", Setup: []string{"(set equiv.*pv* (shen.dict 2))", "(put a b c (value equiv.*pv*))", "(put x y z (value equiv.*pv*))"}, Args: []string{"q", "r", "s"}},
 	},
 	"get": {
 		{Name: "after-put", Setup: []string{"(put a b c (value equiv.*pv*))"}, Args: []string{"a", "b"}},
 		{Name: "missing-attr", Setup: []string{"(put a b c (value equiv.*pv*))"}, Args: []string{"a", "z"}},
 		{Name: "missing-key", Args: []string{"a", "b"}},
 		{Name: "after-unput-raises", Setup: []string{"(put a b c (value equiv.*pv*))", "(unput a b (value equiv.*pv*))"}, Args: []string{"a", "b"}},
-		{Name: "zero-size-vector", Setup: []string{"(set equiv.*pv* (vector 0))"}, Args: []string{"a", "b"}},
+		{Name: "not-a-dict", Setup: []string{"(set equiv.*pv* (vector 3))"}, Args: []string{"a", "b"}},
 	},
 	"unput": {
 		{Name: "after-put", Setup: []string{"(put a b c (value equiv.*pv*))"}, Args: []string{"a", "b"}},
 		{Name: "missing", Args: []string{"a", "b"}},
-		{Name: "collision", Setup: []string{"(set equiv.*pv* (vector 1))", "(put a b c (value equiv.*pv*))", "(put x y z (value equiv.*pv*))"}, Args: []string{"x", "y"}},
-		{Name: "zero-size-vector", Setup: []string{"(set equiv.*pv* (vector 0))"}, Args: []string{"a", "b"}},
+		{Name: "collision", Setup: []string{"(set equiv.*pv* (shen.dict 2))", "(put a b c (value equiv.*pv*))", "(put x y z (value equiv.*pv*))"}, Args: []string{"x", "y"}},
 	},
 }
 
 // finishCase adds the bookkeeping every case of a row needs. A property row
-// gets a fresh property vector, unless the case set its own, the vector as its
-// last argument, and the vector observed. Any case that uses equiv.note gets
+// gets a fresh property dict (shen.dict, as *property-vector* is on the 42.x
+// kernel), unless the case set its own, the dict as its last argument, and the
+// dict observed. Any case that uses equiv.note gets
 // the call log reset and observed.
 func finishCase(row string, c EquivCase) EquivCase {
 	if propertyRows[row] {
@@ -480,7 +479,7 @@ func finishCase(row string, c EquivCase) EquivCase {
 			}
 		}
 		if !hasPV {
-			c.Setup = append([]string{"(set equiv.*pv* (vector 20))"}, c.Setup...)
+			c.Setup = append([]string{"(set equiv.*pv* (shen.dict 20))"}, c.Setup...)
 		}
 		c.Args = append(append([]string(nil), c.Args...), "(value equiv.*pv*)")
 		c.Observe = append(c.Observe, "(value equiv.*pv*)")
@@ -828,8 +827,10 @@ func randomCases(row string, sig []kind) []EquivCase {
 	for i := 0; i < randomPerRow; i++ {
 		c := EquivCase{Name: fmt.Sprintf("random:%d", i)}
 		if propertyRows[row] {
-			size := g.pick("1", "3", "7")
-			c.Setup = append(c.Setup, "(set equiv.*pv* (vector "+size+"))")
+			// shen.dict 1 is unusable on the kernel too (hash N 1 is 1, one
+			// past its only bucket), so the smallest size is 2.
+			size := g.pick("2", "3", "7")
+			c.Setup = append(c.Setup, "(set equiv.*pv* (shen.dict "+size+"))")
 			for n := g.r.Intn(4); n > 0; n-- {
 				c.Setup = append(c.Setup, "(put "+g.value(kPropKey)+" "+g.value(kPropKey)+" "+g.any(1)+" (value equiv.*pv*))")
 			}
@@ -958,7 +959,7 @@ func buildEquivTable(t *testing.T) EquivTable {
 	}
 
 	e := bootEquivKernel(t, names)
-	table := EquivTable{Port: "shen-go", Kernel: "S42", Harness: equivHarnessDoc()}
+	table := EquivTable{Port: "shen-go", Kernel: "ShenOSKernel 42.2", Harness: equivHarnessDoc()}
 	for _, b := range bindings {
 		sig := rowSignature[b.kernelFn]
 		if len(sig) != b.arity {

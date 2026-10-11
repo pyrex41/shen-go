@@ -12,7 +12,7 @@
 // trigger (e.g. "can't apply non function" vs "function not bound"), so the
 // table carries a `want` per path.
 //
-// Background: the canonical Shen kernel suite (134/134 in
+// Background: the canonical Shen kernel suite (143/143 in
 // ./certification) exercises only well-formed code, so it never catches
 // regressions on adversarial inputs. The pre-existing trap-error tests in
 // eval_test.go put `(undefined-fn ...)` only in *dead* and/or short-circuited

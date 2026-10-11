@@ -59,7 +59,8 @@ import "strconv"
 var (
 	symArity          Obj
 	symPropertyVector Obj
-	symLambdaTable    Obj
+	symShenLambdaForm Obj
+	symShenDictionary Obj
 	symShenApp        Obj
 	symShenA          Obj
 	symShenFailBang   Obj // "shen.fail!" — what (fail) returns; fills never-written vector slots
@@ -69,8 +70,6 @@ var (
 	fixnumZero        Obj
 	fixnumMinusOne    Obj
 	fixnumFortyEight  Obj
-	fnCacheTable      Obj              // shen.*lambdatable* value the cache was built against
-	fnCache           map[Obj]*scmPair // F -> alist entry (F . lambda-value)
 	shenAlpha         [128]bool
 	shenMisc          [128]bool
 )
@@ -78,7 +77,8 @@ var (
 func init() {
 	symArity = MakeSymbol("arity")
 	symPropertyVector = MakeSymbol("*property-vector*")
-	symLambdaTable = MakeSymbol("shen.*lambdatable*")
+	symShenLambdaForm = MakeSymbol("shen.lambda-form")
+	symShenDictionary = MakeSymbol("shen.dictionary")
 	symShenApp = MakeSymbol("shen.app")
 	symShenA = MakeSymbol("shen.a")
 	symShenFailBang = MakeSymbol("shen.fail!")
@@ -88,7 +88,6 @@ func init() {
 	fixnumZero = MakeInteger(0)
 	fixnumMinusOne = MakeInteger(-1)
 	fixnumFortyEight = MakeInteger(48)
-	fnCache = make(map[Obj]*scmPair)
 	BindSymbolFunc(MakeSymbol("_kl.value/or"), MakeNative(nativeValueOr, 2))
 	BindSymbolFunc(MakeSymbol("_kl.<-vector/or"), MakeNative(nativeVectorRefOr, 3))
 
@@ -107,47 +106,39 @@ func init() {
 }
 
 // kernelArity replicates (trap-error (get F arity (value *property-vector*))
-// (lambda _ -1)): any failure along the way — unbound *property-vector*, a
-// non-vector value, an unassigned bucket (shen.fail!), a missing entry — is
+// (lambda _ -1)): any failure along the way -- unbound *property-vector*, a
+// value that is not a shen.dict, no entry for F, no arity attribute -- is
 // what the kernel's trap-error would turn into -1. On success it returns the
 // stored attribute value unchanged (normally an integer, but `put` accepts
 // anything, so no conversion is applied).
 func kernelArity(f Obj) Obj {
-	pv := mustSymbol(symPropertyVector)
-	if pv.value == nil || *pv.value != scmHeadVector {
-		return fixnumMinusOne
+	if v, ok := propertyLookup(f, symArity); ok {
+		return v
 	}
-	vec := mustVector(pv.value)
-	// (limit V) is slot 0 of the underlying absvector.
-	if len(vec) == 0 || vec[0] == nil || !IsNumber(vec[0]) {
-		return fixnumMinusOne
-	}
-	h := GetInteger(PrimHash(f, vec[0]))
-	if h <= 0 || h >= len(vec) {
-		return fixnumMinusOne
-	}
-	bucket := vec[h]
-	// (<-vector V h) raises for the never-written filler shen.fail!.
-	if bucket == nil || bucket == symShenFailBang {
-		return fixnumMinusOne
-	}
-	// (assoc (cons F (cons arity ())) bucket): each entry is ((F attr) . val).
-	for bucket != nil && *bucket == scmHeadPair {
-		entry := car(bucket)
-		if *entry == scmHeadPair {
-			k := car(entry)
-			if *k == scmHeadPair && equal(car(k), f) == True {
-				krest := cdr(k)
-				if *krest == scmHeadPair && car(krest) == symArity && cdr(krest) == Nil {
-					return cdr(entry)
-				}
-			}
-		}
-		bucket = cdr(bucket)
-	}
-	// Not found (or bucket wasn't a proper list): kernel get raises, arity's
-	// trap-error maps it to -1.
 	return fixnumMinusOne
+}
+
+// propertyLookup is (get Key Attr (value *property-vector*)) with every
+// failure folded into ok=false.
+func propertyLookup(key, attr Obj) (Obj, bool) {
+	pv := mustSymbol(symPropertyVector)
+	if pv.value == nil {
+		return nil, false
+	}
+	slots, ok := dictSlots(pv.value)
+	if !ok {
+		return nil, false
+	}
+	_, entry := dictEntry(slots, key)
+	if entry == nil {
+		return nil, false
+	}
+	a := primAssoc(attr, entry.cdr)
+	ok2, p := isPair(a)
+	if !ok2 {
+		return nil, false
+	}
+	return p.cdr, true
 }
 
 // primArityFast is the native binding for `arity`.
@@ -155,37 +146,27 @@ func primArityFast(f Obj) Obj {
 	return kernelArity(f)
 }
 
-// nativeFn is the native binding for `fn`.
+// nativeFn is the native binding for `fn`. The 42.x kernel (reader.kl):
+//
+//	(cond ((= (arity F) 0) (F))
+//	      (true (trap-error (get F shen.lambda-form (value *property-vector*))
+//	                        (lambda _ (simple-error (cn "fn: " (shen.app F " is undefined\n" shen.a)))))))
+//
+// The lambda form is read from the property dict on every call, with no
+// cache, so a redefinition through update-lambda-table -- including the
+// community 42.0 removal of a stale lambda-form when F is redefined with zero
+// or unknown arity -- is observed immediately by (fn F), partial
+// application and dynamic application.
 func nativeFn(e *ControlFlow) {
 	f := e.Get(1)
 	if equal(kernelArity(f), fixnumZero) == True {
-		// Kernel: ((= (arity F) 0) (F)) — apply F itself with no arguments.
+		// Kernel: ((= (arity F) 0) (F)) -- apply F itself with no arguments.
 		e.TailApply(f)
 		return
 	}
-	table := PrimValue(symLambdaTable) // unbound propagates, as in the kernel
-	if table != fnCacheTable {
-		fnCacheTable = table
-		clear(fnCache)
-	}
-	if entry, ok := fnCache[f]; ok {
-		e.Return(entry.cdr)
+	if v, ok := propertyLookup(f, symShenLambdaForm); ok {
+		e.Return(v)
 		return
-	}
-	// (assoc F (value shen.*lambdatable*)): entries are (F . lambda-value).
-	for table != nil && *table == scmHeadPair {
-		entry := car(table)
-		if *entry == scmHeadPair && equal(f, car(entry)) == True {
-			p := mustPair(entry)
-			fnCache[f] = p
-			e.Return(p.cdr)
-			return
-		}
-		table = cdr(table)
-	}
-	if table != Nil {
-		// assoc on a non-list tail raises (uncaught in fn).
-		panic(MakeError("attempt to search a non-list with assoc\n"))
 	}
 	// (simple-error (cn "fn: " (shen.app F " is undefined\n" shen.a)))
 	app := kernelBound("shen.app")
@@ -691,110 +672,167 @@ func primAssoc(x, l Obj) Obj {
 	return Nil
 }
 
-// ---- property-vector get/put ---------------------------------------------
+// ---- property dict get/put ----------------------------------------------
+//
+// The 42.x kernel keeps properties in a shen.dict (dict.kl): an absvector
+//
+//	slot 0: shen.dictionary   slot 1: capacity   slot 2: count
+//	slot 3+h: bucket for hash h, an alist of (Key . Attrs)
+//
+// where Attrs is itself an alist of (Attr . Value). put/get/unput (sys.kl)
+// are thin wrappers over shen.<-dict / shen.dict-> and shen.assoc-set /
+// shen.assoc-rm; the natives below do the same steps without the per-call
+// trap-error closures, keeping the count in slot 2 exactly as
+// shen.dict-update-count does.
 
-func changePointerValue(key, attr, val, bucket Obj) Obj {
-	if bucket == Nil {
-		return cons(cons(cons(key, cons(attr, Nil)), val), Nil)
-	}
-	ok, p := isPair(bucket)
-	if !ok {
-		panic(MakeError("implementation error in shen.change-pointer-value"))
-	}
-	entry := p.car
-	if eok, ep := isPair(entry); eok {
-		if kok, kp := isPair(ep.car); kok {
-			krest := kp.cdr
-			if rok, rp := isPair(krest); rok && rp.cdr == Nil {
-				if equal(kp.car, key) == True && equal(rp.car, attr) == True {
-					return cons(cons(ep.car, val), p.cdr)
-				}
-			}
-		}
-	}
-	return cons(entry, changePointerValue(key, attr, val, p.cdr))
+func isAbsvector(o Obj) bool {
+	return o != nil && !isFixnum(o) && *o == scmHeadVector
 }
 
-func shenVectorBucket(vec, key Obj) (slots []Obj, h int, bucket Obj, missing bool) {
-	slots = mustVector(vec)
-	if len(slots) == 0 {
-		return slots, 0, Nil, true
+// dictSlots returns the slots of D when it is a well-formed shen.dict.
+func dictSlots(d Obj) ([]Obj, bool) {
+	if !isAbsvector(d) {
+		return nil, false
 	}
-	h = GetInteger(PrimHash(key, slots[0]))
-	if h <= 0 || h >= len(slots) {
-		return slots, h, Nil, true
+	slots := mustVector(d)
+	if len(slots) < 4 || slots[0] != symShenDictionary || slots[1] == nil || !IsNumber(slots[1]) {
+		return nil, false
 	}
-	bucket = slots[h]
-	if bucket == nil {
-		bucket = undefined
+	return slots, true
+}
+
+// mustDict is dictSlots for the raising paths. A non-dict argument is a bug
+// in the caller (the kernel only ever passes *property-vector*); the kernel
+// would fail somewhere inside <-address, so any error will do.
+func mustDict(d Obj) []Obj {
+	slots, ok := dictSlots(d)
+	if !ok {
+		panic(MakeError("not a dictionary"))
 	}
-	// The fail filler means the bucket was never written; see the file
-	// comment and nativeVectorRefOr.
-	if bucket == symShenFailBang {
-		return slots, h, Nil, true
+	return slots
+}
+
+// dictBucketIndex is (+ 3 (hash Key (shen.dict-capacity D))).
+func dictBucketIndex(slots []Obj, key Obj) int {
+	i := 3 + GetInteger(PrimHash(key, slots[1]))
+	if i >= len(slots) {
+		panic(MakeError("dict bucket out of range"))
 	}
-	return slots, h, bucket, false
+	return i
+}
+
+// dictEntry finds Key's (Key . Attrs) entry; nil when absent (shen.<-dict
+// raises there).
+func dictEntry(slots []Obj, key Obj) (int, *scmPair) {
+	i := dictBucketIndex(slots, key)
+	b := slots[i]
+	for b != nil {
+		ok, p := isPair(b)
+		if !ok {
+			break
+		}
+		if eok, ep := isPair(p.car); eok && equal(key, ep.car) == True {
+			return i, ep
+		}
+		b = p.cdr
+	}
+	return i, nil
+}
+
+// assocSet is shen.assoc-set: replace the value of K in an alist, keeping its
+// position, or append (K . V) at the end.
+func assocSet(k, v, l Obj) Obj {
+	if l == Nil {
+		return cons(cons(k, v), Nil)
+	}
+	ok, p := isPair(l)
+	if !ok {
+		panic(MakeError("partial function shen.assoc-set"))
+	}
+	if eok, ep := isPair(p.car); eok && equal(k, ep.car) == True {
+		return cons(cons(ep.car, v), p.cdr)
+	}
+	return cons(p.car, assocSet(k, v, p.cdr))
+}
+
+// assocRm is shen.assoc-rm: drop the first entry for K.
+func assocRm(k, l Obj) Obj {
+	if l == Nil {
+		return Nil
+	}
+	ok, p := isPair(l)
+	if !ok {
+		panic(MakeError("partial function shen.assoc-rm"))
+	}
+	if eok, ep := isPair(p.car); eok && equal(k, ep.car) == True {
+		return p.cdr
+	}
+	return cons(p.car, assocRm(k, p.cdr))
+}
+
+func listLen(l Obj) int {
+	n := 0
+	for {
+		ok, p := isPair(l)
+		if !ok {
+			return n
+		}
+		n++
+		l = p.cdr
+	}
+}
+
+// dictStore is shen.dict-> D Key Attrs: assoc-set the bucket, store it and
+// adjust the count by the change in bucket length.
+func dictStore(slots []Obj, key, attrs Obj) {
+	i := dictBucketIndex(slots, key)
+	old := slots[i]
+	if old == nil {
+		old = Nil
+	}
+	nb := assocSet(key, attrs, old)
+	slots[i] = nb
+	if d := listLen(nb) - listLen(old); d != 0 {
+		slots[2] = PrimNumberAdd(MakeInteger(d), slots[2])
+	}
+}
+
+func dictAttrs(slots []Obj, key Obj) Obj {
+	_, entry := dictEntry(slots, key)
+	if entry == nil {
+		return Nil
+	}
+	return entry.cdr
 }
 
 func nativePut(e *ControlFlow) {
-	key, attr, val, vec := e.Get(1), e.Get(2), e.Get(3), e.Get(4)
-	_, h, bucket, missing := shenVectorBucket(vec, key)
-	if missing {
-		bucket = Nil
-	}
-	newBucket := changePointerValue(key, attr, val, bucket)
-	// vector-> (not a raw slot write) so out-of-range is a catchable Shen error.
-	primShenVectorSet(vec, MakeInteger(h), newBucket)
+	key, attr, val, d := e.Get(1), e.Get(2), e.Get(3), e.Get(4)
+	slots := mustDict(d)
+	dictStore(slots, key, assocSet(attr, val, dictAttrs(slots, key)))
 	e.Return(val)
 }
 
-func removePointer(key, attr, bucket Obj) Obj {
-	if bucket == Nil {
-		return Nil
-	}
-	ok, p := isPair(bucket)
-	if !ok {
-		panic(MakeError("implementation error in shen.remove-pointer"))
-	}
-	entry := p.car
-	if eok, ep := isPair(entry); eok {
-		if kok, kp := isPair(ep.car); kok {
-			krest := kp.cdr
-			if rok, rp := isPair(krest); rok && rp.cdr == Nil {
-				if equal(kp.car, key) == True && equal(rp.car, attr) == True {
-					return p.cdr
-				}
-			}
-		}
-	}
-	return cons(entry, removePointer(key, attr, p.cdr))
-}
-
 func nativeUnput(e *ControlFlow) {
-	key, attr, vec := e.Get(1), e.Get(2), e.Get(3)
-	_, h, bucket, missing := shenVectorBucket(vec, key)
-	if missing {
-		// The kernel's trap-error maps a never-written slot to (), and its
-		// vector-> then stores (shen.remove-pointer K A ()) = () in the slot.
-		bucket = Nil
-	}
-	primShenVectorSet(vec, MakeInteger(h), removePointer(key, attr, bucket))
+	key, attr, d := e.Get(1), e.Get(2), e.Get(3)
+	slots := mustDict(d)
+	dictStore(slots, key, assocRm(attr, dictAttrs(slots, key)))
 	e.Return(key)
 }
 
 func nativeGet(e *ControlFlow) {
-	key, attr, vec := e.Get(1), e.Get(2), e.Get(3)
-	_, _, bucket, missing := shenVectorBucket(vec, key)
-	if missing {
+	key, attr, d := e.Get(1), e.Get(2), e.Get(3)
+	slots, ok := dictSlots(d)
+	if !ok {
 		nativeGetRaise(e, key, attr, true)
 		return
 	}
-	entry := primAssoc(cons(key, cons(attr, Nil)), bucket)
-	if entry == Nil {
-		nativeGetRaise(e, key, attr, false)
+	_, entry := dictEntry(slots, key)
+	if entry == nil {
+		nativeGetRaise(e, key, attr, true)
 		return
 	}
-	ok, p := isPair(entry)
+	a := primAssoc(attr, entry.cdr)
+	ok, p := isPair(a)
 	if !ok {
 		nativeGetRaise(e, key, attr, false)
 		return
@@ -950,6 +988,14 @@ func nativeMap(e *ControlFlow) {
 	for l != Nil {
 		ok, p := isPair(l)
 		if !ok {
+			// 42.x: (true (shen.f-error shen.map-h)), which prints the
+			// partial-function report (and the track prompt) before
+			// raising. The elements already mapped were applied, as in the
+			// kernel's accumulator loop.
+			if fe := kernelBound("shen.f-error"); fe != nil {
+				e.TailApply(fe, MakeSymbol("shen.map-h"))
+				return
+			}
 			panic(MakeError("partial function shen.map-h"))
 		}
 		out = append(out, Call(e, f, p.car))
@@ -1031,11 +1077,11 @@ func nativeGetRaise(e *ControlFlow, key, attr Obj, noAttrs bool) {
 
 // InstallKernelFast rebinds hot kernel functions to the natives above. Every
 // rebinding happens on any kernel, including one whose defuns were lowered
-// away (issue #49) and an empty symbol table. It is called after each kernel
-// module (kl.BootKernel) or chunk (cmd/yggdrasil-build), because a later
-// module's own (defun …) of a rebound name overwrites the native until the
-// next call restores it; the natives read *property-vector* and
-// shen.*lambdatable* at call time, not at install time.
+// away (issue #49) and an empty symbol table. kl.BootKernel and cmd/shen call
+// it once every module is loaded, before shen.initialise; cmd/yggdrasil-build
+// calls it after each kernel chunk, because a later chunk's own (defun …) of
+// a rebound name overwrites the native until the next call restores it. The
+// natives read *property-vector* at call time, not at install time.
 //
 // Every rebinding here is audited against the kernel's KL definition by
 // TestEquivTable (equiv_test.go), which parses this function's body and writes

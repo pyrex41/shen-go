@@ -12,13 +12,13 @@ import (
 )
 
 // TestArtifactBootsWithInitOnNatives builds a real artifact from the vendored
-// kernel plus a manifest init= function that puts into *property-vector*, then
-// runs it. It pins what TestGenMainInstallsNativesBeforeInit only checks in
-// the emitted text: the natives are installed as the kernel chunks load, the
-// init pass runs on them, and the property vectors built by the kernel's
-// inline init are read back by the native get and arity. Before the natives
-// accepted the KL kernel's fail filler, this run died in shen.initialise with
-// "implementation error in shen.change-pointer-value".
+// kernel plus a manifest init= function that runs shen.initialise and then
+// puts into *property-vector*, then runs it. It pins what
+// TestGenMainInstallsNativesBeforeInit only checks in the emitted text: the
+// natives are installed as the kernel chunks load, the init pass runs on
+// them, and the property dict it builds is read back by the native get and
+// arity. (On the Tarver S42 kernel this run once died in shen.initialise with
+// "implementation error in shen.change-pointer-value".)
 func TestArtifactBootsWithInitOnNatives(t *testing.T) {
 	if testing.Short() {
 		t.Skip("builds the builder and an artifact")
@@ -43,14 +43,14 @@ func TestArtifactBootsWithInitOnNatives(t *testing.T) {
 		kernel.Write(src)
 		kernel.WriteString("\n")
 	}
-	kernel.WriteString("(defun shen.initialise () (do (put e2e.x arity 7 (value *property-vector*)) " +
-		"(put e2e.x e2e.tag (cons a (cons b ())) (value *property-vector*))))\n")
+	kernel.WriteString("(defun e2e.initialise () (do (shen.initialise) (do (put e2e.x arity 7 (value *property-vector*)) " +
+		"(put e2e.x e2e.tag (cons a (cons b ())) (value *property-vector*)))))\n")
 	prog := `(pr (shen.app (get e2e.x arity (value *property-vector*)) " " shen.a) (value *stoutput*))
 (pr (shen.app (get e2e.x e2e.tag (value *property-vector*)) " " shen.a) (value *stoutput*))
 (pr (shen.app (arity e2e.x) " " shen.a) (value *stoutput*))
 (pr (shen.app (reverse (cons 1 (cons 2 (cons 3 ())))) " " shen.a) (value *stoutput*))
 `
-	manifest := "manifest-version=1\nkernel=kernel.kl\ninit=shen.initialise\nuser=prog.kl\nneeds-eval=false\n"
+	manifest := "manifest-version=1\nkernel=kernel.kl\ninit=e2e.initialise\nuser=prog.kl\nneeds-eval=false\n"
 	for name, body := range map[string]string{"kernel.kl": kernel.String(), "prog.kl": prog, "yggdrasil.manifest.txt": manifest} {
 		if err := os.WriteFile(filepath.Join(shaken, name), []byte(body), 0o644); err != nil {
 			t.Fatal(err)
@@ -84,8 +84,9 @@ func TestArtifactBootsWithInitOnNatives(t *testing.T) {
 // native replaces it. That only works if InstallKernelFast installs the native
 // whether or not the kernel defined the name. Before the fix the artifact died
 // while loading the kernel chunks with "variable vector not bound"
-// (declarations.kl's (set *property-vector* (vector 20000)) runs before any
-// user code; sys.kl's dropped (defun vector …) never triggered the install).
+// (the Tarver S42 declarations.kl's (set *property-vector* (vector 20000)) ran
+// before any user code; sys.kl's dropped (defun vector …) never triggered the
+// install).
 //
 // kl/equiv.json is decoded with encoding/json: the file escapes < and > as
 // < / >, so a textual match would silently keep <-vector, vector->,
@@ -162,10 +163,10 @@ func TestArtifactBootsWithLoweredKernelDefuns(t *testing.T) {
 	if dropped != len(equiv.Rows) {
 		t.Fatalf("dropped %d defuns, want one per kl/equiv.json row (%d)", dropped, len(equiv.Rows))
 	}
-	kernel.WriteString("(defun shen.initialise () (do (put e2e.x arity 7 (value *property-vector*)) " +
-		"(put e2e.x e2e.tag (cons a (cons b ())) (value *property-vector*))))\n")
+	kernel.WriteString("(defun e2e.initialise () (do (shen.initialise) (do (put e2e.x arity 7 (value *property-vector*)) " +
+		"(put e2e.x e2e.tag (cons a (cons b ())) (value *property-vector*)))))\n")
 	// Each line calls at least one name whose KL body was dropped above:
-	// vector/limit, get/put (via shen.initialise), arity, reverse, map, empty?,
+	// vector/limit, get/put (via e2e.initialise), arity, reverse, map, empty?,
 	// <-vector on the fail filler, and fail itself.
 	prog := `(pr (shen.app (limit (vector 3)) " " shen.a) (value *stoutput*))
 (pr (shen.app (get e2e.x arity (value *property-vector*)) " " shen.a) (value *stoutput*))
@@ -177,7 +178,7 @@ func TestArtifactBootsWithLoweredKernelDefuns(t *testing.T) {
 (pr (shen.app (trap-error (<-vector (vector 1) 1) (lambda E e2e.caught)) " " shen.a) (value *stoutput*))
 (pr (shen.app (= (fail) (fail)) " " shen.a) (value *stoutput*))
 `
-	manifest := "manifest-version=1\nkernel=kernel.kl\ninit=shen.initialise\nuser=prog.kl\nneeds-eval=false\n"
+	manifest := "manifest-version=1\nkernel=kernel.kl\ninit=e2e.initialise\nuser=prog.kl\nneeds-eval=false\n"
 	for name, body := range map[string]string{"kernel.kl": kernel.String(), "prog.kl": prog, "yggdrasil.manifest.txt": manifest} {
 		if err := os.WriteFile(filepath.Join(shaken, name), []byte(body), 0o644); err != nil {
 			t.Fatal(err)
