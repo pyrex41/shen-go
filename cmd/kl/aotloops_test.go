@@ -53,6 +53,7 @@ func TestAOTLetAndSelfTailSemantics(t *testing.T) {
 	for _, f := range kl.KernelLoadOrder {
 		in.WriteString("(load-file \"" + filepath.Join(kernelDir, f) + "\")\n")
 	}
+	in.WriteString(kl.KernelInitForm + "\n")
 	in.WriteString("(load \"" + compiler + "\")\n")
 	in.WriteString("(set *maximum-print-sequence-size* 100000)\n")
 	in.WriteString(`(compile-file "` + src + `" "` + ir + `")` + "\n")

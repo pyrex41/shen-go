@@ -94,7 +94,7 @@ func TestGenMainGuardsBootHelpers(t *testing.T) {
 
 // TestGenMainInstallsNativesBeforeInit pins the boot order Yggdrasil's
 // conformance gate checks: the natives go in after each kernel chunk, as
-// kl.BootKernel does after each module, so the kernel's inline init, its init
+// kl.BootKernel installs them before shen.initialise, so the kernel's init
 // pass and any arity replay all run on them. The template used to install them
 // after shen.initialise, which the gate records as
 // native_overrides_installed_after and refuses.
@@ -112,7 +112,7 @@ func TestGenMainInstallsNativesBeforeInit(t *testing.T) {
 		}
 		// The install sits inside the kernel-chunk loop (before the first
 		// post-loop helper), so each chunk's definitions are replaced as they
-		// appear and the kernel's inline init runs on the natives.
+		// appear and the kernel's init pass runs on the natives.
 		if !(kernel < install && install < afterChunks && afterChunks < initCall && initCall < user) {
 			t.Errorf("needsEval=%v: want kernel chunk loop containing InstallKernelFast < post-loop helpers < init < user chunks; "+
 				"offsets kernel=%d install=%d post-loop=%d init=%d user=%d", needsEval, kernel, install, afterChunks, initCall, user)

@@ -25,7 +25,7 @@ Three layers, three questions:
 
 | Command | Question |
 |---------|----------|
-| `make certify` | Does this port implement Shen? Official kernel suite, **134/134**. |
+| `make certify` | Does this port implement Shen? Official ShenOSKernel 42.2 suite, **143/143**. |
 | `make test` | Do our VM/CLI internals work? Fast Go tests; skip cert with `-short`. |
 | `make test-all` | Both of the above. Prefer this over `go test ./...` (that would cache cert). |
 
@@ -36,7 +36,7 @@ cd ../bifrost
 go run . --impls shen-go
 ```
 
-Kernel 134 stays in this repo. Bifrost is the cross-port corpus (predicates, equality, tuples, property-vector, …).
+The kernel suite stays in this repo. Bifrost is the cross-port corpus (predicates, equality, tuples, property-vector, …).
 
 **Do the natives match the kernel?** `kl.InstallKernelFast` rebinds 58 kernel functions to Go. [`kl/equiv.json`](kl/equiv.json) is the audited table. It holds one row per rebound symbol, with the native, its arity, the globals it touches, a `verified` verdict, and the differential cases behind that verdict in `inputs`. Every case is run twice, once against the kernel's own KL definition and once against the native, and the two results must agree. `go test ./kl -run TestEquiv` rebuilds the table and fails if the committed file differs; `EQUIV_WRITE=1` rewrites it. `kl equiv-check kl/equiv.json` replays the stored cases on any host, prints exactly one `equiv NAME ok|FAIL` line per row plus a summary, and exits non-zero on a FAIL. Where a native and the kernel disagree the row is marked unverified rather than the native changed; the `reason`, `disagreement` and `note` fields say what differed. The top-level `harness` object documents what the verdicts mean and the vocabulary the cases use.
 
@@ -67,7 +67,7 @@ cd ..
 make shen
 ```
 
-`kl` is a small KLambda interpreter. `script.kl` loads the kernel in upstream `install.lsp` order (S42 has no `shen.initialise`; do not reorder), compiles Shen → KL → IR → Go. Provenance: `kernel/klambda/PROVENANCE.md`.
+`kl` is a small KLambda interpreter. `script.kl` loads the ShenOSKernel 42.2 modules (defuns only, so order does not matter), runs `shen.initialise`, then compiles Shen → KL → IR → Go, one Go file per module (`dict.go` and `init.go` included). At startup `regist` (`cmd/shen/main.go`) runs the module thunks, swaps in the native `hash`, installs the native kernel hot paths and calls `shen.initialise`. Provenance (tag, commit, SHA-256, lineage choice): `kernel/klambda/PROVENANCE.md`.
 
 The generator named in `script.kl` must match the committed kernel: `cmd/shen/*.go` is the output of `make-code-generator` (unsealed, with `HasCanonicalPrimitiveBinding` guards), and regenerating with `make-sealed-code-generator` rewrites every file. `script.kl` pins `shen.*gensym*` after loading `compiler.shen` because the `tmp`/`ifres` register names in the IR, and so in the Go, continue from wherever compiling `compiler.shen` left the counter; without the pin an edit to `compiler.shen` renames every register (the KL reader has no comment syntax, so the pin is explained here). Symbol declarations in `launcher.go` come out in map order, so a fresh regeneration reorders that block; the content is the same. `cmd/shen`'s `TestCompiledKernelHasNoFailDots` rejects a kernel whose IR went through the `~R` printer (issue #54).
 

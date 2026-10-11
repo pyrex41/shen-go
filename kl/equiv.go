@@ -125,7 +125,7 @@ var EquivVocabulary = map[string]string{
 	"equiv.note X":      "conses X onto (value equiv.*calls*) and returns X; this is how a case counts and orders the calls made to a function argument",
 	"equiv.native-of F": "the function object currently bound to the symbol F, which for a rebound name is the Go native",
 	"equiv.*calls*":     "the global holding the equiv.note log; setup resets it and observe compares it",
-	"equiv.*pv*":        "the global holding a fresh property vector for the put, get and unput cases; both sides start from an identical fresh vector, and observe compares it",
+	"equiv.*pv*":        "the global holding a fresh property dict (shen.dict) for the put, get and unput cases; both sides start from an identical fresh dict, and observe compares it",
 }
 
 // ReadForms parses every top-level form in src.

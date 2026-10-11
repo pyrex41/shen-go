@@ -12,11 +12,13 @@ import (
 )
 
 // TestBareEvalLoopBootsKernel is issue #46's minimal reproduction: feed the
-// kernel's load-file forms to the bare `kl` interpreter, which installs no
-// natives, and require the kernel to boot. Until nativeVectorRefOr accepted the
-// KL kernel's own fail filler, declarations.kl died with "implementation error
-// in shen.change-pointer-value". Run as a subprocess so the interpreter's
-// state is exactly what a user of `kl` gets.
+// kernel's load-file forms and (shen.initialise) to the bare `kl` interpreter,
+// which installs no natives, and require the kernel to boot. (On the Tarver S42
+// kernel, until nativeVectorRefOr accepted the KL kernel's own fail filler,
+// declarations.kl died with "implementation error in
+// shen.change-pointer-value".) Run as a subprocess so the interpreter's state
+// is exactly what a user of `kl` gets -- this is the path Yggdrasil's `kl`
+// target drives.
 func TestBareEvalLoopBootsKernel(t *testing.T) {
 	kernelDir, err := kl.FindKernelDir(".")
 	if err != nil {
@@ -27,10 +29,13 @@ func TestBareEvalLoopBootsKernel(t *testing.T) {
 	for _, f := range kl.KernelLoadOrder {
 		in.WriteString("(load-file \"" + filepath.Join(kernelDir, f) + "\")\n")
 	}
-	// Probes: the arity table declarations.kl built with the interpreted put
-	// must read back, through the interpreted get and through arity.
+	in.WriteString(kl.KernelInitForm + "\n")
+	// Probes: the arity table shen.initialise built with the interpreted put
+	// must read back, through the interpreted get and through arity, and
+	// the kernel must report its version.
 	in.WriteString("(get map arity (value *property-vector*))\n")
 	in.WriteString("(arity map)\n")
+	in.WriteString("(version)\n")
 	cmd := exec.Command(bin)
 	cmd.Stdin = strings.NewReader(in.String())
 	var out bytes.Buffer
@@ -46,17 +51,20 @@ func TestBareEvalLoopBootsKernel(t *testing.T) {
 			t.Fatalf("bare kl loop failed to boot the kernel (%q in output):\n%s", bad, got)
 		}
 	}
-	// Each prompt line ends with the value printed for that form; the two
-	// probes are the last two.
+	// Each prompt line ends with the value printed for that form; the three
+	// probes are the last three.
 	lines := strings.Split(strings.TrimSpace(got), "\n")
 	// The loop prints a prompt for the form it never gets (EOF); drop it.
 	if last := lines[len(lines)-1]; strings.HasSuffix(last, "#>") {
 		lines = lines[:len(lines)-1]
 	}
-	if len(lines) < 2 {
+	if len(lines) < 3 {
 		t.Fatalf("unexpected output:\n%s", got)
 	}
-	for _, l := range lines[len(lines)-2:] {
+	if v := lines[len(lines)-1]; !strings.HasSuffix(v, ` "42.2"`) {
+		t.Errorf("(version) line %q should end with \"42.2\"\n%s", v, got)
+	}
+	for _, l := range lines[len(lines)-3 : len(lines)-1] {
 		if !strings.HasSuffix(l, " 2") {
 			t.Errorf("probe line %q should end with the arity 2\n%s", l, got)
 		}

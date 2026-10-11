@@ -16,8 +16,8 @@ import (
 )
 
 // bootShen initializes a Shen runtime exactly like main(): register every
-// kernel overlay, install the load cache, swap in the native hash, then run
-// shen.initialise. The returned ControlFlow can evaluate (load ...) and
+// kernel overlay (regist also swaps in the native hash and runs
+// shen.initialise), then install the native reader and the load cache. The returned ControlFlow can evaluate (load ...) and
 // arbitrary forms. Each call is independent (fresh symbol table is process
 // global, but a fresh ControlFlow is fine for sequential eval here).
 func bootShen(t testing.TB) *kl.ControlFlow {
@@ -30,8 +30,6 @@ func bootShen(t testing.TB) *kl.ControlFlow {
 	regist(&e)
 	installNativeReader()
 	installLoadCache()
-	kl.BindSymbolFunc(kl.MakeSymbol("hash"), kl.MakePrimitive("hash", 2, kl.PrimHash))
-	kl.Eval(&e, kl.Cons(kl.MakeSymbol("shen.initialise"), kl.Nil))
 	return &e
 }
 
@@ -246,3 +244,39 @@ const benchSource = `(defun bench-fib (N)
       ()
       (cons A (bench-range (+ A 1) B))))
 `
+
+// TestLoadCacheReexpandsAfterMacroChange pins that a cached parse is not
+// reused once the expansion environment changed. read-file returns forms that
+// have already been through source-form handlers and macroexpand (42.1), so
+// reusing a parse made under an older *macros* would run stale expansions.
+func TestLoadCacheReexpandsAfterMacroChange(t *testing.T) {
+	e := bootShen(t)
+	loadCache.reset()
+
+	dir := t.TempDir()
+	path := filepath.Join(dir, "macro.shen")
+	writeFile(t, path, "(set lc-val (lc-mac))\n")
+	loadExpr := `(load "` + path + `")`
+	defmacro := func(n string) {
+		evalForm(t, e, `(eval (hd (read-from-string "(defmacro lc-mac [lc-mac] -> `+n+`)")))`)
+	}
+
+	defmacro("1")
+	evalForm(t, e, loadExpr)
+	if got := kl.ObjString(evalForm(t, e, "(value lc-val)")); got != "1" {
+		t.Fatalf("first load: lc-val = %s, want 1", got)
+	}
+	evalForm(t, e, loadExpr)
+	if h, m := loadCache.stats(); h != 1 || m != 1 {
+		t.Fatalf("unchanged reload: hits=%d misses=%d, want 1/1", h, m)
+	}
+
+	defmacro("2")
+	evalForm(t, e, loadExpr)
+	if got := kl.ObjString(evalForm(t, e, "(value lc-val)")); got != "2" {
+		t.Fatalf("reload after redefining the macro: lc-val = %s, want 2", got)
+	}
+	if h, m := loadCache.stats(); h != 1 || m != 2 {
+		t.Fatalf("reload after macro change: hits=%d misses=%d, want 1/2", h, m)
+	}
+}

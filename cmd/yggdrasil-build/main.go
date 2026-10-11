@@ -13,8 +13,8 @@
 // the shared codegen package — the same pipeline that generated cmd/shen
 // itself. The emitted module contains one 0-arity thunk per chunk plus a
 // main.go that runs kernel chunks in order, calls the manifest's init
-// function if one is declared (the Tarver S42 kernel has none -- init runs
-// inline as the kernel chunks load), then runs the user chunks (whose toplevel
+// function if one is declared (shen.initialise for the ShenOSKernel 42.2
+// kernel, whose modules are defuns only), then runs the user chunks (whose toplevel
 // non-defun forms execute in source order, after init, as the Yggdrasil
 // builder contract requires).
 //
@@ -94,9 +94,10 @@ func parseManifest(dir string) (*manifest, error) {
 	if m.kernel == "" {
 		return nil, fmt.Errorf("manifest has no kernel= entry")
 	}
-	// init= is optional: the Tarver S42 kernel has no shen.initialise (init
-	// runs inline as the kernel loads), so a shaken dir for that kernel may omit
-	// it. When present it is still called after the kernel chunks.
+	// init= names the kernel's initialisation function (shen.initialise on
+	// ShenOSKernel 42.2) and is called after the kernel chunks. It stays
+	// optional so that a slice of a kernel without one (the Tarver S42 lineage
+	// shen-go vendored before 42.2, whose init ran inline) still builds.
 	return m, nil
 }
 
@@ -183,14 +184,12 @@ func evalKLValue(e *kl.ControlFlow, src string) (kl.Obj, error) {
 // bootCompilerImage boots the builder's own compiler image: the full shen-go
 // kernel plus the Shen-side bytecode compiler (src/compiler.shen).
 //
-// The kernel is booted by kl.BootKernel, the same way cmd/shen boots: native
-// hash after sys.kl, InstallKernelFast after each module and InstallPr at the
-// end. The Tarver S42 refresh has no shen.initialise -- each module runs its
-// top-level init forms inline as it loads (load-order DEPENDENT), and since
-// 5edf47e those init forms cannot run on the interpreted put/get (issue #46:
-// the interpreted put's tail call inside trap-error escapes the interpreter's
-// recover while declarations.kl loads), so the natives have to be installed
-// as the modules load, not after.
+// The kernel is booted by kl.BootKernel, the same way cmd/shen boots: every
+// module loaded, then the native hash and InstallKernelFast, then
+// shen.initialise, then InstallPr. The natives go in before shen.initialise
+// so the arity table and lambda forms are never built by the interpreted
+// put/get (issue #46: the interpreted put's tail call inside trap-error
+// escapes the interpreter's recover).
 func bootCompilerImage(e *kl.ControlFlow, root string) error {
 	if err := kl.BootKernel(e, filepath.Join(root, "kernel", "klambda")); err != nil {
 		return err
@@ -589,12 +588,12 @@ func main() {
 	try_1catch = PrimFunc(MakeSymbol("try-catch"))
 
 	var e ControlFlow
-	// Swap in the native hash BEFORE running any kernel chunk. The Tarver S42
-	// refresh builds the property dictionaries inline while the declarations /
-	// types chunks load (there is no separate shen.initialise pass that runs
-	// after the kernel), so the hash must already be its final form when the
-	// first dict is written. Whatever hash is live when the first dict op runs
-	// stays live for every later read -- no mid-boot swap, so no mismatch.
+	// Swap in the native hash BEFORE running any kernel chunk, so the hash is
+	// already its final form when the first dict is written -- by the
+	// manifest's init function (shen.initialise on 42.2) or, for a kernel
+	// that initialises inline, by a kernel chunk. Whatever hash is live when
+	// the first dict op runs stays live for every later read -- no mid-boot
+	// swap, so no mismatch.
 	BindSymbolFunc(MakeSymbol("hash"), MakePrimitive("hash", 2, PrimHash))
 	// Swap interpreted kernel functions for natives (arity/fn, empty?, get/put,
 	// integer?, not, list/vector helpers, …) after every kernel chunk, the way
@@ -603,20 +602,17 @@ func main() {
 	// the name (issue #49) -- which is what lets Yggdrasil's lower pass drop
 	// the KL body of a declared native_override -- and a later chunk's own
 	// defun of a rebound name is undone by the next InstallKernelFast. The
-	// property vectors the S42 kernel builds inline (declarations.kl,
-	// types.kl) are therefore made by the native vector and probed by the
-	// native put/get from the start -- one fail filler for the whole process.
-	// The natives read *property-vector* and shen.*lambdatable* at call time,
-	// not at install time, so nothing is gained by installing later; the
+	// *property-vector* dict is therefore written and probed by the native
+	// put/get from the start. The natives read *property-vector* at call
+	// time, not at install time, so nothing is gained by installing later; the
 	// kernel's init pass (shen.initialise, when the manifest has one) and any
 	// arity replay run on the natives. Yggdrasil's conformance gate records
 	// that order.
 	//
 	// Safe on an eval-stripped kernel: kernelArity returns the kernel's own
-	// trap-error default (-1) when *property-vector* is unbound, too short,
-	// or missing the entry, the lambdatable lookup raises the identical
-	// unbound-variable condition the interpreted (value shen.*lambdatable*)
-	// would, and nativeFn and nativeGetRaise fall back to a plain message
+	// trap-error default (-1) when *property-vector* is unbound, not a dict,
+	// or missing the entry, the lambda-form lookup in nativeFn misses the same
+	// way, and nativeFn and nativeGetRaise fall back to a plain message
 	// when shen.app is unbound. So on a sparse kernel these fail no worse than the unbound
 	// symbol they replace.
 	for i, c := range kernelChunks {

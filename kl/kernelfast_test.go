@@ -145,8 +145,18 @@ func TestKernelOverrideTupleAndVector(t *testing.T) {
 		t.Fatalf("<-vector of a slot holding the symbol ... = %s, want ...", ObjString(got))
 	}
 
-	d := Call(&e, PrimFunc(MakeSymbol("vector")), MakeInteger(8))
+	// A shen.dict (dict.kl) laid out by hand: tag, capacity, count, buckets.
+	d := PrimAbsvector(MakeInteger(3 + 8))
+	PrimVectorSet(d, MakeInteger(0), MakeSymbol("shen.dictionary"))
+	PrimVectorSet(d, MakeInteger(1), MakeInteger(8))
+	PrimVectorSet(d, MakeInteger(2), MakeInteger(0))
+	for i := 3; i < 3+8; i++ {
+		PrimVectorSet(d, MakeInteger(i), Nil)
+	}
 	Call(&e, PrimFunc(MakeSymbol("put")), MakeSymbol("a"), MakeSymbol("b"), MakeInteger(1), d)
+	if n := PrimVectorGet(d, MakeInteger(2)); GetInteger(n) != 1 {
+		t.Fatalf("dict count after one put = %s, want 1", ObjString(n))
+	}
 	got := Call(&e, PrimFunc(MakeSymbol("get")), MakeSymbol("a"), MakeSymbol("b"), d)
 	if GetInteger(got) != 1 {
 		t.Fatalf("put/get roundtrip, got %s", ObjString(got))
@@ -564,12 +574,11 @@ func TestNativeFnUndefinedWithoutShenApp(t *testing.T) {
 	if !IsNativeBinding(fn) {
 		t.Fatalf("fn is bound to %s, want the Go native", ObjString(fn))
 	}
-	// Empty lambda table, no property vector: (arity F) is -1 and the assoc
-	// misses, which is the undefined-function path.
-	lt, pv := mustSymbol(symLambdaTable), mustSymbol(symPropertyVector)
-	savedLT, savedPV := lt.value, pv.value
-	defer func() { lt.value, pv.value = savedLT, savedPV }()
-	PrimSet(symLambdaTable, Nil)
+	// No property dict: (arity F) is -1 and the lambda-form lookup misses,
+	// which is the undefined-function path.
+	pv := mustSymbol(symPropertyVector)
+	savedPV := pv.value
+	defer func() { pv.value = savedPV }()
 	PrimSet(symPropertyVector, Nil)
 	callFn := func(name string) (msg string) {
 		defer func() {

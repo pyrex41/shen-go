@@ -47,6 +47,7 @@ func TestCompileFileKeepsFailSymbol(t *testing.T) {
 	for _, f := range kl.KernelLoadOrder {
 		in.WriteString("(load-file \"" + filepath.Join(kernelDir, f) + "\")\n")
 	}
+	in.WriteString(kl.KernelInitForm + "\n")
 	in.WriteString("(load \"" + compiler + "\")\n")
 	// script.kl sets this so ~R does not truncate long IR lists; the samples
 	// here are short, but keep the two runs comparable. make-string is a

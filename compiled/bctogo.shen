@@ -15,4 +15,6 @@
     (do (bc->go Cg "TStarMain" false "t-star.tmp" "../cmd/shen/t-star.go")
     (do (bc->go Cg "YaccMain" false "yacc.tmp" "../cmd/shen/yacc.go")
     (do (bc->go Cg "TypesMain" false "types.tmp" "../cmd/shen/types.go")
-    (bc->go Cg "LauncherMain" true "launcher.tmp" "../cmd/shen/launcher.go"))))))))))))))))
+    (do (bc->go Cg "DictMain" false "dict.tmp" "../cmd/shen/dict.go")
+    (do (bc->go Cg "InitMain" false "init.tmp" "../cmd/shen/init.go")
+    (bc->go Cg "LauncherMain" true "launcher.tmp" "../cmd/shen/launcher.go"))))))))))))))))))

@@ -33,18 +33,12 @@ func regist(e *kl.ControlFlow) {
 			fmt.Println("load ...fail")
 		}
 	}
-	// Load order follows upstream install.lsp. The Tarver S42 refresh has no
-	// shen.initialise wrapper (unlike the community ShenOSKernel): each module
-	// runs its own top-level (set ...), (put ... arity ...) and (declare ...)
-	// forms as its Main thunk is called, so order is load-order DEPENDENT.
-	call(SysMain)
-	// SysMain defines the interpreted `hash`; the property-vector dictionaries
-	// are then built by DeclarationsMain's arity table and TypesMain's datatype
-	// (declare ...) forms. Swap in the native FNV-1a hash now — after SysMain
-	// binds it, before the first dict write — so every dict is built AND read
-	// with the same hash for the life of the process.
-	kl.BindSymbolFunc(kl.MakeSymbol("hash"), kl.MakePrimitive("hash", 2, kl.PrimHash))
+	// ShenOSKernel 42.2 (community lineage): every module is a plain list of
+	// (defun ...) forms, so the order the Mains run in does not matter. All
+	// top-level state -- globals, the arity table, lambda forms, datatype
+	// declarations -- is set up by shen.initialise (init.kl), called below.
 	for _, m := range []kl.Obj{
+		SysMain,
 		WriterMain,
 		CoreMain,
 		ReaderMain,
@@ -58,16 +52,25 @@ func regist(e *kl.ControlFlow) {
 		TStarMain,
 		YaccMain,
 		TypesMain,
+		DictMain,
+		InitMain,
 		LauncherMain,
 	} {
 		call(m)
 	}
-	// Swap the interpreted `arity`/`fn` for natives that read the same kernel
-	// structures (*property-vector* dict, shen.*lambdatable* alist) without the
-	// per-call trap-error closures and with a memoized lambdatable lookup.
-	// Must come after the module Mains above have defined the interpreted
-	// versions and built those structures.
+	// Swap the interpreted `hash` (sys.kl) for the native FNV-1a hash before
+	// shen.initialise builds *property-vector* (a shen.dict): every dict must
+	// be built AND read with the same hash for the life of the process.
+	kl.BindSymbolFunc(kl.MakeSymbol("hash"), kl.MakePrimitive("hash", 2, kl.PrimHash))
+	// Swap the interpreted kernel hot paths (get/put/unput on the
+	// *property-vector* dict, arity, fn, ...) for natives that read and write
+	// the same structures. Installed before shen.initialise, so the arity
+	// table and lambda forms are built by the same code that later reads
+	// them; nothing in shen.initialise redefines a rebound name.
 	kl.InstallKernelFast()
+	if kl.IsError(kl.Eval(e, kl.Cons(kl.MakeSymbol("shen.initialise"), kl.Nil))) {
+		fmt.Println("shen.initialise ...fail")
+	}
 	// The kernel's own integer? (sys.kl, via shen.magless) never terminates on
 	// +-Inf or NaN. Wrap it with a native non-finite guard now that the defun
 	// above has installed the interpreted version -- before that, the wrapper
@@ -87,7 +90,9 @@ var ns2_1set kl.Obj
 var try_1catch kl.Obj
 
 // repl runs the Shen top-level loop in Go so it can exit cleanly when stdin
-// reaches EOF (e.g. piped input). The Shen-level shen.repl/shen.loop tail-calls
+// reaches EOF (e.g. piped input). It mirrors the kernel's shen.repl/shen.loop
+// (credits, then initialise_environment, prompt, read-evaluate-print under
+// shen.toplevel-display-exception). The Shen-level shen.loop tail-calls
 // itself forever; on EOF lineread raises "error: empty stream", which the old
 // loop caught and ignored, spinning indefinitely. Here we detect that EOF via
 // the StinputEOF flag (set in kl.PrimReadByte) and return instead.
@@ -107,10 +112,8 @@ func repl(e *kl.ControlFlow) {
 				e.Return(kl.Nil)
 				return
 			}
-			// The Tarver S42 refresh has no shen.toplevel-display-exception;
-			// its shen.loop prints the raw error string + newline, so mirror that.
-			fmt.Println(kl.GetString(kl.PrimErrorToString(err)))
-			e.Return(kl.Nil)
+			// Same handler as the kernel's shen.loop (toplevel.kl).
+			e.TailApply(kl.PrimFunc(symshen_4toplevel_1display_1exception), err)
 		}, 1)
 
 		kl.Try(e, body).Catch(handler)
@@ -258,11 +261,8 @@ func main() {
 	// See autonative.go.
 	autoNative = autoNativeFlag && os.Getenv("SHEN_NO_AUTO_NATIVE") == ""
 	installAutoNative()
-	// NB: the Tarver S42 refresh has no shen.initialise to call here, and the
-	// native `hash` swap now happens inside regist (after SysMain binds the
-	// interpreted hash, before DeclarationsMain/TypesMain build the property
-	// dictionaries). All top-level initialisation runs inline as the module
-	// Mains are called in regist.
+	// NB: shen.initialise (and the native `hash` swap that must precede it)
+	// already ran inside regist.
 	fixPrHush(&e)
 	// Make `load-native` reachable from Shen source. The KL-level binding above
 	// is not enough on its own: the Shen reader resolves an application through

@@ -12,7 +12,10 @@
 (load-file "../kernel/klambda/t-star.kl")
 (load-file "../kernel/klambda/yacc.kl")
 (load-file "../kernel/klambda/types.kl")
+(load-file "../kernel/klambda/dict.kl")
+(load-file "../kernel/klambda/init.kl")
 (load-file "../kernel/klambda/extension-launcher.kl")
+(shen.initialise)
 (load "../src/compiler.shen")
 (set *maximum-print-sequence-size* 100000)
 

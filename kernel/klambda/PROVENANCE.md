@@ -1,75 +1,128 @@
 # Provenance
 
-The KLambda kernel under this directory is vendored from Mark Tarver's
-**S42 (2026-08-25 refresh)**.
+Everything under `kernel/` except this file is the community
+**ShenOSKernel 42.2** release, vendored byte-for-byte.
 
-Canonical source (the designated mirror of Tarver's uploads):
+- Repo: [`Shen-Language/shen-sources`](https://github.com/Shen-Language/shen-sources)
+- Tag: `shen-42.2`
+- Commit: `73507e069fe147aefb728d632c4ce40bc6a7b314` (2026-10-01, "Prepare Shen kernel 42.2 release")
+- Release asset: `ShenOSKernel-42.2.tar.gz`
+- Archive SHA-256: `1d02273003654d34ec020ae67cb214ecec410dee3350419ff807d82b652678d8`
+  (the checksum pinned in shen-scheme 0.50's Makefile)
+- `(version)` is `"42.2"` (set by `shen.initialise-environment` in `init.kl`).
 
-- Repo: `pyrex41/shen-upstream` (private mirror)
-- Tag: `s42-pristine-20260825`
-- Archive SHA-256: `30abdc7e5a1e27b7a20109c1ed141e4712885e31f24d9710d16415fbbd4dfb23`
-- Files vendored from `KLambda/*.kl` in that tag; verified byte-identical.
+This is the kernel upstream [shen-scheme 0.50](https://github.com/tizoc/shen-scheme/tree/v0.50)
+ships, so shen-go and shen-scheme run the same KLambda.
 
-Upstream origin (secondary detail — what the mirror imported):
+To check the tree: unpack the tarball and run
+`diff -r ShenOSKernel-42.2 kernel`; the only difference is this file.
+`kernel/CHANGELOG.md` is upstream's changelog and is kept pristine; shen-go's
+vendoring history is recorded below instead.
 
-- URL: https://www.shenlanguage.org/Download/S42.zip
-- Last-Modified: **2026-08-25**
+## Lineage choice: community kernel, adopted wholesale
 
-## Caveat: reused version number, different lineage
+Tracking issue pyrex41/shen-go#61 (umbrella pyrex41/bifrost#26,
+pyrex41/yggdrasil#32) offered two options for moving to 42.2:
 
-Upstream **reused the "41.2" version number for a restructured kernel**. This is
-NOT the community ShenOSKernel-41.2 (github.com/Shen-Language/shen-sources, tag
-`shen-41.2`) that this repository previously vendored byte-identically. It is
-Tarver's own reference-implementation kernel — the one his CommonLisp port
-(`backend.lsp` / `install.lsp`) builds from. The two share most `defun`s but
-differ structurally in the porter-facing initialisation layer:
+- **(a) adopt ShenOSKernel-42.2 wholesale** -- chosen;
+- (b) port the 42.1/42.2 changes onto Tarver's S42.0 base as a derived kernel.
 
-- **No `shen.initialise` wrapper.** The community kernel (since 22.0) collected
-  every top-level `(set ...)`/`(put ... arity ...)` form into a single
-  `shen.initialise` function in `init.kl`, making load order irrelevant. Tarver's
-  kernel keeps those forms **inline** in `declarations.kl` (globals + arity
-  table + external-symbols) and `types.kl` (datatype `(declare ...)` forms), so
-  the kernel is **load-order dependent** again. shen-go now loads the modules in
-  upstream `install.lsp` order and runs each module's top-level forms as its
-  generated `Main` thunk is called (see `cmd/shen/main.go:regist` and
-  `compiled/script.kl`).
-- **`get`/`put`/`unput` moved to `sys.kl`** and re-implemented on top of the
-  standard `hash`/`limit`/`<-vector`/`vector->` primitives, using the pure-KL
-  helpers `shen.change-pointer-value` / `shen.remove-pointer` (also in `sys.kl`).
-  No separate dictionary layer, and no native pointer primitives are required.
-- **REPL entry is `shen.shen` / `shen.loop`** (not the community `shen.repl`),
-  and there is no `shen.toplevel-display-exception` — `shen.loop` prints the raw
-  error string. shen-go's Go REPL loop mirrors that (`cmd/shen/main.go:repl`).
+Option (a) replaces the Tarver S42 lineage that shen-go vendored from
+2026-07-14 to 2026-10 (see "History" below). The structural consequences for
+shen-go:
 
-## Files vendored
+- **`shen.initialise` is back.** Every module in `klambda/` is a plain list of
+  `(defun ...)` forms; all top-level state (globals, the arity table, lambda
+  forms, datatype declarations) is set up by `shen.initialise` in `init.kl`.
+  Load order no longer matters. shen-go runs the generated `Main` thunks, swaps
+  in its native FNV-1a `hash`, installs the native kernel hot paths
+  (`kl.InstallKernelFast`) and then calls `shen.initialise`
+  (`cmd/shen/main.go:regist`, `kl/boot.go:BootKernel`, `compiled/script.kl`).
+- **`get`/`put`/`unput` sit on the community dictionary layer** (`dict.kl`):
+  `*property-vector*` is a `shen.dict` (an absvector tagged
+  `shen.dictionary`, with capacity, count and alist buckets of
+  `(Key . ((Attr . Value) ...))`). shen-go's native `get`/`put`/`unput`,
+  `arity` and `fn` (`kl/kernelfast.go`) read and write that layout; they are
+  audited against the KL definitions by `kl/equiv.json`.
+- **Lambda forms live in the property dict** (`shen.lambda-form`), not in a
+  `shen.*lambdatable*` alist. shen-go's native `fn` reads them on every call
+  with no cache, so the 42.0 requirement that a redefinition through
+  `update-lambda-table` (including removal of a stale lambda form) is seen by
+  `(fn F)`, partial and dynamic application holds trivially.
+- **REPL entry points are the community ones** (`shen.repl` / `shen.loop`,
+  with `shen.toplevel-display-exception`). shen-go's Go REPL loop mirrors
+  `shen.loop` and reports errors through `shen.toplevel-display-exception`.
 
-15 KLambda modules from `S42/KLambda/`:
+## 42.1 reader / macroexpand audit
 
-- 14 that shen-go boots and compiles to Go: `core`, `declarations`, `load`,
-  `macros`, `prolog`, `reader`, `sequent`, `sys`, `t-star`, `toplevel`, `track`,
-  `types`, `writer`, `yacc`.
-- `backend.kl` — Tarver's KLambda->CommonLisp code generator (the `cl.*`
-  functions). Vendored for completeness/provenance but **NOT** part of shen-go's
-  boot or codegen: it is irrelevant to the Go runtime, which has its own
-  KL->IR->Go path (`src/compiler.shen` + `codegen/`).
+`doc/port-upgrades.md` (42.1) requires ports that override the reader,
+`macroexpand` or streams to keep the source-form expansion order. shen-go's
+overrides:
 
-## Removed vs the previous (community 41.2) vendoring
+- `read-file` (`cmd/shen/nativereader.go`) replaces only the tokenise/parse
+  stage (`<s-exprs>`, unchanged in 42.2) and hands the raw forms to the kernel's
+  own `shen.process-sexprs`, so source-form handlers and `shen.macroexpand-h`
+  (4 arguments) run exactly as in the kernel.
+- `read`, `lineread`, `shen.read-loop`, `shen.try-parse` and `macroexpand` are
+  not overridden. The Go REPL calls the kernel's `shen.read-evaluate-print`.
+  Input at EOF without a trailing newline is handled by the kernel's read loop.
+- The load cache (`cmd/shen/loadcache.go`) memoises `read-file` results per
+  unchanged file; it wraps the same function and does not touch expansion.
 
-- `dict.kl` — the dictionary layer was dropped upstream; `get`/`put`/`unput`
-  now live in `sys.kl` (see above).
-- `init.kl` — no longer exists upstream; initialisation is inline (see above).
-- `stlib.kl` — the standard library is not part of this KLambda set and was
-  never loaded by shen-go's boot.
-- `compiler.kl` — this was a shen-cl build artifact, not part of Tarver's
-  kernel; shen-go never loaded it.
+The upstream source-forms extension tests (`tests/extensions/source-forms`)
+pass, 27/27.
 
-## Extensions (community additions, retained)
+## Modules booted
 
-`extension-launcher.kl`, `extension-features.kl`, `extension-expand-dynamic.kl`
-and `extension-programmable-pattern-matching.kl` are Bruno Deferrari's community
-extensions, not part of Tarver's kernel. They are retained on top of the vendored
-kernel. Only `extension-launcher.kl` is booted (it provides the shared
-`shen script/eval/repl` launcher CLI that yggdrasil stage-1 relies on); the other
-three are vendored but not booted, as before. They were written against the
-community kernel API and have not been re-validated against this kernel beyond
-the launcher.
+17 KLambda modules are compiled to Go and booted: `sys`, `writer`, `core`,
+`reader`, `declarations`, `toplevel`, `macros`, `load`, `prolog`, `sequent`,
+`track`, `t-star`, `yacc`, `types`, `dict`, `init` and
+`extension-launcher` (the shared `shen script/eval/repl` launcher CLI that
+Yggdrasil stage 1 relies on).
+
+Vendored but not booted, as before: `stlib.kl` (shen-go loads Tarver's StLib
+from `cmd/shen/stlib`, see its PROVENANCE), `extension-features.kl`,
+`extension-expand-dynamic.kl`, `extension-programmable-pattern-matching.kl`,
+`extension-namespaces.kl` and `extension-type-annotations.kl`.
+
+## History
+
+- 2026-10: ShenOSKernel 42.2 (community), this vendoring. Replaced Tarver S42.
+- 2026-08-27: Tarver S42 (2026-08-25 refresh), mirror `pyrex41/shen-upstream`
+  tag `s42-pristine-20260825`, archive SHA-256
+  `30abdc7e5a1e27b7a20109c1ed141e4712885e31f24d9710d16415fbbd4dfb23`.
+- 2026-07-14: Tarver S41.2 (2026-07-11 refresh), replacing the community
+  ShenOSKernel-41.2.
+- Before that: community ShenOSKernel-41.2 and earlier, vendored byte-identically.
+
+### Historical caveat (Tarver lineage, 2026-07 to 2026-10)
+
+Kept for reference; it described the kernel this vendoring replaced.
+
+> Upstream **reused the "41.2" version number for a restructured kernel**. This
+> is NOT the community ShenOSKernel-41.2 (github.com/Shen-Language/shen-sources,
+> tag `shen-41.2`) that this repository previously vendored byte-identically. It
+> is Tarver's own reference-implementation kernel -- the one his CommonLisp port
+> (`backend.lsp` / `install.lsp`) builds from. The two share most `defun`s but
+> differ structurally in the porter-facing initialisation layer:
+>
+> - **No `shen.initialise` wrapper.** The community kernel (since 22.0)
+>   collected every top-level `(set ...)`/`(put ... arity ...)` form into a
+>   single `shen.initialise` function in `init.kl`, making load order
+>   irrelevant. Tarver's kernel keeps those forms **inline** in
+>   `declarations.kl` (globals + arity table + external-symbols) and `types.kl`
+>   (datatype `(declare ...)` forms), so the kernel is **load-order dependent**
+>   again. shen-go loaded the modules in upstream `install.lsp` order and ran
+>   each module's top-level forms as its generated `Main` thunk was called.
+> - **`get`/`put`/`unput` moved to `sys.kl`** and were re-implemented on top
+>   of the standard `hash`/`limit`/`<-vector`/`vector->` primitives, using the
+>   pure-KL helpers `shen.change-pointer-value` / `shen.remove-pointer`. No
+>   separate dictionary layer.
+> - **REPL entry is `shen.shen` / `shen.loop`** (not the community
+>   `shen.repl`), and there is no `shen.toplevel-display-exception` --
+>   `shen.loop` prints the raw error string.
+>
+> That vendoring also carried `backend.kl` (Tarver's KLambda->CommonLisp code
+> generator, not booted) and community extensions on top of Tarver's kernel;
+> `dict.kl`, `init.kl`, `stlib.kl` and the shen-cl `compiler.kl` artifact had
+> been removed. All of that is superseded by the wholesale 42.2 tree.

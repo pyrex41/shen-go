@@ -1,6 +1,6 @@
 {
   "port": "shen-go",
-  "kernel": "S42",
+  "kernel": "ShenOSKernel 42.2",
   "harness": {
     "kl_side": "equiv.NAME is the kernel's own (defun NAME …) from kernel/klambda, run as KL bytecode. Every kernel defun its body reaches is loaded the same way and is listed in kl_helpers, so no native under test runs on this side. One name stays native: hash, the port's native hash, which is installed at boot before any property vector exists.",
     "native_side": "NAME as bound after kl.InstallKernelFast. That is the Go function named in the native field.",
@@ -11,7 +11,7 @@
     "effects": "The global symbols this native reads or writes. \"(value X)\" means the value cell of the symbol passed as an argument. A row with no effects is pure.",
     "vocabulary": {
       "equiv.*calls*": "the global holding the equiv.note log; setup resets it and observe compares it",
-      "equiv.*pv*": "the global holding a fresh property vector for the put, get and unput cases; both sides start from an identical fresh vector, and observe compares it",
+      "equiv.*pv*": "the global holding a fresh property dict (shen.dict) for the put, get and unput cases; both sides start from an identical fresh dict, and observe compares it",
       "equiv.NAME": "the kernel's own (defun NAME …) loaded as KL bytecode, with every kernel defun its body reaches renamed the same way; hash is the one exception and stays native",
       "equiv.iota N": "the list (1 2 … N)",
       "equiv.native-of F": "the function object currently bound to the symbol F, which for a rebound name is the Go native",
@@ -24,24 +24,255 @@
       "shen.fillvector",
       "shen.length-h",
       "shen.reverse-help",
-      "shen.change-pointer-value",
-      "shen.remove-pointer",
+      "shen.\u003c-dict",
+      "shen.assoc-set",
+      "shen.dict-\u003e",
+      "shen.assoc-rm",
       "shen.remove-h",
       "shen.map-h",
       "shen.arg-\u003estr",
+      "shen.\u003c-dict-bucket",
+      "shen.dict-capacity",
+      "shen.f-error",
+      "shen.dict-bucket-\u003e",
+      "shen.dict-update-count",
       "shen.atom-\u003estr",
       "shen.list-\u003estr",
       "shen.list?",
       "shen.str-\u003estr",
       "shen.vector-\u003estr",
+      "do",
+      "pr",
+      "ps",
+      "shen.track-function",
+      "shen.tracked?",
+      "stoutput",
+      "y-or-n?",
+      "shen.dict-count",
+      "shen.dict-count-\u003e",
       "shen.funexstring",
       "@s",
       "shen.iter-list",
       "shen.maxseq",
       "shen.iter-vector",
       "shen.print-vector?",
+      "shen.string-\u003ebyte",
+      "shen.write-chars",
+      "shen.insert-tracking-code",
+      "read",
+      "shen.proc-nl",
+      "stinput",
       "gensym",
-      "shen.fbound?"
+      "shen.empty-absvector?",
+      "shen.fbound?",
+      "shen.cons-form",
+      "shen.prolog-track",
+      "shen.my-read-byte",
+      "shen.read-loop",
+      "shen.whitespace?",
+      "occurrences",
+      "shen.vector-dereference",
+      "shen.vector-parameter",
+      "compile",
+      "shen.\u003cs-exprs\u003e",
+      "shen.nothing-doing?",
+      "shen.process-sexprs",
+      "shen.record-it",
+      "shen.try-parse",
+      "shen.\u003c-out",
+      "shen.in-\u003e",
+      "shen.parse-failure?",
+      "shen.partial-parse-failure?",
+      "shen.raise-syntax-error",
+      "\u003ce\u003e",
+      "shen.\u003catom\u003e",
+      "shen.\u003cbar\u003e",
+      "shen.\u003ccolon\u003e",
+      "shen.\u003ccomma\u003e",
+      "shen.\u003ccomment\u003e",
+      "shen.\u003cequal\u003e",
+      "shen.\u003clcurly\u003e",
+      "shen.\u003clrb\u003e",
+      "shen.\u003clsb\u003e",
+      "shen.\u003crcurly\u003e",
+      "shen.\u003crrb\u003e",
+      "shen.\u003crsb\u003e",
+      "shen.\u003cs-exprs1\u003e",
+      "shen.\u003cs-exprs2\u003e",
+      "shen.\u003csemicolon\u003e",
+      "shen.\u003cwhitespaces\u003e",
+      "shen.add-sexpr",
+      "shen.comb",
+      "shen.parse-failure",
+      "shen.find-arities",
+      "shen.find-types",
+      "shen.process-applications",
+      "shen.unpackage\u0026macroexpand",
+      "shen.bytes-\u003estring",
+      "shen.syntax-error-message",
+      "shen.\u003cnumber\u003e",
+      "shen.\u003cstr\u003e",
+      "shen.\u003csym\u003e",
+      "shen.\u003cmultiline\u003e",
+      "shen.\u003csingleline\u003e",
+      "shen.\u003cwhitespace\u003e",
+      "explode",
+      "shen.find-arity",
+      "shen.store-arity",
+      "shen.non-application?",
+      "shen.process-application",
+      "shen.process-cond-clauses",
+      "shen.special-case",
+      "macroexpand",
+      "shen.packaged?",
+      "shen.source-form-expansion",
+      "shen.source-form-handler",
+      "shen.unpackage",
+      "shen.\u003ce-number\u003e",
+      "shen.\u003cfloat\u003e",
+      "shen.\u003cinteger\u003e",
+      "shen.\u003cminus\u003e",
+      "shen.\u003cplus\u003e",
+      "shen.\u003cdbq\u003e",
+      "shen.\u003cstrcontents\u003e",
+      "shen.\u003calpha\u003e",
+      "shen.\u003calphanums\u003e",
+      "shen.\u003cbackslash\u003e",
+      "shen.\u003clongnatter\u003e",
+      "shen.\u003ctimes\u003e",
+      "shen.\u003creturns\u003e",
+      "shen.\u003cshortnatters\u003e",
+      "shen.explode-h",
+      "shen.execute-store-arity",
+      "shen.sysfunc?",
+      "shen.extraspecial?",
+      "shen.special?",
+      "shen.application?",
+      "shen.fn-call",
+      "shen.fn-call?",
+      "shen.foreign?",
+      "shen.lambda-function",
+      "shen.overapplication?",
+      "shen.partial-application*?",
+      "shen.shen-call?",
+      "shen.simple-curry",
+      "shen.undefined-f?",
+      "shen.unpack-foreign",
+      "shen.zero-place?",
+      "shen.process-after-type",
+      "shen.macroexpand-h",
+      "shen.source-form-list?",
+      "eval",
+      "shen.package-symbols",
+      "shen.record-external",
+      "shen.record-internal",
+      "shen.\u003clog10\u003e",
+      "shen.\u003clowE\u003e",
+      "shen.compute-E",
+      "shen.\u003cfraction\u003e",
+      "shen.\u003cstop\u003e",
+      "shen.\u003cdigits\u003e",
+      "shen.compute-integer",
+      "shen.\u003cstrc\u003e",
+      "shen.\u003calphanum\u003e",
+      "shen.\u003creturn\u003e",
+      "shen.\u003cshortnatter\u003e",
+      "shen.update-lambdatable",
+      "shen.loading?",
+      "shen.internal-to-shen?",
+      "external",
+      "shen.lowercase-symbol?",
+      "shen.source-macro-walk",
+      "shen.shen-\u003ekl",
+      "shen.intern-in-package",
+      "shen.internal?",
+      "shen.internal-symbols",
+      "shen.expt",
+      "shen.compute-fraction",
+      "shen.\u003cdigit\u003e",
+      "shen.compute-integer-h",
+      "shen.\u003ccontrol\u003e",
+      "shen.\u003cnotdbq\u003e",
+      "shen.\u003cnumeral\u003e",
+      "shen.return?",
+      "shen.set-lambda-form-entry",
+      "shen.walk",
+      "shen.record-and-evaluate",
+      "shen.shen-\u003ekl-h",
+      "shen.dbl?",
+      "shen.internal-to-P?",
+      "shen.sng?",
+      "shen.compute-fraction-h",
+      "shen.\u003chash\u003e",
+      "shen.\u003clowC\u003e",
+      "shen.fn-print",
+      "shen.record-kl",
+      "shen.rcons_form",
+      "shen.shendef-\u003ekldef",
+      "shen.dbl-h?",
+      "shen.sng-h?",
+      "shen.\u003cdefine\u003e",
+      "shen.\u003cname\u003e",
+      "shen.\u003crules\u003e",
+      "shen.\u003csignature\u003e",
+      "shen.shendef-\u003ekldef-h",
+      "\u003c!\u003e",
+      "shen.\u003crule\u003e",
+      "shen.linearise",
+      "shen.arity-chk",
+      "shen.compile-to-kl",
+      "shen.factorise-code",
+      "shen.free-var-chk",
+      "shen.unprotect",
+      "shen.\u003cpatterns\u003e",
+      "shen.linearise-h",
+      "shen.cond-form",
+      "shen.kl-body",
+      "shen.parameters",
+      "shen.scan-body",
+      "shen.factor",
+      "shen.extract-vars",
+      "shen.find-free-vars",
+      "shen.free-variable-error-message",
+      "shen.\u003cpattern\u003e",
+      "shen.rep-X",
+      "shen.alpha-convert",
+      "shen.triple-stack",
+      "shen.choicepoint",
+      "shen.choicepoint?",
+      "shen.factor-recognisors",
+      "shen.free-variable?",
+      "abort",
+      "nl",
+      "shen.for-each",
+      "\u003cend\u003e",
+      "shen.\u003csimple-pattern\u003e",
+      "shen.ccons?",
+      "shen.compound-pattern",
+      "shen.beta",
+      "shen.constructor?",
+      "shen.custom-pattern-body",
+      "shen.custom-pattern-triple-stack",
+      "shen.custom-pattern?",
+      "shen.op-test",
+      "shen.op1",
+      "shen.op2",
+      "shen.rectify-test",
+      "shen.bad-pivot?",
+      "shen.factor-selectors",
+      "shen.pivot-on",
+      "shen.recursively-factor-selectors",
+      "shen.remove-indirection",
+      "shen.compound-pattern-h",
+      "shen.custom-pattern-compiler",
+      "shen.constructor-error",
+      "shen.custom-pattern-reducer",
+      "shen.factor-selectors-h",
+      "shen.op",
+      "shen.restore-P",
+      "shen.restore-local",
+      "subst",
+      "shen.compile-pattern-fragment"
     ]
   },
   "rows": [
@@ -347,8 +578,7 @@
       "verified": true,
       "cases": 48,
       "effects": [
-        "*property-vector*",
-        "shen.*lambdatable*"
+        "*property-vector*"
       ],
       "source": "kl/kernelfast.go:nativeFn",
       "inputs": [
@@ -7343,7 +7573,7 @@
       "native": "primShenVector",
       "arity": 1,
       "verified": true,
-      "cases": 56,
+      "cases": 55,
       "source": "kl/kernelfast.go:primShenVector",
       "inputs": [
         {
@@ -7530,12 +7760,6 @@
           "name": "kernel:sys.kl:0",
           "args": [
             "0"
-          ]
-        },
-        {
-          "name": "kernel:declarations.kl:1",
-          "args": [
-            "20000"
           ]
         },
         {
@@ -14563,7 +14787,7 @@
       "native": "nativePut",
       "arity": 4,
       "verified": true,
-      "cases": 258,
+      "cases": 257,
       "effects": [
         "*property-vector*"
       ],
@@ -14572,7 +14796,7 @@
         {
           "name": "explicit:fresh",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "a",
@@ -14587,7 +14811,7 @@
         {
           "name": "explicit:put-get-unput-get",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "a",
@@ -14609,7 +14833,7 @@
         {
           "name": "explicit:overwrite",
           "setup": [
-            "(set equiv.*pv* (vector 20))",
+            "(set equiv.*pv* (shen.dict 20))",
             "(put a b c (value equiv.*pv*))"
           ],
           "args": [
@@ -14625,7 +14849,7 @@
         {
           "name": "explicit:second-attr",
           "setup": [
-            "(set equiv.*pv* (vector 20))",
+            "(set equiv.*pv* (shen.dict 20))",
             "(put a b c (value equiv.*pv*))"
           ],
           "args": [
@@ -14641,7 +14865,7 @@
         {
           "name": "explicit:collision",
           "setup": [
-            "(set equiv.*pv* (vector 1))",
+            "(set equiv.*pv* (shen.dict 2))",
             "(put a b c (value equiv.*pv*))",
             "(put x y z (value equiv.*pv*))"
           ],
@@ -14656,24 +14880,9 @@
           ]
         },
         {
-          "name": "explicit:zero-size-vector",
-          "setup": [
-            "(set equiv.*pv* (vector 0))"
-          ],
-          "args": [
-            "a",
-            "b",
-            "c",
-            "(value equiv.*pv*)"
-          ],
-          "observe": [
-            "(value equiv.*pv*)"
-          ]
-        },
-        {
           "name": "boundary:0",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "a",
@@ -14688,7 +14897,7 @@
         {
           "name": "boundary:1",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "b",
@@ -14703,7 +14912,7 @@
         {
           "name": "boundary:2",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "shen.x",
@@ -14718,7 +14927,7 @@
         {
           "name": "boundary:3",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "\"str\"",
@@ -14733,7 +14942,7 @@
         {
           "name": "boundary:4",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1",
@@ -14748,7 +14957,7 @@
         {
           "name": "boundary:5",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1.0",
@@ -14763,7 +14972,7 @@
         {
           "name": "boundary:6",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "()",
@@ -14778,7 +14987,7 @@
         {
           "name": "boundary:7",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "(cons a (cons b ()))",
@@ -14793,7 +15002,7 @@
         {
           "name": "boundary:8",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "true",
@@ -14808,7 +15017,7 @@
         {
           "name": "boundary:9",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "arity",
@@ -14823,7 +15032,7 @@
         {
           "name": "boundary:10",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "a",
@@ -14838,7 +15047,7 @@
         {
           "name": "boundary:11",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "a",
@@ -14853,7 +15062,7 @@
         {
           "name": "boundary:12",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "a",
@@ -14868,7 +15077,7 @@
         {
           "name": "boundary:13",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "a",
@@ -14883,7 +15092,7 @@
         {
           "name": "boundary:14",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "a",
@@ -14898,7 +15107,7 @@
         {
           "name": "boundary:15",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "a",
@@ -14913,7 +15122,7 @@
         {
           "name": "boundary:16",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "a",
@@ -14928,7 +15137,7 @@
         {
           "name": "boundary:17",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "a",
@@ -14943,7 +15152,7 @@
         {
           "name": "boundary:18",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "a",
@@ -14958,7 +15167,7 @@
         {
           "name": "boundary:19",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "a",
@@ -14973,7 +15182,7 @@
         {
           "name": "boundary:20",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "a",
@@ -14988,7 +15197,7 @@
         {
           "name": "boundary:21",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "a",
@@ -15003,7 +15212,7 @@
         {
           "name": "boundary:22",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "a",
@@ -15018,7 +15227,7 @@
         {
           "name": "boundary:23",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "a",
@@ -15033,7 +15242,7 @@
         {
           "name": "boundary:24",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "a",
@@ -15048,7 +15257,7 @@
         {
           "name": "boundary:25",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "a",
@@ -15063,7 +15272,7 @@
         {
           "name": "boundary:26",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "a",
@@ -15078,7 +15287,7 @@
         {
           "name": "boundary:27",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "a",
@@ -15093,7 +15302,7 @@
         {
           "name": "boundary:28",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "a",
@@ -15108,7 +15317,7 @@
         {
           "name": "boundary:29",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "a",
@@ -15123,7 +15332,7 @@
         {
           "name": "boundary:30",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "a",
@@ -15138,7 +15347,7 @@
         {
           "name": "boundary:31",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "a",
@@ -15153,7 +15362,7 @@
         {
           "name": "boundary:32",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "a",
@@ -15168,7 +15377,7 @@
         {
           "name": "boundary:33",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "a",
@@ -15183,7 +15392,7 @@
         {
           "name": "boundary:34",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "a",
@@ -15198,7 +15407,7 @@
         {
           "name": "boundary:35",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "a",
@@ -15213,7 +15422,7 @@
         {
           "name": "boundary:36",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "a",
@@ -15228,7 +15437,7 @@
         {
           "name": "boundary:37",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "a",
@@ -15243,7 +15452,7 @@
         {
           "name": "boundary:38",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "a",
@@ -15258,7 +15467,7 @@
         {
           "name": "boundary:39",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "a",
@@ -15273,7 +15482,7 @@
         {
           "name": "boundary:40",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "a",
@@ -15288,7 +15497,7 @@
         {
           "name": "boundary:41",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "a",
@@ -15303,7 +15512,7 @@
         {
           "name": "boundary:42",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "a",
@@ -15318,7 +15527,7 @@
         {
           "name": "boundary:43",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "a",
@@ -15333,7 +15542,7 @@
         {
           "name": "boundary:44",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "a",
@@ -15348,7 +15557,7 @@
         {
           "name": "boundary:45",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "a",
@@ -15363,7 +15572,7 @@
         {
           "name": "boundary:46",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "a",
@@ -15378,7 +15587,7 @@
         {
           "name": "boundary:47",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "a",
@@ -15393,7 +15602,7 @@
         {
           "name": "boundary:48",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "a",
@@ -15408,7 +15617,7 @@
         {
           "name": "boundary:49",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "a",
@@ -15423,7 +15632,7 @@
         {
           "name": "boundary:50",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "a",
@@ -15438,7 +15647,7 @@
         {
           "name": "boundary:51",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "a",
@@ -15453,7 +15662,7 @@
         {
           "name": "boundary:52",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "a",
@@ -15468,7 +15677,7 @@
         {
           "name": "boundary:53",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "b",
@@ -15483,7 +15692,7 @@
         {
           "name": "boundary:54",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "b",
@@ -15498,7 +15707,7 @@
         {
           "name": "boundary:55",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "b",
@@ -15513,7 +15722,7 @@
         {
           "name": "boundary:56",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "b",
@@ -15528,7 +15737,7 @@
         {
           "name": "boundary:57",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "b",
@@ -15543,7 +15752,7 @@
         {
           "name": "boundary:58",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "b",
@@ -15558,7 +15767,7 @@
         {
           "name": "boundary:59",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "b",
@@ -15573,7 +15782,7 @@
         {
           "name": "boundary:60",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "b",
@@ -15588,7 +15797,7 @@
         {
           "name": "boundary:61",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "b",
@@ -15603,7 +15812,7 @@
         {
           "name": "boundary:62",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "b",
@@ -15618,7 +15827,7 @@
         {
           "name": "boundary:63",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "b",
@@ -15633,7 +15842,7 @@
         {
           "name": "boundary:64",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "b",
@@ -15648,7 +15857,7 @@
         {
           "name": "boundary:65",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "b",
@@ -15663,7 +15872,7 @@
         {
           "name": "boundary:66",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "b",
@@ -15678,7 +15887,7 @@
         {
           "name": "boundary:67",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "b",
@@ -15693,7 +15902,7 @@
         {
           "name": "boundary:68",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "b",
@@ -15708,7 +15917,7 @@
         {
           "name": "boundary:69",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "b",
@@ -15723,7 +15932,7 @@
         {
           "name": "boundary:70",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "b",
@@ -15738,7 +15947,7 @@
         {
           "name": "boundary:71",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "b",
@@ -15753,7 +15962,7 @@
         {
           "name": "boundary:72",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "b",
@@ -15768,7 +15977,7 @@
         {
           "name": "boundary:73",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "b",
@@ -15783,7 +15992,7 @@
         {
           "name": "boundary:74",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "b",
@@ -15798,7 +16007,7 @@
         {
           "name": "boundary:75",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "b",
@@ -15813,7 +16022,7 @@
         {
           "name": "boundary:76",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "b",
@@ -15828,7 +16037,7 @@
         {
           "name": "boundary:77",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "b",
@@ -15843,7 +16052,7 @@
         {
           "name": "boundary:78",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "b",
@@ -15858,7 +16067,7 @@
         {
           "name": "boundary:79",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "b",
@@ -15873,7 +16082,7 @@
         {
           "name": "boundary:80",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "b",
@@ -15888,7 +16097,7 @@
         {
           "name": "boundary:81",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "b",
@@ -15903,7 +16112,7 @@
         {
           "name": "boundary:82",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "b",
@@ -15918,7 +16127,7 @@
         {
           "name": "boundary:83",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "b",
@@ -15933,7 +16142,7 @@
         {
           "name": "boundary:84",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "b",
@@ -15948,7 +16157,7 @@
         {
           "name": "boundary:85",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "b",
@@ -15963,7 +16172,7 @@
         {
           "name": "boundary:86",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "b",
@@ -15978,7 +16187,7 @@
         {
           "name": "boundary:87",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "b",
@@ -15993,7 +16202,7 @@
         {
           "name": "boundary:88",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "shen.x",
@@ -16008,7 +16217,7 @@
         {
           "name": "boundary:89",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "shen.x",
@@ -16023,7 +16232,7 @@
         {
           "name": "boundary:90",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "shen.x",
@@ -16038,7 +16247,7 @@
         {
           "name": "boundary:91",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "shen.x",
@@ -16053,7 +16262,7 @@
         {
           "name": "boundary:92",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "shen.x",
@@ -16068,7 +16277,7 @@
         {
           "name": "boundary:93",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "shen.x",
@@ -16083,7 +16292,7 @@
         {
           "name": "boundary:94",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "shen.x",
@@ -16098,7 +16307,7 @@
         {
           "name": "boundary:95",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "shen.x",
@@ -16113,7 +16322,7 @@
         {
           "name": "boundary:96",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "shen.x",
@@ -16128,7 +16337,7 @@
         {
           "name": "boundary:97",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "shen.x",
@@ -16143,7 +16352,7 @@
         {
           "name": "boundary:98",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "shen.x",
@@ -16158,7 +16367,7 @@
         {
           "name": "boundary:99",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "shen.x",
@@ -16173,7 +16382,7 @@
         {
           "name": "boundary:100",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "shen.x",
@@ -16188,7 +16397,7 @@
         {
           "name": "boundary:101",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "shen.x",
@@ -16203,7 +16412,7 @@
         {
           "name": "boundary:102",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "shen.x",
@@ -16218,7 +16427,7 @@
         {
           "name": "boundary:103",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "shen.x",
@@ -16233,7 +16442,7 @@
         {
           "name": "boundary:104",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "shen.x",
@@ -16248,7 +16457,7 @@
         {
           "name": "boundary:105",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "shen.x",
@@ -16263,7 +16472,7 @@
         {
           "name": "boundary:106",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "shen.x",
@@ -16278,7 +16487,7 @@
         {
           "name": "boundary:107",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "shen.x",
@@ -16293,7 +16502,7 @@
         {
           "name": "boundary:108",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "shen.x",
@@ -16308,7 +16517,7 @@
         {
           "name": "boundary:109",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "shen.x",
@@ -16323,7 +16532,7 @@
         {
           "name": "boundary:110",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "shen.x",
@@ -16338,7 +16547,7 @@
         {
           "name": "boundary:111",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "shen.x",
@@ -16353,7 +16562,7 @@
         {
           "name": "boundary:112",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "shen.x",
@@ -16368,7 +16577,7 @@
         {
           "name": "boundary:113",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "shen.x",
@@ -16383,7 +16592,7 @@
         {
           "name": "boundary:114",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "shen.x",
@@ -16398,7 +16607,7 @@
         {
           "name": "boundary:115",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "shen.x",
@@ -16413,7 +16622,7 @@
         {
           "name": "boundary:116",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "shen.x",
@@ -16428,7 +16637,7 @@
         {
           "name": "boundary:117",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "shen.x",
@@ -16443,7 +16652,7 @@
         {
           "name": "boundary:118",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "shen.x",
@@ -16458,7 +16667,7 @@
         {
           "name": "boundary:119",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "shen.x",
@@ -16473,7 +16682,7 @@
         {
           "name": "boundary:120",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "shen.x",
@@ -16488,7 +16697,7 @@
         {
           "name": "boundary:121",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "shen.x",
@@ -16503,7 +16712,7 @@
         {
           "name": "boundary:122",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "shen.x",
@@ -16518,7 +16727,7 @@
         {
           "name": "boundary:123",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "\"str\"",
@@ -16533,7 +16742,7 @@
         {
           "name": "boundary:124",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "\"str\"",
@@ -16548,7 +16757,7 @@
         {
           "name": "boundary:125",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "\"str\"",
@@ -16563,7 +16772,7 @@
         {
           "name": "boundary:126",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "\"str\"",
@@ -16578,7 +16787,7 @@
         {
           "name": "boundary:127",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "\"str\"",
@@ -16593,7 +16802,7 @@
         {
           "name": "boundary:128",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "\"str\"",
@@ -16608,7 +16817,7 @@
         {
           "name": "boundary:129",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "\"str\"",
@@ -16623,7 +16832,7 @@
         {
           "name": "boundary:130",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "\"str\"",
@@ -16638,7 +16847,7 @@
         {
           "name": "boundary:131",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "\"str\"",
@@ -16653,7 +16862,7 @@
         {
           "name": "boundary:132",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "\"str\"",
@@ -16668,7 +16877,7 @@
         {
           "name": "boundary:133",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "\"str\"",
@@ -16683,7 +16892,7 @@
         {
           "name": "boundary:134",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "\"str\"",
@@ -16698,7 +16907,7 @@
         {
           "name": "boundary:135",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "\"str\"",
@@ -16713,7 +16922,7 @@
         {
           "name": "boundary:136",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "\"str\"",
@@ -16728,7 +16937,7 @@
         {
           "name": "boundary:137",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "\"str\"",
@@ -16743,7 +16952,7 @@
         {
           "name": "boundary:138",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "\"str\"",
@@ -16758,7 +16967,7 @@
         {
           "name": "boundary:139",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "\"str\"",
@@ -16773,7 +16982,7 @@
         {
           "name": "boundary:140",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "\"str\"",
@@ -16788,7 +16997,7 @@
         {
           "name": "boundary:141",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "\"str\"",
@@ -16803,7 +17012,7 @@
         {
           "name": "boundary:142",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "\"str\"",
@@ -16818,7 +17027,7 @@
         {
           "name": "boundary:143",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "\"str\"",
@@ -16833,7 +17042,7 @@
         {
           "name": "boundary:144",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "\"str\"",
@@ -16848,7 +17057,7 @@
         {
           "name": "boundary:145",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "\"str\"",
@@ -16863,7 +17072,7 @@
         {
           "name": "boundary:146",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "\"str\"",
@@ -16878,7 +17087,7 @@
         {
           "name": "boundary:147",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "\"str\"",
@@ -16893,7 +17102,7 @@
         {
           "name": "boundary:148",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "\"str\"",
@@ -16908,7 +17117,7 @@
         {
           "name": "boundary:149",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "\"str\"",
@@ -16923,7 +17132,7 @@
         {
           "name": "boundary:150",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "\"str\"",
@@ -16938,7 +17147,7 @@
         {
           "name": "boundary:151",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "\"str\"",
@@ -16953,7 +17162,7 @@
         {
           "name": "boundary:152",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "\"str\"",
@@ -16968,7 +17177,7 @@
         {
           "name": "boundary:153",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "\"str\"",
@@ -16983,7 +17192,7 @@
         {
           "name": "boundary:154",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "\"str\"",
@@ -16998,7 +17207,7 @@
         {
           "name": "boundary:155",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "\"str\"",
@@ -17013,7 +17222,7 @@
         {
           "name": "boundary:156",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "\"str\"",
@@ -17028,7 +17237,7 @@
         {
           "name": "boundary:157",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "\"str\"",
@@ -17043,7 +17252,7 @@
         {
           "name": "boundary:158",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1",
@@ -17058,7 +17267,7 @@
         {
           "name": "boundary:159",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1",
@@ -17073,7 +17282,7 @@
         {
           "name": "boundary:160",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1",
@@ -17088,7 +17297,7 @@
         {
           "name": "boundary:161",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1",
@@ -17103,7 +17312,7 @@
         {
           "name": "boundary:162",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1",
@@ -17118,7 +17327,7 @@
         {
           "name": "boundary:163",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1",
@@ -17133,7 +17342,7 @@
         {
           "name": "boundary:164",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1",
@@ -17148,7 +17357,7 @@
         {
           "name": "boundary:165",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1",
@@ -17163,7 +17372,7 @@
         {
           "name": "boundary:166",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1",
@@ -17178,7 +17387,7 @@
         {
           "name": "boundary:167",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1",
@@ -17193,7 +17402,7 @@
         {
           "name": "boundary:168",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1",
@@ -17208,7 +17417,7 @@
         {
           "name": "boundary:169",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1",
@@ -17223,7 +17432,7 @@
         {
           "name": "boundary:170",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1",
@@ -17238,7 +17447,7 @@
         {
           "name": "boundary:171",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1",
@@ -17253,7 +17462,7 @@
         {
           "name": "boundary:172",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1",
@@ -17268,7 +17477,7 @@
         {
           "name": "boundary:173",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1",
@@ -17283,7 +17492,7 @@
         {
           "name": "boundary:174",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1",
@@ -17298,7 +17507,7 @@
         {
           "name": "boundary:175",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1",
@@ -17313,7 +17522,7 @@
         {
           "name": "boundary:176",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1",
@@ -17328,7 +17537,7 @@
         {
           "name": "boundary:177",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1",
@@ -17343,7 +17552,7 @@
         {
           "name": "boundary:178",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1",
@@ -17358,7 +17567,7 @@
         {
           "name": "boundary:179",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1",
@@ -17373,7 +17582,7 @@
         {
           "name": "boundary:180",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1",
@@ -17388,7 +17597,7 @@
         {
           "name": "boundary:181",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1",
@@ -17403,7 +17612,7 @@
         {
           "name": "boundary:182",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1",
@@ -17418,7 +17627,7 @@
         {
           "name": "boundary:183",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1",
@@ -17433,7 +17642,7 @@
         {
           "name": "boundary:184",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1",
@@ -17448,7 +17657,7 @@
         {
           "name": "boundary:185",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1",
@@ -17463,7 +17672,7 @@
         {
           "name": "boundary:186",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1",
@@ -17478,7 +17687,7 @@
         {
           "name": "boundary:187",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1",
@@ -17493,7 +17702,7 @@
         {
           "name": "boundary:188",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1",
@@ -17508,7 +17717,7 @@
         {
           "name": "boundary:189",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1",
@@ -17523,7 +17732,7 @@
         {
           "name": "boundary:190",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1",
@@ -17538,7 +17747,7 @@
         {
           "name": "boundary:191",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1",
@@ -17553,7 +17762,7 @@
         {
           "name": "boundary:192",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1",
@@ -17568,7 +17777,7 @@
         {
           "name": "boundary:193",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1.0",
@@ -17583,7 +17792,7 @@
         {
           "name": "boundary:194",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1.0",
@@ -17598,7 +17807,7 @@
         {
           "name": "boundary:195",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1.0",
@@ -17613,7 +17822,7 @@
         {
           "name": "boundary:196",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1.0",
@@ -17628,7 +17837,7 @@
         {
           "name": "boundary:197",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1.0",
@@ -17643,7 +17852,7 @@
         {
           "name": "boundary:198",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1.0",
@@ -17658,7 +17867,7 @@
         {
           "name": "boundary:199",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1.0",
@@ -17673,7 +17882,7 @@
         {
           "name": "boundary:200",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1.0",
@@ -17688,7 +17897,7 @@
         {
           "name": "boundary:201",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1.0",
@@ -17703,7 +17912,7 @@
         {
           "name": "boundary:202",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1.0",
@@ -17718,7 +17927,7 @@
         {
           "name": "boundary:203",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1.0",
@@ -17733,7 +17942,7 @@
         {
           "name": "boundary:204",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1.0",
@@ -17748,7 +17957,7 @@
         {
           "name": "boundary:205",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1.0",
@@ -17763,7 +17972,7 @@
         {
           "name": "boundary:206",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1.0",
@@ -17778,7 +17987,7 @@
         {
           "name": "boundary:207",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1.0",
@@ -17793,7 +18002,7 @@
         {
           "name": "boundary:208",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1.0",
@@ -17808,7 +18017,7 @@
         {
           "name": "boundary:209",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1.0",
@@ -17823,7 +18032,7 @@
         {
           "name": "boundary:210",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1.0",
@@ -17838,7 +18047,7 @@
         {
           "name": "boundary:211",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1.0",
@@ -17853,7 +18062,7 @@
         {
           "name": "boundary:212",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1.0",
@@ -17868,7 +18077,7 @@
         {
           "name": "boundary:213",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1.0",
@@ -17883,7 +18092,7 @@
         {
           "name": "boundary:214",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1.0",
@@ -17898,7 +18107,7 @@
         {
           "name": "boundary:215",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1.0",
@@ -17913,7 +18122,7 @@
         {
           "name": "boundary:216",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1.0",
@@ -17928,7 +18137,7 @@
         {
           "name": "boundary:217",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1.0",
@@ -17943,7 +18152,7 @@
         {
           "name": "boundary:218",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1.0",
@@ -17958,7 +18167,7 @@
         {
           "name": "boundary:219",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1.0",
@@ -17973,7 +18182,7 @@
         {
           "name": "boundary:220",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1.0",
@@ -17988,7 +18197,7 @@
         {
           "name": "boundary:221",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1.0",
@@ -18003,7 +18212,7 @@
         {
           "name": "boundary:222",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1.0",
@@ -18018,7 +18227,7 @@
         {
           "name": "boundary:223",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1.0",
@@ -18033,7 +18242,7 @@
         {
           "name": "boundary:224",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1.0",
@@ -18048,7 +18257,7 @@
         {
           "name": "boundary:225",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1.0",
@@ -18063,7 +18272,7 @@
         {
           "name": "boundary:226",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1.0",
@@ -18078,7 +18287,7 @@
         {
           "name": "boundary:227",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1.0",
@@ -18093,7 +18302,7 @@
         {
           "name": "random:0",
           "setup": [
-            "(set equiv.*pv* (vector 1))",
+            "(set equiv.*pv* (shen.dict 2))",
             "(put () b (cons 94 ()) (value equiv.*pv*))",
             "(put x c C78 (value equiv.*pv*))"
           ],
@@ -18110,7 +18319,7 @@
         {
           "name": "random:1",
           "setup": [
-            "(set equiv.*pv* (vector 7))",
+            "(set equiv.*pv* (shen.dict 7))",
             "(put false y 126 (value equiv.*pv*))"
           ],
           "args": [
@@ -18126,7 +18335,7 @@
         {
           "name": "random:2",
           "setup": [
-            "(set equiv.*pv* (vector 7))"
+            "(set equiv.*pv* (shen.dict 7))"
           ],
           "args": [
             "\"4CA\"",
@@ -18141,7 +18350,7 @@
         {
           "name": "random:3",
           "setup": [
-            "(set equiv.*pv* (vector 3))"
+            "(set equiv.*pv* (shen.dict 3))"
           ],
           "args": [
             "-23.032",
@@ -18156,7 +18365,7 @@
         {
           "name": "random:4",
           "setup": [
-            "(set equiv.*pv* (vector 1))",
+            "(set equiv.*pv* (shen.dict 2))",
             "(put (vector 0) y (cons ?x (cons (vector 0) ())) (value equiv.*pv*))",
             "(put 120 (vector 0) 418159868948 (value equiv.*pv*))",
             "(put c 61.578 \"€x\" (value equiv.*pv*))"
@@ -18174,7 +18383,7 @@
         {
           "name": "random:5",
           "setup": [
-            "(set equiv.*pv* (vector 3))",
+            "(set equiv.*pv* (shen.dict 3))",
             "(put \"7_A\" b (cons (absvector 2) ()) (value equiv.*pv*))",
             "(put c b (cons (@p 1 2) (cons 84.543 ())) (value equiv.*pv*))"
           ],
@@ -18191,7 +18400,7 @@
         {
           "name": "random:6",
           "setup": [
-            "(set equiv.*pv* (vector 3))"
+            "(set equiv.*pv* (shen.dict 3))"
           ],
           "args": [
             "z4?c2",
@@ -18206,7 +18415,7 @@
         {
           "name": "random:7",
           "setup": [
-            "(set equiv.*pv* (vector 3))",
+            "(set equiv.*pv* (shen.dict 3))",
             "(put 73 y \"日本\" (value equiv.*pv*))",
             "(put false a () (value equiv.*pv*))",
             "(put z x -332271411747 (value equiv.*pv*))"
@@ -18224,7 +18433,7 @@
         {
           "name": "random:8",
           "setup": [
-            "(set equiv.*pv* (vector 3))"
+            "(set equiv.*pv* (shen.dict 3))"
           ],
           "args": [
             "x",
@@ -18239,7 +18448,7 @@
         {
           "name": "random:9",
           "setup": [
-            "(set equiv.*pv* (vector 3))",
+            "(set equiv.*pv* (shen.dict 3))",
             "(put x y (cons 78.5 (cons 59.5 (cons () ()))) (value equiv.*pv*))",
             "(put b z 60.234 (value equiv.*pv*))"
           ],
@@ -18256,7 +18465,7 @@
         {
           "name": "random:10",
           "setup": [
-            "(set equiv.*pv* (vector 3))",
+            "(set equiv.*pv* (shen.dict 3))",
             "(put b b () (value equiv.*pv*))"
           ],
           "args": [
@@ -18272,7 +18481,7 @@
         {
           "name": "random:11",
           "setup": [
-            "(set equiv.*pv* (vector 7))",
+            "(set equiv.*pv* (shen.dict 7))",
             "(put (@p 1 2) z (vector 1) (value equiv.*pv*))"
           ],
           "args": [
@@ -18288,7 +18497,7 @@
         {
           "name": "random:12",
           "setup": [
-            "(set equiv.*pv* (vector 3))",
+            "(set equiv.*pv* (shen.dict 3))",
             "(put x c (cons -16.875 ()) (value equiv.*pv*))",
             "(put a b \"\" (value equiv.*pv*))",
             "(put a true () (value equiv.*pv*))"
@@ -18306,7 +18515,7 @@
         {
           "name": "random:13",
           "setup": [
-            "(set equiv.*pv* (vector 3))",
+            "(set equiv.*pv* (shen.dict 3))",
             "(put (intern \"B0_*\") (vector 0) (@p 1 2) (value equiv.*pv*))"
           ],
           "args": [
@@ -18322,7 +18531,7 @@
         {
           "name": "random:14",
           "setup": [
-            "(set equiv.*pv* (vector 7))",
+            "(set equiv.*pv* (shen.dict 7))",
             "(put y true () (value equiv.*pv*))"
           ],
           "args": [
@@ -18338,7 +18547,7 @@
         {
           "name": "random:15",
           "setup": [
-            "(set equiv.*pv* (vector 1))",
+            "(set equiv.*pv* (shen.dict 2))",
             "(put a c 4 (value equiv.*pv*))",
             "(put c 39.5 (@p 1 2) (value equiv.*pv*))"
           ],
@@ -18355,7 +18564,7 @@
         {
           "name": "random:16",
           "setup": [
-            "(set equiv.*pv* (vector 3))",
+            "(set equiv.*pv* (shen.dict 3))",
             "(put c z -10.051 (value equiv.*pv*))",
             "(put 68 -163919591873 \"56y\" (value equiv.*pv*))",
             "(put () false 28 (value equiv.*pv*))"
@@ -18373,7 +18582,7 @@
         {
           "name": "random:17",
           "setup": [
-            "(set equiv.*pv* (vector 3))",
+            "(set equiv.*pv* (shen.dict 3))",
             "(put (absvector 2) y (cons (vector 0) (cons 4 (cons (vector 0) ()))) (value equiv.*pv*))"
           ],
           "args": [
@@ -18389,7 +18598,7 @@
         {
           "name": "random:18",
           "setup": [
-            "(set equiv.*pv* (vector 7))",
+            "(set equiv.*pv* (shen.dict 7))",
             "(put y -53.191 \"λ\" (value equiv.*pv*))",
             "(put \"B9c.\" x (cons true ()) (value equiv.*pv*))",
             "(put x z (cons (vector 1) ()) (value equiv.*pv*))"
@@ -18407,7 +18616,7 @@
         {
           "name": "random:19",
           "setup": [
-            "(set equiv.*pv* (vector 3))",
+            "(set equiv.*pv* (shen.dict 3))",
             "(put \".\" 33.588 (cons -24.461 (cons true (cons (vector 0) ()))) (value equiv.*pv*))"
           ],
           "args": [
@@ -18423,7 +18632,7 @@
         {
           "name": "random:20",
           "setup": [
-            "(set equiv.*pv* (vector 3))"
+            "(set equiv.*pv* (shen.dict 3))"
           ],
           "args": [
             "c",
@@ -18438,7 +18647,7 @@
         {
           "name": "random:21",
           "setup": [
-            "(set equiv.*pv* (vector 1))",
+            "(set equiv.*pv* (shen.dict 2))",
             "(put y b 55.503 (value equiv.*pv*))",
             "(put 31.348 false 1 (value equiv.*pv*))"
           ],
@@ -18455,7 +18664,7 @@
         {
           "name": "random:22",
           "setup": [
-            "(set equiv.*pv* (vector 7))",
+            "(set equiv.*pv* (shen.dict 7))",
             "(put b \"aλ\" (cons () (cons \"\" (cons -208411538727 ()))) (value equiv.*pv*))",
             "(put c c (cons fail (cons 13.81 (cons 39.5 ()))) (value equiv.*pv*))",
             "(put y b () (value equiv.*pv*))"
@@ -18473,7 +18682,7 @@
         {
           "name": "random:23",
           "setup": [
-            "(set equiv.*pv* (vector 7))",
+            "(set equiv.*pv* (shen.dict 7))",
             "(put a c (cons 85.109 (cons \"Cxxx1?\" ())) (value equiv.*pv*))",
             "(put 65.5 x \"6cB2\" (value equiv.*pv*))",
             "(put true a () (value equiv.*pv*))"
@@ -18504,7 +18713,7 @@
         {
           "name": "explicit:after-put",
           "setup": [
-            "(set equiv.*pv* (vector 20))",
+            "(set equiv.*pv* (shen.dict 20))",
             "(put a b c (value equiv.*pv*))"
           ],
           "args": [
@@ -18519,7 +18728,7 @@
         {
           "name": "explicit:missing-attr",
           "setup": [
-            "(set equiv.*pv* (vector 20))",
+            "(set equiv.*pv* (shen.dict 20))",
             "(put a b c (value equiv.*pv*))"
           ],
           "args": [
@@ -18534,7 +18743,7 @@
         {
           "name": "explicit:missing-key",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "a",
@@ -18548,7 +18757,7 @@
         {
           "name": "explicit:after-unput-raises",
           "setup": [
-            "(set equiv.*pv* (vector 20))",
+            "(set equiv.*pv* (shen.dict 20))",
             "(put a b c (value equiv.*pv*))",
             "(unput a b (value equiv.*pv*))"
           ],
@@ -18562,9 +18771,9 @@
           ]
         },
         {
-          "name": "explicit:zero-size-vector",
+          "name": "explicit:not-a-dict",
           "setup": [
-            "(set equiv.*pv* (vector 0))"
+            "(set equiv.*pv* (vector 3))"
           ],
           "args": [
             "a",
@@ -18578,7 +18787,7 @@
         {
           "name": "boundary:0",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "a",
@@ -18592,7 +18801,7 @@
         {
           "name": "boundary:1",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "b",
@@ -18606,7 +18815,7 @@
         {
           "name": "boundary:2",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "shen.x",
@@ -18620,7 +18829,7 @@
         {
           "name": "boundary:3",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "\"str\"",
@@ -18634,7 +18843,7 @@
         {
           "name": "boundary:4",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1",
@@ -18648,7 +18857,7 @@
         {
           "name": "boundary:5",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1.0",
@@ -18662,7 +18871,7 @@
         {
           "name": "boundary:6",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "()",
@@ -18676,7 +18885,7 @@
         {
           "name": "boundary:7",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "(cons a (cons b ()))",
@@ -18690,7 +18899,7 @@
         {
           "name": "boundary:8",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "true",
@@ -18704,7 +18913,7 @@
         {
           "name": "boundary:9",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "arity",
@@ -18718,7 +18927,7 @@
         {
           "name": "boundary:10",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "a",
@@ -18732,7 +18941,7 @@
         {
           "name": "boundary:11",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "a",
@@ -18746,7 +18955,7 @@
         {
           "name": "boundary:12",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "a",
@@ -18760,7 +18969,7 @@
         {
           "name": "boundary:13",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "a",
@@ -18774,7 +18983,7 @@
         {
           "name": "boundary:14",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "a",
@@ -18788,7 +18997,7 @@
         {
           "name": "boundary:15",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "a",
@@ -18802,7 +19011,7 @@
         {
           "name": "boundary:16",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "a",
@@ -18816,7 +19025,7 @@
         {
           "name": "boundary:17",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "a",
@@ -18830,7 +19039,7 @@
         {
           "name": "boundary:18",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "a",
@@ -18844,7 +19053,7 @@
         {
           "name": "boundary:19",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "b",
@@ -18858,7 +19067,7 @@
         {
           "name": "boundary:20",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "b",
@@ -18872,7 +19081,7 @@
         {
           "name": "boundary:21",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "b",
@@ -18886,7 +19095,7 @@
         {
           "name": "boundary:22",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "b",
@@ -18900,7 +19109,7 @@
         {
           "name": "boundary:23",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "b",
@@ -18914,7 +19123,7 @@
         {
           "name": "boundary:24",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "shen.x",
@@ -18928,7 +19137,7 @@
         {
           "name": "boundary:25",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "shen.x",
@@ -18942,7 +19151,7 @@
         {
           "name": "boundary:26",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "shen.x",
@@ -18956,7 +19165,7 @@
         {
           "name": "boundary:27",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "shen.x",
@@ -18970,7 +19179,7 @@
         {
           "name": "boundary:28",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "shen.x",
@@ -18984,7 +19193,7 @@
         {
           "name": "boundary:29",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "\"str\"",
@@ -18998,7 +19207,7 @@
         {
           "name": "boundary:30",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "\"str\"",
@@ -19012,7 +19221,7 @@
         {
           "name": "boundary:31",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "\"str\"",
@@ -19026,7 +19235,7 @@
         {
           "name": "boundary:32",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "\"str\"",
@@ -19040,7 +19249,7 @@
         {
           "name": "boundary:33",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "\"str\"",
@@ -19054,7 +19263,7 @@
         {
           "name": "boundary:34",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1",
@@ -19068,7 +19277,7 @@
         {
           "name": "boundary:35",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1",
@@ -19082,7 +19291,7 @@
         {
           "name": "boundary:36",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1",
@@ -19096,7 +19305,7 @@
         {
           "name": "boundary:37",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1",
@@ -19110,7 +19319,7 @@
         {
           "name": "boundary:38",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1",
@@ -19124,7 +19333,7 @@
         {
           "name": "boundary:39",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1.0",
@@ -19138,7 +19347,7 @@
         {
           "name": "boundary:40",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1.0",
@@ -19152,7 +19361,7 @@
         {
           "name": "boundary:41",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1.0",
@@ -19166,7 +19375,7 @@
         {
           "name": "boundary:42",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1.0",
@@ -19180,7 +19389,7 @@
         {
           "name": "boundary:43",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1.0",
@@ -19194,7 +19403,7 @@
         {
           "name": "kernel:reader.kl:0",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "shen",
@@ -19208,7 +19417,7 @@
         {
           "name": "random:0",
           "setup": [
-            "(set equiv.*pv* (vector 1))"
+            "(set equiv.*pv* (shen.dict 2))"
           ],
           "args": [
             "37812082230",
@@ -19222,7 +19431,7 @@
         {
           "name": "random:1",
           "setup": [
-            "(set equiv.*pv* (vector 1))",
+            "(set equiv.*pv* (shen.dict 2))",
             "(put c arity -448219216308 (value equiv.*pv*))",
             "(put (vector 1) c (cons () ()) (value equiv.*pv*))"
           ],
@@ -19238,7 +19447,7 @@
         {
           "name": "random:2",
           "setup": [
-            "(set equiv.*pv* (vector 7))",
+            "(set equiv.*pv* (shen.dict 7))",
             "(put 38.5 c (cons 72.894 ()) (value equiv.*pv*))",
             "(put 4.523 x -167660543027 (value equiv.*pv*))"
           ],
@@ -19254,7 +19463,7 @@
         {
           "name": "random:3",
           "setup": [
-            "(set equiv.*pv* (vector 7))",
+            "(set equiv.*pv* (shen.dict 7))",
             "(put (vector 1) 55903759860 (cons false ()) (value equiv.*pv*))"
           ],
           "args": [
@@ -19269,7 +19478,7 @@
         {
           "name": "random:4",
           "setup": [
-            "(set equiv.*pv* (vector 1))",
+            "(set equiv.*pv* (shen.dict 2))",
             "(put x z \"B\" (value equiv.*pv*))",
             "(put true b () (value equiv.*pv*))",
             "(put c c true (value equiv.*pv*))"
@@ -19286,7 +19495,7 @@
         {
           "name": "random:5",
           "setup": [
-            "(set equiv.*pv* (vector 1))"
+            "(set equiv.*pv* (shen.dict 2))"
           ],
           "args": [
             "42",
@@ -19300,7 +19509,7 @@
         {
           "name": "random:6",
           "setup": [
-            "(set equiv.*pv* (vector 3))"
+            "(set equiv.*pv* (shen.dict 3))"
           ],
           "args": [
             "x",
@@ -19314,7 +19523,7 @@
         {
           "name": "random:7",
           "setup": [
-            "(set equiv.*pv* (vector 1))",
+            "(set equiv.*pv* (shen.dict 2))",
             "(put x -2 \"y7\" (value equiv.*pv*))",
             "(put x b (vector 0) (value equiv.*pv*))",
             "(put a a 2.205 (value equiv.*pv*))"
@@ -19331,7 +19540,7 @@
         {
           "name": "random:8",
           "setup": [
-            "(set equiv.*pv* (vector 7))",
+            "(set equiv.*pv* (shen.dict 7))",
             "(put c \"λ1\" (absvector 2) (value equiv.*pv*))"
           ],
           "args": [
@@ -19346,7 +19555,7 @@
         {
           "name": "random:9",
           "setup": [
-            "(set equiv.*pv* (vector 3))",
+            "(set equiv.*pv* (shen.dict 3))",
             "(put b x 123.5 (value equiv.*pv*))",
             "(put b c (cons \"\" (cons (vector 1) ())) (value equiv.*pv*))",
             "(put z a -83.438 (value equiv.*pv*))"
@@ -19363,7 +19572,7 @@
         {
           "name": "random:10",
           "setup": [
-            "(set equiv.*pv* (vector 1))"
+            "(set equiv.*pv* (shen.dict 2))"
           ],
           "args": [
             "true",
@@ -19377,7 +19586,7 @@
         {
           "name": "random:11",
           "setup": [
-            "(set equiv.*pv* (vector 3))"
+            "(set equiv.*pv* (shen.dict 3))"
           ],
           "args": [
             "y",
@@ -19391,7 +19600,7 @@
         {
           "name": "random:12",
           "setup": [
-            "(set equiv.*pv* (vector 7))",
+            "(set equiv.*pv* (shen.dict 7))",
             "(put x c (intern \"B2\") (value equiv.*pv*))"
           ],
           "args": [
@@ -19406,7 +19615,7 @@
         {
           "name": "random:13",
           "setup": [
-            "(set equiv.*pv* (vector 1))",
+            "(set equiv.*pv* (shen.dict 2))",
             "(put 10.5 z (cons \"€x\" (cons \"\" (cons (vector 1) ()))) (value equiv.*pv*))"
           ],
           "args": [
@@ -19421,7 +19630,7 @@
         {
           "name": "random:14",
           "setup": [
-            "(set equiv.*pv* (vector 3))",
+            "(set equiv.*pv* (shen.dict 3))",
             "(put false b15-y () (value equiv.*pv*))"
           ],
           "args": [
@@ -19436,7 +19645,7 @@
         {
           "name": "random:15",
           "setup": [
-            "(set equiv.*pv* (vector 1))",
+            "(set equiv.*pv* (shen.dict 2))",
             "(put 4 x () (value equiv.*pv*))",
             "(put x z true (value equiv.*pv*))",
             "(put false () (absvector 2) (value equiv.*pv*))"
@@ -19453,7 +19662,7 @@
         {
           "name": "random:16",
           "setup": [
-            "(set equiv.*pv* (vector 7))",
+            "(set equiv.*pv* (shen.dict 7))",
             "(put b y (cons 0 (cons B-33- (cons (vector 1) ()))) (value equiv.*pv*))",
             "(put x a (@p 1 2) (value equiv.*pv*))"
           ],
@@ -19469,7 +19678,7 @@
         {
           "name": "random:17",
           "setup": [
-            "(set equiv.*pv* (vector 1))",
+            "(set equiv.*pv* (shen.dict 2))",
             "(put a x (intern \"-01a\") (value equiv.*pv*))",
             "(put x y (intern \"-48A\") (value equiv.*pv*))",
             "(put y y () (value equiv.*pv*))"
@@ -19486,7 +19695,7 @@
         {
           "name": "random:18",
           "setup": [
-            "(set equiv.*pv* (vector 7))",
+            "(set equiv.*pv* (shen.dict 7))",
             "(put x x (cons -71.489 ()) (value equiv.*pv*))",
             "(put b x 54.035 (value equiv.*pv*))",
             "(put x a () (value equiv.*pv*))"
@@ -19503,7 +19712,7 @@
         {
           "name": "random:19",
           "setup": [
-            "(set equiv.*pv* (vector 1))"
+            "(set equiv.*pv* (shen.dict 2))"
           ],
           "args": [
             "y",
@@ -19517,7 +19726,7 @@
         {
           "name": "random:20",
           "setup": [
-            "(set equiv.*pv* (vector 7))",
+            "(set equiv.*pv* (shen.dict 7))",
             "(put false a (cons (vector 0) ()) (value equiv.*pv*))",
             "(put -46483092266 c false (value equiv.*pv*))",
             "(put x _6 vector (value equiv.*pv*))"
@@ -19534,7 +19743,7 @@
         {
           "name": "random:21",
           "setup": [
-            "(set equiv.*pv* (vector 3))",
+            "(set equiv.*pv* (shen.dict 3))",
             "(put \"2A_..x\" a 29.5 (value equiv.*pv*))",
             "(put x 2 (@p 1 2) (value equiv.*pv*))",
             "(put c B7z1. true (value equiv.*pv*))"
@@ -19551,7 +19760,7 @@
         {
           "name": "random:22",
           "setup": [
-            "(set equiv.*pv* (vector 7))"
+            "(set equiv.*pv* (shen.dict 7))"
           ],
           "args": [
             "b",
@@ -19565,7 +19774,7 @@
         {
           "name": "random:23",
           "setup": [
-            "(set equiv.*pv* (vector 1))",
+            "(set equiv.*pv* (shen.dict 2))",
             "(put a y 30.825 (value equiv.*pv*))",
             "(put () z a (value equiv.*pv*))",
             "(put 25 y (vector 0) (value equiv.*pv*))"
@@ -19586,7 +19795,7 @@
       "native": "nativeUnput",
       "arity": 3,
       "verified": true,
-      "cases": 72,
+      "cases": 71,
       "effects": [
         "*property-vector*"
       ],
@@ -19595,7 +19804,7 @@
         {
           "name": "explicit:after-put",
           "setup": [
-            "(set equiv.*pv* (vector 20))",
+            "(set equiv.*pv* (shen.dict 20))",
             "(put a b c (value equiv.*pv*))"
           ],
           "args": [
@@ -19610,7 +19819,7 @@
         {
           "name": "explicit:missing",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "a",
@@ -19624,7 +19833,7 @@
         {
           "name": "explicit:collision",
           "setup": [
-            "(set equiv.*pv* (vector 1))",
+            "(set equiv.*pv* (shen.dict 2))",
             "(put a b c (value equiv.*pv*))",
             "(put x y z (value equiv.*pv*))"
           ],
@@ -19638,23 +19847,9 @@
           ]
         },
         {
-          "name": "explicit:zero-size-vector",
-          "setup": [
-            "(set equiv.*pv* (vector 0))"
-          ],
-          "args": [
-            "a",
-            "b",
-            "(value equiv.*pv*)"
-          ],
-          "observe": [
-            "(value equiv.*pv*)"
-          ]
-        },
-        {
           "name": "boundary:0",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "a",
@@ -19668,7 +19863,7 @@
         {
           "name": "boundary:1",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "b",
@@ -19682,7 +19877,7 @@
         {
           "name": "boundary:2",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "shen.x",
@@ -19696,7 +19891,7 @@
         {
           "name": "boundary:3",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "\"str\"",
@@ -19710,7 +19905,7 @@
         {
           "name": "boundary:4",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1",
@@ -19724,7 +19919,7 @@
         {
           "name": "boundary:5",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1.0",
@@ -19738,7 +19933,7 @@
         {
           "name": "boundary:6",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "()",
@@ -19752,7 +19947,7 @@
         {
           "name": "boundary:7",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "(cons a (cons b ()))",
@@ -19766,7 +19961,7 @@
         {
           "name": "boundary:8",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "true",
@@ -19780,7 +19975,7 @@
         {
           "name": "boundary:9",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "arity",
@@ -19794,7 +19989,7 @@
         {
           "name": "boundary:10",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "a",
@@ -19808,7 +20003,7 @@
         {
           "name": "boundary:11",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "a",
@@ -19822,7 +20017,7 @@
         {
           "name": "boundary:12",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "a",
@@ -19836,7 +20031,7 @@
         {
           "name": "boundary:13",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "a",
@@ -19850,7 +20045,7 @@
         {
           "name": "boundary:14",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "a",
@@ -19864,7 +20059,7 @@
         {
           "name": "boundary:15",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "a",
@@ -19878,7 +20073,7 @@
         {
           "name": "boundary:16",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "a",
@@ -19892,7 +20087,7 @@
         {
           "name": "boundary:17",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "a",
@@ -19906,7 +20101,7 @@
         {
           "name": "boundary:18",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "a",
@@ -19920,7 +20115,7 @@
         {
           "name": "boundary:19",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "b",
@@ -19934,7 +20129,7 @@
         {
           "name": "boundary:20",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "b",
@@ -19948,7 +20143,7 @@
         {
           "name": "boundary:21",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "b",
@@ -19962,7 +20157,7 @@
         {
           "name": "boundary:22",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "b",
@@ -19976,7 +20171,7 @@
         {
           "name": "boundary:23",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "b",
@@ -19990,7 +20185,7 @@
         {
           "name": "boundary:24",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "shen.x",
@@ -20004,7 +20199,7 @@
         {
           "name": "boundary:25",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "shen.x",
@@ -20018,7 +20213,7 @@
         {
           "name": "boundary:26",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "shen.x",
@@ -20032,7 +20227,7 @@
         {
           "name": "boundary:27",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "shen.x",
@@ -20046,7 +20241,7 @@
         {
           "name": "boundary:28",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "shen.x",
@@ -20060,7 +20255,7 @@
         {
           "name": "boundary:29",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "\"str\"",
@@ -20074,7 +20269,7 @@
         {
           "name": "boundary:30",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "\"str\"",
@@ -20088,7 +20283,7 @@
         {
           "name": "boundary:31",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "\"str\"",
@@ -20102,7 +20297,7 @@
         {
           "name": "boundary:32",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "\"str\"",
@@ -20116,7 +20311,7 @@
         {
           "name": "boundary:33",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "\"str\"",
@@ -20130,7 +20325,7 @@
         {
           "name": "boundary:34",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1",
@@ -20144,7 +20339,7 @@
         {
           "name": "boundary:35",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1",
@@ -20158,7 +20353,7 @@
         {
           "name": "boundary:36",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1",
@@ -20172,7 +20367,7 @@
         {
           "name": "boundary:37",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1",
@@ -20186,7 +20381,7 @@
         {
           "name": "boundary:38",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1",
@@ -20200,7 +20395,7 @@
         {
           "name": "boundary:39",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1.0",
@@ -20214,7 +20409,7 @@
         {
           "name": "boundary:40",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1.0",
@@ -20228,7 +20423,7 @@
         {
           "name": "boundary:41",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1.0",
@@ -20242,7 +20437,7 @@
         {
           "name": "boundary:42",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1.0",
@@ -20256,7 +20451,7 @@
         {
           "name": "boundary:43",
           "setup": [
-            "(set equiv.*pv* (vector 20))"
+            "(set equiv.*pv* (shen.dict 20))"
           ],
           "args": [
             "1.0",
@@ -20270,7 +20465,7 @@
         {
           "name": "random:0",
           "setup": [
-            "(set equiv.*pv* (vector 3))",
+            "(set equiv.*pv* (shen.dict 3))",
             "(put -27.276 b \"-z\" (value equiv.*pv*))",
             "(put x a true (value equiv.*pv*))",
             "(put z x true (value equiv.*pv*))"
@@ -20287,7 +20482,7 @@
         {
           "name": "random:1",
           "setup": [
-            "(set equiv.*pv* (vector 3))",
+            "(set equiv.*pv* (shen.dict 3))",
             "(put a c \"_934\" (value equiv.*pv*))",
             "(put (@p 1 2) x (cons 64.5 (cons 112.5 ())) (value equiv.*pv*))"
           ],
@@ -20303,7 +20498,7 @@
         {
           "name": "random:2",
           "setup": [
-            "(set equiv.*pv* (vector 1))",
+            "(set equiv.*pv* (shen.dict 2))",
             "(put y 16 21.287 (value equiv.*pv*))"
           ],
           "args": [
@@ -20318,7 +20513,7 @@
         {
           "name": "random:3",
           "setup": [
-            "(set equiv.*pv* (vector 7))"
+            "(set equiv.*pv* (shen.dict 7))"
           ],
           "args": [
             "69.351",
@@ -20332,7 +20527,7 @@
         {
           "name": "random:4",
           "setup": [
-            "(set equiv.*pv* (vector 3))",
+            "(set equiv.*pv* (shen.dict 3))",
             "(put a -57427620156 \"\" (value equiv.*pv*))",
             "(put \"6*\" b 32.5 (value equiv.*pv*))"
           ],
@@ -20348,7 +20543,7 @@
         {
           "name": "random:5",
           "setup": [
-            "(set equiv.*pv* (vector 1))",
+            "(set equiv.*pv* (shen.dict 2))",
             "(put x y () (value equiv.*pv*))"
           ],
           "args": [
@@ -20363,7 +20558,7 @@
         {
           "name": "random:6",
           "setup": [
-            "(set equiv.*pv* (vector 1))",
+            "(set equiv.*pv* (shen.dict 2))",
             "(put b 3 () (value equiv.*pv*))"
           ],
           "args": [
@@ -20378,7 +20573,7 @@
         {
           "name": "random:7",
           "setup": [
-            "(set equiv.*pv* (vector 3))",
+            "(set equiv.*pv* (shen.dict 3))",
             "(put x y 71.5 (value equiv.*pv*))",
             "(put a (intern \"__2\") false (value equiv.*pv*))",
             "(put \"\" c () (value equiv.*pv*))"
@@ -20395,7 +20590,7 @@
         {
           "name": "random:8",
           "setup": [
-            "(set equiv.*pv* (vector 7))",
+            "(set equiv.*pv* (shen.dict 7))",
             "(put false (vector 1) false (value equiv.*pv*))",
             "(put z x _A42 (value equiv.*pv*))"
           ],
@@ -20411,7 +20606,7 @@
         {
           "name": "random:9",
           "setup": [
-            "(set equiv.*pv* (vector 7))"
+            "(set equiv.*pv* (shen.dict 7))"
           ],
           "args": [
             "(absvector 2)",
@@ -20425,7 +20620,7 @@
         {
           "name": "random:10",
           "setup": [
-            "(set equiv.*pv* (vector 3))",
+            "(set equiv.*pv* (shen.dict 3))",
             "(put -46.106 y (cons false (cons false ())) (value equiv.*pv*))",
             "(put x z false (value equiv.*pv*))"
           ],
@@ -20441,7 +20636,7 @@
         {
           "name": "random:11",
           "setup": [
-            "(set equiv.*pv* (vector 3))",
+            "(set equiv.*pv* (shen.dict 3))",
             "(put (@p 1 2) 86.955 (@p 1 2) (value equiv.*pv*))",
             "(put c z () (value equiv.*pv*))"
           ],
@@ -20457,7 +20652,7 @@
         {
           "name": "random:12",
           "setup": [
-            "(set equiv.*pv* (vector 7))"
+            "(set equiv.*pv* (shen.dict 7))"
           ],
           "args": [
             "(vector 1)",
@@ -20471,7 +20666,7 @@
         {
           "name": "random:13",
           "setup": [
-            "(set equiv.*pv* (vector 1))",
+            "(set equiv.*pv* (shen.dict 2))",
             "(put y b \"B41*-_\" (value equiv.*pv*))"
           ],
           "args": [
@@ -20486,7 +20681,7 @@
         {
           "name": "random:14",
           "setup": [
-            "(set equiv.*pv* (vector 1))",
+            "(set equiv.*pv* (shen.dict 2))",
             "(put 99.858 a (cons (vector 0) ()) (value equiv.*pv*))",
             "(put c -68.691 (cons 1 (cons \"\" ())) (value equiv.*pv*))"
           ],
@@ -20502,7 +20697,7 @@
         {
           "name": "random:15",
           "setup": [
-            "(set equiv.*pv* (vector 7))",
+            "(set equiv.*pv* (shen.dict 7))",
             "(put z \"λ1\" true (value equiv.*pv*))",
             "(put x z (vector 0) (value equiv.*pv*))",
             "(put x c \"c7z\" (value equiv.*pv*))"
@@ -20519,7 +20714,7 @@
         {
           "name": "random:16",
           "setup": [
-            "(set equiv.*pv* (vector 3))"
+            "(set equiv.*pv* (shen.dict 3))"
           ],
           "args": [
             "c",
@@ -20533,7 +20728,7 @@
         {
           "name": "random:17",
           "setup": [
-            "(set equiv.*pv* (vector 1))",
+            "(set equiv.*pv* (shen.dict 2))",
             "(put (vector 0) z . (value equiv.*pv*))",
             "(put (vector 1) A8A6A -96.229 (value equiv.*pv*))"
           ],
@@ -20549,7 +20744,7 @@
         {
           "name": "random:18",
           "setup": [
-            "(set equiv.*pv* (vector 7))"
+            "(set equiv.*pv* (shen.dict 7))"
           ],
           "args": [
             "AC4-7",
@@ -20563,7 +20758,7 @@
         {
           "name": "random:19",
           "setup": [
-            "(set equiv.*pv* (vector 7))"
+            "(set equiv.*pv* (shen.dict 7))"
           ],
           "args": [
             "101",
@@ -20577,7 +20772,7 @@
         {
           "name": "random:20",
           "setup": [
-            "(set equiv.*pv* (vector 3))",
+            "(set equiv.*pv* (shen.dict 3))",
             "(put y x false (value equiv.*pv*))",
             "(put c c (cons 82 (cons 175338288490 (cons 490158906375 ()))) (value equiv.*pv*))"
           ],
@@ -20593,7 +20788,7 @@
         {
           "name": "random:21",
           "setup": [
-            "(set equiv.*pv* (vector 3))",
+            "(set equiv.*pv* (shen.dict 3))",
             "(put z map (cons \"-a9a\" ()) (value equiv.*pv*))"
           ],
           "args": [
@@ -20608,7 +20803,7 @@
         {
           "name": "random:22",
           "setup": [
-            "(set equiv.*pv* (vector 7))",
+            "(set equiv.*pv* (shen.dict 7))",
             "(put b a true (value equiv.*pv*))",
             "(put z _*c (cons 72 ()) (value equiv.*pv*))"
           ],
@@ -20624,7 +20819,7 @@
         {
           "name": "random:23",
           "setup": [
-            "(set equiv.*pv* (vector 7))",
+            "(set equiv.*pv* (shen.dict 7))",
             "(put b 2.767 -10.047 (value equiv.*pv*))"
           ],
           "args": [
@@ -21820,7 +22015,7 @@
       "native": "primBoundp",
       "arity": 1,
       "verified": true,
-      "cases": 46,
+      "cases": 48,
       "effects": [
         "(value X)"
       ],
@@ -21962,6 +22157,18 @@
           "name": "boundary:18",
           "args": [
             "true"
+          ]
+        },
+        {
+          "name": "kernel:init.kl:0",
+          "args": [
+            "*home-directory*"
+          ]
+        },
+        {
+          "name": "kernel:init.kl:1",
+          "args": [
+            "*sterror*"
           ]
         },
         {
