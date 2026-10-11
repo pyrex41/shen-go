@@ -6,24 +6,101 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 
 ## [Unreleased]
 
-### Changed (shen-go vendoring)
+## [42.2] - 2026-10-01
 
-- Re-vendored Mark Tarver's S42 (2026-08-25) KLambda kernel and Sources.
-  Archive SHA-256: `30abdc7e5a1e27b7a20109c1ed141e4712885e31f24d9710d16415fbbd4dfb23`.
-  Community extension modules remain separate from the canonical inventory.
+### Changed
 
-### Changed (shen-go vendoring)
+- Namespace `externals` and `with-externals` now accept expressions producing
+  symbol lists, evaluated before qualification as with `package`.
 
-- Re-vendored the KLambda kernel from Mark Tarver's **S41.2 (2026-07-11 refresh)**
-  (https://www.shenlanguage.org/Download/S41.2.zip), replacing the community
-  ShenOSKernel-41.2 that was previously vendored byte-identically. Upstream
-  reused the "41.2" version number for a **restructured kernel of a different
-  lineage** (Tarver's CommonLisp reference kernel). See
-  `klambda/PROVENANCE.md` for the full delta. Notable structural changes: no
-  `shen.initialise` wrapper (init forms are inline, load order matters again),
-  `get`/`put`/`unput` moved into `sys.kl`, and `dict.kl` / `init.kl` /
-  `stlib.kl` / the shen-cl `compiler.kl` artifact removed. `backend.kl` (the
-  CommonLisp code generator) is vendored but not booted.
+## [42.1] - 2026-10-01
+
+### Added
+
+- Source-form handlers that expand containers before ordinary macros.
+- An experimental namespace extension with optional prefix renaming and
+  scoped external symbols.
+- A proposed architecture guide for compiled ports, covering Shen-written
+  backends, bootstrap and deployment models, the KLambda/runtime boundary, and
+  access to the Shen compilation environment.
+- A `type-annotations` extension for adding available signature information to
+  KLambda without evaluating or replacing the supplied code, distributed as
+  both Shen source and generated KLambda.
+
+### Changed
+
+- Release archives now include the Shen sources, build scripts, standard
+  library, benchmarks, and a `VERSION` file, and the release workflow verifies
+  their expected contents.
+- The port performance guide now covers host representations, efficient
+  KLambda execution, static specialisation, kernel overrides, benchmarks, and
+  semantic requirements in detail.
+- The port upgrade guide now documents minimum port requirements and
+  optimisation opportunities for relevant kernel releases.
+
+### Fixed
+
+- `read` and `lineread` now expand input at EOF without a trailing newline,
+  consistently with newline-terminated input.
+
+## [42.0] - 2026-08-25
+
+### Added
+
+- The remaining experimental LogicLab/LKL sources and THORN planner material
+  distributed with Shen 42.0.
+
+### Changed
+
+- The kernel now reports version 42.0 and incorporates Shen 42.0's recursive
+  selector factorisation.
+- The feature-conditional-expansion extension now publishes types for its
+  initialisation and feature-list API.
+- The programmable-pattern-matching extension now publishes types for its
+  handler registration API when initialised.
+- System S now typechecks the surface form of programmable patterns instead of
+  exposing their compiler-internal marker to datatype rules.
+- LogicLab's reduced LKL system definitions now match Shen 42.0's behaviour for
+  invalid list inputs.
+
+### Fixed
+
+- Variancy checking now constructs the correct signature for zero-place
+  functions.
+- `update-lambda-table` now stores callable lambda forms without duplicating
+  their function names and removes stale forms for zero or unknown arities.
+
+### Removed
+
+- The unused `lib/stlib/Encrypt/tbos.txt`, which was not loaded by the library
+  installer or KLambda build.
+
+## [41.3] - 2026-08-10
+
+### Added
+
+- `sqts` side-condition markers for sequent rules.
+- The expanded LogicLab distribution and the THORN theorem prover under
+  `lib/logic-lab` and `lib/thorn`.
+
+### Changed
+
+- `input+` now normalizes its type argument through a macro and supports both
+  the default input stream and an explicit stream.
+- StLib iteration now uses `for ... to` / `for ... stop`, with configurable
+  step, constructor, and end values.
+- StLib vector support now focuses on nested array construction and access;
+  the legacy vector utility implementation has been removed.
+- Optional libraries are selected by the installer, and Shen/Tk asks where to
+  create its transaction files.
+
+### Fixed
+
+- Function variancy checks now validate the function value rather than its
+  symbol.
+- YACC recognizes inputs whose head is an empty list.
+- Fresh type variables can print non-symbol labels, and rule failure checks
+  use heterogeneous equality.
 
 ## [41.2] - 2026-04-19
 
@@ -633,7 +710,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 - y-or-n? fixed
 - compiler warnings suppressed in CLisp
 
-[Unreleased]: https://github.com/Shen-Language/shen-sources/compare/shen-41.2...HEAD
+[Unreleased]: https://github.com/Shen-Language/shen-sources/compare/shen-42.2...HEAD
+[42.2]: https://github.com/Shen-Language/shen-sources/compare/shen-42.1...shen-42.2
+[42.1]: https://github.com/Shen-Language/shen-sources/compare/shen-42.0...shen-42.1
+[42.0]: https://github.com/Shen-Language/shen-sources/compare/shen-41.3...shen-42.0
+[41.3]: https://github.com/Shen-Language/shen-sources/compare/shen-41.2...shen-41.3
 [41.2]: https://github.com/Shen-Language/shen-sources/compare/shen-41.1...shen-41.2
 [41.1]: https://github.com/Shen-Language/shen-sources/compare/shen-41.0...shen-41.1
 [41.0]: https://github.com/Shen-Language/shen-sources/compare/shen-40.1...shen-41.0

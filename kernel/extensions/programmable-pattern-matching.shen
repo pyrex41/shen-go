@@ -23,12 +23,23 @@
 
 (define surface-pattern
   [cons Head Tail] -> [(surface-pattern Head) | (surface-pattern-tail Tail)]
-  X -> X)
+  Pattern -> (let Application (surface-application Pattern)
+               (if (= Application (fail))
+                   Pattern
+                   Application)))
 
 (define surface-pattern-tail
   [] -> []
   [cons Head Tail] -> [(surface-pattern Head) | (surface-pattern-tail Tail)]
   X -> X)
+
+(define surface-application
+  [[fn F] X] -> [F (surface-pattern X)]
+  [F X] -> (let Application (surface-application F)
+             (if (= Application (fail))
+                 (fail)
+                 (append Application [(surface-pattern X)])))
+  _ -> (fail))
 
 (define compile-pattern
   Patt Handlers OnFail
@@ -65,7 +76,9 @@
                (reverse (pop-all SelectorStack))))))
 
 (define initialise
-  -> (do (set shen.*custom-pattern-compiler* (/. Arg OnFail (compile-pattern Arg (value *pattern-handlers*) OnFail)))
+  -> (do (declare register-handler [symbol --> symbol])
+         (declare unregister-handler [symbol --> symbol])
+         (set shen.*custom-pattern-compiler* (/. Arg OnFail (compile-pattern Arg (value *pattern-handlers*) OnFail)))
          (set shen.*custom-pattern-reducer* (/. Arg (reduce Arg (value *pattern-handlers*))))
          (set *pattern-handlers* [])
          (set *pattern-handlers-reg* [])

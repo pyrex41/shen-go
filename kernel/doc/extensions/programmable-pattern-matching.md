@@ -58,6 +58,9 @@ Once a pattern handler function has been defined, it can be registered and enabl
 (shen.x.programmable-pattern-matching.register-handler tuple-pattern-handler)
 ```
 
+The function has type `symbol --> symbol` and returns the registered handler's
+name.
+
 A handler can be disabled by passing its name to the `shen.x.programmable-pattern-matching.unregister-handler` function:
 
 ```shen
@@ -65,8 +68,14 @@ A handler can be disabled by passing its name to the `shen.x.programmable-patter
 (shen.x.programmable-pattern-matching.unregister-handler tuple-pattern-handler)
 ```
 
+This function also has type `symbol --> symbol` and returns the unregistered
+handler's name.
+
 ### Notes:
 
+- Datatype rules for typed functions describe custom patterns in their surface
+  form. The compiler's internal custom-pattern marker is not part of the type
+  language.
 - It is not mandatory to bind all the variables in the pattern, some of the inputs may be used by the pattern handler to decide how such pattern should be compiled.
 - It is not mandatory to register a test expression, but in such cases matching of values with such patterns will always succeed. Such kind of patterns are only safe to use in typed functions.
 - The order of calling the `AddTest` and `Bind` functions doesn't matter.
