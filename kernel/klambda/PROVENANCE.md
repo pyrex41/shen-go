@@ -1,6 +1,6 @@
 # ShenOSKernel provenance
 
-This directory vendors the community ShenOSKernel 43.1 release wholesale.
+This directory vendors the 23-file community ShenOSKernel 43.1 KLambda release. The Go port keeps its compiler in `src/compiler.shen`; `compiler.kl` is not part of the community release archive and is not vendored here.
 
 - Tag: `shen-43.1`
 - Commit: `715824a52b55e9c81a9501df8548ff3edd8411f5`
@@ -13,7 +13,7 @@ the 43.1 public character-stream names (`char-stream?`, `read-unit-string`,
 and `write-string`) while reporting that its streams are not character
 streams.
 
-The 43.1 upgrade replaces the complete prior kernel tree. Its port upgrade
+The 43.1 upgrade replaces the complete prior release kernel tree. Its port upgrade
 guide requires the public character-stream interfaces and normal
 `shen.initialise` boot, both of which are covered by the generated kernel and
 the native primitive registry.
