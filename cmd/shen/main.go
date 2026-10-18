@@ -33,7 +33,7 @@ func regist(e *kl.ControlFlow) {
 			fmt.Println("load ...fail")
 		}
 	}
-	// ShenOSKernel 42.2 (community lineage): every module is a plain list of
+	// ShenOSKernel 43.1 (community lineage): every module is a plain list of
 	// (defun ...) forms, so the order the Mains run in does not matter. All
 	// top-level state -- globals, the arity table, lambda forms, datatype
 	// declarations -- is set up by shen.initialise (init.kl), called below.
@@ -289,7 +289,7 @@ func main() {
 }
 
 // fixPrHush rebinds the kernel's `pr` so the *hush* check only applies to the
-// char-stoutput fast path. The stock definition (writer.kl) returns without
+// char-stream fast path. The stock definition (writer.kl) returns without
 // writing whenever *hush* is true — for EVERY stream, so quiet mode
 // (`shen eval -q ...`, which sets *hush*) silently truncates all file output
 // written via pr/open (e.g. yggdrasil stage-1 emits its shaken kernel.kl that
@@ -297,12 +297,12 @@ func main() {
 // effectively ignores *hush* altogether — the same behavior as shen-cl, whose
 // native pr writes unconditionally. With *hush* false (the default: REPL and
 // certification) behavior is identical to stock. Only the byte-stream loop is
-// native: keep this wrapper (including shen.write-string) for character streams.
+// native: keep this wrapper (including write-string) for character streams.
 func fixPrHush(e *kl.ControlFlow) {
 	kl.InstallPr()
 	const def = `(defun pr (V S)
-	(if (shen.char-stoutput? S)
-		(if (value *hush*) V (shen.write-string V S))
+	(if (char-stream? S)
+		(if (value *hush*) V (write-string V S))
 		(shen.native-pr V S)))`
 	exp, err := kl.NewSexpReader(strings.NewReader(def), false).Read()
 	if err != nil {

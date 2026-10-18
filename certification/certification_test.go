@@ -6,7 +6,7 @@
 // Keep this package isolated from our unit tests (which live in package kl and
 // cmd/shen) so it is unambiguous that:
 //
-//   - this suite passes the canonical Shen language tests, 143/143, and
+//   - this suite passes the canonical Shen language tests, 154/154, and
 //   - our own Go unit tests are a separate, additional thing.
 //
 // Run just the certification:   make certify   (or: go test ./certification/)
@@ -25,7 +25,7 @@ import (
 )
 
 // TestKernelCertification builds the shen binary and runs the canonical kernel
-// suite end-to-end, asserting a clean 100% pass rate (143/143 on ShenOSKernel 42.2, no failures).
+// suite end-to-end, asserting a clean 100% pass rate (154/154 on ShenOSKernel 43.1, no failures).
 //
 // Loading in the suite is relative to the process working directory (the native
 // reader ignores *home-directory*), so the binary runs with its CWD set to

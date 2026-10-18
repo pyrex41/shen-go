@@ -13,7 +13,7 @@ import (
 
 // KernelLoadOrder is the load order of the KLambda kernel under
 // kernel/klambda, mirrored from compiled/script.kl, compiled/precompile.kl
-// and cmd/shen's regist(). ShenOSKernel 42.2 (community lineage) modules are
+// and cmd/shen's regist(). ShenOSKernel 43.1 (community lineage) modules are
 // plain lists of (defun ...) forms, so the order is not significant; all
 // top-level state is set up afterwards by KernelInitForm.
 var KernelLoadOrder = []string{

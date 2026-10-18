@@ -73,6 +73,13 @@ func init() {
 	register("integer?", primitiveRegistry.register("integer?", PrimIsInteger))
 	register("shen.char-stoutput?", primitiveRegistry.register("shen.char-stoutput?", PrimCharStOutput))
 	register("shen.char-stinput?", primitiveRegistry.register("shen.char-stinput?", PrimCharStInput))
+	// ShenOSKernel 43.1 exposes character-stream hooks under their public
+	// names. Go uses byte streams, so the capability predicate remains false;
+	// the two operations still need callable host bindings while the kernel
+	// builds its arity and lambda-form tables.
+	register("char-stream?", primitiveRegistry.register("char-stream?", PrimCharStream))
+	register("read-unit-string", primitiveRegistry.register("read-unit-string", PrimReadUnitString))
+	register("write-string", primitiveRegistry.register("write-string", PrimWriteString))
 
 	// Overload for primitive set and value.
 	BindSymbolFunc(MakeSymbol("eval-kl"), MakeNative(primEvalKL, 1))
@@ -103,6 +110,30 @@ func PrimCharStInput(x Obj) Obj {
 
 func PrimCharStOutput(x Obj) Obj {
 	return False
+}
+
+func PrimCharStream(x Obj) Obj {
+	return False
+}
+
+func PrimReadUnitString(x Obj) Obj {
+	// Shen/Go exposes byte streams only.  ShenOSKernel 43.1 still requires a
+	// callable public hook, but char-stream? is false, so fail before touching
+	// the stream rather than turning EOF (-1) or partial UTF-8 into a bogus unit.
+	panic(MakeError("character streams unsupported"))
+}
+
+func PrimWriteString(x, y Obj) Obj {
+	s := mustString(x)
+	stream := mustStream(y)
+	w, ok := stream.raw.(io.Writer)
+	if !ok {
+		panic(MakeError("stream is not opened in out mode"))
+	}
+	if _, err := io.WriteString(w, s); err != nil {
+		panic(MakeError(err.Error()))
+	}
+	return x
 }
 
 func PrimNumberAdd(x, y Obj) Obj {

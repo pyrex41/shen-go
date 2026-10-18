@@ -4,9 +4,9 @@ import . "github.com/pyrex41/shen-go/kl"
 
 var SysMain = MakeNative(func(__e *ControlFlow) {
 tmp1207 := MakeNative(func(__e *ControlFlow) {
-V3830 := __e.Get(1)
-_ = V3830
-__e.TailApply(V3830)
+V3825 := __e.Get(1)
+_ = V3825
+__e.TailApply(V3825)
 return
 }, 1)
 
@@ -16,12 +16,12 @@ tmp1208 := Call(__e, ns2_1set, symthaw, tmp1207)
 _ = tmp1208
 
 tmp1209 := MakeNative(func(__e *ControlFlow) {
-V3831 := __e.Get(1)
-_ = V3831
-tmp1210 := Call(__e, PrimFunc(symmacroexpand), V3831)
+V3826 := __e.Get(1)
+_ = V3826
+tmp1210 := Call(__e, PrimFunc(symmacroexpand), V3826)
 
 
-tmp1211 := Call(__e, PrimFunc(symshen_4find_1types), V3831)
+tmp1211 := Call(__e, PrimFunc(symshen_4find_1types), V3826)
 
 
 tmp1212 := Call(__e, PrimFunc(symshen_4process_1applications), tmp1210, tmp1211)
@@ -42,14 +42,14 @@ tmp1214 := Call(__e, ns2_1set, symeval, tmp1209)
 _ = tmp1214
 
 tmp1215 := MakeNative(func(__e *ControlFlow) {
-V3832 := __e.Get(1)
-_ = V3832
+V3827 := __e.Get(1)
+_ = V3827
 tmp1222 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
-return PrimEqual(symnull, V3832)
+return PrimEqual(symnull, V3827)
 }
 __typedArg0 := symnull
-__typedArg1 := V3832
+__typedArg1 := V3827
 return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
 })()
 
@@ -66,16 +66,16 @@ __typedArg0 := sym_dproperty_1vector_d
 return Call(__e, PrimFunc(symvalue), __typedArg0)
 })()
 
-__e.TailApply(PrimFunc(symget), V3832, symshen_4external_1symbols, tmp1217)
+__e.TailApply(PrimFunc(symget), V3827, symshen_4external_1symbols, tmp1217)
 return
 
 
 }, 0)
 
 tmp1218 := MakeNative(func(__e *ControlFlow) {
-Z3833 := __e.Get(1)
-_ = Z3833
-tmp1219 := Call(__e, PrimFunc(symshen_4app), V3832, MakeString(" does not exist.\n;"), symshen_4a)
+Z3828 := __e.Get(1)
+_ = Z3828
+tmp1219 := Call(__e, PrimFunc(symshen_4app), V3827, MakeString(" does not exist.\n;"), symshen_4a)
 
 
 __e.Return((func() Obj {
@@ -125,14 +125,14 @@ tmp1223 := Call(__e, ns2_1set, symexternal, tmp1215)
 _ = tmp1223
 
 tmp1224 := MakeNative(func(__e *ControlFlow) {
-V3834 := __e.Get(1)
-_ = V3834
+V3829 := __e.Get(1)
+_ = V3829
 tmp1231 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
-return PrimEqual(symnull, V3834)
+return PrimEqual(symnull, V3829)
 }
 __typedArg0 := symnull
-__typedArg1 := V3834
+__typedArg1 := V3829
 return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
 })()
 
@@ -149,16 +149,16 @@ __typedArg0 := sym_dproperty_1vector_d
 return Call(__e, PrimFunc(symvalue), __typedArg0)
 })()
 
-__e.TailApply(PrimFunc(symget), V3834, symshen_4internal_1symbols, tmp1226)
+__e.TailApply(PrimFunc(symget), V3829, symshen_4internal_1symbols, tmp1226)
 return
 
 
 }, 0)
 
 tmp1227 := MakeNative(func(__e *ControlFlow) {
-Z3835 := __e.Get(1)
-_ = Z3835
-tmp1228 := Call(__e, PrimFunc(symshen_4app), V3834, MakeString(" does not exist.\n;"), symshen_4a)
+Z3830 := __e.Get(1)
+_ = Z3830
+tmp1228 := Call(__e, PrimFunc(symshen_4app), V3829, MakeString(" does not exist.\n;"), symshen_4a)
 
 
 __e.Return((func() Obj {
@@ -208,18 +208,18 @@ tmp1232 := Call(__e, ns2_1set, syminternal, tmp1224)
 _ = tmp1232
 
 tmp1233 := MakeNative(func(__e *ControlFlow) {
-V3836 := __e.Get(1)
-_ = V3836
-V3837 := __e.Get(2)
-_ = V3837
-tmp1235 := Call(__e, V3836, V3837)
+V3831 := __e.Get(1)
+_ = V3831
+V3832 := __e.Get(2)
+_ = V3832
+tmp1235 := Call(__e, V3831, V3832)
 
 
 if True == tmp1235 {
 __e.TailApply(PrimFunc(symfail))
 return
 } else {
-__e.Return(V3837)
+__e.Return(V3832)
 return
 }
 
@@ -232,19 +232,19 @@ tmp1236 := Call(__e, ns2_1set, symfail_1if, tmp1233)
 _ = tmp1236
 
 tmp1237 := MakeNative(func(__e *ControlFlow) {
-V3838 := __e.Get(1)
-_ = V3838
-V3839 := __e.Get(2)
-_ = V3839
+V3833 := __e.Get(1)
+_ = V3833
+V3834 := __e.Get(2)
+_ = V3834
 __e.Return((func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcn) {
-__typedS0, __typedOK0 := TypedString(V3838)
-__typedS1, __typedOK1 := TypedString(V3839)
+__typedS0, __typedOK0 := TypedString(V3833)
+__typedS1, __typedOK1 := TypedString(V3834)
 if __typedOK0 && __typedOK1 && HasCanonicalPrimitiveBinding(symcn) {
 return TypedMaterializeString((__typedS0 + __typedS1))
 }}
-__typedArg0 := V3838
-__typedArg1 := V3839
+__typedArg0 := V3833
+__typedArg1 := V3834
 return Call(__e, PrimFunc(symcn), __typedArg0, __typedArg1)
 })())
 return
@@ -320,8 +320,8 @@ tmp1246 := Call(__e, ns2_1set, symtracked, tmp1245)
 _ = tmp1246
 
 tmp1247 := MakeNative(func(__e *ControlFlow) {
-V3840 := __e.Get(1)
-_ = V3840
+V3835 := __e.Get(1)
+_ = V3835
 tmp1248 := MakeNative(func(__e *ControlFlow) {
 tmp1249 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symvalue) {
@@ -331,16 +331,16 @@ __typedArg0 := sym_dproperty_1vector_d
 return Call(__e, PrimFunc(symvalue), __typedArg0)
 })()
 
-__e.TailApply(PrimFunc(symget), V3840, symshen_4source, tmp1249)
+__e.TailApply(PrimFunc(symget), V3835, symshen_4source, tmp1249)
 return
 
 
 }, 0)
 
 tmp1250 := MakeNative(func(__e *ControlFlow) {
-Z3841 := __e.Get(1)
-_ = Z3841
-tmp1251 := Call(__e, PrimFunc(symshen_4app), V3840, MakeString(" not found.\n"), symshen_4a)
+Z3836 := __e.Get(1)
+_ = Z3836
+tmp1251 := Call(__e, PrimFunc(symshen_4app), V3835, MakeString(" not found.\n"), symshen_4a)
 
 
 __e.Return((func() Obj {
@@ -383,30 +383,30 @@ tmp1254 := Call(__e, ns2_1set, symstinput, tmp1253)
 _ = tmp1254
 
 tmp1255 := MakeNative(func(__e *ControlFlow) {
-V3842 := __e.Get(1)
-_ = V3842
+V3837 := __e.Get(1)
+_ = V3837
 tmp1257 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symabsvector) {
 return PrimAbsvector((func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_7) {
-__typedN0, __typedOK0 := TypedFloat64(V3842)
+__typedN0, __typedOK0 := TypedFloat64(V3837)
 __typedN1, __typedOK1 := TypedFloat64(MakeNumber(1))
 if __typedOK0 && __typedOK1 && HasCanonicalPrimitiveBinding(sym_7) {
 return TypedMaterializeNumber((__typedN0 + __typedN1))
 }}
-__typedArg0 := V3842
+__typedArg0 := V3837
 __typedArg1 := MakeInteger(1)
 return Call(__e, PrimFunc(sym_7), __typedArg0, __typedArg1)
 })())
 }
 __typedArg0 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_7) {
-__typedN0, __typedOK0 := TypedFloat64(V3842)
+__typedN0, __typedOK0 := TypedFloat64(V3837)
 __typedN1, __typedOK1 := TypedFloat64(MakeNumber(1))
 if __typedOK0 && __typedOK1 && HasCanonicalPrimitiveBinding(sym_7) {
 return TypedMaterializeNumber((__typedN0 + __typedN1))
 }}
-__typedArg0 := V3842
+__typedArg0 := V3837
 __typedArg1 := MakeInteger(1)
 return Call(__e, PrimFunc(sym_7), __typedArg0, __typedArg1)
 })()
@@ -418,11 +418,11 @@ _ = let__1164
 
 tmp1258 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symaddress_1_6) {
-return PrimVectorSet(let__1164, MakeInteger(0), V3842)
+return PrimVectorSet(let__1164, MakeInteger(0), V3837)
 }
 __typedArg0 := let__1164
 __typedArg1 := MakeInteger(0)
-__typedArg2 := V3842
+__typedArg2 := V3837
 return Call(__e, PrimFunc(symaddress_1_6), __typedArg0, __typedArg1, __typedArg2)
 })()
 
@@ -431,9 +431,9 @@ _ = let__1165
 
 tmp1262 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
-return PrimEqual(V3842, MakeInteger(0))
+return PrimEqual(V3837, MakeInteger(0))
 }
-__typedArg0 := V3842
+__typedArg0 := V3837
 __typedArg1 := MakeInteger(0)
 return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
 })()
@@ -448,7 +448,7 @@ ifres1259 = let__1165
 tmp1260 := Call(__e, PrimFunc(symfail))
 
 
-tmp1261 := Call(__e, PrimFunc(symshen_4fillvector), let__1165, MakeInteger(1), V3842, tmp1260)
+tmp1261 := Call(__e, PrimFunc(symshen_4fillvector), let__1165, MakeInteger(1), V3837, tmp1260)
 
 
 ifres1259 = tmp1261
@@ -477,42 +477,42 @@ __self2 := __e.Get(2)
 __self3 := __e.Get(3)
 __self4 := __e.Get(4)
 __selftop:
-V3847 := __self1
-_ = V3847
-V3848 := __self2
-_ = V3848
-V3849 := __self3
-_ = V3849
-V3850 := __self4
-_ = V3850
+V3842 := __self1
+_ = V3842
+V3843 := __self2
+_ = V3843
+V3844 := __self3
+_ = V3844
+V3845 := __self4
+_ = V3845
 tmp1268 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
-return PrimEqual(V3848, V3849)
+return PrimEqual(V3843, V3844)
 }
-__typedArg0 := V3848
-__typedArg1 := V3849
+__typedArg0 := V3843
+__typedArg1 := V3844
 return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
 })()
 
 if True == tmp1268 {
 __e.Return((func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symaddress_1_6) {
-return PrimVectorSet(V3847, V3849, V3850)
+return PrimVectorSet(V3842, V3844, V3845)
 }
-__typedArg0 := V3847
-__typedArg1 := V3849
-__typedArg2 := V3850
+__typedArg0 := V3842
+__typedArg1 := V3844
+__typedArg2 := V3845
 return Call(__e, PrimFunc(symaddress_1_6), __typedArg0, __typedArg1, __typedArg2)
 })())
 return
 } else {
 tmp1265 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symaddress_1_6) {
-return PrimVectorSet(V3847, V3848, V3850)
+return PrimVectorSet(V3842, V3843, V3845)
 }
-__typedArg0 := V3847
-__typedArg1 := V3848
-__typedArg2 := V3850
+__typedArg0 := V3842
+__typedArg1 := V3843
+__typedArg2 := V3845
 return Call(__e, PrimFunc(symaddress_1_6), __typedArg0, __typedArg1, __typedArg2)
 })()
 
@@ -520,28 +520,28 @@ if PrimFunc(symshen_4fillvector) == __self {
 __self1, __self2, __self3, __self4 = tmp1265, (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_7) {
 __typedN0, __typedOK0 := TypedFloat64(MakeNumber(1))
-__typedN1, __typedOK1 := TypedFloat64(V3848)
+__typedN1, __typedOK1 := TypedFloat64(V3843)
 if __typedOK0 && __typedOK1 && HasCanonicalPrimitiveBinding(sym_7) {
 return TypedMaterializeNumber((__typedN0 + __typedN1))
 }}
 __typedArg0 := MakeInteger(1)
-__typedArg1 := V3848
+__typedArg1 := V3843
 return Call(__e, PrimFunc(sym_7), __typedArg0, __typedArg1)
-})(), V3849, V3850
+})(), V3844, V3845
 __e.Tick()
 goto __selftop
 }
 __e.TailApply(PrimFunc(symshen_4fillvector), tmp1265, (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_7) {
 __typedN0, __typedOK0 := TypedFloat64(MakeNumber(1))
-__typedN1, __typedOK1 := TypedFloat64(V3848)
+__typedN1, __typedOK1 := TypedFloat64(V3843)
 if __typedOK0 && __typedOK1 && HasCanonicalPrimitiveBinding(sym_7) {
 return TypedMaterializeNumber((__typedN0 + __typedN1))
 }}
 __typedArg0 := MakeInteger(1)
-__typedArg1 := V3848
+__typedArg1 := V3843
 return Call(__e, PrimFunc(sym_7), __typedArg0, __typedArg1)
-})(), V3849, V3850)
+})(), V3844, V3845)
 return
 
 
@@ -556,13 +556,13 @@ tmp1269 := Call(__e, ns2_1set, symshen_4fillvector, tmp1264)
 _ = tmp1269
 
 tmp1270 := MakeNative(func(__e *ControlFlow) {
-V3851 := __e.Get(1)
-_ = V3851
+V3846 := __e.Get(1)
+_ = V3846
 tmp1280 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symabsvector_2) {
-return PrimIsVector(V3851)
+return PrimIsVector(V3846)
 }
-__typedArg0 := V3851
+__typedArg0 := V3846
 return Call(__e, PrimFunc(symabsvector_2), __typedArg0)
 })()
 
@@ -570,9 +570,9 @@ if True == tmp1280 {
 tmp1272 := MakeNative(func(__e *ControlFlow) {
 __e.Return((func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_5_1address) {
-return PrimVectorGet(V3851, MakeInteger(0))
+return PrimVectorGet(V3846, MakeInteger(0))
 }
-__typedArg0 := V3851
+__typedArg0 := V3846
 __typedArg1 := MakeInteger(0)
 return Call(__e, PrimFunc(sym_5_1address), __typedArg0, __typedArg1)
 })())
@@ -580,8 +580,8 @@ return
 }, 0)
 
 tmp1273 := MakeNative(func(__e *ControlFlow) {
-Z3853 := __e.Get(1)
-_ = Z3853
+Z3848 := __e.Get(1)
+_ = Z3848
 __e.Return(MakeInteger(-1))
 return
 }, 1)
@@ -659,17 +659,17 @@ tmp1281 := Call(__e, ns2_1set, symvector_2, tmp1270)
 _ = tmp1281
 
 tmp1282 := MakeNative(func(__e *ControlFlow) {
-V3854 := __e.Get(1)
-_ = V3854
-V3855 := __e.Get(2)
-_ = V3855
-V3856 := __e.Get(3)
-_ = V3856
+V3849 := __e.Get(1)
+_ = V3849
+V3850 := __e.Get(2)
+_ = V3850
+V3851 := __e.Get(3)
+_ = V3851
 tmp1284 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
-return PrimEqual(V3855, MakeInteger(0))
+return PrimEqual(V3850, MakeInteger(0))
 }
-__typedArg0 := V3855
+__typedArg0 := V3850
 __typedArg1 := MakeInteger(0)
 return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
 })()
@@ -686,11 +686,11 @@ return
 } else {
 __e.Return((func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symaddress_1_6) {
-return PrimVectorSet(V3854, V3855, V3856)
+return PrimVectorSet(V3849, V3850, V3851)
 }
-__typedArg0 := V3854
-__typedArg1 := V3855
-__typedArg2 := V3856
+__typedArg0 := V3849
+__typedArg1 := V3850
+__typedArg2 := V3851
 return Call(__e, PrimFunc(symaddress_1_6), __typedArg0, __typedArg1, __typedArg2)
 })())
 return
@@ -705,15 +705,15 @@ tmp1285 := Call(__e, ns2_1set, symvector_1_6, tmp1282)
 _ = tmp1285
 
 tmp1286 := MakeNative(func(__e *ControlFlow) {
-V3857 := __e.Get(1)
-_ = V3857
-V3858 := __e.Get(2)
-_ = V3858
+V3852 := __e.Get(1)
+_ = V3852
+V3853 := __e.Get(2)
+_ = V3853
 tmp1292 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
-return PrimEqual(V3858, MakeInteger(0))
+return PrimEqual(V3853, MakeInteger(0))
 }
-__typedArg0 := V3858
+__typedArg0 := V3853
 __typedArg1 := MakeInteger(0)
 return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
 })()
@@ -730,10 +730,10 @@ return
 } else {
 tmp1287 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_5_1address) {
-return PrimVectorGet(V3857, V3858)
+return PrimVectorGet(V3852, V3853)
 }
-__typedArg0 := V3857
-__typedArg1 := V3858
+__typedArg0 := V3852
+__typedArg1 := V3853
 return Call(__e, PrimFunc(sym_5_1address), __typedArg0, __typedArg1)
 })()
 
@@ -778,25 +778,25 @@ tmp1293 := Call(__e, ns2_1set, sym_5_1vector, tmp1286)
 _ = tmp1293
 
 tmp1294 := MakeNative(func(__e *ControlFlow) {
-V3860 := __e.Get(1)
-_ = V3860
+V3855 := __e.Get(1)
+_ = V3855
 tmp1298 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(syminteger_2) {
-return PrimIsInteger(V3860)
+return PrimIsInteger(V3855)
 }
-__typedArg0 := V3860
+__typedArg0 := V3855
 return Call(__e, PrimFunc(syminteger_2), __typedArg0)
 })()
 
 if True == tmp1298 {
 if True == (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_6_a) {
-__typedN0, __typedOK0 := TypedFloat64(V3860)
+__typedN0, __typedOK0 := TypedFloat64(V3855)
 __typedN1, __typedOK1 := TypedFloat64(MakeNumber(0))
 if __typedOK0 && __typedOK1 && HasCanonicalPrimitiveBinding(sym_6_a) {
 return TypedMaterializeBoolean((__typedN0 >= __typedN1))
 }}
-__typedArg0 := V3860
+__typedArg0 := V3855
 __typedArg1 := MakeInteger(0)
 return Call(__e, PrimFunc(sym_6_a), __typedArg0, __typedArg1)
 })() {
@@ -822,13 +822,13 @@ tmp1299 := Call(__e, ns2_1set, symshen_4posint_2, tmp1294)
 _ = tmp1299
 
 tmp1300 := MakeNative(func(__e *ControlFlow) {
-V3861 := __e.Get(1)
-_ = V3861
+V3856 := __e.Get(1)
+_ = V3856
 __e.Return((func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_5_1address) {
-return PrimVectorGet(V3861, MakeInteger(0))
+return PrimVectorGet(V3856, MakeInteger(0))
 }
-__typedArg0 := V3861
+__typedArg0 := V3856
 __typedArg1 := MakeInteger(0)
 return Call(__e, PrimFunc(sym_5_1address), __typedArg0, __typedArg1)
 })())
@@ -841,9 +841,9 @@ tmp1301 := Call(__e, ns2_1set, symlimit, tmp1300)
 _ = tmp1301
 
 tmp1302 := MakeNative(func(__e *ControlFlow) {
-V3862 := __e.Get(1)
-_ = V3862
-tmp1332 := Call(__e, PrimFunc(symboolean_2), V3862)
+V3857 := __e.Get(1)
+_ = V3857
+tmp1332 := Call(__e, PrimFunc(symboolean_2), V3857)
 
 
 var ifres1317 Obj
@@ -855,9 +855,9 @@ ifres1317 = True
 } else {
 tmp1331 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symnumber_2) {
-return PrimIsNumber(V3862)
+return PrimIsNumber(V3857)
 }
-__typedArg0 := V3862
+__typedArg0 := V3857
 return Call(__e, PrimFunc(symnumber_2), __typedArg0)
 })()
 
@@ -870,9 +870,9 @@ ifres1319 = True
 } else {
 tmp1330 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symstring_2) {
-return PrimIsString(V3862)
+return PrimIsString(V3857)
 }
-__typedArg0 := V3862
+__typedArg0 := V3857
 return Call(__e, PrimFunc(symstring_2), __typedArg0)
 })()
 
@@ -885,9 +885,9 @@ ifres1321 = True
 } else {
 tmp1329 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons_2) {
-return PrimIsPair(V3862)
+return PrimIsPair(V3857)
 }
-__typedArg0 := V3862
+__typedArg0 := V3857
 return Call(__e, PrimFunc(symcons_2), __typedArg0)
 })()
 
@@ -898,7 +898,7 @@ ifres1323 = True
 
 
 } else {
-tmp1328 := Call(__e, PrimFunc(symempty_2), V3862)
+tmp1328 := Call(__e, PrimFunc(symempty_2), V3857)
 
 
 var ifres1325 Obj
@@ -908,7 +908,7 @@ ifres1325 = True
 
 
 } else {
-tmp1327 := Call(__e, PrimFunc(symvector_2), V3862)
+tmp1327 := Call(__e, PrimFunc(symvector_2), V3857)
 
 
 var ifres1326 Obj
@@ -1069,7 +1069,7 @@ __typedArg1 := tmp1313
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
 
-tmp1315 := Call(__e, PrimFunc(symelement_2), V3862, tmp1314)
+tmp1315 := Call(__e, PrimFunc(symelement_2), V3857, tmp1314)
 
 
 if True == tmp1315 {
@@ -1079,9 +1079,9 @@ return
 tmp1303 := MakeNative(func(__e *ControlFlow) {
 tmp1304 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symstr) {
-return PrimStr(V3862)
+return PrimStr(V3857)
 }
-__typedArg0 := V3862
+__typedArg0 := V3857
 return Call(__e, PrimFunc(symstr), __typedArg0)
 })()
 
@@ -1095,8 +1095,8 @@ return
 }, 0)
 
 tmp1305 := MakeNative(func(__e *ControlFlow) {
-Z3864 := __e.Get(1)
-_ = Z3864
+Z3859 := __e.Get(1)
+_ = Z3859
 __e.Return(False)
 return
 }, 1)
@@ -1119,13 +1119,13 @@ tmp1333 := Call(__e, ns2_1set, symsymbol_2, tmp1302)
 _ = tmp1333
 
 tmp1334 := MakeNative(func(__e *ControlFlow) {
-V3867 := __e.Get(1)
-_ = V3867
-tmp1343 := Call(__e, PrimFunc(symshen_4_7string_2), V3867)
+V3862 := __e.Get(1)
+_ = V3862
+tmp1343 := Call(__e, PrimFunc(symshen_4_7string_2), V3862)
 
 
 if True == tmp1343 {
-tmp1339 := Call(__e, PrimFunc(symhdstr), V3867)
+tmp1339 := Call(__e, PrimFunc(symhdstr), V3862)
 
 
 tmp1340 := (func() Obj {
@@ -1142,11 +1142,11 @@ tmp1341 := Call(__e, PrimFunc(symshen_4alpha_2), tmp1340)
 if True == tmp1341 {
 tmp1337 := Call(__e, PrimFunc(symshen_4alphanums_2), (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtlstr) {
-__typedS0, __typedOK0 := TypedString(V3867)
+__typedS0, __typedOK0 := TypedString(V3862)
 if __typedOK0 && HasCanonicalPrimitiveBinding(symtlstr) {
 return TypedMaterializeString(TypedStringTailValue(__typedS0))
 }}
-__typedArg0 := V3867
+__typedArg0 := V3862
 return Call(__e, PrimFunc(symtlstr), __typedArg0)
 })())
 
@@ -1186,14 +1186,14 @@ tmp1344 := Call(__e, ns2_1set, symshen_4analyse_1symbol_2, tmp1334)
 _ = tmp1344
 
 tmp1345 := MakeNative(func(__e *ControlFlow) {
-V3870 := __e.Get(1)
-_ = V3870
+V3865 := __e.Get(1)
+_ = V3865
 tmp1359 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
-return PrimEqual(MakeString(""), V3870)
+return PrimEqual(MakeString(""), V3865)
 }
 __typedArg0 := MakeString("")
-__typedArg1 := V3870
+__typedArg1 := V3865
 return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
 })()
 
@@ -1201,11 +1201,11 @@ if True == tmp1359 {
 __e.Return(True)
 return
 } else {
-tmp1357 := Call(__e, PrimFunc(symshen_4_7string_2), V3870)
+tmp1357 := Call(__e, PrimFunc(symshen_4_7string_2), V3865)
 
 
 if True == tmp1357 {
-tmp1346 := Call(__e, PrimFunc(symhdstr), V3870)
+tmp1346 := Call(__e, PrimFunc(symhdstr), V3865)
 
 
 tmp1347 := (func() Obj {
@@ -1252,11 +1252,11 @@ ifres1352 = ifres1353
 if True == ifres1352 {
 tmp1350 := Call(__e, PrimFunc(symshen_4alphanums_2), (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtlstr) {
-__typedS0, __typedOK0 := TypedString(V3870)
+__typedS0, __typedOK0 := TypedString(V3865)
 if __typedOK0 && HasCanonicalPrimitiveBinding(symtlstr) {
 return TypedMaterializeString(TypedStringTailValue(__typedS0))
 }}
-__typedArg0 := V3870
+__typedArg0 := V3865
 return Call(__e, PrimFunc(symtlstr), __typedArg0)
 })())
 
@@ -1299,9 +1299,9 @@ tmp1360 := Call(__e, ns2_1set, symshen_4alphanums_2, tmp1345)
 _ = tmp1360
 
 tmp1361 := MakeNative(func(__e *ControlFlow) {
-V3872 := __e.Get(1)
-_ = V3872
-tmp1372 := Call(__e, PrimFunc(symboolean_2), V3872)
+V3867 := __e.Get(1)
+_ = V3867
+tmp1372 := Call(__e, PrimFunc(symboolean_2), V3867)
 
 
 var ifres1366 Obj
@@ -1313,9 +1313,9 @@ ifres1366 = True
 } else {
 tmp1371 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symnumber_2) {
-return PrimIsNumber(V3872)
+return PrimIsNumber(V3867)
 }
-__typedArg0 := V3872
+__typedArg0 := V3867
 return Call(__e, PrimFunc(symnumber_2), __typedArg0)
 })()
 
@@ -1328,9 +1328,9 @@ ifres1368 = True
 } else {
 tmp1370 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symstring_2) {
-return PrimIsString(V3872)
+return PrimIsString(V3867)
 }
-__typedArg0 := V3872
+__typedArg0 := V3867
 return Call(__e, PrimFunc(symstring_2), __typedArg0)
 })()
 
@@ -1375,9 +1375,9 @@ return
 tmp1362 := MakeNative(func(__e *ControlFlow) {
 tmp1363 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symstr) {
-return PrimStr(V3872)
+return PrimStr(V3867)
 }
-__typedArg0 := V3872
+__typedArg0 := V3867
 return Call(__e, PrimFunc(symstr), __typedArg0)
 })()
 
@@ -1391,8 +1391,8 @@ return
 }, 0)
 
 tmp1364 := MakeNative(func(__e *ControlFlow) {
-Z3874 := __e.Get(1)
-_ = Z3874
+Z3869 := __e.Get(1)
+_ = Z3869
 __e.Return(False)
 return
 }, 1)
@@ -1412,13 +1412,13 @@ tmp1373 := Call(__e, ns2_1set, symvariable_2, tmp1361)
 _ = tmp1373
 
 tmp1374 := MakeNative(func(__e *ControlFlow) {
-V3877 := __e.Get(1)
-_ = V3877
-tmp1383 := Call(__e, PrimFunc(symshen_4_7string_2), V3877)
+V3872 := __e.Get(1)
+_ = V3872
+tmp1383 := Call(__e, PrimFunc(symshen_4_7string_2), V3872)
 
 
 if True == tmp1383 {
-tmp1379 := Call(__e, PrimFunc(symhdstr), V3877)
+tmp1379 := Call(__e, PrimFunc(symhdstr), V3872)
 
 
 tmp1380 := (func() Obj {
@@ -1435,11 +1435,11 @@ tmp1381 := Call(__e, PrimFunc(symshen_4uppercase_2), tmp1380)
 if True == tmp1381 {
 tmp1377 := Call(__e, PrimFunc(symshen_4alphanums_2), (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtlstr) {
-__typedS0, __typedOK0 := TypedString(V3877)
+__typedS0, __typedOK0 := TypedString(V3872)
 if __typedOK0 && HasCanonicalPrimitiveBinding(symtlstr) {
 return TypedMaterializeString(TypedStringTailValue(__typedS0))
 }}
-__typedArg0 := V3877
+__typedArg0 := V3872
 return Call(__e, PrimFunc(symtlstr), __typedArg0)
 })())
 
@@ -1479,8 +1479,8 @@ tmp1384 := Call(__e, ns2_1set, symshen_4analyse_1variable_2, tmp1374)
 _ = tmp1384
 
 tmp1385 := MakeNative(func(__e *ControlFlow) {
-V3878 := __e.Get(1)
-_ = V3878
+V3873 := __e.Get(1)
+_ = V3873
 tmp1386 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symvalue) {
 return PrimValue(symshen_4_dgensym_d)
@@ -1518,7 +1518,7 @@ return Call(__e, PrimFunc(sym_7), __typedArg0, __typedArg1)
 return Call(__e, PrimFunc(symset), __typedArg0, __typedArg1)
 })()
 
-__e.TailApply(PrimFunc(symconcat), V3878, tmp1388)
+__e.TailApply(PrimFunc(symconcat), V3873, tmp1388)
 return
 
 
@@ -1530,23 +1530,23 @@ tmp1389 := Call(__e, ns2_1set, symgensym, tmp1385)
 _ = tmp1389
 
 tmp1390 := MakeNative(func(__e *ControlFlow) {
-V3879 := __e.Get(1)
-_ = V3879
-V3880 := __e.Get(2)
-_ = V3880
+V3874 := __e.Get(1)
+_ = V3874
+V3875 := __e.Get(2)
+_ = V3875
 tmp1391 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symstr) {
-return PrimStr(V3879)
+return PrimStr(V3874)
 }
-__typedArg0 := V3879
+__typedArg0 := V3874
 return Call(__e, PrimFunc(symstr), __typedArg0)
 })()
 
 tmp1392 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symstr) {
-return PrimStr(V3880)
+return PrimStr(V3875)
 }
-__typedArg0 := V3880
+__typedArg0 := V3875
 return Call(__e, PrimFunc(symstr), __typedArg0)
 })()
 
@@ -1588,10 +1588,10 @@ tmp1394 := Call(__e, ns2_1set, symconcat, tmp1390)
 _ = tmp1394
 
 tmp1395 := MakeNative(func(__e *ControlFlow) {
-V3881 := __e.Get(1)
-_ = V3881
-V3882 := __e.Get(2)
-_ = V3882
+V3876 := __e.Get(1)
+_ = V3876
+V3877 := __e.Get(2)
+_ = V3877
 tmp1396 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symabsvector) {
 return PrimAbsvector(MakeInteger(3))
@@ -1618,11 +1618,11 @@ _ = let__1173
 
 tmp1398 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symaddress_1_6) {
-return PrimVectorSet(let__1172, MakeInteger(1), V3881)
+return PrimVectorSet(let__1172, MakeInteger(1), V3876)
 }
 __typedArg0 := let__1172
 __typedArg1 := MakeInteger(1)
-__typedArg2 := V3881
+__typedArg2 := V3876
 return Call(__e, PrimFunc(symaddress_1_6), __typedArg0, __typedArg1, __typedArg2)
 })()
 
@@ -1631,11 +1631,11 @@ _ = let__1174
 
 tmp1399 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symaddress_1_6) {
-return PrimVectorSet(let__1172, MakeInteger(2), V3882)
+return PrimVectorSet(let__1172, MakeInteger(2), V3877)
 }
 __typedArg0 := let__1172
 __typedArg1 := MakeInteger(2)
-__typedArg2 := V3882
+__typedArg2 := V3877
 return Call(__e, PrimFunc(symaddress_1_6), __typedArg0, __typedArg1, __typedArg2)
 })()
 
@@ -1654,13 +1654,13 @@ tmp1400 := Call(__e, ns2_1set, sym_8p, tmp1395)
 _ = tmp1400
 
 tmp1401 := MakeNative(func(__e *ControlFlow) {
-V3887 := __e.Get(1)
-_ = V3887
+V3882 := __e.Get(1)
+_ = V3882
 __e.Return((func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_5_1address) {
-return PrimVectorGet(V3887, MakeInteger(1))
+return PrimVectorGet(V3882, MakeInteger(1))
 }
-__typedArg0 := V3887
+__typedArg0 := V3882
 __typedArg1 := MakeInteger(1)
 return Call(__e, PrimFunc(sym_5_1address), __typedArg0, __typedArg1)
 })())
@@ -1673,13 +1673,13 @@ tmp1402 := Call(__e, ns2_1set, symfst, tmp1401)
 _ = tmp1402
 
 tmp1403 := MakeNative(func(__e *ControlFlow) {
-V3888 := __e.Get(1)
-_ = V3888
+V3883 := __e.Get(1)
+_ = V3883
 __e.Return((func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_5_1address) {
-return PrimVectorGet(V3888, MakeInteger(2))
+return PrimVectorGet(V3883, MakeInteger(2))
 }
-__typedArg0 := V3888
+__typedArg0 := V3883
 __typedArg1 := MakeInteger(2)
 return Call(__e, PrimFunc(sym_5_1address), __typedArg0, __typedArg1)
 })())
@@ -1692,13 +1692,13 @@ tmp1404 := Call(__e, ns2_1set, symsnd, tmp1403)
 _ = tmp1404
 
 tmp1405 := MakeNative(func(__e *ControlFlow) {
-V3889 := __e.Get(1)
-_ = V3889
+V3884 := __e.Get(1)
+_ = V3884
 tmp1412 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symabsvector_2) {
-return PrimIsVector(V3889)
+return PrimIsVector(V3884)
 }
-__typedArg0 := V3889
+__typedArg0 := V3884
 return Call(__e, PrimFunc(symabsvector_2), __typedArg0)
 })()
 
@@ -1706,9 +1706,9 @@ if True == tmp1412 {
 tmp1407 := MakeNative(func(__e *ControlFlow) {
 __e.Return((func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_5_1address) {
-return PrimVectorGet(V3889, MakeInteger(0))
+return PrimVectorGet(V3884, MakeInteger(0))
 }
-__typedArg0 := V3889
+__typedArg0 := V3884
 __typedArg1 := MakeInteger(0)
 return Call(__e, PrimFunc(sym_5_1address), __typedArg0, __typedArg1)
 })())
@@ -1716,8 +1716,8 @@ return
 }, 0)
 
 tmp1408 := MakeNative(func(__e *ControlFlow) {
-Z3890 := __e.Get(1)
-_ = Z3890
+Z3885 := __e.Get(1)
+_ = Z3885
 __e.Return(symshen_4not_1tuple)
 return
 }, 1)
@@ -1757,49 +1757,49 @@ tmp1413 := Call(__e, ns2_1set, symtuple_2, tmp1405)
 _ = tmp1413
 
 tmp1414 := MakeNative(func(__e *ControlFlow) {
-V3895 := __e.Get(1)
-_ = V3895
-V3896 := __e.Get(2)
-_ = V3896
+V3890 := __e.Get(1)
+_ = V3890
+V3891 := __e.Get(2)
+_ = V3891
 tmp1421 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
-return PrimEqual(Nil, V3895)
+return PrimEqual(Nil, V3890)
 }
 __typedArg0 := Nil
-__typedArg1 := V3895
+__typedArg1 := V3890
 return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
 })()
 
 if True == tmp1421 {
-__e.Return(V3896)
+__e.Return(V3891)
 return
 } else {
 tmp1419 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons_2) {
-return PrimIsPair(V3895)
+return PrimIsPair(V3890)
 }
-__typedArg0 := V3895
+__typedArg0 := V3890
 return Call(__e, PrimFunc(symcons_2), __typedArg0)
 })()
 
 if True == tmp1419 {
 tmp1415 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symhd) {
-return PrimHead(V3895)
+return PrimHead(V3890)
 }
-__typedArg0 := V3895
+__typedArg0 := V3890
 return Call(__e, PrimFunc(symhd), __typedArg0)
 })()
 
 tmp1416 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
-return PrimTail(V3895)
+return PrimTail(V3890)
 }
-__typedArg0 := V3895
+__typedArg0 := V3890
 return Call(__e, PrimFunc(symtl), __typedArg0)
 })()
 
-tmp1417 := Call(__e, PrimFunc(symappend), tmp1416, V3896)
+tmp1417 := Call(__e, PrimFunc(symappend), tmp1416, V3891)
 
 
 __e.Return((func() Obj {
@@ -1836,11 +1836,11 @@ tmp1422 := Call(__e, ns2_1set, symappend, tmp1414)
 _ = tmp1422
 
 tmp1423 := MakeNative(func(__e *ControlFlow) {
-V3897 := __e.Get(1)
-_ = V3897
-V3898 := __e.Get(2)
-_ = V3898
-tmp1424 := Call(__e, PrimFunc(symlimit), V3898)
+V3892 := __e.Get(1)
+_ = V3892
+V3893 := __e.Get(2)
+_ = V3893
+tmp1424 := Call(__e, PrimFunc(symlimit), V3893)
 
 
 let__1176 := tmp1424
@@ -1862,7 +1862,7 @@ return Call(__e, PrimFunc(sym_7), __typedArg0, __typedArg1)
 let__1177 := tmp1426
 _ = let__1177
 
-tmp1427 := Call(__e, PrimFunc(symvector_1_6), let__1177, MakeInteger(1), V3897)
+tmp1427 := Call(__e, PrimFunc(symvector_1_6), let__1177, MakeInteger(1), V3892)
 
 
 let__1178 := tmp1427
@@ -1881,7 +1881,7 @@ if True == tmp1429 {
 __e.Return(let__1178)
 return
 } else {
-__e.TailApply(PrimFunc(symshen_4_8v_1help), V3898, MakeInteger(1), let__1176, let__1178)
+__e.TailApply(PrimFunc(symshen_4_8v_1help), V3893, MakeInteger(1), let__1176, let__1178)
 return
 }
 
@@ -1900,32 +1900,32 @@ __self2 := __e.Get(2)
 __self3 := __e.Get(3)
 __self4 := __e.Get(4)
 __selftop:
-V3903 := __self1
-_ = V3903
-V3904 := __self2
-_ = V3904
-V3905 := __self3
-_ = V3905
-V3906 := __self4
-_ = V3906
+V3898 := __self1
+_ = V3898
+V3899 := __self2
+_ = V3899
+V3900 := __self3
+_ = V3900
+V3901 := __self4
+_ = V3901
 tmp1437 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
-return PrimEqual(V3904, V3905)
+return PrimEqual(V3899, V3900)
 }
-__typedArg0 := V3904
-__typedArg1 := V3905
+__typedArg0 := V3899
+__typedArg1 := V3900
 return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
 })()
 
 if True == tmp1437 {
-__e.TailApply(PrimFunc(symshen_4copyfromvector), V3903, V3906, V3905, (func() Obj {
+__e.TailApply(PrimFunc(symshen_4copyfromvector), V3898, V3901, V3900, (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_7) {
-__typedN0, __typedOK0 := TypedFloat64(V3905)
+__typedN0, __typedOK0 := TypedFloat64(V3900)
 __typedN1, __typedOK1 := TypedFloat64(MakeNumber(1))
 if __typedOK0 && __typedOK1 && HasCanonicalPrimitiveBinding(sym_7) {
 return TypedMaterializeNumber((__typedN0 + __typedN1))
 }}
-__typedArg0 := V3905
+__typedArg0 := V3900
 __typedArg1 := MakeInteger(1)
 return Call(__e, PrimFunc(sym_7), __typedArg0, __typedArg1)
 })())
@@ -1935,35 +1935,35 @@ return
 } else {
 tmp1433 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_7) {
-__typedN0, __typedOK0 := TypedFloat64(V3904)
+__typedN0, __typedOK0 := TypedFloat64(V3899)
 __typedN1, __typedOK1 := TypedFloat64(MakeNumber(1))
 if __typedOK0 && __typedOK1 && HasCanonicalPrimitiveBinding(sym_7) {
 return TypedMaterializeNumber((__typedN0 + __typedN1))
 }}
-__typedArg0 := V3904
+__typedArg0 := V3899
 __typedArg1 := MakeInteger(1)
 return Call(__e, PrimFunc(sym_7), __typedArg0, __typedArg1)
 })()
 
-tmp1435 := Call(__e, PrimFunc(symshen_4copyfromvector), V3903, V3906, V3904, (func() Obj {
+tmp1435 := Call(__e, PrimFunc(symshen_4copyfromvector), V3898, V3901, V3899, (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_7) {
-__typedN0, __typedOK0 := TypedFloat64(V3904)
+__typedN0, __typedOK0 := TypedFloat64(V3899)
 __typedN1, __typedOK1 := TypedFloat64(MakeNumber(1))
 if __typedOK0 && __typedOK1 && HasCanonicalPrimitiveBinding(sym_7) {
 return TypedMaterializeNumber((__typedN0 + __typedN1))
 }}
-__typedArg0 := V3904
+__typedArg0 := V3899
 __typedArg1 := MakeInteger(1)
 return Call(__e, PrimFunc(sym_7), __typedArg0, __typedArg1)
 })())
 
 
 if PrimFunc(symshen_4_8v_1help) == __self {
-__self1, __self2, __self3, __self4 = V3903, tmp1433, V3905, tmp1435
+__self1, __self2, __self3, __self4 = V3898, tmp1433, V3900, tmp1435
 __e.Tick()
 goto __selftop
 }
-__e.TailApply(PrimFunc(symshen_4_8v_1help), V3903, tmp1433, V3905, tmp1435)
+__e.TailApply(PrimFunc(symshen_4_8v_1help), V3898, tmp1433, V3900, tmp1435)
 return
 
 
@@ -1978,28 +1978,28 @@ tmp1438 := Call(__e, ns2_1set, symshen_4_8v_1help, tmp1431)
 _ = tmp1438
 
 tmp1439 := MakeNative(func(__e *ControlFlow) {
-V3907 := __e.Get(1)
-_ = V3907
-V3908 := __e.Get(2)
-_ = V3908
-V3909 := __e.Get(3)
-_ = V3909
-V3910 := __e.Get(4)
-_ = V3910
+V3902 := __e.Get(1)
+_ = V3902
+V3903 := __e.Get(2)
+_ = V3903
+V3904 := __e.Get(3)
+_ = V3904
+V3905 := __e.Get(4)
+_ = V3905
 tmp1440 := MakeNative(func(__e *ControlFlow) {
-tmp1441 := Call(__e, PrimFunc(sym_5_1vector), V3907, V3909)
+tmp1441 := Call(__e, PrimFunc(sym_5_1vector), V3902, V3904)
 
 
-__e.TailApply(PrimFunc(symvector_1_6), V3908, V3910, tmp1441)
+__e.TailApply(PrimFunc(symvector_1_6), V3903, V3905, tmp1441)
 return
 
 
 }, 0)
 
 tmp1442 := MakeNative(func(__e *ControlFlow) {
-Z3911 := __e.Get(1)
-_ = Z3911
-__e.Return(V3908)
+Z3906 := __e.Get(1)
+_ = Z3906
+__e.Return(V3903)
 return
 }, 1)
 
@@ -2015,16 +2015,16 @@ tmp1443 := Call(__e, ns2_1set, symshen_4copyfromvector, tmp1439)
 _ = tmp1443
 
 tmp1444 := MakeNative(func(__e *ControlFlow) {
-V3912 := __e.Get(1)
-_ = V3912
+V3907 := __e.Get(1)
+_ = V3907
 tmp1445 := MakeNative(func(__e *ControlFlow) {
-__e.TailApply(PrimFunc(sym_5_1vector), V3912, MakeInteger(1))
+__e.TailApply(PrimFunc(sym_5_1vector), V3907, MakeInteger(1))
 return
 }, 0)
 
 tmp1446 := MakeNative(func(__e *ControlFlow) {
-Z3913 := __e.Get(1)
-_ = Z3913
+Z3908 := __e.Get(1)
+_ = Z3908
 __e.Return((func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symsimple_1error) {
 return PrimSimpleError(MakeString("hdv needs a non-empty vector as an argument\n"))
@@ -2047,9 +2047,9 @@ tmp1447 := Call(__e, ns2_1set, symhdv, tmp1444)
 _ = tmp1447
 
 tmp1448 := MakeNative(func(__e *ControlFlow) {
-V3914 := __e.Get(1)
-_ = V3914
-tmp1449 := Call(__e, PrimFunc(symlimit), V3914)
+V3909 := __e.Get(1)
+_ = V3909
+tmp1449 := Call(__e, PrimFunc(symlimit), V3909)
 
 
 let__1179 := tmp1449
@@ -2116,7 +2116,7 @@ return Call(__e, PrimFunc(sym_1), __typedArg0, __typedArg1)
 })())
 
 
-__e.TailApply(PrimFunc(symshen_4tlv_1help), V3914, MakeInteger(2), let__1179, tmp1453)
+__e.TailApply(PrimFunc(symshen_4tlv_1help), V3909, MakeInteger(2), let__1179, tmp1453)
 return
 
 
@@ -2140,32 +2140,32 @@ __self2 := __e.Get(2)
 __self3 := __e.Get(3)
 __self4 := __e.Get(4)
 __selftop:
-V3918 := __self1
-_ = V3918
-V3919 := __self2
-_ = V3919
-V3920 := __self3
-_ = V3920
-V3921 := __self4
-_ = V3921
+V3913 := __self1
+_ = V3913
+V3914 := __self2
+_ = V3914
+V3915 := __self3
+_ = V3915
+V3916 := __self4
+_ = V3916
 tmp1465 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
-return PrimEqual(V3919, V3920)
+return PrimEqual(V3914, V3915)
 }
-__typedArg0 := V3919
-__typedArg1 := V3920
+__typedArg0 := V3914
+__typedArg1 := V3915
 return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
 })()
 
 if True == tmp1465 {
-__e.TailApply(PrimFunc(symshen_4copyfromvector), V3918, V3921, V3920, (func() Obj {
+__e.TailApply(PrimFunc(symshen_4copyfromvector), V3913, V3916, V3915, (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_1) {
-__typedN0, __typedOK0 := TypedFloat64(V3920)
+__typedN0, __typedOK0 := TypedFloat64(V3915)
 __typedN1, __typedOK1 := TypedFloat64(MakeNumber(1))
 if __typedOK0 && __typedOK1 && HasCanonicalPrimitiveBinding(sym_1) {
 return TypedMaterializeNumber((__typedN0 - __typedN1))
 }}
-__typedArg0 := V3920
+__typedArg0 := V3915
 __typedArg1 := MakeInteger(1)
 return Call(__e, PrimFunc(sym_1), __typedArg0, __typedArg1)
 })())
@@ -2175,35 +2175,35 @@ return
 } else {
 tmp1461 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_7) {
-__typedN0, __typedOK0 := TypedFloat64(V3919)
+__typedN0, __typedOK0 := TypedFloat64(V3914)
 __typedN1, __typedOK1 := TypedFloat64(MakeNumber(1))
 if __typedOK0 && __typedOK1 && HasCanonicalPrimitiveBinding(sym_7) {
 return TypedMaterializeNumber((__typedN0 + __typedN1))
 }}
-__typedArg0 := V3919
+__typedArg0 := V3914
 __typedArg1 := MakeInteger(1)
 return Call(__e, PrimFunc(sym_7), __typedArg0, __typedArg1)
 })()
 
-tmp1463 := Call(__e, PrimFunc(symshen_4copyfromvector), V3918, V3921, V3919, (func() Obj {
+tmp1463 := Call(__e, PrimFunc(symshen_4copyfromvector), V3913, V3916, V3914, (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_1) {
-__typedN0, __typedOK0 := TypedFloat64(V3919)
+__typedN0, __typedOK0 := TypedFloat64(V3914)
 __typedN1, __typedOK1 := TypedFloat64(MakeNumber(1))
 if __typedOK0 && __typedOK1 && HasCanonicalPrimitiveBinding(sym_1) {
 return TypedMaterializeNumber((__typedN0 - __typedN1))
 }}
-__typedArg0 := V3919
+__typedArg0 := V3914
 __typedArg1 := MakeInteger(1)
 return Call(__e, PrimFunc(sym_1), __typedArg0, __typedArg1)
 })())
 
 
 if PrimFunc(symshen_4tlv_1help) == __self {
-__self1, __self2, __self3, __self4 = V3918, tmp1461, V3920, tmp1463
+__self1, __self2, __self3, __self4 = V3913, tmp1461, V3915, tmp1463
 __e.Tick()
 goto __selftop
 }
-__e.TailApply(PrimFunc(symshen_4tlv_1help), V3918, tmp1461, V3920, tmp1463)
+__e.TailApply(PrimFunc(symshen_4tlv_1help), V3913, tmp1461, V3915, tmp1463)
 return
 
 
@@ -2222,16 +2222,16 @@ __self := __e.Get(0)
 __self1 := __e.Get(1)
 __self2 := __e.Get(2)
 __selftop:
-V3933 := __self1
-_ = V3933
-V3934 := __self2
-_ = V3934
+V3928 := __self1
+_ = V3928
+V3929 := __self2
+_ = V3929
 tmp1483 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
-return PrimEqual(Nil, V3934)
+return PrimEqual(Nil, V3929)
 }
 __typedArg0 := Nil
-__typedArg1 := V3934
+__typedArg1 := V3929
 return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
 })()
 
@@ -2241,9 +2241,9 @@ return
 } else {
 tmp1481 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons_2) {
-return PrimIsPair(V3934)
+return PrimIsPair(V3929)
 }
-__typedArg0 := V3934
+__typedArg0 := V3929
 return Call(__e, PrimFunc(symcons_2), __typedArg0)
 })()
 
@@ -2252,9 +2252,9 @@ var ifres1472 Obj
 if True == tmp1481 {
 tmp1479 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symhd) {
-return PrimHead(V3934)
+return PrimHead(V3929)
 }
-__typedArg0 := V3934
+__typedArg0 := V3929
 return Call(__e, PrimFunc(symhd), __typedArg0)
 })()
 
@@ -2271,9 +2271,9 @@ var ifres1474 Obj
 if True == tmp1480 {
 tmp1476 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symhd) {
-return PrimHead(V3934)
+return PrimHead(V3929)
 }
-__typedArg0 := V3934
+__typedArg0 := V3929
 return Call(__e, PrimFunc(symhd), __typedArg0)
 })()
 
@@ -2287,9 +2287,9 @@ return Call(__e, PrimFunc(symhd), __typedArg0)
 
 tmp1478 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
-return PrimEqual(V3933, tmp1477)
+return PrimEqual(V3928, tmp1477)
 }
-__typedArg0 := V3933
+__typedArg0 := V3928
 __typedArg1 := tmp1477
 return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
 })()
@@ -2339,36 +2339,36 @@ ifres1472 = False
 if True == ifres1472 {
 __e.Return((func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symhd) {
-return PrimHead(V3934)
+return PrimHead(V3929)
 }
-__typedArg0 := V3934
+__typedArg0 := V3929
 return Call(__e, PrimFunc(symhd), __typedArg0)
 })())
 return
 } else {
 tmp1470 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons_2) {
-return PrimIsPair(V3934)
+return PrimIsPair(V3929)
 }
-__typedArg0 := V3934
+__typedArg0 := V3929
 return Call(__e, PrimFunc(symcons_2), __typedArg0)
 })()
 
 if True == tmp1470 {
 tmp1468 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
-return PrimTail(V3934)
+return PrimTail(V3929)
 }
-__typedArg0 := V3934
+__typedArg0 := V3929
 return Call(__e, PrimFunc(symtl), __typedArg0)
 })()
 
 if PrimFunc(symassoc) == __self {
-__self1, __self2 = V3933, tmp1468
+__self1, __self2 = V3928, tmp1468
 __e.Tick()
 goto __selftop
 }
-__e.TailApply(PrimFunc(symassoc), V3933, tmp1468)
+__e.TailApply(PrimFunc(symassoc), V3928, tmp1468)
 return
 
 
@@ -2398,28 +2398,28 @@ tmp1484 := Call(__e, ns2_1set, symassoc, tmp1467)
 _ = tmp1484
 
 tmp1485 := MakeNative(func(__e *ControlFlow) {
-V3938 := __e.Get(1)
-_ = V3938
-V3939 := __e.Get(2)
-_ = V3939
-V3940 := __e.Get(3)
-_ = V3940
+V3933 := __e.Get(1)
+_ = V3933
+V3934 := __e.Get(2)
+_ = V3934
+V3935 := __e.Get(3)
+_ = V3935
 tmp1508 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
-return PrimEqual(Nil, V3940)
+return PrimEqual(Nil, V3935)
 }
 __typedArg0 := Nil
-__typedArg1 := V3940
+__typedArg1 := V3935
 return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
 })()
 
 if True == tmp1508 {
 tmp1486 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(V3938, V3939)
+return PrimCons(V3933, V3934)
 }
-__typedArg0 := V3938
-__typedArg1 := V3939
+__typedArg0 := V3933
+__typedArg1 := V3934
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
 
@@ -2437,9 +2437,9 @@ return
 } else {
 tmp1506 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons_2) {
-return PrimIsPair(V3940)
+return PrimIsPair(V3935)
 }
-__typedArg0 := V3940
+__typedArg0 := V3935
 return Call(__e, PrimFunc(symcons_2), __typedArg0)
 })()
 
@@ -2448,9 +2448,9 @@ var ifres1497 Obj
 if True == tmp1506 {
 tmp1504 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symhd) {
-return PrimHead(V3940)
+return PrimHead(V3935)
 }
-__typedArg0 := V3940
+__typedArg0 := V3935
 return Call(__e, PrimFunc(symhd), __typedArg0)
 })()
 
@@ -2467,9 +2467,9 @@ var ifres1499 Obj
 if True == tmp1505 {
 tmp1501 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symhd) {
-return PrimHead(V3940)
+return PrimHead(V3935)
 }
-__typedArg0 := V3940
+__typedArg0 := V3935
 return Call(__e, PrimFunc(symhd), __typedArg0)
 })()
 
@@ -2483,9 +2483,9 @@ return Call(__e, PrimFunc(symhd), __typedArg0)
 
 tmp1503 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
-return PrimEqual(V3938, tmp1502)
+return PrimEqual(V3933, tmp1502)
 }
-__typedArg0 := V3938
+__typedArg0 := V3933
 __typedArg1 := tmp1502
 return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
 })()
@@ -2535,9 +2535,9 @@ ifres1497 = False
 if True == ifres1497 {
 tmp1487 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symhd) {
-return PrimHead(V3940)
+return PrimHead(V3935)
 }
-__typedArg0 := V3940
+__typedArg0 := V3935
 return Call(__e, PrimFunc(symhd), __typedArg0)
 })()
 
@@ -2551,18 +2551,18 @@ return Call(__e, PrimFunc(symhd), __typedArg0)
 
 tmp1489 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(tmp1488, V3939)
+return PrimCons(tmp1488, V3934)
 }
 __typedArg0 := tmp1488
-__typedArg1 := V3939
+__typedArg1 := V3934
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
 
 tmp1490 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
-return PrimTail(V3940)
+return PrimTail(V3935)
 }
-__typedArg0 := V3940
+__typedArg0 := V3935
 return Call(__e, PrimFunc(symtl), __typedArg0)
 })()
 
@@ -2580,30 +2580,30 @@ return
 } else {
 tmp1495 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons_2) {
-return PrimIsPair(V3940)
+return PrimIsPair(V3935)
 }
-__typedArg0 := V3940
+__typedArg0 := V3935
 return Call(__e, PrimFunc(symcons_2), __typedArg0)
 })()
 
 if True == tmp1495 {
 tmp1491 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symhd) {
-return PrimHead(V3940)
+return PrimHead(V3935)
 }
-__typedArg0 := V3940
+__typedArg0 := V3935
 return Call(__e, PrimFunc(symhd), __typedArg0)
 })()
 
 tmp1492 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
-return PrimTail(V3940)
+return PrimTail(V3935)
 }
-__typedArg0 := V3940
+__typedArg0 := V3935
 return Call(__e, PrimFunc(symtl), __typedArg0)
 })()
 
-tmp1493 := Call(__e, PrimFunc(symshen_4assoc_1set), V3938, V3939, tmp1492)
+tmp1493 := Call(__e, PrimFunc(symshen_4assoc_1set), V3933, V3934, tmp1492)
 
 
 __e.Return((func() Obj {
@@ -2637,16 +2637,16 @@ tmp1509 := Call(__e, ns2_1set, symshen_4assoc_1set, tmp1485)
 _ = tmp1509
 
 tmp1510 := MakeNative(func(__e *ControlFlow) {
-V3944 := __e.Get(1)
-_ = V3944
-V3945 := __e.Get(2)
-_ = V3945
+V3939 := __e.Get(1)
+_ = V3939
+V3940 := __e.Get(2)
+_ = V3940
 tmp1528 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
-return PrimEqual(Nil, V3945)
+return PrimEqual(Nil, V3940)
 }
 __typedArg0 := Nil
-__typedArg1 := V3945
+__typedArg1 := V3940
 return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
 })()
 
@@ -2656,9 +2656,9 @@ return
 } else {
 tmp1526 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons_2) {
-return PrimIsPair(V3945)
+return PrimIsPair(V3940)
 }
-__typedArg0 := V3945
+__typedArg0 := V3940
 return Call(__e, PrimFunc(symcons_2), __typedArg0)
 })()
 
@@ -2667,9 +2667,9 @@ var ifres1517 Obj
 if True == tmp1526 {
 tmp1524 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symhd) {
-return PrimHead(V3945)
+return PrimHead(V3940)
 }
-__typedArg0 := V3945
+__typedArg0 := V3940
 return Call(__e, PrimFunc(symhd), __typedArg0)
 })()
 
@@ -2686,9 +2686,9 @@ var ifres1519 Obj
 if True == tmp1525 {
 tmp1521 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symhd) {
-return PrimHead(V3945)
+return PrimHead(V3940)
 }
-__typedArg0 := V3945
+__typedArg0 := V3940
 return Call(__e, PrimFunc(symhd), __typedArg0)
 })()
 
@@ -2702,9 +2702,9 @@ return Call(__e, PrimFunc(symhd), __typedArg0)
 
 tmp1523 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
-return PrimEqual(V3944, tmp1522)
+return PrimEqual(V3939, tmp1522)
 }
-__typedArg0 := V3944
+__typedArg0 := V3939
 __typedArg1 := tmp1522
 return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
 })()
@@ -2754,39 +2754,39 @@ ifres1517 = False
 if True == ifres1517 {
 __e.Return((func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
-return PrimTail(V3945)
+return PrimTail(V3940)
 }
-__typedArg0 := V3945
+__typedArg0 := V3940
 return Call(__e, PrimFunc(symtl), __typedArg0)
 })())
 return
 } else {
 tmp1515 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons_2) {
-return PrimIsPair(V3945)
+return PrimIsPair(V3940)
 }
-__typedArg0 := V3945
+__typedArg0 := V3940
 return Call(__e, PrimFunc(symcons_2), __typedArg0)
 })()
 
 if True == tmp1515 {
 tmp1511 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symhd) {
-return PrimHead(V3945)
+return PrimHead(V3940)
 }
-__typedArg0 := V3945
+__typedArg0 := V3940
 return Call(__e, PrimFunc(symhd), __typedArg0)
 })()
 
 tmp1512 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
-return PrimTail(V3945)
+return PrimTail(V3940)
 }
-__typedArg0 := V3945
+__typedArg0 := V3940
 return Call(__e, PrimFunc(symtl), __typedArg0)
 })()
 
-tmp1513 := Call(__e, PrimFunc(symshen_4assoc_1rm), V3944, tmp1512)
+tmp1513 := Call(__e, PrimFunc(symshen_4assoc_1rm), V3939, tmp1512)
 
 
 __e.Return((func() Obj {
@@ -2820,14 +2820,14 @@ tmp1529 := Call(__e, ns2_1set, symshen_4assoc_1rm, tmp1510)
 _ = tmp1529
 
 tmp1530 := MakeNative(func(__e *ControlFlow) {
-V3948 := __e.Get(1)
-_ = V3948
+V3943 := __e.Get(1)
+_ = V3943
 tmp1534 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
-return PrimEqual(True, V3948)
+return PrimEqual(True, V3943)
 }
 __typedArg0 := True
-__typedArg1 := V3948
+__typedArg1 := V3943
 return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
 })()
 
@@ -2837,10 +2837,10 @@ return
 } else {
 tmp1532 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
-return PrimEqual(False, V3948)
+return PrimEqual(False, V3943)
 }
 __typedArg0 := False
-__typedArg1 := V3948
+__typedArg1 := V3943
 return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
 })()
 
@@ -2867,14 +2867,14 @@ tmp1536 := MakeNative(func(__e *ControlFlow) {
 __self := __e.Get(0)
 __self1 := __e.Get(1)
 __selftop:
-V3949 := __self1
-_ = V3949
+V3944 := __self1
+_ = V3944
 tmp1541 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
-return PrimEqual(MakeInteger(0), V3949)
+return PrimEqual(MakeInteger(0), V3944)
 }
 __typedArg0 := MakeInteger(0)
-__typedArg1 := V3949
+__typedArg1 := V3944
 return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
 })()
 
@@ -2893,12 +2893,12 @@ _ = tmp1538
 if PrimFunc(symnl) == __self {
 __self1 = (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_1) {
-__typedN0, __typedOK0 := TypedFloat64(V3949)
+__typedN0, __typedOK0 := TypedFloat64(V3944)
 __typedN1, __typedOK1 := TypedFloat64(MakeNumber(1))
 if __typedOK0 && __typedOK1 && HasCanonicalPrimitiveBinding(sym_1) {
 return TypedMaterializeNumber((__typedN0 - __typedN1))
 }}
-__typedArg0 := V3949
+__typedArg0 := V3944
 __typedArg1 := MakeInteger(1)
 return Call(__e, PrimFunc(sym_1), __typedArg0, __typedArg1)
 })()
@@ -2907,12 +2907,12 @@ goto __selftop
 }
 __e.TailApply(PrimFunc(symnl), (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_1) {
-__typedN0, __typedOK0 := TypedFloat64(V3949)
+__typedN0, __typedOK0 := TypedFloat64(V3944)
 __typedN1, __typedOK1 := TypedFloat64(MakeNumber(1))
 if __typedOK0 && __typedOK1 && HasCanonicalPrimitiveBinding(sym_1) {
 return TypedMaterializeNumber((__typedN0 - __typedN1))
 }}
-__typedArg0 := V3949
+__typedArg0 := V3944
 __typedArg1 := MakeInteger(1)
 return Call(__e, PrimFunc(sym_1), __typedArg0, __typedArg1)
 })())
@@ -2934,16 +2934,16 @@ __self := __e.Get(0)
 __self1 := __e.Get(1)
 __self2 := __e.Get(2)
 __selftop:
-V3956 := __self1
-_ = V3956
-V3957 := __self2
-_ = V3957
+V3951 := __self1
+_ = V3951
+V3952 := __self2
+_ = V3952
 tmp1554 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
-return PrimEqual(Nil, V3956)
+return PrimEqual(Nil, V3951)
 }
 __typedArg0 := Nil
-__typedArg1 := V3956
+__typedArg1 := V3951
 return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
 })()
 
@@ -2953,60 +2953,60 @@ return
 } else {
 tmp1552 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons_2) {
-return PrimIsPair(V3956)
+return PrimIsPair(V3951)
 }
-__typedArg0 := V3956
+__typedArg0 := V3951
 return Call(__e, PrimFunc(symcons_2), __typedArg0)
 })()
 
 if True == tmp1552 {
 tmp1549 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symhd) {
-return PrimHead(V3956)
+return PrimHead(V3951)
 }
-__typedArg0 := V3956
+__typedArg0 := V3951
 return Call(__e, PrimFunc(symhd), __typedArg0)
 })()
 
-tmp1550 := Call(__e, PrimFunc(symelement_2), tmp1549, V3957)
+tmp1550 := Call(__e, PrimFunc(symelement_2), tmp1549, V3952)
 
 
 if True == tmp1550 {
 tmp1544 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
-return PrimTail(V3956)
+return PrimTail(V3951)
 }
-__typedArg0 := V3956
+__typedArg0 := V3951
 return Call(__e, PrimFunc(symtl), __typedArg0)
 })()
 
 if PrimFunc(symdifference) == __self {
-__self1, __self2 = tmp1544, V3957
+__self1, __self2 = tmp1544, V3952
 __e.Tick()
 goto __selftop
 }
-__e.TailApply(PrimFunc(symdifference), tmp1544, V3957)
+__e.TailApply(PrimFunc(symdifference), tmp1544, V3952)
 return
 
 
 } else {
 tmp1545 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symhd) {
-return PrimHead(V3956)
+return PrimHead(V3951)
 }
-__typedArg0 := V3956
+__typedArg0 := V3951
 return Call(__e, PrimFunc(symhd), __typedArg0)
 })()
 
 tmp1546 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
-return PrimTail(V3956)
+return PrimTail(V3951)
 }
-__typedArg0 := V3956
+__typedArg0 := V3951
 return Call(__e, PrimFunc(symtl), __typedArg0)
 })()
 
-tmp1547 := Call(__e, PrimFunc(symdifference), tmp1546, V3957)
+tmp1547 := Call(__e, PrimFunc(symdifference), tmp1546, V3952)
 
 
 __e.Return((func() Obj {
@@ -3046,11 +3046,11 @@ tmp1555 := Call(__e, ns2_1set, symdifference, tmp1543)
 _ = tmp1555
 
 tmp1556 := MakeNative(func(__e *ControlFlow) {
-V3958 := __e.Get(1)
-_ = V3958
-V3959 := __e.Get(2)
-_ = V3959
-__e.Return(V3959)
+V3953 := __e.Get(1)
+_ = V3953
+V3954 := __e.Get(2)
+_ = V3954
+__e.Return(V3954)
 return
 }, 2)
 
@@ -3064,16 +3064,16 @@ __self := __e.Get(0)
 __self1 := __e.Get(1)
 __self2 := __e.Get(2)
 __selftop:
-V3971 := __self1
-_ = V3971
-V3972 := __self2
-_ = V3972
+V3966 := __self1
+_ = V3966
+V3967 := __self2
+_ = V3967
 tmp1569 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
-return PrimEqual(Nil, V3972)
+return PrimEqual(Nil, V3967)
 }
 __typedArg0 := Nil
-__typedArg1 := V3972
+__typedArg1 := V3967
 return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
 })()
 
@@ -3083,9 +3083,9 @@ return
 } else {
 tmp1567 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons_2) {
-return PrimIsPair(V3972)
+return PrimIsPair(V3967)
 }
-__typedArg0 := V3972
+__typedArg0 := V3967
 return Call(__e, PrimFunc(symcons_2), __typedArg0)
 })()
 
@@ -3094,17 +3094,17 @@ var ifres1563 Obj
 if True == tmp1567 {
 tmp1565 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symhd) {
-return PrimHead(V3972)
+return PrimHead(V3967)
 }
-__typedArg0 := V3972
+__typedArg0 := V3967
 return Call(__e, PrimFunc(symhd), __typedArg0)
 })()
 
 tmp1566 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
-return PrimEqual(V3971, tmp1565)
+return PrimEqual(V3966, tmp1565)
 }
-__typedArg0 := V3971
+__typedArg0 := V3966
 __typedArg1 := tmp1565
 return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
 })()
@@ -3136,27 +3136,27 @@ return
 } else {
 tmp1561 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons_2) {
-return PrimIsPair(V3972)
+return PrimIsPair(V3967)
 }
-__typedArg0 := V3972
+__typedArg0 := V3967
 return Call(__e, PrimFunc(symcons_2), __typedArg0)
 })()
 
 if True == tmp1561 {
 tmp1559 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
-return PrimTail(V3972)
+return PrimTail(V3967)
 }
-__typedArg0 := V3972
+__typedArg0 := V3967
 return Call(__e, PrimFunc(symtl), __typedArg0)
 })()
 
 if PrimFunc(symelement_2) == __self {
-__self1, __self2 = V3971, tmp1559
+__self1, __self2 = V3966, tmp1559
 __e.Tick()
 goto __selftop
 }
-__e.TailApply(PrimFunc(symelement_2), V3971, tmp1559)
+__e.TailApply(PrimFunc(symelement_2), V3966, tmp1559)
 return
 
 
@@ -3186,14 +3186,14 @@ tmp1570 := Call(__e, ns2_1set, symelement_2, tmp1558)
 _ = tmp1570
 
 tmp1571 := MakeNative(func(__e *ControlFlow) {
-V3975 := __e.Get(1)
-_ = V3975
+V3970 := __e.Get(1)
+_ = V3970
 tmp1573 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
-return PrimEqual(Nil, V3975)
+return PrimEqual(Nil, V3970)
 }
 __typedArg0 := Nil
-__typedArg1 := V3975
+__typedArg1 := V3970
 return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
 })()
 
@@ -3214,14 +3214,14 @@ tmp1574 := Call(__e, ns2_1set, symempty_2, tmp1571)
 _ = tmp1574
 
 tmp1575 := MakeNative(func(__e *ControlFlow) {
-V3976 := __e.Get(1)
-_ = V3976
-V3977 := __e.Get(2)
-_ = V3977
-tmp1576 := Call(__e, V3976, V3977)
+V3971 := __e.Get(1)
+_ = V3971
+V3972 := __e.Get(2)
+_ = V3972
+tmp1576 := Call(__e, V3971, V3972)
 
 
-__e.TailApply(PrimFunc(symshen_4fix_1help), V3976, V3977, tmp1576)
+__e.TailApply(PrimFunc(symshen_4fix_1help), V3971, V3972, tmp1576)
 return
 
 
@@ -3238,34 +3238,34 @@ __self1 := __e.Get(1)
 __self2 := __e.Get(2)
 __self3 := __e.Get(3)
 __selftop:
-V3983 := __self1
-_ = V3983
-V3984 := __self2
-_ = V3984
-V3985 := __self3
-_ = V3985
+V3978 := __self1
+_ = V3978
+V3979 := __self2
+_ = V3979
+V3980 := __self3
+_ = V3980
 tmp1581 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
-return PrimEqual(V3984, V3985)
+return PrimEqual(V3979, V3980)
 }
-__typedArg0 := V3984
-__typedArg1 := V3985
+__typedArg0 := V3979
+__typedArg1 := V3980
 return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
 })()
 
 if True == tmp1581 {
-__e.Return(V3985)
+__e.Return(V3980)
 return
 } else {
-tmp1579 := Call(__e, V3983, V3985)
+tmp1579 := Call(__e, V3978, V3980)
 
 
 if PrimFunc(symshen_4fix_1help) == __self {
-__self1, __self2, __self3 = V3983, V3985, tmp1579
+__self1, __self2, __self3 = V3978, V3980, tmp1579
 __e.Tick()
 goto __selftop
 }
-__e.TailApply(PrimFunc(symshen_4fix_1help), V3983, V3985, tmp1579)
+__e.TailApply(PrimFunc(symshen_4fix_1help), V3978, V3980, tmp1579)
 return
 
 
@@ -3280,22 +3280,22 @@ tmp1582 := Call(__e, ns2_1set, symshen_4fix_1help, tmp1578)
 _ = tmp1582
 
 tmp1583 := MakeNative(func(__e *ControlFlow) {
-V3986 := __e.Get(1)
-_ = V3986
-V3987 := __e.Get(2)
-_ = V3987
-V3988 := __e.Get(3)
-_ = V3988
-V3989 := __e.Get(4)
-_ = V3989
+V3981 := __e.Get(1)
+_ = V3981
+V3982 := __e.Get(2)
+_ = V3982
+V3983 := __e.Get(3)
+_ = V3983
+V3984 := __e.Get(4)
+_ = V3984
 tmp1584 := MakeNative(func(__e *ControlFlow) {
-__e.TailApply(PrimFunc(symshen_4_5_1dict), V3989, V3986)
+__e.TailApply(PrimFunc(symshen_4_5_1dict), V3984, V3981)
 return
 }, 0)
 
 tmp1585 := MakeNative(func(__e *ControlFlow) {
-Z3991 := __e.Get(1)
-_ = Z3991
+Z3986 := __e.Get(1)
+_ = Z3986
 __e.Return(Nil)
 return
 }, 1)
@@ -3306,19 +3306,19 @@ tmp1586 := Call(__e, try_1catch, tmp1584, tmp1585)
 let__1181 := tmp1586
 _ = let__1181
 
-tmp1587 := Call(__e, PrimFunc(symshen_4assoc_1set), V3987, V3988, let__1181)
+tmp1587 := Call(__e, PrimFunc(symshen_4assoc_1set), V3982, V3983, let__1181)
 
 
 let__1182 := tmp1587
 _ = let__1182
 
-tmp1588 := Call(__e, PrimFunc(symshen_4dict_1_6), V3989, V3986, let__1182)
+tmp1588 := Call(__e, PrimFunc(symshen_4dict_1_6), V3984, V3981, let__1182)
 
 
 let__1183 := tmp1588
 _ = let__1183
 
-__e.Return(V3988)
+__e.Return(V3983)
 return
 
 
@@ -3330,20 +3330,20 @@ tmp1589 := Call(__e, ns2_1set, symput, tmp1583)
 _ = tmp1589
 
 tmp1590 := MakeNative(func(__e *ControlFlow) {
-V3994 := __e.Get(1)
-_ = V3994
-V3995 := __e.Get(2)
-_ = V3995
-V3996 := __e.Get(3)
-_ = V3996
+V3989 := __e.Get(1)
+_ = V3989
+V3990 := __e.Get(2)
+_ = V3990
+V3991 := __e.Get(3)
+_ = V3991
 tmp1591 := MakeNative(func(__e *ControlFlow) {
-__e.TailApply(PrimFunc(symshen_4_5_1dict), V3996, V3994)
+__e.TailApply(PrimFunc(symshen_4_5_1dict), V3991, V3989)
 return
 }, 0)
 
 tmp1592 := MakeNative(func(__e *ControlFlow) {
-Z3998 := __e.Get(1)
-_ = Z3998
+Z3993 := __e.Get(1)
+_ = Z3993
 __e.Return(Nil)
 return
 }, 1)
@@ -3354,19 +3354,19 @@ tmp1593 := Call(__e, try_1catch, tmp1591, tmp1592)
 let__1184 := tmp1593
 _ = let__1184
 
-tmp1594 := Call(__e, PrimFunc(symshen_4assoc_1rm), V3995, let__1184)
+tmp1594 := Call(__e, PrimFunc(symshen_4assoc_1rm), V3990, let__1184)
 
 
 let__1185 := tmp1594
 _ = let__1185
 
-tmp1595 := Call(__e, PrimFunc(symshen_4dict_1_6), V3996, V3994, let__1185)
+tmp1595 := Call(__e, PrimFunc(symshen_4dict_1_6), V3991, V3989, let__1185)
 
 
 let__1186 := tmp1595
 _ = let__1186
 
-__e.Return(V3994)
+__e.Return(V3989)
 return
 
 
@@ -3378,24 +3378,24 @@ tmp1596 := Call(__e, ns2_1set, symunput, tmp1590)
 _ = tmp1596
 
 tmp1597 := MakeNative(func(__e *ControlFlow) {
-V4001 := __e.Get(1)
-_ = V4001
-V4002 := __e.Get(2)
-_ = V4002
-V4003 := __e.Get(3)
-_ = V4003
+V3996 := __e.Get(1)
+_ = V3996
+V3997 := __e.Get(2)
+_ = V3997
+V3998 := __e.Get(3)
+_ = V3998
 tmp1598 := MakeNative(func(__e *ControlFlow) {
-__e.TailApply(PrimFunc(symshen_4_5_1dict), V4003, V4001)
+__e.TailApply(PrimFunc(symshen_4_5_1dict), V3998, V3996)
 return
 }, 0)
 
 tmp1599 := MakeNative(func(__e *ControlFlow) {
-Z4005 := __e.Get(1)
-_ = Z4005
-tmp1600 := Call(__e, PrimFunc(symshen_4app), V4002, MakeString("\n"), symshen_4s)
+Z4000 := __e.Get(1)
+_ = Z4000
+tmp1600 := Call(__e, PrimFunc(symshen_4app), V3997, MakeString("\n"), symshen_4s)
 
 
-tmp1602 := Call(__e, PrimFunc(symshen_4app), V4001, (func() Obj {
+tmp1602 := Call(__e, PrimFunc(symshen_4app), V3996, (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcn) {
 __typedS0, __typedOK0 := TypedString(MakeString(" has no attributes: "))
 __typedS1, __typedOK1 := TypedString(tmp1600)
@@ -3426,7 +3426,7 @@ tmp1603 := Call(__e, try_1catch, tmp1598, tmp1599)
 let__1187 := tmp1603
 _ = let__1187
 
-tmp1604 := Call(__e, PrimFunc(symassoc), V4002, let__1187)
+tmp1604 := Call(__e, PrimFunc(symassoc), V3997, let__1187)
 
 
 let__1188 := tmp1604
@@ -3436,10 +3436,10 @@ tmp1610 := Call(__e, PrimFunc(symempty_2), let__1188)
 
 
 if True == tmp1610 {
-tmp1605 := Call(__e, PrimFunc(symshen_4app), V4001, MakeString("\n"), symshen_4s)
+tmp1605 := Call(__e, PrimFunc(symshen_4app), V3996, MakeString("\n"), symshen_4s)
 
 
-tmp1607 := Call(__e, PrimFunc(symshen_4app), V4002, (func() Obj {
+tmp1607 := Call(__e, PrimFunc(symshen_4app), V3997, (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcn) {
 __typedS0, __typedOK0 := TypedString(MakeString(" not found for "))
 __typedS1, __typedOK1 := TypedString(tmp1605)
@@ -3502,14 +3502,14 @@ tmp1611 := Call(__e, ns2_1set, symget, tmp1597)
 _ = tmp1611
 
 tmp1612 := MakeNative(func(__e *ControlFlow) {
-V4007 := __e.Get(1)
-_ = V4007
-V4008 := __e.Get(2)
-_ = V4008
-tmp1613 := Call(__e, PrimFunc(symshen_4hashkey), V4007)
+V4002 := __e.Get(1)
+_ = V4002
+V4003 := __e.Get(2)
+_ = V4003
+tmp1613 := Call(__e, PrimFunc(symshen_4hashkey), V4002)
 
 
-tmp1614 := Call(__e, PrimFunc(symshen_4mod), tmp1613, V4008)
+tmp1614 := Call(__e, PrimFunc(symshen_4mod), tmp1613, V4003)
 
 
 let__1189 := tmp1614
@@ -3541,22 +3541,22 @@ tmp1617 := Call(__e, ns2_1set, symhash, tmp1612)
 _ = tmp1617
 
 tmp1618 := MakeNative(func(__e *ControlFlow) {
-V4010 := __e.Get(1)
-_ = V4010
+V4005 := __e.Get(1)
+_ = V4005
 tmp1619 := MakeNative(func(__e *ControlFlow) {
-Z4012 := __e.Get(1)
-_ = Z4012
+Z4007 := __e.Get(1)
+_ = Z4007
 __e.Return((func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symstring_1_6n) {
-return PrimStringToNumber(Z4012)
+return PrimStringToNumber(Z4007)
 }
-__typedArg0 := Z4012
+__typedArg0 := Z4007
 return Call(__e, PrimFunc(symstring_1_6n), __typedArg0)
 })())
 return
 }, 1)
 
-tmp1620 := Call(__e, PrimFunc(symexplode), V4010)
+tmp1620 := Call(__e, PrimFunc(symexplode), V4005)
 
 
 tmp1621 := Call(__e, PrimFunc(symmap), tmp1619, tmp1620)
@@ -3581,28 +3581,28 @@ __self := __e.Get(0)
 __self1 := __e.Get(1)
 __self2 := __e.Get(2)
 __selftop:
-V4013 := __self1
-_ = V4013
-V4014 := __self2
-_ = V4014
+V4008 := __self1
+_ = V4008
+V4009 := __self2
+_ = V4009
 tmp1642 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
-return PrimEqual(Nil, V4013)
+return PrimEqual(Nil, V4008)
 }
 __typedArg0 := Nil
-__typedArg1 := V4013
+__typedArg1 := V4008
 return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
 })()
 
 if True == tmp1642 {
-__e.Return(V4014)
+__e.Return(V4009)
 return
 } else {
 tmp1640 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons_2) {
-return PrimIsPair(V4013)
+return PrimIsPair(V4008)
 }
-__typedArg0 := V4013
+__typedArg0 := V4008
 return Call(__e, PrimFunc(symcons_2), __typedArg0)
 })()
 
@@ -3611,9 +3611,9 @@ var ifres1636 Obj
 if True == tmp1640 {
 tmp1638 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symhd) {
-return PrimHead(V4013)
+return PrimHead(V4008)
 }
-__typedArg0 := V4013
+__typedArg0 := V4008
 return Call(__e, PrimFunc(symhd), __typedArg0)
 })()
 
@@ -3650,67 +3650,67 @@ ifres1636 = False
 if True == ifres1636 {
 tmp1624 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
-return PrimTail(V4013)
+return PrimTail(V4008)
 }
-__typedArg0 := V4013
+__typedArg0 := V4008
 return Call(__e, PrimFunc(symtl), __typedArg0)
 })()
 
 if PrimFunc(symshen_4prodbutzero) == __self {
-__self1, __self2 = tmp1624, V4014
+__self1, __self2 = tmp1624, V4009
 __e.Tick()
 goto __selftop
 }
-__e.TailApply(PrimFunc(symshen_4prodbutzero), tmp1624, V4014)
+__e.TailApply(PrimFunc(symshen_4prodbutzero), tmp1624, V4009)
 return
 
 
 } else {
 tmp1634 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons_2) {
-return PrimIsPair(V4013)
+return PrimIsPair(V4008)
 }
-__typedArg0 := V4013
+__typedArg0 := V4008
 return Call(__e, PrimFunc(symcons_2), __typedArg0)
 })()
 
 if True == tmp1634 {
 if True == (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_6) {
-__typedN0, __typedOK0 := TypedFloat64(V4014)
+__typedN0, __typedOK0 := TypedFloat64(V4009)
 __typedN1, __typedOK1 := TypedFloat64(MakeNumber(1e+10))
 if __typedOK0 && __typedOK1 && HasCanonicalPrimitiveBinding(sym_6) {
 return TypedMaterializeBoolean((__typedN0 > __typedN1))
 }}
-__typedArg0 := V4014
+__typedArg0 := V4009
 __typedArg1 := MakeNumber(1e+10)
 return Call(__e, PrimFunc(sym_6), __typedArg0, __typedArg1)
 })() {
 tmp1625 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
-return PrimTail(V4013)
+return PrimTail(V4008)
 }
-__typedArg0 := V4013
+__typedArg0 := V4008
 return Call(__e, PrimFunc(symtl), __typedArg0)
 })()
 
 tmp1626 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symhd) {
-return PrimHead(V4013)
+return PrimHead(V4008)
 }
-__typedArg0 := V4013
+__typedArg0 := V4008
 return Call(__e, PrimFunc(symhd), __typedArg0)
 })()
 
 if PrimFunc(symshen_4prodbutzero) == __self {
 __self1, __self2 = tmp1625, (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_7) {
-__typedN0, __typedOK0 := TypedFloat64(V4014)
+__typedN0, __typedOK0 := TypedFloat64(V4009)
 __typedN1, __typedOK1 := TypedFloat64(tmp1626)
 if __typedOK0 && __typedOK1 && HasCanonicalPrimitiveBinding(sym_7) {
 return TypedMaterializeNumber((__typedN0 + __typedN1))
 }}
-__typedArg0 := V4014
+__typedArg0 := V4009
 __typedArg1 := tmp1626
 return Call(__e, PrimFunc(sym_7), __typedArg0, __typedArg1)
 })()
@@ -3719,12 +3719,12 @@ goto __selftop
 }
 __e.TailApply(PrimFunc(symshen_4prodbutzero), tmp1625, (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_7) {
-__typedN0, __typedOK0 := TypedFloat64(V4014)
+__typedN0, __typedOK0 := TypedFloat64(V4009)
 __typedN1, __typedOK1 := TypedFloat64(tmp1626)
 if __typedOK0 && __typedOK1 && HasCanonicalPrimitiveBinding(sym_7) {
 return TypedMaterializeNumber((__typedN0 + __typedN1))
 }}
-__typedArg0 := V4014
+__typedArg0 := V4009
 __typedArg1 := tmp1626
 return Call(__e, PrimFunc(sym_7), __typedArg0, __typedArg1)
 })())
@@ -3734,29 +3734,29 @@ return
 } else {
 tmp1628 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
-return PrimTail(V4013)
+return PrimTail(V4008)
 }
-__typedArg0 := V4013
+__typedArg0 := V4008
 return Call(__e, PrimFunc(symtl), __typedArg0)
 })()
 
 tmp1629 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symhd) {
-return PrimHead(V4013)
+return PrimHead(V4008)
 }
-__typedArg0 := V4013
+__typedArg0 := V4008
 return Call(__e, PrimFunc(symhd), __typedArg0)
 })()
 
 if PrimFunc(symshen_4prodbutzero) == __self {
 __self1, __self2 = tmp1628, (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_d) {
-__typedN0, __typedOK0 := TypedFloat64(V4014)
+__typedN0, __typedOK0 := TypedFloat64(V4009)
 __typedN1, __typedOK1 := TypedFloat64(tmp1629)
 if __typedOK0 && __typedOK1 && HasCanonicalPrimitiveBinding(sym_d) {
 return TypedMaterializeNumber((__typedN0 * __typedN1))
 }}
-__typedArg0 := V4014
+__typedArg0 := V4009
 __typedArg1 := tmp1629
 return Call(__e, PrimFunc(sym_d), __typedArg0, __typedArg1)
 })()
@@ -3765,12 +3765,12 @@ goto __selftop
 }
 __e.TailApply(PrimFunc(symshen_4prodbutzero), tmp1628, (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_d) {
-__typedN0, __typedOK0 := TypedFloat64(V4014)
+__typedN0, __typedOK0 := TypedFloat64(V4009)
 __typedN1, __typedOK1 := TypedFloat64(tmp1629)
 if __typedOK0 && __typedOK1 && HasCanonicalPrimitiveBinding(sym_d) {
 return TypedMaterializeNumber((__typedN0 * __typedN1))
 }}
-__typedArg0 := V4014
+__typedArg0 := V4009
 __typedArg1 := tmp1629
 return Call(__e, PrimFunc(sym_d), __typedArg0, __typedArg1)
 })())
@@ -3800,23 +3800,23 @@ tmp1643 := Call(__e, ns2_1set, symshen_4prodbutzero, tmp1623)
 _ = tmp1643
 
 tmp1644 := MakeNative(func(__e *ControlFlow) {
-V4015 := __e.Get(1)
-_ = V4015
-V4016 := __e.Get(2)
-_ = V4016
+V4010 := __e.Get(1)
+_ = V4010
+V4011 := __e.Get(2)
+_ = V4011
 tmp1645 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(V4016, Nil)
+return PrimCons(V4011, Nil)
 }
-__typedArg0 := V4016
+__typedArg0 := V4011
 __typedArg1 := Nil
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
 
-tmp1646 := Call(__e, PrimFunc(symshen_4multiples), V4015, tmp1645)
+tmp1646 := Call(__e, PrimFunc(symshen_4multiples), V4010, tmp1645)
 
 
-__e.TailApply(PrimFunc(symshen_4modh), V4015, tmp1646)
+__e.TailApply(PrimFunc(symshen_4modh), V4010, tmp1646)
 return
 
 
@@ -3832,15 +3832,15 @@ __self := __e.Get(0)
 __self1 := __e.Get(1)
 __self2 := __e.Get(2)
 __selftop:
-V4021 := __self1
-_ = V4021
-V4022 := __self2
-_ = V4022
+V4016 := __self1
+_ = V4016
+V4017 := __self2
+_ = V4017
 tmp1659 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons_2) {
-return PrimIsPair(V4022)
+return PrimIsPair(V4017)
 }
-__typedArg0 := V4022
+__typedArg0 := V4017
 return Call(__e, PrimFunc(symcons_2), __typedArg0)
 })()
 
@@ -3849,21 +3849,21 @@ var ifres1655 Obj
 if True == tmp1659 {
 tmp1657 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symhd) {
-return PrimHead(V4022)
+return PrimHead(V4017)
 }
-__typedArg0 := V4022
+__typedArg0 := V4017
 return Call(__e, PrimFunc(symhd), __typedArg0)
 })()
 
 tmp1658 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_6) {
 __typedN0, __typedOK0 := TypedFloat64(tmp1657)
-__typedN1, __typedOK1 := TypedFloat64(V4021)
+__typedN1, __typedOK1 := TypedFloat64(V4016)
 if __typedOK0 && __typedOK1 && HasCanonicalPrimitiveBinding(sym_6) {
 return TypedMaterializeBoolean((__typedN0 > __typedN1))
 }}
 __typedArg0 := tmp1657
-__typedArg1 := V4021
+__typedArg1 := V4016
 return Call(__e, PrimFunc(sym_6), __typedArg0, __typedArg1)
 })()
 
@@ -3891,27 +3891,27 @@ ifres1655 = False
 if True == ifres1655 {
 __e.Return((func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
-return PrimTail(V4022)
+return PrimTail(V4017)
 }
-__typedArg0 := V4022
+__typedArg0 := V4017
 return Call(__e, PrimFunc(symtl), __typedArg0)
 })())
 return
 } else {
 tmp1653 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons_2) {
-return PrimIsPair(V4022)
+return PrimIsPair(V4017)
 }
-__typedArg0 := V4022
+__typedArg0 := V4017
 return Call(__e, PrimFunc(symcons_2), __typedArg0)
 })()
 
 if True == tmp1653 {
 tmp1649 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symhd) {
-return PrimHead(V4022)
+return PrimHead(V4017)
 }
-__typedArg0 := V4022
+__typedArg0 := V4017
 return Call(__e, PrimFunc(symhd), __typedArg0)
 })()
 
@@ -3927,7 +3927,7 @@ return TypedMaterializeNumber((__typedN0 * __typedN1))
 __typedArg0 := MakeInteger(2)
 __typedArg1 := tmp1649
 return Call(__e, PrimFunc(sym_d), __typedArg0, __typedArg1)
-})(), V4022)
+})(), V4017)
 }
 __typedArg0 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_d) {
@@ -3940,16 +3940,16 @@ __typedArg0 := MakeInteger(2)
 __typedArg1 := tmp1649
 return Call(__e, PrimFunc(sym_d), __typedArg0, __typedArg1)
 })()
-__typedArg1 := V4022
+__typedArg1 := V4017
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
 
 if PrimFunc(symshen_4multiples) == __self {
-__self1, __self2 = V4021, tmp1651
+__self1, __self2 = V4016, tmp1651
 __e.Tick()
 goto __selftop
 }
-__e.TailApply(PrimFunc(symshen_4multiples), V4021, tmp1651)
+__e.TailApply(PrimFunc(symshen_4multiples), V4016, tmp1651)
 return
 
 
@@ -3980,16 +3980,16 @@ __self := __e.Get(0)
 __self1 := __e.Get(1)
 __self2 := __e.Get(2)
 __selftop:
-V4029 := __self1
-_ = V4029
-V4030 := __self2
-_ = V4030
+V4024 := __self1
+_ = V4024
+V4025 := __self2
+_ = V4025
 tmp1679 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
-return PrimEqual(MakeInteger(0), V4029)
+return PrimEqual(MakeInteger(0), V4024)
 }
 __typedArg0 := MakeInteger(0)
-__typedArg1 := V4029
+__typedArg1 := V4024
 return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
 })()
 
@@ -3999,22 +3999,22 @@ return
 } else {
 tmp1677 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
-return PrimEqual(Nil, V4030)
+return PrimEqual(Nil, V4025)
 }
 __typedArg0 := Nil
-__typedArg1 := V4030
+__typedArg1 := V4025
 return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
 })()
 
 if True == tmp1677 {
-__e.Return(V4029)
+__e.Return(V4024)
 return
 } else {
 tmp1675 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons_2) {
-return PrimIsPair(V4030)
+return PrimIsPair(V4025)
 }
-__typedArg0 := V4030
+__typedArg0 := V4025
 return Call(__e, PrimFunc(symcons_2), __typedArg0)
 })()
 
@@ -4023,21 +4023,21 @@ var ifres1671 Obj
 if True == tmp1675 {
 tmp1673 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symhd) {
-return PrimHead(V4030)
+return PrimHead(V4025)
 }
-__typedArg0 := V4030
+__typedArg0 := V4025
 return Call(__e, PrimFunc(symhd), __typedArg0)
 })()
 
 tmp1674 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_6) {
 __typedN0, __typedOK0 := TypedFloat64(tmp1673)
-__typedN1, __typedOK1 := TypedFloat64(V4029)
+__typedN1, __typedOK1 := TypedFloat64(V4024)
 if __typedOK0 && __typedOK1 && HasCanonicalPrimitiveBinding(sym_6) {
 return TypedMaterializeBoolean((__typedN0 > __typedN1))
 }}
 __typedArg0 := tmp1673
-__typedArg1 := V4029
+__typedArg1 := V4024
 return Call(__e, PrimFunc(sym_6), __typedArg0, __typedArg1)
 })()
 
@@ -4065,9 +4065,9 @@ ifres1671 = False
 if True == ifres1671 {
 tmp1664 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
-return PrimTail(V4030)
+return PrimTail(V4025)
 }
-__typedArg0 := V4030
+__typedArg0 := V4025
 return Call(__e, PrimFunc(symtl), __typedArg0)
 })()
 
@@ -4075,23 +4075,23 @@ tmp1665 := Call(__e, PrimFunc(symempty_2), tmp1664)
 
 
 if True == tmp1665 {
-__e.Return(V4029)
+__e.Return(V4024)
 return
 } else {
 tmp1662 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
-return PrimTail(V4030)
+return PrimTail(V4025)
 }
-__typedArg0 := V4030
+__typedArg0 := V4025
 return Call(__e, PrimFunc(symtl), __typedArg0)
 })()
 
 if PrimFunc(symshen_4modh) == __self {
-__self1, __self2 = V4029, tmp1662
+__self1, __self2 = V4024, tmp1662
 __e.Tick()
 goto __selftop
 }
-__e.TailApply(PrimFunc(symshen_4modh), V4029, tmp1662)
+__e.TailApply(PrimFunc(symshen_4modh), V4024, tmp1662)
 return
 
 
@@ -4101,47 +4101,47 @@ return
 } else {
 tmp1669 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons_2) {
-return PrimIsPair(V4030)
+return PrimIsPair(V4025)
 }
-__typedArg0 := V4030
+__typedArg0 := V4025
 return Call(__e, PrimFunc(symcons_2), __typedArg0)
 })()
 
 if True == tmp1669 {
 tmp1666 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symhd) {
-return PrimHead(V4030)
+return PrimHead(V4025)
 }
-__typedArg0 := V4030
+__typedArg0 := V4025
 return Call(__e, PrimFunc(symhd), __typedArg0)
 })()
 
 if PrimFunc(symshen_4modh) == __self {
 __self1, __self2 = (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_1) {
-__typedN0, __typedOK0 := TypedFloat64(V4029)
+__typedN0, __typedOK0 := TypedFloat64(V4024)
 __typedN1, __typedOK1 := TypedFloat64(tmp1666)
 if __typedOK0 && __typedOK1 && HasCanonicalPrimitiveBinding(sym_1) {
 return TypedMaterializeNumber((__typedN0 - __typedN1))
 }}
-__typedArg0 := V4029
+__typedArg0 := V4024
 __typedArg1 := tmp1666
 return Call(__e, PrimFunc(sym_1), __typedArg0, __typedArg1)
-})(), V4030
+})(), V4025
 __e.Tick()
 goto __selftop
 }
 __e.TailApply(PrimFunc(symshen_4modh), (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_1) {
-__typedN0, __typedOK0 := TypedFloat64(V4029)
+__typedN0, __typedOK0 := TypedFloat64(V4024)
 __typedN1, __typedOK1 := TypedFloat64(tmp1666)
 if __typedOK0 && __typedOK1 && HasCanonicalPrimitiveBinding(sym_1) {
 return TypedMaterializeNumber((__typedN0 - __typedN1))
 }}
-__typedArg0 := V4029
+__typedArg0 := V4024
 __typedArg1 := tmp1666
 return Call(__e, PrimFunc(sym_1), __typedArg0, __typedArg1)
-})(), V4030)
+})(), V4025)
 return
 
 
@@ -4174,14 +4174,14 @@ tmp1680 := Call(__e, ns2_1set, symshen_4modh, tmp1661)
 _ = tmp1680
 
 tmp1681 := MakeNative(func(__e *ControlFlow) {
-V4033 := __e.Get(1)
-_ = V4033
+V4028 := __e.Get(1)
+_ = V4028
 tmp1688 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
-return PrimEqual(Nil, V4033)
+return PrimEqual(Nil, V4028)
 }
 __typedArg0 := Nil
-__typedArg1 := V4033
+__typedArg1 := V4028
 return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
 })()
 
@@ -4191,26 +4191,26 @@ return
 } else {
 tmp1686 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons_2) {
-return PrimIsPair(V4033)
+return PrimIsPair(V4028)
 }
-__typedArg0 := V4033
+__typedArg0 := V4028
 return Call(__e, PrimFunc(symcons_2), __typedArg0)
 })()
 
 if True == tmp1686 {
 tmp1682 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symhd) {
-return PrimHead(V4033)
+return PrimHead(V4028)
 }
-__typedArg0 := V4033
+__typedArg0 := V4028
 return Call(__e, PrimFunc(symhd), __typedArg0)
 })()
 
 tmp1683 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
-return PrimTail(V4033)
+return PrimTail(V4028)
 }
-__typedArg0 := V4033
+__typedArg0 := V4028
 return Call(__e, PrimFunc(symtl), __typedArg0)
 })()
 
@@ -4254,22 +4254,22 @@ tmp1689 := Call(__e, ns2_1set, symsum, tmp1681)
 _ = tmp1689
 
 tmp1690 := MakeNative(func(__e *ControlFlow) {
-V4038 := __e.Get(1)
-_ = V4038
+V4033 := __e.Get(1)
+_ = V4033
 tmp1692 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons_2) {
-return PrimIsPair(V4038)
+return PrimIsPair(V4033)
 }
-__typedArg0 := V4038
+__typedArg0 := V4033
 return Call(__e, PrimFunc(symcons_2), __typedArg0)
 })()
 
 if True == tmp1692 {
 __e.Return((func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symhd) {
-return PrimHead(V4038)
+return PrimHead(V4033)
 }
-__typedArg0 := V4038
+__typedArg0 := V4033
 return Call(__e, PrimFunc(symhd), __typedArg0)
 })())
 return
@@ -4293,22 +4293,22 @@ tmp1693 := Call(__e, ns2_1set, symhead, tmp1690)
 _ = tmp1693
 
 tmp1694 := MakeNative(func(__e *ControlFlow) {
-V4043 := __e.Get(1)
-_ = V4043
+V4038 := __e.Get(1)
+_ = V4038
 tmp1696 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons_2) {
-return PrimIsPair(V4043)
+return PrimIsPair(V4038)
 }
-__typedArg0 := V4043
+__typedArg0 := V4038
 return Call(__e, PrimFunc(symcons_2), __typedArg0)
 })()
 
 if True == tmp1696 {
 __e.Return((func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
-return PrimTail(V4043)
+return PrimTail(V4038)
 }
-__typedArg0 := V4043
+__typedArg0 := V4038
 return Call(__e, PrimFunc(symtl), __typedArg0)
 })())
 return
@@ -4332,13 +4332,13 @@ tmp1697 := Call(__e, ns2_1set, symtail, tmp1694)
 _ = tmp1697
 
 tmp1698 := MakeNative(func(__e *ControlFlow) {
-V4044 := __e.Get(1)
-_ = V4044
+V4039 := __e.Get(1)
+_ = V4039
 __e.Return((func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sympos) {
-return PrimPos(V4044, MakeInteger(0))
+return PrimPos(V4039, MakeInteger(0))
 }
-__typedArg0 := V4044
+__typedArg0 := V4039
 __typedArg1 := MakeInteger(0)
 return Call(__e, PrimFunc(sympos), __typedArg0, __typedArg1)
 })())
@@ -4355,16 +4355,16 @@ __self := __e.Get(0)
 __self1 := __e.Get(1)
 __self2 := __e.Get(2)
 __selftop:
-V4051 := __self1
-_ = V4051
-V4052 := __self2
-_ = V4052
+V4046 := __self1
+_ = V4046
+V4047 := __self2
+_ = V4047
 tmp1711 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
-return PrimEqual(Nil, V4051)
+return PrimEqual(Nil, V4046)
 }
 __typedArg0 := Nil
-__typedArg1 := V4051
+__typedArg1 := V4046
 return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
 })()
 
@@ -4374,42 +4374,42 @@ return
 } else {
 tmp1709 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons_2) {
-return PrimIsPair(V4051)
+return PrimIsPair(V4046)
 }
-__typedArg0 := V4051
+__typedArg0 := V4046
 return Call(__e, PrimFunc(symcons_2), __typedArg0)
 })()
 
 if True == tmp1709 {
 tmp1706 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symhd) {
-return PrimHead(V4051)
+return PrimHead(V4046)
 }
-__typedArg0 := V4051
+__typedArg0 := V4046
 return Call(__e, PrimFunc(symhd), __typedArg0)
 })()
 
-tmp1707 := Call(__e, PrimFunc(symelement_2), tmp1706, V4052)
+tmp1707 := Call(__e, PrimFunc(symelement_2), tmp1706, V4047)
 
 
 if True == tmp1707 {
 tmp1701 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symhd) {
-return PrimHead(V4051)
+return PrimHead(V4046)
 }
-__typedArg0 := V4051
+__typedArg0 := V4046
 return Call(__e, PrimFunc(symhd), __typedArg0)
 })()
 
 tmp1702 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
-return PrimTail(V4051)
+return PrimTail(V4046)
 }
-__typedArg0 := V4051
+__typedArg0 := V4046
 return Call(__e, PrimFunc(symtl), __typedArg0)
 })()
 
-tmp1703 := Call(__e, PrimFunc(symintersection), tmp1702, V4052)
+tmp1703 := Call(__e, PrimFunc(symintersection), tmp1702, V4047)
 
 
 __e.Return((func() Obj {
@@ -4426,18 +4426,18 @@ return
 } else {
 tmp1704 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
-return PrimTail(V4051)
+return PrimTail(V4046)
 }
-__typedArg0 := V4051
+__typedArg0 := V4046
 return Call(__e, PrimFunc(symtl), __typedArg0)
 })()
 
 if PrimFunc(symintersection) == __self {
-__self1, __self2 = tmp1704, V4052
+__self1, __self2 = tmp1704, V4047
 __e.Tick()
 goto __selftop
 }
-__e.TailApply(PrimFunc(symintersection), tmp1704, V4052)
+__e.TailApply(PrimFunc(symintersection), tmp1704, V4047)
 return
 
 
@@ -4467,9 +4467,9 @@ tmp1712 := Call(__e, ns2_1set, symintersection, tmp1700)
 _ = tmp1712
 
 tmp1713 := MakeNative(func(__e *ControlFlow) {
-V4053 := __e.Get(1)
-_ = V4053
-__e.TailApply(PrimFunc(symshen_4reverse_1help), V4053, Nil)
+V4048 := __e.Get(1)
+_ = V4048
+__e.TailApply(PrimFunc(symshen_4reverse_1help), V4048, Nil)
 return
 }, 1)
 
@@ -4483,54 +4483,54 @@ __self := __e.Get(0)
 __self1 := __e.Get(1)
 __self2 := __e.Get(2)
 __selftop:
-V4058 := __self1
-_ = V4058
-V4059 := __self2
-_ = V4059
+V4053 := __self1
+_ = V4053
+V4054 := __self2
+_ = V4054
 tmp1722 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
-return PrimEqual(Nil, V4058)
+return PrimEqual(Nil, V4053)
 }
 __typedArg0 := Nil
-__typedArg1 := V4058
+__typedArg1 := V4053
 return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
 })()
 
 if True == tmp1722 {
-__e.Return(V4059)
+__e.Return(V4054)
 return
 } else {
 tmp1720 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons_2) {
-return PrimIsPair(V4058)
+return PrimIsPair(V4053)
 }
-__typedArg0 := V4058
+__typedArg0 := V4053
 return Call(__e, PrimFunc(symcons_2), __typedArg0)
 })()
 
 if True == tmp1720 {
 tmp1716 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
-return PrimTail(V4058)
+return PrimTail(V4053)
 }
-__typedArg0 := V4058
+__typedArg0 := V4053
 return Call(__e, PrimFunc(symtl), __typedArg0)
 })()
 
 tmp1717 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symhd) {
-return PrimHead(V4058)
+return PrimHead(V4053)
 }
-__typedArg0 := V4058
+__typedArg0 := V4053
 return Call(__e, PrimFunc(symhd), __typedArg0)
 })()
 
 tmp1718 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(tmp1717, V4059)
+return PrimCons(tmp1717, V4054)
 }
 __typedArg0 := tmp1717
-__typedArg1 := V4059
+__typedArg1 := V4054
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
 
@@ -4570,79 +4570,79 @@ __self := __e.Get(0)
 __self1 := __e.Get(1)
 __self2 := __e.Get(2)
 __selftop:
-V4064 := __self1
-_ = V4064
-V4065 := __self2
-_ = V4065
+V4059 := __self1
+_ = V4059
+V4060 := __self2
+_ = V4060
 tmp1735 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
-return PrimEqual(Nil, V4064)
+return PrimEqual(Nil, V4059)
 }
 __typedArg0 := Nil
-__typedArg1 := V4064
+__typedArg1 := V4059
 return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
 })()
 
 if True == tmp1735 {
-__e.Return(V4065)
+__e.Return(V4060)
 return
 } else {
 tmp1733 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons_2) {
-return PrimIsPair(V4064)
+return PrimIsPair(V4059)
 }
-__typedArg0 := V4064
+__typedArg0 := V4059
 return Call(__e, PrimFunc(symcons_2), __typedArg0)
 })()
 
 if True == tmp1733 {
 tmp1730 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symhd) {
-return PrimHead(V4064)
+return PrimHead(V4059)
 }
-__typedArg0 := V4064
+__typedArg0 := V4059
 return Call(__e, PrimFunc(symhd), __typedArg0)
 })()
 
-tmp1731 := Call(__e, PrimFunc(symelement_2), tmp1730, V4065)
+tmp1731 := Call(__e, PrimFunc(symelement_2), tmp1730, V4060)
 
 
 if True == tmp1731 {
 tmp1725 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
-return PrimTail(V4064)
+return PrimTail(V4059)
 }
-__typedArg0 := V4064
+__typedArg0 := V4059
 return Call(__e, PrimFunc(symtl), __typedArg0)
 })()
 
 if PrimFunc(symunion) == __self {
-__self1, __self2 = tmp1725, V4065
+__self1, __self2 = tmp1725, V4060
 __e.Tick()
 goto __selftop
 }
-__e.TailApply(PrimFunc(symunion), tmp1725, V4065)
+__e.TailApply(PrimFunc(symunion), tmp1725, V4060)
 return
 
 
 } else {
 tmp1726 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symhd) {
-return PrimHead(V4064)
+return PrimHead(V4059)
 }
-__typedArg0 := V4064
+__typedArg0 := V4059
 return Call(__e, PrimFunc(symhd), __typedArg0)
 })()
 
 tmp1727 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
-return PrimTail(V4064)
+return PrimTail(V4059)
 }
-__typedArg0 := V4064
+__typedArg0 := V4059
 return Call(__e, PrimFunc(symtl), __typedArg0)
 })()
 
-tmp1728 := Call(__e, PrimFunc(symunion), tmp1727, V4065)
+tmp1728 := Call(__e, PrimFunc(symunion), tmp1727, V4060)
 
 
 __e.Return((func() Obj {
@@ -4685,9 +4685,9 @@ tmp1737 := MakeNative(func(__e *ControlFlow) {
 __self := __e.Get(0)
 __self1 := __e.Get(1)
 __selftop:
-V4066 := __self1
-_ = V4066
-tmp1738 := Call(__e, PrimFunc(symshen_4proc_1nl), V4066)
+V4061 := __self1
+_ = V4061
+tmp1738 := Call(__e, PrimFunc(symshen_4proc_1nl), V4061)
 
 
 tmp1739 := Call(__e, PrimFunc(symstoutput))
@@ -4755,11 +4755,11 @@ tmp1747 := Call(__e, PrimFunc(sympr), MakeString("please answer y or n\n"), tmp1
 _ = tmp1747
 
 if PrimFunc(symy_1or_1n_2) == __self {
-__self1 = V4066
+__self1 = V4061
 __e.Tick()
 goto __selftop
 }
-__e.TailApply(PrimFunc(symy_1or_1n_2), V4066)
+__e.TailApply(PrimFunc(symy_1or_1n_2), V4061)
 return
 
 
@@ -4777,9 +4777,9 @@ tmp1752 := Call(__e, ns2_1set, symy_1or_1n_2, tmp1737)
 _ = tmp1752
 
 tmp1753 := MakeNative(func(__e *ControlFlow) {
-V4070 := __e.Get(1)
-_ = V4070
-if True == V4070 {
+V4065 := __e.Get(1)
+_ = V4065
+if True == V4065 {
 __e.Return(False)
 return
 } else {
@@ -4810,54 +4810,54 @@ tmp1757 := Call(__e, ns2_1set, symabort, tmp1756)
 _ = tmp1757
 
 tmp1758 := MakeNative(func(__e *ControlFlow) {
-V4076 := __e.Get(1)
-_ = V4076
-V4077 := __e.Get(2)
-_ = V4077
-V4078 := __e.Get(3)
-_ = V4078
+V4071 := __e.Get(1)
+_ = V4071
+V4072 := __e.Get(2)
+_ = V4072
+V4073 := __e.Get(3)
+_ = V4073
 tmp1766 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
-return PrimEqual(V4077, V4078)
+return PrimEqual(V4072, V4073)
 }
-__typedArg0 := V4077
-__typedArg1 := V4078
+__typedArg0 := V4072
+__typedArg1 := V4073
 return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
 })()
 
 if True == tmp1766 {
-__e.Return(V4076)
+__e.Return(V4071)
 return
 } else {
 tmp1764 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons_2) {
-return PrimIsPair(V4078)
+return PrimIsPair(V4073)
 }
-__typedArg0 := V4078
+__typedArg0 := V4073
 return Call(__e, PrimFunc(symcons_2), __typedArg0)
 })()
 
 if True == tmp1764 {
 tmp1759 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symhd) {
-return PrimHead(V4078)
+return PrimHead(V4073)
 }
-__typedArg0 := V4078
+__typedArg0 := V4073
 return Call(__e, PrimFunc(symhd), __typedArg0)
 })()
 
-tmp1760 := Call(__e, PrimFunc(symsubst), V4076, V4077, tmp1759)
+tmp1760 := Call(__e, PrimFunc(symsubst), V4071, V4072, tmp1759)
 
 
 tmp1761 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
-return PrimTail(V4078)
+return PrimTail(V4073)
 }
-__typedArg0 := V4078
+__typedArg0 := V4073
 return Call(__e, PrimFunc(symtl), __typedArg0)
 })()
 
-tmp1762 := Call(__e, PrimFunc(symsubst), V4076, V4077, tmp1761)
+tmp1762 := Call(__e, PrimFunc(symsubst), V4071, V4072, tmp1761)
 
 
 __e.Return((func() Obj {
@@ -4872,7 +4872,7 @@ return
 
 
 } else {
-__e.Return(V4078)
+__e.Return(V4073)
 return
 }
 
@@ -4888,9 +4888,9 @@ tmp1767 := Call(__e, ns2_1set, symsubst, tmp1758)
 _ = tmp1767
 
 tmp1768 := MakeNative(func(__e *ControlFlow) {
-V4079 := __e.Get(1)
-_ = V4079
-tmp1769 := Call(__e, PrimFunc(symshen_4app), V4079, MakeString(""), symshen_4a)
+V4074 := __e.Get(1)
+_ = V4074
+tmp1769 := Call(__e, PrimFunc(symshen_4app), V4074, MakeString(""), symshen_4a)
 
 
 __e.TailApply(PrimFunc(symshen_4explode_1h), tmp1769)
@@ -4905,14 +4905,14 @@ tmp1770 := Call(__e, ns2_1set, symexplode, tmp1768)
 _ = tmp1770
 
 tmp1771 := MakeNative(func(__e *ControlFlow) {
-V4082 := __e.Get(1)
-_ = V4082
+V4077 := __e.Get(1)
+_ = V4077
 tmp1778 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
-return PrimEqual(MakeString(""), V4082)
+return PrimEqual(MakeString(""), V4077)
 }
 __typedArg0 := MakeString("")
-__typedArg1 := V4082
+__typedArg1 := V4077
 return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
 })()
 
@@ -4920,20 +4920,20 @@ if True == tmp1778 {
 __e.Return(Nil)
 return
 } else {
-tmp1776 := Call(__e, PrimFunc(symshen_4_7string_2), V4082)
+tmp1776 := Call(__e, PrimFunc(symshen_4_7string_2), V4077)
 
 
 if True == tmp1776 {
-tmp1772 := Call(__e, PrimFunc(symhdstr), V4082)
+tmp1772 := Call(__e, PrimFunc(symhdstr), V4077)
 
 
 tmp1774 := Call(__e, PrimFunc(symshen_4explode_1h), (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtlstr) {
-__typedS0, __typedOK0 := TypedString(V4082)
+__typedS0, __typedOK0 := TypedString(V4077)
 if __typedOK0 && HasCanonicalPrimitiveBinding(symtlstr) {
 return TypedMaterializeString(TypedStringTailValue(__typedS0))
 }}
-__typedArg0 := V4082
+__typedArg0 := V4077
 return Call(__e, PrimFunc(symtlstr), __typedArg0)
 })())
 
@@ -4972,13 +4972,13 @@ tmp1779 := Call(__e, ns2_1set, symshen_4explode_1h, tmp1771)
 _ = tmp1779
 
 tmp1780 := MakeNative(func(__e *ControlFlow) {
-V4083 := __e.Get(1)
-_ = V4083
+V4078 := __e.Get(1)
+_ = V4078
 tmp1783 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
-return PrimEqual(V4083, MakeString(""))
+return PrimEqual(V4078, MakeString(""))
 }
-__typedArg0 := V4083
+__typedArg0 := V4078
 __typedArg1 := MakeString("")
 return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
 })()
@@ -4990,7 +4990,7 @@ ifres1781 = MakeString("")
 
 
 } else {
-tmp1782 := Call(__e, PrimFunc(symshen_4app), V4083, MakeString("/"), symshen_4a)
+tmp1782 := Call(__e, PrimFunc(symshen_4app), V4078, MakeString("/"), symshen_4a)
 
 
 ifres1781 = tmp1782
@@ -5021,16 +5021,16 @@ __self := __e.Get(0)
 __self1 := __e.Get(1)
 __self2 := __e.Get(2)
 __selftop:
-V4084 := __self1
-_ = V4084
-V4085 := __self2
-_ = V4085
+V4079 := __self1
+_ = V4079
+V4080 := __self2
+_ = V4080
 tmp1792 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
-return PrimEqual(Nil, V4085)
+return PrimEqual(Nil, V4080)
 }
 __typedArg0 := Nil
-__typedArg1 := V4085
+__typedArg1 := V4080
 return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
 })()
 
@@ -5040,22 +5040,22 @@ return
 } else {
 tmp1790 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons_2) {
-return PrimIsPair(V4085)
+return PrimIsPair(V4080)
 }
-__typedArg0 := V4085
+__typedArg0 := V4080
 return Call(__e, PrimFunc(symcons_2), __typedArg0)
 })()
 
 if True == tmp1790 {
 tmp1786 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symhd) {
-return PrimHead(V4085)
+return PrimHead(V4080)
 }
-__typedArg0 := V4085
+__typedArg0 := V4080
 return Call(__e, PrimFunc(symhd), __typedArg0)
 })()
 
-tmp1787 := Call(__e, V4084, tmp1786)
+tmp1787 := Call(__e, V4079, tmp1786)
 
 
 let__1194 := tmp1787
@@ -5063,18 +5063,18 @@ _ = let__1194
 
 tmp1788 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
-return PrimTail(V4085)
+return PrimTail(V4080)
 }
-__typedArg0 := V4085
+__typedArg0 := V4080
 return Call(__e, PrimFunc(symtl), __typedArg0)
 })()
 
 if PrimFunc(symshen_4for_1each) == __self {
-__self1, __self2 = V4084, tmp1788
+__self1, __self2 = V4079, tmp1788
 __e.Tick()
 goto __selftop
 }
-__e.TailApply(PrimFunc(symshen_4for_1each), V4084, tmp1788)
+__e.TailApply(PrimFunc(symshen_4for_1each), V4079, tmp1788)
 return
 
 
@@ -5095,11 +5095,11 @@ tmp1793 := Call(__e, ns2_1set, symshen_4for_1each, tmp1785)
 _ = tmp1793
 
 tmp1794 := MakeNative(func(__e *ControlFlow) {
-V4087 := __e.Get(1)
-_ = V4087
-V4088 := __e.Get(2)
-_ = V4088
-__e.TailApply(PrimFunc(symshen_4map_1h), V4087, V4088, Nil)
+V4082 := __e.Get(1)
+_ = V4082
+V4083 := __e.Get(2)
+_ = V4083
+__e.TailApply(PrimFunc(symshen_4map_1h), V4082, V4083, Nil)
 return
 }, 2)
 
@@ -5114,68 +5114,68 @@ __self1 := __e.Get(1)
 __self2 := __e.Get(2)
 __self3 := __e.Get(3)
 __selftop:
-V4089 := __self1
-_ = V4089
-V4090 := __self2
-_ = V4090
-V4091 := __self3
-_ = V4091
+V4084 := __self1
+_ = V4084
+V4085 := __self2
+_ = V4085
+V4086 := __self3
+_ = V4086
 tmp1804 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
-return PrimEqual(Nil, V4090)
+return PrimEqual(Nil, V4085)
 }
 __typedArg0 := Nil
-__typedArg1 := V4090
+__typedArg1 := V4085
 return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
 })()
 
 if True == tmp1804 {
-__e.TailApply(PrimFunc(symreverse), V4091)
+__e.TailApply(PrimFunc(symreverse), V4086)
 return
 } else {
 tmp1802 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons_2) {
-return PrimIsPair(V4090)
+return PrimIsPair(V4085)
 }
-__typedArg0 := V4090
+__typedArg0 := V4085
 return Call(__e, PrimFunc(symcons_2), __typedArg0)
 })()
 
 if True == tmp1802 {
 tmp1797 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
-return PrimTail(V4090)
+return PrimTail(V4085)
 }
-__typedArg0 := V4090
+__typedArg0 := V4085
 return Call(__e, PrimFunc(symtl), __typedArg0)
 })()
 
 tmp1798 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symhd) {
-return PrimHead(V4090)
+return PrimHead(V4085)
 }
-__typedArg0 := V4090
+__typedArg0 := V4085
 return Call(__e, PrimFunc(symhd), __typedArg0)
 })()
 
-tmp1799 := Call(__e, V4089, tmp1798)
+tmp1799 := Call(__e, V4084, tmp1798)
 
 
 tmp1800 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(tmp1799, V4091)
+return PrimCons(tmp1799, V4086)
 }
 __typedArg0 := tmp1799
-__typedArg1 := V4091
+__typedArg1 := V4086
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
 
 if PrimFunc(symshen_4map_1h) == __self {
-__self1, __self2, __self3 = V4089, tmp1797, tmp1800
+__self1, __self2, __self3 = V4084, tmp1797, tmp1800
 __e.Tick()
 goto __selftop
 }
-__e.TailApply(PrimFunc(symshen_4map_1h), V4089, tmp1797, tmp1800)
+__e.TailApply(PrimFunc(symshen_4map_1h), V4084, tmp1797, tmp1800)
 return
 
 
@@ -5196,9 +5196,9 @@ tmp1805 := Call(__e, ns2_1set, symshen_4map_1h, tmp1796)
 _ = tmp1805
 
 tmp1806 := MakeNative(func(__e *ControlFlow) {
-V4092 := __e.Get(1)
-_ = V4092
-__e.TailApply(PrimFunc(symshen_4length_1h), V4092, MakeInteger(0))
+V4087 := __e.Get(1)
+_ = V4087
+__e.TailApply(PrimFunc(symshen_4length_1h), V4087, MakeInteger(0))
 return
 }, 1)
 
@@ -5212,40 +5212,40 @@ __self := __e.Get(0)
 __self1 := __e.Get(1)
 __self2 := __e.Get(2)
 __selftop:
-V4097 := __self1
-_ = V4097
-V4098 := __self2
-_ = V4098
+V4092 := __self1
+_ = V4092
+V4093 := __self2
+_ = V4093
 tmp1812 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
-return PrimEqual(Nil, V4097)
+return PrimEqual(Nil, V4092)
 }
 __typedArg0 := Nil
-__typedArg1 := V4097
+__typedArg1 := V4092
 return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
 })()
 
 if True == tmp1812 {
-__e.Return(V4098)
+__e.Return(V4093)
 return
 } else {
 tmp1809 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
-return PrimTail(V4097)
+return PrimTail(V4092)
 }
-__typedArg0 := V4097
+__typedArg0 := V4092
 return Call(__e, PrimFunc(symtl), __typedArg0)
 })()
 
 if PrimFunc(symshen_4length_1h) == __self {
 __self1, __self2 = tmp1809, (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_7) {
-__typedN0, __typedOK0 := TypedFloat64(V4098)
+__typedN0, __typedOK0 := TypedFloat64(V4093)
 __typedN1, __typedOK1 := TypedFloat64(MakeNumber(1))
 if __typedOK0 && __typedOK1 && HasCanonicalPrimitiveBinding(sym_7) {
 return TypedMaterializeNumber((__typedN0 + __typedN1))
 }}
-__typedArg0 := V4098
+__typedArg0 := V4093
 __typedArg1 := MakeInteger(1)
 return Call(__e, PrimFunc(sym_7), __typedArg0, __typedArg1)
 })()
@@ -5254,12 +5254,12 @@ goto __selftop
 }
 __e.TailApply(PrimFunc(symshen_4length_1h), tmp1809, (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_7) {
-__typedN0, __typedOK0 := TypedFloat64(V4098)
+__typedN0, __typedOK0 := TypedFloat64(V4093)
 __typedN1, __typedOK1 := TypedFloat64(MakeNumber(1))
 if __typedOK0 && __typedOK1 && HasCanonicalPrimitiveBinding(sym_7) {
 return TypedMaterializeNumber((__typedN0 + __typedN1))
 }}
-__typedArg0 := V4098
+__typedArg0 := V4093
 __typedArg1 := MakeInteger(1)
 return Call(__e, PrimFunc(sym_7), __typedArg0, __typedArg1)
 })())
@@ -5277,16 +5277,16 @@ tmp1813 := Call(__e, ns2_1set, symshen_4length_1h, tmp1808)
 _ = tmp1813
 
 tmp1814 := MakeNative(func(__e *ControlFlow) {
-V4104 := __e.Get(1)
-_ = V4104
-V4105 := __e.Get(2)
-_ = V4105
+V4099 := __e.Get(1)
+_ = V4099
+V4100 := __e.Get(2)
+_ = V4100
 tmp1822 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
-return PrimEqual(V4104, V4105)
+return PrimEqual(V4099, V4100)
 }
-__typedArg0 := V4104
-__typedArg1 := V4105
+__typedArg0 := V4099
+__typedArg1 := V4100
 return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
 })()
 
@@ -5296,33 +5296,33 @@ return
 } else {
 tmp1820 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons_2) {
-return PrimIsPair(V4105)
+return PrimIsPair(V4100)
 }
-__typedArg0 := V4105
+__typedArg0 := V4100
 return Call(__e, PrimFunc(symcons_2), __typedArg0)
 })()
 
 if True == tmp1820 {
 tmp1815 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symhd) {
-return PrimHead(V4105)
+return PrimHead(V4100)
 }
-__typedArg0 := V4105
+__typedArg0 := V4100
 return Call(__e, PrimFunc(symhd), __typedArg0)
 })()
 
-tmp1816 := Call(__e, PrimFunc(symoccurrences), V4104, tmp1815)
+tmp1816 := Call(__e, PrimFunc(symoccurrences), V4099, tmp1815)
 
 
 tmp1817 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
-return PrimTail(V4105)
+return PrimTail(V4100)
 }
-__typedArg0 := V4105
+__typedArg0 := V4100
 return Call(__e, PrimFunc(symtl), __typedArg0)
 })()
 
-tmp1818 := Call(__e, PrimFunc(symoccurrences), V4104, tmp1817)
+tmp1818 := Call(__e, PrimFunc(symoccurrences), V4099, tmp1817)
 
 
 __e.Return((func() Obj {
@@ -5360,16 +5360,16 @@ __self := __e.Get(0)
 __self1 := __e.Get(1)
 __self2 := __e.Get(2)
 __selftop:
-V4110 := __self1
-_ = V4110
-V4111 := __self2
-_ = V4111
+V4105 := __self1
+_ = V4105
+V4106 := __self2
+_ = V4106
 tmp1837 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
-return PrimEqual(MakeInteger(1), V4110)
+return PrimEqual(MakeInteger(1), V4105)
 }
 __typedArg0 := MakeInteger(1)
-__typedArg1 := V4110
+__typedArg1 := V4105
 return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
 })()
 
@@ -5378,9 +5378,9 @@ var ifres1834 Obj
 if True == tmp1837 {
 tmp1836 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons_2) {
-return PrimIsPair(V4111)
+return PrimIsPair(V4106)
 }
-__typedArg0 := V4111
+__typedArg0 := V4106
 return Call(__e, PrimFunc(symcons_2), __typedArg0)
 })()
 
@@ -5408,39 +5408,39 @@ ifres1834 = False
 if True == ifres1834 {
 __e.Return((func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symhd) {
-return PrimHead(V4111)
+return PrimHead(V4106)
 }
-__typedArg0 := V4111
+__typedArg0 := V4106
 return Call(__e, PrimFunc(symhd), __typedArg0)
 })())
 return
 } else {
 tmp1832 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons_2) {
-return PrimIsPair(V4111)
+return PrimIsPair(V4106)
 }
-__typedArg0 := V4111
+__typedArg0 := V4106
 return Call(__e, PrimFunc(symcons_2), __typedArg0)
 })()
 
 if True == tmp1832 {
 tmp1825 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_1) {
-__typedN0, __typedOK0 := TypedFloat64(V4110)
+__typedN0, __typedOK0 := TypedFloat64(V4105)
 __typedN1, __typedOK1 := TypedFloat64(MakeNumber(1))
 if __typedOK0 && __typedOK1 && HasCanonicalPrimitiveBinding(sym_1) {
 return TypedMaterializeNumber((__typedN0 - __typedN1))
 }}
-__typedArg0 := V4110
+__typedArg0 := V4105
 __typedArg1 := MakeInteger(1)
 return Call(__e, PrimFunc(sym_1), __typedArg0, __typedArg1)
 })()
 
 tmp1826 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
-return PrimTail(V4111)
+return PrimTail(V4106)
 }
-__typedArg0 := V4111
+__typedArg0 := V4106
 return Call(__e, PrimFunc(symtl), __typedArg0)
 })()
 
@@ -5454,10 +5454,10 @@ return
 
 
 } else {
-tmp1827 := Call(__e, PrimFunc(symshen_4app), V4111, MakeString("\n"), symshen_4a)
+tmp1827 := Call(__e, PrimFunc(symshen_4app), V4106, MakeString("\n"), symshen_4a)
 
 
-tmp1829 := Call(__e, PrimFunc(symshen_4app), V4110, (func() Obj {
+tmp1829 := Call(__e, PrimFunc(symshen_4app), V4105, (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcn) {
 __typedS0, __typedOK0 := TypedString(MakeString(", "))
 __typedS1, __typedOK1 := TypedString(tmp1827)
@@ -5514,18 +5514,18 @@ tmp1838 := Call(__e, ns2_1set, symnth, tmp1824)
 _ = tmp1838
 
 tmp1839 := MakeNative(func(__e *ControlFlow) {
-V4112 := __e.Get(1)
-_ = V4112
+V4107 := __e.Get(1)
+_ = V4107
 tmp1845 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symnumber_2) {
-return PrimIsNumber(V4112)
+return PrimIsNumber(V4107)
 }
-__typedArg0 := V4112
+__typedArg0 := V4107
 return Call(__e, PrimFunc(symnumber_2), __typedArg0)
 })()
 
 if True == tmp1845 {
-tmp1841 := Call(__e, PrimFunc(symshen_4abs), V4112)
+tmp1841 := Call(__e, PrimFunc(symshen_4abs), V4107)
 
 
 let__1195 := tmp1841
@@ -5560,31 +5560,31 @@ tmp1846 := Call(__e, ns2_1set, syminteger_2, tmp1839)
 _ = tmp1846
 
 tmp1847 := MakeNative(func(__e *ControlFlow) {
-V4114 := __e.Get(1)
-_ = V4114
+V4109 := __e.Get(1)
+_ = V4109
 if True == (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_6) {
-__typedN0, __typedOK0 := TypedFloat64(V4114)
+__typedN0, __typedOK0 := TypedFloat64(V4109)
 __typedN1, __typedOK1 := TypedFloat64(MakeNumber(0))
 if __typedOK0 && __typedOK1 && HasCanonicalPrimitiveBinding(sym_6) {
 return TypedMaterializeBoolean((__typedN0 > __typedN1))
 }}
-__typedArg0 := V4114
+__typedArg0 := V4109
 __typedArg1 := MakeInteger(0)
 return Call(__e, PrimFunc(sym_6), __typedArg0, __typedArg1)
 })() {
-__e.Return(V4114)
+__e.Return(V4109)
 return
 } else {
 __e.Return((func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_1) {
 __typedN0, __typedOK0 := TypedFloat64(MakeNumber(0))
-__typedN1, __typedOK1 := TypedFloat64(V4114)
+__typedN1, __typedOK1 := TypedFloat64(V4109)
 if __typedOK0 && __typedOK1 && HasCanonicalPrimitiveBinding(sym_1) {
 return TypedMaterializeNumber((__typedN0 - __typedN1))
 }}
 __typedArg0 := MakeInteger(0)
-__typedArg1 := V4114
+__typedArg1 := V4109
 return Call(__e, PrimFunc(sym_1), __typedArg0, __typedArg1)
 })())
 return
@@ -5603,18 +5603,18 @@ __self := __e.Get(0)
 __self1 := __e.Get(1)
 __self2 := __e.Get(2)
 __selftop:
-V4115 := __self1
-_ = V4115
-V4116 := __self2
-_ = V4116
+V4110 := __self1
+_ = V4110
+V4111 := __self2
+_ = V4111
 let__1196 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_d) {
-__typedN0, __typedOK0 := TypedFloat64(V4116)
+__typedN0, __typedOK0 := TypedFloat64(V4111)
 __typedN1, __typedOK1 := TypedFloat64(MakeNumber(2))
 if __typedOK0 && __typedOK1 && HasCanonicalPrimitiveBinding(sym_d) {
 return TypedMaterializeNumber((__typedN0 * __typedN1))
 }}
-__typedArg0 := V4116
+__typedArg0 := V4111
 __typedArg1 := MakeInteger(2)
 return Call(__e, PrimFunc(sym_d), __typedArg0, __typedArg1)
 })()
@@ -5623,23 +5623,23 @@ _ = let__1196
 if True == (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_6) {
 __typedN0, __typedOK0 := TypedFloat64(let__1196)
-__typedN1, __typedOK1 := TypedFloat64(V4115)
+__typedN1, __typedOK1 := TypedFloat64(V4110)
 if __typedOK0 && __typedOK1 && HasCanonicalPrimitiveBinding(sym_6) {
 return TypedMaterializeBoolean((__typedN0 > __typedN1))
 }}
 __typedArg0 := let__1196
-__typedArg1 := V4115
+__typedArg1 := V4110
 return Call(__e, PrimFunc(sym_6), __typedArg0, __typedArg1)
 })() {
-__e.Return(V4116)
+__e.Return(V4111)
 return
 } else {
 if PrimFunc(symshen_4magless) == __self {
-__self1, __self2 = V4115, let__1196
+__self1, __self2 = V4110, let__1196
 __e.Tick()
 goto __selftop
 }
-__e.TailApply(PrimFunc(symshen_4magless), V4115, let__1196)
+__e.TailApply(PrimFunc(symshen_4magless), V4110, let__1196)
 return
 }
 
@@ -5656,16 +5656,16 @@ __self := __e.Get(0)
 __self1 := __e.Get(1)
 __self2 := __e.Get(2)
 __selftop:
-V4121 := __self1
-_ = V4121
-V4122 := __self2
-_ = V4122
+V4116 := __self1
+_ = V4116
+V4117 := __self2
+_ = V4117
 tmp1863 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
-return PrimEqual(MakeInteger(0), V4121)
+return PrimEqual(MakeInteger(0), V4116)
 }
 __typedArg0 := MakeInteger(0)
-__typedArg1 := V4121
+__typedArg1 := V4116
 return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
 })()
 
@@ -5676,12 +5676,12 @@ return
 if True == (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_6) {
 __typedN0, __typedOK0 := TypedFloat64(MakeNumber(1))
-__typedN1, __typedOK1 := TypedFloat64(V4121)
+__typedN1, __typedOK1 := TypedFloat64(V4116)
 if __typedOK0 && __typedOK1 && HasCanonicalPrimitiveBinding(sym_6) {
 return TypedMaterializeBoolean((__typedN0 > __typedN1))
 }}
 __typedArg0 := MakeInteger(1)
-__typedArg1 := V4121
+__typedArg1 := V4116
 return Call(__e, PrimFunc(sym_6), __typedArg0, __typedArg1)
 })() {
 __e.Return(False)
@@ -5689,13 +5689,13 @@ return
 } else {
 let__1197 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_1) {
-__typedN0, __typedOK0 := TypedFloat64(V4121)
-__typedN1, __typedOK1 := TypedFloat64(V4122)
+__typedN0, __typedOK0 := TypedFloat64(V4116)
+__typedN1, __typedOK1 := TypedFloat64(V4117)
 if __typedOK0 && __typedOK1 && HasCanonicalPrimitiveBinding(sym_1) {
 return TypedMaterializeNumber((__typedN0 - __typedN1))
 }}
-__typedArg0 := V4121
-__typedArg1 := V4122
+__typedArg0 := V4116
+__typedArg1 := V4117
 return Call(__e, PrimFunc(sym_1), __typedArg0, __typedArg1)
 })()
 _ = let__1197
@@ -5713,19 +5713,19 @@ return Call(__e, PrimFunc(sym_6), __typedArg0, __typedArg1)
 })() {
 __e.Return((func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(syminteger_2) {
-return PrimIsInteger(V4121)
+return PrimIsInteger(V4116)
 }
-__typedArg0 := V4121
+__typedArg0 := V4116
 return Call(__e, PrimFunc(syminteger_2), __typedArg0)
 })())
 return
 } else {
 if PrimFunc(symshen_4integer_1test_2) == __self {
-__self1, __self2 = let__1197, V4122
+__self1, __self2 = let__1197, V4117
 __e.Tick()
 goto __selftop
 }
-__e.TailApply(PrimFunc(symshen_4integer_1test_2), let__1197, V4122)
+__e.TailApply(PrimFunc(symshen_4integer_1test_2), let__1197, V4117)
 return
 }
 
@@ -5744,16 +5744,16 @@ tmp1864 := Call(__e, ns2_1set, symshen_4integer_1test_2, tmp1856)
 _ = tmp1864
 
 tmp1865 := MakeNative(func(__e *ControlFlow) {
-V4130 := __e.Get(1)
-_ = V4130
-V4131 := __e.Get(2)
-_ = V4131
+V4125 := __e.Get(1)
+_ = V4125
+V4126 := __e.Get(2)
+_ = V4126
 tmp1873 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
-return PrimEqual(Nil, V4131)
+return PrimEqual(Nil, V4126)
 }
 __typedArg0 := Nil
-__typedArg1 := V4131
+__typedArg1 := V4126
 return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
 })()
 
@@ -5763,33 +5763,33 @@ return
 } else {
 tmp1871 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons_2) {
-return PrimIsPair(V4131)
+return PrimIsPair(V4126)
 }
-__typedArg0 := V4131
+__typedArg0 := V4126
 return Call(__e, PrimFunc(symcons_2), __typedArg0)
 })()
 
 if True == tmp1871 {
 tmp1866 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symhd) {
-return PrimHead(V4131)
+return PrimHead(V4126)
 }
-__typedArg0 := V4131
+__typedArg0 := V4126
 return Call(__e, PrimFunc(symhd), __typedArg0)
 })()
 
-tmp1867 := Call(__e, V4130, tmp1866)
+tmp1867 := Call(__e, V4125, tmp1866)
 
 
 tmp1868 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
-return PrimTail(V4131)
+return PrimTail(V4126)
 }
-__typedArg0 := V4131
+__typedArg0 := V4126
 return Call(__e, PrimFunc(symtl), __typedArg0)
 })()
 
-tmp1869 := Call(__e, PrimFunc(symmapcan), V4130, tmp1868)
+tmp1869 := Call(__e, PrimFunc(symmapcan), V4125, tmp1868)
 
 
 __e.TailApply(PrimFunc(symappend), tmp1867, tmp1869)
@@ -5819,16 +5819,16 @@ tmp1874 := Call(__e, ns2_1set, symmapcan, tmp1865)
 _ = tmp1874
 
 tmp1875 := MakeNative(func(__e *ControlFlow) {
-V4137 := __e.Get(1)
-_ = V4137
-V4138 := __e.Get(2)
-_ = V4138
+V4132 := __e.Get(1)
+_ = V4132
+V4133 := __e.Get(2)
+_ = V4133
 tmp1877 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
-return PrimEqual(V4137, V4138)
+return PrimEqual(V4132, V4133)
 }
-__typedArg0 := V4137
-__typedArg1 := V4138
+__typedArg0 := V4132
+__typedArg1 := V4133
 return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
 })()
 
@@ -5849,13 +5849,13 @@ tmp1878 := Call(__e, ns2_1set, sym_a_a, tmp1875)
 _ = tmp1878
 
 tmp1879 := MakeNative(func(__e *ControlFlow) {
-V4139 := __e.Get(1)
-_ = V4139
+V4134 := __e.Get(1)
+_ = V4134
 tmp1887 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symsymbol_2) {
-return PrimIsSymbol(V4139)
+return PrimIsSymbol(V4134)
 }
-__typedArg0 := V4139
+__typedArg0 := V4134
 return Call(__e, PrimFunc(symsymbol_2), __typedArg0)
 })()
 
@@ -5863,17 +5863,17 @@ if True == tmp1887 {
 tmp1881 := MakeNative(func(__e *ControlFlow) {
 __e.Return((func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symvalue) {
-return PrimValue(V4139)
+return PrimValue(V4134)
 }
-__typedArg0 := V4139
+__typedArg0 := V4134
 return Call(__e, PrimFunc(symvalue), __typedArg0)
 })())
 return
 }, 0)
 
 tmp1882 := MakeNative(func(__e *ControlFlow) {
-Z4141 := __e.Get(1)
-_ = Z4141
+Z4136 := __e.Get(1)
+_ = Z4136
 __e.Return(symshen_4this_1symbol_1is_1unbound)
 return
 }, 1)
@@ -5928,14 +5928,14 @@ tmp1888 := Call(__e, ns2_1set, symbound_2, tmp1879)
 _ = tmp1888
 
 tmp1889 := MakeNative(func(__e *ControlFlow) {
-V4142 := __e.Get(1)
-_ = V4142
+V4137 := __e.Get(1)
+_ = V4137
 tmp1895 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
-return PrimEqual(MakeString(""), V4142)
+return PrimEqual(MakeString(""), V4137)
 }
 __typedArg0 := MakeString("")
-__typedArg1 := V4142
+__typedArg1 := V4137
 return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
 })()
 
@@ -5945,9 +5945,9 @@ return
 } else {
 tmp1890 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sympos) {
-return PrimPos(V4142, MakeInteger(0))
+return PrimPos(V4137, MakeInteger(0))
 }
-__typedArg0 := V4142
+__typedArg0 := V4137
 __typedArg1 := MakeInteger(0)
 return Call(__e, PrimFunc(sympos), __typedArg0, __typedArg1)
 })()
@@ -5962,11 +5962,11 @@ return Call(__e, PrimFunc(symstring_1_6n), __typedArg0)
 
 tmp1893 := Call(__e, PrimFunc(symshen_4string_1_6bytes), (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtlstr) {
-__typedS0, __typedOK0 := TypedString(V4142)
+__typedS0, __typedOK0 := TypedString(V4137)
 if __typedOK0 && HasCanonicalPrimitiveBinding(symtlstr) {
 return TypedMaterializeString(TypedStringTailValue(__typedS0))
 }}
-__typedArg0 := V4142
+__typedArg0 := V4137
 return Call(__e, PrimFunc(symtlstr), __typedArg0)
 })())
 
@@ -5993,16 +5993,16 @@ tmp1896 := Call(__e, ns2_1set, symshen_4string_1_6bytes, tmp1889)
 _ = tmp1896
 
 tmp1897 := MakeNative(func(__e *ControlFlow) {
-V4143 := __e.Get(1)
-_ = V4143
+V4138 := __e.Get(1)
+_ = V4138
 if True == (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_5) {
-__typedN0, __typedOK0 := TypedFloat64(V4143)
+__typedN0, __typedOK0 := TypedFloat64(V4138)
 __typedN1, __typedOK1 := TypedFloat64(MakeNumber(0))
 if __typedOK0 && __typedOK1 && HasCanonicalPrimitiveBinding(sym_5) {
 return TypedMaterializeBoolean((__typedN0 < __typedN1))
 }}
-__typedArg0 := V4143
+__typedArg0 := V4138
 __typedArg1 := MakeInteger(0)
 return Call(__e, PrimFunc(sym_5), __typedArg0, __typedArg1)
 })() {
@@ -6017,19 +6017,19 @@ return
 } else {
 tmp1899 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(syminteger_2) {
-return PrimIsInteger(V4143)
+return PrimIsInteger(V4138)
 }
-__typedArg0 := V4143
+__typedArg0 := V4138
 return Call(__e, PrimFunc(syminteger_2), __typedArg0)
 })()
 
 if True == tmp1899 {
 __e.Return((func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symset) {
-return PrimSet(symshen_4_dmaxinferences_d, V4143)
+return PrimSet(symshen_4_dmaxinferences_d, V4138)
 }
 __typedArg0 := symshen_4_dmaxinferences_d
-__typedArg1 := V4143
+__typedArg1 := V4138
 return Call(__e, PrimFunc(symset), __typedArg0, __typedArg1)
 })())
 return
@@ -6072,9 +6072,9 @@ tmp1904 := Call(__e, ns2_1set, syminferences, tmp1903)
 _ = tmp1904
 
 tmp1905 := MakeNative(func(__e *ControlFlow) {
-V4144 := __e.Get(1)
-_ = V4144
-__e.Return(V4144)
+V4139 := __e.Get(1)
+_ = V4139
+__e.Return(V4139)
 return
 }, 1)
 
@@ -6116,13 +6116,13 @@ tmp1910 := Call(__e, ns2_1set, symstoutput, tmp1909)
 _ = tmp1910
 
 tmp1911 := MakeNative(func(__e *ControlFlow) {
-V4145 := __e.Get(1)
-_ = V4145
+V4140 := __e.Get(1)
+_ = V4140
 tmp1912 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symintern) {
-return PrimIntern(V4145)
+return PrimIntern(V4140)
 }
-__typedArg0 := V4145
+__typedArg0 := V4140
 return Call(__e, PrimFunc(symintern), __typedArg0)
 })()
 
@@ -6141,7 +6141,7 @@ if True == tmp1916 {
 __e.Return(let__1199)
 return
 } else {
-tmp1913 := Call(__e, PrimFunc(symshen_4app), V4145, MakeString(" to a symbol"), symshen_4s)
+tmp1913 := Call(__e, PrimFunc(symshen_4app), V4140, MakeString(" to a symbol"), symshen_4s)
 
 
 __e.Return((func() Obj {
@@ -6185,14 +6185,14 @@ tmp1917 := Call(__e, ns2_1set, symstring_1_6symbol, tmp1911)
 _ = tmp1917
 
 tmp1918 := MakeNative(func(__e *ControlFlow) {
-V4149 := __e.Get(1)
-_ = V4149
+V4144 := __e.Get(1)
+_ = V4144
 tmp1922 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
-return PrimEqual(sym_7, V4149)
+return PrimEqual(sym_7, V4144)
 }
 __typedArg0 := sym_7
-__typedArg1 := V4149
+__typedArg1 := V4144
 return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
 })()
 
@@ -6209,10 +6209,10 @@ return
 } else {
 tmp1920 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
-return PrimEqual(sym_1, V4149)
+return PrimEqual(sym_1, V4144)
 }
 __typedArg0 := sym_1
-__typedArg1 := V4149
+__typedArg1 := V4144
 return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
 })()
 
@@ -6361,14 +6361,14 @@ tmp1937 := Call(__e, ns2_1set, symrelease, tmp1936)
 _ = tmp1937
 
 tmp1938 := MakeNative(func(__e *ControlFlow) {
-V4150 := __e.Get(1)
-_ = V4150
+V4145 := __e.Get(1)
+_ = V4145
 tmp1943 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
-return PrimEqual(symnull, V4150)
+return PrimEqual(symnull, V4145)
 }
 __typedArg0 := symnull
-__typedArg1 := V4150
+__typedArg1 := V4145
 return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
 })()
 
@@ -6377,7 +6377,7 @@ __e.Return(True)
 return
 } else {
 tmp1939 := MakeNative(func(__e *ControlFlow) {
-tmp1940 := Call(__e, PrimFunc(symexternal), V4150)
+tmp1940 := Call(__e, PrimFunc(symexternal), V4145)
 
 
 _ = tmp1940
@@ -6389,8 +6389,8 @@ return
 }, 0)
 
 tmp1941 := MakeNative(func(__e *ControlFlow) {
-Z4151 := __e.Get(1)
-_ = Z4151
+Z4146 := __e.Get(1)
+_ = Z4146
 __e.Return(False)
 return
 }, 1)
@@ -6484,14 +6484,14 @@ tmp1954 := Call(__e, ns2_1set, symsystem_1S_2, tmp1953)
 _ = tmp1954
 
 tmp1955 := MakeNative(func(__e *ControlFlow) {
-V4154 := __e.Get(1)
-_ = V4154
+V4149 := __e.Get(1)
+_ = V4149
 tmp1959 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
-return PrimEqual(sym_7, V4154)
+return PrimEqual(sym_7, V4149)
 }
 __typedArg0 := sym_7
-__typedArg1 := V4154
+__typedArg1 := V4149
 return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
 })()
 
@@ -6508,10 +6508,10 @@ return
 } else {
 tmp1957 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
-return PrimEqual(sym_1, V4154)
+return PrimEqual(sym_1, V4149)
 }
 __typedArg0 := sym_1
-__typedArg1 := V4154
+__typedArg1 := V4149
 return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
 })()
 
@@ -6548,14 +6548,14 @@ tmp1960 := Call(__e, ns2_1set, symenable_1type_1theory, tmp1955)
 _ = tmp1960
 
 tmp1961 := MakeNative(func(__e *ControlFlow) {
-V4157 := __e.Get(1)
-_ = V4157
+V4152 := __e.Get(1)
+_ = V4152
 tmp1965 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
-return PrimEqual(sym_7, V4157)
+return PrimEqual(sym_7, V4152)
 }
 __typedArg0 := sym_7
-__typedArg1 := V4157
+__typedArg1 := V4152
 return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
 })()
 
@@ -6572,10 +6572,10 @@ return
 } else {
 tmp1963 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
-return PrimEqual(sym_1, V4157)
+return PrimEqual(sym_1, V4152)
 }
 __typedArg0 := sym_1
-__typedArg1 := V4157
+__typedArg1 := V4152
 return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
 })()
 
@@ -6612,14 +6612,14 @@ tmp1966 := Call(__e, ns2_1set, symhush, tmp1961)
 _ = tmp1966
 
 tmp1967 := MakeNative(func(__e *ControlFlow) {
-V4160 := __e.Get(1)
-_ = V4160
+V4155 := __e.Get(1)
+_ = V4155
 tmp1971 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
-return PrimEqual(sym_7, V4160)
+return PrimEqual(sym_7, V4155)
 }
 __typedArg0 := sym_7
-__typedArg1 := V4160
+__typedArg1 := V4155
 return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
 })()
 
@@ -6636,10 +6636,10 @@ return
 } else {
 tmp1969 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
-return PrimEqual(sym_1, V4160)
+return PrimEqual(sym_1, V4155)
 }
 __typedArg0 := sym_1
-__typedArg1 := V4160
+__typedArg1 := V4155
 return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
 })()
 
@@ -6676,8 +6676,8 @@ tmp1972 := Call(__e, ns2_1set, symtc, tmp1967)
 _ = tmp1972
 
 tmp1973 := MakeNative(func(__e *ControlFlow) {
-V4161 := __e.Get(1)
-_ = V4161
+V4156 := __e.Get(1)
+_ = V4156
 tmp1974 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symvalue) {
 return PrimValue(symshen_4_dsigf_d)
@@ -6686,7 +6686,7 @@ __typedArg0 := symshen_4_dsigf_d
 return Call(__e, PrimFunc(symvalue), __typedArg0)
 })()
 
-tmp1975 := Call(__e, PrimFunc(symshen_4unassoc), V4161, tmp1974)
+tmp1975 := Call(__e, PrimFunc(symshen_4unassoc), V4156, tmp1974)
 
 
 tmp1976 := (func() Obj {
@@ -6700,7 +6700,7 @@ return Call(__e, PrimFunc(symset), __typedArg0, __typedArg1)
 
 _ = tmp1976
 
-__e.Return(V4161)
+__e.Return(V4156)
 return
 
 
@@ -6712,16 +6712,16 @@ tmp1977 := Call(__e, ns2_1set, symdestroy, tmp1973)
 _ = tmp1977
 
 tmp1978 := MakeNative(func(__e *ControlFlow) {
-V4171 := __e.Get(1)
-_ = V4171
-V4172 := __e.Get(2)
-_ = V4172
+V4166 := __e.Get(1)
+_ = V4166
+V4167 := __e.Get(2)
+_ = V4167
 tmp1996 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
-return PrimEqual(Nil, V4172)
+return PrimEqual(Nil, V4167)
 }
 __typedArg0 := Nil
-__typedArg1 := V4172
+__typedArg1 := V4167
 return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
 })()
 
@@ -6731,9 +6731,9 @@ return
 } else {
 tmp1994 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons_2) {
-return PrimIsPair(V4172)
+return PrimIsPair(V4167)
 }
-__typedArg0 := V4172
+__typedArg0 := V4167
 return Call(__e, PrimFunc(symcons_2), __typedArg0)
 })()
 
@@ -6742,9 +6742,9 @@ var ifres1985 Obj
 if True == tmp1994 {
 tmp1992 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symhd) {
-return PrimHead(V4172)
+return PrimHead(V4167)
 }
-__typedArg0 := V4172
+__typedArg0 := V4167
 return Call(__e, PrimFunc(symhd), __typedArg0)
 })()
 
@@ -6761,9 +6761,9 @@ var ifres1987 Obj
 if True == tmp1993 {
 tmp1989 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symhd) {
-return PrimHead(V4172)
+return PrimHead(V4167)
 }
-__typedArg0 := V4172
+__typedArg0 := V4167
 return Call(__e, PrimFunc(symhd), __typedArg0)
 })()
 
@@ -6777,9 +6777,9 @@ return Call(__e, PrimFunc(symhd), __typedArg0)
 
 tmp1991 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
-return PrimEqual(V4171, tmp1990)
+return PrimEqual(V4166, tmp1990)
 }
-__typedArg0 := V4171
+__typedArg0 := V4166
 __typedArg1 := tmp1990
 return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
 })()
@@ -6829,39 +6829,39 @@ ifres1985 = False
 if True == ifres1985 {
 __e.Return((func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
-return PrimTail(V4172)
+return PrimTail(V4167)
 }
-__typedArg0 := V4172
+__typedArg0 := V4167
 return Call(__e, PrimFunc(symtl), __typedArg0)
 })())
 return
 } else {
 tmp1983 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons_2) {
-return PrimIsPair(V4172)
+return PrimIsPair(V4167)
 }
-__typedArg0 := V4172
+__typedArg0 := V4167
 return Call(__e, PrimFunc(symcons_2), __typedArg0)
 })()
 
 if True == tmp1983 {
 tmp1979 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symhd) {
-return PrimHead(V4172)
+return PrimHead(V4167)
 }
-__typedArg0 := V4172
+__typedArg0 := V4167
 return Call(__e, PrimFunc(symhd), __typedArg0)
 })()
 
 tmp1980 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symtl) {
-return PrimTail(V4172)
+return PrimTail(V4167)
 }
-__typedArg0 := V4172
+__typedArg0 := V4167
 return Call(__e, PrimFunc(symtl), __typedArg0)
 })()
 
-tmp1981 := Call(__e, PrimFunc(symshen_4unassoc), V4171, tmp1980)
+tmp1981 := Call(__e, PrimFunc(symshen_4unassoc), V4166, tmp1980)
 
 
 __e.Return((func() Obj {
@@ -6901,23 +6901,23 @@ tmp1997 := Call(__e, ns2_1set, symshen_4unassoc, tmp1978)
 _ = tmp1997
 
 tmp1998 := MakeNative(func(__e *ControlFlow) {
-V4173 := __e.Get(1)
-_ = V4173
-tmp2002 := Call(__e, PrimFunc(sympackage_2), V4173)
+V4168 := __e.Get(1)
+_ = V4168
+tmp2002 := Call(__e, PrimFunc(sympackage_2), V4168)
 
 
 if True == tmp2002 {
 __e.Return((func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symset) {
-return PrimSet(symshen_4_dpackage_d, V4173)
+return PrimSet(symshen_4_dpackage_d, V4168)
 }
 __typedArg0 := symshen_4_dpackage_d
-__typedArg1 := V4173
+__typedArg1 := V4168
 return Call(__e, PrimFunc(symset), __typedArg0, __typedArg1)
 })())
 return
 } else {
-tmp1999 := Call(__e, PrimFunc(symshen_4app), V4173, MakeString(" does not exist\n"), symshen_4a)
+tmp1999 := Call(__e, PrimFunc(symshen_4app), V4168, MakeString(" does not exist\n"), symshen_4a)
 
 
 __e.Return((func() Obj {
@@ -6961,15 +6961,15 @@ tmp2003 := Call(__e, ns2_1set, symin_1package, tmp1998)
 _ = tmp2003
 
 tmp2004 := MakeNative(func(__e *ControlFlow) {
-V4174 := __e.Get(1)
-_ = V4174
-V4175 := __e.Get(2)
-_ = V4175
+V4169 := __e.Get(1)
+_ = V4169
+V4170 := __e.Get(2)
+_ = V4170
 tmp2005 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symopen) {
-return PrimOpenStream(V4174, symout)
+return PrimOpenStream(V4169, symout)
 }
-__typedArg0 := V4174
+__typedArg0 := V4169
 __typedArg1 := symout
 return Call(__e, PrimFunc(symopen), __typedArg0, __typedArg1)
 })()
@@ -6979,20 +6979,20 @@ _ = let__1200
 
 tmp2008 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symstring_2) {
-return PrimIsString(V4175)
+return PrimIsString(V4170)
 }
-__typedArg0 := V4175
+__typedArg0 := V4170
 return Call(__e, PrimFunc(symstring_2), __typedArg0)
 })()
 
 var ifres2006 Obj
 
 if True == tmp2008 {
-ifres2006 = V4175
+ifres2006 = V4170
 
 
 } else {
-tmp2007 := Call(__e, PrimFunc(symshen_4app), V4175, MakeString(""), symshen_4s)
+tmp2007 := Call(__e, PrimFunc(symshen_4app), V4170, MakeString(""), symshen_4s)
 
 
 ifres2006 = tmp2007
@@ -7020,7 +7020,7 @@ return Call(__e, PrimFunc(symclose), __typedArg0)
 let__1203 := tmp2010
 _ = let__1203
 
-__e.Return(V4175)
+__e.Return(V4170)
 return
 
 
@@ -7047,10 +7047,10 @@ tmp2014 := Call(__e, ns2_1set, symfresh, tmp2012)
 _ = tmp2014
 
 tmp2015 := MakeNative(func(__e *ControlFlow) {
-V4180 := __e.Get(1)
-_ = V4180
-V4181 := __e.Get(2)
-_ = V4181
+V4175 := __e.Get(1)
+_ = V4175
+V4176 := __e.Get(2)
+_ = V4176
 tmp2016 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symvalue) {
 return PrimValue(sym_dproperty_1vector_d)
@@ -7059,13 +7059,13 @@ __typedArg0 := sym_dproperty_1vector_d
 return Call(__e, PrimFunc(symvalue), __typedArg0)
 })()
 
-tmp2017 := Call(__e, PrimFunc(symput), V4180, symarity, V4181, tmp2016)
+tmp2017 := Call(__e, PrimFunc(symput), V4175, symarity, V4176, tmp2016)
 
 
 let__1204 := tmp2017
 _ = let__1204
 
-tmp2018 := Call(__e, PrimFunc(symshen_4lambda_1entry), V4180)
+tmp2018 := Call(__e, PrimFunc(symshen_4lambda_1entry), V4175)
 
 
 let__1205 := tmp2018
@@ -7085,7 +7085,7 @@ __typedArg0 := sym_dproperty_1vector_d
 return Call(__e, PrimFunc(symvalue), __typedArg0)
 })()
 
-tmp2021 := Call(__e, PrimFunc(symunput), V4180, symshen_4lambda_1form, tmp2020)
+tmp2021 := Call(__e, PrimFunc(symunput), V4175, symshen_4lambda_1form, tmp2020)
 
 
 ifres2019 = tmp2021
@@ -7103,7 +7103,7 @@ ifres2019 = tmp2022
 let__1206 := ifres2019
 _ = let__1206
 
-__e.Return(V4180)
+__e.Return(V4175)
 return
 
 
@@ -7115,16 +7115,16 @@ tmp2024 := Call(__e, ns2_1set, symupdate_1lambda_1table, tmp2015)
 _ = tmp2024
 
 tmp2025 := MakeNative(func(__e *ControlFlow) {
-V4187 := __e.Get(1)
-_ = V4187
-V4188 := __e.Get(2)
-_ = V4188
+V4182 := __e.Get(1)
+_ = V4182
+V4183 := __e.Get(2)
+_ = V4183
 tmp2049 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
-return PrimEqual(MakeInteger(0), V4188)
+return PrimEqual(MakeInteger(0), V4183)
 }
 __typedArg0 := MakeInteger(0)
-__typedArg1 := V4188
+__typedArg1 := V4183
 return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
 })()
 
@@ -7137,7 +7137,7 @@ __typedArg0 := symshen_4_dspecial_d
 return Call(__e, PrimFunc(symvalue), __typedArg0)
 })()
 
-tmp2027 := Call(__e, PrimFunc(symremove), V4187, tmp2026)
+tmp2027 := Call(__e, PrimFunc(symremove), V4182, tmp2026)
 
 
 tmp2028 := (func() Obj {
@@ -7159,7 +7159,7 @@ __typedArg0 := symshen_4_dextraspecial_d
 return Call(__e, PrimFunc(symvalue), __typedArg0)
 })()
 
-tmp2030 := Call(__e, PrimFunc(symremove), V4187, tmp2029)
+tmp2030 := Call(__e, PrimFunc(symremove), V4182, tmp2029)
 
 
 tmp2031 := (func() Obj {
@@ -7173,17 +7173,17 @@ return Call(__e, PrimFunc(symset), __typedArg0, __typedArg1)
 
 _ = tmp2031
 
-__e.Return(V4187)
+__e.Return(V4182)
 return
 
 
 } else {
 tmp2047 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
-return PrimEqual(MakeInteger(1), V4188)
+return PrimEqual(MakeInteger(1), V4183)
 }
 __typedArg0 := MakeInteger(1)
-__typedArg1 := V4188
+__typedArg1 := V4183
 return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
 })()
 
@@ -7196,7 +7196,7 @@ __typedArg0 := symshen_4_dspecial_d
 return Call(__e, PrimFunc(symvalue), __typedArg0)
 })()
 
-tmp2033 := Call(__e, PrimFunc(symadjoin), V4187, tmp2032)
+tmp2033 := Call(__e, PrimFunc(symadjoin), V4182, tmp2032)
 
 
 tmp2034 := (func() Obj {
@@ -7218,7 +7218,7 @@ __typedArg0 := symshen_4_dextraspecial_d
 return Call(__e, PrimFunc(symvalue), __typedArg0)
 })()
 
-tmp2036 := Call(__e, PrimFunc(symremove), V4187, tmp2035)
+tmp2036 := Call(__e, PrimFunc(symremove), V4182, tmp2035)
 
 
 tmp2037 := (func() Obj {
@@ -7232,17 +7232,17 @@ return Call(__e, PrimFunc(symset), __typedArg0, __typedArg1)
 
 _ = tmp2037
 
-__e.Return(V4187)
+__e.Return(V4182)
 return
 
 
 } else {
 tmp2045 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
-return PrimEqual(MakeInteger(2), V4188)
+return PrimEqual(MakeInteger(2), V4183)
 }
 __typedArg0 := MakeInteger(2)
-__typedArg1 := V4188
+__typedArg1 := V4183
 return Call(__e, PrimFunc(sym_a), __typedArg0, __typedArg1)
 })()
 
@@ -7255,7 +7255,7 @@ __typedArg0 := symshen_4_dspecial_d
 return Call(__e, PrimFunc(symvalue), __typedArg0)
 })()
 
-tmp2039 := Call(__e, PrimFunc(symremove), V4187, tmp2038)
+tmp2039 := Call(__e, PrimFunc(symremove), V4182, tmp2038)
 
 
 tmp2040 := (func() Obj {
@@ -7277,7 +7277,7 @@ __typedArg0 := symshen_4_dextraspecial_d
 return Call(__e, PrimFunc(symvalue), __typedArg0)
 })()
 
-tmp2042 := Call(__e, PrimFunc(symadjoin), V4187, tmp2041)
+tmp2042 := Call(__e, PrimFunc(symadjoin), V4182, tmp2041)
 
 
 tmp2043 := (func() Obj {
@@ -7291,7 +7291,7 @@ return Call(__e, PrimFunc(symset), __typedArg0, __typedArg1)
 
 _ = tmp2043
 
-__e.Return(V4187)
+__e.Return(V4182)
 return
 
 
@@ -7321,8 +7321,8 @@ tmp2050 := Call(__e, ns2_1set, symspecialise, tmp2025)
 _ = tmp2050
 
 tmp2051 := MakeNative(func(__e *ControlFlow) {
-V4189 := __e.Get(1)
-_ = V4189
+V4184 := __e.Get(1)
+_ = V4184
 tmp2052 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symvalue) {
 return PrimValue(sym_dabsolute_d)
@@ -7333,9 +7333,9 @@ return Call(__e, PrimFunc(symvalue), __typedArg0)
 
 tmp2053 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(V4189, tmp2052)
+return PrimCons(V4184, tmp2052)
 }
-__typedArg0 := V4189
+__typedArg0 := V4184
 __typedArg1 := tmp2052
 return Call(__e, PrimFunc(symcons), __typedArg0, __typedArg1)
 })()
@@ -7359,8 +7359,8 @@ tmp2054 := Call(__e, ns2_1set, symabsolute, tmp2051)
 _ = tmp2054
 
 tmp2055 := MakeNative(func(__e *ControlFlow) {
-V4190 := __e.Get(1)
-_ = V4190
+V4185 := __e.Get(1)
+_ = V4185
 tmp2056 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symvalue) {
 return PrimValue(sym_dabsolute_d)
@@ -7369,7 +7369,7 @@ __typedArg0 := sym_dabsolute_d
 return Call(__e, PrimFunc(symvalue), __typedArg0)
 })()
 
-tmp2057 := Call(__e, PrimFunc(symremove), V4190, tmp2056)
+tmp2057 := Call(__e, PrimFunc(symremove), V4185, tmp2056)
 
 
 __e.Return((func() Obj {

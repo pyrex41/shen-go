@@ -217,6 +217,27 @@ func TestCharStreamPredicates(t *testing.T) {
 	}
 }
 
+// TestPublicCharacterStreamBytePort verifies the ShenOSKernel 43.1 public
+// character-stream API on Go's byte-only port. The unsupported read hook must
+// be catchable and must not consume EOF, NUL, UTF-8, or mixed byte input.
+func TestPublicCharacterStreamBytePort(t *testing.T) {
+	var ctl ControlFlow
+	stream := MakeStream(bytes.NewBuffer([]byte{0, 0xc3, 0xa9, 0xff}))
+	PrimSet(MakeSymbol("test.public-stream"), stream)
+	if got := Call(&ctl, ctl.Global(MakeSymbol("char-stream?")), stream); got != False {
+		t.Fatalf("char-stream?: got %q, want false", ObjString(got))
+	}
+	if got := ObjString(evalString(&ctl, `(trap-error (read-unit-string (value test.public-stream)) (lambda E (error-to-string E)))`)); got != `"character streams unsupported"` {
+		t.Fatalf("read-unit-string: got %q", got)
+	}
+	readByte := ctl.Global(MakeSymbol("read-byte"))
+	for _, want := range []int{0, 195, 169, 255, -1} {
+		if got := GetInteger(Call(&ctl, readByte, stream)); got != want {
+			t.Errorf("read-byte after unsupported character read: got %d, want %d", got, want)
+		}
+	}
+}
+
 // TestIfPrimitiveDirectCall covers PrimIf invoked as an ordinary function (as
 // opposed to the if special form handled by the evaluator/compiler).
 func TestIfPrimitiveDirectCall(t *testing.T) {

@@ -16,7 +16,7 @@ func primPr(value, stream Obj) Obj {
 }
 
 // InstallPr installs only the byte-writing path; the launcher retains the
-// Shen wrapper that checks char-stoutput? and *hush* before selecting it.
+// Shen wrapper that checks char-stream? and *hush* before selecting it.
 func InstallPr() {
 	BindSymbolFunc(MakeSymbol("shen.native-pr"), MakePrimitive("shen.native-pr", 2, primPr))
 }

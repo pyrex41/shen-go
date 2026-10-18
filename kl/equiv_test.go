@@ -959,7 +959,7 @@ func buildEquivTable(t *testing.T) EquivTable {
 	}
 
 	e := bootEquivKernel(t, names)
-	table := EquivTable{Port: "shen-go", Kernel: "ShenOSKernel 42.2", Harness: equivHarnessDoc()}
+	table := EquivTable{Port: "shen-go", Kernel: "ShenOSKernel 43.1", Harness: equivHarnessDoc()}
 	for _, b := range bindings {
 		sig := rowSignature[b.kernelFn]
 		if len(sig) != b.arity {

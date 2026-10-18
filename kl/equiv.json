@@ -1,6 +1,6 @@
 {
   "port": "shen-go",
-  "kernel": "ShenOSKernel 42.2",
+  "kernel": "ShenOSKernel 43.1",
   "harness": {
     "kl_side": "equiv.NAME is the kernel's own (defun NAME …) from kernel/klambda, run as KL bytecode. Every kernel defun its body reaches is loaded the same way and is listed in kl_helpers, so no native under test runs on this side. One name stays native: hash, the port's native hash, which is installed at boot before any property vector exists.",
     "native_side": "NAME as bound after kl.InstallKernelFast. That is the Go function named in the native field.",

@@ -13,7 +13,7 @@
 // the shared codegen package — the same pipeline that generated cmd/shen
 // itself. The emitted module contains one 0-arity thunk per chunk plus a
 // main.go that runs kernel chunks in order, calls the manifest's init
-// function if one is declared (shen.initialise for the ShenOSKernel 42.2
+// function if one is declared (shen.initialise for the ShenOSKernel 43.1
 // kernel, whose modules are defuns only), then runs the user chunks (whose toplevel
 // non-defun forms execute in source order, after init, as the Yggdrasil
 // builder contract requires).
@@ -95,7 +95,7 @@ func parseManifest(dir string) (*manifest, error) {
 		return nil, fmt.Errorf("manifest has no kernel= entry")
 	}
 	// init= names the kernel's initialisation function (shen.initialise on
-	// ShenOSKernel 42.2) and is called after the kernel chunks. It stays
+	// ShenOSKernel 43.1) and is called after the kernel chunks. It stays
 	// optional so that a slice of a kernel without one (the Tarver S42 lineage
 	// shen-go vendored before 42.2, whose init ran inline) still builds.
 	return m, nil
@@ -590,7 +590,7 @@ func main() {
 	var e ControlFlow
 	// Swap in the native hash BEFORE running any kernel chunk, so the hash is
 	// already its final form when the first dict is written -- by the
-	// manifest's init function (shen.initialise on 42.2) or, for a kernel
+	// manifest's init function (shen.initialise on 43.1) or, for a kernel
 	// that initialises inline, by a kernel chunk. Whatever hash is live when
 	// the first dict op runs stays live for every later read -- no mid-boot
 	// swap, so no mismatch.
