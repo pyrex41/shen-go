@@ -25,7 +25,7 @@ import (
 )
 
 // TestKernelCertification builds the shen binary and runs the canonical kernel
-// suite end-to-end, asserting a clean 100% pass rate (154/154 on ShenOSKernel 43.1, no failures).
+// suite end-to-end, asserting a clean 100% pass rate (154/154 on ShenOSKernel 43.2, no failures).
 //
 // Loading in the suite is relative to the process working directory (the native
 // reader ignores *home-directory*), so the binary runs with its CWD set to

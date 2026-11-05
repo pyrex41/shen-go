@@ -397,10 +397,10 @@ _ = tmp19032
 
 tmp19033 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symset) {
-return PrimSet(sym_dversion_d, MakeString("43.1"))
+return PrimSet(sym_dversion_d, MakeString("43.2"))
 }
 __typedArg0 := sym_dversion_d
-__typedArg1 := MakeString("43.1")
+__typedArg1 := MakeString("43.2")
 return Call(__e, PrimFunc(symset), __typedArg0, __typedArg1)
 })()
 

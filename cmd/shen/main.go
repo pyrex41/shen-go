@@ -33,7 +33,7 @@ func regist(e *kl.ControlFlow) {
 			fmt.Println("load ...fail")
 		}
 	}
-	// ShenOSKernel 43.1 (community lineage): every module is a plain list of
+	// ShenOSKernel 43.2 (community lineage): every module is a plain list of
 	// (defun ...) forms, so the order the Mains run in does not matter. All
 	// top-level state -- globals, the arity table, lambda forms, datatype
 	// declarations -- is set up by shen.initialise (init.kl), called below.

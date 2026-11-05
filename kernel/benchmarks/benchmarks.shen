@@ -1,9 +1,9 @@
 \\ Copyright (c) 2019 Bruno Deferrari.
 \\ BSD 3-Clause License: http://opensource.org/licenses/BSD-3-Clause
 
-(define power
+(define benchmarks.power
   N 1 -> N
-  N Power -> (* N (power N (- Power 1))))
+  N Power -> (* N (benchmarks.power N (- Power 1))))
 
 (set *benchmarks* [])
 
@@ -14,7 +14,7 @@
 (define run-benchmark
   Report [Tag Description F RunsPower]
   -> (let X (Report begin [Tag Description RunsPower])
-          Runs (power 10 RunsPower)
+          Runs (benchmarks.power 10 RunsPower)
           Start (get-time run)
           Result (F Runs)
           End (get-time run)
@@ -47,6 +47,7 @@
 (load "benchmarks/shen-compilation.shen")
 (load "benchmarks/pattern-matching.shen")
 (load "benchmarks/equality-check.shen")
+(load "benchmarks/arithmetic.shen")
 (set *hush* false)
 
 (if (bound? *argv*)

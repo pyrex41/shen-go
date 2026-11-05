@@ -76,7 +76,7 @@ func TestEquivCheckReplaysTable(t *testing.T) {
 		}
 		t.Errorf("malformed line %q", line)
 	}
-	if !strings.HasPrefix(lines[len(lines)-1], "equiv-check: shen-go ShenOSKernel 43.1: ") {
+	if !strings.HasPrefix(lines[len(lines)-1], "equiv-check: shen-go ShenOSKernel 43.2: ") {
 		t.Errorf("missing summary line, got %q", lines[len(lines)-1])
 	}
 }
