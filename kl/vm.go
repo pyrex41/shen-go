@@ -3,6 +3,7 @@ package kl
 import (
 	"fmt"
 	"math"
+	"sync"
 	"unsafe"
 )
 
@@ -404,11 +405,16 @@ const unicodeMaxRune = 0x10ffff
 // never specialized, so they are not in the set.
 var vmGuardsOK = true
 
-var vmGuardSyms []*scmSymbol
+var (
+	vmGuardMu   sync.Mutex
+	vmGuardSyms []*scmSymbol
+)
 
 func init() { vmRefreshGuards() }
 
 func vmRefreshGuards() {
+	vmGuardMu.Lock()
+	defer vmGuardMu.Unlock()
 	ok := TypedIREnabled()
 	for _, s := range vmGuardSyms {
 		if s.function != s.canonical {
@@ -424,6 +430,8 @@ func vmRefreshGuards() {
 // vmMarkGuarded records that compiled code now relies on sym's canonical
 // binding. The compiler calls it only while that binding is in place.
 func vmMarkGuarded(sym Obj) {
+	vmGuardMu.Lock()
+	defer vmGuardMu.Unlock()
 	if s := mustSymbol(sym); !s.vmGuarded {
 		s.vmGuarded = true
 		vmGuardSyms = append(vmGuardSyms, s)
