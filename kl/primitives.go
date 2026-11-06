@@ -915,10 +915,10 @@ func primDefun(key, val Obj) Obj {
 	if *val == scmHeadProcedure {
 		proc := mustProcedure(val)
 		compiled := CompileFunc(sym.str, proc.arg, proc.body)
-		sym.function = compiled
+		setSymbolFunction(sym, compiled)
 		return key
 	}
-	sym.function = val
+	setSymbolFunction(sym, val)
 	return key
 }
 

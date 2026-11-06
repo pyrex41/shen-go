@@ -49,6 +49,10 @@ type scmSymbol struct {
 	// registration (package init / InstallKernelFast, single-threaded boot);
 	// read unlocked like function.
 	canonical Obj
+	// kernelDef is the kernel's definition of a function in the native Prolog
+	// group, and prologDep marks the group and what it depends on (prologfast.go).
+	kernelDef Obj
+	prologDep bool
 }
 
 type scmPair struct {

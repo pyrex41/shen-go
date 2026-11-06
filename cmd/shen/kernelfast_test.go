@@ -85,3 +85,29 @@ func TestKernelFastAfterBoot(t *testing.T) {
 		}
 	}
 }
+
+// The native Prolog group stands for the kernel's definitions only while none
+// of them, and nothing they call, has been rebound. A rebinding sends the whole
+// group back to the kernel's definitions, so the new definition is seen from
+// the functions that call it.
+func TestPrologNativesHonourRebinding(t *testing.T) {
+	bin := buildShen(t)
+	for _, tc := range []struct{ expr, want string }{
+		{`(let B (shen.prolog-vector) (let V (shen.newpv B) (do (shen.bindv V 5 B) (shen.lazyderef V B))))`, "5"},
+		{`(do (defun shen.lazyderef (X B) 99) (shen.lazyderef 1 0))`, "99"},
+		// shen.lazyderef believes a rebound shen.pvar?.
+		{`(do (defun shen.pvar? (X) false) (let B (shen.prolog-vector) (let V (shen.newpv B) (do (shen.bindv V 5 B) (= V (shen.lazyderef V B))))))`, "true"},
+		// shen.lzy= reaches a rebound shen.bindv through shen.bind!.
+		{`(do (set seen 0) (defun shen.bindv (X V B) (do (set seen (+ 1 (value seen))) (address-> B (<-address X 1) V))) (let B (shen.prolog-vector) (let V (shen.newpv B) (do (is V 1 B 0 0 (freeze true)) (value seen)))))`, "1"},
+		// shen.lzy= reads the list through a rebound hd.
+		{`(do (defun hd (X) 7) (let B (shen.prolog-vector) (shen.lzy= (cons 1 ()) (cons 7 ()) B (freeze ok))))`, "ok"},
+		// shen.bind! continues through a rebound thaw.
+		{`(do (set seen 0) (defun thaw (F) (do (set seen 1) (F))) (let B (shen.prolog-vector) (let V (shen.newpv B) (do (shen.bind! V 1 B (freeze true)) (value seen)))))`, "1"},
+		// A primitive rebound: 1 * 5, not 1 + 5.
+		{`(do (set shen.*infs* 5) (defun + (X Y) (* X Y)) (shen.incinfs) (value shen.*infs*))`, "5"},
+	} {
+		if got := evalBounded(t, bin, tc.expr, 30*time.Second); got != tc.want {
+			t.Errorf("%s: got %q, want %q", tc.expr, got, tc.want)
+		}
+	}
+}
