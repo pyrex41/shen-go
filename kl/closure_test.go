@@ -223,16 +223,22 @@ func TestClosureUnboundedTailCalls(t *testing.T) {
 		"mutual":  {`(defun cl-m1 (N) (if (= N 0) ok (cl-m2 (- N 1))))`, `(defun cl-m2 (N) (if (= N 0) ok (cl-m1 (- N 1))))`, `(cl-m1 ` + n + `)`},
 		"dynamic": {`(defun cl-dy (F N) (if (= N 0) ok (F F (- N 1))))`, `(defun cl-dy-go (N) (cl-dy (cl-dy-get) N))`, `(defun cl-dy-get () (lambda F (lambda N (cl-dy-step F N))))`, `(defun cl-dy-step (F N) (if (= N 0) ok ((F F) (- N 1))))`, `(cl-dy-go ` + n + `)`},
 		"let":     {`(defun cl-tl (N) (let M (- N 1) (if (< M 0) ok (cl-tl M))))`, `(cl-tl ` + n + `)`},
+		"and":     {`(defun cl-ta1 (N) (if (= N 0) true (and (number? N) (cl-ta2 (- N 1)))))`, `(defun cl-ta2 (N) (if (= N 0) false (and (number? N) (cl-ta1 (- N 1)))))`, `(if (cl-ta1 ` + n + `) ok no)`},
+		"or":      {`(defun cl-to1 (N) (if (= N 0) true (or (not (number? N)) (cl-to2 (- N 1)))))`, `(defun cl-to2 (N) (if (= N 0) false (or (not (number? N)) (cl-to1 (- N 1)))))`, `(if (cl-to2 ` + n + `) no ok)`},
+		"cond":    {`(defun cl-tc1 (N) (cond ((= N 0) ok) ((= N -1) no) (true (cl-tc2 (- N 1)))))`, `(defun cl-tc2 (N) (cond ((> N 0) (cl-tc1 (- N 1))) (true ok)))`, `(cl-tc1 ` + n + `)`},
+		"do":      {`(defun cl-td1 (N) (if (= N 0) ok (do N (cl-td2 (- N 1)))))`, `(defun cl-td2 (N) (do N (cl-td1 N)))`, `(cl-td1 ` + n + `)`},
 		"native":  {`(defun cl-tn1 (N) (if (= N 0) ok (cl-tn2 N)))`, `(defun cl-tn2 (N) (cl-tn1 (- N 1)))`, `(cl-tn1 ` + n + `)`},
 	}
 	for name, forms := range progs {
 		t.Run(name, func(t *testing.T) {
-			withExec(true, func() {
-				defer debug.SetMaxStack(debug.SetMaxStack(32 << 20))
-				if got := clEvalProg(forms); got != "ok" {
-					t.Fatalf("got %s", got)
-				}
-			})
+			for _, closure := range []bool{false, true} {
+				withExec(closure, func() {
+					defer debug.SetMaxStack(debug.SetMaxStack(32 << 20))
+					if got := clEvalProg(forms); got != "ok" {
+						t.Fatalf("closure=%v: got %s", closure, got)
+					}
+				})
+			}
 		})
 	}
 }
