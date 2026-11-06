@@ -43,6 +43,9 @@ type clCode struct {
 	fpOff  uintptr // byte offset of fp in the frame array: 8*nupvals
 	nslots int     // arguments + lets + upvalues
 	bucket int     // frame array size; 0 means heap frame
+	// direct: no upvalues and a frame of at most 8 slots, so a call node can
+	// hold the frame itself and call body, skipping enter's Go frame.
+	direct bool
 }
 
 var clEnabled = strings.EqualFold(os.Getenv("SHEN_GO_EXEC"), "closure")
@@ -263,6 +266,17 @@ type clx struct {
 	kind clxKind
 	off  int
 	k    Obj
+	// shape is set on an if node that tests a slot in place, so an enclosing
+	// clause can fuse with it and save a Go frame on the common two-clause
+	// pattern match: (cond ((= [] V) A) ((cons? V) B) (true C)).
+	shape *clIfShape
+}
+
+// clIfShape: if slot off is k (or a pair, when k is nil) then a else b.
+type clIfShape struct {
+	off  int
+	k    Obj
+	a, b cnode
 }
 
 // clOperand is an inlined operand: fn == nil means "load the slot at off", so
@@ -360,6 +374,7 @@ func clCompileBody(name string, params []Obj, body Obj, outer *clCompiler, heap 
 	default:
 		code.enter, code.bucket = clEnter64, 64
 	}
+	code.direct = !heap && len(c.upvals) == 0 && code.nslots <= 8
 	return &BytecodeFunc{Name: name, Arity: len(params), Nlocals: c.nlocals, Cl: code, clUpvalOffs: c.upvalOffs()}
 }
 
@@ -560,10 +575,11 @@ func (c *clCompiler) ifNode(cond, thenE, elseE Obj, tail bool) clx {
 				if y.kind == clLocal && x.kind == clConst {
 					x, y = y, x
 				}
-				a, b := c.expr(thenE, tail).fn, c.expr(elseE, tail).fn
+				a, be := c.expr(thenE, tail).fn, c.expr(elseE, tail)
+				b := be.fn
 				if x.kind == clLocal && y.kind == clConst && clIdentityConst(y.k) {
 					off, k, sym := x.off, y.k, p.car
-					return clGen(func(ctl *ControlFlow, fp unsafe.Pointer) Obj {
+					slow := func(ctl *ControlFlow, fp unsafe.Pointer) Obj {
 						v := *(*Obj)(unsafe.Add(fp, off))
 						if clDirty {
 							if clSlowEq(ctl, sym, v, k) {
@@ -575,7 +591,12 @@ func (c *clCompiler) ifNode(cond, thenE, elseE Obj, tail bool) clx {
 							return a(ctl, fp)
 						}
 						return b(ctl, fp)
-					})
+					}
+					r := clx{fn: slow, shape: &clIfShape{off, k, a, b}}
+					if be.shape != nil {
+						r.fn = clFuse2(off, k, a, be.shape, slow)
+					}
+					return r
 				}
 				t := clTestEq(p.car, x, y)
 				return clGen(func(ctl *ControlFlow, fp unsafe.Pointer) Obj {
@@ -591,7 +612,7 @@ func (c *clCompiler) ifNode(cond, thenE, elseE Obj, tail bool) clx {
 				clMark(p.car)
 				a, b := c.expr(thenE, tail).fn, c.expr(elseE, tail).fn
 				sym := p.car
-				return clGen(func(ctl *ControlFlow, fp unsafe.Pointer) Obj {
+				return clx{fn: func(ctl *ControlFlow, fp unsafe.Pointer) Obj {
 					v := *(*Obj)(unsafe.Add(fp, off))
 					if clDirty {
 						if clTruth(clGP(ctl, sym, gpConsp, v)) {
@@ -603,7 +624,7 @@ func (c *clCompiler) ifNode(cond, thenE, elseE Obj, tail bool) clx {
 						return a(ctl, fp)
 					}
 					return b(ctl, fp)
-				})
+				}, shape: &clIfShape{off, nil, a, b}}
 			}
 		}
 	}
@@ -615,6 +636,39 @@ func (c *clCompiler) ifNode(cond, thenE, elseE Obj, tail bool) clx {
 		}
 		return b(ctl, fp)
 	})
+}
+
+// clFuse2 is (if (= slot k) a <shape>) as one node. Any rebinding takes slow,
+// the unfused tree with its per-site guards.
+func clFuse2(off int, k Obj, a cnode, sh *clIfShape, slow cnode) cnode {
+	off2, k2, a2, b2 := sh.off, sh.k, sh.a, sh.b
+	if k2 == nil {
+		return func(ctl *ControlFlow, fp unsafe.Pointer) Obj {
+			if clDirty {
+				return slow(ctl, fp)
+			}
+			if *(*Obj)(unsafe.Add(fp, off)) == k {
+				return a(ctl, fp)
+			}
+			v := *(*Obj)(unsafe.Add(fp, off2))
+			if !clIsFix(v) && *v == scmHeadPair {
+				return a2(ctl, fp)
+			}
+			return b2(ctl, fp)
+		}
+	}
+	return func(ctl *ControlFlow, fp unsafe.Pointer) Obj {
+		if clDirty {
+			return slow(ctl, fp)
+		}
+		if *(*Obj)(unsafe.Add(fp, off)) == k {
+			return a(ctl, fp)
+		}
+		if *(*Obj)(unsafe.Add(fp, off2)) == k2 {
+			return a2(ctl, fp)
+		}
+		return b2(ctl, fp)
+	}
 }
 
 func (c *clCompiler) cond(clauses Obj, tail bool) clx {
@@ -922,6 +976,15 @@ func (c *clCompiler) callGlobal(fnSym Obj, args []clx, tail bool) clx {
 			if *f == scmHeadBytecodeFunc {
 				bf := mustBytecodeFunc(f)
 				if cl := bf.cl; cl != nil && cl.arity == 1 {
+					if cl.direct && ctl.stepLimit == 0 {
+						var fr [8]Obj
+						fr[0] = x
+						r := cl.body(ctl, clNoescape(unsafe.Pointer(&fr)))
+						if r == nil {
+							return trampoline(ctl)
+						}
+						return r
+					}
 					r := cl.enter(ctl, bf, cl, x, nil, nil, nil)
 					if r == nil {
 						return trampoline(ctl)
@@ -954,6 +1017,16 @@ func (c *clCompiler) callGlobal(fnSym Obj, args []clx, tail bool) clx {
 			if *f == scmHeadBytecodeFunc {
 				bf := mustBytecodeFunc(f)
 				if cl := bf.cl; cl != nil && cl.arity == 2 {
+					if cl.direct && ctl.stepLimit == 0 {
+						var fr [8]Obj
+						fr[0] = x
+						fr[1] = y
+						r := cl.body(ctl, clNoescape(unsafe.Pointer(&fr)))
+						if r == nil {
+							return trampoline(ctl)
+						}
+						return r
+					}
 					r := cl.enter(ctl, bf, cl, x, y, nil, nil)
 					if r == nil {
 						return trampoline(ctl)
@@ -988,6 +1061,17 @@ func (c *clCompiler) callGlobal(fnSym Obj, args []clx, tail bool) clx {
 			if *f == scmHeadBytecodeFunc {
 				bf := mustBytecodeFunc(f)
 				if cl := bf.cl; cl != nil && cl.arity == 3 {
+					if cl.direct && ctl.stepLimit == 0 {
+						var fr [8]Obj
+						fr[0] = x
+						fr[1] = y
+						fr[2] = z
+						r := cl.body(ctl, clNoescape(unsafe.Pointer(&fr)))
+						if r == nil {
+							return trampoline(ctl)
+						}
+						return r
+					}
 					r := cl.enter(ctl, bf, cl, x, y, z, nil)
 					if r == nil {
 						return trampoline(ctl)
@@ -1024,6 +1108,18 @@ func (c *clCompiler) callGlobal(fnSym Obj, args []clx, tail bool) clx {
 			if *f == scmHeadBytecodeFunc {
 				bf := mustBytecodeFunc(f)
 				if cl := bf.cl; cl != nil && cl.arity == 4 {
+					if cl.direct && ctl.stepLimit == 0 {
+						var fr [8]Obj
+						fr[0] = x
+						fr[1] = y
+						fr[2] = z
+						fr[3] = w
+						r := cl.body(ctl, clNoescape(unsafe.Pointer(&fr)))
+						if r == nil {
+							return trampoline(ctl)
+						}
+						return r
+					}
 					r := cl.enter(ctl, bf, cl, x, y, z, w)
 					if r == nil {
 						return trampoline(ctl)
@@ -1079,6 +1175,11 @@ func clDo1(ctl *ControlFlow, f, x Obj) Obj {
 	if *f == scmHeadBytecodeFunc {
 		bf := mustBytecodeFunc(f)
 		if cl := bf.cl; cl != nil && cl.arity == 1 {
+			if cl.direct && ctl.stepLimit == 0 {
+				var fr [8]Obj
+				fr[0] = x
+				return clFinish(ctl, cl.body(ctl, clNoescape(unsafe.Pointer(&fr))))
+			}
 			return clFinish(ctl, cl.enter(ctl, bf, cl, x, nil, nil, nil))
 		}
 	}
@@ -1089,6 +1190,12 @@ func clDo2(ctl *ControlFlow, f, x, y Obj) Obj {
 	if *f == scmHeadBytecodeFunc {
 		bf := mustBytecodeFunc(f)
 		if cl := bf.cl; cl != nil && cl.arity == 2 {
+			if cl.direct && ctl.stepLimit == 0 {
+				var fr [8]Obj
+				fr[0] = x
+				fr[1] = y
+				return clFinish(ctl, cl.body(ctl, clNoescape(unsafe.Pointer(&fr))))
+			}
 			return clFinish(ctl, cl.enter(ctl, bf, cl, x, y, nil, nil))
 		}
 	}
