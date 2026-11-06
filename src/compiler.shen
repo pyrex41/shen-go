@@ -11,8 +11,9 @@
                         [$let X1 (parse Env Y) (parse (cons X1 Env) (rename-var X1 X Z))])
   Env [trap-error Body Handler] -> [try-catch [$lambda [] (parse Env Body)] (parse Env Handler)]
 
-  Env [or X Y] -> (parse Env [if X true [if Y true false]])
-  Env [and X Y] -> (parse Env [if X [if Y true false] false])
+  \\ The last operand is in tail position and is the result, as on the VM.
+  Env [or X Y] -> (parse Env [if X true Y])
+  Env [and X Y] -> (parse Env [if X Y false])
   Env [cond [true Action]] -> (parse Env Action)
   Env [cond [Case Action]] -> (parse Env [if Case Action [simple-error "no cond match"]])
   Env [cond [Case Action] | More] -> (parse Env [if Case Action [cond | More]])
