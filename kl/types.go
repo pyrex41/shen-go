@@ -360,18 +360,19 @@ var symAdd, symSub, symMul, symLT, symLE, symGT, symGE, symNumEq, symNot Obj
 // RSS regardless of size, and the GC never scans it (a [N]byte has no pointers).
 //
 // The range is signed and centered, so the byte at offset 0 represents
-// fixnumMin. Widening from the original unsigned [0, 2^20) to a signed
-// [-2^25, 2^25) removes heap boxing for two large classes of common integers
+// fixnumMin. 30 bits is near the most the linker allows (a symbol is limited to
+// 2 GB) and keeps a product of two fixnums well inside an int. Widening from
+// the original unsigned [0, 2^20) to a signed [-2^25, 2^25) removed heap boxing for two large classes of common integers
 // that previously always allocated a scmNumber: every negative integer, and
 // every integer between 2^20 and 2^25. makeInteger (the boxed fallback) was the
 // single largest allocation source in the VM (per the alloc profile of integer
 // arithmetic), so widening its fixnum fast path directly cuts GC pressure for
 // real integer workloads.
 const (
-	fixnumBits  = 26                       // sentinel array is 2^26 bytes = 64 MiB of pure address space
+	fixnumBits  = 30                       // sentinel array is 2^30 bytes = 1 GiB of pure address space
 	fixnumCount = 1 << fixnumBits          // number of distinct fixnum values
-	fixnumMin   = -(1 << (fixnumBits - 1)) // smallest fixnum, i.e. -2^25
-	fixnumMax   = 1 << (fixnumBits - 1)    // one past the largest fixnum, i.e. 2^25
+	fixnumMin   = -(1 << (fixnumBits - 1)) // smallest fixnum, i.e. -2^29
+	fixnumMax   = 1 << (fixnumBits - 1)    // one past the largest fixnum, i.e. 2^29
 )
 
 var addrForFixnum [fixnumCount]byte
