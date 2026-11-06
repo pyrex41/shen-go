@@ -374,7 +374,10 @@ const (
 	fixnumMax   = 1 << (fixnumBits - 1)    // one past the largest fixnum, i.e. 2^25
 )
 
-var addrForFixnum [fixnumCount]byte
+// The padding keeps an 8-byte header read of the last fixnums inside the array
+// (the VM tests a value's header without first ruling out a fixnum; all of these
+// bytes are zero, which is scmHeadNumber, never a pair or vector).
+var addrForFixnum [fixnumCount + 8]byte
 
 // fixnumBaseAddr is the address representing the integer fixnumMin.
 var fixnumBaseAddr = unsafe.Pointer(&addrForFixnum[0])

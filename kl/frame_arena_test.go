@@ -188,8 +188,7 @@ func TestTryResetsFrameArena(t *testing.T) {
 // first decision after the deep call still counts its blocks as entered
 // since the previous trim and keeps them; the second releases them.
 //
-// Both depths are derived from mk's compiled frame (Nlocals+MaxStack), since
-// frames are sized exactly: blocks are 512, 1024, 2048, ... slots, so three
+// Both depths are derived from the slots each frame of mk adds to the arena: blocks are 512, 1024, 2048, ... slots, so three
 // crossings from block 0 need more than 512+1024+2048 slots of mk frames.
 func TestFrameArenaIdleTrimInsideLongLivedFrame(t *testing.T) {
 	const shallowIters = 1000 // 3 crossings each: 3000 > 2*frameTrimInterval
@@ -207,11 +206,14 @@ func TestFrameArenaIdleTrimInsideLongLivedFrame(t *testing.T) {
 	defer BindSymbolFunc(probe, nil)
 	mustDefun(t, &ctx, defMk)
 	mk := mustBytecodeFunc(PrimFunc(MakeSymbol("mk"))).fn
-	frame := mk.Nlocals + mk.MaxStack
-	if mk.MaxStack <= 0 {
-		frame = mk.Nlocals + frameHeadroom
-		if frame < minFrameCap {
-			frame = minFrameCap
+	// Register windows overlap, so a frame adds only up to its callee's window.
+	if mk.rc == nil {
+		mk.lower()
+	}
+	frame := 0
+	for _, in := range mk.rc.code {
+		if in.Op == OP_R_CALL || in.Op == OP_R_CALLG {
+			frame = int(in.A)>>4 + 1
 		}
 	}
 	deep := 2*frameRetainSlots/frame + 1
