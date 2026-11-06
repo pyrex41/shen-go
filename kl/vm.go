@@ -741,6 +741,9 @@ func vmCallOther(ctl *ControlFlow, callee Obj, args []vmSlot) vmSlot {
 		// and invoke directly, only entering the trampoline if the
 		// native tail-applies (e.g. fn with arity 0).
 		nf := MustNative(callee)
+		if nf.direct != nil && len(args) == nf.require {
+			return vmSlot{obj: callDirectSlots(ctl, nf, args)}
+		}
 		if len(nf.captured) == 0 && len(args) == nf.require {
 			ctl.tailApplySlots(callee, args)
 			nf.fn(ctl)

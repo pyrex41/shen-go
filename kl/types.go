@@ -122,6 +122,9 @@ type scmNative struct {
 	fn       func(*ControlFlow)
 	require  int
 	captured []Obj
+	// direct is the native's direct entry (a Direct<require>), or nil when it
+	// has only fn. See direct.go.
+	direct unsafe.Pointer
 }
 
 func MakeNative(fn func(*ControlFlow), require int, captured ...Obj) Obj {
@@ -446,7 +449,7 @@ func init() {
 
 func MakeInteger(v int) Obj {
 	if v >= fixnumMin && v < fixnumMax {
-		return Obj(unsafe.Pointer(&addrForFixnum[v-fixnumMin]))
+		return Obj(unsafe.Pointer(unsafe.Add(unsafe.Pointer(&addrForFixnum), v-fixnumMin)))
 	}
 	return makeInteger(v)
 }
