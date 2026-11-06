@@ -80,6 +80,47 @@ func TestKernelCertification(t *testing.T) {
 	}
 }
 
+// TestExtensionCertification runs the kernel's optional extension suite
+// (kernel/tests/extensions, 123 assertions). It reports through its own harness
+// and its own "passed ... N / failed ... N" lines, and raises at the end when one
+// fails, so all three are checked: a run that loads less, or stops early, must
+// not pass by having failed nothing. Paths in the suite are relative to kernel/.
+func TestExtensionCertification(t *testing.T) {
+	if testing.Short() {
+		t.Skip("skipping kernel extension suite in -short mode")
+	}
+
+	ctx, cancel := context.WithTimeout(context.Background(), 240*time.Second)
+	defer cancel()
+
+	bin := filepath.Join(t.TempDir(), "shen")
+	build := exec.CommandContext(ctx, "go", "build", "-o", bin, "../cmd/shen")
+	if out, err := build.CombinedOutput(); err != nil {
+		t.Fatalf("failed to build shen: %v\n%s", err, out)
+	}
+
+	kernelDir, err := filepath.Abs(filepath.Join("..", "kernel"))
+	if err != nil {
+		t.Fatalf("resolving kernel dir: %v", err)
+	}
+	cmd := exec.CommandContext(ctx, bin, "script", "tests/extensions/runme.shen")
+	cmd.Dir = kernelDir
+	output, err := cmd.CombinedOutput()
+	out := string(output)
+	if ctx.Err() == context.DeadlineExceeded {
+		t.Fatalf("extension suite did not finish before timeout; output tail:\n%s", tail(out, 40))
+	}
+	if err != nil {
+		t.Fatalf("shen exited with error: %v\noutput tail:\n%s", err, tail(out, 40))
+	}
+	if strings.Contains(out, "not ok - ") {
+		t.Fatalf("extension suite reported a failure; output tail:\n%s", tail(out, 40))
+	}
+	if !strings.Contains(out, "passed ... 123\n") || !strings.Contains(out, "failed ... 0\n") {
+		t.Fatalf("did not find 'passed ... 123' and 'failed ... 0'; output tail:\n%s", tail(out, 40))
+	}
+}
+
 // tail returns the last n lines of s, for compact failure messages.
 func tail(s string, n int) string {
 	lines := strings.Split(strings.TrimRight(s, "\n"), "\n")
