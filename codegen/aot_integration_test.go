@@ -249,7 +249,7 @@ func TestAOTBindIsALocalNotAClosure(t *testing.T) {
 	if err := New().HandleBodyObj(body, "Generated", &src); err != nil {
 		t.Fatal(err)
 	}
-	if strings.Count(src.String(), "MakeNative(") != 2 {
+	if strings.Count(src.String(), "MakeNative") != 2 {
 		t.Fatalf("bind allocated a closure:\n%s", src.String())
 	}
 	compileAndRunGenerated(t, body, `

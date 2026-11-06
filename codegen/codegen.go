@@ -1,10 +1,10 @@
 // Package codegen translates the bytecode IR emitted by the Shen-side
 // compiler (src/compiler.shen, via compile-file) into Go source that runs on
-// the kl runtime's trampoline. It was extracted from cmd/kl so that other
+// the kl runtime's direct calling convention (kl/direct.go). It was extracted from cmd/kl so that other
 // build tools (cmd/kl's bc->go native, cmd/yggdrasil-build) can share it.
 //
-// The emitted shape is `var <Export> = MakeNative(func(__e *ControlFlow)
-// {...}, 0)` — a 0-arity module thunk that, when Called, defun-binds every
+// The emitted shape is `var <Export> = MakeNative0(func(__e *ControlFlow) Obj
+// {...})` — a 0-arity module thunk that, when Called, defun-binds every
 // function in the compiled file and evaluates its toplevel expressions in
 // source order. The generated code references two package-level vars the
 // host package must define and set before running any thunk:
@@ -38,7 +38,7 @@ type CodeGenerator struct {
 	ScmHead int
 	declare map[kl.Obj]struct{}
 	// Sealed emits direct PrimX calls for KLambda primitives with no
-	// HasCanonicalPrimitiveBinding guard and no PrimFunc fallback. Kernel
+	// guard and no fallback to the symbol's binding. Kernel
 	// and runtime modules should set this: their call graph is a closed
 	// unit (Shen/Scheme's sealed library). User/plugin code must leave it
 	// false so (defun + ...) still reaches generated calls.
