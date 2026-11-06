@@ -1130,6 +1130,7 @@ func InstallKernelFast() {
 	overridePrimitive("shen.byte->digit", 1, primByteToDigit)
 
 	overrideNative("thaw", 1, nativeThaw)
+	stdThaw = mustSymbol(MakeSymbol("thaw")).function
 	overrideNative("fail", 0, nativeFail)
 
 	overridePrimitive("length", 1, primLength)
