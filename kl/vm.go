@@ -903,7 +903,9 @@ func vmExecSlots(ctl *ControlFlow, bf *scmBytecodeFunc, args []vmSlot) {
 				// and invoke directly, only entering the trampoline if the
 				// native tail-applies (e.g. fn with arity 0).
 				nf := MustNative(callee)
-				if len(nf.captured) == 0 && n == nf.require {
+				if nf.direct != nil && n == nf.require {
+					result = callDirectSlots(ctl, nf, callArgs)
+				} else if len(nf.captured) == 0 && n == nf.require {
 					ctl.tailApplySlots(callee, callArgs)
 					nf.fn(ctl)
 					if ctl.kind == ControlFlowReturn {

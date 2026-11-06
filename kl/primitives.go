@@ -9,6 +9,7 @@ import (
 	"sync"
 	"time"
 	"unicode"
+	"unsafe"
 )
 
 var home_directory Obj
@@ -831,19 +832,26 @@ var primitiveRegistry primitiveRegistrar
 func (r *primitiveRegistrar) register[F primitiveFunction](name string, f F) Obj {
 	var arity int
 	var fn func(*ControlFlow)
+	var direct unsafe.Pointer
 	switch any(f).(type) {
 	case func(Obj) Obj:
 		arity = 1
 		raw := any(f).(func(Obj) Obj)
 		fn = wrapf1(raw)
+		d := Direct1(func(_ *ControlFlow, a Obj) Obj { return raw(a) })
+		direct = *(*unsafe.Pointer)(unsafe.Pointer(&d))
 	case func(Obj, Obj) Obj:
 		arity = 2
 		raw := any(f).(func(Obj, Obj) Obj)
 		fn = wrapf2(raw)
+		d := Direct2(func(_ *ControlFlow, a, b Obj) Obj { return raw(a, b) })
+		direct = *(*unsafe.Pointer)(unsafe.Pointer(&d))
 	case func(Obj, Obj, Obj) Obj:
 		arity = 3
 		raw := any(f).(func(Obj, Obj, Obj) Obj)
 		fn = wrapf3(raw)
+		d := Direct3(func(_ *ControlFlow, a, b, c Obj) Obj { return raw(a, b, c) })
+		direct = *(*unsafe.Pointer)(unsafe.Pointer(&d))
 	default:
 		panic(fmt.Sprintf("MakePrimitive %s failed: %#v", name, f))
 	}
@@ -852,6 +860,7 @@ func (r *primitiveRegistrar) register[F primitiveFunction](name string, f F) Obj
 		name:    name,
 		require: arity,
 		fn:      fn,
+		direct:  direct,
 	}
 	prim := Obj(&tmp.scmHead)
 	// The first registration establishes the canonical implementation. Later

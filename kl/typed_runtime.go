@@ -44,6 +44,13 @@ func TypedObjectKind(o Obj) ValueKind {
 // TypedFloat64 extracts a Shen number without raising. Fixnums and boxed
 // numbers have exactly the same float64 semantics as GetNumber.
 func TypedFloat64(o Obj) (float64, bool) {
+	if isFixnum(o) {
+		return float64(fixnum(o)), true
+	}
+	return typedFloat64Boxed(o)
+}
+
+func typedFloat64Boxed(o Obj) (float64, bool) {
 	kind := TypedObjectKind(o)
 	if kind != KindNumber && kind != KindFixnum {
 		return 0, false

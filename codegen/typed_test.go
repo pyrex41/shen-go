@@ -57,22 +57,23 @@ func TestTypedWrapperStillEnablesGuardedScalarLowering(t *testing.T) {
 	if err := New().generateExpr(&got, form); err != nil {
 		t.Fatal(err)
 	}
-	if !strings.Contains(got.String(), "TypedMaterializeNumber((__typedN0 + __typedN1))") {
-		t.Fatalf("typed wrapper blocked scalar lowering:\n%s", got.String())
+	if !strings.Contains(got.String(), "GAdd(__e, ") {
+		t.Fatalf("typed wrapper blocked guarded lowering:\n%s", got.String())
 	}
 }
 
 func TestScalarPrimitiveLoweringHasDynamicFallback(t *testing.T) {
 	var got bytes.Buffer
-	form := readCodegenForm(t, "(call ($global +) ($const 1) ($const 2))")
+	// A non-atomic argument keeps the expanded guard at the site.
+	form := readCodegenForm(t, "(call ($global +) (call ($global *) ($const 1) ($const 2)) ($const 3))")
 	if err := New().generateExpr(&got, form); err != nil {
 		t.Fatal(err)
 	}
 	s := got.String()
 	for _, want := range []string{
 		"TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_7)",
-		"TypedMaterializeNumber((__typedN0 + __typedN1))",
-		"Call(__e, PrimFunc(sym_7), __typedArg0, __typedArg1)",
+		"TypedMaterializeNumber(((__typedN0 * __typedN1) + __typedN2))",
+		"Call2(__e, SymFn(sym_7), __typedArg0, __typedArg1)",
 	} {
 		if !strings.Contains(s, want) {
 			t.Errorf("generated code missing %q:\n%s", want, s)
@@ -83,8 +84,10 @@ func TestScalarPrimitiveLoweringHasDynamicFallback(t *testing.T) {
 func TestScalarLoweringStringsAndBooleans(t *testing.T) {
 	cases := []struct{ src, want string }{
 		{"(call ($global /) (call ($global /) ($const 8) ($const 2)) ($const 2))", "TypedDivideValue(TypedDivideValue(__typedN0, __typedN1), __typedN2)"},
-		{"(call ($global cn) ($const \"a\") ($const \"🙂\"))", "TypedMaterializeString((__typedS0 + __typedS1))"},
-		{"(call ($global tlstr) ($const \"🙂x\"))", "TypedMaterializeString(TypedStringTailValue(__typedS0))"},
+		{"(call ($global cn) ($const \"a\") ($const \"🙂\"))", "PrimGuard2(__e, symcn, PrimStringConcat, "},
+		{"(call ($global tlstr) ($const \"🙂x\"))", "PrimGuard1(__e, symtlstr, PrimTailString, "},
+		{"(call ($global cn) (call ($global cn) ($const \"a\") ($const \"b\")) ($const \"c\"))", "TypedMaterializeString(((__typedS0 + __typedS1) + __typedS2))"},
+		{"(call ($global tlstr) (call ($global tlstr) ($const \"xy\")))", "TypedMaterializeString(TypedStringTailValue(TypedStringTailValue(__typedS0)))"},
 		{"(call ($global not) (call ($global <) ($const 1) ($const 2)))", "TypedMaterializeBoolean((!(__typedN0 < __typedN1)))"},
 	}
 	for _, tc := range cases {

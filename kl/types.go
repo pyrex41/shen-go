@@ -119,6 +119,9 @@ type scmNative struct {
 	fn       func(*ControlFlow)
 	require  int
 	captured []Obj
+	// direct is the native's direct entry (a Direct<require>), or nil when it
+	// has only fn. See direct.go.
+	direct unsafe.Pointer
 }
 
 func MakeNative(fn func(*ControlFlow), require int, captured ...Obj) Obj {
@@ -205,7 +208,7 @@ func mustString(o Obj) string {
 }
 
 func fixnum(o Obj) int {
-	return int(uintptr(unsafe.Pointer(o))-uintptr(fixnumBaseAddr)) + fixnumMin
+	return int(uintptr(unsafe.Pointer(o))-uintptr(unsafe.Pointer(&addrForFixnum))) + fixnumMin
 }
 
 // narrowToInt converts a Shen number's float64 to a Go int, raising an
@@ -374,10 +377,6 @@ const (
 
 var addrForFixnum [fixnumCount]byte
 
-// fixnumBaseAddr is the address representing the integer fixnumMin.
-var fixnumBaseAddr = unsafe.Pointer(&addrForFixnum[0])
-var fixnumEndAddr = unsafe.Add(fixnumBaseAddr, fixnumCount)
-
 // symbolTable interns symbols by name. It used to be a byte trie whose
 // every node held [256]*trieNode (2 KiB) and a symbol of its own, so
 // interning "shen.some-long-name" allocated a node per prefix, ~40 KiB,
@@ -444,17 +443,13 @@ func init() {
 
 func MakeInteger(v int) Obj {
 	if v >= fixnumMin && v < fixnumMax {
-		return Obj(unsafe.Pointer(unsafe.Add(fixnumBaseAddr, v-fixnumMin)))
+		return Obj(unsafe.Pointer(unsafe.Add(unsafe.Pointer(&addrForFixnum), v-fixnumMin)))
 	}
 	return makeInteger(v)
 }
 
 func isFixnum(o Obj) bool {
-	v := uintptr(unsafe.Pointer(o))
-	if v >= uintptr(fixnumBaseAddr) && v < uintptr(fixnumEndAddr) {
-		return true
-	}
-	return false
+	return uintptr(unsafe.Pointer(o))-uintptr(unsafe.Pointer(&addrForFixnum)) < fixnumCount
 }
 
 func makeInteger(v int) Obj {
