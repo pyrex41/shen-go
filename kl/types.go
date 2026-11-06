@@ -434,6 +434,7 @@ func init() {
 	symAnd = MakeSymbol("and")
 	symOr = MakeSymbol("or")
 	symIf = MakeSymbol("if")
+	symThaw = MakeSymbol("thaw")
 	symCond = MakeSymbol("cond")
 	symTrapError = MakeSymbol("trap-error")
 	symDo = MakeSymbol("do")

@@ -106,7 +106,7 @@ type ventry struct {
 	def       int // index in out of the instruction that wrote this temp, or -1
 }
 
-type lowerer struct {
+type regLowerer struct {
 	fn      *BytecodeFunc
 	out     []Instr
 	guard   []int32
@@ -118,13 +118,13 @@ type lowerer struct {
 
 func off(reg int) int32 { return int32(reg) << 4 }
 
-func (l *lowerer) emit(in Instr, sym int32) int {
+func (l *regLowerer) emit(in Instr, sym int32) int {
 	l.out = append(l.out, in)
 	l.guard = append(l.guard, sym)
 	return len(l.out) - 1
 }
 
-func (l *lowerer) pos(depth int) int {
+func (l *regLowerer) pos(depth int) int {
 	r := l.fn.Nlocals + depth
 	if r > l.maxReg {
 		l.maxReg = r
@@ -133,7 +133,7 @@ func (l *lowerer) pos(depth int) int {
 }
 
 // flush puts stack entry d in its canonical register.
-func (l *lowerer) flush(d int) {
+func (l *regLowerer) flush(d int) {
 	e := &l.v[d]
 	switch e.kind {
 	case vLocal:
@@ -146,13 +146,13 @@ func (l *lowerer) flush(d int) {
 	*e = ventry{kind: vTemp, def: -1}
 }
 
-func (l *lowerer) flushFrom(d int) {
+func (l *regLowerer) flushFrom(d int) {
 	for ; d < len(l.v); d++ {
 		l.flush(d)
 	}
 }
 
-func (l *lowerer) pop() ventry {
+func (l *regLowerer) pop() ventry {
 	e := l.v[len(l.v)-1]
 	l.v = l.v[:len(l.v)-1]
 	return e
@@ -160,7 +160,7 @@ func (l *lowerer) pop() ventry {
 
 // regOf returns the register of an entry just popped from depth d,
 // materializing a constant in the entry's own canonical register.
-func (l *lowerer) regOf(e ventry, d int) int32 {
+func (l *regLowerer) regOf(e ventry, d int) int32 {
 	switch e.kind {
 	case vLocal:
 		return off(e.idx)
@@ -171,7 +171,7 @@ func (l *lowerer) regOf(e ventry, d int) int32 {
 }
 
 // pushResult records that the instruction just emitted wrote the new top of stack.
-func (l *lowerer) pushResult(retargetable bool) {
+func (l *regLowerer) pushResult(retargetable bool) {
 	def := -1
 	if retargetable {
 		def = len(l.out) - 1
@@ -180,7 +180,7 @@ func (l *lowerer) pushResult(retargetable bool) {
 	l.v = append(l.v, ventry{kind: vTemp, def: def})
 }
 
-func (l *lowerer) jumpTo(idx, target int) {
+func (l *regLowerer) jumpTo(idx, target int) {
 	l.fixups = append(l.fixups, [2]int{idx, target})
 	l.barrier = len(l.out)
 }
@@ -221,7 +221,7 @@ func canRetarget(op uint8) bool {
 // fuseGlobal drops a LOADG of the callee at depth d when only moves separate it
 // from the call: nothing observable can happen between them, so the call can
 // read the binding itself. It returns the symbol's constant offset, or -1.
-func (l *lowerer) fuseGlobal(d int) int32 {
+func (l *regLowerer) fuseGlobal(d int) int32 {
 	e := l.v[d]
 	if e.def < 0 || e.def < l.barrier || l.out[e.def].Op != OP_R_LOADG {
 		return -1
@@ -255,7 +255,7 @@ func (fn *BytecodeFunc) lower() *vmCode {
 			isTarget[t] = true
 		}
 	}
-	l := &lowerer{fn: fn, maxReg: fn.Nlocals}
+	l := &regLowerer{fn: fn, maxReg: fn.Nlocals}
 	reachable := true
 	for pc := 0; pc < len(code); pc++ {
 		if isTarget[pc] {
@@ -502,7 +502,7 @@ func (fn *BytecodeFunc) addIntrinsicConst(op uint8) int {
 // lowerEqBranch lowers (= x y) followed by a conditional jump. An EQ_JF
 // carries the jump itself; an EQ is followed by a JUMP_FALSE. D=1 records that
 // the constant was the left operand, for a rebound = to see the original order.
-func (l *lowerer) lowerEqBranch(pc int, x, y ventry, d int, sym int32, in *Instr, code []Instr, branch func(uint8, int32, int32, int32, int32), depthAt []int) {
+func (l *regLowerer) lowerEqBranch(pc int, x, y ventry, d int, sym int32, in *Instr, code []Instr, branch func(uint8, int32, int32, int32, int32), depthAt []int) {
 	ks := l.fn.constSlots()
 	var op uint8
 	var b, c, flip int32
@@ -543,7 +543,7 @@ func (l *lowerer) lowerEqBranch(pc int, x, y ventry, d int, sym int32, in *Instr
 
 // lowerPrim lowers a guarded primitive of n arguments on top of the virtual
 // stack. It returns true if it consumed the next instruction.
-func (l *lowerer) lowerPrim(pc int, symB, idC int32, n int, nextJF bool, branch func(uint8, int32, int32, int32, int32)) bool {
+func (l *regLowerer) lowerPrim(pc int, symB, idC int32, n int, nextJF bool, branch func(uint8, int32, int32, int32, int32)) bool {
 	sym := symB + 1
 	id := idC - 1
 	if idC == 0 {
@@ -592,7 +592,7 @@ func (l *lowerer) lowerPrim(pc int, symB, idC int32, n int, nextJF bool, branch 
 // lowerSelfTail assigns the top n entries to registers 0..n-1, in parallel.
 // When an argument was just computed into a temporary and nothing since has
 // used its parameter, the computation writes the parameter directly.
-func (l *lowerer) lowerSelfTail(n int) {
+func (l *regLowerer) lowerSelfTail(n int) {
 	base := len(l.v) - n
 	for d := 0; d < base; d++ {
 		l.flush(d) // nothing lives under a tail call; keep it correct regardless

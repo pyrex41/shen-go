@@ -45,6 +45,10 @@ func TestLocalThawControlFlow(t *testing.T) {
 }
 
 func TestLocalThawRetainsEscapingClosures(t *testing.T) {
+	// This pins compileLet's own decision. LowerKL may legally do more: a
+	// freeze thawed only inside a closure can be copied into that closure.
+	lowerOff = true
+	defer func() { lowerOff = false }()
 	for _, src := range []string{
 		`(let Go (freeze 9) Go)`,
 		`(let thaw true (let Go (freeze 9) (cond (thaw Go))))`,
