@@ -756,7 +756,10 @@ func eval(e *ControlFlow) {
 	args := pair.cdr
 	for *args == scmHeadPair {
 		v := evalExp(e, car(args), env)
-		if *v == scmHeadError {
+		// A fixnum must not be dereferenced: its address is in the sentinel
+		// array, and reading it makes that page resident, so a counter passing
+		// through here grew the footprint by a page per 16K values.
+		if !isFixnum(v) && *v == scmHeadError {
 			e.pos = savePOS
 			e.TailApply(fn, v)
 			return
