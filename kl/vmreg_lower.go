@@ -473,7 +473,7 @@ func (fn *BytecodeFunc) lower() *vmCode {
 				l.pushResult(false)
 			}
 		case OP_SELF_TAIL_CALL:
-			l.lowerSelfTail(int(in.A))
+			l.lowerSelfTail(int(in.A), uint32(in.B))
 			idx := l.emit(Instr{Op: opRSELF}, 0)
 			l.out[idx].A = int32(-(idx + 1) * int(instrSize))
 			l.barrier = len(l.out)
@@ -605,18 +605,31 @@ func (l *regLowerer) lowerPrim(pc int, symB, idC int32, n int, nextJF bool, bran
 	return false
 }
 
-// lowerSelfTail assigns the top n entries to registers 0..n-1, in parallel.
+// lowerSelfTail assigns the top n entries to parameters, in parallel: registers
+// 0..n-1, or with a nonzero mask, the parameters whose bits are set, in order.
 // When an argument was just computed into a temporary and nothing since has
 // used its parameter, the computation writes the parameter directly.
-func (l *regLowerer) lowerSelfTail(n int) {
+func (l *regLowerer) lowerSelfTail(n int, mask uint32) {
 	base := len(l.v) - n
 	for d := 0; d < base; d++ {
 		l.flush(d) // nothing lives under a tail call; keep it correct regardless
 	}
 	es := l.v[base:]
+	param := make([]int, n)
+	for i, p := 0, 0; i < n; i++ {
+		if mask != 0 {
+			for mask&(1<<p) == 0 {
+				p++
+			}
+		} else {
+			p = i
+		}
+		param[i] = p
+		p++
+	}
 	readByOther := func(i int) bool {
 		for j := range es {
-			if j != i && es[j].kind == vLocal && es[j].idx == i {
+			if j != i && es[j].kind == vLocal && es[j].idx == param[i] {
 				return true
 			}
 		}
@@ -625,12 +638,12 @@ func (l *regLowerer) lowerSelfTail(n int) {
 	done := make([]bool, n)
 	for i := range es {
 		e := &es[i]
-		if e.kind == vLocal && e.idx == i {
+		if e.kind == vLocal && e.idx == param[i] {
 			done[i] = true
 			continue
 		}
 		if e.kind == vTemp && e.def >= 0 && canRetarget(l.out[e.def].Op) && !readByOther(i) {
-			o := off(i)
+			o := off(param[i])
 			clean := true
 			for j := e.def + 1; j < len(l.out); j++ {
 				if instrTouches(&l.out[j], o) {
@@ -647,8 +660,14 @@ func (l *regLowerer) lowerSelfTail(n int) {
 	// A parameter another argument still reads must be saved before it is
 	// overwritten.
 	for i := range es {
-		if !done[i] && es[i].kind == vLocal && es[i].idx < n && !done[es[i].idx] {
-			l.flush(base + i)
+		if done[i] || es[i].kind != vLocal {
+			continue
+		}
+		for j := range es {
+			if !done[j] && j != i && param[j] == es[i].idx {
+				l.flush(base + i)
+				break
+			}
 		}
 	}
 	for i := range es {
@@ -658,11 +677,11 @@ func (l *regLowerer) lowerSelfTail(n int) {
 		e := es[i]
 		switch e.kind {
 		case vConst:
-			l.emit(Instr{Op: opRLOADK, A: off(i), B: off(e.idx)}, 0)
+			l.emit(Instr{Op: opRLOADK, A: off(param[i]), B: off(e.idx)}, 0)
 		case vLocal:
-			l.emit(Instr{Op: opRMOV, A: off(i), B: off(e.idx)}, 0)
+			l.emit(Instr{Op: opRMOV, A: off(param[i]), B: off(e.idx)}, 0)
 		default:
-			l.emit(Instr{Op: opRMOV, A: off(i), B: off(l.pos(base + i))}, 0)
+			l.emit(Instr{Op: opRMOV, A: off(param[i]), B: off(l.pos(base + i))}, 0)
 		}
 	}
 }
