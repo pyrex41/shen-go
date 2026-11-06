@@ -85,8 +85,6 @@ func clNoescape(p unsafe.Pointer) unsafe.Pointer {
 // clSelfMark's address is the self-tail mark.
 var clSelfMark scmHead = 99
 
-func clSelfTail() Obj { return Obj(&clSelfMark) }
-
 // clLoad reads a slot. Inlined everywhere.
 func clLoad(fp unsafe.Pointer, off int) Obj { return *(*Obj)(unsafe.Add(fp, off)) }
 
@@ -200,14 +198,15 @@ func clEnterSlice(ctl *ControlFlow, bf *scmBytecodeFunc, cl *clCode, args []Obj)
 }
 
 func clEnterStackN(ctl *ControlFlow, bf *scmBytecodeFunc, cl *clCode, args []Obj) Obj {
-	var fr8 [8]Obj
-	var fr64 [64]Obj
-	var base unsafe.Pointer
 	if cl.bucket <= 8 {
-		base = clNoescape(unsafe.Pointer(&fr8))
-	} else {
-		base = clNoescape(unsafe.Pointer(&fr64))
+		var fr [8]Obj
+		return clRunStackN(ctl, bf, cl, args, clNoescape(unsafe.Pointer(&fr)))
 	}
+	var fr [64]Obj
+	return clRunStackN(ctl, bf, cl, args, clNoescape(unsafe.Pointer(&fr)))
+}
+
+func clRunStackN(ctl *ControlFlow, bf *scmBytecodeFunc, cl *clCode, args []Obj, base unsafe.Pointer) Obj {
 	fp := unsafe.Add(base, cl.fpOff)
 	for i, a := range args {
 		clStore(fp, 8*i, a)
@@ -324,7 +323,7 @@ type clCompiler struct {
 
 const clMaxBucket = 64
 
-// CompileFuncClosure compiles a KL function to closures.
+// clCompileFunc compiles a KL function to closures, for CompileFunc.
 func clCompileFunc(name string, params []Obj, body Obj) Obj {
 	if !TypedIREnabled() {
 		clDirty = true
@@ -450,9 +449,9 @@ func (c *clCompiler) form(form Obj, tail bool) clx {
 	case symDefun:
 		return c.defun(car(rest), cadr(rest), caddr(rest))
 	case symLambda:
-		return c.lambda("lambda", []Obj{car(rest)}, cadr(rest))
+		return c.closureNode("lambda", []Obj{car(rest)}, cadr(rest))
 	case symFreeze:
-		return c.lambda("lambda", nil, car(rest))
+		return c.closureNode("lambda", nil, car(rest))
 	case symLet:
 		return c.let(car(rest), cadr(rest), caddr(rest), tail)
 	case symIf:
@@ -487,12 +486,8 @@ func (c *clCompiler) defun(name, params, body Obj) clx {
 	return c.callGlobal(MakeSymbol("defun"), []clx{clConstX(name), in}, false)
 }
 
-func (c *clCompiler) lambda(name string, params []Obj, body Obj) clx {
-	return c.closureNode(name, params, body)
-}
-
 func (c *clCompiler) closureNode(name string, params []Obj, body Obj) clx {
-	fn := clCompileBody(name, params, body, c, c.heapFrame && false)
+	fn := clCompileBody(name, params, body, c, false)
 	offs := fn.clUpvalOffs
 	switch len(offs) {
 	case 0:
@@ -679,32 +674,25 @@ func (c *clCompiler) cond(clauses Obj, tail bool) clx {
 	if car(clause) == True {
 		return c.expr(cadr(clause), tail)
 	}
-	return c.condClause(car(clause), cadr(clause), cdr(clauses), tail)
-}
-
-// condClause is ifNode whose else branch is the remaining clauses.
-func (c *clCompiler) condClause(test, action, rest Obj, tail bool) clx {
-	// (cond (a b) rest...) is (if a b (cond rest...)): build the form rather
-	// than repeat ifNode. The compiled meaning of cond with no clause left is
-	// the Nil constant; a quoted rest cannot be confused with a call because
-	// `cond` is a special form here too.
-	return c.ifNode(test, action, cons(symCond, rest), tail)
+	// (cond (a b) rest...) is (if a b (cond rest...)). cond is a special form
+	// wherever it appears, so the built form cannot be mistaken for a call.
+	return c.ifNode(car(clause), cadr(clause), cons(symCond, cdr(clauses)), tail)
 }
 
 func (c *clCompiler) trapError(body, handler Obj) clx {
 	if def, ok := trapHandlerDefault(handler); ok {
 		if args, ok := callForm(body, "value", 1); ok {
 			a := c.expr(args[0], false)
-			d := c.lambda("lambda", nil, def)
+			d := c.closureNode("lambda", nil, def)
 			return c.callGlobal(MakeSymbol("_kl.value/or"), []clx{a, d}, false)
 		}
 		if args, ok := callForm(body, "<-vector", 2); ok {
 			a, b := c.expr(args[0], false), c.expr(args[1], false)
-			d := c.lambda("lambda", nil, def)
+			d := c.closureNode("lambda", nil, def)
 			return c.callGlobal(MakeSymbol("_kl.<-vector/or"), []clx{a, b, d}, false)
 		}
 	}
-	b := c.lambda("lambda", nil, body)
+	b := c.closureNode("lambda", nil, body)
 	h := c.expr(handler, false)
 	return c.callGlobal(MakeSymbol("try-catch"), []clx{b, h}, false)
 }
@@ -717,17 +705,14 @@ func (c *clCompiler) constValue(o Obj) (Obj, bool) {
 	case scmHeadNumber, scmHeadString, scmHeadBoolean, scmHeadNull:
 		return o, true
 	case scmHeadSymbol:
-		if _, local := c.resolveNoCapture(o); !local {
+		// Like klCompiler.constValue, this records a capture if o is a variable
+		// of an enclosing function.
+		if _, local := c.resolve(o); !local {
 			return o, true
 		}
 	}
 	return nil, false
 }
-
-// resolveNoCapture answers "is sym a variable" like resolve. klCompiler.constValue
-// calls resolveVar, which records a capture as a side effect, so this must too:
-// the slot numbering of upvalues is otherwise the same either way.
-func (c *clCompiler) resolveNoCapture(o Obj) (int, bool) { return c.resolve(o) }
 
 func (c *clCompiler) bothConst(x, y Obj) bool {
 	if _, ok := c.constValue(x); !ok {
@@ -980,7 +965,7 @@ func clTail4(ctl *ControlFlow, f, a, b, d, e Obj) Obj {
 	return clTailN(ctl, f, t[:])
 }
 
-// clCallCheck resolves a non-tail call's result.
+// clFinish resolves a non-tail call's result.
 func clFinish(ctl *ControlFlow, r Obj) Obj {
 	if r == nil {
 		return trampoline(ctl)
