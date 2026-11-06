@@ -12,6 +12,9 @@ const (
 	ControlFlowReturn ControlFlowKind = iota
 	ControlFlowEval
 	ControlFlowApply
+	// controlFlowClosure: a tail call to a closure-compiled function of exact
+	// arity, in tailBF and tailArgs (see closure.go). Nothing touches ctl.data.
+	controlFlowClosure
 )
 
 type ControlFlow struct {
@@ -62,6 +65,9 @@ type ControlFlow struct {
 	// last trim; frameCross counts block-boundary returns since then.
 	frameHigh  int
 	frameCross int
+
+	tailBF   *scmBytecodeFunc
+	tailArgs [4]Obj
 }
 
 // frameBlockMin is the size in slots of the first arena block: 512 slots =
@@ -371,6 +377,16 @@ func trampoline(ctl *ControlFlow) Obj {
 			eval(ctl)
 		case ControlFlowApply:
 			apply(ctl)
+		case controlFlowClosure:
+			bf := ctl.tailBF
+			r := bf.cl.enter(ctl, bf, bf.cl, ctl.tailArgs[0], ctl.tailArgs[1], ctl.tailArgs[2], ctl.tailArgs[3])
+			if r != nil {
+				// As the normal exit below: ctl.data ends at pos, and eval's
+				// argument loop relies on it.
+				ctl.kind = ControlFlowReturn
+				ctl.data = ctl.data[:ctl.pos]
+				return r
+			}
 		}
 	}
 	ret := ctl.data[ctl.pos]

@@ -108,6 +108,7 @@ func TestClosureMatchesVM(t *testing.T) {
 		"tail-native":  {`(defun cl-tn (X) (hd-fn X))`, `(defun hd-fn (X) (intern X))`, `(cl-tn "q")`},
 		"mutual":       {`(defun cl-ev (N) (if (= N 0) true (cl-od (- N 1))))`, `(defun cl-od (N) (if (= N 0) false (cl-ev (- N 1))))`, `(cl-ev 100001)`},
 		"redefine":     {`(defun cl-r1 () 1)`, `(defun cl-r2 () (cl-r1))`, `(defun cl-r1 () 2)`, `(cl-r2)`},
+		"tail-in-args": {`(defun cl-t1 (N) (if (= N 0) 7 (cl-t2 (- N 1))))`, `(defun cl-t2 (N) (cl-t1 N))`, `(cons (cl-t1 3) (cons (cl-t2 3) ()))`},
 		"self-redef":   {`(defun cl-sr (N) (if (= N 0) 0 (do (defun cl-sr (N) 42) (cl-sr (- N 1)))))`, `(cl-sr 3)`},
 	}
 	for name, forms := range progs {

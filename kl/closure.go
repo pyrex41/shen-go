@@ -910,20 +910,72 @@ func clTailN(ctl *ControlFlow, f Obj, args []Obj) Obj {
 	return nil
 }
 
-func clTail0(ctl *ControlFlow, f Obj) Obj { return clTailN(ctl, f, nil) }
+func clTail0(ctl *ControlFlow, f Obj) Obj {
+	if *f == scmHeadBytecodeFunc {
+		bf := mustBytecodeFunc(f)
+		if cl := bf.cl; cl != nil && cl.arity == 0 {
+			ctl.tailBF = bf
+			ctl.kind = controlFlowClosure
+			return nil
+		}
+	}
+	return clTailN(ctl, f, nil)
+}
 func clTail1(ctl *ControlFlow, f, a Obj) Obj {
+	if *f == scmHeadBytecodeFunc {
+		bf := mustBytecodeFunc(f)
+		if cl := bf.cl; cl != nil && cl.arity == 1 {
+			ctl.tailBF = bf
+			ctl.tailArgs[0] = a
+			ctl.kind = controlFlowClosure
+			return nil
+		}
+	}
 	t := [1]Obj{a}
 	return clTailN(ctl, f, t[:])
 }
 func clTail2(ctl *ControlFlow, f, a, b Obj) Obj {
+	if *f == scmHeadBytecodeFunc {
+		bf := mustBytecodeFunc(f)
+		if cl := bf.cl; cl != nil && cl.arity == 2 {
+			ctl.tailBF = bf
+			ctl.tailArgs[0] = a
+			ctl.tailArgs[1] = b
+			ctl.kind = controlFlowClosure
+			return nil
+		}
+	}
 	t := [2]Obj{a, b}
 	return clTailN(ctl, f, t[:])
 }
 func clTail3(ctl *ControlFlow, f, a, b, d Obj) Obj {
+	if *f == scmHeadBytecodeFunc {
+		bf := mustBytecodeFunc(f)
+		if cl := bf.cl; cl != nil && cl.arity == 3 {
+			ctl.tailBF = bf
+			ctl.tailArgs[0] = a
+			ctl.tailArgs[1] = b
+			ctl.tailArgs[2] = d
+			ctl.kind = controlFlowClosure
+			return nil
+		}
+	}
 	t := [3]Obj{a, b, d}
 	return clTailN(ctl, f, t[:])
 }
 func clTail4(ctl *ControlFlow, f, a, b, d, e Obj) Obj {
+	if *f == scmHeadBytecodeFunc {
+		bf := mustBytecodeFunc(f)
+		if cl := bf.cl; cl != nil && cl.arity == 4 {
+			ctl.tailBF = bf
+			ctl.tailArgs[0] = a
+			ctl.tailArgs[1] = b
+			ctl.tailArgs[2] = d
+			ctl.tailArgs[3] = e
+			ctl.kind = controlFlowClosure
+			return nil
+		}
+	}
 	t := [4]Obj{a, b, d, e}
 	return clTailN(ctl, f, t[:])
 }
