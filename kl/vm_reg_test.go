@@ -226,3 +226,71 @@ func TestRegisterValueForms(t *testing.T) {
 		t.Errorf("lit: %s", got)
 	}
 }
+
+// Tail position survives every form that can hold a call, at a depth where a
+// lost tail call would show: 5M frames would take the record stack far past its
+// starting size. The Lua port lost and/or's last operand with its certification
+// suites still passing.
+func TestRegisterTailPositions(t *testing.T) {
+	const depth = "5000000"
+	for _, tc := range []struct {
+		name string
+		defs []string
+		call string
+		want string
+	}{
+		{"and", []string{
+			`(defun ev? (N) (if (= N 0) true (and (number? N) (od? (- N 1)))))`,
+			`(defun od? (N) (if (= N 0) false (and (number? N) (ev? (- N 1)))))`,
+		}, `(ev? ` + depth + `)`, "true"},
+		{"or", []string{
+			`(defun orv? (N) (if (= N 0) false (or (not (number? N)) (orp? (- N 1)))))`,
+			`(defun orp? (N) (if (= N 0) true (or (not (number? N)) (orv? (- N 1)))))`,
+		}, `(orv? ` + depth + `)`, "false"},
+		{"if", []string{
+			`(defun ifa (N) (if (= N 0) done (ifb (- N 1))))`,
+			`(defun ifb (N) (if (= N 0) done (ifa (- N 1))))`,
+		}, `(ifa ` + depth + `)`, "done"},
+		{"cond", []string{
+			`(defun cda (N) (cond ((= N 0) done) (true (cdb (- N 1)))))`,
+			`(defun cdb (N) (cond ((= N 0) done) (true (cda (- N 1)))))`,
+		}, `(cda ` + depth + `)`, "done"},
+		{"let", []string{
+			`(defun lta (N) (let M (- N 1) (if (< M 0) done (ltb M))))`,
+			`(defun ltb (N) (let M (- N 1) (if (< M 0) done (lta M))))`,
+		}, `(lta ` + depth + `)`, "done"},
+		{"variable", []string{
+			`(defun vra (F G N) (if (= N 0) done (F G F (- N 1))))`,
+			`(defun vrb (F G N) (if (= N 0) done (F G F (- N 1))))`,
+		}, `(vra vrb vra ` + depth + `)`, "done"},
+		{"closure", []string{
+			`(defun nmx (N) (if (= N 0) done (vcl (lambda X (nmx X)) (- N 1))))`,
+			`(defun vcl (F N) (F N))`,
+		}, `(nmx ` + depth + `)`, "done"},
+		{"thaw", []string{
+			`(defun thw (N) (if (= N 0) done (thaw (freeze (thw2 (- N 1))))))`,
+			`(defun thw2 (N) (if (= N 0) done (thw (- N 1))))`,
+		}, `(thw ` + depth + `)`, "done"},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			var ctx ControlFlow
+			for _, d := range tc.defs {
+				evalAll(t, &ctx, d)
+			}
+			got := ""
+			if tc.name == "variable" {
+				// A bytecode function in a variable, which KL has no literal for.
+				a, b := PrimFunc(MakeSymbol("vra")), PrimFunc(MakeSymbol("vrb"))
+				got = ObjString(Call(&ctx, a, b, a, MakeInteger(5000000)))
+			} else {
+				got = evalAll(t, &ctx, tc.call)
+			}
+			if got != tc.want {
+				t.Fatalf("%s = %s, want %s", tc.call, got, tc.want)
+			}
+			if cap(ctx.vmFrames) > 256 || len(ctx.frameBlocks) > 1 {
+				t.Fatalf("%s grew the call stack: %d records, %d blocks", tc.call, cap(ctx.vmFrames), len(ctx.frameBlocks))
+			}
+		})
+	}
+}
