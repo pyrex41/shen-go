@@ -3,35 +3,35 @@ package main
 import . "github.com/pyrex41/shen-go/kl"
 
 var TypesMain = MakeNative0(func(__e *ControlFlow) Obj {
-tmp18638 := MakeNative2(func(__e *ControlFlow, V6010, V6011 Obj) Obj {
-tmp18639 := Call1(__e, SymFn(symshen_4rectify_1type), V6011)
+tmp17721 := MakeNative2(func(__e *ControlFlow, V6010, V6011 Obj) Obj {
+tmp17722 := Call1(__e, SymFn(symshen_4rectify_1type), V6011)
 
 
-let__18609 := tmp18639
-_ = let__18609
+let__17692 := tmp17722
+_ = let__17692
 
-tmp18640 := MakeNative1(func(__e *ControlFlow, Z6014 Obj) Obj {
+tmp17723 := MakeNative1(func(__e *ControlFlow, Z6014 Obj) Obj {
 return MakeNative1(func(__e *ControlFlow, Z6015 Obj) Obj {
 return MakeNative1(func(__e *ControlFlow, Z6016 Obj) Obj {
 return MakeNative1(func(__e *ControlFlow, Z6017 Obj) Obj {
-tmp18641 := Call0(__e, SymFn(symshen_4incinfs))
+tmp17724 := Call0(__e, SymFn(symshen_4incinfs))
 
 
-_ = tmp18641
+_ = tmp17724
 
-tmp18642 := Call2(__e, SymFn(symshen_4deref), V6010, Z6014)
-
-
-tmp18643 := Call1(__e, SymFn(symreceive), tmp18642)
+tmp17725 := Call2(__e, SymFn(symshen_4deref), V6010, Z6014)
 
 
-tmp18644 := Call2(__e, SymFn(symshen_4deref), let__18609, Z6014)
+tmp17726 := Call1(__e, SymFn(symreceive), tmp17725)
 
 
-tmp18645 := Call1(__e, SymFn(symreceive), tmp18644)
+tmp17727 := Call2(__e, SymFn(symshen_4deref), let__17692, Z6014)
 
 
-return TailCall6(__e, SymFn(symshen_4variancy), tmp18643, tmp18645, Z6014, Z6015, Z6016, Z6017)
+tmp17728 := Call1(__e, SymFn(symreceive), tmp17727)
+
+
+return TailCall6(__e, SymFn(symshen_4variancy), tmp17726, tmp17728, Z6014, Z6015, Z6016, Z6017)
 
 
 panic("unreachable")
@@ -43,56 +43,56 @@ panic("unreachable")
 panic("unreachable")
 })
 
-tmp18646 := Call0(__e, SymFn(symshen_4prolog_1vector))
+tmp17729 := Call0(__e, SymFn(symshen_4prolog_1vector))
 
 
-tmp18647 := Call1(__e, tmp18640, tmp18646)
+tmp17730 := Call1(__e, tmp17723, tmp17729)
 
 
-tmp18648 := Call1(__e, SymFn(symvector), MakeInteger(0))
+tmp17731 := Call1(__e, SymFn(symvector), MakeInteger(0))
 
 
-tmp18649 := Call2(__e, SymFn(sym_8v), MakeInteger(0), tmp18648)
+tmp17732 := Call2(__e, SymFn(sym_8v), MakeInteger(0), tmp17731)
 
 
-tmp18650 := Call2(__e, SymFn(sym_8v), True, tmp18649)
+tmp17733 := Call2(__e, SymFn(sym_8v), True, tmp17732)
 
 
-tmp18651 := Call1(__e, tmp18647, tmp18650)
+tmp17734 := Call1(__e, tmp17730, tmp17733)
 
 
-tmp18652 := Call1(__e, tmp18651, MakeInteger(0))
+tmp17735 := Call1(__e, tmp17734, MakeInteger(0))
 
 
-tmp18653 := MakeNative0(func(__e *ControlFlow) Obj {
+tmp17736 := MakeNative0(func(__e *ControlFlow) Obj {
 return True
 panic("unreachable")
 })
 
-tmp18654 := Call1(__e, tmp18652, tmp18653)
+tmp17737 := Call1(__e, tmp17735, tmp17736)
 
 
-let__18610 := tmp18654
-_ = let__18610
+let__17693 := tmp17737
+_ = let__17693
 
-tmp18655 := Call1(__e, SymFn(symshen_4prolog_1abstraction), V6011)
-
-
-tmp18656 := Call1(__e, SymFn(symeval_1kl), tmp18655)
+tmp17738 := Call1(__e, SymFn(symshen_4prolog_1abstraction), V6011)
 
 
-let__18611 := tmp18656
-_ = let__18611
-
-tmp18657 := GValue(__e, symshen_4_dsigf_d)
-
-tmp18658 := Call3(__e, SymFn(symshen_4assoc_1_6), V6010, let__18611, tmp18657)
+tmp17739 := Call1(__e, SymFn(symeval_1kl), tmp17738)
 
 
-tmp18659 := PrimGuard2(__e, symset, PrimSet, symshen_4_dsigf_d, tmp18658)
+let__17694 := tmp17739
+_ = let__17694
 
-let__18612 := tmp18659
-_ = let__18612
+tmp17740 := GValue(__e, symshen_4_dsigf_d)
+
+tmp17741 := Call3(__e, SymFn(symshen_4assoc_1_6), V6010, let__17694, tmp17740)
+
+
+tmp17742 := PrimGuard2(__e, symset, PrimSet, symshen_4_dsigf_d, tmp17741)
+
+let__17695 := tmp17742
+_ = let__17695
 
 return V6010
 
@@ -100,58 +100,58 @@ return V6010
 panic("unreachable")
 })
 
-tmp18660 := Call2(__e, ns2_1set, symdeclare, tmp18638)
+tmp17743 := Call2(__e, ns2_1set, symdeclare, tmp17721)
 
 
-_ = tmp18660
+_ = tmp17743
 
-tmp18661 := MakeNative6(func(__e *ControlFlow, V6020, V6021, V6022, V6023, V6024, V6025 Obj) Obj {
-tmp18672 := Call1(__e, SymFn(symshen_4unlocked_2), V6023)
-
-
-if True == tmp18672 {
-tmp18662 := Call1(__e, SymFn(symshen_4newpv), V6022)
+tmp17744 := MakeNative6(func(__e *ControlFlow, V6020, V6021, V6022, V6023, V6024, V6025 Obj) Obj {
+tmp17755 := Call1(__e, SymFn(symshen_4unlocked_2), V6023)
 
 
-let__18613 := tmp18662
-_ = let__18613
-
-tmp18663 := Call1(__e, SymFn(symshen_4newpv), V6022)
+if True == tmp17755 {
+tmp17745 := Call1(__e, SymFn(symshen_4newpv), V6022)
 
 
-let__18614 := tmp18663
-_ = let__18614
+let__17696 := tmp17745
+_ = let__17696
 
-tmp18664 := Call0(__e, SymFn(symshen_4incinfs))
+tmp17746 := Call1(__e, SymFn(symshen_4newpv), V6022)
 
 
-_ = tmp18664
+let__17697 := tmp17746
+_ = let__17697
 
-tmp18665 := GCons(__e, V6020, Nil)
+tmp17747 := Call0(__e, SymFn(symshen_4incinfs))
 
-tmp18666 := GCons(__e, symfn, tmp18665)
 
-tmp18667 := MakeNative0(func(__e *ControlFlow) Obj {
-tmp18668 := MakeNative0(func(__e *ControlFlow) Obj {
-__e.TailApply(SymFn(symshen_4variants_2), V6020, let__18614, V6021, V6022, V6023, V6024, V6025)
+_ = tmp17747
+
+tmp17748 := GCons(__e, V6020, Nil)
+
+tmp17749 := GCons(__e, symfn, tmp17748)
+
+tmp17750 := MakeNative0(func(__e *ControlFlow) Obj {
+tmp17751 := MakeNative0(func(__e *ControlFlow) Obj {
+__e.TailApply(SymFn(symshen_4variants_2), V6020, let__17697, V6021, V6022, V6023, V6024, V6025)
 return nil
 panic("unreachable")
 })
 
-__e.TailApply(SymFn(symshen_4variancy_1signature), V6020, let__18613, let__18614, V6022, V6023, V6024, tmp18668)
+__e.TailApply(SymFn(symshen_4variancy_1signature), V6020, let__17696, let__17697, V6022, V6023, V6024, tmp17751)
 return nil
 
 
 panic("unreachable")
 })
 
-tmp18669 := Call(__e, SymFn(symshen_4system_1S_1h), tmp18666, let__18613, Nil, V6022, V6023, V6024, tmp18667)
+tmp17752 := Call(__e, SymFn(symshen_4system_1S_1h), tmp17749, let__17696, Nil, V6022, V6023, V6024, tmp17750)
 
 
-tmp18670 := Call2(__e, SymFn(symshen_4gc), V6022, tmp18669)
+tmp17753 := Call2(__e, SymFn(symshen_4gc), V6022, tmp17752)
 
 
-return TailCall2(__e, SymFn(symshen_4gc), V6022, tmp18670)
+return TailCall2(__e, SymFn(symshen_4gc), V6022, tmp17753)
 
 
 } else {
@@ -162,12 +162,12 @@ return False
 panic("unreachable")
 })
 
-tmp18673 := Call2(__e, ns2_1set, symshen_4variancy, tmp18661)
+tmp17756 := Call2(__e, ns2_1set, symshen_4variancy, tmp17744)
 
 
-_ = tmp18673
+_ = tmp17756
 
-tmp18674 := MakeNative(func(__e *ControlFlow) {
+tmp17757 := MakeNative(func(__e *ControlFlow) {
 V6028 := __e.Get(1)
 V6029 := __e.Get(2)
 V6030 := __e.Get(3)
@@ -176,120 +176,120 @@ V6032 := __e.Get(5)
 V6033 := __e.Get(6)
 V6034 := __e.Get(7)
 __e.ReturnDirect(func() Obj {
-let__18615 := GAdd(__e, V6033, MakeInteger(1))
-_ = let__18615
+let__17698 := GAdd(__e, V6033, MakeInteger(1))
+_ = let__17698
 
-tmp18723 := Call1(__e, SymFn(symshen_4unlocked_2), V6032)
-
-
-var ifres18676 Obj
-
-if True == tmp18723 {
-tmp18677 := Call2(__e, SymFn(symshen_4lazyderef), V6030, V6031)
+tmp17806 := Call1(__e, SymFn(symshen_4unlocked_2), V6032)
 
 
-let__18617 := tmp18677
-_ = let__18617
+var ifres17759 Obj
 
-tmp18678 := MakeNative1(func(__e *ControlFlow, Z6039 Obj) Obj {
-tmp18679 := Call0(__e, SymFn(symshen_4incinfs))
-
-
-_ = tmp18679
-
-tmp18680 := MakeNative0(func(__e *ControlFlow) Obj {
-tmp18681 := Call2(__e, SymFn(symshen_4deref), V6028, V6031)
+if True == tmp17806 {
+tmp17760 := Call2(__e, SymFn(symshen_4lazyderef), V6030, V6031)
 
 
-tmp18682 := Call1(__e, SymFn(symarity), tmp18681)
+let__17700 := tmp17760
+_ = let__17700
+
+tmp17761 := MakeNative1(func(__e *ControlFlow, Z6039 Obj) Obj {
+tmp17762 := Call0(__e, SymFn(symshen_4incinfs))
 
 
-tmp18683 := GEq(__e, tmp18682, MakeInteger(0))
+_ = tmp17762
 
-tmp18684 := MakeNative0(func(__e *ControlFlow) Obj {
-return TailCall4(__e, SymFn(symshen_4cut), V6031, V6032, let__18615, V6034)
+tmp17763 := MakeNative0(func(__e *ControlFlow) Obj {
+tmp17764 := Call2(__e, SymFn(symshen_4deref), V6028, V6031)
+
+
+tmp17765 := Call1(__e, SymFn(symarity), tmp17764)
+
+
+tmp17766 := GEq(__e, tmp17765, MakeInteger(0))
+
+tmp17767 := MakeNative0(func(__e *ControlFlow) Obj {
+return TailCall4(__e, SymFn(symshen_4cut), V6031, V6032, let__17698, V6034)
 panic("unreachable")
 })
 
-return TailCall5(__e, SymFn(symwhen), tmp18683, V6031, V6032, let__18615, tmp18684)
-
-
-panic("unreachable")
-})
-
-return TailCall6(__e, SymFn(symis_b), V6029, Z6039, V6031, V6032, let__18615, tmp18680)
+return TailCall5(__e, SymFn(symwhen), tmp17766, V6031, V6032, let__17698, tmp17767)
 
 
 panic("unreachable")
 })
 
-let__18618 := tmp18678
-_ = let__18618
-
-tmp18722 := GConsP(__e, let__18617)
-
-var ifres18685 Obj
-
-if True == tmp18722 {
-tmp18686 := GHd(__e, let__18617)
-
-tmp18687 := Call2(__e, SymFn(symshen_4lazyderef), tmp18686, V6031)
+return TailCall6(__e, SymFn(symis_b), V6029, Z6039, V6031, V6032, let__17698, tmp17763)
 
 
-let__18619 := tmp18687
-_ = let__18619
-
-tmp18688 := MakeNative0(func(__e *ControlFlow) Obj {
-tmp18689 := GTl(__e, let__18617)
-
-tmp18690 := Call2(__e, SymFn(symshen_4lazyderef), tmp18689, V6031)
-
-
-let__18621 := tmp18690
-_ = let__18621
-
-tmp18691 := MakeNative1(func(__e *ControlFlow, Z6044 Obj) Obj {
-return TailCall1(__e, let__18618, Z6044)
 panic("unreachable")
 })
 
-let__18622 := tmp18691
-_ = let__18622
+let__17701 := tmp17761
+_ = let__17701
 
-tmp18707 := GConsP(__e, let__18621)
+tmp17805 := GConsP(__e, let__17700)
 
-if True == tmp18707 {
-tmp18692 := GHd(__e, let__18621)
+var ifres17768 Obj
 
-let__18623 := tmp18692
-_ = let__18623
+if True == tmp17805 {
+tmp17769 := GHd(__e, let__17700)
 
-tmp18693 := GTl(__e, let__18621)
-
-tmp18694 := Call2(__e, SymFn(symshen_4lazyderef), tmp18693, V6031)
+tmp17770 := Call2(__e, SymFn(symshen_4lazyderef), tmp17769, V6031)
 
 
-let__18624 := tmp18694
-_ = let__18624
+let__17702 := tmp17770
+_ = let__17702
 
-tmp18695 := MakeNative0(func(__e *ControlFlow) Obj {
-return TailCall1(__e, let__18622, let__18623)
+tmp17771 := MakeNative0(func(__e *ControlFlow) Obj {
+tmp17772 := GTl(__e, let__17700)
+
+tmp17773 := Call2(__e, SymFn(symshen_4lazyderef), tmp17772, V6031)
+
+
+let__17704 := tmp17773
+_ = let__17704
+
+tmp17774 := MakeNative1(func(__e *ControlFlow, Z6044 Obj) Obj {
+return TailCall1(__e, let__17701, Z6044)
 panic("unreachable")
 })
 
-let__18625 := tmp18695
-_ = let__18625
+let__17705 := tmp17774
+_ = let__17705
 
-tmp18699 := GEq(__e, let__18624, Nil)
+tmp17790 := GConsP(__e, let__17704)
 
-if True == tmp18699 {
-return TailCall1(__e, SymFn(symthaw), let__18625)
+if True == tmp17790 {
+tmp17775 := GHd(__e, let__17704)
+
+let__17706 := tmp17775
+_ = let__17706
+
+tmp17776 := GTl(__e, let__17704)
+
+tmp17777 := Call2(__e, SymFn(symshen_4lazyderef), tmp17776, V6031)
+
+
+let__17707 := tmp17777
+_ = let__17707
+
+tmp17778 := MakeNative0(func(__e *ControlFlow) Obj {
+return TailCall1(__e, let__17705, let__17706)
+panic("unreachable")
+})
+
+let__17708 := tmp17778
+_ = let__17708
+
+tmp17782 := GEq(__e, let__17707, Nil)
+
+if True == tmp17782 {
+return TailCall1(__e, SymFn(symthaw), let__17708)
 } else {
-tmp18697 := Call1(__e, SymFn(symshen_4pvar_2), let__18624)
+tmp17780 := Call1(__e, SymFn(symshen_4pvar_2), let__17707)
 
 
-if True == tmp18697 {
-return TailCall4(__e, SymFn(symshen_4bind_b), let__18624, Nil, V6031, let__18625)
+if True == tmp17780 {
+return TailCall4(__e, SymFn(symshen_4bind_b), let__17707, Nil, V6031, let__17708)
 } else {
 return False
 }
@@ -299,27 +299,27 @@ return False
 
 
 } else {
-tmp18705 := Call1(__e, SymFn(symshen_4pvar_2), let__18621)
+tmp17788 := Call1(__e, SymFn(symshen_4pvar_2), let__17704)
 
 
-if True == tmp18705 {
-tmp18700 := Call1(__e, SymFn(symshen_4newpv), V6031)
+if True == tmp17788 {
+tmp17783 := Call1(__e, SymFn(symshen_4newpv), V6031)
 
 
-let__18626 := tmp18700
-_ = let__18626
+let__17709 := tmp17783
+_ = let__17709
 
-tmp18701 := GCons(__e, let__18626, Nil)
+tmp17784 := GCons(__e, let__17709, Nil)
 
-tmp18702 := MakeNative0(func(__e *ControlFlow) Obj {
-return TailCall1(__e, let__18622, let__18626)
+tmp17785 := MakeNative0(func(__e *ControlFlow) Obj {
+return TailCall1(__e, let__17705, let__17709)
 panic("unreachable")
 })
 
-tmp18703 := Call4(__e, SymFn(symshen_4bind_b), let__18621, tmp18701, V6031, tmp18702)
+tmp17786 := Call4(__e, SymFn(symshen_4bind_b), let__17704, tmp17784, V6031, tmp17785)
 
 
-return TailCall2(__e, SymFn(symshen_4gc), V6031, tmp18703)
+return TailCall2(__e, SymFn(symshen_4gc), V6031, tmp17786)
 
 
 } else {
@@ -333,141 +333,141 @@ return False
 panic("unreachable")
 })
 
-let__18620 := tmp18688
-_ = let__18620
+let__17703 := tmp17771
+_ = let__17703
 
-tmp18713 := GEq(__e, let__18619, sym_1_1_6)
+tmp17796 := GEq(__e, let__17702, sym_1_1_6)
 
-var ifres18708 Obj
+var ifres17791 Obj
 
-if True == tmp18713 {
-tmp18709 := Call1(__e, SymFn(symthaw), let__18620)
-
-
-ifres18708 = tmp18709
+if True == tmp17796 {
+tmp17792 := Call1(__e, SymFn(symthaw), let__17703)
 
 
-} else {
-tmp18712 := Call1(__e, SymFn(symshen_4pvar_2), let__18619)
-
-
-var ifres18710 Obj
-
-if True == tmp18712 {
-tmp18711 := Call4(__e, SymFn(symshen_4bind_b), let__18619, sym_1_1_6, V6031, let__18620)
-
-
-ifres18710 = tmp18711
+ifres17791 = tmp17792
 
 
 } else {
-ifres18710 = False
+tmp17795 := Call1(__e, SymFn(symshen_4pvar_2), let__17702)
+
+
+var ifres17793 Obj
+
+if True == tmp17795 {
+tmp17794 := Call4(__e, SymFn(symshen_4bind_b), let__17702, sym_1_1_6, V6031, let__17703)
+
+
+ifres17793 = tmp17794
+
+
+} else {
+ifres17793 = False
 
 
 }
 
-ifres18708 = ifres18710
+ifres17791 = ifres17793
 
 
 }
 
-ifres18685 = ifres18708
+ifres17768 = ifres17791
 
 
 } else {
-tmp18721 := Call1(__e, SymFn(symshen_4pvar_2), let__18617)
+tmp17804 := Call1(__e, SymFn(symshen_4pvar_2), let__17700)
 
 
-var ifres18714 Obj
+var ifres17797 Obj
 
-if True == tmp18721 {
-tmp18715 := Call1(__e, SymFn(symshen_4newpv), V6031)
+if True == tmp17804 {
+tmp17798 := Call1(__e, SymFn(symshen_4newpv), V6031)
 
 
-let__18627 := tmp18715
-_ = let__18627
+let__17710 := tmp17798
+_ = let__17710
 
-tmp18716 := GCons(__e, let__18627, Nil)
+tmp17799 := GCons(__e, let__17710, Nil)
 
-tmp18717 := GCons(__e, sym_1_1_6, tmp18716)
+tmp17800 := GCons(__e, sym_1_1_6, tmp17799)
 
-tmp18718 := MakeNative0(func(__e *ControlFlow) Obj {
-return TailCall1(__e, let__18618, let__18627)
+tmp17801 := MakeNative0(func(__e *ControlFlow) Obj {
+return TailCall1(__e, let__17701, let__17710)
 panic("unreachable")
 })
 
-tmp18719 := Call4(__e, SymFn(symshen_4bind_b), let__18617, tmp18717, V6031, tmp18718)
+tmp17802 := Call4(__e, SymFn(symshen_4bind_b), let__17700, tmp17800, V6031, tmp17801)
 
 
-tmp18720 := Call2(__e, SymFn(symshen_4gc), V6031, tmp18719)
+tmp17803 := Call2(__e, SymFn(symshen_4gc), V6031, tmp17802)
 
 
-ifres18714 = tmp18720
+ifres17797 = tmp17803
 
 
 } else {
-ifres18714 = False
+ifres17797 = False
 
 
 }
 
-ifres18685 = ifres18714
+ifres17768 = ifres17797
 
 
 }
 
-ifres18676 = ifres18685
+ifres17759 = ifres17768
 
 
 } else {
-ifres18676 = False
+ifres17759 = False
 
 
 }
 
-let__18616 := ifres18676
-_ = let__18616
+let__17699 := ifres17759
+_ = let__17699
 
-tmp18731 := GEq(__e, let__18616, False)
+tmp17814 := GEq(__e, let__17699, False)
 
-if True == tmp18731 {
-tmp18727 := Call1(__e, SymFn(symshen_4unlocked_2), V6032)
-
-
-var ifres18724 Obj
-
-if True == tmp18727 {
-tmp18725 := Call0(__e, SymFn(symshen_4incinfs))
+if True == tmp17814 {
+tmp17810 := Call1(__e, SymFn(symshen_4unlocked_2), V6032)
 
 
-_ = tmp18725
+var ifres17807 Obj
 
-tmp18726 := Call6(__e, SymFn(symis_b), V6029, V6030, V6031, V6032, let__18615, V6034)
+if True == tmp17810 {
+tmp17808 := Call0(__e, SymFn(symshen_4incinfs))
 
 
-ifres18724 = tmp18726
+_ = tmp17808
+
+tmp17809 := Call6(__e, SymFn(symis_b), V6029, V6030, V6031, V6032, let__17698, V6034)
+
+
+ifres17807 = tmp17809
 
 
 } else {
-ifres18724 = False
+ifres17807 = False
 
 
 }
 
-let__18628 := ifres18724
-_ = let__18628
+let__17711 := ifres17807
+_ = let__17711
 
-tmp18729 := GEq(__e, let__18628, False)
+tmp17812 := GEq(__e, let__17711, False)
 
-if True == tmp18729 {
-return TailCall2(__e, SymFn(symshen_4unlock), V6032, let__18615)
+if True == tmp17812 {
+return TailCall2(__e, SymFn(symshen_4unlock), V6032, let__17698)
 } else {
-return let__18628
+return let__17711
 }
 
 
 } else {
-return let__18616
+return let__17699
 }
 
 
@@ -475,12 +475,12 @@ panic("unreachable")
 }())
 }, 7)
 
-tmp18732 := Call2(__e, ns2_1set, symshen_4variancy_1signature, tmp18674)
+tmp17815 := Call2(__e, ns2_1set, symshen_4variancy_1signature, tmp17757)
 
 
-_ = tmp18732
+_ = tmp17815
 
-tmp18733 := MakeNative(func(__e *ControlFlow) {
+tmp17816 := MakeNative(func(__e *ControlFlow) {
 V6051 := __e.Get(1)
 V6052 := __e.Get(2)
 V6053 := __e.Get(3)
@@ -489,68 +489,68 @@ V6055 := __e.Get(5)
 V6056 := __e.Get(6)
 V6057 := __e.Get(7)
 __e.ReturnDirect(func() Obj {
-tmp18737 := Call1(__e, SymFn(symshen_4unlocked_2), V6055)
+tmp17820 := Call1(__e, SymFn(symshen_4unlocked_2), V6055)
 
 
-var ifres18734 Obj
+var ifres17817 Obj
 
-if True == tmp18737 {
-tmp18735 := Call0(__e, SymFn(symshen_4incinfs))
-
-
-_ = tmp18735
-
-tmp18736 := Call6(__e, SymFn(symis_b), V6052, V6053, V6054, V6055, V6056, V6057)
+if True == tmp17820 {
+tmp17818 := Call0(__e, SymFn(symshen_4incinfs))
 
 
-ifres18734 = tmp18736
+_ = tmp17818
+
+tmp17819 := Call6(__e, SymFn(symis_b), V6052, V6053, V6054, V6055, V6056, V6057)
+
+
+ifres17817 = tmp17819
 
 
 } else {
-ifres18734 = False
+ifres17817 = False
 
 
 }
 
-let__18629 := ifres18734
-_ = let__18629
+let__17712 := ifres17817
+_ = let__17712
 
-tmp18749 := GEq(__e, let__18629, False)
+tmp17832 := GEq(__e, let__17712, False)
 
-if True == tmp18749 {
-tmp18747 := Call1(__e, SymFn(symshen_4unlocked_2), V6055)
-
-
-if True == tmp18747 {
-tmp18738 := Call1(__e, SymFn(symshen_4newpv), V6054)
+if True == tmp17832 {
+tmp17830 := Call1(__e, SymFn(symshen_4unlocked_2), V6055)
 
 
-let__18630 := tmp18738
-_ = let__18630
-
-tmp18739 := Call0(__e, SymFn(symshen_4incinfs))
+if True == tmp17830 {
+tmp17821 := Call1(__e, SymFn(symshen_4newpv), V6054)
 
 
-_ = tmp18739
+let__17713 := tmp17821
+_ = let__17713
 
-tmp18740 := Call2(__e, SymFn(symshen_4deref), V6051, V6054)
-
-
-tmp18741 := Call3(__e, SymFn(symshen_4app), tmp18740, MakeString(" may create errors\n"), symshen_4a)
+tmp17822 := Call0(__e, SymFn(symshen_4incinfs))
 
 
-tmp18742 := PrimGuard2(__e, symcn, PrimStringConcat, MakeString("warning: changing the type of "), tmp18741)
+_ = tmp17822
 
-tmp18743 := Call0(__e, SymFn(symstoutput))
-
-
-tmp18744 := Call2(__e, SymFn(sympr), tmp18742, tmp18743)
+tmp17823 := Call2(__e, SymFn(symshen_4deref), V6051, V6054)
 
 
-tmp18745 := Call6(__e, SymFn(symis), let__18630, tmp18744, V6054, V6055, V6056, V6057)
+tmp17824 := Call3(__e, SymFn(symshen_4app), tmp17823, MakeString(" may create errors\n"), symshen_4a)
 
 
-return TailCall2(__e, SymFn(symshen_4gc), V6054, tmp18745)
+tmp17825 := PrimGuard2(__e, symcn, PrimStringConcat, MakeString("warning: changing the type of "), tmp17824)
+
+tmp17826 := Call0(__e, SymFn(symstoutput))
+
+
+tmp17827 := Call2(__e, SymFn(sympr), tmp17825, tmp17826)
+
+
+tmp17828 := Call6(__e, SymFn(symis), let__17713, tmp17827, V6054, V6055, V6056, V6057)
+
+
+return TailCall2(__e, SymFn(symshen_4gc), V6054, tmp17828)
 
 
 } else {
@@ -559,7 +559,7 @@ return False
 
 
 } else {
-return let__18629
+return let__17712
 }
 
 
@@ -567,120 +567,120 @@ panic("unreachable")
 }())
 }, 7)
 
-tmp18750 := Call2(__e, ns2_1set, symshen_4variants_2, tmp18733)
+tmp17833 := Call2(__e, ns2_1set, symshen_4variants_2, tmp17816)
 
 
-_ = tmp18750
+_ = tmp17833
 
-tmp18751 := MakeNative1(func(__e *ControlFlow, V6060 Obj) Obj {
-tmp18752 := Call1(__e, SymFn(symgensym), symB)
-
-
-let__18631 := tmp18752
-_ = let__18631
-
-tmp18753 := Call1(__e, SymFn(symgensym), symL)
+tmp17834 := MakeNative1(func(__e *ControlFlow, V6060 Obj) Obj {
+tmp17835 := Call1(__e, SymFn(symgensym), symB)
 
 
-let__18632 := tmp18753
-_ = let__18632
+let__17714 := tmp17835
+_ = let__17714
 
-tmp18754 := Call1(__e, SymFn(symgensym), symKey)
-
-
-let__18633 := tmp18754
-_ = let__18633
-
-tmp18755 := Call1(__e, SymFn(symgensym), symC)
+tmp17836 := Call1(__e, SymFn(symgensym), symL)
 
 
-let__18634 := tmp18755
-_ = let__18634
+let__17715 := tmp17836
+_ = let__17715
 
-tmp18756 := Call1(__e, SymFn(symgensym), symV)
-
-
-let__18635 := tmp18756
-_ = let__18635
-
-tmp18757 := Call1(__e, SymFn(symshen_4extract_1vars), V6060)
+tmp17837 := Call1(__e, SymFn(symgensym), symKey)
 
 
-let__18636 := tmp18757
-_ = let__18636
+let__17716 := tmp17837
+_ = let__17716
 
-tmp18758 := Call1(__e, SymFn(symshen_4rcons__form), V6060)
-
-
-tmp18759 := GCons(__e, let__18634, Nil)
-
-tmp18760 := GCons(__e, let__18633, tmp18759)
-
-tmp18761 := GCons(__e, let__18632, tmp18760)
-
-tmp18762 := GCons(__e, let__18631, tmp18761)
-
-tmp18763 := GCons(__e, tmp18758, tmp18762)
-
-tmp18764 := GCons(__e, let__18635, tmp18763)
-
-tmp18765 := GCons(__e, symis_b, tmp18764)
-
-tmp18766 := Call3(__e, SymFn(symshen_4stpart), let__18636, tmp18765, let__18631)
+tmp17838 := Call1(__e, SymFn(symgensym), symC)
 
 
-tmp18767 := GCons(__e, tmp18766, Nil)
+let__17717 := tmp17838
+_ = let__17717
 
-tmp18768 := GCons(__e, let__18634, tmp18767)
-
-tmp18769 := GCons(__e, symlambda, tmp18768)
-
-tmp18770 := GCons(__e, tmp18769, Nil)
-
-tmp18771 := GCons(__e, let__18633, tmp18770)
-
-tmp18772 := GCons(__e, symlambda, tmp18771)
-
-tmp18773 := GCons(__e, tmp18772, Nil)
-
-tmp18774 := GCons(__e, let__18632, tmp18773)
-
-tmp18775 := GCons(__e, symlambda, tmp18774)
-
-tmp18776 := GCons(__e, tmp18775, Nil)
-
-tmp18777 := GCons(__e, let__18631, tmp18776)
-
-tmp18778 := GCons(__e, symlambda, tmp18777)
-
-tmp18779 := GCons(__e, tmp18778, Nil)
-
-tmp18780 := GCons(__e, let__18635, tmp18779)
-
-return GCons(__e, symlambda, tmp18780)
+tmp17839 := Call1(__e, SymFn(symgensym), symV)
 
 
-panic("unreachable")
-})
+let__17718 := tmp17839
+_ = let__17718
 
-tmp18781 := Call2(__e, ns2_1set, symshen_4prolog_1abstraction, tmp18751)
+tmp17840 := Call1(__e, SymFn(symshen_4extract_1vars), V6060)
 
 
-_ = tmp18781
+let__17719 := tmp17840
+_ = let__17719
 
-tmp18782 := MakeNative1(func(__e *ControlFlow, V6067 Obj) Obj {
-tmp18783 := GValue(__e, symshen_4_ddemodulation_1function_d)
+tmp17841 := Call1(__e, SymFn(symshen_4rcons__form), V6060)
 
-let__18637 := tmp18783
-_ = let__18637
 
-return TailCall1(__e, let__18637, V6067)
+tmp17842 := GCons(__e, let__17717, Nil)
+
+tmp17843 := GCons(__e, let__17716, tmp17842)
+
+tmp17844 := GCons(__e, let__17715, tmp17843)
+
+tmp17845 := GCons(__e, let__17714, tmp17844)
+
+tmp17846 := GCons(__e, tmp17841, tmp17845)
+
+tmp17847 := GCons(__e, let__17718, tmp17846)
+
+tmp17848 := GCons(__e, symis_b, tmp17847)
+
+tmp17849 := Call3(__e, SymFn(symshen_4stpart), let__17719, tmp17848, let__17714)
+
+
+tmp17850 := GCons(__e, tmp17849, Nil)
+
+tmp17851 := GCons(__e, let__17717, tmp17850)
+
+tmp17852 := GCons(__e, symlambda, tmp17851)
+
+tmp17853 := GCons(__e, tmp17852, Nil)
+
+tmp17854 := GCons(__e, let__17716, tmp17853)
+
+tmp17855 := GCons(__e, symlambda, tmp17854)
+
+tmp17856 := GCons(__e, tmp17855, Nil)
+
+tmp17857 := GCons(__e, let__17715, tmp17856)
+
+tmp17858 := GCons(__e, symlambda, tmp17857)
+
+tmp17859 := GCons(__e, tmp17858, Nil)
+
+tmp17860 := GCons(__e, let__17714, tmp17859)
+
+tmp17861 := GCons(__e, symlambda, tmp17860)
+
+tmp17862 := GCons(__e, tmp17861, Nil)
+
+tmp17863 := GCons(__e, let__17718, tmp17862)
+
+return GCons(__e, symlambda, tmp17863)
 
 
 panic("unreachable")
 })
 
-return TailCall2(__e, ns2_1set, symshen_4demod, tmp18782)
+tmp17864 := Call2(__e, ns2_1set, symshen_4prolog_1abstraction, tmp17834)
+
+
+_ = tmp17864
+
+tmp17865 := MakeNative1(func(__e *ControlFlow, V6067 Obj) Obj {
+tmp17866 := GValue(__e, symshen_4_ddemodulation_1function_d)
+
+let__17720 := tmp17866
+_ = let__17720
+
+return TailCall1(__e, let__17720, V6067)
+
+
+panic("unreachable")
+})
+
+return TailCall2(__e, ns2_1set, symshen_4demod, tmp17865)
 
 
 
