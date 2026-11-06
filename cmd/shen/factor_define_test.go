@@ -9,7 +9,8 @@ import (
 )
 
 // A definition is compiled factorised, but ps, gensym, a where guard's effects
-// and the results are what they would be without it (SHEN_GO_LOWER=off).
+// and the results are what they would be without LowerKL and factorDefine, the
+// two steps SHEN_GO_LOWER=off turns off.
 func TestFactoredDefineChangesNothingVisible(t *testing.T) {
 	const script = `
 (define f [a X] -> X [a X Y] -> Y [b X] -> X _ -> 0)
@@ -28,6 +29,9 @@ func TestFactoredDefineChangesNothingVisible(t *testing.T) {
 (define thawer X -> (let W (freeze X) (if (= X 1) (thaw W) (cons W []))))
 (print (thawer 1))
 (print (do (defun thaw (X) rebound-thaw) (thawer 1)))
+(defun shen.factor (X) (simple-error "ran inside the compiler"))
+(define after-factor [a X] -> X [a X Y] -> Y [b X] -> X _ -> 0)
+(print (after-factor [b 1]))
 `
 	dir := t.TempDir()
 	file := filepath.Join(dir, "s.shen")
