@@ -2,6 +2,7 @@ package kl
 
 import (
 	"fmt"
+	"runtime"
 	"runtime/debug"
 	"strings"
 	"testing"
@@ -293,3 +294,40 @@ func TestClosureInteropWithVM(t *testing.T) {
 		}
 	})
 }
+
+// BenchmarkDefine measures what one define costs each executor, and what it
+// keeps alive, on a function shaped like compiled Shen pattern matching.
+func benchDefine(b *testing.B, closure bool) {
+	body := "(shen.f-error f)"
+	for i := 0; i < 8; i++ {
+		body = fmt.Sprintf("(if (cons? V0) (let H (hd V0) (let T (tl V0) (if (= H %d) (cons H (f T (+ V1 %d))) %s))) V1)", i, i, body)
+	}
+	src := "(defun f (V0 V1) " + body + ")"
+	form, err := NewSexpReader(strings.NewReader(src), true).Read()
+	if err != nil {
+		b.Fatal(err)
+	}
+	rest := mustPair(form).cdr
+	params, fbody := ListToSlice(cadr(rest)), caddr(rest)
+	withExec(closure, func() {
+		var before, after runtime.MemStats
+		keep := make([]Obj, 200)
+		runtime.GC()
+		runtime.ReadMemStats(&before)
+		for i := range keep {
+			keep[i] = CompileFunc("f", params, fbody)
+		}
+		runtime.GC()
+		runtime.ReadMemStats(&after)
+		retained := float64(after.HeapAlloc-before.HeapAlloc) / float64(len(keep))
+		runtime.KeepAlive(keep)
+		b.ResetTimer()
+		for i := 0; i < b.N; i++ {
+			CompileFunc("f", params, fbody)
+		}
+		b.ReportMetric(retained, "retained-bytes/fn")
+	})
+}
+
+func BenchmarkDefineVM(b *testing.B)      { benchDefine(b, false) }
+func BenchmarkDefineClosure(b *testing.B) { benchDefine(b, true) }
