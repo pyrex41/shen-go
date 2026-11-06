@@ -52,6 +52,10 @@ type scmSymbol struct {
 	canonical Obj
 	// vmGuarded: compiled bytecode specializes this symbol (see vmGuardsOK).
 	vmGuarded bool
+	// kernelDef is the kernel's definition of a function in the native Prolog
+	// group, and prologDep marks the group and what it depends on (prologfast.go).
+	kernelDef Obj
+	prologDep bool
 }
 
 type scmPair struct {

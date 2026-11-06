@@ -1106,8 +1106,8 @@ func InstallKernelFast() {
 	// not match the kernel (analyse-symbol?/analyse-variable?). Bind a new
 	// native rather than restoreCanonical / overridePrimitive, which would
 	// reinstall the weaker primitive and trip HasCanonicalPrimitiveBinding.
-	overrideNative("symbol?", 1, func(e *ControlFlow) { e.Return(primSymbolp(e.Get(1))) })
-	overrideNative("variable?", 1, func(e *ControlFlow) { e.Return(primVariablep(e.Get(1))) })
+	overrideDirect("symbol?", 1, func(_ *ControlFlow, x Obj) Obj { return primSymbolp(x) })
+	overrideDirect("variable?", 1, func(_ *ControlFlow, x Obj) Obj { return primVariablep(x) })
 	overridePrimitive("shen.analyse-symbol?", 1, primAnalysSymbolp)
 	overridePrimitive("shen.analyse-variable?", 1, primAnalyseVariablep)
 	overridePrimitive("shen.digit?", 1, primDigitp)
@@ -1129,8 +1129,8 @@ func InstallKernelFast() {
 	overridePrimitive("hdstr", 1, primHdstr)
 	overridePrimitive("shen.byte->digit", 1, primByteToDigit)
 
-	overrideNative("thaw", 1, nativeThaw)
-	overrideNative("fail", 0, nativeFail)
+	overrideDirect("thaw", 1, nativeThawDirect)
+	overrideDirect("fail", 0, nativeFailDirect)
 
 	overridePrimitive("length", 1, primLength)
 	overridePrimitive("reverse", 1, primReverse)
@@ -1160,4 +1160,24 @@ func InstallKernelFast() {
 	overridePrimitive("intersection", 2, primIntersection)
 	overridePrimitive("difference", 2, primDifference)
 	overrideNative("map", 2, nativeMap)
+
+	overrideProlog("shen.lazyderef", 2, nativeLazyderef)
+	overrideProlog("shen.deref", 2, nativeDeref)
+	overrideProlog("shen.bindv", 3, nativeBindv)
+	overrideProlog("shen.unwind", 3, nativeUnwind)
+	overrideProlog("shen.bind!", 4, nativeBindBang)
+	overrideProlog("shen.make-prolog-variable", 1, nativeMakePvar)
+	overrideProlog("shen.nextticket", 2, nativeNextticket)
+	overrideProlog("shen.newpv", 1, nativeNewpv)
+	overrideProlog("shen.gc", 2, nativeGc)
+	overrideProlog("shen.ticket-number", 1, nativeTicketNumber)
+	overrideProlog("shen.decrement-ticket", 2, nativeDecrementTicket)
+	overrideProlog("shen.unlocked?", 1, nativeUnlockedp)
+	overrideProlog("shen.incinfs", 0, nativeIncinfs)
+	overrideProlog("shen.occurs-check?", 2, nativeOccursCheck)
+	overrideProlog("shen.lzy=", 4, nativeLzyEq)
+	overrideProlog("shen.lzy=!", 4, nativeLzyEqBang)
+	overrideProlog("is", 6, nativeIs)
+	overrideProlog("is!", 6, nativeIsBang)
+	armPrologNatives()
 }
