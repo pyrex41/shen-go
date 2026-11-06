@@ -312,6 +312,14 @@ func vmRun(ctl *ControlFlow, cur *scmBytecodeFunc, regs unsafe.Pointer, base int
 			vmClosureOp(cur.fn, r(regs, in.A), in)
 			cur, ip, regs, ks, base = sv.cur, sv.ip, sv.regs, sv.ks, sv.base
 
+		case OP_R_REDIRECT:
+			sv.cur, sv.ip, sv.regs, sv.ks, sv.base = cur, ip, regs, ks, base
+			vmRedirect(ctl, &sv, baseDepth)
+			cur, ip, regs, ks, base = sv.cur, sv.ip, sv.regs, sv.ks, sv.base
+			if vmAttn.Load() != 0 {
+				goto attend
+			}
+
 		case OP_R_RET:
 			d := ctl.vmDepth
 			if d == baseDepth {
@@ -785,6 +793,18 @@ func vmTailCold(ctl *ControlFlow, st *vmState, baseDepth int, f2 *BytecodeFunc) 
 		}
 	}
 	return rc2
+}
+
+// vmRedirect leaves st at the first instruction of the code replacing the
+// current function, in the same frame: its arguments are already in place.
+//
+//go:noinline
+func vmRedirect(ctl *ControlFlow, st *vmState, baseDepth int) {
+	bf := st.cur.fn.rc.redirect
+	rc2 := vmTailCold(ctl, st, baseDepth, bf.fn)
+	ctl.frameTop = st.base + rc2.size
+	st.cur = bf
+	st.ip, st.ks = rc2.fast, rc2.k
 }
 
 // vmTailOut is a tail call to anything but an exact-arity bytecode function. It

@@ -25,6 +25,9 @@ func TestFactoredDefineChangesNothingVisible(t *testing.T) {
 (define typed-tuple (@p a X) -> X (@p b X) -> X "" -> 0 (@s "a" S) -> S _ -> 1)
 (print (map (function typed-tuple) [(@p a 1) (@p b 2) "" "abc" "b" 5]))
 (print (gensym x))
+(define thawer X -> (let W (freeze X) (if (= X 1) (thaw W) (cons W []))))
+(print (thawer 1))
+(print (do (defun thaw (X) rebound-thaw) (thawer 1)))
 `
 	dir := t.TempDir()
 	file := filepath.Join(dir, "s.shen")

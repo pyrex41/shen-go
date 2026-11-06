@@ -13,7 +13,8 @@ import "unsafe"
 // function in that group (prologDeps) rebinds every native in it back to the
 // kernel's compiled definition (restorePrologKernel), and from then on every
 // call in the group goes through its symbol, as in the kernel. A native object
-// a program already holds, from (fn shen.lazyderef) say, keeps its behaviour.
+// a program already holds, from (fn shen.lazyderef) say, then forwards to the
+// kernel's definition, which is what that object would have been all along.
 
 var (
 	symPvarNull = MakeSymbol("shen.-null-")
@@ -86,6 +87,38 @@ func armPrologNatives() {
 		symCell(name).prologDep = true
 	}
 	prologArmed, prologInstall = prologInstall, nil
+	factorArmed = true
+}
+
+// forwardDirect makes nf run def, whichever way it is reached.
+func forwardDirect(nf *scmNative, def Obj) {
+	var p unsafe.Pointer
+	switch nf.require {
+	case 0:
+		d := Direct0(func(e *ControlFlow) Obj { return TailCall0(e, def) })
+		p = *(*unsafe.Pointer)(unsafe.Pointer(&d))
+	case 1:
+		d := Direct1(func(e *ControlFlow, a Obj) Obj { return TailCall1(e, def, a) })
+		p = *(*unsafe.Pointer)(unsafe.Pointer(&d))
+	case 2:
+		d := Direct2(func(e *ControlFlow, a, b Obj) Obj { return TailCall2(e, def, a, b) })
+		p = *(*unsafe.Pointer)(unsafe.Pointer(&d))
+	case 3:
+		d := Direct3(func(e *ControlFlow, a, b, c Obj) Obj { return TailCall3(e, def, a, b, c) })
+		p = *(*unsafe.Pointer)(unsafe.Pointer(&d))
+	case 4:
+		d := Direct4(func(e *ControlFlow, a, b, c, g Obj) Obj { return TailCall4(e, def, a, b, c, g) })
+		p = *(*unsafe.Pointer)(unsafe.Pointer(&d))
+	case 5:
+		d := Direct5(func(e *ControlFlow, a, b, c, g, h Obj) Obj { return TailCall5(e, def, a, b, c, g, h) })
+		p = *(*unsafe.Pointer)(unsafe.Pointer(&d))
+	case 6:
+		d := Direct6(func(e *ControlFlow, a, b, c, g, h, i Obj) Obj { return TailCall6(e, def, a, b, c, g, h, i) })
+		p = *(*unsafe.Pointer)(unsafe.Pointer(&d))
+	default:
+		panic("forwardDirect: arity")
+	}
+	nf.direct = p
 }
 
 func restorePrologKernel() {
@@ -94,10 +127,15 @@ func restorePrologKernel() {
 	}
 	for _, s := range prologArmed {
 		s.prologDep = false
-		if s.kernelDef != nil && prologNatives[s.str] == s.function {
+		if s.kernelDef == nil {
+			continue
+		}
+		n := prologNatives[s.str]
+		if n == s.function {
 			s.function = s.kernelDef
 			vmNoteRebind(s)
 		}
+		forwardDirect(MustNative(n), s.kernelDef)
 	}
 	prologArmed = nil
 }
@@ -110,6 +148,7 @@ func setSymbolFunction(s *scmSymbol, f Obj) {
 	}
 	s.function = f
 	vmNoteRebind(s)
+	noteRebinding(s)
 }
 
 func pvarp(x Obj) bool {

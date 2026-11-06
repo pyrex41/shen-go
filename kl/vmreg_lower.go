@@ -36,6 +36,7 @@ const (
 	OP_R_VSET                    // B[C] = D; A = B
 	OP_R_GCONST                  // A = k[C], a folded literal operation; B = its pc in Code
 	OP_R_SLOW                    // slow twin of a guarded instruction (see vmSlowOp)
+	OP_R_REDIRECT                // this code was replaced: continue in vmCode.redirect
 	OP_R_PRIM                    // A = prim C(A..A+B) with sym in the guard table
 	OP_R_DIV                     // A = B / C
 	OP_R_LT                      // A = B < C
@@ -77,6 +78,21 @@ type vmCode struct {
 	k     unsafe.Pointer // constSlots, by byte offset
 	n     int            // len(code)
 	size  int            // registers in a frame
+	// redirect is set once this code has been replaced (see noteRebinding):
+	// its first instruction is OP_R_REDIRECT.
+	redirect *scmBytecodeFunc
+}
+
+// redirectTo makes every entry to this code continue in bf, a function of the
+// same arity, with the arguments where they are. Nothing but entry and a
+// self-tail call reaches the first instruction, since other jumps go forward.
+func (rc *vmCode) redirectTo(bf Obj) {
+	rc.redirect = mustBytecodeFunc(bf)
+	in := Instr{Op: OP_R_REDIRECT}
+	rc.code[0], rc.guard[0] = in, 0
+	if rc.slow != nil {
+		rc.slow[0] = in
+	}
 }
 
 // slowCode returns the twin of code in which every guarded instruction is

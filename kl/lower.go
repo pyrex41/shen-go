@@ -43,16 +43,24 @@ import (
 // hold the input form rather than the optimised one, so nesting grows
 // quadratically and not exponentially.
 //
-// Two limits are the compiler's own: inlining means fewer activations, so the
-// step limit (tick) is charged less often, and (thaw W) inlined at compile time
-// does not see a later rebinding of thaw, as compileLet's freeze inlining
-// already does not. A rebinding before compilation turns thaw inlining off.
+// Inlining means fewer activations, so the step limit (tick) is charged less
+// often. A rebinding of thaw before compilation turns thaw inlining off, and one
+// after it recompiles what assumed it (noteThawAssumption).
 func LowerKL(body Obj) Obj {
+	out, _ := lowerDefine(body)
+	return out
+}
+
+// lowerDefine is LowerKL, also saying whether the result inlined a thaw of a
+// freeze that has other uses. compileLet treats a freeze with only thaws as
+// syntax, but the program calls thaw on one that also escapes, so that call has
+// to keep seeing a rebinding (see noteThawAssumption).
+func lowerDefine(body Obj) (Obj, bool) {
 	if lowerOff || !worthLowering(body) {
-		return body
+		return body, false
 	}
 	l := &lowerer{budget: lowerBudget}
-	return l.lower(body)
+	return l.lower(body), l.assumesThaw
 }
 
 // lowerBudget is the number of form nodes one definition may gain by copying.
@@ -108,7 +116,8 @@ func isPairP(o Obj) (*scmPair, bool) {
 }
 
 type lowerer struct {
-	budget int
+	budget      int
+	assumesThaw bool
 }
 
 // listSlice returns the elements of a proper list, or nil for anything else.
@@ -502,6 +511,9 @@ func (s *sinker) saturated(r Obj) (Obj, bool) {
 	}
 	s.l.budget -= size
 	s.inlined++
+	if s.isFreeze {
+		s.l.assumesThaw = true
+	}
 	out := s.body
 	for i := len(actuals) - 1; i >= 0; i-- {
 		out = s.l.bindParam(s.params[i], actuals[i], out)
@@ -668,7 +680,7 @@ func (c *klCompiler) placeThunk(thunk *inlineThunk) {
 // hand-written defun may not.
 func factorDefine(name string, params []Obj, body Obj) (out Obj) {
 	out = body
-	if lowerOff || symFactor == nil {
+	if lowerOff || symFactor == nil || factorBroken {
 		return body
 	}
 	p, isp := isPairP(body)
@@ -753,4 +765,81 @@ func factorableTest(f Obj) bool {
 		return true
 	}
 	return false
+}
+
+// A definition compiled on an assumption about a binding is kept here, to be
+// compiled again when that binding changes: a thaw it inlined (thaw rebound), or
+// tests the factoriser merged (one of factorSyms rebound, since a rebound test
+// with an effect must run as many times as the clauses ask for it).
+//
+// The new code replaces the old through its first instruction (vmCode.redirect),
+// so a function object already held by anyone reaches it, as does the next
+// iteration of a self-tail loop. An activation already running keeps the code
+// it is in, whose registers and constants it depends on, and a closure already
+// built keeps its body.
+type lowerAssumption struct {
+	fn        *BytecodeFunc
+	params    []Obj
+	raw, form Obj // the definition as given, and after factorDefine
+	thaw      bool
+}
+
+var (
+	lowerAssumptions []lowerAssumption
+	// factorBroken: a test the factoriser may merge has been rebound since boot,
+	// so nothing is factorised any more. factorArmed is set at the end of boot,
+	// which binds those symbols itself.
+	factorBroken, factorArmed bool
+)
+
+// compileDefine is CompileFunc's work, without the object.
+func compileDefine(name string, params []Obj, raw, form Obj) *BytecodeFunc {
+	lowered, thaw := lowerDefine(form)
+	fn := compileFuncBody(name, params, lowered)
+	if thaw || form != raw {
+		lowerAssumptions = append(lowerAssumptions, lowerAssumption{fn, params, raw, form, thaw})
+	}
+	return fn
+}
+
+// factorSym says whether the factoriser may merge calls of sym; see factorableTest.
+func factorSym(s *scmSymbol) bool {
+	switch s.str {
+	case "=", "cons?", "hd", "tl", "tuple?", "fst", "snd", "shen.+string?", "hdstr", "tlstr", "shen.+vector?", "hdv", "tlv":
+		return true
+	}
+	return false
+}
+
+// noteRebinding is called whenever a symbol's function changes.
+func noteRebinding(s *scmSymbol) {
+	isThaw := Obj(&s.scmHead) == symThaw
+	isFactor := factorArmed && factorSym(s)
+	if !isThaw && !isFactor {
+		return
+	}
+	factorBroken = factorBroken || isFactor
+	pending := lowerAssumptions
+	lowerAssumptions = nil
+	for _, a := range pending {
+		form := a.form
+		if isFactor {
+			form = a.raw
+		}
+		if form == a.form && !(isThaw && a.thaw) {
+			lowerAssumptions = append(lowerAssumptions, a)
+			continue
+		}
+		nf := compileDefine(a.fn.Name, a.params, a.raw, form)
+		if a.fn.rc == nil {
+			// Never run, so there is no code to redirect and no activation to
+			// disturb. Assumptions compileDefine just noted name nf; move them.
+			*a.fn = *nf
+			if n := len(lowerAssumptions); n > 0 && lowerAssumptions[n-1].fn == nf {
+				lowerAssumptions[n-1].fn = a.fn
+			}
+			continue
+		}
+		a.fn.rc.redirectTo(makeBytecodeObj(nf, nil))
+	}
 }
