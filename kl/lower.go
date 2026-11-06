@@ -257,6 +257,13 @@ func (l *lowerer) lowerLet(x, orig, v, body Obj) Obj {
 	if !ok || !IsSymbol(x) || isLowerSpecial(x) || mustSymbol(x).function != nil {
 		return keep()
 	}
+	if isFreeze {
+		// Thawed and nothing else: compileLet makes that a jump where it can,
+		// which a copy per use is not.
+		if thaws, others := walkThawUses(body, x); others == 0 && thaws > 1 {
+			return keep()
+		}
+	}
 	syms := map[Obj]bool{}
 	collectSyms(orig, syms)
 	collectSyms(v, syms)
@@ -634,4 +641,116 @@ func (c *klCompiler) patchJumps(jumps []int) {
 	for _, j := range jumps {
 		c.patchJump(j)
 	}
+}
+
+// placeThunk puts the one copy of a thunk reached by tail jumps. The let's body
+// is complete and in tail position, so nothing falls through to it and the
+// operand stack is empty at every jump.
+func (c *klCompiler) placeThunk(thunk *inlineThunk) {
+	if len(thunk.jumps) == 0 {
+		return
+	}
+	c.patchJumps(thunk.jumps)
+	locals := c.locals
+	c.locals = thunk.locals
+	c.compileExpr(thunk.body, true)
+	c.locals = locals
+}
+
+// factorDefine runs the kernel's own pattern factoriser, shen.factor, over what
+// define produced, as (factorise +) would, without changing what ps prints or
+// what gensym returns next: ps keeps the form it was given, since this changes
+// only what is compiled, and the counter is put back.
+//
+// Only tests that are recognisers and selectors qualify. The factoriser merges
+// equal tests, which a where guard with an effect would notice. shen.factor also
+// needs a cond ending in a true clause, which define's output always has and a
+// hand-written defun may not.
+func factorDefine(name string, params []Obj, body Obj) (out Obj) {
+	out = body
+	if lowerOff || symFactor == nil {
+		return body
+	}
+	p, isp := isPairP(body)
+	if !isp || p.car != symCond {
+		return body
+	}
+	factor := mustSymbol(symFactor).function
+	if factor == nil {
+		return body
+	}
+	clauses := listSlice(p.cdr)
+	if len(clauses) < 3 || len(clauses) > maxFactorClauses {
+		return body
+	}
+	ands := 0
+	for i, clause := range clauses {
+		c := listSlice(clause)
+		if len(c) != 2 {
+			return body
+		}
+		if i == len(clauses)-1 {
+			if c[0] != True {
+				return body
+			}
+			break
+		}
+		if !factorableTest(c[0]) {
+			return body
+		}
+		if tp, ok := isPairP(c[0]); ok && tp.car == symAnd {
+			ands++
+		}
+	}
+	if ands < 2 {
+		return body
+	}
+	gensym := mustSymbol(symGensym)
+	saved := gensym.value
+	defer func() {
+		gensym.value = saved
+		if r := recover(); r != nil {
+			out = body
+		}
+	}()
+	var ctl ControlFlow
+	form := Call(&ctl, factor, cons(symDefun, cons(MakeSymbol(name), cons(sliceList(params), cons(body, Nil)))))
+	if r := listSlice(form); len(r) == 4 && r[0] == symDefun {
+		return r[3]
+	}
+	return body
+}
+
+// maxFactorClauses keeps the kernel's factoriser, which is not linear in the
+// number of clauses, away from generated tables.
+const maxFactorClauses = 200
+
+var symFactor, symGensym Obj
+
+func init() {
+	symFactor = MakeSymbol("shen.factor")
+	symGensym = MakeSymbol("shen.*gensym*")
+}
+
+// factorableTest accepts the forms define's pattern compiler produces for tests
+// that have no effect. An application of anything else is someone's where guard.
+func factorableTest(f Obj) bool {
+	p, isp := isPairP(f)
+	if !isp {
+		return true
+	}
+	args := listSlice(p.cdr)
+	if !IsSymbol(p.car) || (p.cdr != Nil && args == nil) {
+		return false
+	}
+	switch mustSymbol(p.car).str {
+	case "and", "=", "cons?", "hd", "tl", "tuple?", "fst", "snd", "shen.+string?", "hdstr", "tlstr", "shen.+vector?", "hdv", "tlv":
+		for _, a := range args {
+			if !factorableTest(a) {
+				return false
+			}
+		}
+		return true
+	}
+	return false
 }

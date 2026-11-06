@@ -7,7 +7,7 @@ type klCompiler struct {
 	upvals []upvalInfo // upvalues captured from outer scope
 	outer  *klCompiler // enclosing compiler (for closures)
 	hints  []TypeHint
-	thunks map[int]inlineThunk // local slot -> nonescaping freeze
+	thunks map[int]*inlineThunk // local slot -> nonescaping freeze
 	// maxTarget is the highest code index any patched jump lands on. An
 	// instruction can be fused with the next one only while nothing jumps
 	// between them, i.e. while maxTarget < len(fn.Code).
@@ -19,6 +19,10 @@ type klCompiler struct {
 type inlineThunk struct {
 	body   Obj
 	locals map[Obj]int
+	// tail is set when the let is in tail position: a tail thaw jumps to one
+	// copy of the body, placed after the let's body, instead of copying it.
+	tail  bool
+	jumps []int
 }
 
 type upvalInfo struct {
@@ -42,7 +46,7 @@ const (
 // CompileFunc compiles a KL top-level defun body to a BytecodeFunc object.
 // params is the list of parameter symbols; body is the KL expression.
 func CompileFunc(name string, params []Obj, body Obj) Obj {
-	body = LowerKL(body)
+	body = LowerKL(factorDefine(name, params, body))
 	c := newCompiler(name, len(params), params, nil)
 	c.compileExpr(body, true)
 	c.fn.TypeHints = append([]TypeHint(nil), c.hints...)
@@ -423,11 +427,13 @@ func (c *klCompiler) compileLet(x, val, body Obj, tail bool) {
 			oldIdx, hadOld := c.locals[x]
 			slot := int(c.newLocal(x))
 			if c.thunks == nil {
-				c.thunks = make(map[int]inlineThunk)
+				c.thunks = make(map[int]*inlineThunk)
 			}
-			c.thunks[slot] = inlineThunk{body: fb, locals: captured}
+			thunk := &inlineThunk{body: fb, locals: captured, tail: tail && thaws > 1}
+			c.thunks[slot] = thunk
 			c.compileExpr(body, tail)
 			delete(c.thunks, slot)
+			c.placeThunk(thunk)
 			if hadOld {
 				c.locals[x] = oldIdx
 			} else {
@@ -725,6 +731,10 @@ func (c *klCompiler) compileCall(fn Obj, args Obj, tail bool) {
 		}
 		if slot, local := c.locals[argList[0]]; local && IsSymbol(argList[0]) {
 			if thunk, ok := c.thunks[slot]; ok {
+				if tail && thunk.tail {
+					thunk.jumps = append(thunk.jumps, c.emit(OP_JUMP, 0, 0))
+					return
+				}
 				locals := c.locals
 				c.locals = thunk.locals
 				c.compileExpr(thunk.body, tail)

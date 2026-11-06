@@ -47,6 +47,7 @@ func TestLowerKLPreservesMeaning(t *testing.T) {
 	stdThaw = mustSymbol(symThaw).function
 	for _, src := range []string{
 		`(let W (lambda A (lambda B (+ A B))) ((W 1) 2))`,
+		`(let A (freeze 1) (let B (freeze (if false (thaw A) (thaw A))) (if false (thaw B) (if true (thaw B) 3))))`,
 		`(let W (lambda A (+ A 1)) (W 1))`,
 		`(let W (lambda A (lambda B (+ A B))) (W 1 2))`,
 		`(let W (lambda A (lambda B (+ A B))) (let F (W 1) (F 2)))`,
