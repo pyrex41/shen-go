@@ -16,43 +16,43 @@ import (
 // base pointer without scaling. A is the destination, or the jump distance on
 // a conditional jump, whose operands are then B and C.
 const (
-	OP_R_MOV       = uint8(64 + iota) // A = B
-	OP_R_LOADK                        // A = k[B]
-	OP_R_GETUP                        // A = upvals[B] (B an index, not an offset)
-	OP_R_LOADG                        // A = k[B].function
-	OP_R_JMP                          // ip += A
-	OP_R_JF                           // if B == false: ip += A
-	OP_R_JT                           // if B == true: ip += A (= NOT then JF)
-	OP_R_NOT                          // A = not B
-	OP_R_JNEKI                        // if B != k[C]: ip += A; k has identity equality
-	OP_R_JNEKN                        // if B != k[C]: ip += A; k is a finite number
-	OP_R_JNE                          // if B != C: ip += A
-	OP_R_JNCONSP                      // if not (cons? B): ip += A
-	OP_R_HD                           // A = hd B
-	OP_R_TL                           // A = tl B
-	OP_R_CONSP                        // A = cons? B
-	OP_R_CONS                         // A = cons B C
-	OP_R_VGET                         // A = B[C]
-	OP_R_VSET                         // B[C] = D; A = B
-	OP_R_GCONST                       // A = k[C], a folded literal operation; B = its pc in Code
-	OP_R_SLOW                         // slow twin of a guarded instruction (see vmSlowOp)
-	OP_R_PRIM                         // A = prim C(A..A+B) with sym in the guard table
-	OP_R_DIV                          // A = B / C
-	OP_R_LT                           // A = B < C
-	OP_R_LE                           // A = B <= C
-	OP_R_GT                           // A = B > C
-	OP_R_GE                           // A = B >= C
-	OP_R_EQ                           // A = B = C
-	OP_R_CLOSURE                      // A = closure of Consts[B] over regs A..A+C
-	OP_R_RET                          // return A
-	OP_R_RETK                         // return k[A]
-	OP_R_SELF                         // restart this function: ip += A, charge a step
-	OP_R_CALLG                        // A = k[C].function, then OP_R_CALL
-	OP_R_CALL                         // A = (A)(A+1 .. A+B); A+1 is the callee's register 0
-	OP_R_TAILCALLG                    // A = k[C].function, then OP_R_TAILCALL
-	OP_R_TAILCALL                     // tail-call A with args A+1 .. A+B
-	OP_R_ADD                          // A = B + C
-	OP_R_ADDK                         // A = B + k[C]
+	OP_R_MOV       = uint8(iota) // A = B
+	OP_R_LOADK                   // A = k[B]
+	OP_R_GETUP                   // A = upvals[B] (B an index, not an offset)
+	OP_R_LOADG                   // A = k[B].function
+	OP_R_JMP                     // ip += A
+	OP_R_JF                      // if B == false: ip += A
+	OP_R_JT                      // if B == true: ip += A (= NOT then JF)
+	OP_R_NOT                     // A = not B
+	OP_R_JNEKI                   // if B != k[C]: ip += A; k has identity equality
+	OP_R_JNEKN                   // if B != k[C]: ip += A; k is a finite number
+	OP_R_JNE                     // if B != C: ip += A
+	OP_R_JNCONSP                 // if not (cons? B): ip += A
+	OP_R_HD                      // A = hd B
+	OP_R_TL                      // A = tl B
+	OP_R_CONSP                   // A = cons? B
+	OP_R_CONS                    // A = cons B C
+	OP_R_VGET                    // A = B[C]
+	OP_R_VSET                    // B[C] = D; A = B
+	OP_R_GCONST                  // A = k[C], a folded literal operation; B = its pc in Code
+	OP_R_SLOW                    // slow twin of a guarded instruction (see vmSlowOp)
+	OP_R_PRIM                    // A = prim C(A..A+B) with sym in the guard table
+	OP_R_DIV                     // A = B / C
+	OP_R_LT                      // A = B < C
+	OP_R_LE                      // A = B <= C
+	OP_R_GT                      // A = B > C
+	OP_R_GE                      // A = B >= C
+	OP_R_EQ                      // A = B = C
+	OP_R_CLOSURE                 // A = closure of Consts[B] over regs A..A+C
+	OP_R_RET                     // return A
+	OP_R_RETK                    // return k[A]
+	OP_R_SELF                    // restart this function: ip += A, charge a step
+	OP_R_CALLG                   // A = k[C].function, then OP_R_CALL
+	OP_R_CALL                    // A = (A)(A+1 .. A+B); A+1 is the callee's register 0
+	OP_R_TAILCALLG               // A = k[C].function, then OP_R_TAILCALL
+	OP_R_TAILCALL                // tail-call A with args A+1 .. A+B
+	OP_R_ADD                     // A = B + C
+	OP_R_ADDK                    // A = B + k[C]
 	OP_R_SUB
 	OP_R_SUBK
 	OP_R_MUL
@@ -652,128 +652,116 @@ func (l *lowerer) lowerSelfTail(n int) {
 }
 
 // vmSlowOp runs a guarded instruction the executor's inline path did not take:
-// a rebound primitive, or operands outside the inline case. It returns true if
-// the instruction is a conditional jump that is taken. The semantics are those
-// of the stack instructions: a type miss reaches the real primitive, for its
-// error.
+// a rebound primitive, or operands outside the inline case. It returns how far
+// to jump, in bytes, nonzero only for a conditional jump that is taken. The
+// semantics are those of the stack instructions: a type miss reaches the real
+// primitive, for its error.
 //
 //go:noinline
-func vmSlowOp(ctl *ControlFlow, cur *scmBytecodeFunc, regs, ks unsafe.Pointer, in *Instr) bool {
+func vmSlowOp(ctl *ControlFlow, cur *scmBytecodeFunc, regs, ks unsafe.Pointer, in *Instr) int {
 	fn := cur.fn
 	rc := fn.rc
 	if in.Op == OP_R_SLOW {
 		i := (uintptr(unsafe.Pointer(in)) - uintptr(unsafe.Pointer(&rc.slow[0]))) / instrSize
 		in = &rc.code[i]
 	}
-	var sym Obj
-	if !vmGuardsOK || in.Op == OP_R_PRIM || in.Op < OP_R_JNEKI || (in.Op >= OP_R_JNCONSP && in.Op <= OP_R_VSET) {
-		i := (uintptr(unsafe.Pointer(in)) - uintptr(rc.fast)) / instrSize
-		if g := rc.guard[i]; g != 0 {
-			sym = fn.Consts[g-1]
+	// Arithmetic and compares on numbers, with the guards intact: a fixnum or
+	// boxed operand, typically a value out of a list. No Shen code can run.
+	if vmGuardsOK {
+		if op, ok := vmSlowNumeric(regs, ks, in); ok {
+			return op
 		}
 	}
-	bin := func(op uint8, y *vmSlot) vmSlot {
-		return vmBinarySlowSym(ctl, op, sym, *r(regs, in.B), *y)
+	var sym Obj
+	if g := rc.guard[(uintptr(unsafe.Pointer(in))-uintptr(rc.fast))/instrSize]; g != 0 {
+		sym = fn.Consts[g-1]
 	}
-	jump := func(v vmSlot) bool {
+	y := func() vmSlot {
+		switch in.Op {
+		case OP_R_ADDK, OP_R_SUBK, OP_R_MULK, OP_R_JNLTK, OP_R_JNLEK, OP_R_JNGTK, OP_R_JNGEK, OP_R_JNEKI, OP_R_JNEKN:
+			return *r(ks, in.C)
+		}
+		return *r(regs, in.C)
+	}
+	binary := func(op uint8) vmSlot {
+		return vmBinarySlowSym(ctl, op, sym, *r(regs, in.B), y())
+	}
+	jump := func(v vmSlot) int {
 		o := v.objValue()
 		if o == False {
-			return true
+			return int(in.A)
 		}
 		if o != True {
-			vmBadIf()
+			panic(vmBadIf())
 		}
-		return false
+		return 0
 	}
 	prim := func(id int32, args ...vmSlot) vmSlot {
 		return vmGuardedPrimSlow(ctl, sym, id+1, args)
 	}
 	switch in.Op {
-	case OP_R_ADD:
-		*r(regs, in.A) = bin(OP_ADD, r(regs, in.C))
-	case OP_R_ADDK:
-		*r(regs, in.A) = bin(OP_ADD, r(ks, in.C))
-	case OP_R_SUB:
-		*r(regs, in.A) = bin(OP_SUB, r(regs, in.C))
-	case OP_R_SUBK:
-		*r(regs, in.A) = bin(OP_SUB, r(ks, in.C))
-	case OP_R_MUL:
-		*r(regs, in.A) = bin(OP_MUL, r(regs, in.C))
-	case OP_R_MULK:
-		*r(regs, in.A) = bin(OP_MUL, r(ks, in.C))
+	case OP_R_ADD, OP_R_ADDK:
+		*r(regs, in.A) = binary(OP_ADD)
+	case OP_R_SUB, OP_R_SUBK:
+		*r(regs, in.A) = binary(OP_SUB)
+	case OP_R_MUL, OP_R_MULK:
+		*r(regs, in.A) = binary(OP_MUL)
 	case OP_R_DIV:
-		*r(regs, in.A) = bin(OP_DIV, r(regs, in.C))
+		*r(regs, in.A) = binary(OP_DIV)
 	case OP_R_LT:
-		*r(regs, in.A) = bin(OP_LT, r(regs, in.C))
+		*r(regs, in.A) = binary(OP_LT)
 	case OP_R_LE:
-		*r(regs, in.A) = bin(OP_LE, r(regs, in.C))
+		*r(regs, in.A) = binary(OP_LE)
 	case OP_R_GT:
-		*r(regs, in.A) = bin(OP_GT, r(regs, in.C))
+		*r(regs, in.A) = binary(OP_GT)
 	case OP_R_GE:
-		*r(regs, in.A) = bin(OP_GE, r(regs, in.C))
-	case OP_R_JNLT:
-		return jump(bin(OP_LT, r(regs, in.C)))
-	case OP_R_JNLTK:
-		return jump(bin(OP_LT, r(ks, in.C)))
-	case OP_R_JNLE:
-		return jump(bin(OP_LE, r(regs, in.C)))
-	case OP_R_JNLEK:
-		return jump(bin(OP_LE, r(ks, in.C)))
-	case OP_R_JNGT:
-		return jump(bin(OP_GT, r(regs, in.C)))
-	case OP_R_JNGTK:
-		return jump(bin(OP_GT, r(ks, in.C)))
-	case OP_R_JNGE:
-		return jump(bin(OP_GE, r(regs, in.C)))
-	case OP_R_JNGEK:
-		return jump(bin(OP_GE, r(ks, in.C)))
+		*r(regs, in.A) = binary(OP_GE)
+	case OP_R_JNLT, OP_R_JNLTK:
+		return jump(binary(OP_LT))
+	case OP_R_JNLE, OP_R_JNLEK:
+		return jump(binary(OP_LE))
+	case OP_R_JNGT, OP_R_JNGTK:
+		return jump(binary(OP_GT))
+	case OP_R_JNGE, OP_R_JNGEK:
+		return jump(binary(OP_GE))
 	case OP_R_EQ, OP_R_JNE, OP_R_JNEKI, OP_R_JNEKN:
-		x, y := *r(regs, in.B), vmSlot{}
-		if in.Op == OP_R_EQ || in.Op == OP_R_JNE {
-			y = *r(regs, in.C)
-		} else {
-			y = *r(ks, in.C)
-		}
+		a, b := *r(regs, in.B), y()
 		if in.D == 1 {
-			x, y = y, x
+			a, b = b, a
 		}
 		// Identity first: interned symbols, booleans, [], (fail), and any
 		// shared heap object skip structural equal().
 		var v vmSlot
-		if x.obj != nil && x.obj == y.obj {
+		if a.obj != nil && a.obj == b.obj {
 			v = vmSlot{obj: True}
 		} else {
-			v = vmBinarySlowSym(ctl, OP_EQ, sym, x, y)
+			v = vmBinarySlowSym(ctl, OP_EQ, sym, a, b)
 		}
 		if in.Op == OP_R_EQ {
 			*r(regs, in.A) = v
-			return false
+			return 0
 		}
 		return jump(v)
 	case OP_R_NOT, OP_R_JT:
 		x := *r(regs, in.B)
 		var v vmSlot
+		f, dyn := vmSlot{}, false
 		if !vmGuardsOK {
-			if f, ok := vmIntrinsicFallback(ctl, sym, x); ok {
-				v = f
-				if in.Op == OP_R_NOT {
-					*r(regs, in.A) = v
-					return false
-				}
-				return jump(v)
-			}
+			f, dyn = vmIntrinsicFallback(ctl, sym, x)
 		}
-		switch x.obj {
-		case True:
+		switch {
+		case dyn:
+			v = f
+		case x.obj == True:
 			v.obj = False
-		case False:
+		case x.obj == False:
 			v.obj = True
 		default:
 			panic(MakeError("not: expected boolean"))
 		}
 		if in.Op == OP_R_NOT {
 			*r(regs, in.A) = v
-			return false
+			return 0
 		}
 		return jump(v)
 	case OP_R_HD:
@@ -798,5 +786,49 @@ func vmSlowOp(ctl *ControlFlow, cur *scmBytecodeFunc, regs, ks unsafe.Pointer, i
 	default:
 		panic(fmt.Sprintf("vmSlowOp: opcode %d", in.Op))
 	}
-	return false
+	return 0
+}
+
+// vmSlowNumeric handles arithmetic and compares whose operands are numbers in a
+// form the inline path does not read, boxed floats. ok is false for anything
+// else, which needs the full path.
+func vmSlowNumeric(regs, ks unsafe.Pointer, in *Instr) (jump int, ok bool) {
+	var x, y *vmSlot
+	switch in.Op {
+	case OP_R_ADD, OP_R_SUB, OP_R_MUL, OP_R_JNLT, OP_R_JNLE, OP_R_JNGT, OP_R_JNGE:
+		x, y = r(regs, in.B), r(regs, in.C)
+	case OP_R_ADDK, OP_R_SUBK, OP_R_MULK, OP_R_JNLTK, OP_R_JNLEK, OP_R_JNGTK, OP_R_JNGEK:
+		x, y = r(regs, in.B), r(ks, in.C)
+	default:
+		return 0, false
+	}
+	a, oka := slotNumber(*x)
+	b, okb := slotNumber(*y)
+	if !oka || !okb {
+		return 0, false
+	}
+	var cond bool
+	switch in.Op {
+	case OP_R_ADD, OP_R_ADDK:
+		*r(regs, in.A) = slotFromNumber(a + b)
+		return 0, true
+	case OP_R_SUB, OP_R_SUBK:
+		*r(regs, in.A) = slotFromNumber(a - b)
+		return 0, true
+	case OP_R_MUL, OP_R_MULK:
+		*r(regs, in.A) = slotFromNumber(a * b)
+		return 0, true
+	case OP_R_JNLT, OP_R_JNLTK:
+		cond = a < b
+	case OP_R_JNLE, OP_R_JNLEK:
+		cond = a <= b
+	case OP_R_JNGT, OP_R_JNGTK:
+		cond = a > b
+	default:
+		cond = a >= b
+	}
+	if cond {
+		return 0, true
+	}
+	return int(in.A), true
 }

@@ -117,10 +117,25 @@ func vmExec(ctl *ControlFlow, bf *scmBytecodeFunc, args []Obj) {
 	}
 }
 
-func vmRun(ctl *ControlFlow, cur *scmBytecodeFunc, regs unsafe.Pointer, base int) (result vmSlot, tail bool) {
+// vmState is vmRun's register state, in memory during a call out of the loop.
+// It is the point of the arrangement below: Go spills a value live across a
+// call at a point dominating every use after a call, which for the loop's state
+// is the dispatch, on every instruction, whichever path runs. So no state value
+// in vmRun is live across a call. Every cold path saves it here, calls, and
+// loads it back. A struct of five fields is not split into SSA values, so these
+// really are loads and stores on those paths and nowhere else.
+type vmState struct {
+	cur      *scmBytecodeFunc
+	ip       unsafe.Pointer
+	regs, ks unsafe.Pointer
+	base     int
+}
+
+func vmRun(ctl *ControlFlow, cur *scmBytecodeFunc, regs unsafe.Pointer, base int) (vmSlot, bool) {
 	rc := cur.fn.rc
 	ip, ks := rc.fast, rc.k
 	baseDepth := ctl.vmDepth
+	var sv vmState
 
 	// The step budget is charged once per activation and once per
 	// self-tail-call iteration, not per instruction: bytecode only jumps
@@ -128,7 +143,9 @@ func vmRun(ctl *ControlFlow, cur *scmBytecodeFunc, regs unsafe.Pointer, base int
 	// points. In every non-fuzz process limited is false.
 	limited := ctl.stepLimited()
 	if limited {
+		sv.cur, sv.ip, sv.regs, sv.ks, sv.base = cur, ip, regs, ks, base
 		ctl.tick()
+		cur, ip, regs, ks, base = sv.cur, sv.ip, sv.regs, sv.ks, sv.base
 	}
 	if vmAttn.Load() != 0 {
 		ip = vmAttend(ctl, cur.fn, ip)
@@ -152,7 +169,7 @@ func vmRun(ctl *ControlFlow, cur *scmBytecodeFunc, regs unsafe.Pointer, base int
 			sym := (*scmSymbol)(unsafe.Pointer(r(ks, in.B).obj))
 			f := sym.function
 			if f == nil {
-				vmUnbound(sym)
+				panic(vmUnbound(sym))
 			}
 			r(regs, in.A).obj = f
 
@@ -164,7 +181,7 @@ func vmRun(ctl *ControlFlow, cur *scmBytecodeFunc, regs unsafe.Pointer, base int
 			if o == False {
 				ip = unsafe.Add(ip, int(in.A))
 			} else if o != True {
-				vmBadIf()
+				panic(vmBadIf())
 			}
 
 		case OP_R_JT:
@@ -193,7 +210,7 @@ func vmRun(ctl *ControlFlow, cur *scmBytecodeFunc, regs unsafe.Pointer, base int
 		case OP_R_JNEKN:
 			x := r(regs, in.B)
 			if x.obj != nil {
-				goto slow
+				goto fixK
 			}
 			if x.number != r(ks, in.C).number {
 				ip = unsafe.Add(ip, int(in.A))
@@ -210,7 +227,7 @@ func vmRun(ctl *ControlFlow, cur *scmBytecodeFunc, regs unsafe.Pointer, base int
 			if x.obj != nil && x.obj == y.obj {
 				continue
 			}
-			goto slow
+			goto fixR
 
 		case OP_R_JNCONSP:
 			o := r(regs, in.B).obj
@@ -241,13 +258,17 @@ func vmRun(ctl *ControlFlow, cur *scmBytecodeFunc, regs unsafe.Pointer, base int
 			}
 
 		case OP_R_CONS:
-			c := cons(r(regs, in.B).objValue(), r(regs, in.C).objValue())
-			r(regs, in.A).obj = c
+			sv.cur, sv.ip, sv.regs, sv.ks, sv.base = cur, ip, regs, ks, base
+			vmConsOp(r(regs, in.A), r(regs, in.B), r(regs, in.C))
+			cur, ip, regs, ks, base = sv.cur, sv.ip, sv.regs, sv.ks, sv.base
 
 		case OP_R_VGET:
 			o, i := r(regs, in.B).obj, r(regs, in.C)
-			if o == nil || *o != scmHeadVector || i.obj != nil {
+			if o == nil || *o != scmHeadVector {
 				goto slow
+			}
+			if i.obj != nil {
+				goto fixR
 			}
 			vec := (*scmVector)(unsafe.Pointer(o)).vector
 			n := int(i.number)
@@ -258,16 +279,27 @@ func vmRun(ctl *ControlFlow, cur *scmBytecodeFunc, regs unsafe.Pointer, base int
 
 		case OP_R_VSET:
 			o, i := r(regs, in.B).obj, r(regs, in.C)
-			if o == nil || *o != scmHeadVector || i.obj != nil {
+			if o == nil || *o != scmHeadVector {
 				goto slow
+			}
+			if i.obj != nil {
+				goto fixR
 			}
 			vec := (*scmVector)(unsafe.Pointer(o)).vector
 			n := int(i.number)
 			if float64(n) != i.number || uint(n) >= uint(len(vec)) {
 				goto slow
 			}
-			vec[n] = r(regs, in.D).objValue()
-			r(regs, in.A).obj = o
+			v := r(regs, in.D).obj
+			if v != nil {
+				vec[n] = v
+				r(regs, in.A).obj = o
+				continue
+			}
+			sv.cur, sv.ip, sv.regs, sv.ks, sv.base = cur, ip, regs, ks, base
+			vmVsetNumber(&vec[n], r(regs, in.D).number)
+			r(sv.regs, in.A).obj = o
+			cur, ip, regs, ks, base = sv.cur, sv.ip, sv.regs, sv.ks, sv.base
 
 		case OP_R_GCONST:
 			*r(regs, in.A) = *r(ks, in.C)
@@ -276,28 +308,67 @@ func vmRun(ctl *ControlFlow, cur *scmBytecodeFunc, regs unsafe.Pointer, base int
 			goto slow
 
 		case OP_R_CLOSURE:
-			b := r(regs, in.A)
-			*b = vmMakeClosure(cur.fn.Consts[in.B], unsafe.Slice(b, int(in.C)))
+			sv.cur, sv.ip, sv.regs, sv.ks, sv.base = cur, ip, regs, ks, base
+			vmClosureOp(cur.fn, r(regs, in.A), in)
+			cur, ip, regs, ks, base = sv.cur, sv.ip, sv.regs, sv.ks, sv.base
 
 		case OP_R_RET:
-			result = *r(regs, in.A)
-			goto ret
+			d := ctl.vmDepth
+			if d == baseDepth {
+				return *r(regs, in.A), false
+			}
+			v := r(regs, in.A)
+			d--
+			ctl.vmDepth = d
+			fr := &ctl.vmFrames[d]
+			cur, ip, base = fr.fn, fr.ip, fr.base
+			rc2 := cur.fn.rc
+			ks = rc2.k
+			ctl.frameTop = base + rc2.size
+			*r(fr.regs, (*Instr)(unsafe.Add(ip, -int(instrSize))).A) = *v
+			regs = fr.regs
+			if fr.crossed {
+				goto crossback
+			}
+			if vmAttn.Load() != 0 {
+				goto attend
+			}
 
 		case OP_R_RETK:
-			result = *r(ks, in.A)
-			goto ret
+			d := ctl.vmDepth
+			if d == baseDepth {
+				return *r(ks, in.A), false
+			}
+			v := r(ks, in.A)
+			d--
+			ctl.vmDepth = d
+			fr := &ctl.vmFrames[d]
+			cur, ip, base = fr.fn, fr.ip, fr.base
+			rc2 := cur.fn.rc
+			ks = rc2.k
+			ctl.frameTop = base + rc2.size
+			*r(fr.regs, (*Instr)(unsafe.Add(ip, -int(instrSize))).A) = *v
+			regs = fr.regs
+			if fr.crossed {
+				goto crossback
+			}
+			if vmAttn.Load() != 0 {
+				goto attend
+			}
 
 		case OP_R_SELF:
 			ip = unsafe.Add(ip, int(in.A))
 			if limited {
+				sv.cur, sv.ip, sv.regs, sv.ks, sv.base = cur, ip, regs, ks, base
 				ctl.tick()
+				cur, ip, regs, ks, base = sv.cur, sv.ip, sv.regs, sv.ks, sv.base
 			}
 
 		case OP_R_CALLG:
 			sym := (*scmSymbol)(unsafe.Pointer(r(ks, in.C).obj))
 			f := sym.function
 			if f == nil {
-				vmUnbound(sym)
+				panic(vmUnbound(sym))
 			}
 			r(regs, in.A).obj = f
 			fallthrough
@@ -308,54 +379,54 @@ func vmRun(ctl *ControlFlow, cur *scmBytecodeFunc, regs unsafe.Pointer, base int
 			if callee != nil && *callee == scmHeadBytecodeFunc {
 				bf := (*scmBytecodeFunc)(unsafe.Pointer(callee))
 				f2 := bf.fn
+				rc2 := f2.rc
+				d := ctl.vmDepth
+				base2 := base + int(in.A)>>4 + 1
 				if f2.Arity == int(in.B) {
-					rc2 := f2.rc
-					if rc2 == nil {
-						rc2 = f2.lower()
-					}
-					regs2 := unsafe.Add(unsafe.Pointer(cs), 16)
-					base2 := base + int(in.A)>>4 + 1
-					// Save the caller before frameEnsure can change blocks.
-					d := ctl.vmDepth
-					if d >= len(ctl.vmFrames) {
-						ctl.vmFramesGrow()
+					if rc2 == nil || d >= len(ctl.vmFrames) || base2+rc2.size > ctl.frameCap {
+						// Everything these paths need is recomputed afterwards.
+						sv.cur, sv.ip, sv.regs, sv.ks, sv.base = cur, ip, regs, ks, base
+						vmCallCold(ctl, &sv, in, bf)
+						cur, ip, regs, ks, base = sv.cur, sv.ip, sv.regs, sv.ks, sv.base
+						if limited {
+							sv.cur, sv.ip, sv.regs, sv.ks, sv.base = cur, ip, regs, ks, base
+							ctl.tick()
+							cur, ip, regs, ks, base = sv.cur, sv.ip, sv.regs, sv.ks, sv.base
+						}
+						if vmAttn.Load() != 0 {
+							goto attend
+						}
+						continue
 					}
 					fr := &ctl.vmFrames[d]
 					fr.fn, fr.ip, fr.regs, fr.base = cur, ip, regs, base
 					ctl.vmDepth = d + 1
-					if base2+rc2.size > ctl.frameCap {
-						was := ctl.frameCur
-						base2 = ctl.frameEnsure(base2, rc2.size, unsafe.Slice((*vmSlot)(regs2), int(in.B)))
-						regs2 = unsafe.Pointer(&ctl.frameBlocks[ctl.frameCur][base2])
-						if ctl.frameCur != was {
-							fr.crossed, fr.cur = true, was
-						}
-					}
 					ctl.frameTop = base2 + rc2.size
-					cur, regs, base = bf, regs2, base2
+					cur, regs, base = bf, unsafe.Add(unsafe.Pointer(cs), 16), base2
 					ip, ks = rc2.fast, rc2.k
 					if limited {
+						sv.cur, sv.ip, sv.regs, sv.ks, sv.base = cur, ip, regs, ks, base
 						ctl.tick()
+						cur, ip, regs, ks, base = sv.cur, sv.ip, sv.regs, sv.ks, sv.base
 					}
 					if vmAttn.Load() != 0 {
-						ip = vmAttend(ctl, f2, ip)
+						goto attend
 					}
 					continue
 				}
 			}
-			{
-				res := vmCallOther(ctl, cs.objValue(), unsafe.Slice((*vmSlot)(unsafe.Add(unsafe.Pointer(cs), 16)), int(in.B)))
-				*cs = res
-				if vmAttn.Load() != 0 {
-					ip = vmAttend(ctl, cur.fn, ip)
-				}
+			sv.cur, sv.ip, sv.regs, sv.ks, sv.base = cur, ip, regs, ks, base
+			vmCallOut(ctl, cs, int(in.B))
+			cur, ip, regs, ks, base = sv.cur, sv.ip, sv.regs, sv.ks, sv.base
+			if vmAttn.Load() != 0 {
+				goto attend
 			}
 
 		case OP_R_TAILCALLG:
 			sym := (*scmSymbol)(unsafe.Pointer(r(ks, in.C).obj))
 			f := sym.function
 			if f == nil {
-				vmUnbound(sym)
+				panic(vmUnbound(sym))
 			}
 			r(regs, in.A).obj = f
 			fallthrough
@@ -367,70 +438,50 @@ func vmRun(ctl *ControlFlow, cur *scmBytecodeFunc, regs unsafe.Pointer, base int
 			if callee != nil && *callee == scmHeadBytecodeFunc {
 				bf := (*scmBytecodeFunc)(unsafe.Pointer(callee))
 				f2 := bf.fn
+				rc2 := f2.rc
 				if f2.Arity == n {
+					if rc2 == nil || base+rc2.size > ctl.frameCap {
+						sv.cur, sv.ip, sv.regs, sv.ks, sv.base = cur, ip, regs, ks, base
+						rc2 = vmTailCold(ctl, &sv, baseDepth, f2)
+						cur, ip, regs, ks, base = sv.cur, sv.ip, sv.regs, sv.ks, sv.base
+					}
 					// Reuse this frame: move the arguments down. A tail call to
 					// the same function was already a loop; a tail call to
 					// another used to bounce off the trampoline, and is charged
 					// the same two steps as that bounce.
-					rc2 := f2.rc
-					if rc2 == nil {
-						rc2 = f2.lower()
-					}
-					src := unsafe.Pointer(cs)
+					from := unsafe.Pointer(r(regs, in.A))
+					to := regs
 					for i := 0; i < n; i++ {
-						src = unsafe.Add(src, 16)
-						*(*vmSlot)(unsafe.Add(regs, uintptr(i)*16)) = *(*vmSlot)(src)
-					}
-					if base+rc2.size > ctl.frameCap {
-						was := ctl.frameCur
-						base = ctl.frameEnsure(base, rc2.size, unsafe.Slice((*vmSlot)(regs), n))
-						regs = unsafe.Pointer(&ctl.frameBlocks[ctl.frameCur][base])
-						if d := ctl.vmDepth; ctl.frameCur != was && d > baseDepth {
-							if fr := &ctl.vmFrames[d-1]; !fr.crossed {
-								fr.crossed, fr.cur = true, was
-							}
-						}
+						from = unsafe.Add(from, 16)
+						*(*vmSlot)(to) = *(*vmSlot)(from)
+						to = unsafe.Add(to, 16)
 					}
 					ctl.frameTop = base + rc2.size
 					if limited {
+						self := bf == cur
+						sv.cur, sv.ip, sv.regs, sv.ks, sv.base = cur, ip, regs, ks, base
 						ctl.tick()
-						if bf != cur {
+						if !self {
 							ctl.tick()
 						}
+						cur, ip, regs, ks, base = sv.cur, sv.ip, sv.regs, sv.ks, sv.base
 					}
 					cur = bf
 					ip, ks = rc2.fast, rc2.k
 					if vmAttn.Load() != 0 {
-						ip = vmAttend(ctl, f2, ip)
+						goto attend
 					}
 					continue
 				}
 			}
-			ctl.tailApplySlots(cs.objValue(), unsafe.Slice((*vmSlot)(unsafe.Add(unsafe.Pointer(cs), 16)), n))
-			if ctl.vmDepth == baseDepth {
+			sv.cur, sv.ip, sv.regs, sv.ks, sv.base = cur, ip, regs, ks, base
+			if vmTailOut(ctl, &sv, cs, n, baseDepth) {
 				return vmSlot{}, true
 			}
-			// The trampoline runs after this frame is gone, so that a chain of
-			// tail calls through natives cannot grow the arena.
-			{
-				d := ctl.vmDepth - 1
-				fr := &ctl.vmFrames[d]
-				cur, ip, regs, base = fr.fn, fr.ip, fr.regs, fr.base
-				rc2 := cur.fn.rc
-				ks = rc2.k
-				ctl.vmDepth = d
-				if fr.crossed {
-					fr.crossed = false
-					ctl.frameLeaveBlock(fr.cur)
-				}
-				ctl.frameTop = base + rc2.size
-				res := vmSlot{obj: trampoline(ctl)}
-				*r(regs, (*Instr)(unsafe.Add(ip, -int(instrSize))).A) = res
-				if vmAttn.Load() != 0 {
-					ip = vmAttend(ctl, cur.fn, ip)
-				}
+			cur, ip, regs, ks, base = sv.cur, sv.ip, sv.regs, sv.ks, sv.base
+			if vmAttn.Load() != 0 {
+				goto attend
 			}
-
 		case OP_R_ADD:
 			x, y := r(regs, in.B), r(regs, in.C)
 			if x.obj == nil && y.obj == nil {
@@ -443,7 +494,7 @@ func vmRun(ctl *ControlFlow, cur *scmBytecodeFunc, regs unsafe.Pointer, base int
 					continue
 				}
 			}
-			goto slow
+			goto fixR
 
 		case OP_R_ADDK:
 			x, y := r(regs, in.B), r(ks, in.C)
@@ -457,7 +508,7 @@ func vmRun(ctl *ControlFlow, cur *scmBytecodeFunc, regs unsafe.Pointer, base int
 					continue
 				}
 			}
-			goto slow
+			goto fixK
 
 		case OP_R_SUB:
 			x, y := r(regs, in.B), r(regs, in.C)
@@ -471,7 +522,7 @@ func vmRun(ctl *ControlFlow, cur *scmBytecodeFunc, regs unsafe.Pointer, base int
 					continue
 				}
 			}
-			goto slow
+			goto fixR
 
 		case OP_R_SUBK:
 			x, y := r(regs, in.B), r(ks, in.C)
@@ -485,7 +536,7 @@ func vmRun(ctl *ControlFlow, cur *scmBytecodeFunc, regs unsafe.Pointer, base int
 					continue
 				}
 			}
-			goto slow
+			goto fixK
 
 		case OP_R_MUL:
 			x, y := r(regs, in.B), r(regs, in.C)
@@ -499,7 +550,7 @@ func vmRun(ctl *ControlFlow, cur *scmBytecodeFunc, regs unsafe.Pointer, base int
 					continue
 				}
 			}
-			goto slow
+			goto fixR
 
 		case OP_R_MULK:
 			x, y := r(regs, in.B), r(ks, in.C)
@@ -513,7 +564,7 @@ func vmRun(ctl *ControlFlow, cur *scmBytecodeFunc, regs unsafe.Pointer, base int
 					continue
 				}
 			}
-			goto slow
+			goto fixK
 
 		case OP_R_JNLT:
 			x, y := r(regs, in.B), r(regs, in.C)
@@ -523,7 +574,7 @@ func vmRun(ctl *ControlFlow, cur *scmBytecodeFunc, regs unsafe.Pointer, base int
 				}
 				continue
 			}
-			goto slow
+			goto fixR
 
 		case OP_R_JNLTK:
 			x, y := r(regs, in.B), r(ks, in.C)
@@ -533,7 +584,7 @@ func vmRun(ctl *ControlFlow, cur *scmBytecodeFunc, regs unsafe.Pointer, base int
 				}
 				continue
 			}
-			goto slow
+			goto fixK
 
 		case OP_R_JNLE:
 			x, y := r(regs, in.B), r(regs, in.C)
@@ -543,7 +594,7 @@ func vmRun(ctl *ControlFlow, cur *scmBytecodeFunc, regs unsafe.Pointer, base int
 				}
 				continue
 			}
-			goto slow
+			goto fixR
 
 		case OP_R_JNLEK:
 			x, y := r(regs, in.B), r(ks, in.C)
@@ -553,7 +604,7 @@ func vmRun(ctl *ControlFlow, cur *scmBytecodeFunc, regs unsafe.Pointer, base int
 				}
 				continue
 			}
-			goto slow
+			goto fixK
 
 		case OP_R_JNGT:
 			x, y := r(regs, in.B), r(regs, in.C)
@@ -563,7 +614,7 @@ func vmRun(ctl *ControlFlow, cur *scmBytecodeFunc, regs unsafe.Pointer, base int
 				}
 				continue
 			}
-			goto slow
+			goto fixR
 
 		case OP_R_JNGTK:
 			x, y := r(regs, in.B), r(ks, in.C)
@@ -573,7 +624,7 @@ func vmRun(ctl *ControlFlow, cur *scmBytecodeFunc, regs unsafe.Pointer, base int
 				}
 				continue
 			}
-			goto slow
+			goto fixK
 
 		case OP_R_JNGE:
 			x, y := r(regs, in.B), r(regs, in.C)
@@ -583,7 +634,7 @@ func vmRun(ctl *ControlFlow, cur *scmBytecodeFunc, regs unsafe.Pointer, base int
 				}
 				continue
 			}
-			goto slow
+			goto fixR
 
 		case OP_R_JNGEK:
 			x, y := r(regs, in.B), r(ks, in.C)
@@ -593,43 +644,183 @@ func vmRun(ctl *ControlFlow, cur *scmBytecodeFunc, regs unsafe.Pointer, base int
 				}
 				continue
 			}
-			goto slow
+			goto fixK
 
 		default:
 			panic("vmRun: unknown opcode")
 		}
 		continue
 
-	ret:
+	fixR:
+		// A fixnum operand, typically fresh from a list or a caller outside
+		// bytecode. Its register takes the float form, which the operation and
+		// everything that later reads the register can use inline; the
+		// instruction then runs again. Anything else is for vmSlowOp.
 		{
-			d := ctl.vmDepth
-			if d == baseDepth {
-				return result, false
+			y := r(regs, in.C)
+			if o := uintptr(unsafe.Pointer(y.obj)) - uintptr(unsafe.Pointer(&addrForFixnum)); o < fixnumCount {
+				y.number = float64(int(o) + fixnumMin)
+				y.obj = nil
+				x := r(regs, in.B)
+				if o := uintptr(unsafe.Pointer(x.obj)) - uintptr(unsafe.Pointer(&addrForFixnum)); o < fixnumCount {
+					x.number = float64(int(o) + fixnumMin)
+					x.obj = nil
+				}
+				ip = unsafe.Pointer(in)
+				continue
 			}
-			d--
-			fr := &ctl.vmFrames[d]
-			cur, ip, regs, base = fr.fn, fr.ip, fr.regs, fr.base
-			rc2 := cur.fn.rc
-			ks = rc2.k
-			ctl.vmDepth = d
-			if fr.crossed {
-				fr.crossed = false
-				ctl.frameLeaveBlock(fr.cur)
+		}
+	fixK:
+		{
+			x := r(regs, in.B)
+			if o := uintptr(unsafe.Pointer(x.obj)) - uintptr(unsafe.Pointer(&addrForFixnum)); o < fixnumCount {
+				x.number = float64(int(o) + fixnumMin)
+				x.obj = nil
+				ip = unsafe.Pointer(in)
+				continue
 			}
-			ctl.frameTop = base + rc2.size
-			*r(regs, (*Instr)(unsafe.Add(ip, -int(instrSize))).A) = result
-			if vmAttn.Load() != 0 {
-				ip = vmAttend(ctl, cur.fn, ip)
-			}
+		}
+		goto slow
+
+	crossback:
+		sv.cur, sv.ip, sv.regs, sv.ks, sv.base = cur, ip, regs, ks, base
+		ctl.frameLeaveDepth()
+		cur, ip, regs, ks, base = sv.cur, sv.ip, sv.regs, sv.ks, sv.base
+		if vmAttn.Load() == 0 {
 			continue
 		}
 
+	attend:
+		sv.cur, sv.ip, sv.regs, sv.ks, sv.base = cur, ip, regs, ks, base
+		sv.ip = vmAttend(ctl, sv.cur.fn, sv.ip)
+		cur, ip, regs, ks, base = sv.cur, sv.ip, sv.regs, sv.ks, sv.base
+		continue
+
 	slow:
-		if vmSlowOp(ctl, cur, regs, ks, in) {
-			ip = unsafe.Add(ip, int(in.A))
-		}
+		sv.cur, sv.ip, sv.regs, sv.ks, sv.base = cur, ip, regs, ks, base
+		jump := vmSlowOp(ctl, cur, regs, ks, in)
+		cur, ip, regs, ks, base = sv.cur, sv.ip, sv.regs, sv.ks, sv.base
+		ip = unsafe.Add(ip, jump)
 		if vmAttn.Load() != 0 {
-			ip = vmAttend(ctl, cur.fn, ip)
+			goto attend
 		}
 	}
+}
+
+//go:noinline
+func vmVsetNumber(p *Obj, f float64) { *p = MakeNumber(f) }
+
+// vmConsOp is OP_R_CONS, out of line since it allocates anyway.
+//
+//go:noinline
+func vmConsOp(d, x, y *vmSlot) {
+	d.obj = cons(x.objValue(), y.objValue())
+}
+
+//go:noinline
+func vmClosureOp(fn *BytecodeFunc, b *vmSlot, in *Instr) {
+	*b = vmMakeClosure(fn.Consts[in.B], unsafe.Slice(b, int(in.C)))
+}
+
+// vmCallOut is a non-tail call to anything but an exact-arity bytecode function.
+//
+//go:noinline
+func vmCallOut(ctl *ControlFlow, cs *vmSlot, n int) {
+	*cs = vmCallOther(ctl, cs.objValue(), unsafe.Slice((*vmSlot)(unsafe.Add(unsafe.Pointer(cs), 16)), n))
+}
+
+// vmCallCold is an exact-arity bytecode call that first has to lower the
+// callee, grow the record stack or move to another arena block. It leaves st
+// at the callee's first instruction.
+//
+//go:noinline
+func vmCallCold(ctl *ControlFlow, st *vmState, in *Instr, bf *scmBytecodeFunc) {
+	f2 := bf.fn
+	rc2 := f2.rc
+	if rc2 == nil {
+		rc2 = f2.lower()
+	}
+	d := ctl.vmDepth
+	if d >= len(ctl.vmFrames) {
+		ctl.vmFramesGrow()
+	}
+	fr := &ctl.vmFrames[d]
+	fr.fn, fr.ip, fr.regs, fr.base = st.cur, st.ip, st.regs, st.base
+	ctl.vmDepth = d + 1
+	cs := r(st.regs, in.A)
+	regs2 := unsafe.Add(unsafe.Pointer(cs), 16)
+	base2 := st.base + int(in.A)>>4 + 1
+	if base2+rc2.size > ctl.frameCap {
+		was := ctl.frameCur
+		base2 = ctl.frameEnsure(base2, rc2.size, unsafe.Slice((*vmSlot)(regs2), int(in.B)))
+		regs2 = unsafe.Pointer(&ctl.frameBlocks[ctl.frameCur][base2])
+		if ctl.frameCur != was {
+			fr.crossed, fr.cur = true, was
+		}
+	}
+	ctl.frameTop = base2 + rc2.size
+	st.cur, st.regs, st.base = bf, regs2, base2
+	st.ip, st.ks = rc2.fast, rc2.k
+}
+
+// vmTailCold makes the current frame ready to become a frame of f2, which may
+// move it to another arena block along with the pending call's window.
+//
+//go:noinline
+func vmTailCold(ctl *ControlFlow, st *vmState, baseDepth int, f2 *BytecodeFunc) *vmCode {
+	rc2 := f2.rc
+	if rc2 == nil {
+		rc2 = f2.lower()
+	}
+	if st.base+rc2.size > ctl.frameCap {
+		was := ctl.frameCur
+		// Keep the whole current frame: it holds the pending call's window.
+		size := max(rc2.size, ctl.frameTop-st.base)
+		base2 := ctl.frameEnsure(st.base, size, unsafe.Slice((*vmSlot)(st.regs), ctl.frameTop-st.base))
+		st.regs, st.base = unsafe.Pointer(&ctl.frameBlocks[ctl.frameCur][base2]), base2
+		if d := ctl.vmDepth; ctl.frameCur != was && d > baseDepth {
+			if fr := &ctl.vmFrames[d-1]; !fr.crossed {
+				fr.crossed, fr.cur = true, was
+			}
+		}
+	}
+	return rc2
+}
+
+// vmTailOut is a tail call to anything but an exact-arity bytecode function. It
+// returns true if this was the base frame, leaving the call for the trampoline
+// that entered vmRun. Otherwise it pops the frame before running the call, so
+// that a chain of tail calls through natives cannot grow the arena, and leaves
+// st in the caller with the result in place.
+//
+//go:noinline
+func vmTailOut(ctl *ControlFlow, st *vmState, cs *vmSlot, n, baseDepth int) bool {
+	ctl.tailApplySlots(cs.objValue(), unsafe.Slice((*vmSlot)(unsafe.Add(unsafe.Pointer(cs), 16)), n))
+	d := ctl.vmDepth
+	if d == baseDepth {
+		return true
+	}
+	d--
+	fr := &ctl.vmFrames[d]
+	st.cur, st.ip, st.regs, st.base = fr.fn, fr.ip, fr.regs, fr.base
+	rc2 := st.cur.fn.rc
+	st.ks = rc2.k
+	ctl.vmDepth = d
+	if fr.crossed {
+		fr.crossed = false
+		ctl.frameLeaveBlock(fr.cur)
+	}
+	ctl.frameTop = st.base + rc2.size
+	res := vmSlot{obj: trampoline(ctl)}
+	*r(st.regs, (*Instr)(unsafe.Add(st.ip, -int(instrSize))).A) = res
+	return false
+}
+
+// frameLeaveDepth finishes a return whose call had changed arena blocks.
+//
+//go:noinline
+func (ctl *ControlFlow) frameLeaveDepth() {
+	fr := &ctl.vmFrames[ctl.vmDepth]
+	fr.crossed = false
+	ctl.frameLeaveBlock(fr.cur)
 }

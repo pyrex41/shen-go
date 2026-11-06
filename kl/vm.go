@@ -818,10 +818,10 @@ func vmMakeClosure(innerBFObj Obj, ups []vmSlot) vmSlot {
 }
 
 //go:noinline
-func vmBadIf() { panic(MakeError("if requires a boolean")) }
+func vmBadIf() Obj { return MakeError("if requires a boolean") }
 
 //go:noinline
-func vmUnbound(sym *scmSymbol) { panic(MakeError(fmt.Sprintf("function %s not bound", sym.str))) }
+func vmUnbound(sym *scmSymbol) Obj { return MakeError(fmt.Sprintf("function %s not bound", sym.str)) }
 
 // constSlots returns Consts in loaded form, built on first use.
 func (fn *BytecodeFunc) constSlots() []vmSlot {
