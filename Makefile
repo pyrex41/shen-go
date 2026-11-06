@@ -1,4 +1,4 @@
-.PHONY: all kl shen docker test certify test-all precompile yggdrasil-build
+.PHONY: all kl shen shen-pgo docker test certify test-all precompile yggdrasil-build
 
 all: kl shen
 
@@ -7,6 +7,15 @@ kl:
 
 shen:
 	go build -o shen github.com/pyrex41/shen-go/cmd/shen
+
+# A profile-guided build: 8-20% fewer instructions and CPU than plain `shen`,
+# from the same source. The profile is a merge of -cpuprofile runs of the
+# benchmarks and the kernel suite (go tool pprof -proto a.prof b.prof > pgo/shen.pgo).
+# A stale profile only loses speed, so refresh it after large changes to the VM.
+# Plugins must be built with the same flag, or plugin.Open rejects them:
+#   GOFLAGS=-pgo=$(CURDIR)/pgo/shen.pgo make precompile FILE=...
+shen-pgo:
+	go build -pgo=$(CURDIR)/pgo/shen.pgo -o shen github.com/pyrex41/shen-go/cmd/shen
 
 # Yggdrasil stage-2 static builder: turn a Yggdrasil shaken directory into a
 # Go module that builds a single static, cross-compilable binary.
