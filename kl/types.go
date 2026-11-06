@@ -49,6 +49,8 @@ type scmSymbol struct {
 	// registration (package init / InstallKernelFast, single-threaded boot);
 	// read unlocked like function.
 	canonical Obj
+	// clInlined: a closure-compiled site inlines this primitive (closure.go).
+	clInlined bool
 }
 
 type scmPair struct {

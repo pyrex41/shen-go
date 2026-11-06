@@ -42,6 +42,9 @@ const (
 // CompileFunc compiles a KL top-level defun body to a BytecodeFunc object.
 // params is the list of parameter symbols; body is the KL expression.
 func CompileFunc(name string, params []Obj, body Obj) Obj {
+	if clEnabled {
+		return clCompileFunc(name, params, body)
+	}
 	c := newCompiler(name, len(params), params, nil)
 	c.compileExpr(body, true)
 	c.fn.TypeHints = append([]TypeHint(nil), c.hints...)

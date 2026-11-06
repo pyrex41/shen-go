@@ -906,9 +906,11 @@ func primDefun(key, val Obj) Obj {
 	if *val == scmHeadProcedure {
 		proc := mustProcedure(val)
 		compiled := CompileFunc(sym.str, proc.arg, proc.body)
+		noteRebind(sym, compiled)
 		sym.function = compiled
 		return key
 	}
+	noteRebind(sym, val)
 	sym.function = val
 	return key
 }

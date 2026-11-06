@@ -65,6 +65,10 @@ type BytecodeFunc struct {
 	// TypeHints preserves advisory (type ...) annotations for later typed-IR
 	// passes. Hints never alter runtime behavior or introduce errors.
 	TypeHints []TypeHint
+	// Cl is set when this function is closure-compiled (see closure.go); Code
+	// is then empty and every activation goes through clApply.
+	Cl          *clCode
+	clUpvalOffs []int // slots of the enclosing function this one captures
 }
 
 type TypeHint struct {
@@ -92,7 +96,8 @@ const (
 type scmBytecodeFunc struct {
 	scmHead
 	fn     *BytecodeFunc
-	upvals []Obj // captured values for closures
+	upvals []Obj   // captured values for closures
+	cl     *clCode // fn.Cl, one load nearer the call site
 }
 
 // vmSlot keeps finite numbers unboxed while retaining an Obj for all other
@@ -565,6 +570,7 @@ func makeBytecodeObj(fn *BytecodeFunc, upvals []Obj) Obj {
 		scmHead: scmHeadBytecodeFunc,
 		fn:      fn,
 		upvals:  upvals,
+		cl:      fn.Cl,
 	}
 	return &tmp.scmHead
 }
@@ -615,6 +621,7 @@ func makeClosure(fn *BytecodeFunc, n int) (Obj, []Obj) {
 	}
 	bf.scmHead = scmHeadBytecodeFunc
 	bf.fn = fn
+	bf.cl = fn.Cl
 	return &bf.scmHead, bf.upvals
 }
 
@@ -715,6 +722,10 @@ func vmPartialApply(required int, providedArgs []Obj, proc Obj) Obj {
 // vmExec runs one activation of a bytecode function.
 // It either calls ctl.Return with the result or sets up a tail call.
 func vmExec(ctl *ControlFlow, bf *scmBytecodeFunc, args []Obj) {
+	if bf.cl != nil {
+		clApply(ctl, bf, args)
+		return
+	}
 	var inline [8]vmSlot
 	slots := inline[:0]
 	if len(args) <= len(inline) {
@@ -729,6 +740,10 @@ func vmExec(ctl *ControlFlow, bf *scmBytecodeFunc, args []Obj) {
 }
 
 func vmExecSlots(ctl *ControlFlow, bf *scmBytecodeFunc, args []vmSlot) {
+	if bf.cl != nil {
+		clApplySlots(ctl, bf, args)
+		return
+	}
 	fn := bf.fn
 	upvals := bf.upvals
 
