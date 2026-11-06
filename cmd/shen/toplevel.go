@@ -3,11 +3,11 @@ package main
 import . "github.com/pyrex41/shen-go/kl"
 
 var TopLevelMain = MakeNative0(func(__e *ControlFlow) Obj {
-tmp8187 := MakeNative0(func(__e *ControlFlow) Obj {
-tmp8188 := Call0(__e, SymFn(symshen_4credits))
+tmp7745 := MakeNative0(func(__e *ControlFlow) Obj {
+tmp7746 := Call0(__e, SymFn(symshen_4credits))
 
 
-_ = tmp8188
+_ = tmp7746
 
 return TailCall0(__e, SymFn(symshen_4loop))
 
@@ -15,39 +15,39 @@ return TailCall0(__e, SymFn(symshen_4loop))
 panic("unreachable")
 })
 
-tmp8189 := Call2(__e, ns2_1set, symshen_4repl, tmp8187)
+tmp7747 := Call2(__e, ns2_1set, symshen_4repl, tmp7745)
 
 
-_ = tmp8189
+_ = tmp7747
 
-tmp8190 := (func() Obj {
+tmp7748 := (func() Obj {
 var __self Obj
 __self = MakeNative0(func(__e *ControlFlow) Obj {
 __selftop:
-tmp8191 := Call0(__e, SymFn(symshen_4initialise__environment))
+tmp7749 := Call0(__e, SymFn(symshen_4initialise__environment))
 
 
-_ = tmp8191
+_ = tmp7749
 
-tmp8192 := Call0(__e, SymFn(symshen_4prompt))
+tmp7750 := Call0(__e, SymFn(symshen_4prompt))
 
 
-_ = tmp8192
+_ = tmp7750
 
-tmp8193 := MakeNative0(func(__e *ControlFlow) Obj {
+tmp7751 := MakeNative0(func(__e *ControlFlow) Obj {
 return TailCall0(__e, SymFn(symshen_4read_1evaluate_1print))
 panic("unreachable")
 })
 
-tmp8194 := MakeNative1(func(__e *ControlFlow, Z5748 Obj) Obj {
+tmp7752 := MakeNative1(func(__e *ControlFlow, Z5748 Obj) Obj {
 return TailCall1(__e, SymFn(symshen_4toplevel_1display_1exception), Z5748)
 panic("unreachable")
 })
 
-tmp8195 := Call2(__e, try_1catch, tmp8193, tmp8194)
+tmp7753 := Call2(__e, try_1catch, tmp7751, tmp7752)
 
 
-_ = tmp8195
+_ = tmp7753
 
 if SymFn(symshen_4loop) == __self {
 __e.Tick()
@@ -61,21 +61,21 @@ panic("unreachable")
 return __self
 })()
 
-tmp8196 := Call2(__e, ns2_1set, symshen_4loop, tmp8190)
+tmp7754 := Call2(__e, ns2_1set, symshen_4loop, tmp7748)
 
 
-_ = tmp8196
+_ = tmp7754
 
-tmp8197 := MakeNative1(func(__e *ControlFlow, V5749 Obj) Obj {
-tmp8198 := PrimGuard1(__e, symerror_1to_1string, PrimErrorToString, V5749)
+tmp7755 := MakeNative1(func(__e *ControlFlow, V5749 Obj) Obj {
+tmp7756 := PrimGuard1(__e, symerror_1to_1string, PrimErrorToString, V5749)
 
-tmp8199 := Call0(__e, SymFn(symstoutput))
-
-
-tmp8200 := Call2(__e, SymFn(sympr), tmp8198, tmp8199)
+tmp7757 := Call0(__e, SymFn(symstoutput))
 
 
-_ = tmp8200
+tmp7758 := Call2(__e, SymFn(sympr), tmp7756, tmp7757)
+
+
+_ = tmp7758
 
 return TailCall1(__e, SymFn(symnl), MakeInteger(0))
 
@@ -83,80 +83,80 @@ return TailCall1(__e, SymFn(symnl), MakeInteger(0))
 panic("unreachable")
 })
 
-tmp8201 := Call2(__e, ns2_1set, symshen_4toplevel_1display_1exception, tmp8197)
+tmp7759 := Call2(__e, ns2_1set, symshen_4toplevel_1display_1exception, tmp7755)
 
 
-_ = tmp8201
+_ = tmp7759
 
-tmp8202 := MakeNative0(func(__e *ControlFlow) Obj {
-tmp8203 := Call0(__e, SymFn(symstoutput))
-
-
-tmp8204 := Call2(__e, SymFn(sympr), MakeString("\nShen, www.shenlanguage.org, copyright (C) 2010-2026, Mark Tarver\n"), tmp8203)
+tmp7760 := MakeNative0(func(__e *ControlFlow) Obj {
+tmp7761 := Call0(__e, SymFn(symstoutput))
 
 
-_ = tmp8204
-
-tmp8205 := GValue(__e, sym_dversion_d)
-
-tmp8206 := GValue(__e, sym_dlanguage_d)
-
-tmp8207 := GValue(__e, sym_dimplementation_d)
-
-tmp8208 := GValue(__e, sym_drelease_d)
-
-tmp8209 := Call3(__e, SymFn(symshen_4app), tmp8208, MakeString("\n"), symshen_4a)
+tmp7762 := Call2(__e, SymFn(sympr), MakeString("\nShen, www.shenlanguage.org, copyright (C) 2010-2026, Mark Tarver\n"), tmp7761)
 
 
-tmp8211 := Call3(__e, SymFn(symshen_4app), tmp8207, PrimGuard2(__e, symcn, PrimStringConcat, MakeString(" "), tmp8209), symshen_4a)
+_ = tmp7762
+
+tmp7763 := GValue(__e, sym_dversion_d)
+
+tmp7764 := GValue(__e, sym_dlanguage_d)
+
+tmp7765 := GValue(__e, sym_dimplementation_d)
+
+tmp7766 := GValue(__e, sym_drelease_d)
+
+tmp7767 := Call3(__e, SymFn(symshen_4app), tmp7766, MakeString("\n"), symshen_4a)
 
 
-tmp8213 := Call3(__e, SymFn(symshen_4app), tmp8206, PrimGuard2(__e, symcn, PrimStringConcat, MakeString(", platform: "), tmp8211), symshen_4a)
+tmp7769 := Call3(__e, SymFn(symshen_4app), tmp7765, PrimGuard2(__e, symcn, PrimStringConcat, MakeString(" "), tmp7767), symshen_4a)
 
 
-tmp8215 := Call3(__e, SymFn(symshen_4app), tmp8205, PrimGuard2(__e, symcn, PrimStringConcat, MakeString(", language: "), tmp8213), symshen_4a)
+tmp7771 := Call3(__e, SymFn(symshen_4app), tmp7764, PrimGuard2(__e, symcn, PrimStringConcat, MakeString(", platform: "), tmp7769), symshen_4a)
 
 
-tmp8216 := PrimGuard2(__e, symcn, PrimStringConcat, MakeString("version: S"), tmp8215)
-
-tmp8217 := Call0(__e, SymFn(symstoutput))
+tmp7773 := Call3(__e, SymFn(symshen_4app), tmp7763, PrimGuard2(__e, symcn, PrimStringConcat, MakeString(", language: "), tmp7771), symshen_4a)
 
 
-tmp8218 := Call2(__e, SymFn(sympr), tmp8216, tmp8217)
+tmp7774 := PrimGuard2(__e, symcn, PrimStringConcat, MakeString("version: S"), tmp7773)
+
+tmp7775 := Call0(__e, SymFn(symstoutput))
 
 
-_ = tmp8218
-
-tmp8219 := GValue(__e, sym_dport_d)
-
-tmp8220 := GValue(__e, sym_dporters_d)
-
-tmp8221 := Call3(__e, SymFn(symshen_4app), tmp8220, MakeString("\n\n"), symshen_4a)
+tmp7776 := Call2(__e, SymFn(sympr), tmp7774, tmp7775)
 
 
-tmp8223 := Call3(__e, SymFn(symshen_4app), tmp8219, PrimGuard2(__e, symcn, PrimStringConcat, MakeString(", ported by "), tmp8221), symshen_4a)
+_ = tmp7776
+
+tmp7777 := GValue(__e, sym_dport_d)
+
+tmp7778 := GValue(__e, sym_dporters_d)
+
+tmp7779 := Call3(__e, SymFn(symshen_4app), tmp7778, MakeString("\n\n"), symshen_4a)
 
 
-tmp8224 := PrimGuard2(__e, symcn, PrimStringConcat, MakeString("port "), tmp8223)
-
-tmp8225 := Call0(__e, SymFn(symstoutput))
+tmp7781 := Call3(__e, SymFn(symshen_4app), tmp7777, PrimGuard2(__e, symcn, PrimStringConcat, MakeString(", ported by "), tmp7779), symshen_4a)
 
 
-return TailCall2(__e, SymFn(sympr), tmp8224, tmp8225)
+tmp7782 := PrimGuard2(__e, symcn, PrimStringConcat, MakeString("port "), tmp7781)
+
+tmp7783 := Call0(__e, SymFn(symstoutput))
+
+
+return TailCall2(__e, SymFn(sympr), tmp7782, tmp7783)
 
 
 panic("unreachable")
 })
 
-tmp8226 := Call2(__e, ns2_1set, symshen_4credits, tmp8202)
+tmp7784 := Call2(__e, ns2_1set, symshen_4credits, tmp7760)
 
 
-_ = tmp8226
+_ = tmp7784
 
-tmp8227 := MakeNative0(func(__e *ControlFlow) Obj {
-tmp8228 := PrimGuard2(__e, symset, PrimSet, symshen_4_dcall_d, MakeInteger(0))
+tmp7785 := MakeNative0(func(__e *ControlFlow) Obj {
+tmp7786 := PrimGuard2(__e, symset, PrimSet, symshen_4_dcall_d, MakeInteger(0))
 
-_ = tmp8228
+_ = tmp7786
 
 return PrimGuard2(__e, symset, PrimSet, symshen_4_dinfs_d, MakeInteger(0))
 
@@ -164,46 +164,46 @@ return PrimGuard2(__e, symset, PrimSet, symshen_4_dinfs_d, MakeInteger(0))
 panic("unreachable")
 })
 
-tmp8229 := Call2(__e, ns2_1set, symshen_4initialise__environment, tmp8227)
+tmp7787 := Call2(__e, ns2_1set, symshen_4initialise__environment, tmp7785)
 
 
-_ = tmp8229
+_ = tmp7787
 
-tmp8230 := MakeNative0(func(__e *ControlFlow) Obj {
-tmp8242 := GValue(__e, symshen_4_dtc_d)
+tmp7788 := MakeNative0(func(__e *ControlFlow) Obj {
+tmp7800 := GValue(__e, symshen_4_dtc_d)
 
-if True == tmp8242 {
-tmp8231 := GValue(__e, symshen_4_dhistory_d)
+if True == tmp7800 {
+tmp7789 := GValue(__e, symshen_4_dhistory_d)
 
-tmp8232 := Call1(__e, SymFn(symlength), tmp8231)
-
-
-tmp8233 := Call3(__e, SymFn(symshen_4app), tmp8232, MakeString("+) "), symshen_4a)
+tmp7790 := Call1(__e, SymFn(symlength), tmp7789)
 
 
-tmp8234 := PrimGuard2(__e, symcn, PrimStringConcat, MakeString("\n("), tmp8233)
-
-tmp8235 := Call0(__e, SymFn(symstoutput))
+tmp7791 := Call3(__e, SymFn(symshen_4app), tmp7790, MakeString("+) "), symshen_4a)
 
 
-return TailCall2(__e, SymFn(sympr), tmp8234, tmp8235)
+tmp7792 := PrimGuard2(__e, symcn, PrimStringConcat, MakeString("\n("), tmp7791)
+
+tmp7793 := Call0(__e, SymFn(symstoutput))
+
+
+return TailCall2(__e, SymFn(sympr), tmp7792, tmp7793)
 
 
 } else {
-tmp8236 := GValue(__e, symshen_4_dhistory_d)
+tmp7794 := GValue(__e, symshen_4_dhistory_d)
 
-tmp8237 := Call1(__e, SymFn(symlength), tmp8236)
-
-
-tmp8238 := Call3(__e, SymFn(symshen_4app), tmp8237, MakeString("-) "), symshen_4a)
+tmp7795 := Call1(__e, SymFn(symlength), tmp7794)
 
 
-tmp8239 := PrimGuard2(__e, symcn, PrimStringConcat, MakeString("\n("), tmp8238)
-
-tmp8240 := Call0(__e, SymFn(symstoutput))
+tmp7796 := Call3(__e, SymFn(symshen_4app), tmp7795, MakeString("-) "), symshen_4a)
 
 
-return TailCall2(__e, SymFn(sympr), tmp8239, tmp8240)
+tmp7797 := PrimGuard2(__e, symcn, PrimStringConcat, MakeString("\n("), tmp7796)
+
+tmp7798 := Call0(__e, SymFn(symstoutput))
+
+
+return TailCall2(__e, SymFn(sympr), tmp7797, tmp7798)
 
 
 }
@@ -212,71 +212,71 @@ return TailCall2(__e, SymFn(sympr), tmp8239, tmp8240)
 panic("unreachable")
 })
 
-tmp8243 := Call2(__e, ns2_1set, symshen_4prompt, tmp8230)
+tmp7801 := Call2(__e, ns2_1set, symshen_4prompt, tmp7788)
 
 
-_ = tmp8243
+_ = tmp7801
 
-tmp8244 := MakeNative0(func(__e *ControlFlow) Obj {
-tmp8245 := GValue(__e, symshen_4_dpackage_d)
+tmp7802 := MakeNative0(func(__e *ControlFlow) Obj {
+tmp7803 := GValue(__e, symshen_4_dpackage_d)
 
-let__8171 := tmp8245
-_ = let__8171
+let__7729 := tmp7803
+_ = let__7729
 
-tmp8246 := Call0(__e, SymFn(symstinput))
-
-
-tmp8247 := Call1(__e, SymFn(symlineread), tmp8246)
+tmp7804 := Call0(__e, SymFn(symstinput))
 
 
-tmp8248 := Call2(__e, SymFn(symshen_4package_1user_1input), let__8171, tmp8247)
+tmp7805 := Call1(__e, SymFn(symlineread), tmp7804)
 
 
-let__8172 := tmp8248
-_ = let__8172
-
-tmp8249 := Call0(__e, SymFn(symshen_4update_1history))
+tmp7806 := Call2(__e, SymFn(symshen_4package_1user_1input), let__7729, tmp7805)
 
 
-let__8173 := tmp8249
-_ = let__8173
+let__7730 := tmp7806
+_ = let__7730
 
-tmp8250 := GValue(__e, symshen_4_dtc_d)
+tmp7807 := Call0(__e, SymFn(symshen_4update_1history))
 
-return TailCall3(__e, SymFn(symshen_4evaluate_1lineread), let__8172, let__8173, tmp8250)
+
+let__7731 := tmp7807
+_ = let__7731
+
+tmp7808 := GValue(__e, symshen_4_dtc_d)
+
+return TailCall3(__e, SymFn(symshen_4evaluate_1lineread), let__7730, let__7731, tmp7808)
 
 
 panic("unreachable")
 })
 
-tmp8251 := Call2(__e, ns2_1set, symshen_4read_1evaluate_1print, tmp8244)
+tmp7809 := Call2(__e, ns2_1set, symshen_4read_1evaluate_1print, tmp7802)
 
 
-_ = tmp8251
+_ = tmp7809
 
-tmp8252 := MakeNative2(func(__e *ControlFlow, V5753, V5754 Obj) Obj {
-tmp8257 := GEq(__e, symnull, V5753)
+tmp7810 := MakeNative2(func(__e *ControlFlow, V5753, V5754 Obj) Obj {
+tmp7815 := GEq(__e, symnull, V5753)
 
-if True == tmp8257 {
+if True == tmp7815 {
 return V5754
 } else {
-tmp8253 := PrimGuard1(__e, symstr, PrimStr, V5753)
+tmp7811 := PrimGuard1(__e, symstr, PrimStr, V5753)
 
-let__8174 := tmp8253
-_ = let__8174
+let__7732 := tmp7811
+_ = let__7732
 
-tmp8254 := Call1(__e, SymFn(symexternal), V5753)
+tmp7812 := Call1(__e, SymFn(symexternal), V5753)
 
 
-let__8175 := tmp8254
-_ = let__8175
+let__7733 := tmp7812
+_ = let__7733
 
-tmp8255 := MakeNative1(func(__e *ControlFlow, Z5757 Obj) Obj {
-return TailCall3(__e, SymFn(symshen_4pui_1h), let__8174, let__8175, Z5757)
+tmp7813 := MakeNative1(func(__e *ControlFlow, Z5757 Obj) Obj {
+return TailCall3(__e, SymFn(symshen_4pui_1h), let__7732, let__7733, Z5757)
 panic("unreachable")
 })
 
-return TailCall2(__e, SymFn(symmap), tmp8255, V5754)
+return TailCall2(__e, SymFn(symmap), tmp7813, V5754)
 
 
 }
@@ -285,119 +285,83 @@ return TailCall2(__e, SymFn(symmap), tmp8255, V5754)
 panic("unreachable")
 })
 
-tmp8258 := Call2(__e, ns2_1set, symshen_4package_1user_1input, tmp8252)
+tmp7816 := Call2(__e, ns2_1set, symshen_4package_1user_1input, tmp7810)
 
 
-_ = tmp8258
+_ = tmp7816
 
-tmp8259 := MakeNative3(func(__e *ControlFlow, V5762, V5763, V5764 Obj) Obj {
-tmp8300 := GConsP(__e, V5764)
+tmp7817 := MakeNative3(func(__e *ControlFlow, V5762, V5763, V5764 Obj) Obj {
+tmp7855 := GConsP(__e, V5764)
 
-var ifres8287 Obj
+var ifres7845 Obj
 
-if True == tmp8300 {
-tmp8298 := GHd(__e, V5764)
+if True == tmp7855 {
+tmp7853 := GHd(__e, V5764)
 
-tmp8299 := GEq(__e, symfn, tmp8298)
+tmp7854 := GEq(__e, symfn, tmp7853)
 
-var ifres8289 Obj
+var ifres7846 Obj
 
-if True == tmp8299 {
-tmp8296 := GTl(__e, V5764)
+if True == tmp7854 {
+tmp7851 := GTl(__e, V5764)
 
-tmp8297 := GConsP(__e, tmp8296)
+tmp7852 := GConsP(__e, tmp7851)
 
-var ifres8291 Obj
+var ifres7847 Obj
 
-if True == tmp8297 {
-tmp8293 := GTl(__e, V5764)
+if True == tmp7852 {
+tmp7848 := GTl(__e, V5764)
 
-tmp8294 := GTl(__e, tmp8293)
+tmp7849 := GTl(__e, tmp7848)
 
-tmp8295 := GEq(__e, Nil, tmp8294)
+tmp7850 := GEq(__e, Nil, tmp7849)
 
-var ifres8292 Obj
-
-if True == tmp8295 {
-ifres8292 = True
+ifres7847 = tmp7850
 
 
 } else {
-ifres8292 = False
+ifres7847 = False
 
 
 }
 
-ifres8291 = ifres8292
+ifres7846 = ifres7847
 
 
 } else {
-ifres8291 = False
+ifres7846 = False
 
 
 }
 
-var ifres8290 Obj
-
-if True == ifres8291 {
-ifres8290 = True
+ifres7845 = ifres7846
 
 
 } else {
-ifres8290 = False
+ifres7845 = False
 
 
 }
 
-ifres8289 = ifres8290
+if True == ifres7845 {
+tmp7823 := GTl(__e, V5764)
+
+tmp7824 := GHd(__e, tmp7823)
+
+tmp7825 := Call3(__e, SymFn(symshen_4internal_2), tmp7824, V5762, V5763)
 
 
-} else {
-ifres8289 = False
+if True == tmp7825 {
+tmp7818 := GTl(__e, V5764)
+
+tmp7819 := GHd(__e, tmp7818)
+
+tmp7820 := Call2(__e, SymFn(symshen_4intern_1in_1package), V5762, tmp7819)
 
 
-}
+tmp7821 := GCons(__e, tmp7820, Nil)
 
-var ifres8288 Obj
-
-if True == ifres8289 {
-ifres8288 = True
-
-
-} else {
-ifres8288 = False
-
-
-}
-
-ifres8287 = ifres8288
-
-
-} else {
-ifres8287 = False
-
-
-}
-
-if True == ifres8287 {
-tmp8265 := GTl(__e, V5764)
-
-tmp8266 := GHd(__e, tmp8265)
-
-tmp8267 := Call3(__e, SymFn(symshen_4internal_2), tmp8266, V5762, V5763)
-
-
-if True == tmp8267 {
-tmp8260 := GTl(__e, V5764)
-
-tmp8261 := GHd(__e, tmp8260)
-
-tmp8262 := Call2(__e, SymFn(symshen_4intern_1in_1package), V5762, tmp8261)
-
-
-tmp8263 := GCons(__e, tmp8262, Nil)
-
-return GCons(__e, symfn, tmp8263)
+return GCons(__e, symfn, tmp7821)
 
 
 } else {
@@ -406,61 +370,61 @@ return V5764
 
 
 } else {
-tmp8285 := GConsP(__e, V5764)
+tmp7843 := GConsP(__e, V5764)
 
-if True == tmp8285 {
-tmp8282 := GHd(__e, V5764)
+if True == tmp7843 {
+tmp7840 := GHd(__e, V5764)
 
-tmp8283 := Call3(__e, SymFn(symshen_4internal_2), tmp8282, V5762, V5763)
-
-
-if True == tmp8283 {
-tmp8268 := GHd(__e, V5764)
-
-tmp8269 := Call2(__e, SymFn(symshen_4intern_1in_1package), V5762, tmp8268)
+tmp7841 := Call3(__e, SymFn(symshen_4internal_2), tmp7840, V5762, V5763)
 
 
-tmp8270 := MakeNative1(func(__e *ControlFlow, Z5765 Obj) Obj {
+if True == tmp7841 {
+tmp7826 := GHd(__e, V5764)
+
+tmp7827 := Call2(__e, SymFn(symshen_4intern_1in_1package), V5762, tmp7826)
+
+
+tmp7828 := MakeNative1(func(__e *ControlFlow, Z5765 Obj) Obj {
 return TailCall3(__e, SymFn(symshen_4pui_1h), V5762, V5763, Z5765)
 panic("unreachable")
 })
 
-tmp8271 := GTl(__e, V5764)
+tmp7829 := GTl(__e, V5764)
 
-tmp8272 := Call2(__e, SymFn(symmap), tmp8270, tmp8271)
+tmp7830 := Call2(__e, SymFn(symmap), tmp7828, tmp7829)
 
 
-return GCons(__e, tmp8269, tmp8272)
+return GCons(__e, tmp7827, tmp7830)
 
 
 } else {
-tmp8279 := GHd(__e, V5764)
+tmp7837 := GHd(__e, V5764)
 
-tmp8280 := GConsP(__e, tmp8279)
+tmp7838 := GConsP(__e, tmp7837)
 
-if True == tmp8280 {
-tmp8273 := MakeNative1(func(__e *ControlFlow, Z5766 Obj) Obj {
+if True == tmp7838 {
+tmp7831 := MakeNative1(func(__e *ControlFlow, Z5766 Obj) Obj {
 return TailCall3(__e, SymFn(symshen_4pui_1h), V5762, V5763, Z5766)
 panic("unreachable")
 })
 
-return TailCall2(__e, SymFn(symmap), tmp8273, V5764)
+return TailCall2(__e, SymFn(symmap), tmp7831, V5764)
 
 
 } else {
-tmp8274 := GHd(__e, V5764)
+tmp7832 := GHd(__e, V5764)
 
-tmp8275 := MakeNative1(func(__e *ControlFlow, Z5767 Obj) Obj {
+tmp7833 := MakeNative1(func(__e *ControlFlow, Z5767 Obj) Obj {
 return TailCall3(__e, SymFn(symshen_4pui_1h), V5762, V5763, Z5767)
 panic("unreachable")
 })
 
-tmp8276 := GTl(__e, V5764)
+tmp7834 := GTl(__e, V5764)
 
-tmp8277 := Call2(__e, SymFn(symmap), tmp8275, tmp8276)
+tmp7835 := Call2(__e, SymFn(symmap), tmp7833, tmp7834)
 
 
-return GCons(__e, tmp8274, tmp8277)
+return GCons(__e, tmp7832, tmp7835)
 
 
 }
@@ -480,75 +444,63 @@ return V5764
 panic("unreachable")
 })
 
-tmp8301 := Call2(__e, ns2_1set, symshen_4pui_1h, tmp8259)
+tmp7856 := Call2(__e, ns2_1set, symshen_4pui_1h, tmp7817)
 
 
-_ = tmp8301
+_ = tmp7856
 
-tmp8302 := MakeNative0(func(__e *ControlFlow) Obj {
-tmp8303 := Call0(__e, SymFn(symit))
-
-
-tmp8304 := Call1(__e, SymFn(symshen_4trim_1it), tmp8303)
+tmp7857 := MakeNative0(func(__e *ControlFlow) Obj {
+tmp7858 := Call0(__e, SymFn(symit))
 
 
-tmp8305 := GValue(__e, symshen_4_dhistory_d)
+tmp7859 := Call1(__e, SymFn(symshen_4trim_1it), tmp7858)
 
-tmp8306 := GCons(__e, tmp8304, tmp8305)
 
-return PrimGuard2(__e, symset, PrimSet, symshen_4_dhistory_d, tmp8306)
+tmp7860 := GValue(__e, symshen_4_dhistory_d)
+
+tmp7861 := GCons(__e, tmp7859, tmp7860)
+
+return PrimGuard2(__e, symset, PrimSet, symshen_4_dhistory_d, tmp7861)
 
 
 panic("unreachable")
 })
 
-tmp8307 := Call2(__e, ns2_1set, symshen_4update_1history, tmp8302)
+tmp7862 := Call2(__e, ns2_1set, symshen_4update_1history, tmp7857)
 
 
-_ = tmp8307
+_ = tmp7862
 
-tmp8308 := (func() Obj {
+tmp7863 := (func() Obj {
 var __self Obj
 __self = MakeNative1(func(__e *ControlFlow, __self1 Obj) Obj {
 __selftop:
 V5768 := __self1
 _ = V5768
-tmp8316 := Call1(__e, SymFn(symshen_4_7string_2), V5768)
+tmp7870 := Call1(__e, SymFn(symshen_4_7string_2), V5768)
 
 
-var ifres8311 Obj
+var ifres7866 Obj
 
-if True == tmp8316 {
-tmp8313 := Call1(__e, SymFn(symhdstr), V5768)
-
-
-tmp8314 := PrimGuard1(__e, symstring_1_6n, PrimStringToNumber, tmp8313)
-
-tmp8315 := Call1(__e, SymFn(symshen_4whitespace_2), tmp8314)
+if True == tmp7870 {
+tmp7867 := Call1(__e, SymFn(symhdstr), V5768)
 
 
-var ifres8312 Obj
+tmp7868 := PrimGuard1(__e, symstring_1_6n, PrimStringToNumber, tmp7867)
 
-if True == tmp8315 {
-ifres8312 = True
+tmp7869 := Call1(__e, SymFn(symshen_4whitespace_2), tmp7868)
+
+
+ifres7866 = tmp7869
 
 
 } else {
-ifres8312 = False
+ifres7866 = False
 
 
 }
 
-ifres8311 = ifres8312
-
-
-} else {
-ifres8311 = False
-
-
-}
-
-if True == ifres8311 {
+if True == ifres7866 {
 if SymFn(symshen_4trim_1it) == __self {
 __self1 = PrimGuard1(__e, symtlstr, PrimTailString, V5768)
 __e.Tick()
@@ -567,12 +519,12 @@ panic("unreachable")
 return __self
 })()
 
-tmp8317 := Call2(__e, ns2_1set, symshen_4trim_1it, tmp8308)
+tmp7871 := Call2(__e, ns2_1set, symshen_4trim_1it, tmp7863)
 
 
-_ = tmp8317
+_ = tmp7871
 
-tmp8318 := (func() Obj {
+tmp7872 := (func() Obj {
 var __self Obj
 __self = MakeNative3(func(__e *ControlFlow, __self1, __self2, __self3 Obj) Obj {
 __selftop:
@@ -582,638 +534,458 @@ V5788 := __self2
 _ = V5788
 V5789 := __self3
 _ = V5789
-tmp8437 := GConsP(__e, V5787)
+tmp7976 := GConsP(__e, V5787)
 
-var ifres8406 Obj
+var ifres7952 Obj
 
-if True == tmp8437 {
-tmp8435 := GTl(__e, V5787)
+if True == tmp7976 {
+tmp7974 := GTl(__e, V5787)
 
-tmp8436 := GEq(__e, Nil, tmp8435)
+tmp7975 := GEq(__e, Nil, tmp7974)
 
-var ifres8408 Obj
+var ifres7953 Obj
 
-if True == tmp8436 {
-tmp8434 := GConsP(__e, V5788)
+if True == tmp7975 {
+tmp7973 := GConsP(__e, V5788)
 
-var ifres8410 Obj
+var ifres7954 Obj
 
-if True == tmp8434 {
-tmp8432 := GHd(__e, V5788)
+if True == tmp7973 {
+tmp7971 := GHd(__e, V5788)
 
-tmp8433 := Call1(__e, SymFn(symshen_4_7string_2), tmp8432)
-
-
-var ifres8412 Obj
-
-if True == tmp8433 {
-tmp8429 := GHd(__e, V5788)
-
-tmp8430 := Call1(__e, SymFn(symhdstr), tmp8429)
+tmp7972 := Call1(__e, SymFn(symshen_4_7string_2), tmp7971)
 
 
-tmp8431 := GEq(__e, MakeString("!"), tmp8430)
+var ifres7955 Obj
 
-var ifres8414 Obj
+if True == tmp7972 {
+tmp7968 := GHd(__e, V5788)
 
-if True == tmp8431 {
-tmp8426 := GHd(__e, V5788)
-
-tmp8428 := Call1(__e, SymFn(symshen_4_7string_2), PrimGuard1(__e, symtlstr, PrimTailString, tmp8426))
+tmp7969 := Call1(__e, SymFn(symhdstr), tmp7968)
 
 
-var ifres8416 Obj
+tmp7970 := GEq(__e, MakeString("!"), tmp7969)
 
-if True == tmp8428 {
-tmp8422 := GHd(__e, V5788)
+var ifres7956 Obj
 
-tmp8424 := Call1(__e, SymFn(symhdstr), PrimGuard1(__e, symtlstr, PrimTailString, tmp8422))
+if True == tmp7970 {
+tmp7965 := GHd(__e, V5788)
+
+tmp7967 := Call1(__e, SymFn(symshen_4_7string_2), PrimGuard1(__e, symtlstr, PrimTailString, tmp7965))
 
 
-tmp8425 := GEq(__e, MakeString("!"), tmp8424)
+var ifres7957 Obj
 
-var ifres8418 Obj
+if True == tmp7967 {
+tmp7961 := GHd(__e, V5788)
 
-if True == tmp8425 {
-tmp8420 := GTl(__e, V5788)
+tmp7963 := Call1(__e, SymFn(symhdstr), PrimGuard1(__e, symtlstr, PrimTailString, tmp7961))
 
-tmp8421 := GConsP(__e, tmp8420)
 
-var ifres8419 Obj
+tmp7964 := GEq(__e, MakeString("!"), tmp7963)
 
-if True == tmp8421 {
-ifres8419 = True
+var ifres7958 Obj
+
+if True == tmp7964 {
+tmp7959 := GTl(__e, V5788)
+
+tmp7960 := GConsP(__e, tmp7959)
+
+ifres7958 = tmp7960
 
 
 } else {
-ifres8419 = False
+ifres7958 = False
 
 
 }
 
-ifres8418 = ifres8419
+ifres7957 = ifres7958
 
 
 } else {
-ifres8418 = False
+ifres7957 = False
 
 
 }
 
-var ifres8417 Obj
-
-if True == ifres8418 {
-ifres8417 = True
+ifres7956 = ifres7957
 
 
 } else {
-ifres8417 = False
+ifres7956 = False
 
 
 }
 
-ifres8416 = ifres8417
+ifres7955 = ifres7956
 
 
 } else {
-ifres8416 = False
+ifres7955 = False
 
 
 }
 
-var ifres8415 Obj
-
-if True == ifres8416 {
-ifres8415 = True
+ifres7954 = ifres7955
 
 
 } else {
-ifres8415 = False
+ifres7954 = False
 
 
 }
 
-ifres8414 = ifres8415
+ifres7953 = ifres7954
 
 
 } else {
-ifres8414 = False
+ifres7953 = False
 
 
 }
 
-var ifres8413 Obj
-
-if True == ifres8414 {
-ifres8413 = True
+ifres7952 = ifres7953
 
 
 } else {
-ifres8413 = False
+ifres7952 = False
 
 
 }
 
-ifres8412 = ifres8413
+if True == ifres7952 {
+tmp7873 := GTl(__e, V5788)
+
+tmp7874 := GHd(__e, tmp7873)
+
+tmp7875 := Call1(__e, SymFn(symread_1from_1string), tmp7874)
 
 
-} else {
-ifres8412 = False
+let__7734 := tmp7875
+_ = let__7734
+
+tmp7876 := GTl(__e, V5788)
+
+tmp7877 := GHd(__e, tmp7876)
+
+tmp7878 := GTl(__e, V5788)
+
+tmp7879 := GCons(__e, tmp7877, tmp7878)
+
+tmp7880 := PrimGuard2(__e, symset, PrimSet, symshen_4_dhistory_d, tmp7879)
+
+let__7735 := tmp7880
+_ = let__7735
+
+tmp7881 := GTl(__e, V5788)
+
+tmp7882 := GHd(__e, tmp7881)
+
+tmp7883 := Call3(__e, SymFn(symshen_4app), tmp7882, MakeString("\n"), symshen_4a)
 
 
-}
-
-var ifres8411 Obj
-
-if True == ifres8412 {
-ifres8411 = True
+tmp7884 := Call0(__e, SymFn(symstoutput))
 
 
-} else {
-ifres8411 = False
+tmp7885 := Call2(__e, SymFn(sympr), tmp7883, tmp7884)
 
 
-}
-
-ifres8410 = ifres8411
-
-
-} else {
-ifres8410 = False
-
-
-}
-
-var ifres8409 Obj
-
-if True == ifres8410 {
-ifres8409 = True
-
-
-} else {
-ifres8409 = False
-
-
-}
-
-ifres8408 = ifres8409
-
-
-} else {
-ifres8408 = False
-
-
-}
-
-var ifres8407 Obj
-
-if True == ifres8408 {
-ifres8407 = True
-
-
-} else {
-ifres8407 = False
-
-
-}
-
-ifres8406 = ifres8407
-
-
-} else {
-ifres8406 = False
-
-
-}
-
-if True == ifres8406 {
-tmp8319 := GTl(__e, V5788)
-
-tmp8320 := GHd(__e, tmp8319)
-
-tmp8321 := Call1(__e, SymFn(symread_1from_1string), tmp8320)
-
-
-let__8176 := tmp8321
-_ = let__8176
-
-tmp8322 := GTl(__e, V5788)
-
-tmp8323 := GHd(__e, tmp8322)
-
-tmp8324 := GTl(__e, V5788)
-
-tmp8325 := GCons(__e, tmp8323, tmp8324)
-
-tmp8326 := PrimGuard2(__e, symset, PrimSet, symshen_4_dhistory_d, tmp8325)
-
-let__8177 := tmp8326
-_ = let__8177
-
-tmp8327 := GTl(__e, V5788)
-
-tmp8328 := GHd(__e, tmp8327)
-
-tmp8329 := Call3(__e, SymFn(symshen_4app), tmp8328, MakeString("\n"), symshen_4a)
-
-
-tmp8330 := Call0(__e, SymFn(symstoutput))
-
-
-tmp8331 := Call2(__e, SymFn(sympr), tmp8329, tmp8330)
-
-
-let__8178 := tmp8331
-_ = let__8178
+let__7736 := tmp7885
+_ = let__7736
 
 if SymFn(symshen_4evaluate_1lineread) == __self {
-__self1, __self2, __self3 = let__8176, let__8177, V5789
+__self1, __self2, __self3 = let__7734, let__7735, V5789
 __e.Tick()
 goto __selftop
 }
-return TailCall3(__e, SymFn(symshen_4evaluate_1lineread), let__8176, let__8177, V5789)
+return TailCall3(__e, SymFn(symshen_4evaluate_1lineread), let__7734, let__7735, V5789)
 
 
 } else {
-tmp8404 := GConsP(__e, V5787)
+tmp7950 := GConsP(__e, V5787)
 
-var ifres8388 Obj
+var ifres7938 Obj
 
-if True == tmp8404 {
-tmp8402 := GTl(__e, V5787)
+if True == tmp7950 {
+tmp7948 := GTl(__e, V5787)
 
-tmp8403 := GEq(__e, Nil, tmp8402)
+tmp7949 := GEq(__e, Nil, tmp7948)
 
-var ifres8390 Obj
+var ifres7939 Obj
 
-if True == tmp8403 {
-tmp8401 := GConsP(__e, V5788)
+if True == tmp7949 {
+tmp7947 := GConsP(__e, V5788)
 
-var ifres8392 Obj
+var ifres7940 Obj
 
-if True == tmp8401 {
-tmp8399 := GHd(__e, V5788)
+if True == tmp7947 {
+tmp7945 := GHd(__e, V5788)
 
-tmp8400 := Call1(__e, SymFn(symshen_4_7string_2), tmp8399)
-
-
-var ifres8394 Obj
-
-if True == tmp8400 {
-tmp8396 := GHd(__e, V5788)
-
-tmp8397 := Call1(__e, SymFn(symhdstr), tmp8396)
+tmp7946 := Call1(__e, SymFn(symshen_4_7string_2), tmp7945)
 
 
-tmp8398 := GEq(__e, MakeString("!"), tmp8397)
+var ifres7941 Obj
 
-var ifres8395 Obj
+if True == tmp7946 {
+tmp7942 := GHd(__e, V5788)
 
-if True == tmp8398 {
-ifres8395 = True
+tmp7943 := Call1(__e, SymFn(symhdstr), tmp7942)
+
+
+tmp7944 := GEq(__e, MakeString("!"), tmp7943)
+
+ifres7941 = tmp7944
 
 
 } else {
-ifres8395 = False
+ifres7941 = False
 
 
 }
 
-ifres8394 = ifres8395
+ifres7940 = ifres7941
 
 
 } else {
-ifres8394 = False
+ifres7940 = False
 
 
 }
 
-var ifres8393 Obj
-
-if True == ifres8394 {
-ifres8393 = True
+ifres7939 = ifres7940
 
 
 } else {
-ifres8393 = False
+ifres7939 = False
 
 
 }
 
-ifres8392 = ifres8393
+ifres7938 = ifres7939
 
 
 } else {
-ifres8392 = False
+ifres7938 = False
 
 
 }
 
-var ifres8391 Obj
+if True == ifres7938 {
+tmp7891 := GHd(__e, V5788)
 
-if True == ifres8392 {
-ifres8391 = True
-
-
-} else {
-ifres8391 = False
-
-
-}
-
-ifres8390 = ifres8391
-
-
-} else {
-ifres8390 = False
-
-
-}
-
-var ifres8389 Obj
-
-if True == ifres8390 {
-ifres8389 = True
-
-
-} else {
-ifres8389 = False
-
-
-}
-
-ifres8388 = ifres8389
-
-
-} else {
-ifres8388 = False
-
-
-}
-
-if True == ifres8388 {
-tmp8337 := GHd(__e, V5788)
-
-tmp8339 := (func() Obj {
+tmp7893 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
-return PrimEqual(PrimGuard1(__e, symtlstr, PrimTailString, tmp8337), MakeString(""))
+return PrimEqual(PrimGuard1(__e, symtlstr, PrimTailString, tmp7891), MakeString(""))
 }
-__typedArg0 := PrimGuard1(__e, symtlstr, PrimTailString, tmp8337)
+__typedArg0 := PrimGuard1(__e, symtlstr, PrimTailString, tmp7891)
 __typedArg1 := MakeString("")
 return Call2(__e, SymFn(sym_a), __typedArg0, __typedArg1)
 })()
 
-var ifres8332 Obj
+var ifres7886 Obj
 
-if True == tmp8339 {
-ifres8332 = Nil
+if True == tmp7893 {
+ifres7886 = Nil
 
 
 } else {
-tmp8333 := GHd(__e, V5788)
+tmp7887 := GHd(__e, V5788)
 
-tmp8335 := Call1(__e, SymFn(symread_1from_1string), PrimGuard1(__e, symtlstr, PrimTailString, tmp8333))
+tmp7889 := Call1(__e, SymFn(symread_1from_1string), PrimGuard1(__e, symtlstr, PrimTailString, tmp7887))
 
 
-tmp8336 := GHd(__e, tmp8335)
+tmp7890 := GHd(__e, tmp7889)
 
-ifres8332 = tmp8336
+ifres7886 = tmp7890
 
 
 }
 
-let__8179 := ifres8332
-_ = let__8179
+let__7737 := ifres7886
+_ = let__7737
 
-tmp8340 := GHd(__e, V5788)
+tmp7894 := GHd(__e, V5788)
 
-tmp8341 := PrimGuard1(__e, symtlstr, PrimTailString, tmp8340)
+tmp7895 := PrimGuard1(__e, symtlstr, PrimTailString, tmp7894)
 
-tmp8342 := GTl(__e, V5788)
+tmp7896 := GTl(__e, V5788)
 
-tmp8343 := Call3(__e, SymFn(symshen_4use_1history), let__8179, tmp8341, tmp8342)
-
-
-let__8180 := tmp8343
-_ = let__8180
-
-tmp8344 := Call3(__e, SymFn(symshen_4app), let__8180, MakeString("\n"), symshen_4a)
+tmp7897 := Call3(__e, SymFn(symshen_4use_1history), let__7737, tmp7895, tmp7896)
 
 
-tmp8345 := Call0(__e, SymFn(symstoutput))
+let__7738 := tmp7897
+_ = let__7738
+
+tmp7898 := Call3(__e, SymFn(symshen_4app), let__7738, MakeString("\n"), symshen_4a)
 
 
-tmp8346 := Call2(__e, SymFn(sympr), tmp8344, tmp8345)
+tmp7899 := Call0(__e, SymFn(symstoutput))
 
 
-let__8181 := tmp8346
-_ = let__8181
-
-tmp8347 := Call1(__e, SymFn(symread_1from_1string), let__8180)
+tmp7900 := Call2(__e, SymFn(sympr), tmp7898, tmp7899)
 
 
-let__8182 := tmp8347
-_ = let__8182
+let__7739 := tmp7900
+_ = let__7739
 
-tmp8348 := GTl(__e, V5788)
+tmp7901 := Call1(__e, SymFn(symread_1from_1string), let__7738)
 
-tmp8349 := GCons(__e, let__8180, tmp8348)
 
-tmp8350 := PrimGuard2(__e, symset, PrimSet, symshen_4_dhistory_d, tmp8349)
+let__7740 := tmp7901
+_ = let__7740
 
-let__8183 := tmp8350
-_ = let__8183
+tmp7902 := GTl(__e, V5788)
+
+tmp7903 := GCons(__e, let__7738, tmp7902)
+
+tmp7904 := PrimGuard2(__e, symset, PrimSet, symshen_4_dhistory_d, tmp7903)
+
+let__7741 := tmp7904
+_ = let__7741
 
 if SymFn(symshen_4evaluate_1lineread) == __self {
-__self1, __self2, __self3 = let__8182, let__8183, V5789
+__self1, __self2, __self3 = let__7740, let__7741, V5789
 __e.Tick()
 goto __selftop
 }
-return TailCall3(__e, SymFn(symshen_4evaluate_1lineread), let__8182, let__8183, V5789)
+return TailCall3(__e, SymFn(symshen_4evaluate_1lineread), let__7740, let__7741, V5789)
 
 
 } else {
-tmp8386 := GConsP(__e, V5787)
+tmp7936 := GConsP(__e, V5787)
 
-var ifres8370 Obj
+var ifres7924 Obj
 
-if True == tmp8386 {
-tmp8384 := GTl(__e, V5787)
+if True == tmp7936 {
+tmp7934 := GTl(__e, V5787)
 
-tmp8385 := GEq(__e, Nil, tmp8384)
+tmp7935 := GEq(__e, Nil, tmp7934)
 
-var ifres8372 Obj
+var ifres7925 Obj
 
-if True == tmp8385 {
-tmp8383 := GConsP(__e, V5788)
+if True == tmp7935 {
+tmp7933 := GConsP(__e, V5788)
 
-var ifres8374 Obj
+var ifres7926 Obj
 
-if True == tmp8383 {
-tmp8381 := GHd(__e, V5788)
+if True == tmp7933 {
+tmp7931 := GHd(__e, V5788)
 
-tmp8382 := Call1(__e, SymFn(symshen_4_7string_2), tmp8381)
-
-
-var ifres8376 Obj
-
-if True == tmp8382 {
-tmp8378 := GHd(__e, V5788)
-
-tmp8379 := Call1(__e, SymFn(symhdstr), tmp8378)
+tmp7932 := Call1(__e, SymFn(symshen_4_7string_2), tmp7931)
 
 
-tmp8380 := GEq(__e, MakeString("%"), tmp8379)
+var ifres7927 Obj
 
-var ifres8377 Obj
+if True == tmp7932 {
+tmp7928 := GHd(__e, V5788)
 
-if True == tmp8380 {
-ifres8377 = True
+tmp7929 := Call1(__e, SymFn(symhdstr), tmp7928)
+
+
+tmp7930 := GEq(__e, MakeString("%"), tmp7929)
+
+ifres7927 = tmp7930
 
 
 } else {
-ifres8377 = False
+ifres7927 = False
 
 
 }
 
-ifres8376 = ifres8377
+ifres7926 = ifres7927
 
 
 } else {
-ifres8376 = False
+ifres7926 = False
 
 
 }
 
-var ifres8375 Obj
-
-if True == ifres8376 {
-ifres8375 = True
+ifres7925 = ifres7926
 
 
 } else {
-ifres8375 = False
+ifres7925 = False
 
 
 }
 
-ifres8374 = ifres8375
+ifres7924 = ifres7925
 
 
 } else {
-ifres8374 = False
+ifres7924 = False
 
 
 }
 
-var ifres8373 Obj
+if True == ifres7924 {
+tmp7910 := GHd(__e, V5788)
 
-if True == ifres8374 {
-ifres8373 = True
-
-
-} else {
-ifres8373 = False
-
-
-}
-
-ifres8372 = ifres8373
-
-
-} else {
-ifres8372 = False
-
-
-}
-
-var ifres8371 Obj
-
-if True == ifres8372 {
-ifres8371 = True
-
-
-} else {
-ifres8371 = False
-
-
-}
-
-ifres8370 = ifres8371
-
-
-} else {
-ifres8370 = False
-
-
-}
-
-if True == ifres8370 {
-tmp8356 := GHd(__e, V5788)
-
-tmp8358 := (func() Obj {
+tmp7912 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym_a) {
-return PrimEqual(PrimGuard1(__e, symtlstr, PrimTailString, tmp8356), MakeString(""))
+return PrimEqual(PrimGuard1(__e, symtlstr, PrimTailString, tmp7910), MakeString(""))
 }
-__typedArg0 := PrimGuard1(__e, symtlstr, PrimTailString, tmp8356)
+__typedArg0 := PrimGuard1(__e, symtlstr, PrimTailString, tmp7910)
 __typedArg1 := MakeString("")
 return Call2(__e, SymFn(sym_a), __typedArg0, __typedArg1)
 })()
 
-var ifres8351 Obj
+var ifres7905 Obj
 
-if True == tmp8358 {
-ifres8351 = Nil
+if True == tmp7912 {
+ifres7905 = Nil
 
 
 } else {
-tmp8352 := GHd(__e, V5788)
+tmp7906 := GHd(__e, V5788)
 
-tmp8354 := Call1(__e, SymFn(symread_1from_1string), PrimGuard1(__e, symtlstr, PrimTailString, tmp8352))
+tmp7908 := Call1(__e, SymFn(symread_1from_1string), PrimGuard1(__e, symtlstr, PrimTailString, tmp7906))
 
 
-tmp8355 := GHd(__e, tmp8354)
+tmp7909 := GHd(__e, tmp7908)
 
-ifres8351 = tmp8355
+ifres7905 = tmp7909
 
 
 }
 
-let__8184 := ifres8351
-_ = let__8184
+let__7742 := ifres7905
+_ = let__7742
 
-tmp8359 := GHd(__e, V5788)
+tmp7913 := GHd(__e, V5788)
 
-tmp8360 := PrimGuard1(__e, symtlstr, PrimTailString, tmp8359)
+tmp7914 := PrimGuard1(__e, symtlstr, PrimTailString, tmp7913)
 
-tmp8361 := GTl(__e, V5788)
+tmp7915 := GTl(__e, V5788)
 
-tmp8362 := Call3(__e, SymFn(symshen_4peek_1history), let__8184, tmp8360, tmp8361)
+tmp7916 := Call3(__e, SymFn(symshen_4peek_1history), let__7742, tmp7914, tmp7915)
 
 
-let__8185 := tmp8362
-_ = let__8185
+let__7743 := tmp7916
+_ = let__7743
 
-tmp8363 := GTl(__e, V5788)
+tmp7917 := GTl(__e, V5788)
 
-tmp8364 := PrimGuard2(__e, symset, PrimSet, symshen_4_dhistory_d, tmp8363)
+tmp7918 := PrimGuard2(__e, symset, PrimSet, symshen_4_dhistory_d, tmp7917)
 
-let__8186 := tmp8364
-_ = let__8186
+let__7744 := tmp7918
+_ = let__7744
 
 return TailCall0(__e, SymFn(symabort))
 
 
 } else {
-tmp8368 := GEq(__e, True, V5789)
+tmp7922 := GEq(__e, True, V5789)
 
-if True == tmp8368 {
+if True == tmp7922 {
 return TailCall1(__e, SymFn(symshen_4check_1eval_1and_1print), V5787)
 } else {
-tmp8366 := GEq(__e, False, V5789)
+tmp7920 := GEq(__e, False, V5789)
 
-if True == tmp8366 {
+if True == tmp7920 {
 return TailCall1(__e, SymFn(symshen_4eval_1and_1print), V5787)
 } else {
 return PrimGuard1(__e, symsimple_1error, PrimSimpleError, MakeString("implementation error in shen.evaluate-lineread"))
@@ -1237,27 +1009,27 @@ panic("unreachable")
 return __self
 })()
 
-tmp8438 := Call2(__e, ns2_1set, symshen_4evaluate_1lineread, tmp8318)
+tmp7977 := Call2(__e, ns2_1set, symshen_4evaluate_1lineread, tmp7872)
 
 
-_ = tmp8438
+_ = tmp7977
 
-tmp8439 := MakeNative3(func(__e *ControlFlow, V5801, V5802, V5803 Obj) Obj {
-tmp8445 := PrimGuard1(__e, syminteger_2, PrimIsInteger, V5801)
+tmp7978 := MakeNative3(func(__e *ControlFlow, V5801, V5802, V5803 Obj) Obj {
+tmp7984 := PrimGuard1(__e, syminteger_2, PrimIsInteger, V5801)
 
-if True == tmp8445 {
-tmp8440 := GAdd(__e, MakeInteger(1), V5801)
+if True == tmp7984 {
+tmp7979 := GAdd(__e, MakeInteger(1), V5801)
 
-tmp8441 := Call1(__e, SymFn(symreverse), V5803)
+tmp7980 := Call1(__e, SymFn(symreverse), V5803)
 
 
-return TailCall2(__e, SymFn(symnth), tmp8440, tmp8441)
+return TailCall2(__e, SymFn(symnth), tmp7979, tmp7980)
 
 
 } else {
-tmp8443 := PrimGuard1(__e, symsymbol_2, PrimIsSymbol, V5801)
+tmp7982 := PrimGuard1(__e, symsymbol_2, PrimIsSymbol, V5801)
 
-if True == tmp8443 {
+if True == tmp7982 {
 return TailCall2(__e, SymFn(symshen_4string_1match), V5802, V5803)
 } else {
 return PrimGuard1(__e, symsimple_1error, PrimSimpleError, MakeString("! expects a number or a symbol\n"))
@@ -1270,68 +1042,56 @@ return PrimGuard1(__e, symsimple_1error, PrimSimpleError, MakeString("! expects 
 panic("unreachable")
 })
 
-tmp8446 := Call2(__e, ns2_1set, symshen_4use_1history, tmp8439)
+tmp7985 := Call2(__e, ns2_1set, symshen_4use_1history, tmp7978)
 
 
-_ = tmp8446
+_ = tmp7985
 
-tmp8447 := MakeNative3(func(__e *ControlFlow, V5804, V5805, V5806 Obj) Obj {
-tmp8461 := PrimGuard1(__e, syminteger_2, PrimIsInteger, V5804)
+tmp7986 := MakeNative3(func(__e *ControlFlow, V5804, V5805, V5806 Obj) Obj {
+tmp7999 := PrimGuard1(__e, syminteger_2, PrimIsInteger, V5804)
 
-if True == tmp8461 {
-tmp8448 := GAdd(__e, MakeInteger(1), V5804)
+if True == tmp7999 {
+tmp7987 := GAdd(__e, MakeInteger(1), V5804)
 
-tmp8449 := Call1(__e, SymFn(symreverse), V5806)
-
-
-tmp8450 := Call2(__e, SymFn(symnth), tmp8448, tmp8449)
+tmp7988 := Call1(__e, SymFn(symreverse), V5806)
 
 
-tmp8451 := Call3(__e, SymFn(symshen_4app), tmp8450, MakeString(""), symshen_4a)
+tmp7989 := Call2(__e, SymFn(symnth), tmp7987, tmp7988)
 
 
-tmp8452 := PrimGuard2(__e, symcn, PrimStringConcat, MakeString("\n"), tmp8451)
-
-tmp8453 := Call0(__e, SymFn(symstoutput))
+tmp7990 := Call3(__e, SymFn(symshen_4app), tmp7989, MakeString(""), symshen_4a)
 
 
-return TailCall2(__e, SymFn(sympr), tmp8452, tmp8453)
+tmp7991 := PrimGuard2(__e, symcn, PrimStringConcat, MakeString("\n"), tmp7990)
+
+tmp7992 := Call0(__e, SymFn(symstoutput))
 
 
-} else {
-tmp8459 := GEq(__e, V5805, MakeString(""))
-
-var ifres8456 Obj
-
-if True == tmp8459 {
-ifres8456 = True
+return TailCall2(__e, SymFn(sympr), tmp7991, tmp7992)
 
 
 } else {
-tmp8458 := PrimGuard1(__e, symsymbol_2, PrimIsSymbol, V5804)
+tmp7997 := GEq(__e, V5805, MakeString(""))
 
-var ifres8457 Obj
+var ifres7995 Obj
 
-if True == tmp8458 {
-ifres8457 = True
+if True == tmp7997 {
+ifres7995 = True
 
 
 } else {
-ifres8457 = False
+tmp7996 := PrimGuard1(__e, symsymbol_2, PrimIsSymbol, V5804)
+
+ifres7995 = tmp7996
 
 
 }
 
-ifres8456 = ifres8457
+if True == ifres7995 {
+tmp7993 := Call1(__e, SymFn(symreverse), V5806)
 
 
-}
-
-if True == ifres8456 {
-tmp8454 := Call1(__e, SymFn(symreverse), V5806)
-
-
-return TailCall3(__e, SymFn(symshen_4recursive_1string_1match), MakeInteger(0), V5805, tmp8454)
+return TailCall3(__e, SymFn(symshen_4recursive_1string_1match), MakeInteger(0), V5805, tmp7993)
 
 
 } else {
@@ -1345,12 +1105,12 @@ return PrimGuard1(__e, symsimple_1error, PrimSimpleError, MakeString("% expects 
 panic("unreachable")
 })
 
-tmp8462 := Call2(__e, ns2_1set, symshen_4peek_1history, tmp8447)
+tmp8000 := Call2(__e, ns2_1set, symshen_4peek_1history, tmp7986)
 
 
-_ = tmp8462
+_ = tmp8000
 
-tmp8463 := (func() Obj {
+tmp8001 := (func() Obj {
 var __self Obj
 __self = MakeNative2(func(__e *ControlFlow, __self1, __self2 Obj) Obj {
 __selftop:
@@ -1358,56 +1118,44 @@ V5816 := __self1
 _ = V5816
 V5817 := __self2
 _ = V5817
-tmp8474 := GEq(__e, Nil, V5817)
+tmp8011 := GEq(__e, Nil, V5817)
 
-if True == tmp8474 {
+if True == tmp8011 {
 return PrimGuard1(__e, symsimple_1error, PrimSimpleError, MakeString("\ninput not found"))
 } else {
-tmp8472 := GConsP(__e, V5817)
+tmp8009 := GConsP(__e, V5817)
 
-var ifres8468 Obj
+var ifres8006 Obj
 
-if True == tmp8472 {
-tmp8470 := GHd(__e, V5817)
+if True == tmp8009 {
+tmp8007 := GHd(__e, V5817)
 
-tmp8471 := Call2(__e, SymFn(symshen_4string_1prefix_2), V5816, tmp8470)
+tmp8008 := Call2(__e, SymFn(symshen_4string_1prefix_2), V5816, tmp8007)
 
 
-var ifres8469 Obj
-
-if True == tmp8471 {
-ifres8469 = True
+ifres8006 = tmp8008
 
 
 } else {
-ifres8469 = False
+ifres8006 = False
 
 
 }
 
-ifres8468 = ifres8469
-
-
-} else {
-ifres8468 = False
-
-
-}
-
-if True == ifres8468 {
+if True == ifres8006 {
 return GHd(__e, V5817)
 } else {
-tmp8466 := GConsP(__e, V5817)
+tmp8004 := GConsP(__e, V5817)
 
-if True == tmp8466 {
-tmp8464 := GTl(__e, V5817)
+if True == tmp8004 {
+tmp8002 := GTl(__e, V5817)
 
 if SymFn(symshen_4string_1match) == __self {
-__self1, __self2 = V5816, tmp8464
+__self1, __self2 = V5816, tmp8002
 __e.Tick()
 goto __selftop
 }
-return TailCall2(__e, SymFn(symshen_4string_1match), V5816, tmp8464)
+return TailCall2(__e, SymFn(symshen_4string_1match), V5816, tmp8002)
 
 
 } else {
@@ -1426,12 +1174,12 @@ panic("unreachable")
 return __self
 })()
 
-tmp8475 := Call2(__e, ns2_1set, symshen_4string_1match, tmp8463)
+tmp8012 := Call2(__e, ns2_1set, symshen_4string_1match, tmp8001)
 
 
-_ = tmp8475
+_ = tmp8012
 
-tmp8476 := (func() Obj {
+tmp8013 := (func() Obj {
 var __self Obj
 __self = MakeNative2(func(__e *ControlFlow, __self1, __self2 Obj) Obj {
 __selftop:
@@ -1439,47 +1187,35 @@ V5825 := __self1
 _ = V5825
 V5826 := __self2
 _ = V5826
-tmp8513 := GEq(__e, MakeString(""), V5825)
+tmp8045 := GEq(__e, MakeString(""), V5825)
 
-if True == tmp8513 {
+if True == tmp8045 {
 return True
 } else {
-tmp8511 := Call1(__e, SymFn(symshen_4_7string_2), V5825)
+tmp8043 := Call1(__e, SymFn(symshen_4_7string_2), V5825)
 
 
-var ifres8506 Obj
+var ifres8039 Obj
 
-if True == tmp8511 {
-tmp8508 := Call1(__e, SymFn(symhdstr), V5825)
-
-
-tmp8509 := PrimGuard1(__e, symstring_1_6n, PrimStringToNumber, tmp8508)
-
-tmp8510 := Call1(__e, SymFn(symshen_4whitespace_2), tmp8509)
+if True == tmp8043 {
+tmp8040 := Call1(__e, SymFn(symhdstr), V5825)
 
 
-var ifres8507 Obj
+tmp8041 := PrimGuard1(__e, symstring_1_6n, PrimStringToNumber, tmp8040)
 
-if True == tmp8510 {
-ifres8507 = True
+tmp8042 := Call1(__e, SymFn(symshen_4whitespace_2), tmp8041)
+
+
+ifres8039 = tmp8042
 
 
 } else {
-ifres8507 = False
+ifres8039 = False
 
 
 }
 
-ifres8506 = ifres8507
-
-
-} else {
-ifres8506 = False
-
-
-}
-
-if True == ifres8506 {
+if True == ifres8039 {
 if SymFn(symshen_4string_1prefix_2) == __self {
 __self1, __self2 = PrimGuard1(__e, symtlstr, PrimTailString, V5825), V5826
 __e.Tick()
@@ -1489,42 +1225,30 @@ return TailCall2(__e, SymFn(symshen_4string_1prefix_2), PrimGuard1(__e, symtlstr
 
 
 } else {
-tmp8504 := Call1(__e, SymFn(symshen_4_7string_2), V5826)
+tmp8037 := Call1(__e, SymFn(symshen_4_7string_2), V5826)
 
 
-var ifres8499 Obj
+var ifres8033 Obj
 
-if True == tmp8504 {
-tmp8501 := Call1(__e, SymFn(symhdstr), V5826)
-
-
-tmp8502 := PrimGuard1(__e, symstring_1_6n, PrimStringToNumber, tmp8501)
-
-tmp8503 := Call1(__e, SymFn(symshen_4whitespace_2), tmp8502)
+if True == tmp8037 {
+tmp8034 := Call1(__e, SymFn(symhdstr), V5826)
 
 
-var ifres8500 Obj
+tmp8035 := PrimGuard1(__e, symstring_1_6n, PrimStringToNumber, tmp8034)
 
-if True == tmp8503 {
-ifres8500 = True
+tmp8036 := Call1(__e, SymFn(symshen_4whitespace_2), tmp8035)
+
+
+ifres8033 = tmp8036
 
 
 } else {
-ifres8500 = False
+ifres8033 = False
 
 
 }
 
-ifres8499 = ifres8500
-
-
-} else {
-ifres8499 = False
-
-
-}
-
-if True == ifres8499 {
+if True == ifres8033 {
 if SymFn(symshen_4string_1prefix_2) == __self {
 __self1, __self2 = V5825, PrimGuard1(__e, symtlstr, PrimTailString, V5826)
 __e.Tick()
@@ -1534,39 +1258,27 @@ return TailCall2(__e, SymFn(symshen_4string_1prefix_2), V5825, PrimGuard1(__e, s
 
 
 } else {
-tmp8497 := Call1(__e, SymFn(symshen_4_7string_2), V5826)
+tmp8031 := Call1(__e, SymFn(symshen_4_7string_2), V5826)
 
 
-var ifres8493 Obj
+var ifres8028 Obj
 
-if True == tmp8497 {
-tmp8495 := Call1(__e, SymFn(symhdstr), V5826)
+if True == tmp8031 {
+tmp8029 := Call1(__e, SymFn(symhdstr), V5826)
 
 
-tmp8496 := GEq(__e, MakeString("("), tmp8495)
+tmp8030 := GEq(__e, MakeString("("), tmp8029)
 
-var ifres8494 Obj
-
-if True == tmp8496 {
-ifres8494 = True
+ifres8028 = tmp8030
 
 
 } else {
-ifres8494 = False
+ifres8028 = False
 
 
 }
 
-ifres8493 = ifres8494
-
-
-} else {
-ifres8493 = False
-
-
-}
-
-if True == ifres8493 {
+if True == ifres8028 {
 if SymFn(symshen_4string_1prefix_2) == __self {
 __self1, __self2 = V5825, PrimGuard1(__e, symtlstr, PrimTailString, V5826)
 __e.Tick()
@@ -1576,77 +1288,53 @@ return TailCall2(__e, SymFn(symshen_4string_1prefix_2), V5825, PrimGuard1(__e, s
 
 
 } else {
-tmp8491 := Call1(__e, SymFn(symshen_4_7string_2), V5825)
+tmp8026 := Call1(__e, SymFn(symshen_4_7string_2), V5825)
 
 
-var ifres8483 Obj
+var ifres8020 Obj
 
-if True == tmp8491 {
-tmp8490 := Call1(__e, SymFn(symshen_4_7string_2), V5826)
-
-
-var ifres8485 Obj
-
-if True == tmp8490 {
-tmp8487 := Call1(__e, SymFn(symhdstr), V5825)
+if True == tmp8026 {
+tmp8025 := Call1(__e, SymFn(symshen_4_7string_2), V5826)
 
 
-tmp8488 := Call1(__e, SymFn(symhdstr), V5826)
+var ifres8021 Obj
+
+if True == tmp8025 {
+tmp8022 := Call1(__e, SymFn(symhdstr), V5825)
 
 
-tmp8489 := GEq(__e, tmp8487, tmp8488)
+tmp8023 := Call1(__e, SymFn(symhdstr), V5826)
 
-var ifres8486 Obj
 
-if True == tmp8489 {
-ifres8486 = True
+tmp8024 := GEq(__e, tmp8022, tmp8023)
+
+ifres8021 = tmp8024
 
 
 } else {
-ifres8486 = False
+ifres8021 = False
 
 
 }
 
-ifres8485 = ifres8486
+ifres8020 = ifres8021
 
 
 } else {
-ifres8485 = False
+ifres8020 = False
 
 
 }
 
-var ifres8484 Obj
-
-if True == ifres8485 {
-ifres8484 = True
-
-
-} else {
-ifres8484 = False
-
-
-}
-
-ifres8483 = ifres8484
-
-
-} else {
-ifres8483 = False
-
-
-}
-
-if True == ifres8483 {
-tmp8480 := PrimGuard1(__e, symtlstr, PrimTailString, V5825)
+if True == ifres8020 {
+tmp8017 := PrimGuard1(__e, symtlstr, PrimTailString, V5825)
 
 if SymFn(symshen_4string_1prefix_2) == __self {
-__self1, __self2 = tmp8480, PrimGuard1(__e, symtlstr, PrimTailString, V5826)
+__self1, __self2 = tmp8017, PrimGuard1(__e, symtlstr, PrimTailString, V5826)
 __e.Tick()
 goto __selftop
 }
-return TailCall2(__e, SymFn(symshen_4string_1prefix_2), tmp8480, PrimGuard1(__e, symtlstr, PrimTailString, V5826))
+return TailCall2(__e, SymFn(symshen_4string_1prefix_2), tmp8017, PrimGuard1(__e, symtlstr, PrimTailString, V5826))
 
 
 } else {
@@ -1671,12 +1359,12 @@ panic("unreachable")
 return __self
 })()
 
-tmp8514 := Call2(__e, ns2_1set, symshen_4string_1prefix_2, tmp8476)
+tmp8046 := Call2(__e, ns2_1set, symshen_4string_1prefix_2, tmp8013)
 
 
-_ = tmp8514
+_ = tmp8046
 
-tmp8515 := (func() Obj {
+tmp8047 := (func() Obj {
 var __self Obj
 __self = MakeNative3(func(__e *ControlFlow, __self1, __self2, __self3 Obj) Obj {
 __selftop:
@@ -1686,57 +1374,57 @@ V5838 := __self2
 _ = V5838
 V5839 := __self3
 _ = V5839
-tmp8530 := GEq(__e, Nil, V5839)
+tmp8062 := GEq(__e, Nil, V5839)
 
-if True == tmp8530 {
+if True == tmp8062 {
 return symshen_4skip
 } else {
-tmp8528 := GConsP(__e, V5839)
+tmp8060 := GConsP(__e, V5839)
 
-if True == tmp8528 {
-tmp8523 := GHd(__e, V5839)
+if True == tmp8060 {
+tmp8055 := GHd(__e, V5839)
 
-tmp8524 := Call2(__e, SymFn(symshen_4string_1prefix_2), V5838, tmp8523)
-
-
-var ifres8516 Obj
-
-if True == tmp8524 {
-tmp8517 := GHd(__e, V5839)
-
-tmp8518 := Call3(__e, SymFn(symshen_4app), tmp8517, MakeString("\n"), symshen_4a)
+tmp8056 := Call2(__e, SymFn(symshen_4string_1prefix_2), V5838, tmp8055)
 
 
-tmp8520 := Call3(__e, SymFn(symshen_4app), V5837, PrimGuard2(__e, symcn, PrimStringConcat, MakeString(". "), tmp8518), symshen_4a)
+var ifres8048 Obj
+
+if True == tmp8056 {
+tmp8049 := GHd(__e, V5839)
+
+tmp8050 := Call3(__e, SymFn(symshen_4app), tmp8049, MakeString("\n"), symshen_4a)
 
 
-tmp8521 := Call0(__e, SymFn(symstoutput))
+tmp8052 := Call3(__e, SymFn(symshen_4app), V5837, PrimGuard2(__e, symcn, PrimStringConcat, MakeString(". "), tmp8050), symshen_4a)
 
 
-tmp8522 := Call2(__e, SymFn(sympr), tmp8520, tmp8521)
+tmp8053 := Call0(__e, SymFn(symstoutput))
 
 
-ifres8516 = tmp8522
+tmp8054 := Call2(__e, SymFn(sympr), tmp8052, tmp8053)
+
+
+ifres8048 = tmp8054
 
 
 } else {
-ifres8516 = symshen_4skip
+ifres8048 = symshen_4skip
 
 
 }
 
-_ = ifres8516
+_ = ifres8048
 
-tmp8525 := GAdd(__e, V5837, MakeInteger(1))
+tmp8057 := GAdd(__e, V5837, MakeInteger(1))
 
-tmp8526 := GTl(__e, V5839)
+tmp8058 := GTl(__e, V5839)
 
 if SymFn(symshen_4recursive_1string_1match) == __self {
-__self1, __self2, __self3 = tmp8525, V5838, tmp8526
+__self1, __self2, __self3 = tmp8057, V5838, tmp8058
 __e.Tick()
 goto __selftop
 }
-return TailCall3(__e, SymFn(symshen_4recursive_1string_1match), tmp8525, V5838, tmp8526)
+return TailCall3(__e, SymFn(symshen_4recursive_1string_1match), tmp8057, V5838, tmp8058)
 
 
 } else {
@@ -1752,7 +1440,7 @@ panic("unreachable")
 return __self
 })()
 
-return TailCall2(__e, ns2_1set, symshen_4recursive_1string_1match, tmp8515)
+return TailCall2(__e, ns2_1set, symshen_4recursive_1string_1match, tmp8047)
 
 
 
