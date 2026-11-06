@@ -93,6 +93,45 @@ func runCLI(t *testing.T, args ...string) (string, error) {
 	return string(output), err
 }
 
+// TestReplEOFReachesProgram: only the REPL's own read treats stdin EOF as the
+// end of the session (first byte of a line, as Shen/JIT does). A program
+// evaluated at the REPL sees EOF like any program: read-byte gives -1, and
+// read and lineread raise "error: empty stream". The REPL then exits at its
+// next prompt.
+func TestReplEOFReachesProgram(t *testing.T) {
+	bin := cliBinary(t)
+	cases := []struct{ name, in, want string }{
+		{"read-byte", "(read-byte (stinput))\n", "-1"},
+		{"read", "(read (stinput))\n", "empty stream"},
+		{"lineread", "(lineread (stinput))\n", "empty stream"},
+		{"trap-error", "(trap-error (read (stinput)) (/. E caught))\n", "caught"},
+		{"final line without newline", "(+ 40 2)", "42"},
+		{"unterminated form", "(+ 1", ""},
+		{"empty stdin", "", ""},
+	}
+	for _, c := range cases {
+		t.Run(c.name, func(t *testing.T) {
+			ctx, cancel := context.WithTimeout(context.Background(), 180*time.Second)
+			defer cancel()
+			cmd := exec.CommandContext(ctx, bin)
+			cmd.Stdin = strings.NewReader(c.in)
+			output, err := cmd.CombinedOutput()
+			if ctx.Err() == context.DeadlineExceeded {
+				t.Fatalf("did not exit after stdin EOF; output:\n%s", output)
+			}
+			if err != nil {
+				t.Fatalf("exited with error: %v\n%s", err, output)
+			}
+			if c.want != "" && !strings.Contains(string(output), c.want) {
+				t.Fatalf("want %q in output:\n%s", c.want, output)
+			}
+			if c.want != "empty stream" && strings.Contains(string(output), "empty stream") {
+				t.Fatalf("unexpected empty stream error:\n%s", output)
+			}
+		})
+	}
+}
+
 // TestLauncherEval verifies the kernel launcher CLI protocol
 // (extension-launcher.kl): `shen eval -e EXPR` evaluates and prints.
 func TestLauncherEval(t *testing.T) {

@@ -12,20 +12,6 @@ import (
 )
 
 var home_directory Obj
-var stinputEOF bool
-
-// ResetStinputEOF clears the stdin-EOF flag. The REPL calls this before each
-// read so a fresh prompt starts from a clean state.
-func ResetStinputEOF() {
-	stinputEOF = false
-}
-
-// StinputEOF reports whether the last read on *stinput* hit EOF. The CLI uses
-// this to exit the top-level loop cleanly when piped input is exhausted,
-// instead of looping forever on "error: empty stream".
-func StinputEOF() bool {
-	return stinputEOF
-}
 
 func init() {
 	register := func(name string, prim Obj) { BindSymbolFunc(MakeSymbol(name), prim) }
@@ -472,9 +458,6 @@ func PrimReadByte(x Obj) Obj {
 	}
 	if err != nil {
 		if err == io.EOF {
-			if x == PrimValue(MakeSymbol("*stinput*")) {
-				stinputEOF = true
-			}
 			return MakeInteger(-1)
 		}
 		panic(MakeError(err.Error()))
