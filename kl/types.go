@@ -353,27 +353,32 @@ var symType Obj
 var symAdd, symSub, symMul, symLT, symLE, symGT, symGE, symNumEq, symNot Obj
 
 // Fixnum representation: small integers are encoded as pointers into a dedicated
-// sentinel byte array, costing zero heap allocation. The array's contents are
-// never read or written — only the *addresses* of its bytes are used — so the
-// array is pure virtual address space (BSS): it is never paged in and costs ~0
-// RSS regardless of size, and the GC never scans it (a [N]byte has no pointers).
+// sentinel byte array, costing zero heap allocation. The array is never written
+// and the GC never scans it (a [N]byte has no pointers), so it is pure address
+// space in BSS and costs no memory until something reads it.
 //
-// The range is signed and centered, so the byte at offset 0 represents
-// fixnumMin. Widening from the original unsigned [0, 2^20) to a signed
-// [-2^25, 2^25) removes heap boxing for two large classes of common integers
-// that previously always allocated a scmNumber: every negative integer, and
-// every integer between 2^20 and 2^25. makeInteger (the boxed fallback) was the
-// single largest allocation source in the VM (per the alloc profile of integer
-// arithmetic), so widening its fixnum fast path directly cuts GC pressure for
-// real integer workloads.
+// Something does read it. Code that tests a head without testing isFixnum first
+// (eval's dispatch, for one, and the must* helpers on their error paths) reads
+// the zero at a fixnum's address, and zero is scmHeadNumber, so a fixnum looks
+// like a number there, by design. On a system whose zero-fill read faults map a
+// fresh page, macOS for one, each such read can make one page resident: an
+// integer in a normal arithmetic or list path does not read it, but one that
+// reaches a failing hd, an applied non-function or eval does, up to the array's
+// whole size at worst. Guarding those paths costs 2.5% of the kernel suite's
+// instructions, so they stay as they are. The array extends a word past the last
+// fixnum so that a head read there sees zero too.
+//
+// The range is signed and centered, so the byte at offset 0 represents fixnumMin.
+// fixnumBits comes from a per-platform file. It may not exceed 32: arithmetic on
+// two fixnums multiplies them as Go ints (slotMul, numMul), and past 2^31 the
+// product would overflow rather than round as a float64.
 const (
-	fixnumBits  = 26                       // sentinel array is 2^26 bytes = 64 MiB of pure address space
 	fixnumCount = 1 << fixnumBits          // number of distinct fixnum values
-	fixnumMin   = -(1 << (fixnumBits - 1)) // smallest fixnum, i.e. -2^25
-	fixnumMax   = 1 << (fixnumBits - 1)    // one past the largest fixnum, i.e. 2^25
+	fixnumMin   = -(1 << (fixnumBits - 1)) // smallest fixnum
+	fixnumMax   = 1 << (fixnumBits - 1)    // one past the largest fixnum
 )
 
-var addrForFixnum [fixnumCount]byte
+var addrForFixnum [fixnumCount + 8]byte
 
 // symbolTable interns symbols by name. It used to be a byte trie whose
 // every node held [256]*trieNode (2 KiB) and a symbol of its own, so
