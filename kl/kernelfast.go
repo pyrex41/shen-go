@@ -1131,6 +1131,7 @@ func InstallKernelFast() {
 
 	overrideDirect("thaw", 1, nativeThawDirect)
 	stdThaw = mustSymbol(MakeSymbol("thaw")).function
+	stdFactor = mustSymbol(MakeSymbol("shen.factor")).function
 	overrideDirect("fail", 0, nativeFailDirect)
 
 	overridePrimitive("length", 1, primLength)

@@ -147,7 +147,7 @@ func TestLowerKLHonoursRebuiltThaw(t *testing.T) {
 func TestLowerKLRecompilesOnThawRebinding(t *testing.T) {
 	thaw := mustSymbol(symThaw)
 	savedStd, savedFn := stdThaw, thaw.function
-	defer func() { stdThaw, thaw.function = savedStd, savedFn; lowerAssumptions = nil }()
+	defer func() { stdThaw, thaw.function = savedStd, savedFn; lowerAssumptions = map[string]lowerAssumption{} }()
 	BindSymbolFunc(symThaw, CompileFunc("thaw", []Obj{MakeSymbol("X")}, lowerRead(t, `(X)`)))
 	stdThaw = thaw.function
 	obj := CompileFunc("lower-test", nil, lowerRead(t, `(let X 1 (let W (freeze X) (if (= X 1) (thaw W) (lower-f W))))`))
@@ -205,5 +205,21 @@ func TestCompileTestMatchesValueForm(t *testing.T) {
 				}
 			}
 		}
+	}
+}
+
+// Redefining a function replaces its entry instead of keeping every old body.
+func TestLowerKLAssumptionsDoNotGrow(t *testing.T) {
+	thaw := mustSymbol(symThaw)
+	savedStd, savedFn := stdThaw, thaw.function
+	defer func() { stdThaw, thaw.function = savedStd, savedFn; lowerAssumptions = map[string]lowerAssumption{} }()
+	BindSymbolFunc(symThaw, CompileFunc("thaw", []Obj{MakeSymbol("X")}, lowerRead(t, `(X)`)))
+	stdThaw = thaw.function
+	lowerAssumptions = map[string]lowerAssumption{}
+	for i := 0; i < 5; i++ {
+		CompileFunc("lower-same", nil, lowerRead(t, `(let X 1 (let W (freeze X) (if (= X 1) (thaw W) (lower-f W))))`))
+	}
+	if len(lowerAssumptions) != 1 {
+		t.Fatalf("%d entries for one name", len(lowerAssumptions))
 	}
 }

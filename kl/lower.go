@@ -685,15 +685,17 @@ func (c *klCompiler) placeThunk(thunk *inlineThunk) {
 // hand-written defun may not.
 func factorDefine(name string, params []Obj, body Obj) (out Obj) {
 	out = body
-	if lowerOff || symFactor == nil || factorBroken {
+	if lowerOff || stdFactor == nil || factorBroken {
 		return body
 	}
 	p, isp := isPairP(body)
 	if !isp || p.car != symCond {
 		return body
 	}
+	// A rebound shen.factor must not start running inside the compiler. On
+	// master it is reached only through (factorise +).
 	factor := mustSymbol(symFactor).function
-	if factor == nil {
+	if factor != stdFactor {
 		return body
 	}
 	clauses := listSlice(p.cdr)
@@ -742,7 +744,7 @@ func factorDefine(name string, params []Obj, body Obj) (out Obj) {
 // number of clauses, away from generated tables.
 const maxFactorClauses = 200
 
-var symFactor, symGensym Obj
+var symFactor, symGensym, stdFactor Obj // stdFactor: bound by installKernelFast
 
 func init() {
 	symFactor = MakeSymbol("shen.factor")
@@ -790,7 +792,10 @@ type lowerAssumption struct {
 }
 
 var (
-	lowerAssumptions []lowerAssumption
+	// By name: a redefinition replaces the entry, so reloading a file in a
+	// long session does not keep every old body alive. An object of the old
+	// definition still held somewhere then keeps its code.
+	lowerAssumptions = map[string]lowerAssumption{}
 	// factorBroken: a test the factoriser may merge has been rebound since boot,
 	// so nothing is factorised any more. factorArmed is set at the end of boot,
 	// which binds those symbols itself.
@@ -802,7 +807,7 @@ func compileDefine(name string, params []Obj, raw, form Obj) *BytecodeFunc {
 	lowered, thaw := lowerDefine(form)
 	fn := compileFuncBody(name, params, lowered)
 	if thaw || form != raw {
-		lowerAssumptions = append(lowerAssumptions, lowerAssumption{fn, params, raw, form, thaw})
+		lowerAssumptions[name] = lowerAssumption{fn, params, raw, form, thaw}
 	}
 	return fn
 }
@@ -828,14 +833,14 @@ func noteRebinding(s *scmSymbol) {
 	}
 	factorBroken = factorBroken || isFactor
 	pending := lowerAssumptions
-	lowerAssumptions = nil
-	for _, a := range pending {
+	lowerAssumptions = map[string]lowerAssumption{}
+	for name, a := range pending {
 		form := a.form
 		if isFactor {
 			form = a.raw
 		}
 		if form == a.form && !(isThaw && a.thaw) {
-			lowerAssumptions = append(lowerAssumptions, a)
+			lowerAssumptions[name] = a
 			continue
 		}
 		nf := compileDefine(a.fn.Name, a.params, a.raw, form)
@@ -843,8 +848,9 @@ func noteRebinding(s *scmSymbol) {
 			// Never run, so there is no code to redirect and no activation to
 			// disturb. Assumptions compileDefine just noted name nf; move them.
 			*a.fn = *nf
-			if n := len(lowerAssumptions); n > 0 && lowerAssumptions[n-1].fn == nf {
-				lowerAssumptions[n-1].fn = a.fn
+			if e, ok := lowerAssumptions[name]; ok && e.fn == nf {
+				e.fn = a.fn
+				lowerAssumptions[name] = e
 			}
 			continue
 		}
