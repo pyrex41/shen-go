@@ -44,8 +44,7 @@ func TypedObjectKind(o Obj) ValueKind {
 // TypedFloat64 extracts a Shen number without raising. Fixnums and boxed
 // numbers have exactly the same float64 semantics as GetNumber.
 func TypedFloat64(o Obj) (float64, bool) {
-	kind := TypedObjectKind(o)
-	if kind != KindNumber && kind != KindFixnum {
+	if !IsNumber(o) {
 		return 0, false
 	}
 	return GetNumber(o), true
@@ -90,10 +89,10 @@ func TypedMaterializeBoolean(v bool) Obj {
 
 // TypedString extracts a Shen string without raising.
 func TypedString(o Obj) (string, bool) {
-	if TypedObjectKind(o) != KindString {
+	if !IsString(o) {
 		return "", false
 	}
-	return mustString(o), true
+	return (*scmString)(unsafe.Pointer(o)).str, true
 }
 
 func TypedMaterializeString(v string) Obj { return MakeString(v) }
@@ -140,23 +139,25 @@ func TypedStringTail(o Obj) Obj {
 // TypedPairHead and TypedPairTail are non-throwing accessors for proven pair
 // values. The boolean reports whether the type guard succeeded.
 func TypedPairHead(o Obj) (Obj, bool) {
-	if TypedObjectKind(o) != KindPair {
+	ok, p := isPair(o)
+	if !ok {
 		return nil, false
 	}
-	return (*scmPair)(unsafe.Pointer(o)).car, true
+	return p.car, true
 }
 
 func TypedPairTail(o Obj) (Obj, bool) {
-	if TypedObjectKind(o) != KindPair {
+	ok, p := isPair(o)
+	if !ok {
 		return nil, false
 	}
-	return (*scmPair)(unsafe.Pointer(o)).cdr, true
+	return p.cdr, true
 }
 
 // TypedVectorGet performs a checked read. An uninitialized slot has the same
 // observable value as PrimVectorGet (undefined), while failures are catchable.
 func TypedVectorGet(o Obj, index int) Obj {
-	if TypedObjectKind(o) != KindVector {
+	if o == nil || isFixnum(o) || *o != scmHeadVector {
 		panic(MakeError("mustVector"))
 	}
 	vec := (*scmVector)(unsafe.Pointer(o)).vector
@@ -170,7 +171,7 @@ func TypedVectorGet(o Obj, index int) Obj {
 }
 
 func TypedVectorSet(o Obj, index int, value Obj) Obj {
-	if TypedObjectKind(o) != KindVector {
+	if o == nil || isFixnum(o) || *o != scmHeadVector {
 		panic(MakeError("mustVector"))
 	}
 	vec := (*scmVector)(unsafe.Pointer(o)).vector

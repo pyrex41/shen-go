@@ -4,6 +4,7 @@ import (
 	"os"
 	"strings"
 	"sync/atomic"
+	"unsafe"
 )
 
 // KindSetForAnnotation translates the conventional Shen annotation names to
@@ -182,7 +183,7 @@ func HasCanonicalPrimitiveBinding(sym Obj) bool {
 	if sym == nil || isFixnum(sym) || *sym != scmHeadSymbol {
 		return false
 	}
-	s := mustSymbol(sym)
+	s := (*scmSymbol)(unsafe.Pointer(sym))
 	return s.canonical != nil && s.function == s.canonical
 }
 
