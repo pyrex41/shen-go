@@ -117,14 +117,21 @@
 (define codegen
   Input -> (let Ast (parse () Input) (peval0 Ast)))
 
+\\ A file of one form is padded with (), since (do X) is X: the module thunk
+\\ would otherwise be the form itself, and a single defun loaded as a plugin
+\\ failed with "partial apply unsupported". Files of several forms are unchanged.
 (define compile-file
     Fin Fout -> (let Expr (read-file Fin)
-		     Expr1 (macroexpand [do | Expr])
+		     Expr1 (macroexpand [do | (pad-single-form Expr)])
 		     (let BC (codegen Expr1)
 			  Sink (open Fout out)
 			  Write (pr-ir BC Sink)
 			  Close (close Sink)
 			  Fout)))
+
+(define pad-single-form
+    [X] -> [X []]
+    Xs -> Xs)
 
 \\ The IR used to be serialized with (make-string "~R" BC). ~R goes through
 \\ shen.arg->str, whose first clause renders any value equal to (fail) as
