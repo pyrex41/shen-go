@@ -49,6 +49,8 @@ type scmSymbol struct {
 	// registration (package init / InstallKernelFast, single-threaded boot);
 	// read unlocked like function.
 	canonical Obj
+	// vmGuarded: compiled bytecode specializes this symbol (see vmGuardsOK).
+	vmGuarded bool
 }
 
 type scmPair struct {

@@ -219,4 +219,7 @@ func typedIRModeSlow() bool {
 
 // ResetTypedIRModeForTest clears the cached environment decision. Production
 // callers should set SHEN_GO_TYPED_IR before process startup and never reset it.
-func ResetTypedIRModeForTest() { typedIRMode.Store(0) }
+func ResetTypedIRModeForTest() {
+	typedIRMode.Store(0)
+	vmRefreshGuards()
+}

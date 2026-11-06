@@ -65,6 +65,7 @@ type BytecodeFunc struct {
 	// TypeHints preserves advisory (type ...) annotations for later typed-IR
 	// passes. Hints never alter runtime behavior or introduce errors.
 	TypeHints []TypeHint
+	kslots    []vmSlot // Consts in loaded form; see constSlots
 }
 
 type TypeHint struct {
@@ -102,11 +103,20 @@ type vmSlot struct {
 	number float64
 }
 
-func slotFromObj(o Obj) vmSlot {
-	if o != nil && isFixnum(o) {
-		return vmSlot{obj: o}
-	}
-	if o != nil && *o == scmHeadNumber {
+// A slot's value is lazily typed. obj==nil means a finite number held in
+// number. Otherwise obj is any Shen value, including a fixnum or a boxed number:
+// a value that arrives from the heap is not inspected until an operation needs
+// its type. Arithmetic results stay in float form, so a chain of arithmetic
+// never touches a pointer. Integers and floats are one numeric type in Shen, and
+// a fixnum is only a cached box for an integral float64; objValue() produces
+// the same box MakeNumber always did, so the form is not observable. (That
+// includes -0.0, which MakeNumber normalises to 0 on the way out.)
+func slotFromObj(o Obj) vmSlot { return vmSlot{obj: o} }
+
+// constSlot is the form a constant is loaded in: numbers unboxed where finite,
+// so arithmetic and comparison against a literal stay on the float path.
+func constSlot(o Obj) vmSlot {
+	if o != nil && (isFixnum(o) || *o == scmHeadNumber) {
 		f := GetNumber(o)
 		if !math.IsNaN(f) && !math.IsInf(f, 0) {
 			return vmSlot{number: f}
@@ -115,26 +125,12 @@ func slotFromObj(o Obj) vmSlot {
 	return vmSlot{obj: o}
 }
 func slotFromNumber(f float64) vmSlot {
-	if math.IsNaN(f) || math.IsInf(f, 0) {
+	if f-f != 0 { // NaN or infinite: keep the invariant that obj==nil is finite
 		return vmSlot{obj: MakeNumber(f)}
-	}
-	if isPreciseInteger(f) && f >= float64(fixnumMin) && f < float64(fixnumMax) {
-		return vmSlot{obj: MakeInteger(int(f))}
 	}
 	return vmSlot{number: f}
 }
-func slotFromInteger(i int) vmSlot {
-	if i >= fixnumMin && i < fixnumMax {
-		return vmSlot{obj: MakeInteger(i)}
-	}
-	return vmSlot{number: float64(i)}
-}
-func slotFixnum(s vmSlot) (int, bool) {
-	if s.obj != nil && isFixnum(s.obj) {
-		return fixnum(s.obj), true
-	}
-	return 0, false
-}
+func slotFromInteger(i int) vmSlot { return vmSlot{number: float64(i)} }
 func slotNumber(s vmSlot) (float64, bool) {
 	if s.obj == nil {
 		return s.number, true
@@ -157,11 +153,6 @@ func slotArithmetic(s vmSlot) Obj {
 	return s.obj
 }
 func slotAdd(x, y vmSlot) vmSlot {
-	if a, ok := slotFixnum(x); ok {
-		if b, ok := slotFixnum(y); ok {
-			return slotFromInteger(a + b)
-		}
-	}
 	if a, ok := slotNumber(x); ok {
 		if b, ok := slotNumber(y); ok {
 			return slotFromNumber(a + b)
@@ -170,11 +161,6 @@ func slotAdd(x, y vmSlot) vmSlot {
 	return slotFromObj(numAdd(slotArithmetic(x), slotArithmetic(y)))
 }
 func slotSub(x, y vmSlot) vmSlot {
-	if a, ok := slotFixnum(x); ok {
-		if b, ok := slotFixnum(y); ok {
-			return slotFromInteger(a - b)
-		}
-	}
 	if a, ok := slotNumber(x); ok {
 		if b, ok := slotNumber(y); ok {
 			return slotFromNumber(a - b)
@@ -183,11 +169,6 @@ func slotSub(x, y vmSlot) vmSlot {
 	return slotFromObj(numSub(slotArithmetic(x), slotArithmetic(y)))
 }
 func slotMul(x, y vmSlot) vmSlot {
-	if a, ok := slotFixnum(x); ok {
-		if b, ok := slotFixnum(y); ok {
-			return slotFromInteger(a * b)
-		}
-	}
 	if a, ok := slotNumber(x); ok {
 		if b, ok := slotNumber(y); ok {
 			return slotFromNumber(a * b)
@@ -202,20 +183,6 @@ func slotBool(v bool) vmSlot {
 	return vmSlot{obj: False}
 }
 func slotCmp(x, y vmSlot, op uint8) vmSlot {
-	if a, ok := slotFixnum(x); ok {
-		if b, ok := slotFixnum(y); ok {
-			switch op {
-			case OP_LT:
-				return slotBool(a < b)
-			case OP_LE:
-				return slotBool(a <= b)
-			case OP_GT:
-				return slotBool(a > b)
-			default:
-				return slotBool(a >= b)
-			}
-		}
-	}
 	if a, ok := slotNumber(x); ok {
 		if b, ok := slotNumber(y); ok {
 			switch op {
@@ -424,6 +391,47 @@ func vmGuardedPrimitive(sym Obj, id int32, args []vmSlot) (vmSlot, bool) {
 }
 
 const unicodeMaxRune = 0x10ffff
+
+// vmGuardsOK is the whole specialization guard while it is true: typed IR is
+// on and no symbol the compiler has specialized has since been rebound. It is
+// one load per operation instead of a symbol load, a type test and two binding
+// loads. The compiler registers each symbol it specializes (vmMarkGuarded) and
+// every write to a symbol's function goes through vmNoteRebind, so it can never
+// be stale. While it is false each operation falls back to its own per-symbol
+// check: rebinding + costs what it used to and does not change what hd does.
+// Names the kernel rebinds before any code uses them (symbol?, variable?) were
+// never specialized, so they are not in the set.
+var vmGuardsOK = true
+
+var vmGuardSyms []*scmSymbol
+
+func init() { vmRefreshGuards() }
+
+func vmRefreshGuards() {
+	ok := TypedIREnabled()
+	for _, s := range vmGuardSyms {
+		if s.function != s.canonical {
+			ok = false
+		}
+	}
+	vmGuardsOK = ok
+}
+
+// vmMarkGuarded records that compiled code now relies on sym's canonical
+// binding. The compiler calls it only while that binding is in place.
+func vmMarkGuarded(sym Obj) {
+	if s := mustSymbol(sym); !s.vmGuarded {
+		s.vmGuarded = true
+		vmGuardSyms = append(vmGuardSyms, s)
+	}
+}
+
+// vmNoteRebind must follow any write to s.function.
+func vmNoteRebind(s *scmSymbol) {
+	if s.vmGuarded {
+		vmRefreshGuards()
+	}
+}
 
 // vmIntrinsicFallback preserves dynamic rebinding semantics for bytecode
 // instructions specialized at compile time. It returns the current function's
@@ -723,37 +731,137 @@ func vmExec(ctl *ControlFlow, bf *scmBytecodeFunc, args []Obj) {
 		slots = make([]vmSlot, len(args))
 	}
 	for i, a := range args {
-		slots[i] = slotFromObj(a)
+		slots[i] = vmSlot{obj: a}
 	}
-	vmExecSlots(ctl, bf, slots)
+	if r, tail := vmExecSlots(ctl, bf, slots); !tail {
+		ctl.Return(r.objValue())
+	}
 }
 
-func vmExecSlots(ctl *ControlFlow, bf *scmBytecodeFunc, args []vmSlot) {
+// vmCallOther is OP_CALL for anything but an exact-arity bytecode callee.
+//
+//go:noinline
+func vmCallOther(ctl *ControlFlow, callee Obj, args []vmSlot) vmSlot {
+	if *callee == scmHeadNative {
+		// Exact-arity natives without captured slots: set up ctl.data
+		// and invoke directly, only entering the trampoline if the
+		// native tail-applies (e.g. fn with arity 0).
+		nf := MustNative(callee)
+		if len(nf.captured) == 0 && len(args) == nf.require {
+			ctl.tailApplySlots(callee, args)
+			nf.fn(ctl)
+			if ctl.kind == ControlFlowReturn {
+				r := ctl.data[ctl.pos]
+				ctl.data = ctl.data[:ctl.pos]
+				return vmSlot{obj: r}
+			}
+			return vmSlot{obj: trampoline(ctl)}
+		}
+	}
+	ctl.tailApplySlots(callee, args)
+	return vmSlot{obj: trampoline(ctl)}
+}
+
+//go:noinline
+func vmGuardedConstSlow(ctl *ControlFlow, consts []Obj, instr *Instr) vmSlot {
+	var sym Obj
+	if instr.B < 0 {
+		sym = intrinsicSymbolForOp(uint8(-instr.B))
+	} else if int(instr.B) < len(consts) {
+		sym = consts[instr.B]
+	}
+	if sym != nil && TypedIREnabled() && HasCanonicalPrimitiveBinding(sym) {
+		return constSlot(consts[instr.A])
+	}
+	if r, ok := vmIntrinsicFallback(ctl, sym, slotFromInteger(int(instr.C)), slotFromInteger(int(instr.D))); ok {
+		return r
+	}
+	panic("vmExec: guarded constant failed without fallback")
+}
+
+// vmGuardedPrimSlow runs a guarded primitive that had no inline fast path.
+//
+//go:noinline
+func vmGuardedPrimSlow(ctl *ControlFlow, sym Obj, id int32, args []vmSlot) vmSlot {
+	if r, ok := vmGuardedPrimitive(sym, id, args); ok {
+		return r
+	}
+	if r, ok := vmDynamicCall(ctl, sym, args...); ok {
+		return r
+	}
+	panic("vmExec: guarded primitive failed without fallback")
+}
+
+// vmBinarySlow is a two-operand intrinsic while vmGuardsOK is false, or on
+// operands its inline path does not take.
+//
+//go:noinline
+func vmBinarySlow(ctl *ControlFlow, op uint8, consts []Obj, b int32, x, y vmSlot) vmSlot {
+	if !vmGuardsOK {
+		if r, ok := vmIntrinsicFallback(ctl, instrConstSym(consts, b), x, y); ok {
+			return r
+		}
+	}
+	switch op {
+	case OP_ADD:
+		return slotAdd(x, y)
+	case OP_SUB:
+		return slotSub(x, y)
+	case OP_MUL:
+		return slotMul(x, y)
+	case OP_DIV:
+		a, oka := slotNumber(x)
+		c, okb := slotNumber(y)
+		if !oka || !okb {
+			return slotFromObj(PrimNumberDivide(x.objValue(), y.objValue()))
+		}
+		return slotFromNumber(TypedDivideValue(a, c))
+	case OP_EQ:
+		return slotEqual(x, y)
+	}
+	return slotCmp(x, y, op)
+}
+
+//go:noinline
+func vmMakeClosure(innerBFObj Obj, ups []vmSlot) vmSlot {
+	closure, captured := makeClosure(mustBytecodeFunc(innerBFObj).fn, len(ups))
+	for i := range captured {
+		captured[i] = ups[i].objValue()
+	}
+	return vmSlot{obj: closure}
+}
+
+//go:noinline
+func vmBadIf() { panic(MakeError("if requires a boolean")) }
+
+//go:noinline
+func vmUnbound(sym *scmSymbol) { panic(MakeError(fmt.Sprintf("function %s not bound", sym.str))) }
+
+// vmExecSlots runs one activation. It returns the result slot, or tail=true
+// when it has set up a tail call in ctl for the trampoline to finish.
+func vmExecSlots(ctl *ControlFlow, bf *scmBytecodeFunc, args []vmSlot) (result vmSlot, tail bool) {
 	fn := bf.fn
 	upvals := bf.upvals
 
-	// Locals and the operand stack share one slab (stack starts at len==0 just
-	// past the locals; append only ever writes at indices >= Nlocals, so the
-	// regions never overlap). Slabs are carved LIFO from the contiguous frame
-	// arena on ctl (takeFrame/putFrame in eval.go) — a per-activation make()
-	// dominated alloc_space on SHA/prng, and the bounded freelist that
-	// replaced it allocated again past 128 nested frames (issue #50). If a
-	// frame needs more stack slots than its headroom, append reallocates the
-	// stack away from the slab, which is rare and still correct: the 3-index
-	// slice from takeFrame means append can never write into the next frame,
-	// and the original slab is what we putFrame. The arena requires strict
-	// LIFO release: the only exits below are OP_TAIL_CALL and OP_RETURN, both
-	// putFrame, and a panic that skips them is repaired by frameReset at the
-	// recover sites. Any future non-LIFO frame lifetime (continuations,
-	// coroutines sharing a ControlFlow) must go through frameReset.
+	// Locals and the operand stack share one slab, carved LIFO from the
+	// contiguous frame arena on ctl (takeFrame/putFrame in eval.go). The arena
+	// requires strict LIFO release: the only exits below are OP_TAIL_CALL and
+	// OP_RETURN, both putFrame, and a panic that skips them is repaired by
+	// frameReset at the recover sites. Any future non-LIFO frame lifetime
+	// (continuations, coroutines sharing a ControlFlow) must go through
+	// frameReset. The slab's capacity is exactly what maxStackDepth computed,
+	// so sp stays inside it; indexing st is still bounds-checked.
 	slab, fmark := ctl.takeFrame(fn.Nlocals, fn.MaxStack)
-	locals := slab
-	copy(locals, args)
-
-	stack := slab[fn.Nlocals:]
+	st := slab[:cap(slab)]
+	for i := range args {
+		st[i] = args[i]
+	}
+	sp := fn.Nlocals
+	nlocals := sp
 	pc := 0
 	code := fn.Code
 	consts := fn.Consts
+	ks := fn.constSlots()
 
 	// The step budget is charged once per activation and once per
 	// self-tail-call iteration, not per instruction: bytecode only jumps
@@ -765,341 +873,247 @@ func vmExecSlots(ctl *ControlFlow, bf *scmBytecodeFunc, args []vmSlot) {
 	}
 
 	for {
-		instr := code[pc]
+		instr := &code[pc]
 		pc++
 		switch instr.Op {
 
 		case OP_LOAD_CONST:
-			stack = append(stack, slotFromObj(consts[instr.A]))
+			st[sp] = ks[instr.A]
+			sp++
 
 		case OP_GUARDED_CONST:
-			var sym Obj
-			if instr.B < 0 {
-				sym = intrinsicSymbolForOp(uint8(-instr.B))
-			} else if int(instr.B) < len(consts) {
-				sym = consts[instr.B]
-			}
-			if sym != nil && TypedIREnabled() && HasCanonicalPrimitiveBinding(sym) {
-				stack = append(stack, slotFromObj(consts[instr.A]))
-				continue
-			}
-			if r, ok := vmIntrinsicFallback(ctl, sym, slotFromInteger(int(instr.C)), slotFromInteger(int(instr.D))); ok {
-				stack = append(stack, r)
-				continue
-			}
-			panic("vmExec: guarded constant failed without fallback")
+			st[sp] = vmGuardedConstSlow(ctl, consts, instr)
+			sp++
 
 		case OP_GUARDED_PRIM:
 			n := int(instr.A)
-			base := len(stack) - n
-			if base < 0 || instr.B < 0 || int(instr.B) >= len(consts) {
-				panic("vmExec: malformed guarded primitive")
-			}
-			args := stack[base:]
-			if r, ok := vmGuardedPrimitive(consts[instr.B], instr.C, args); ok {
-				stack = append(stack[:base], r)
+			base := sp - n
+			if vmGuardsOK && instr.C-1 == gpCons {
+				st[base] = vmSlot{obj: cons(st[base].objValue(), st[base+1].objValue())}
+				sp = base + 1
 				continue
 			}
-			if r, ok := vmDynamicCall(ctl, consts[instr.B], args...); ok {
-				stack = append(stack[:base], r)
-				continue
-			}
-			panic("vmExec: guarded primitive failed without fallback")
+			st[base] = vmGuardedPrimSlow(ctl, consts[instr.B], instr.C, st[base:sp])
+			sp = base + 1
 
 		case OP_LOAD_LOCAL:
-			stack = append(stack, locals[instr.A])
+			st[sp] = st[instr.A]
+			sp++
 
 		case OP_GP1_LOCAL:
-			x := locals[instr.A]
-			sym := consts[instr.B]
-			if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym) {
+			x := &st[instr.A]
+			if vmGuardsOK {
 				if o := x.obj; o != nil && !isFixnum(o) {
 					switch instr.C - 1 {
 					case gpHd:
 						if *o == scmHeadPair {
-							stack = append(stack, slotFromObj(mustPair(o).car))
+							st[sp] = vmSlot{obj: mustPair(o).car}
+							sp++
 							continue
 						}
 					case gpTl:
 						if *o == scmHeadPair {
-							stack = append(stack, slotFromObj(mustPair(o).cdr))
+							st[sp] = vmSlot{obj: mustPair(o).cdr}
+							sp++
 							continue
 						}
 					case gpConsp:
-						stack = append(stack, slotBool(*o == scmHeadPair))
+						st[sp] = slotBool(*o == scmHeadPair)
+						sp++
 						continue
 					}
 				}
-				one := [1]vmSlot{x}
-				if r, ok := vmGuardedPrimitive(sym, instr.C, one[:]); ok {
-					stack = append(stack, r)
-					continue
-				}
 			}
-			if r, ok := vmDynamicCall(ctl, sym, x); ok {
-				stack = append(stack, r)
-				continue
-			}
-			panic("vmExec: guarded primitive failed without fallback")
+			one := [1]vmSlot{*x}
+			st[sp] = vmGuardedPrimSlow(ctl, consts[instr.B], instr.C, one[:])
+			sp++
 
 		case OP_EQ_JF:
-			y := stack[len(stack)-1]
-			x := stack[len(stack)-2]
-			stack = stack[:len(stack)-2]
+			sp -= 2
+			x, y := &st[sp], &st[sp+1]
 			var r Obj
-			if x.obj != nil && x.obj == y.obj {
-				r = True
-			} else if f, ok := vmIntrinsicFallback(ctl, instrConstSym(consts, instr.B), x, y); ok {
-				r = f.objValue()
-			} else {
-				r = slotEqual(x, y).objValue()
+			switch {
+			case x.obj == nil && y.obj == nil && vmGuardsOK:
+				if x.number != y.number {
+					pc += int(instr.A)
+				}
+				continue
+			case x.obj != nil && x.obj == y.obj:
+				continue
+			default:
+				r = vmBinarySlow(ctl, OP_EQ, consts, instr.B, *x, *y).objValue()
 			}
 			if r == False {
 				pc += int(instr.A)
 			} else if r != True {
-				panic(MakeError("if requires a boolean"))
+				vmBadIf()
 			}
 
 		case OP_STORE_LOCAL:
-			locals[instr.A] = stack[len(stack)-1]
-			stack = stack[:len(stack)-1]
+			sp--
+			st[instr.A] = st[sp]
 
 		case OP_LOAD_GLOBAL:
 			sym := mustSymbol(consts[instr.A])
 			if sym.function == nil {
-				panic(MakeError(fmt.Sprintf("function %s not bound", sym.str)))
+				vmUnbound(sym)
 			}
-			stack = append(stack, slotFromObj(sym.function))
+			st[sp] = vmSlot{obj: sym.function}
+			sp++
 
 		case OP_LOAD_UPVAL:
-			stack = append(stack, slotFromObj(upvals[instr.A]))
+			st[sp] = vmSlot{obj: upvals[instr.A]}
+			sp++
 
 		case OP_CALL:
 			n := int(instr.A)
-			base := len(stack) - n - 1
-			callee := stack[base].objValue()
-			callArgs := stack[base+1:]
-			var result Obj
-			switch *callee {
-			case scmHeadBytecodeFunc:
+			base := sp - n - 1
+			callee := st[base].objValue()
+			var r vmSlot
+			if *callee == scmHeadBytecodeFunc && n == mustBytecodeFunc(callee).fn.Arity {
 				// Exact-arity: run the callee directly. If it returns, skip the
 				// trampoline hop; if it sets up a tail call, finish via trampoline.
-				// Partial/over-application still goes through vmApply.
-				bfc := mustBytecodeFunc(callee)
-				if n == bfc.fn.Arity {
-					vmExecSlots(ctl, bfc, callArgs)
-					if ctl.kind == ControlFlowReturn {
-						result = ctl.data[ctl.pos]
-						ctl.data = ctl.data[:ctl.pos]
-					} else {
-						result = trampoline(ctl)
-					}
-				} else {
-					ctl.tailApplySlots(callee, callArgs)
-					result = trampoline(ctl)
+				var t bool
+				r, t = vmExecSlots(ctl, mustBytecodeFunc(callee), st[base+1:sp])
+				if t {
+					r = vmSlot{obj: trampoline(ctl)}
 				}
-			case scmHeadNative:
-				// Exact-arity natives without captured slots: set up ctl.data
-				// and invoke directly, only entering the trampoline if the
-				// native tail-applies (e.g. fn with arity 0).
-				nf := MustNative(callee)
-				if len(nf.captured) == 0 && n == nf.require {
-					ctl.tailApplySlots(callee, callArgs)
-					nf.fn(ctl)
-					if ctl.kind == ControlFlowReturn {
-						result = ctl.data[ctl.pos]
-						ctl.data = ctl.data[:ctl.pos]
-					} else {
-						result = trampoline(ctl)
-					}
-				} else {
-					ctl.tailApplySlots(callee, callArgs)
-					result = trampoline(ctl)
-				}
-			default:
-				ctl.tailApplySlots(callee, callArgs)
-				result = trampoline(ctl)
+			} else {
+				r = vmCallOther(ctl, callee, st[base+1:sp])
 			}
-			stack = stack[:base]
-			stack = append(stack, slotFromObj(result))
+			st[base] = r
+			sp = base + 1
 
 		case OP_TAIL_CALL:
 			n := int(instr.A)
-			base := len(stack) - n - 1
-			callee := stack[base].objValue()
+			base := sp - n - 1
+			callee := st[base].objValue()
 			// A call through a local or closure may still target this exact
 			// activation. Reuse its frame when the arity is complete; partial
 			// and over-application retain the normal trampoline semantics.
 			if callee == &bf.scmHead && n == fn.Arity {
-				copy(locals[:n], stack[base+1:])
-				stack = stack[:0]
+				for i := 0; i < n; i++ {
+					st[i] = st[base+1+i]
+				}
+				sp = nlocals
 				pc = 0
 				if limited {
 					ctl.tick()
 				}
 				continue
 			}
-			ctl.tailApplySlots(callee, stack[base+1:])
+			ctl.tailApplySlots(callee, st[base+1:sp])
 			ctl.putFrame(slab, fmark)
-			return
+			return vmSlot{}, true
 
 		case OP_RETURN:
-			ctl.Return(stack[len(stack)-1].objValue())
+			r := st[sp-1]
 			ctl.putFrame(slab, fmark)
-			return
+			return r, false
 
 		case OP_JUMP:
 			pc += int(instr.A)
 
 		case OP_JUMP_FALSE:
-			v := stack[len(stack)-1]
-			stack = stack[:len(stack)-1]
-			vo := v.objValue()
+			sp--
+			vo := st[sp].obj
 			if vo == False {
 				pc += int(instr.A)
 			} else if vo != True {
-				panic(MakeError("if requires a boolean"))
+				vmBadIf()
 			}
 
 		case OP_MAKE_CLOSURE:
-			nUpvals := int(instr.B)
-			innerBFObj := consts[instr.A]
-			innerBF := mustBytecodeFunc(innerBFObj)
-			closure, captured := makeClosure(innerBF.fn, nUpvals)
-			base := len(stack) - nUpvals
-			for i := range captured {
-				captured[i] = stack[base+i].objValue()
-			}
-			stack = stack[:base]
-			stack = append(stack, vmSlot{obj: closure})
+			n := int(instr.B)
+			base := sp - n
+			st[base] = vmMakeClosure(consts[instr.A], st[base:sp])
+			sp = base + 1
 
 		case OP_POP:
-			stack = stack[:len(stack)-1]
+			sp--
 
 		case OP_SELF_TAIL_CALL:
 			n := int(instr.A)
 			// All n args are on top of stack; copy into locals[0..n-1] and loop.
-			copy(locals[:n], stack[len(stack)-n:])
-			stack = stack[:len(stack)-n]
+			sp -= n
+			for i := 0; i < n; i++ {
+				st[i] = st[sp+i]
+			}
+			sp = nlocals
 			pc = 0
 			if limited {
 				ctl.tick()
 			}
 
 		case OP_ADD:
-			y := stack[len(stack)-1]
-			x := stack[len(stack)-2]
-			stack = stack[:len(stack)-2]
-			if r, ok := vmIntrinsicFallback(ctl, instrConstSym(consts, instr.B), x, y); ok {
-				stack = append(stack, r)
-				continue
+			sp--
+			x, y := &st[sp-1], &st[sp]
+			if x.obj == nil && y.obj == nil && vmGuardsOK {
+				if f := x.number + y.number; f-f == 0 {
+					x.number = f
+					continue
+				}
 			}
-			stack = append(stack, slotAdd(x, y))
+			*x = vmBinarySlow(ctl, OP_ADD, consts, instr.B, *x, *y)
 
 		case OP_SUB:
-			y := stack[len(stack)-1]
-			x := stack[len(stack)-2]
-			stack = stack[:len(stack)-2]
-			if r, ok := vmIntrinsicFallback(ctl, instrConstSym(consts, instr.B), x, y); ok {
-				stack = append(stack, r)
-				continue
+			sp--
+			x, y := &st[sp-1], &st[sp]
+			if x.obj == nil && y.obj == nil && vmGuardsOK {
+				if f := x.number - y.number; f-f == 0 {
+					x.number = f
+					continue
+				}
 			}
-			stack = append(stack, slotSub(x, y))
+			*x = vmBinarySlow(ctl, OP_SUB, consts, instr.B, *x, *y)
 
 		case OP_MUL:
-			y := stack[len(stack)-1]
-			x := stack[len(stack)-2]
-			stack = stack[:len(stack)-2]
-			if r, ok := vmIntrinsicFallback(ctl, instrConstSym(consts, instr.B), x, y); ok {
-				stack = append(stack, r)
-				continue
+			sp--
+			x, y := &st[sp-1], &st[sp]
+			if x.obj == nil && y.obj == nil && vmGuardsOK {
+				if f := x.number * y.number; f-f == 0 {
+					x.number = f
+					continue
+				}
 			}
-			stack = append(stack, slotMul(x, y))
+			*x = vmBinarySlow(ctl, OP_MUL, consts, instr.B, *x, *y)
 
-		case OP_DIV:
-			y := stack[len(stack)-1]
-			x := stack[len(stack)-2]
-			stack = stack[:len(stack)-2]
-			if r, ok := vmIntrinsicFallback(ctl, instrConstSym(consts, instr.B), x, y); ok {
-				stack = append(stack, r)
-				continue
-			}
-			a, oka := slotNumber(x)
-			b, okb := slotNumber(y)
-			if !oka || !okb {
-				stack = append(stack, slotFromObj(PrimNumberDivide(x.objValue(), y.objValue())))
-				continue
-			}
-			stack = append(stack, slotFromNumber(TypedDivideValue(a, b)))
+		case OP_DIV, OP_LE, OP_GT, OP_GE:
+			sp--
+			st[sp-1] = vmBinarySlow(ctl, instr.Op, consts, instr.B, st[sp-1], st[sp])
 
 		case OP_LT:
-			y := stack[len(stack)-1]
-			x := stack[len(stack)-2]
-			stack = stack[:len(stack)-2]
-			if r, ok := vmIntrinsicFallback(ctl, instrConstSym(consts, instr.B), x, y); ok {
-				stack = append(stack, r)
+			sp--
+			x, y := &st[sp-1], &st[sp]
+			if x.obj == nil && y.obj == nil && vmGuardsOK {
+				*x = slotBool(x.number < y.number)
 				continue
 			}
-			stack = append(stack, slotCmp(x, y, OP_LT))
-
-		case OP_LE:
-			y := stack[len(stack)-1]
-			x := stack[len(stack)-2]
-			stack = stack[:len(stack)-2]
-			if r, ok := vmIntrinsicFallback(ctl, instrConstSym(consts, instr.B), x, y); ok {
-				stack = append(stack, r)
-				continue
-			}
-			stack = append(stack, slotCmp(x, y, OP_LE))
-
-		case OP_GT:
-			y := stack[len(stack)-1]
-			x := stack[len(stack)-2]
-			stack = stack[:len(stack)-2]
-			if r, ok := vmIntrinsicFallback(ctl, instrConstSym(consts, instr.B), x, y); ok {
-				stack = append(stack, r)
-				continue
-			}
-			stack = append(stack, slotCmp(x, y, OP_GT))
-
-		case OP_GE:
-			y := stack[len(stack)-1]
-			x := stack[len(stack)-2]
-			stack = stack[:len(stack)-2]
-			if r, ok := vmIntrinsicFallback(ctl, instrConstSym(consts, instr.B), x, y); ok {
-				stack = append(stack, r)
-				continue
-			}
-			stack = append(stack, slotCmp(x, y, OP_GE))
+			*x = vmBinarySlow(ctl, OP_LT, consts, instr.B, *x, *y)
 
 		case OP_EQ:
-			y := stack[len(stack)-1]
-			x := stack[len(stack)-2]
-			stack = stack[:len(stack)-2]
+			sp--
+			x, y := &st[sp-1], &st[sp]
 			// Identity first: interned symbols, booleans, [], (fail), and any
 			// shared heap object skip structural equal().
 			if x.obj != nil && x.obj == y.obj {
-				stack = append(stack, slotFromObj(True))
+				x.obj = True
 				continue
 			}
-			if r, ok := vmIntrinsicFallback(ctl, instrConstSym(consts, instr.B), x, y); ok {
-				stack = append(stack, r)
-				continue
-			}
-			stack = append(stack, slotEqual(x, y))
+			*x = vmBinarySlow(ctl, OP_EQ, consts, instr.B, *x, *y)
 
 		case OP_NOT:
-			x := stack[len(stack)-1]
-			stack = stack[:len(stack)-1]
-			if r, ok := vmIntrinsicFallback(ctl, instrConstSym(consts, instr.B), x); ok {
-				stack = append(stack, r)
-				continue
+			x := &st[sp-1]
+			if !vmGuardsOK {
+				if r, ok := vmIntrinsicFallback(ctl, instrConstSym(consts, instr.B), *x); ok {
+					*x = r
+					continue
+				}
 			}
-			xo := x.objValue()
-			if xo == True {
-				stack = append(stack, slotFromObj(False))
-			} else if xo == False {
-				stack = append(stack, slotFromObj(True))
+			if x.obj == True {
+				x.obj = False
+			} else if x.obj == False {
+				x.obj = True
 			} else {
 				panic(MakeError("not: expected boolean"))
 			}
@@ -1108,4 +1122,16 @@ func vmExecSlots(ctl *ControlFlow, bf *scmBytecodeFunc, args []vmSlot) {
 			panic(fmt.Sprintf("vmExec: unknown opcode %d at pc %d", instr.Op, pc-1))
 		}
 	}
+}
+
+// constSlots returns Consts in loaded form, built on first use.
+func (fn *BytecodeFunc) constSlots() []vmSlot {
+	if len(fn.kslots) != len(fn.Consts) {
+		ks := make([]vmSlot, len(fn.Consts))
+		for i, o := range fn.Consts {
+			ks[i] = constSlot(o)
+		}
+		fn.kslots = ks
+	}
+	return fn.kslots
 }

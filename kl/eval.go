@@ -144,9 +144,8 @@ func (ctl *ControlFlow) takeFrame(nlocals, maxStack int) ([]vmSlot, frameMark) {
 	}
 	blk := ctl.frameBlocks[ctl.frameCur]
 	ctl.frameTop = top + need
-	slab := blk[top : top+nlocals : top+need]
-	clear(slab)
-	return slab, mark
+	// No clear: putFrame and frameUnwind leave everything above the top zero.
+	return blk[top : top+nlocals : top+need], mark
 }
 
 // advanceFrameBlock moves to the next block, allocating (or replacing a spare
