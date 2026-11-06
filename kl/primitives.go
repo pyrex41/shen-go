@@ -968,9 +968,11 @@ func primDefun(key, val Obj) Obj {
 		proc := mustProcedure(val)
 		compiled := CompileFunc(sym.str, proc.arg, proc.body)
 		sym.function = compiled
+		vmNoteRebind(sym)
 		return key
 	}
 	sym.function = val
+	vmNoteRebind(sym)
 	return key
 }
 

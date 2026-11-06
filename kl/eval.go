@@ -62,6 +62,19 @@ type ControlFlow struct {
 	// last trim; frameCross counts block-boundary returns since then.
 	frameHigh  int
 	frameCross int
+	// frameCap is how far into the current block frames may reach before
+	// frameEnsure is called. It is below the block's end while the block is
+	// not fully used, and so also bounds the part of the block that may hold
+	// stale slots. frameDirty saves it per block while a later block is current.
+	frameCap   int
+	frameDirty []int
+	// frameEpoch is the GC cycle stale slots were last cleared for (vmAttend).
+	frameEpoch uint32
+
+	// vmFrames holds the callers of the running bytecode activations, up to
+	// vmDepth. len(vmFrames) bounds the records that may be stale.
+	vmFrames []vmFrame
+	vmDepth  int
 }
 
 // frameBlockMin is the size in slots of the first arena block: 512 slots =
@@ -112,41 +125,88 @@ const frameHeadroom = 16
 // the clear on release.
 const minFrameCap = 48
 
-// frameMark is an arena position: takeFrame returns the mark to reset to.
-type frameMark struct{ cur, top int }
+// frameMark is an arena position: where a Go entry point or recover site came in.
+type frameMark struct{ cur, top, depth int }
 
 // frameMarkNow returns the current arena position, for a recover site to
 // frameReset to after a panic abandons the frames above it.
 func (ctl *ControlFlow) frameMarkNow() frameMark {
-	return frameMark{ctl.frameCur, ctl.frameTop}
+	return frameMark{ctl.frameCur, ctl.frameTop, ctl.vmDepth}
 }
 
-// takeFrame returns a slab with len==nlocals and cap==max(nlocals+frameHeadroom,
-// minFrameCap) carved from the arena top, cleared, plus the mark to putFrame
-// later. The unused capacity is the operand-stack region; the 3-index slice
-// guarantees append can never write into the next frame.
-func (ctl *ControlFlow) takeFrame(nlocals, maxStack int) ([]vmSlot, frameMark) {
-	// A compiled function knows its operand-stack peak, so its slab is exact
-	// and putFrame clears only what the activation could have written. A
-	// function built without that fact keeps the old generous headroom.
-	need := nlocals + maxStack
-	if maxStack <= 0 {
-		need = nlocals + frameHeadroom
-		if need < minFrameCap {
-			need = minFrameCap
-		}
+// frameSoftChunk is how far past a frame frameEnsure moves frameCap. It sets how
+// often frameEnsure runs while a block fills, and how many untouched slots a
+// stale clear may touch.
+const frameSoftChunk = 1024
+
+// frameMaxSlots bounds the arena at 1 GiB. Bytecode recursion no longer uses
+// the goroutine stack, whose 1 GB limit used to end a runaway recursion, so
+// this has to, with the same exit status.
+const frameMaxSlots = 1 << 26
+
+// frameEnsure makes room for a frame of size slots at base, whose first args
+// are already in place, and returns its base: a frame that does not fit in the
+// current block starts a new one, with args copied there.
+func (ctl *ControlFlow) frameEnsure(base, size int, args []vmSlot) int {
+	need := base + size
+	if ctl.frameCur < len(ctl.frameBlocks) && need <= len(ctl.frameBlocks[ctl.frameCur]) {
+		ctl.frameCap = min(need+frameSoftChunk, len(ctl.frameBlocks[ctl.frameCur]))
+		return base
 	}
-	mark := frameMark{ctl.frameCur, ctl.frameTop}
-	top := ctl.frameTop
-	if ctl.frameCur >= len(ctl.frameBlocks) || top+need > len(ctl.frameBlocks[ctl.frameCur]) {
-		ctl.advanceFrameBlock(need)
-		top = 0
+	if ctl.frameCur < len(ctl.frameDirty) {
+		ctl.frameDirty[ctl.frameCur] = ctl.frameCap
+	}
+	ctl.advanceFrameBlock(size)
+	for len(ctl.frameDirty) <= ctl.frameCur {
+		ctl.frameDirty = append(ctl.frameDirty, 0)
 	}
 	blk := ctl.frameBlocks[ctl.frameCur]
-	ctl.frameTop = top + need
-	slab := blk[top : top+nlocals : top+need]
-	clear(slab)
-	return slab, mark
+	ctl.frameCap = min(max(size+frameSoftChunk, ctl.frameDirty[ctl.frameCur]), len(blk))
+	copy(blk, args)
+	return 0
+}
+
+// frameLeaveBlock returns to block cur from a later one. frameTop is the
+// caller's to set. It counts as a crossing for the periodic idle check.
+func (ctl *ControlFlow) frameLeaveBlock(cur int) {
+	ctl.frameDirty[ctl.frameCur] = ctl.frameCap
+	ctl.frameCur = cur
+	ctl.frameCap = ctl.frameDirty[cur]
+	ctl.frameCrossed()
+}
+
+// frameClearStale zeroes every slot above the top that may hold a value, so that
+// a dead value stays reachable for at most one GC cycle after its frame returned.
+func (ctl *ControlFlow) frameClearStale() {
+	if ctl.frameCur < len(ctl.frameBlocks) {
+		blk := ctl.frameBlocks[ctl.frameCur]
+		if ctl.frameTop < ctl.frameCap {
+			clear(blk[ctl.frameTop:ctl.frameCap])
+			ctl.frameCap = max(min(ctl.frameTop+frameSoftChunk, len(blk)), ctl.frameTop)
+		}
+		for k := ctl.frameCur + 1; k < len(ctl.frameBlocks) && k < len(ctl.frameDirty); k++ {
+			clear(ctl.frameBlocks[k][:ctl.frameDirty[k]])
+			ctl.frameDirty[k] = 0
+		}
+	}
+	clear(ctl.vmFrames[ctl.vmDepth:])
+	ctl.vmFrames = ctl.vmFrames[:ctl.vmDepth]
+}
+
+func (ctl *ControlFlow) vmFramesGrow() {
+	d := len(ctl.vmFrames)
+	if d < cap(ctl.vmFrames) {
+		ctl.vmFrames = ctl.vmFrames[:min(d+64, cap(ctl.vmFrames))]
+		return
+	}
+	frames := make([]vmFrame, max(2*d, 64))
+	copy(frames, ctl.vmFrames)
+	ctl.vmFrames = frames
+}
+
+func vmStackOverflow() {
+	fmt.Fprintln(os.Stderr, "fatal error: stack overflow: bytecode recursion exceeds the 1 GiB frame arena")
+	os.Exit(2)
 }
 
 // advanceFrameBlock moves to the next block, allocating (or replacing a spare
@@ -161,6 +221,13 @@ func (ctl *ControlFlow) advanceFrameBlock(need int) {
 	ctl.frameTop = 0
 	if ctl.frameCur < len(ctl.frameBlocks) && len(ctl.frameBlocks[ctl.frameCur]) >= need {
 		return
+	}
+	total := need
+	for _, b := range ctl.frameBlocks[:min(ctl.frameCur, len(ctl.frameBlocks))] {
+		total += len(b)
+	}
+	if total > frameMaxSlots {
+		vmStackOverflow()
 	}
 	size := frameBlockMin
 	if ctl.frameCur > 0 {
@@ -177,45 +244,17 @@ func (ctl *ControlFlow) advanceFrameBlock(need int) {
 	}
 }
 
-// putFrame releases the slab taken at mark. The slab is cleared so the arena
-// does not retain heap objects. Frames must be released in strict LIFO order.
-// A frame that sits at the start of the next block (it did not fit after
-// mark) returns through the boundary path; if frames above this one were
-// abandoned (a panic that skipped their putFrame and was recovered without a
-// frameReset), the whole region above mark is reset and cleared instead.
-// Neither path trims spare blocks (see frameRetainSlots); both count as a
-// crossing for the periodic idle check.
-func (ctl *ControlFlow) putFrame(slab []vmSlot, mark frameMark) {
-	clear(slab[:cap(slab)])
-	if mark.cur == ctl.frameCur && ctl.frameTop == mark.top+cap(slab) {
-		ctl.frameTop = mark.top
-		return
-	}
-	if mark.cur+1 == ctl.frameCur && ctl.frameTop == cap(slab) {
-		// Block boundary: the tail of block mark.cur above mark.top was
-		// skipped by takeFrame and has been zero since its last release.
-		ctl.frameCur, ctl.frameTop = mark.cur, mark.top
-	} else {
-		ctl.frameUnwind(mark)
-	}
-	ctl.frameCrossed()
-}
-
-// frameUnwind resets the arena to mark, clearing everything above it.
+// frameUnwind resets the arena to mark. Slots above it are left for the next
+// stale clear; the frame records go now, since a crossed flag must not survive.
 func (ctl *ControlFlow) frameUnwind(mark frameMark) {
-	for c := mark.cur; c <= ctl.frameCur && c < len(ctl.frameBlocks); c++ {
-		lo, hi := 0, len(ctl.frameBlocks[c])
-		if c == mark.cur {
-			lo = mark.top
-		}
-		if c == ctl.frameCur {
-			hi = ctl.frameTop
-		}
-		if lo < hi {
-			clear(ctl.frameBlocks[c][lo:hi])
-		}
+	if ctl.vmDepth > mark.depth {
+		clear(ctl.vmFrames[mark.depth:ctl.vmDepth])
 	}
-	ctl.frameCur, ctl.frameTop = mark.cur, mark.top
+	if mark.cur != ctl.frameCur {
+		ctl.frameDirty[ctl.frameCur] = ctl.frameCap
+		ctl.frameCap = ctl.frameDirty[mark.cur]
+	}
+	ctl.frameCur, ctl.frameTop, ctl.vmDepth = mark.cur, mark.top, mark.depth
 }
 
 // frameReset unwinds the arena to mark and trims the spare blocks to the
@@ -262,6 +301,9 @@ func (ctl *ControlFlow) frameTrim(keep int) {
 	if k < len(ctl.frameBlocks) {
 		clear(ctl.frameBlocks[k:])
 		ctl.frameBlocks = ctl.frameBlocks[:k]
+		if len(ctl.frameDirty) > k {
+			ctl.frameDirty = ctl.frameDirty[:k]
+		}
 	}
 	ctl.frameHigh = ctl.frameCur
 	ctl.frameCross = 0

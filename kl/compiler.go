@@ -696,6 +696,7 @@ func (c *klCompiler) compileCall(fn Obj, args Obj, tail bool) {
 	if IsSymbol(fn) {
 		n := guardedPrimitiveArity(fn)
 		if n != 0 && n == nArgs {
+			vmMarkGuarded(fn)
 			if n == 1 && IsSymbol(argList[0]) {
 				if kind, idx := c.resolveVar(argList[0]); kind == varLocal {
 					c.fn.Code = append(c.fn.Code, Instr{Op: OP_GP1_LOCAL, A: int32(idx), B: c.addConst(fn), C: guardedPrimID(fn) + 1})
@@ -758,6 +759,7 @@ func (c *klCompiler) compileCall(fn Obj, args Obj, tail bool) {
 
 	// ---- 1-arg intrinsics ----
 	if IsSymbol(fn) && nArgs == 1 && fn == symNot && HasCanonicalPrimitiveBinding(fn) {
+		vmMarkGuarded(fn)
 		c.compileExpr(argList[0], false)
 		c.emit(OP_NOT, 0, c.addConst(fn))
 		if tail {
@@ -769,6 +771,7 @@ func (c *klCompiler) compileCall(fn Obj, args Obj, tail bool) {
 	// ---- 2-arg arithmetic intrinsics ----
 	if IsSymbol(fn) && nArgs == 2 && HasCanonicalPrimitiveBinding(fn) {
 		if op := intrinsicOp2(fn); op != 0 {
+			vmMarkGuarded(fn)
 			if folded, ok := foldFixnum2(fn, argList[0], argList[1]); ok {
 				// Keep the original operands and symbol so rebinding after
 				// compilation still takes the dynamic path.

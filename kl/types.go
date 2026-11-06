@@ -50,6 +50,8 @@ type scmSymbol struct {
 	// registration (package init / InstallKernelFast, single-threaded boot);
 	// read unlocked like function.
 	canonical Obj
+	// vmGuarded: compiled bytecode specializes this symbol (see vmGuardsOK).
+	vmGuarded bool
 }
 
 type scmPair struct {
@@ -373,7 +375,10 @@ const (
 	fixnumMax   = 1 << (fixnumBits - 1)    // one past the largest fixnum, i.e. 2^25
 )
 
-var addrForFixnum [fixnumCount]byte
+// The padding keeps an 8-byte header read of the last fixnums inside the array
+// (the VM tests a value's header without first ruling out a fixnum; all of these
+// bytes are zero, which is scmHeadNumber, never a pair or vector).
+var addrForFixnum [fixnumCount + 8]byte
 
 // symbolTable interns symbols by name. It used to be a byte trie whose
 // every node held [256]*trieNode (2 KiB) and a symbol of its own, so
