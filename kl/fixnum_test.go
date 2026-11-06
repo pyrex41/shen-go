@@ -93,3 +93,26 @@ func TestFixnumArithmeticEquality(t *testing.T) {
 		t.Errorf("equal boxed integers compared unequal")
 	}
 }
+
+// equal treats a fixnum and a boxed number as different, so = is correct only
+// if every integral value in the fixnum range is a fixnum, however it was made.
+func TestIntegralsInFixnumRangeAreFixnums(t *testing.T) {
+	for _, v := range []int{fixnumMin, fixnumMin + 1, -(1 << 25) - 1, 1 << 25, fixnumMax - 1, 0, -1, 100000000 % fixnumMax} {
+		f := float64(v)
+		for name, o := range map[string]Obj{
+			"MakeInteger": MakeInteger(v),
+			"MakeNumber":  MakeNumber(f),
+			"add":         PrimNumberAdd(MakeNumber(f/2), MakeNumber(f-f/2)),
+			"multiply":    PrimNumberMultiply(MakeNumber(f), MakeNumber(1.0)),
+			"divide":      PrimNumberDivide(MakeNumber(f*2), MakeNumber(2.0)),
+			"slot":        slotFromNumber(f).objValue(),
+		} {
+			if !isFixnum(o) {
+				t.Errorf("%s(%d) is not a fixnum", name, v)
+			}
+			if equal(o, MakeInteger(v)) != True {
+				t.Errorf("%s(%d) is not = the fixnum", name, v)
+			}
+		}
+	}
+}
