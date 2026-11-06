@@ -70,12 +70,16 @@ func init() { runtime.SetFinalizer(&vmGCSentinel{}, vmGCFinished) }
 //
 //go:noinline
 func vmAttend(ctl *ControlFlow, fn *BytecodeFunc, ip unsafe.Pointer) unsafe.Pointer {
+	// Clear the flag before reading what it announces, not after: a GC cycle
+	// finishing (the finalizer goroutine) or a rebinding elsewhere sets its
+	// state, then the flag, so either this reads the new state or the flag
+	// stays set for the next check. Clearing it last could lose either.
+	vmAttn.Store(0)
 	if e := vmGCEpoch.Load(); e != ctl.frameEpoch {
 		ctl.frameEpoch = e
 		ctl.frameClearStale()
 	}
-	if vmGuardsOK {
-		vmAttn.Store(0)
+	if vmGuardsOK.Load() {
 		return ip
 	}
 	vmAttn.Store(1)

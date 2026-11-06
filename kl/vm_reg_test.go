@@ -48,7 +48,7 @@ func TestRegisterRebindMidActivation(t *testing.T) {
 		for n, f := range orig {
 			BindSymbolFunc(MakeSymbol(n), f)
 		}
-		if !vmGuardsOK {
+		if !vmGuardsOK.Load() {
 			t.Error("vmGuardsOK did not recover after restoring the primitives")
 		}
 	}()

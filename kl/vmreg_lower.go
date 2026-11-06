@@ -702,7 +702,7 @@ func vmSlowOp(ctl *ControlFlow, cur *scmBytecodeFunc, regs, ks unsafe.Pointer, i
 	}
 	// Arithmetic and compares on numbers, with the guards intact: a fixnum or
 	// boxed operand, typically a value out of a list. No Shen code can run.
-	if vmGuardsOK {
+	if vmGuardsOK.Load() {
 		if op, ok := vmSlowNumeric(regs, ks, in); ok {
 			return op
 		}
@@ -781,7 +781,7 @@ func vmSlowOp(ctl *ControlFlow, cur *scmBytecodeFunc, regs, ks unsafe.Pointer, i
 		x := *r(regs, in.B)
 		var v vmSlot
 		f, dyn := vmSlot{}, false
-		if !vmGuardsOK {
+		if !vmGuardsOK.Load() {
 			f, dyn = vmIntrinsicFallback(ctl, sym, x)
 		}
 		switch {

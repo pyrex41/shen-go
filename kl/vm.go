@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"math"
 	"sync"
+	"sync/atomic"
 	"unsafe"
 )
 
@@ -403,7 +404,9 @@ const unicodeMaxRune = 0x10ffff
 // check: rebinding + costs what it used to and does not change what hd does.
 // Names the kernel rebinds before any code uses them (symbol?, variable?) were
 // never specialized, so they are not in the set.
-var vmGuardsOK = true
+var vmGuardsOK atomic.Bool
+
+func init() { vmGuardsOK.Store(true) }
 
 var (
 	vmGuardMu   sync.Mutex
@@ -421,7 +424,7 @@ func vmRefreshGuards() {
 			ok = false
 		}
 	}
-	vmGuardsOK = ok
+	vmGuardsOK.Store(ok)
 	if !ok {
 		vmAttn.Store(1)
 	}
@@ -794,7 +797,7 @@ func vmGuardedPrimSlow(ctl *ControlFlow, sym Obj, id int32, args []vmSlot) vmSlo
 //
 //go:noinline
 func vmBinarySlowSym(ctl *ControlFlow, op uint8, sym Obj, x, y vmSlot) vmSlot {
-	if !vmGuardsOK {
+	if !vmGuardsOK.Load() {
 		if r, ok := vmIntrinsicFallback(ctl, sym, x, y); ok {
 			return r
 		}
