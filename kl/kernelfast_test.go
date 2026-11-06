@@ -547,7 +547,7 @@ func TestInstallKernelFastBindsEveryOverride(t *testing.T) {
 			if !canonical {
 				t.Errorf("%s (%s): not the canonical primitive after InstallKernelFast", b.kernelFn, b.helper)
 			}
-		case "overrideNative":
+		case "overrideNative", "overrideDirect", "overrideProlog":
 			// MakeNative objects must never satisfy the canonical guard: for
 			// symbol?/variable? that would reinstall the weaker type-tag check.
 			if canonical {
