@@ -43,16 +43,24 @@ import (
 // hold the input form rather than the optimised one, so nesting grows
 // quadratically and not exponentially.
 //
-// Two limits are the compiler's own: inlining means fewer activations, so the
-// step limit (tick) is charged less often, and (thaw W) inlined at compile time
-// does not see a later rebinding of thaw, as compileLet's freeze inlining
-// already does not. A rebinding before compilation turns thaw inlining off.
+// Inlining means fewer activations, so the step limit (tick) is charged less
+// often. A rebinding of thaw before compilation turns thaw inlining off, and one
+// after it recompiles what assumed it (noteThawAssumption).
 func LowerKL(body Obj) Obj {
+	out, _ := lowerDefine(body)
+	return out
+}
+
+// lowerDefine is LowerKL, also saying whether the result inlined a thaw of a
+// freeze that has other uses. compileLet treats a freeze with only thaws as
+// syntax, but the program calls thaw on one that also escapes, so that call has
+// to keep seeing a rebinding (see noteThawAssumption).
+func lowerDefine(body Obj) (Obj, bool) {
 	if lowerOff || !worthLowering(body) {
-		return body
+		return body, false
 	}
 	l := &lowerer{budget: lowerBudget}
-	return l.lower(body)
+	return l.lower(body), l.assumesThaw
 }
 
 // lowerBudget is the number of form nodes one definition may gain by copying.
@@ -108,7 +116,8 @@ func isPairP(o Obj) (*scmPair, bool) {
 }
 
 type lowerer struct {
-	budget int
+	budget      int
+	assumesThaw bool
 }
 
 // listSlice returns the elements of a proper list, or nil for anything else.
@@ -502,6 +511,9 @@ func (s *sinker) saturated(r Obj) (Obj, bool) {
 	}
 	s.l.budget -= size
 	s.inlined++
+	if s.isFreeze {
+		s.l.assumesThaw = true
+	}
 	out := s.body
 	for i := len(actuals) - 1; i >= 0; i-- {
 		out = s.l.bindParam(s.params[i], actuals[i], out)
@@ -775,4 +787,31 @@ func (c *klCompiler) compileSelfTail(args []Obj) {
 		mask = 0
 	}
 	c.emit(OP_SELF_TAIL_CALL, int32(kept), mask)
+}
+
+// A definition that inlined a thaw is kept here, to be compiled again without
+// the pass if thaw is ever rebound. An activation already running finishes the
+// code it has, and a closure already built keeps its body.
+type thawAssumption struct {
+	fn     *BytecodeFunc
+	params []Obj
+	body   Obj
+}
+
+var thawAssumptions []thawAssumption
+
+func noteThawAssumption(fn *BytecodeFunc, params []Obj, body Obj) {
+	thawAssumptions = append(thawAssumptions, thawAssumption{fn, params, body})
+}
+
+// noteRebinding is called whenever a symbol's function changes.
+func noteRebinding(sym Obj) {
+	if sym != symThaw || len(thawAssumptions) == 0 {
+		return
+	}
+	pending := thawAssumptions
+	thawAssumptions = nil
+	for _, a := range pending {
+		*a.fn = *compileFuncBody(a.fn.Name, a.params, a.body)
+	}
 }

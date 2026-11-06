@@ -211,6 +211,7 @@ func formatNumber(f float64) string {
 
 func BindSymbolFunc(sym Obj, f Obj) {
 	mustSymbol(sym).function = f
+	noteRebinding(sym)
 }
 
 // Equal reports deep structural equality of two objects, comparing numbers by

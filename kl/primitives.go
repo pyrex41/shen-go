@@ -907,9 +907,11 @@ func primDefun(key, val Obj) Obj {
 		proc := mustProcedure(val)
 		compiled := CompileFunc(sym.str, proc.arg, proc.body)
 		sym.function = compiled
+		noteRebinding(key)
 		return key
 	}
 	sym.function = val
+	noteRebinding(key)
 	return key
 }
 

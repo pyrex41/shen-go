@@ -143,6 +143,24 @@ func TestLowerKLHonoursRebuiltThaw(t *testing.T) {
 	}
 }
 
+// A rebinding after compilation reaches a thaw that had been inlined.
+func TestLowerKLRecompilesOnThawRebinding(t *testing.T) {
+	thaw := mustSymbol(symThaw)
+	savedStd, savedFn := stdThaw, thaw.function
+	defer func() { stdThaw, thaw.function = savedStd, savedFn; thawAssumptions = nil }()
+	BindSymbolFunc(symThaw, CompileFunc("thaw", []Obj{MakeSymbol("X")}, lowerRead(t, `(X)`)))
+	stdThaw = thaw.function
+	obj := CompileFunc("lower-test", nil, lowerRead(t, `(let X 1 (let W (freeze X) (if (= X 1) (thaw W) (lower-f W))))`))
+	var e ControlFlow
+	if got := ObjString(Call(&e, obj)); got != "1" {
+		t.Fatalf("before rebinding: %s", got)
+	}
+	BindSymbolFunc(symThaw, CompileFunc("thaw", []Obj{MakeSymbol("X")}, MakeSymbol("rebound")))
+	if got := ObjString(Call(&e, obj)); got != "rebound" {
+		t.Fatalf("after rebinding: %s", got)
+	}
+}
+
 // Clause nests like the Prolog compiler's copy each body at two uses per
 // level. The budget and the closure limit keep that from being exponential.
 func TestLowerKLGrowthIsBounded(t *testing.T) {

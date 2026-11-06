@@ -46,12 +46,21 @@ const (
 // CompileFunc compiles a KL top-level defun body to a BytecodeFunc object.
 // params is the list of parameter symbols; body is the KL expression.
 func CompileFunc(name string, params []Obj, body Obj) Obj {
-	body = LowerKL(factorDefine(name, params, body))
+	factored := factorDefine(name, params, body)
+	lowered, assumesThaw := lowerDefine(factored)
+	fn := compileFuncBody(name, params, lowered)
+	if assumesThaw {
+		noteThawAssumption(fn, params, factored)
+	}
+	return makeBytecodeObj(fn, nil)
+}
+
+func compileFuncBody(name string, params []Obj, body Obj) *BytecodeFunc {
 	c := newCompiler(name, len(params), params, nil)
 	c.compileExpr(body, true)
 	c.fn.TypeHints = append([]TypeHint(nil), c.hints...)
 	c.fn.MaxStack = maxStackDepth(c.fn.Code)
-	return makeBytecodeObj(c.fn, nil)
+	return c.fn
 }
 
 func newCompiler(name string, arity int, params []Obj, outer *klCompiler) *klCompiler {
