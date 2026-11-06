@@ -98,6 +98,9 @@ func TestFixnumArithmeticEquality(t *testing.T) {
 // if every integral value in the fixnum range is a fixnum, however it was made.
 func TestIntegralsInFixnumRangeAreFixnums(t *testing.T) {
 	for _, v := range []int{fixnumMin, fixnumMin + 1, -(1 << 25) - 1, 1 << 25, fixnumMax - 1, 0, -1, 100000000 % fixnumMax} {
+		if v < fixnumMin || v >= fixnumMax {
+			continue // ±2^25 are inside the range only when it is wider than 2^26
+		}
 		f := float64(v)
 		for name, o := range map[string]Obj{
 			"MakeInteger": MakeInteger(v),
