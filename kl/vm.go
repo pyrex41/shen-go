@@ -978,8 +978,21 @@ func vmExecSlots(ctl *ControlFlow, bf *scmBytecodeFunc, args []vmSlot) {
 
 		case OP_SELF_TAIL_CALL:
 			n := int(instr.A)
-			// All n args are on top of stack; copy into locals[0..n-1] and loop.
-			copy(locals[:n], stack[len(stack)-n:])
+			if instr.B == 0 {
+				// All n args are on top of stack; copy into locals[0..n-1] and loop.
+				copy(locals[:n], stack[len(stack)-n:])
+			} else {
+				// Only the parameters in the mask change (compileSelfTail).
+				src := stack[len(stack)-n:]
+				mask := uint32(instr.B)
+				for i := 0; mask != 0; i++ {
+					if mask&1 != 0 {
+						locals[i] = src[0]
+						src = src[1:]
+					}
+					mask >>= 1
+				}
+			}
 			stack = stack[:len(stack)-n]
 			pc = 0
 			if limited {

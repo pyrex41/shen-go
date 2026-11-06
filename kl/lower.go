@@ -754,3 +754,25 @@ func factorableTest(f Obj) bool {
 	}
 	return false
 }
+
+// compileSelfTail leaves out an argument that is the parameter it would be
+// stored back into. B of OP_SELF_TAIL_CALL is then the mask of parameters the
+// values on the stack go to, lowest on the bottom; B == 0 means all A of them,
+// from the first. Nothing ever stores to a parameter's slot but this
+// instruction, since let takes a new slot, so leaving one out keeps its value.
+func (c *klCompiler) compileSelfTail(args []Obj) {
+	mask, kept := int32(0), 0
+	for i, a := range args {
+		if slot, ok := c.locals[a]; !ok || slot != i || !IsSymbol(a) || len(args) > 30 {
+			if len(args) <= 30 {
+				mask |= 1 << i
+			}
+			kept++
+			c.compileExpr(a, false)
+		}
+	}
+	if kept == len(args) {
+		mask = 0
+	}
+	c.emit(OP_SELF_TAIL_CALL, int32(kept), mask)
+}

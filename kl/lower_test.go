@@ -189,3 +189,33 @@ func TestCompileTestMatchesValueForm(t *testing.T) {
 		}
 	}
 }
+
+// A self-tail call leaves out only arguments that are their own parameter.
+func TestSelfTailSkipsUnchangedParameters(t *testing.T) {
+	x, y, n := MakeSymbol("X"), MakeSymbol("Y"), MakeSymbol("N")
+	for _, tt := range []struct {
+		src  string
+		args []Obj
+		call []Obj
+		want string
+	}{
+		// Keeps X and Y, counts N down.
+		{"(if (= N 0) (cons X Y) (lower-self X Y (- N 1)))", []Obj{x, y, n}, []Obj{MakeInteger(1), MakeInteger(2), MakeInteger(3)}, "(1 . 2)"},
+		// Swaps: neither argument is its own parameter.
+		{"(if (= N 0) (cons X Y) (lower-self Y X (- N 1)))", []Obj{x, y, n}, []Obj{MakeInteger(1), MakeInteger(2), MakeInteger(3)}, "(2 . 1)"},
+		// A shadowing let makes X a different variable.
+		{"(if (= N 0) (cons X Y) (let X 7 (lower-self X Y (- N 1))))", []Obj{x, y, n}, []Obj{MakeInteger(1), MakeInteger(2), MakeInteger(1)}, "(7 . 2)"},
+		// A global symbol named like nothing in scope is a value.
+		{"(if (= N 0) (cons X Y) (lower-self foo Y (- N 1)))", []Obj{x, y, n}, []Obj{MakeInteger(1), MakeInteger(2), MakeInteger(1)}, "(foo . 2)"},
+		// Second iteration sees an updated Y through X's old position.
+		{"(if (= N 0) (cons X Y) (lower-self X (+ X Y) (- N 1)))", []Obj{x, y, n}, []Obj{MakeInteger(1), MakeInteger(2), MakeInteger(3)}, "(1 . 5)"},
+	} {
+		form := lowerRead(t, tt.src)
+		obj := CompileFunc("lower-self", tt.args, form)
+		BindSymbolFunc(MakeSymbol("lower-self"), obj)
+		var e ControlFlow
+		if got := ObjString(Call(&e, obj, tt.call...)); got != tt.want {
+			t.Errorf("%s: got %s, want %s", tt.src, got, tt.want)
+		}
+	}
+}

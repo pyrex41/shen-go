@@ -809,10 +809,7 @@ func (c *klCompiler) compileCall(fn Obj, args Obj, tail bool) {
 		kind, _ := c.resolveVar(fn)
 		if kind == varGlobal && nArgs == c.fn.Arity {
 			// It's a self-call in tail position: emit args then OP_SELF_TAIL_CALL.
-			for _, a := range argList {
-				c.compileExpr(a, false)
-			}
-			c.emit(OP_SELF_TAIL_CALL, int32(nArgs), 0)
+			c.compileSelfTail(argList)
 			return
 		}
 	}
