@@ -101,21 +101,20 @@ func TypedMaterializeString(v string) Obj { return MakeString(v) }
 // TypedStringIndexValue returns the Unicode code point at index without
 // materializing the result string.
 func TypedStringIndexValue(value string, index int) string {
-	runes := []rune(value)
-	if index < 0 || index >= len(runes) {
+	r, ok := stringRuneAt(value, index)
+	if !ok {
 		panic(MakeError(fmt.Sprintf("%d is not valid index for %s", index, value)))
 	}
-	return string(runes[index])
+	return r
 }
 
 // TypedStringTailValue removes the first Unicode code point without
 // materializing the result string.
 func TypedStringTailValue(value string) string {
-	runes := []rune(value)
-	if len(runes) == 0 {
+	if len(value) == 0 {
 		panic(MakeError("empty string"))
 	}
-	return string(runes[1:])
+	return stringTail(value)
 }
 
 // TypedStringIndex returns the Unicode code point at index. It raises the

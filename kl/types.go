@@ -7,6 +7,7 @@ import (
 	"strings"
 	"sync"
 	"time"
+	"unicode/utf8"
 	"unsafe"
 )
 
@@ -529,9 +530,25 @@ func MakeVector(n int) Obj {
 }
 
 func MakeString(s string) Obj {
+	if len(s) == 1 && s[0] < utf8.RuneSelf {
+		return &asciiStrings[s[0]].scmHead
+	}
 	tmp := scmString{scmHeadString, s}
 	return &tmp.scmHead
 }
+
+// asciiStrings holds the one-character ASCII strings, so reading a string a
+// character at a time (pos, n->string, str of a digit) allocates nothing. A
+// string object is immutable and = compares strings by content, so nothing can
+// tell a shared object from a fresh one. It is a variable initializer, not an
+// init function, because other packages' and this package's init functions
+// call MakeString.
+var asciiStrings = func() (t [utf8.RuneSelf]scmString) {
+	for i := range t {
+		t[i] = scmString{scmHeadString, asciiChars[i : i+1]}
+	}
+	return t
+}()
 
 func MakeSymbol(s string) Obj {
 	return &internSymbol(s).scmHead
