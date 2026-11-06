@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"runtime"
+	"unsafe"
 )
 
 type ControlFlowKind int
@@ -139,10 +140,22 @@ func (ctl *ControlFlow) frameMarkNow() frameMark {
 // stale clear may touch.
 const frameSoftChunk = 1024
 
-// frameMaxSlots bounds the arena at 1 GiB. Bytecode recursion no longer uses
-// the goroutine stack, whose 1 GB limit used to end a runaway recursion, so
-// this has to, with the same exit status.
-const frameMaxSlots = 1 << 26
+// frameMaxBytes bounds the arena and the call records together at 1 GiB.
+// Bytecode recursion no longer uses the goroutine stack, whose 1 GB limit used to
+// end a runaway recursion, so this has to, with the same exit status.
+const frameMaxBytes = 1 << 30
+
+// frameCheckBudget exits if adding extra bytes would pass frameMaxBytes.
+func (ctl *ControlFlow) frameCheckBudget(extra int) {
+	total := extra + cap(ctl.vmFrames)*int(unsafe.Sizeof(vmFrame{}))
+	for _, b := range ctl.frameBlocks {
+		total += len(b) * int(unsafe.Sizeof(vmSlot{}))
+	}
+	if total > frameMaxBytes {
+		fmt.Fprintln(os.Stderr, "fatal error: stack overflow: bytecode recursion exceeds the 1 GiB frame arena")
+		os.Exit(2)
+	}
+}
 
 // frameEnsure makes room for a frame of size slots at base, whose first args
 // are already in place, and returns its base: a frame that does not fit in the
@@ -199,14 +212,10 @@ func (ctl *ControlFlow) vmFramesGrow() {
 		ctl.vmFrames = ctl.vmFrames[:min(d+64, cap(ctl.vmFrames))]
 		return
 	}
+	ctl.frameCheckBudget(max(d, 64) * int(unsafe.Sizeof(vmFrame{})))
 	frames := make([]vmFrame, max(2*d, 64))
 	copy(frames, ctl.vmFrames)
 	ctl.vmFrames = frames
-}
-
-func vmStackOverflow() {
-	fmt.Fprintln(os.Stderr, "fatal error: stack overflow: bytecode recursion exceeds the 1 GiB frame arena")
-	os.Exit(2)
 }
 
 // advanceFrameBlock moves to the next block, allocating (or replacing a spare
@@ -222,13 +231,6 @@ func (ctl *ControlFlow) advanceFrameBlock(need int) {
 	if ctl.frameCur < len(ctl.frameBlocks) && len(ctl.frameBlocks[ctl.frameCur]) >= need {
 		return
 	}
-	total := need
-	for _, b := range ctl.frameBlocks[:min(ctl.frameCur, len(ctl.frameBlocks))] {
-		total += len(b)
-	}
-	if total > frameMaxSlots {
-		vmStackOverflow()
-	}
 	size := frameBlockMin
 	if ctl.frameCur > 0 {
 		size = 2 * len(ctl.frameBlocks[ctl.frameCur-1])
@@ -236,6 +238,7 @@ func (ctl *ControlFlow) advanceFrameBlock(need int) {
 	for size < need {
 		size *= 2
 	}
+	ctl.frameCheckBudget(size * int(unsafe.Sizeof(vmSlot{})))
 	blk := make([]vmSlot, size)
 	if ctl.frameCur < len(ctl.frameBlocks) {
 		ctl.frameBlocks[ctl.frameCur] = blk

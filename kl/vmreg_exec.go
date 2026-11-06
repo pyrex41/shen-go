@@ -156,16 +156,16 @@ func vmRun(ctl *ControlFlow, cur *scmBytecodeFunc, regs unsafe.Pointer, base int
 		ip = unsafe.Add(ip, instrSize)
 		switch in.Op {
 
-		case OP_R_MOV:
+		case opRMOV:
 			*r(regs, in.A) = *r(regs, in.B)
 
-		case OP_R_LOADK:
+		case opRLOADK:
 			*r(regs, in.A) = *r(ks, in.B)
 
-		case OP_R_GETUP:
+		case opRGETUP:
 			r(regs, in.A).obj = cur.upvals[in.B]
 
-		case OP_R_LOADG:
+		case opRLOADG:
 			sym := (*scmSymbol)(unsafe.Pointer(r(ks, in.B).obj))
 			f := sym.function
 			if f == nil {
@@ -173,10 +173,10 @@ func vmRun(ctl *ControlFlow, cur *scmBytecodeFunc, regs unsafe.Pointer, base int
 			}
 			r(regs, in.A).obj = f
 
-		case OP_R_JMP:
+		case opRJMP:
 			ip = unsafe.Add(ip, int(in.A))
 
-		case OP_R_JF:
+		case opRJF:
 			o := r(regs, in.B).obj
 			if o == False {
 				ip = unsafe.Add(ip, int(in.A))
@@ -184,7 +184,7 @@ func vmRun(ctl *ControlFlow, cur *scmBytecodeFunc, regs unsafe.Pointer, base int
 				panic(vmBadIf())
 			}
 
-		case OP_R_JT:
+		case opRJT:
 			o := r(regs, in.B).obj
 			if o == True {
 				ip = unsafe.Add(ip, int(in.A))
@@ -192,7 +192,7 @@ func vmRun(ctl *ControlFlow, cur *scmBytecodeFunc, regs unsafe.Pointer, base int
 				goto slow // not's error, not if's
 			}
 
-		case OP_R_NOT:
+		case opRNOT:
 			o := r(regs, in.B).obj
 			if o == True {
 				r(regs, in.A).obj = False
@@ -202,12 +202,12 @@ func vmRun(ctl *ControlFlow, cur *scmBytecodeFunc, regs unsafe.Pointer, base int
 				goto slow
 			}
 
-		case OP_R_JNEKI:
+		case opRJNEKI:
 			if r(regs, in.B).obj != r(ks, in.C).obj {
 				ip = unsafe.Add(ip, int(in.A))
 			}
 
-		case OP_R_JNEKN:
+		case opRJNEKN:
 			x := r(regs, in.B)
 			if x.obj != nil {
 				goto fixK
@@ -216,7 +216,7 @@ func vmRun(ctl *ControlFlow, cur *scmBytecodeFunc, regs unsafe.Pointer, base int
 				ip = unsafe.Add(ip, int(in.A))
 			}
 
-		case OP_R_JNE:
+		case opRJNE:
 			x, y := r(regs, in.B), r(regs, in.C)
 			if x.obj == nil && y.obj == nil {
 				if x.number != y.number {
@@ -229,27 +229,27 @@ func vmRun(ctl *ControlFlow, cur *scmBytecodeFunc, regs unsafe.Pointer, base int
 			}
 			goto fixR
 
-		case OP_R_JNCONSP:
+		case opRJNCONSP:
 			o := r(regs, in.B).obj
 			if o == nil || *o != scmHeadPair {
 				ip = unsafe.Add(ip, int(in.A))
 			}
 
-		case OP_R_HD:
+		case opRHD:
 			o := r(regs, in.B).obj
 			if o == nil || *o != scmHeadPair {
 				goto slow
 			}
 			r(regs, in.A).obj = (*scmPair)(unsafe.Pointer(o)).car
 
-		case OP_R_TL:
+		case opRTL:
 			o := r(regs, in.B).obj
 			if o == nil || *o != scmHeadPair {
 				goto slow
 			}
 			r(regs, in.A).obj = (*scmPair)(unsafe.Pointer(o)).cdr
 
-		case OP_R_CONSP:
+		case opRCONSP:
 			o := r(regs, in.B).obj
 			if o != nil && *o == scmHeadPair {
 				r(regs, in.A).obj = True
@@ -257,12 +257,12 @@ func vmRun(ctl *ControlFlow, cur *scmBytecodeFunc, regs unsafe.Pointer, base int
 				r(regs, in.A).obj = False
 			}
 
-		case OP_R_CONS:
+		case opRCONS:
 			sv.cur, sv.ip, sv.regs, sv.ks, sv.base = cur, ip, regs, ks, base
 			vmConsOp(r(regs, in.A), r(regs, in.B), r(regs, in.C))
 			cur, ip, regs, ks, base = sv.cur, sv.ip, sv.regs, sv.ks, sv.base
 
-		case OP_R_VGET:
+		case opRVGET:
 			o, i := r(regs, in.B).obj, r(regs, in.C)
 			if o == nil || *o != scmHeadVector {
 				goto slow
@@ -277,7 +277,7 @@ func vmRun(ctl *ControlFlow, cur *scmBytecodeFunc, regs unsafe.Pointer, base int
 			}
 			r(regs, in.A).obj = vec[n]
 
-		case OP_R_VSET:
+		case opRVSET:
 			o, i := r(regs, in.B).obj, r(regs, in.C)
 			if o == nil || *o != scmHeadVector {
 				goto slow
@@ -301,18 +301,18 @@ func vmRun(ctl *ControlFlow, cur *scmBytecodeFunc, regs unsafe.Pointer, base int
 			r(sv.regs, in.A).obj = o
 			cur, ip, regs, ks, base = sv.cur, sv.ip, sv.regs, sv.ks, sv.base
 
-		case OP_R_GCONST:
+		case opRGCONST:
 			*r(regs, in.A) = *r(ks, in.C)
 
-		case OP_R_SLOW, OP_R_PRIM, OP_R_DIV, OP_R_LT, OP_R_LE, OP_R_GT, OP_R_GE, OP_R_EQ:
+		case opRSLOW, opRPRIM, opRDIV, opRLT, opRLE, opRGT, opRGE, opREQ:
 			goto slow
 
-		case OP_R_CLOSURE:
+		case opRCLOSURE:
 			sv.cur, sv.ip, sv.regs, sv.ks, sv.base = cur, ip, regs, ks, base
 			vmClosureOp(cur.fn, r(regs, in.A), in)
 			cur, ip, regs, ks, base = sv.cur, sv.ip, sv.regs, sv.ks, sv.base
 
-		case OP_R_RET:
+		case opRRET:
 			d := ctl.vmDepth
 			if d == baseDepth {
 				return *r(regs, in.A), false
@@ -334,7 +334,7 @@ func vmRun(ctl *ControlFlow, cur *scmBytecodeFunc, regs unsafe.Pointer, base int
 				goto attend
 			}
 
-		case OP_R_RETK:
+		case opRRETK:
 			d := ctl.vmDepth
 			if d == baseDepth {
 				return *r(ks, in.A), false
@@ -356,7 +356,7 @@ func vmRun(ctl *ControlFlow, cur *scmBytecodeFunc, regs unsafe.Pointer, base int
 				goto attend
 			}
 
-		case OP_R_SELF:
+		case opRSELF:
 			ip = unsafe.Add(ip, int(in.A))
 			if limited {
 				sv.cur, sv.ip, sv.regs, sv.ks, sv.base = cur, ip, regs, ks, base
@@ -364,7 +364,7 @@ func vmRun(ctl *ControlFlow, cur *scmBytecodeFunc, regs unsafe.Pointer, base int
 				cur, ip, regs, ks, base = sv.cur, sv.ip, sv.regs, sv.ks, sv.base
 			}
 
-		case OP_R_CALLG:
+		case opRCALLG:
 			sym := (*scmSymbol)(unsafe.Pointer(r(ks, in.C).obj))
 			f := sym.function
 			if f == nil {
@@ -373,7 +373,7 @@ func vmRun(ctl *ControlFlow, cur *scmBytecodeFunc, regs unsafe.Pointer, base int
 			r(regs, in.A).obj = f
 			fallthrough
 
-		case OP_R_CALL:
+		case opRCALL:
 			cs := r(regs, in.A)
 			callee := cs.obj
 			if callee != nil && *callee == scmHeadBytecodeFunc {
@@ -422,7 +422,7 @@ func vmRun(ctl *ControlFlow, cur *scmBytecodeFunc, regs unsafe.Pointer, base int
 				goto attend
 			}
 
-		case OP_R_TAILCALLG:
+		case opRTAILCALLG:
 			sym := (*scmSymbol)(unsafe.Pointer(r(ks, in.C).obj))
 			f := sym.function
 			if f == nil {
@@ -431,7 +431,7 @@ func vmRun(ctl *ControlFlow, cur *scmBytecodeFunc, regs unsafe.Pointer, base int
 			r(regs, in.A).obj = f
 			fallthrough
 
-		case OP_R_TAILCALL:
+		case opRTAILCALL:
 			cs := r(regs, in.A)
 			callee := cs.obj
 			n := int(in.B)
@@ -482,7 +482,7 @@ func vmRun(ctl *ControlFlow, cur *scmBytecodeFunc, regs unsafe.Pointer, base int
 			if vmAttn.Load() != 0 {
 				goto attend
 			}
-		case OP_R_ADD:
+		case opRADD:
 			x, y := r(regs, in.B), r(regs, in.C)
 			if x.obj == nil && y.obj == nil {
 				if f := x.number + y.number; f-f == 0 {
@@ -496,7 +496,7 @@ func vmRun(ctl *ControlFlow, cur *scmBytecodeFunc, regs unsafe.Pointer, base int
 			}
 			goto fixR
 
-		case OP_R_ADDK:
+		case opRADDK:
 			x, y := r(regs, in.B), r(ks, in.C)
 			if x.obj == nil && y.obj == nil {
 				if f := x.number + y.number; f-f == 0 {
@@ -510,7 +510,7 @@ func vmRun(ctl *ControlFlow, cur *scmBytecodeFunc, regs unsafe.Pointer, base int
 			}
 			goto fixK
 
-		case OP_R_SUB:
+		case opRSUB:
 			x, y := r(regs, in.B), r(regs, in.C)
 			if x.obj == nil && y.obj == nil {
 				if f := x.number - y.number; f-f == 0 {
@@ -524,7 +524,7 @@ func vmRun(ctl *ControlFlow, cur *scmBytecodeFunc, regs unsafe.Pointer, base int
 			}
 			goto fixR
 
-		case OP_R_SUBK:
+		case opRSUBK:
 			x, y := r(regs, in.B), r(ks, in.C)
 			if x.obj == nil && y.obj == nil {
 				if f := x.number - y.number; f-f == 0 {
@@ -538,7 +538,7 @@ func vmRun(ctl *ControlFlow, cur *scmBytecodeFunc, regs unsafe.Pointer, base int
 			}
 			goto fixK
 
-		case OP_R_MUL:
+		case opRMUL:
 			x, y := r(regs, in.B), r(regs, in.C)
 			if x.obj == nil && y.obj == nil {
 				if f := x.number * y.number; f-f == 0 {
@@ -552,7 +552,7 @@ func vmRun(ctl *ControlFlow, cur *scmBytecodeFunc, regs unsafe.Pointer, base int
 			}
 			goto fixR
 
-		case OP_R_MULK:
+		case opRMULK:
 			x, y := r(regs, in.B), r(ks, in.C)
 			if x.obj == nil && y.obj == nil {
 				if f := x.number * y.number; f-f == 0 {
@@ -566,7 +566,7 @@ func vmRun(ctl *ControlFlow, cur *scmBytecodeFunc, regs unsafe.Pointer, base int
 			}
 			goto fixK
 
-		case OP_R_JNLT:
+		case opRJNLT:
 			x, y := r(regs, in.B), r(regs, in.C)
 			if x.obj == nil && y.obj == nil {
 				if !(x.number < y.number) {
@@ -576,7 +576,7 @@ func vmRun(ctl *ControlFlow, cur *scmBytecodeFunc, regs unsafe.Pointer, base int
 			}
 			goto fixR
 
-		case OP_R_JNLTK:
+		case opRJNLTK:
 			x, y := r(regs, in.B), r(ks, in.C)
 			if x.obj == nil && y.obj == nil {
 				if !(x.number < y.number) {
@@ -586,7 +586,7 @@ func vmRun(ctl *ControlFlow, cur *scmBytecodeFunc, regs unsafe.Pointer, base int
 			}
 			goto fixK
 
-		case OP_R_JNLE:
+		case opRJNLE:
 			x, y := r(regs, in.B), r(regs, in.C)
 			if x.obj == nil && y.obj == nil {
 				if !(x.number <= y.number) {
@@ -596,7 +596,7 @@ func vmRun(ctl *ControlFlow, cur *scmBytecodeFunc, regs unsafe.Pointer, base int
 			}
 			goto fixR
 
-		case OP_R_JNLEK:
+		case opRJNLEK:
 			x, y := r(regs, in.B), r(ks, in.C)
 			if x.obj == nil && y.obj == nil {
 				if !(x.number <= y.number) {
@@ -606,7 +606,7 @@ func vmRun(ctl *ControlFlow, cur *scmBytecodeFunc, regs unsafe.Pointer, base int
 			}
 			goto fixK
 
-		case OP_R_JNGT:
+		case opRJNGT:
 			x, y := r(regs, in.B), r(regs, in.C)
 			if x.obj == nil && y.obj == nil {
 				if !(x.number > y.number) {
@@ -616,7 +616,7 @@ func vmRun(ctl *ControlFlow, cur *scmBytecodeFunc, regs unsafe.Pointer, base int
 			}
 			goto fixR
 
-		case OP_R_JNGTK:
+		case opRJNGTK:
 			x, y := r(regs, in.B), r(ks, in.C)
 			if x.obj == nil && y.obj == nil {
 				if !(x.number > y.number) {
@@ -626,7 +626,7 @@ func vmRun(ctl *ControlFlow, cur *scmBytecodeFunc, regs unsafe.Pointer, base int
 			}
 			goto fixK
 
-		case OP_R_JNGE:
+		case opRJNGE:
 			x, y := r(regs, in.B), r(regs, in.C)
 			if x.obj == nil && y.obj == nil {
 				if !(x.number >= y.number) {
@@ -636,7 +636,7 @@ func vmRun(ctl *ControlFlow, cur *scmBytecodeFunc, regs unsafe.Pointer, base int
 			}
 			goto fixR
 
-		case OP_R_JNGEK:
+		case opRJNGEK:
 			x, y := r(regs, in.B), r(ks, in.C)
 			if x.obj == nil && y.obj == nil {
 				if !(x.number >= y.number) {
@@ -710,7 +710,7 @@ func vmRun(ctl *ControlFlow, cur *scmBytecodeFunc, regs unsafe.Pointer, base int
 //go:noinline
 func vmVsetNumber(p *Obj, f float64) { *p = MakeNumber(f) }
 
-// vmConsOp is OP_R_CONS, out of line since it allocates anyway.
+// vmConsOp is opRCONS, out of line since it allocates anyway.
 //
 //go:noinline
 func vmConsOp(d, x, y *vmSlot) {

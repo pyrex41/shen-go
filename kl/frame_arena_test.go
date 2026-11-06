@@ -212,7 +212,7 @@ func TestFrameArenaIdleTrimInsideLongLivedFrame(t *testing.T) {
 	}
 	frame := 0
 	for _, in := range mk.rc.code {
-		if in.Op == OP_R_CALL || in.Op == OP_R_CALLG {
+		if in.Op == opRCALL || in.Op == opRCALLG {
 			frame = int(in.A)>>4 + 1
 		}
 	}
