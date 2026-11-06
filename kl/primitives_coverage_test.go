@@ -196,15 +196,6 @@ func TestListAndTypeHelpers(t *testing.T) {
 	}
 }
 
-// TestStinputEOFFlag covers the ResetStinputEOF/StinputEOF accessors used by the
-// CLI to detect stdin EOF and exit the REPL cleanly.
-func TestStinputEOFFlag(t *testing.T) {
-	ResetStinputEOF()
-	if StinputEOF() {
-		t.Error("StinputEOF should be false after reset")
-	}
-}
-
 // TestCharStreamPredicates covers shen.char-stinput?/shen.char-stoutput?, which
 // always report false in this implementation.
 func TestCharStreamPredicates(t *testing.T) {

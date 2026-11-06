@@ -89,44 +89,49 @@ func regist(e *kl.ControlFlow) {
 var ns2_1set kl.Obj
 var try_1catch kl.Obj
 
-// repl runs the Shen top-level loop in Go so it can exit cleanly when stdin
-// reaches EOF (e.g. piped input). It mirrors the kernel's shen.repl/shen.loop
-// (credits, then initialise_environment, prompt, read-evaluate-print under
-// shen.toplevel-display-exception). The Shen-level shen.loop tail-calls
-// itself forever; on EOF lineread raises "error: empty stream", which the old
-// loop caught and ignored, spinning indefinitely. Here we detect that EOF via
-// the StinputEOF flag (set in kl.PrimReadByte) and return instead.
+// repl runs the Shen top-level loop in Go, following Shen/JIT's design for
+// stdin EOF: only the REPL's own read checks for EOF, on the first byte of a
+// line. At EOF it prints a newline and returns; the program being evaluated
+// sees what any program sees (read-byte gives -1; read and lineread raise
+// "error: empty stream"). The kernel's own shen.loop tail-calls itself
+// forever, so the loop stays here. It mirrors shen.repl/shen.loop (credits,
+// initialise_environment, prompt, read-evaluate-print under
+// shen.toplevel-display-exception), with shen.read-evaluate-print's lineread
+// split into that first-byte check plus the kernel's shen.read-loop.
 func repl(e *kl.ControlFlow) {
 	kl.Call(e, kl.PrimFunc(symshen_4credits))
 	for {
 		kl.Call(e, kl.PrimFunc(symshen_4initialise__environment))
 		kl.Call(e, kl.PrimFunc(symshen_4prompt))
-		kl.ResetStinputEOF()
 
+		eof := false
 		body := kl.MakeNative(func(e *kl.ControlFlow) {
-			e.TailApply(kl.PrimFunc(symshen_4read_1evaluate_1print))
-		}, 0)
-		handler := kl.MakeNative(func(e *kl.ControlFlow) {
-			err := e.Get(1)
-			if isStinputEOFError(err) {
+			stream := kl.PrimValue(kl.MakeSymbol("*stinput*"))
+			first := kl.Call(e, kl.PrimFunc(symshen_4my_1read_1byte), stream)
+			if kl.GetInteger(first) == -1 {
+				eof = true
 				e.Return(kl.Nil)
 				return
 			}
+			isReturn := kl.MakeNative(func(e *kl.ControlFlow) {
+				e.TailApply(kl.PrimFunc(symshen_4return_2), e.Get(1))
+			}, 1)
+			lineread := kl.Call(e, kl.PrimFunc(symshen_4read_1loop), stream, first, kl.Nil, isReturn)
+			lineread = kl.Call(e, kl.PrimFunc(symshen_4package_1user_1input), kl.PrimValue(kl.MakeSymbol("shen.*package*")), lineread)
+			history := kl.Call(e, kl.PrimFunc(symshen_4update_1history))
+			e.TailApply(kl.PrimFunc(symshen_4evaluate_1lineread), lineread, history, kl.PrimValue(kl.MakeSymbol("shen.*tc*")))
+		}, 0)
+		handler := kl.MakeNative(func(e *kl.ControlFlow) {
 			// Same handler as the kernel's shen.loop (toplevel.kl).
-			e.TailApply(kl.PrimFunc(symshen_4toplevel_1display_1exception), err)
+			e.TailApply(kl.PrimFunc(symshen_4toplevel_1display_1exception), e.Get(1))
 		}, 1)
 
 		kl.Try(e, body).Catch(handler)
-		if kl.StinputEOF() {
+		if eof {
+			kl.Call(e, kl.PrimFunc(kl.MakeSymbol("nl")), kl.MakeInteger(1))
 			return
 		}
 	}
-}
-
-// isStinputEOFError reports whether err is the "empty stream" error raised by
-// lineread when *stinput* hit EOF (as opposed to a genuine user error).
-func isStinputEOFError(err kl.Obj) bool {
-	return kl.StinputEOF() && kl.GetString(kl.PrimErrorToString(err)) == "error: empty stream"
 }
 
 // splitArgs separates the leading Go-level flags (-pprof, -auto-native,
