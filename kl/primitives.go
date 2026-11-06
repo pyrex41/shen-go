@@ -9,6 +9,7 @@ import (
 	"sync"
 	"time"
 	"unicode"
+	"unicode/utf8"
 )
 
 var home_directory Obj
@@ -197,6 +198,14 @@ func PrimIsNumber(o Obj) Obj {
 
 func PrimStringToNumber(o Obj) Obj {
 	str := mustString(o)
+	if len(str) > 0 {
+		if str[0] < utf8.RuneSelf {
+			return MakeInteger(int(str[0]))
+		}
+		r, _ := utf8.DecodeRuneInString(str)
+		return MakeInteger(int(r))
+	}
+	// The empty string keeps its historical index-out-of-range runtime panic.
 	n := ([]rune(str))[0]
 	return MakeInteger(int(n))
 }
@@ -221,6 +230,9 @@ func PrimNumberToString(o Obj) Obj {
 	f := GetNumber(o)
 	if !isPreciseInteger(f) || !fitsInt(f) || f < 0 || f > unicode.MaxRune {
 		panic(MakeError(fmt.Sprintf("%s is not a natural number", formatNumber(f))))
+	}
+	if f < utf8.RuneSelf {
+		return &asciiStrings[int(f)].scmHead
 	}
 	return MakeString(string(rune(int(f))))
 }
@@ -289,18 +301,67 @@ func PrimTailString(o Obj) Obj {
 	if len(str) == 0 {
 		panic(MakeError("empty string"))
 	}
-	return MakeString(string([]rune(str)[1:]))
+	return MakeString(stringTail(str))
+}
+
+// asciiChars backs the one-byte strings that stringRuneAt hands out, so a
+// character read out of a long string never keeps that string alive.
+const asciiChars = "\x00\x01\x02\x03\x04\x05\x06\x07\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f" +
+	"\x10\x11\x12\x13\x14\x15\x16\x17\x18\x19\x1a\x1b\x1c\x1d\x1e\x1f" +
+	" !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\x7f"
+
+// stringRuneAt returns code point n of s as a string, or false if s has no
+// such code point. It agrees with string([]rune(s)[n]): an invalid byte counts
+// as one code point and reads as U+FFFD, which is exactly how the rune
+// conversion and utf8.DecodeRuneInString both treat it.
+func stringRuneAt(s string, n int) (string, bool) {
+	if n < 0 {
+		return "", false
+	}
+	for i := 0; i < len(s); n-- {
+		c := s[i]
+		if c < utf8.RuneSelf {
+			if n == 0 {
+				return asciiChars[c : c+1], true
+			}
+			i++
+			continue
+		}
+		r, size := utf8.DecodeRuneInString(s[i:])
+		if n == 0 {
+			return string(r), true
+		}
+		i += size
+	}
+	return "", false
+}
+
+// stringTail returns s without its first code point; s must not be empty. It
+// agrees with string([]rune(s)[1:]). That conversion replaces every invalid
+// byte by U+FFFD, so the tail can share s's bytes only if it is valid UTF-8;
+// anything else takes the conversion. Sharing means a tail keeps the whole of
+// its original string alive, as any Go substring does.
+func stringTail(s string) string {
+	size := 1
+	if s[0] >= utf8.RuneSelf {
+		_, size = utf8.DecodeRuneInString(s)
+	}
+	if rest := s[size:]; utf8.ValidString(rest) {
+		return rest
+	}
+	return string([]rune(s)[1:])
 }
 
 func PrimPos(x, y Obj) Obj {
-	s := []rune(mustString(x))
+	str := mustString(x)
 	n := mustInteger(y)
-	// n < 0 used to reach the slice index below and panic outside the Shen
-	// error system, the same way the saturated +Inf index did.
-	if n < 0 || n >= len(s) {
-		panic(MakeError(fmt.Sprintf("%d is not valid index for %s", n, string(s))))
+	r, ok := stringRuneAt(str, n)
+	// n < 0 used to reach a slice index and panic outside the Shen error
+	// system, the same way the saturated +Inf index did.
+	if !ok {
+		panic(MakeError(fmt.Sprintf("%d is not valid index for %s", n, string([]rune(str)))))
 	}
-	return MakeString(string([]rune(s)[n]))
+	return MakeString(r)
 }
 
 func and(x, y Obj) Obj {
