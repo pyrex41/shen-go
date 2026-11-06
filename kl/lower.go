@@ -266,6 +266,11 @@ func (l *lowerer) lowerLet(x, orig, v, body Obj) Obj {
 	if !ok || !IsSymbol(x) || isLowerSpecial(x) || mustSymbol(x).function != nil {
 		return keep()
 	}
+	if isFreeze && !thawInlinable() {
+		// Moving a freeze to its thaw would hide it from compileLet, which
+		// inlines a let-bound freeze whatever thaw is bound to, as on master.
+		return keep()
+	}
 	if isFreeze {
 		// Thawed and nothing else: compileLet makes that a jump where it can,
 		// which a copy per use is not.
@@ -769,7 +774,7 @@ func factorableTest(f Obj) bool {
 
 // A definition compiled on an assumption about a binding is kept here, to be
 // compiled again when that binding changes: a thaw it inlined (thaw rebound), or
-// tests the factoriser merged (one of factorSyms rebound, since a rebound test
+// tests the factoriser merged (one of factorSym rebound, since a rebound test
 // with an effect must run as many times as the clauses ask for it).
 //
 // The new code replaces the old through its first instruction (vmCode.redirect),
@@ -802,10 +807,13 @@ func compileDefine(name string, params []Obj, raw, form Obj) *BytecodeFunc {
 	return fn
 }
 
-// factorSym says whether the factoriser may merge calls of sym; see factorableTest.
+// factorSym says whether factorised code depends on sym: the tests the
+// factoriser may merge (see factorableTest), and thaw, which runs the failure
+// continuations it introduces. Without that, a rebound thaw would be called by
+// factorised code where the definition as written never calls it.
 func factorSym(s *scmSymbol) bool {
 	switch s.str {
-	case "=", "cons?", "hd", "tl", "tuple?", "fst", "snd", "shen.+string?", "hdstr", "tlstr", "shen.+vector?", "hdv", "tlv":
+	case "thaw", "=", "cons?", "hd", "tl", "tuple?", "fst", "snd", "shen.+string?", "hdstr", "tlstr", "shen.+vector?", "hdv", "tlv":
 		return true
 	}
 	return false
