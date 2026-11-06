@@ -363,9 +363,11 @@ var symAdd, symSub, symMul, symLT, symLE, symGT, symGE, symNumEq, symNot Obj
 
 // Fixnum representation: small integers are encoded as pointers into a dedicated
 // sentinel byte array, costing zero heap allocation. The array's contents are
-// never read or written — only the *addresses* of its bytes are used — so the
-// array is pure virtual address space (BSS): it is never paged in and costs ~0
-// RSS regardless of size, and the GC never scans it (a [N]byte has no pointers).
+// never written, and read only when the VM tests the header of a value without
+// first ruling out a fixnum, so it is virtual address space (BSS) until then. A
+// program that does that across the whole fixnum range pages in at most the
+// whole array, 64 MiB of zeros, once. The GC never scans it (a [N]byte has no
+// pointers).
 //
 // The range is signed and centered, so the byte at offset 0 represents
 // fixnumMin. Widening from the original unsigned [0, 2^20) to a signed

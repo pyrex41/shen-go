@@ -16,57 +16,57 @@ import (
 // base pointer without scaling. A is the destination, or the jump distance on
 // a conditional jump, whose operands are then B and C.
 const (
-	OP_R_MOV       = uint8(iota) // A = B
-	OP_R_LOADK                   // A = k[B]
-	OP_R_GETUP                   // A = upvals[B] (B an index, not an offset)
-	OP_R_LOADG                   // A = k[B].function
-	OP_R_JMP                     // ip += A
-	OP_R_JF                      // if B == false: ip += A
-	OP_R_JT                      // if B == true: ip += A (= NOT then JF)
-	OP_R_NOT                     // A = not B
-	OP_R_JNEKI                   // if B != k[C]: ip += A; k has identity equality
-	OP_R_JNEKN                   // if B != k[C]: ip += A; k is a finite number
-	OP_R_JNE                     // if B != C: ip += A
-	OP_R_JNCONSP                 // if not (cons? B): ip += A
-	OP_R_HD                      // A = hd B
-	OP_R_TL                      // A = tl B
-	OP_R_CONSP                   // A = cons? B
-	OP_R_CONS                    // A = cons B C
-	OP_R_VGET                    // A = B[C]
-	OP_R_VSET                    // B[C] = D; A = B
-	OP_R_GCONST                  // A = k[C], a folded literal operation; B = its pc in Code
-	OP_R_SLOW                    // slow twin of a guarded instruction (see vmSlowOp)
-	OP_R_REDIRECT                // this code was replaced: continue in vmCode.redirect
-	OP_R_PRIM                    // A = prim C(A..A+B) with sym in the guard table
-	OP_R_DIV                     // A = B / C
-	OP_R_LT                      // A = B < C
-	OP_R_LE                      // A = B <= C
-	OP_R_GT                      // A = B > C
-	OP_R_GE                      // A = B >= C
-	OP_R_EQ                      // A = B = C
-	OP_R_CLOSURE                 // A = closure of Consts[B] over regs A..A+C
-	OP_R_RET                     // return A
-	OP_R_RETK                    // return k[A]
-	OP_R_SELF                    // restart this function: ip += A, charge a step
-	OP_R_CALLG                   // A = k[C].function, then OP_R_CALL
-	OP_R_CALL                    // A = (A)(A+1 .. A+B); A+1 is the callee's register 0
-	OP_R_TAILCALLG               // A = k[C].function, then OP_R_TAILCALL
-	OP_R_TAILCALL                // tail-call A with args A+1 .. A+B
-	OP_R_ADD                     // A = B + C
-	OP_R_ADDK                    // A = B + k[C]
-	OP_R_SUB
-	OP_R_SUBK
-	OP_R_MUL
-	OP_R_MULK
-	OP_R_JNLT // if not (B < C): ip += A
-	OP_R_JNLTK
-	OP_R_JNLE
-	OP_R_JNLEK
-	OP_R_JNGT
-	OP_R_JNGTK
-	OP_R_JNGE
-	OP_R_JNGEK
-	OP_R_TRAP // pads the code, so ip stays inside its allocation
+	opRMOV       = uint8(iota) // A = B
+	opRLOADK                   // A = k[B]
+	opRGETUP                   // A = upvals[B] (B an index, not an offset)
+	opRLOADG                   // A = k[B].function
+	opRJMP                     // ip += A
+	opRJF                      // if B == false: ip += A
+	opRJT                      // if B == true: ip += A (= NOT then JF)
+	opRNOT                     // A = not B
+	opRJNEKI                   // if B != k[C]: ip += A; k has identity equality
+	opRJNEKN                   // if B != k[C]: ip += A; k is a finite number
+	opRJNE                     // if B != C: ip += A
+	opRJNCONSP                 // if not (cons? B): ip += A
+	opRHD                      // A = hd B
+	opRTL                      // A = tl B
+	opRCONSP                   // A = cons? B
+	opRCONS                    // A = cons B C
+	opRVGET                    // A = B[C]
+	opRVSET                    // B[C] = D; A = B
+	opRGCONST                  // A = k[C], a folded literal operation; B = its pc in Code
+	opRSLOW                    // slow twin of a guarded instruction (see vmSlowOp)
+	opRREDIRECT                // this code was replaced: continue in vmCode.redirect
+	opRPRIM                    // A = prim C(A..A+B) with sym in the guard table
+	opRDIV                     // A = B / C
+	opRLT                      // A = B < C
+	opRLE                      // A = B <= C
+	opRGT                      // A = B > C
+	opRGE                      // A = B >= C
+	opREQ                      // A = B = C
+	opRCLOSURE                 // A = closure of Consts[B] over regs A..A+C
+	opRRET                     // return A
+	opRRETK                    // return k[A]
+	opRSELF                    // restart this function: ip += A, charge a step
+	opRCALLG                   // A = k[C].function, then opRCALL
+	opRCALL                    // A = (A)(A+1 .. A+B); A+1 is the callee's register 0
+	opRTAILCALLG               // A = k[C].function, then opRTAILCALL
+	opRTAILCALL                // tail-call A with args A+1 .. A+B
+	opRADD                     // A = B + C
+	opRADDK                    // A = B + k[C]
+	opRSUB
+	opRSUBK
+	opRMUL
+	opRMULK
+	opRJNLT // if not (B < C): ip += A
+	opRJNLTK
+	opRJNLE
+	opRJNLEK
+	opRJNGT
+	opRJNGTK
+	opRJNGE
+	opRJNGEK
+	opRTRAP // pads the code, so ip stays inside its allocation
 )
 
 // vmCode is a function's lowered form.
@@ -79,7 +79,7 @@ type vmCode struct {
 	n     int            // len(code)
 	size  int            // registers in a frame
 	// redirect is set once this code has been replaced (see noteRebinding):
-	// its first instruction is OP_R_REDIRECT.
+	// its first instruction is opRREDIRECT.
 	redirect *scmBytecodeFunc
 }
 
@@ -88,7 +88,7 @@ type vmCode struct {
 // self-tail call reaches the first instruction, since other jumps go forward.
 func (rc *vmCode) redirectTo(bf Obj) {
 	rc.redirect = mustBytecodeFunc(bf)
-	in := Instr{Op: OP_R_REDIRECT}
+	in := Instr{Op: opRREDIRECT}
 	rc.code[0], rc.guard[0] = in, 0
 	if rc.slow != nil {
 		rc.slow[0] = in
@@ -96,14 +96,14 @@ func (rc *vmCode) redirectTo(bf Obj) {
 }
 
 // slowCode returns the twin of code in which every guarded instruction is
-// OP_R_SLOW, at the same index and with the same operands. It runs when
+// opRSLOW, at the same index and with the same operands. It runs when
 // vmGuardsOK is false; vmSlowOp finds the original through the index.
 func (rc *vmCode) slowCode() unsafe.Pointer {
 	if rc.slow == nil {
 		slow := append([]Instr(nil), rc.code...)
 		for i := range slow {
 			if rc.guard[i] != 0 {
-				slow[i].Op = OP_R_SLOW
+				slow[i].Op = opRSLOW
 			}
 		}
 		rc.slow = slow
@@ -153,9 +153,9 @@ func (l *regLowerer) flush(d int) {
 	e := &l.v[d]
 	switch e.kind {
 	case vLocal:
-		l.emit(Instr{Op: OP_R_MOV, A: off(l.pos(d)), B: off(e.idx)}, 0)
+		l.emit(Instr{Op: opRMOV, A: off(l.pos(d)), B: off(e.idx)}, 0)
 	case vConst:
-		l.emit(Instr{Op: OP_R_LOADK, A: off(l.pos(d)), B: off(e.idx)}, 0)
+		l.emit(Instr{Op: opRLOADK, A: off(l.pos(d)), B: off(e.idx)}, 0)
 	default:
 		return
 	}
@@ -181,7 +181,7 @@ func (l *regLowerer) regOf(e ventry, d int) int32 {
 	case vLocal:
 		return off(e.idx)
 	case vConst:
-		l.emit(Instr{Op: OP_R_LOADK, A: off(l.pos(d)), B: off(e.idx)}, 0)
+		l.emit(Instr{Op: opRLOADK, A: off(l.pos(d)), B: off(e.idx)}, 0)
 	}
 	return off(l.pos(d))
 }
@@ -205,20 +205,20 @@ func (l *regLowerer) jumpTo(idx, target int) {
 // Only used for local registers; a call's operands are all temporaries.
 func instrTouches(in *Instr, o int32) bool {
 	switch in.Op {
-	case OP_R_LOADK, OP_R_GETUP, OP_R_LOADG, OP_R_GCONST:
+	case opRLOADK, opRGETUP, opRLOADG, opRGCONST:
 		return in.A == o
-	case OP_R_MOV, OP_R_NOT, OP_R_HD, OP_R_TL, OP_R_CONSP, OP_R_ADDK, OP_R_SUBK, OP_R_MULK:
+	case opRMOV, opRNOT, opRHD, opRTL, opRCONSP, opRADDK, opRSUBK, opRMULK:
 		return in.A == o || in.B == o
-	case OP_R_CONS, OP_R_VGET, OP_R_ADD, OP_R_SUB, OP_R_MUL, OP_R_DIV, OP_R_LT, OP_R_LE, OP_R_GT, OP_R_GE, OP_R_EQ:
+	case opRCONS, opRVGET, opRADD, opRSUB, opRMUL, opRDIV, opRLT, opRLE, opRGT, opRGE, opREQ:
 		return in.A == o || in.B == o || in.C == o
-	case OP_R_VSET:
+	case opRVSET:
 		return in.A == o || in.B == o || in.C == o || in.D == o
-	case OP_R_JF, OP_R_JT, OP_R_JNEKI, OP_R_JNEKN, OP_R_JNCONSP,
-		OP_R_JNLTK, OP_R_JNLEK, OP_R_JNGTK, OP_R_JNGEK:
+	case opRJF, opRJT, opRJNEKI, opRJNEKN, opRJNCONSP,
+		opRJNLTK, opRJNLEK, opRJNGTK, opRJNGEK:
 		return in.B == o
-	case OP_R_JNE, OP_R_JNLT, OP_R_JNLE, OP_R_JNGT, OP_R_JNGE:
+	case opRJNE, opRJNLT, opRJNLE, opRJNGT, opRJNGE:
 		return in.B == o || in.C == o
-	case OP_R_JMP, OP_R_CALL, OP_R_CALLG, OP_R_PRIM, OP_R_CLOSURE:
+	case opRJMP, opRCALL, opRCALLG, opRPRIM, opRCLOSURE:
 		return false
 	}
 	return true
@@ -226,9 +226,9 @@ func instrTouches(in *Instr, o int32) bool {
 
 func canRetarget(op uint8) bool {
 	switch op {
-	case OP_R_MOV, OP_R_LOADK, OP_R_GETUP, OP_R_LOADG, OP_R_GCONST, OP_R_NOT, OP_R_HD, OP_R_TL, OP_R_CONSP,
-		OP_R_CONS, OP_R_VGET, OP_R_VSET, OP_R_ADD, OP_R_ADDK, OP_R_SUB, OP_R_SUBK, OP_R_MUL, OP_R_MULK,
-		OP_R_DIV, OP_R_LT, OP_R_LE, OP_R_GT, OP_R_GE, OP_R_EQ:
+	case opRMOV, opRLOADK, opRGETUP, opRLOADG, opRGCONST, opRNOT, opRHD, opRTL, opRCONSP,
+		opRCONS, opRVGET, opRVSET, opRADD, opRADDK, opRSUB, opRSUBK, opRMUL, opRMULK,
+		opRDIV, opRLT, opRLE, opRGT, opRGE, opREQ:
 		return true
 	}
 	return false
@@ -239,11 +239,11 @@ func canRetarget(op uint8) bool {
 // read the binding itself. It returns the symbol's constant offset, or -1.
 func (l *regLowerer) fuseGlobal(d int) int32 {
 	e := l.v[d]
-	if e.def < 0 || e.def < l.barrier || l.out[e.def].Op != OP_R_LOADG {
+	if e.def < 0 || e.def < l.barrier || l.out[e.def].Op != opRLOADG {
 		return -1
 	}
 	for _, in := range l.out[e.def+1:] {
-		if in.Op != OP_R_MOV && in.Op != OP_R_LOADK {
+		if in.Op != opRMOV && in.Op != opRLOADK {
 			return -1
 		}
 	}
@@ -313,17 +313,17 @@ func (fn *BytecodeFunc) lower() *vmCode {
 			l.pos(len(l.v))
 			l.v = append(l.v, ventry{kind: vLocal, idx: int(in.A), def: -1})
 		case OP_LOAD_UPVAL:
-			l.emit(Instr{Op: OP_R_GETUP, A: off(l.pos(len(l.v))), B: in.A}, 0)
+			l.emit(Instr{Op: opRGETUP, A: off(l.pos(len(l.v))), B: in.A}, 0)
 			l.pushResult(true)
 		case OP_LOAD_GLOBAL:
-			l.emit(Instr{Op: OP_R_LOADG, A: off(l.pos(len(l.v))), B: off(int(in.A))}, 0)
+			l.emit(Instr{Op: opRLOADG, A: off(l.pos(len(l.v))), B: off(int(in.A))}, 0)
 			l.pushResult(true)
 		case OP_GUARDED_CONST:
 			sym := in.B
 			if sym < 0 {
 				sym = int32(l.fn.addIntrinsicConst(uint8(-sym)))
 			}
-			l.emit(Instr{Op: OP_R_GCONST, A: off(l.pos(len(l.v))), B: int32(pc), C: off(int(in.A))}, sym+1)
+			l.emit(Instr{Op: opRGCONST, A: off(l.pos(len(l.v))), B: int32(pc), C: off(int(in.A))}, sym+1)
 			l.pushResult(true)
 		case OP_STORE_LOCAL:
 			e := l.pop()
@@ -336,9 +336,9 @@ func (fn *BytecodeFunc) lower() *vmCode {
 			case e.kind == vTemp && e.def >= 0 && e.def == len(l.out)-1 && e.def >= l.barrier && canRetarget(l.out[e.def].Op):
 				l.out[e.def].A = off(int(in.A))
 			case e.kind == vConst:
-				l.emit(Instr{Op: OP_R_LOADK, A: off(int(in.A)), B: off(e.idx)}, 0)
+				l.emit(Instr{Op: opRLOADK, A: off(int(in.A)), B: off(e.idx)}, 0)
 			default:
-				l.emit(Instr{Op: OP_R_MOV, A: off(int(in.A)), B: l.regOf(e, len(l.v))}, 0)
+				l.emit(Instr{Op: opRMOV, A: off(int(in.A)), B: l.regOf(e, len(l.v))}, 0)
 			}
 		case OP_POP:
 			l.pop()
@@ -347,10 +347,10 @@ func (fn *BytecodeFunc) lower() *vmCode {
 			d := len(l.v)
 			b := l.regOf(e, d)
 			if nextJF {
-				branch(OP_R_JT, b, 0, 0, in.B+1)
+				branch(opRJT, b, 0, 0, in.B+1)
 				continue
 			}
-			l.emit(Instr{Op: OP_R_NOT, A: off(l.pos(d)), B: b}, in.B+1)
+			l.emit(Instr{Op: opRNOT, A: off(l.pos(d)), B: b}, in.B+1)
 			l.pushResult(true)
 		case OP_ADD, OP_SUB, OP_MUL, OP_DIV, OP_LT, OP_LE, OP_GT, OP_GE, OP_EQ, OP_EQ_JF:
 			y := l.pop()
@@ -367,7 +367,7 @@ func (fn *BytecodeFunc) lower() *vmCode {
 				}
 			}
 			b := l.regOf(x, d)
-			if t, ok := map[uint8]uint8{OP_LT: OP_R_JNLT, OP_LE: OP_R_JNLE, OP_GT: OP_R_JNGT, OP_GE: OP_R_JNGE}[in.Op]; ok && nextJF {
+			if t, ok := map[uint8]uint8{OP_LT: opRJNLT, OP_LE: opRJNLE, OP_GT: opRJNGT, OP_GE: opRJNGE}[in.Op]; ok && nextJF {
 				if y.kind == vConst {
 					branch(t+1, b, off(y.idx), 0, sym)
 				} else {
@@ -378,25 +378,25 @@ func (fn *BytecodeFunc) lower() *vmCode {
 			var op uint8
 			switch in.Op {
 			case OP_ADD:
-				op = OP_R_ADD
+				op = opRADD
 			case OP_SUB:
-				op = OP_R_SUB
+				op = opRSUB
 			case OP_MUL:
-				op = OP_R_MUL
+				op = opRMUL
 			case OP_DIV:
-				op = OP_R_DIV
+				op = opRDIV
 			case OP_LT:
-				op = OP_R_LT
+				op = opRLT
 			case OP_LE:
-				op = OP_R_LE
+				op = opRLE
 			case OP_GT:
-				op = OP_R_GT
+				op = opRGT
 			case OP_GE:
-				op = OP_R_GE
+				op = opRGE
 			case OP_EQ:
-				op = OP_R_EQ
+				op = opREQ
 			}
-			if y.kind == vConst && (op == OP_R_ADD || op == OP_R_SUB || op == OP_R_MUL) {
+			if y.kind == vConst && (op == opRADD || op == opRSUB || op == opRMUL) {
 				l.emit(Instr{Op: op + 1, A: off(l.pos(d)), B: b, C: off(y.idx)}, sym)
 			} else {
 				c := l.regOf(y, d+1)
@@ -419,13 +419,13 @@ func (fn *BytecodeFunc) lower() *vmCode {
 			d := len(l.v)
 			b := l.regOf(e, d)
 			l.flushFrom(0)
-			idx := l.emit(Instr{Op: OP_R_JF, B: b}, 0)
+			idx := l.emit(Instr{Op: opRJF, B: b}, 0)
 			t := pc + 1 + int(in.A)
 			depthAt[t] = len(l.v)
 			l.jumpTo(idx, t)
 		case OP_JUMP:
 			l.flushFrom(0)
-			idx := l.emit(Instr{Op: OP_R_JMP}, 0)
+			idx := l.emit(Instr{Op: opRJMP}, 0)
 			t := pc + 1 + int(in.A)
 			depthAt[t] = len(l.v)
 			l.jumpTo(idx, t)
@@ -433,9 +433,9 @@ func (fn *BytecodeFunc) lower() *vmCode {
 		case OP_RETURN:
 			e := l.pop()
 			if e.kind == vConst {
-				l.emit(Instr{Op: OP_R_RETK, A: off(e.idx)}, 0)
+				l.emit(Instr{Op: opRRETK, A: off(e.idx)}, 0)
 			} else {
-				l.emit(Instr{Op: OP_R_RET, A: l.regOf(e, len(l.v))}, 0)
+				l.emit(Instr{Op: opRRET, A: l.regOf(e, len(l.v))}, 0)
 			}
 			reachable = false
 		case OP_MAKE_CLOSURE:
@@ -443,7 +443,7 @@ func (fn *BytecodeFunc) lower() *vmCode {
 			base := len(l.v) - n
 			l.flushFrom(base)
 			l.v = l.v[:base]
-			l.emit(Instr{Op: OP_R_CLOSURE, A: off(l.pos(base)), B: in.A, C: in.B}, 0)
+			l.emit(Instr{Op: opRCLOSURE, A: off(l.pos(base)), B: in.A, C: in.B}, 0)
 			l.pushResult(false)
 		case OP_CALL, OP_TAIL_CALL:
 			n := int(in.A)
@@ -457,9 +457,9 @@ func (fn *BytecodeFunc) lower() *vmCode {
 			} else {
 				l.flush(base)
 			}
-			op := OP_R_CALL
+			op := opRCALL
 			if in.Op == OP_TAIL_CALL {
-				op = OP_R_TAILCALL
+				op = opRTAILCALL
 			}
 			if k >= 0 {
 				l.emit(Instr{Op: op - 1, A: off(l.pos(base)), B: in.A, C: k}, 0)
@@ -474,7 +474,7 @@ func (fn *BytecodeFunc) lower() *vmCode {
 			}
 		case OP_SELF_TAIL_CALL:
 			l.lowerSelfTail(int(in.A))
-			idx := l.emit(Instr{Op: OP_R_SELF}, 0)
+			idx := l.emit(Instr{Op: opRSELF}, 0)
 			l.out[idx].A = int32(-(idx + 1) * int(instrSize))
 			l.barrier = len(l.out)
 			l.v = l.v[:0]
@@ -490,7 +490,7 @@ func (fn *BytecodeFunc) lower() *vmCode {
 	for _, f := range l.fixups {
 		l.out[f[0]].A = int32((newpc[f[1]] - f[0] - 1) * int(instrSize))
 	}
-	l.emit(Instr{Op: OP_R_TRAP}, 0)
+	l.emit(Instr{Op: opRTRAP}, 0)
 	rc := &vmCode{code: l.out, guard: l.guard, n: len(l.out), size: l.maxReg + 1}
 	rc.fast = unsafe.Pointer(&l.out[0])
 	if len(ks) > 0 {
@@ -528,11 +528,11 @@ func (l *regLowerer) lowerEqBranch(pc int, x, y ventry, d int, sym int32, in *In
 		}
 		s := ks[e.idx]
 		if s.obj == nil {
-			return OP_R_JNEKN
+			return opRJNEKN
 		}
 		switch *s.obj {
 		case scmHeadSymbol, scmHeadBoolean, scmHeadNull:
-			return OP_R_JNEKI
+			return opRJNEKI
 		}
 		return 0
 	}
@@ -542,7 +542,7 @@ func (l *regLowerer) lowerEqBranch(pc int, x, y ventry, d int, sym int32, in *In
 	case kind(x) != 0:
 		op, b, c, flip = kind(x), l.regOf(y, d+1), off(x.idx), 1
 	default:
-		op = OP_R_JNE
+		op = opRJNE
 		b = l.regOf(x, d)
 		c = l.regOf(y, d+1)
 	}
@@ -569,21 +569,21 @@ func (l *regLowerer) lowerPrim(pc int, symB, idC int32, n int, nextJF bool, bran
 	var op uint8
 	switch id {
 	case gpHd:
-		op = OP_R_HD
+		op = opRHD
 	case gpTl:
-		op = OP_R_TL
+		op = opRTL
 	case gpConsp:
-		op = OP_R_CONSP
+		op = opRCONSP
 	case gpCons:
-		op = OP_R_CONS
+		op = opRCONS
 	case gpVectorGet:
-		op = OP_R_VGET
+		op = opRVGET
 	case gpVectorSet:
-		op = OP_R_VSET
+		op = opRVSET
 	default:
 		l.flushFrom(base)
 		l.v = l.v[:base]
-		l.emit(Instr{Op: OP_R_PRIM, A: off(l.pos(base)), B: int32(n), C: id + 1}, sym)
+		l.emit(Instr{Op: opRPRIM, A: off(l.pos(base)), B: int32(n), C: id + 1}, sym)
 		l.pushResult(false)
 		return false
 	}
@@ -596,8 +596,8 @@ func (l *regLowerer) lowerPrim(pc int, symB, idC int32, n int, nextJF bool, bran
 	for i, e := range es {
 		regs[i] = l.regOf(e, base+i)
 	}
-	if op == OP_R_CONSP && nextJF {
-		branch(OP_R_JNCONSP, regs[0], 0, 0, sym)
+	if op == opRCONSP && nextJF {
+		branch(opRJNCONSP, regs[0], 0, 0, sym)
 		return true
 	}
 	l.emit(Instr{Op: op, A: off(l.pos(base)), B: regs[0], C: regs[1], D: regs[2]}, sym)
@@ -658,11 +658,11 @@ func (l *regLowerer) lowerSelfTail(n int) {
 		e := es[i]
 		switch e.kind {
 		case vConst:
-			l.emit(Instr{Op: OP_R_LOADK, A: off(i), B: off(e.idx)}, 0)
+			l.emit(Instr{Op: opRLOADK, A: off(i), B: off(e.idx)}, 0)
 		case vLocal:
-			l.emit(Instr{Op: OP_R_MOV, A: off(i), B: off(e.idx)}, 0)
+			l.emit(Instr{Op: opRMOV, A: off(i), B: off(e.idx)}, 0)
 		default:
-			l.emit(Instr{Op: OP_R_MOV, A: off(i), B: off(l.pos(base + i))}, 0)
+			l.emit(Instr{Op: opRMOV, A: off(i), B: off(l.pos(base + i))}, 0)
 		}
 	}
 }
@@ -677,7 +677,7 @@ func (l *regLowerer) lowerSelfTail(n int) {
 func vmSlowOp(ctl *ControlFlow, cur *scmBytecodeFunc, regs, ks unsafe.Pointer, in *Instr) int {
 	fn := cur.fn
 	rc := fn.rc
-	if in.Op == OP_R_SLOW {
+	if in.Op == opRSLOW {
 		i := (uintptr(unsafe.Pointer(in)) - uintptr(unsafe.Pointer(&rc.slow[0]))) / instrSize
 		in = &rc.code[i]
 	}
@@ -694,7 +694,7 @@ func vmSlowOp(ctl *ControlFlow, cur *scmBytecodeFunc, regs, ks unsafe.Pointer, i
 	}
 	y := func() vmSlot {
 		switch in.Op {
-		case OP_R_ADDK, OP_R_SUBK, OP_R_MULK, OP_R_JNLTK, OP_R_JNLEK, OP_R_JNGTK, OP_R_JNGEK, OP_R_JNEKI, OP_R_JNEKN:
+		case opRADDK, opRSUBK, opRMULK, opRJNLTK, opRJNLEK, opRJNGTK, opRJNGEK, opRJNEKI, opRJNEKN:
 			return *r(ks, in.C)
 		}
 		return *r(regs, in.C)
@@ -716,31 +716,31 @@ func vmSlowOp(ctl *ControlFlow, cur *scmBytecodeFunc, regs, ks unsafe.Pointer, i
 		return vmGuardedPrimSlow(ctl, sym, id+1, args)
 	}
 	switch in.Op {
-	case OP_R_ADD, OP_R_ADDK:
+	case opRADD, opRADDK:
 		*r(regs, in.A) = binary(OP_ADD)
-	case OP_R_SUB, OP_R_SUBK:
+	case opRSUB, opRSUBK:
 		*r(regs, in.A) = binary(OP_SUB)
-	case OP_R_MUL, OP_R_MULK:
+	case opRMUL, opRMULK:
 		*r(regs, in.A) = binary(OP_MUL)
-	case OP_R_DIV:
+	case opRDIV:
 		*r(regs, in.A) = binary(OP_DIV)
-	case OP_R_LT:
+	case opRLT:
 		*r(regs, in.A) = binary(OP_LT)
-	case OP_R_LE:
+	case opRLE:
 		*r(regs, in.A) = binary(OP_LE)
-	case OP_R_GT:
+	case opRGT:
 		*r(regs, in.A) = binary(OP_GT)
-	case OP_R_GE:
+	case opRGE:
 		*r(regs, in.A) = binary(OP_GE)
-	case OP_R_JNLT, OP_R_JNLTK:
+	case opRJNLT, opRJNLTK:
 		return jump(binary(OP_LT))
-	case OP_R_JNLE, OP_R_JNLEK:
+	case opRJNLE, opRJNLEK:
 		return jump(binary(OP_LE))
-	case OP_R_JNGT, OP_R_JNGTK:
+	case opRJNGT, opRJNGTK:
 		return jump(binary(OP_GT))
-	case OP_R_JNGE, OP_R_JNGEK:
+	case opRJNGE, opRJNGEK:
 		return jump(binary(OP_GE))
-	case OP_R_EQ, OP_R_JNE, OP_R_JNEKI, OP_R_JNEKN:
+	case opREQ, opRJNE, opRJNEKI, opRJNEKN:
 		a, b := *r(regs, in.B), y()
 		if in.D == 1 {
 			a, b = b, a
@@ -753,12 +753,12 @@ func vmSlowOp(ctl *ControlFlow, cur *scmBytecodeFunc, regs, ks unsafe.Pointer, i
 		} else {
 			v = vmBinarySlowSym(ctl, OP_EQ, sym, a, b)
 		}
-		if in.Op == OP_R_EQ {
+		if in.Op == opREQ {
 			*r(regs, in.A) = v
 			return 0
 		}
 		return jump(v)
-	case OP_R_NOT, OP_R_JT:
+	case opRNOT, opRJT:
 		x := *r(regs, in.B)
 		var v vmSlot
 		f, dyn := vmSlot{}, false
@@ -775,29 +775,29 @@ func vmSlowOp(ctl *ControlFlow, cur *scmBytecodeFunc, regs, ks unsafe.Pointer, i
 		default:
 			panic(MakeError("not: expected boolean"))
 		}
-		if in.Op == OP_R_NOT {
+		if in.Op == opRNOT {
 			*r(regs, in.A) = v
 			return 0
 		}
 		return jump(v)
-	case OP_R_HD:
+	case opRHD:
 		*r(regs, in.A) = prim(gpHd, *r(regs, in.B))
-	case OP_R_TL:
+	case opRTL:
 		*r(regs, in.A) = prim(gpTl, *r(regs, in.B))
-	case OP_R_CONSP:
+	case opRCONSP:
 		*r(regs, in.A) = prim(gpConsp, *r(regs, in.B))
-	case OP_R_JNCONSP:
+	case opRJNCONSP:
 		return jump(prim(gpConsp, *r(regs, in.B)))
-	case OP_R_CONS:
+	case opRCONS:
 		*r(regs, in.A) = prim(gpCons, *r(regs, in.B), *r(regs, in.C))
-	case OP_R_VGET:
+	case opRVGET:
 		*r(regs, in.A) = prim(gpVectorGet, *r(regs, in.B), *r(regs, in.C))
-	case OP_R_VSET:
+	case opRVSET:
 		*r(regs, in.A) = prim(gpVectorSet, *r(regs, in.B), *r(regs, in.C), *r(regs, in.D))
-	case OP_R_PRIM:
+	case opRPRIM:
 		b := r(regs, in.A)
 		*b = vmGuardedPrimSlow(ctl, sym, in.C, unsafe.Slice(b, int(in.B)))
-	case OP_R_GCONST:
+	case opRGCONST:
 		*r(regs, in.A) = vmGuardedConstSlow(ctl, fn.Consts, &fn.Code[in.B])
 	default:
 		panic(fmt.Sprintf("vmSlowOp: opcode %d", in.Op))
@@ -811,9 +811,9 @@ func vmSlowOp(ctl *ControlFlow, cur *scmBytecodeFunc, regs, ks unsafe.Pointer, i
 func vmSlowNumeric(regs, ks unsafe.Pointer, in *Instr) (jump int, ok bool) {
 	var x, y *vmSlot
 	switch in.Op {
-	case OP_R_ADD, OP_R_SUB, OP_R_MUL, OP_R_JNLT, OP_R_JNLE, OP_R_JNGT, OP_R_JNGE:
+	case opRADD, opRSUB, opRMUL, opRJNLT, opRJNLE, opRJNGT, opRJNGE:
 		x, y = r(regs, in.B), r(regs, in.C)
-	case OP_R_ADDK, OP_R_SUBK, OP_R_MULK, OP_R_JNLTK, OP_R_JNLEK, OP_R_JNGTK, OP_R_JNGEK:
+	case opRADDK, opRSUBK, opRMULK, opRJNLTK, opRJNLEK, opRJNGTK, opRJNGEK:
 		x, y = r(regs, in.B), r(ks, in.C)
 	default:
 		return 0, false
@@ -825,20 +825,20 @@ func vmSlowNumeric(regs, ks unsafe.Pointer, in *Instr) (jump int, ok bool) {
 	}
 	var cond bool
 	switch in.Op {
-	case OP_R_ADD, OP_R_ADDK:
+	case opRADD, opRADDK:
 		*r(regs, in.A) = slotFromNumber(a + b)
 		return 0, true
-	case OP_R_SUB, OP_R_SUBK:
+	case opRSUB, opRSUBK:
 		*r(regs, in.A) = slotFromNumber(a - b)
 		return 0, true
-	case OP_R_MUL, OP_R_MULK:
+	case opRMUL, opRMULK:
 		*r(regs, in.A) = slotFromNumber(a * b)
 		return 0, true
-	case OP_R_JNLT, OP_R_JNLTK:
+	case opRJNLT, opRJNLTK:
 		cond = a < b
-	case OP_R_JNLE, OP_R_JNLEK:
+	case opRJNLE, opRJNLEK:
 		cond = a <= b
-	case OP_R_JNGT, OP_R_JNGTK:
+	case opRJNGT, opRJNGTK:
 		cond = a > b
 	default:
 		cond = a >= b
