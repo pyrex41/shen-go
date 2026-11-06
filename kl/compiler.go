@@ -454,19 +454,18 @@ func (c *klCompiler) compileLet(x, val, body Obj, tail bool) {
 }
 
 func (c *klCompiler) compileIf(cond, thenExpr, elseExpr Obj, tail bool) {
-	c.compileExpr(cond, false)
-	// Emit JUMP_FALSE with placeholder; patch after then-branch.
-	jumpFalseIdx := c.emitJumpFalse()
+	// Conditional jumps with placeholders; patch after then-branch.
+	falseJumps := c.compileTest(cond)
 	c.compileExpr(thenExpr, tail)
 	if !tail {
 		// Emit JUMP over else-branch; patch after else.
 		jumpOverIdx := c.emit(OP_JUMP, 0, 0)
-		c.patchJump(jumpFalseIdx)
+		c.patchJumps(falseJumps)
 		c.compileExpr(elseExpr, tail)
 		c.patchJump(jumpOverIdx)
 	} else {
-		// In tail position both branches already emit RETURN; just patch the false jump.
-		c.patchJump(jumpFalseIdx)
+		// In tail position both branches already emit RETURN; just patch the false jumps.
+		c.patchJumps(falseJumps)
 		c.compileExpr(elseExpr, tail)
 	}
 }
@@ -491,16 +490,15 @@ func (c *klCompiler) compileCond(clauses Obj, tail bool) {
 		return
 	}
 
-	c.compileExpr(cond, false)
-	jumpFalseIdx := c.emitJumpFalse()
+	falseJumps := c.compileTest(cond)
 	c.compileExpr(action, tail)
 	if !tail {
 		jumpOverIdx := c.emit(OP_JUMP, 0, 0)
-		c.patchJump(jumpFalseIdx)
+		c.patchJumps(falseJumps)
 		c.compileCond(rest, tail)
 		c.patchJump(jumpOverIdx)
 	} else {
-		c.patchJump(jumpFalseIdx)
+		c.patchJumps(falseJumps)
 		c.compileCond(rest, tail)
 	}
 }

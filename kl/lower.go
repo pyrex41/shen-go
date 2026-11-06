@@ -606,3 +606,32 @@ func substVar(f, z, a Obj) Obj {
 	}
 	return cons(head, sliceList(args))
 }
+
+// compileTest compiles a form in test position and returns the jumps taken when
+// it is false, for the caller to patch. An and or or here needs no boolean on
+// the stack to be tested again: a false (and a b) has already failed one test,
+// and each part still gets the same "if requires a boolean" check, in the same
+// order, from the jump that tests it.
+func (c *klCompiler) compileTest(form Obj) []int {
+	if p, isp := isPairP(form); isp && (p.car == symAnd || p.car == symOr) {
+		if args := listSlice(p.cdr); len(args) == 2 {
+			if p.car == symAnd {
+				return append(c.compileTest(args[0]), c.compileTest(args[1])...)
+			}
+			aFalse := c.compileTest(args[0])
+			toThen := c.emit(OP_JUMP, 0, 0)
+			c.patchJumps(aFalse)
+			bFalse := c.compileTest(args[1])
+			c.patchJump(toThen)
+			return bFalse
+		}
+	}
+	c.compileExpr(form, false)
+	return []int{c.emitJumpFalse()}
+}
+
+func (c *klCompiler) patchJumps(jumps []int) {
+	for _, j := range jumps {
+		c.patchJump(j)
+	}
+}

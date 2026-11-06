@@ -158,3 +158,33 @@ func TestLowerKLGrowthIsBounded(t *testing.T) {
 		t.Fatalf("grew from %d to %d nodes", in, out)
 	}
 }
+
+// A test built from and and or raises what the value form raises, from the same
+// part, and runs the same parts.
+func TestCompileTestMatchesValueForm(t *testing.T) {
+	BindSymbolFunc(MakeSymbol("lower-id"), CompileFunc("lower-id", []Obj{MakeSymbol("X")}, MakeSymbol("X")))
+	vals := []string{"true", "false", "5", "(hd 1)", "(do (set lower-n (+ 1 (value lower-n))) true)", "(do (set lower-n (+ 10 (value lower-n))) false)"}
+	shapes := []string{
+		"(if (and %s %s) 1 2)", "(if (or %s %s) 1 2)",
+		"(cond ((and %s %s) 1) (true 2))", "(cond ((or %s %s) 1) (true 2))",
+		"(+ 1 (if (and %s %s) 1 2))", "(+ 1 (if (or %s %s) 1 2))",
+		"(if (and (or %s true) %s) 1 2)", "(if (or (and %s false) %s) 1 2)",
+		"(if (and %s (and %[1]s %s)) 1 2)", "(if (or %s (or %[1]s %s)) 1 2)",
+		"(if (and (= 1 1) (= %s %s)) 1 2)",
+	}
+	for _, shape := range shapes {
+		for _, a := range vals {
+			for _, b := range vals {
+				src := fmt.Sprintf("(do (set lower-n 0) (cons "+shape+" (value lower-n)))", a, b)
+				// The value form the compiler used before: the condition as an
+				// if of its own, whose result the outer if tests.
+				valueForm := strings.NewReplacer("(if (", "(if (lower-id (", "(cond ((", "(cond ((lower-id (", ") 1", ")) 1").Replace(src)
+				got := lowerRun(lowerRead(t, src))
+				want := lowerRun(lowerRead(t, valueForm))
+				if got != want {
+					t.Errorf("%s: got %s, want %s", src, got, want)
+				}
+			}
+		}
+	}
+}
