@@ -698,8 +698,8 @@ func factorDefine(name string, params []Obj, body Obj) (out Obj) {
 		return body
 	}
 	// A rebound shen.factor, or anything it calls (factorDeps, which sets
-	// factorBroken once ArmFactoriser has run), must not start running inside
-	// the compiler. On master it is reached only through (factorise +).
+	// factorBroken), must not start running inside the compiler. On master it
+	// is reached only through (factorise +).
 	factor := mustSymbol(symFactor).function
 	if factor != stdFactor {
 		return body
@@ -814,10 +814,12 @@ var (
 	// definition still held somewhere then keeps its code.
 	lowerAssumptions = map[string]lowerAssumption{}
 	// factorBroken: something factorised code or shen.factor depends on has been
-	// rebound since boot, so nothing is factorised any more. factorArmed is set
-	// at the end of InstallKernelFast, which binds thaw and the merged tests
-	// itself; factorDepsArmed by ArmFactoriser, at the end of a host's boot.
-	factorBroken, factorArmed, factorDepsArmed bool
+	// rebound since the kernel booted, so nothing is factorised any more.
+	// factorArmed is set at the end of InstallKernelFast, which binds thaw, the
+	// merged tests and some factorDeps itself; every rebinding after that goes
+	// through setSymbolFunction and so through noteRebinding, so a plugin or a
+	// host that rebinds a dependency later is seen there.
+	factorBroken, factorArmed bool
 )
 
 // compileDefine is CompileFunc's work, without the object.
@@ -847,19 +849,6 @@ func compileDefine(name string, params []Obj, raw, form Obj) *BytecodeFunc {
 		lowerMu.Unlock()
 	}
 	return fn
-}
-
-// ArmFactoriser marks the end of boot for the factoriser: from then on,
-// rebinding anything shen.factor can reach (factorDeps) stops factorising and
-// recompiles factorised definitions, so that a rebound kernel function never
-// starts running inside the compiler. Boot itself rebinds some of them (pr, by
-// the stlib loader; shen.expt). cmd/shen calls it before it runs any user
-// code. Without it, as for an embedder that never calls it, only shen.factor
-// itself and the tests it merges are checked.
-func ArmFactoriser() {
-	lowerMu.Lock()
-	factorDepsArmed = true
-	lowerMu.Unlock()
 }
 
 // elidedThaws counts the thaw calls the compiler leaves out of form: each
@@ -924,7 +913,7 @@ func noteRebinding(s *scmSymbol) {
 		return
 	}
 	lowerMu.Lock()
-	isFactor := (factorArmed && factorSym(s)) || (factorDepsArmed && factorDeps[s.str])
+	isFactor := factorArmed && (factorSym(s) || (factorDeps[s.str] && !factorHostRebinds[s.str]))
 	if !isThaw && !isFactor {
 		lowerMu.Unlock()
 		return

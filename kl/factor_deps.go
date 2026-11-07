@@ -2,16 +2,23 @@ package kl
 
 // factorDeps is every function shen.factor can reach in the kernel, primitives
 // included: the call-position symbols of the defuns reachable from shen.factor
-// in kernel/klambda/*.kl (43.2). Once ArmFactoriser has run, rebinding any of
-// them stops factorising and recompiles factorised definitions from their raw
-// form (noteRebinding), so a
+// in kernel/klambda/*.kl (43.2). From the end of InstallKernelFast, rebinding
+// any of them (but factorHostRebinds) stops factorising and recompiles
+// factorised definitions from their raw form (noteRebinding), so a
 // rebound kernel function never starts running inside the compiler, where on
 // master it would be reached only through (factorise +).
 //
 // Regenerate after a kernel upgrade by walking the defuns from shen.factor:
 // collect each (sym ...) in call position that is not a special form or a
-// variable, and recurse into those that have a defun.
+// variable, and recurse into those that have a defun. The printer also calls
+// the vector print handlers by the symbol in a vector's slot 0, not in call
+// position, so they are added by hand: shen.printF, shen.tuple, shen.pvar,
+// shen.dictionary.
 var factorDeps = map[string]bool{
+	"shen.printF":                       true,
+	"shen.tuple":                        true,
+	"shen.pvar":                         true,
+	"shen.dictionary":                   true,
 	"*":                                 true,
 	"+":                                 true,
 	"-":                                 true,
@@ -344,3 +351,10 @@ var factorDeps = map[string]bool{
 	"y-or-n?":                           true,
 	"y/n":                               true,
 }
+
+// factorHostRebinds are rebound by cmd/shen's boot after the kernel's, with
+// natives that do the same (pr: the hush fix and the stlib loader's byte-stream
+// pr; shen.expt: the exact pow10 for the reader). Rebinding them does not stop
+// factorising, whoever does it; the factoriser reaches them only to print an
+// error or to read a number.
+var factorHostRebinds = map[string]bool{"pr": true, "shen.expt": true}
