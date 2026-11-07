@@ -252,3 +252,63 @@ func TestLowerKLLambdaFreezeHonoursThawRebinding(t *testing.T) {
 		t.Fatalf("the rebound thaw ran %s times, want 3", got)
 	}
 }
+
+// Every shape in which lowering could leave out a thaw call, compiled before
+// and after thaw is rebound to a counting wrapper (review F1v). Master calls
+// the rebound thaw once in each, except g, where (thaw (freeze E)) is written
+// literally and the compiler leaves it out on master too.
+func TestLowerKLThawShapesHonourRebinding(t *testing.T) {
+	thaw := mustSymbol(symThaw)
+	savedStd, savedFn := stdThaw, thaw.function
+	defer func() {
+		stdThaw, thaw.function = savedStd, savedFn
+		vmNoteRebind(thaw)
+		lowerAssumptions = map[string]lowerAssumption{}
+	}()
+	BindSymbolFunc(symThaw, CompileFunc("thaw", []Obj{MakeSymbol("X")}, lowerRead(t, `(X)`)))
+	stdThaw = thaw.function
+	shapes := []struct{ name, body string }{
+		{"a", `(let F (freeze (cons X X)) (let G (lambda Y (thaw Y)) (G F)))`},
+		{"b", `(let G (lambda A (lambda B (thaw B))) ((G 1) (freeze (cons X X))))`},
+		{"c", `(let G (lambda A (lambda B (cons (thaw A) B))) ((G (freeze (cons X X))) 1))`},
+		{"d", `(let G (lambda Y (lambda Z (thaw Y))) (let H (G (freeze (cons X X))) (H 1)))`},
+		{"e", `(let F (freeze (cons X X)) ((lambda Y (thaw Y)) F))`},
+		{"f", `(let G (lambda Y (if (= X 5) (thaw Y) (thaw Y))) (G (freeze (cons X X))))`},
+		{"g", `(let G (lambda Y (thaw (freeze (cons Y Y)))) (G X))`},
+		{"h", `(let G (lambda Y (freeze (cons Y Y))) (thaw (G X)))`},
+		{"i", `(let F (freeze (cons X X)) (let H F (thaw H)))`},
+		{"j", `(let G (lambda Y (cond ((= X 0) 0) (true (thaw Y)))) (G (freeze (cons X X))))`},
+		{"k", `(let F (freeze (cons X X)) (let G (lambda Y (thaw Y)) (if (= X 5) (G F) (G F))))`},
+	}
+	compile := func(prefix string) []Obj {
+		var fs []Obj
+		for _, s := range shapes {
+			fs = append(fs, CompileFunc("lower-"+prefix+s.name, []Obj{MakeSymbol("X")}, lowerRead(t, s.body)))
+		}
+		return fs
+	}
+	pre := compile("pre-")
+	var e ControlFlow
+	evalAll(t, &e, `(set lower-tc 0)`)
+	BindSymbolFunc(symThaw, CompileFunc("thaw", []Obj{MakeSymbol("F")}, lowerRead(t, `(do (set lower-tc (+ 1 (value lower-tc))) (F))`)))
+	post := compile("post-")
+	for i, s := range shapes {
+		want := "1"
+		if s.name == "g" {
+			want = "0"
+		}
+		for when, f := range map[string]Obj{"before": pre[i], "after": post[i]} {
+			evalAll(t, &e, `(set lower-tc 0)`)
+			wantv := "(5 . 5)"
+			if s.name == "c" {
+				wantv = "((5 . 5) . 1)"
+			}
+			if got := ObjString(Call(&e, f, MakeInteger(5))); got != wantv {
+				t.Errorf("%s compiled %s: result %s", s.name, when, got)
+			}
+			if got := evalAll(t, &e, `(value lower-tc)`); got != want {
+				t.Errorf("%s compiled %s the rebinding: the rebound thaw ran %s times, want %s", s.name, when, got, want)
+			}
+		}
+	}
+}

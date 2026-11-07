@@ -529,19 +529,7 @@ func (s *sinker) saturated(r Obj) (Obj, bool) {
 
 // bindParam is (let z a b), sharing the variable when a is a variable. A let of
 // one variable to another costs a load and a store and needs neither.
-//
-// A freeze bound this way becomes a let-bound freeze, which compileLet inlines
-// whatever thaw is bound to. On master the lambda receives a closure and calls
-// thaw dynamically, so that is right only while thaw is the kernel's: otherwise
-// the application is kept, and when it is not, the definition is recorded as
-// assuming thaw, to be compiled again if thaw is rebound.
 func (l *lowerer) bindParam(z, a, b Obj) Obj {
-	if ap, ok := isPairP(a); ok && ap.car == symFreeze {
-		if !thawInlinable() {
-			return cons(cons(symLambda, cons(z, cons(b, Nil))), cons(a, Nil))
-		}
-		l.assumesThaw = true
-	}
 	if IsSymbol(a) && IsSymbol(z) && a != z && !isLowerSpecial(z) && !isLowerSpecial(a) && copyPropSafe(z, a, b) {
 		return substVar(b, z, a)
 	}
@@ -823,6 +811,21 @@ var (
 // compileDefine is CompileFunc's work, without the object.
 func compileDefine(name string, params []Obj, raw, form Obj) *BytecodeFunc {
 	lowered, thaw := lowerDefine(form)
+	// The one check on thaw for everything lowering does. The compiler skips a
+	// thaw call in two places, whatever thaw is bound to: (thaw (freeze E)), and
+	// a let-bound freeze used only by thaw (compileLet). On master those come
+	// only from the source as written. Lowering can make more of them, by copy
+	// propagation, by inlining a lambda whose argument or result is a freeze, or
+	// by sinking a freeze into a branch, and the sinker removes thaws itself. So
+	// the result depends on thaw being the kernel's when it elides more thaws
+	// than the form it came from: then it is recorded, to be compiled again if
+	// thaw is rebound, and while thaw is rebound the form is compiled unlowered.
+	if !thaw && lowered != form && elidedThaws(lowered) > elidedThaws(form) {
+		thaw = true
+	}
+	if thaw && !thawInlinable() {
+		lowered, thaw = form, false
+	}
 	fn := compileFuncBody(name, params, lowered)
 	if thaw || form != raw {
 		lowerMu.Lock()
@@ -830,6 +833,41 @@ func compileDefine(name string, params []Obj, raw, form Obj) *BytecodeFunc {
 		lowerMu.Unlock()
 	}
 	return fn
+}
+
+// elidedThaws counts the thaw calls the compiler leaves out of form: each
+// (thaw (freeze E)), and each thaw of a let-bound freeze that is only thawed,
+// which compileLet inlines (walkThawUses is the rule it applies).
+func elidedThaws(form Obj) int {
+	p, isp := isPairP(form)
+	if !isp {
+		return 0
+	}
+	n := 0
+	switch p.car {
+	case symLet:
+		if a := listSlice(p.cdr); len(a) == 3 {
+			if v, ok := isPairP(a[1]); ok && v.car == symFreeze {
+				if thaws, others := walkThawUses(a[2], a[0]); others == 0 {
+					n += thaws
+				}
+			}
+		}
+	case symThaw:
+		if a := listSlice(p.cdr); len(a) == 1 {
+			if v, ok := isPairP(a[0]); ok && v.car == symFreeze {
+				n++
+			}
+		}
+	}
+	for f := form; ; {
+		q, ok := isPairP(f)
+		if !ok {
+			return n
+		}
+		n += elidedThaws(q.car)
+		f = q.cdr
+	}
 }
 
 // lowerMu guards lowerAssumptions, factorBroken and factorArmed, which defines
