@@ -3,6 +3,7 @@ package kl
 import (
 	"os"
 	"strings"
+	"sync"
 )
 
 // LowerKL rewrites a KL expression into an equivalent one that allocates fewer
@@ -697,7 +698,10 @@ func (c *klCompiler) placeThunk(thunk *inlineThunk) {
 // hand-written defun may not.
 func factorDefine(name string, params []Obj, body Obj) (out Obj) {
 	out = body
-	if lowerOff || stdFactor == nil || factorBroken {
+	lowerMu.Lock()
+	broken := factorBroken
+	lowerMu.Unlock()
+	if lowerOff || stdFactor == nil || broken {
 		return body
 	}
 	p, isp := isPairP(body)
@@ -736,6 +740,8 @@ func factorDefine(name string, params []Obj, body Obj) (out Obj) {
 	if ands < 2 {
 		return body
 	}
+	factorMu.Lock()
+	defer factorMu.Unlock()
 	gensym := mustSymbol(symGensym)
 	saved := gensym.value
 	defer func() {
@@ -819,10 +825,18 @@ func compileDefine(name string, params []Obj, raw, form Obj) *BytecodeFunc {
 	lowered, thaw := lowerDefine(form)
 	fn := compileFuncBody(name, params, lowered)
 	if thaw || form != raw {
+		lowerMu.Lock()
 		lowerAssumptions[name] = lowerAssumption{fn, params, raw, form, thaw}
+		lowerMu.Unlock()
 	}
 	return fn
 }
+
+// lowerMu guards lowerAssumptions, factorBroken and factorArmed, which defines
+// and rebindings from any goroutine share, as the symbol table's lock does for
+// interning. factorMu serialises factorDefine's use of shen.factor and its
+// save and restore of shen.*gensym*.
+var lowerMu, factorMu sync.Mutex
 
 // factorSym says whether factorised code depends on sym: the tests the
 // factoriser may merge (see factorableTest), and thaw, which runs the failure
@@ -839,20 +853,33 @@ func factorSym(s *scmSymbol) bool {
 // noteRebinding is called whenever a symbol's function changes.
 func noteRebinding(s *scmSymbol) {
 	isThaw := Obj(&s.scmHead) == symThaw
+	if !isThaw && !factorSym(s) {
+		return
+	}
+	lowerMu.Lock()
 	isFactor := factorArmed && factorSym(s)
 	if !isThaw && !isFactor {
+		lowerMu.Unlock()
 		return
 	}
 	factorBroken = factorBroken || isFactor
 	pending := lowerAssumptions
 	lowerAssumptions = map[string]lowerAssumption{}
+	lowerMu.Unlock()
+	keep := func(name string, a lowerAssumption) {
+		lowerMu.Lock()
+		if _, newer := lowerAssumptions[name]; !newer {
+			lowerAssumptions[name] = a
+		}
+		lowerMu.Unlock()
+	}
 	for name, a := range pending {
 		form := a.form
 		if isFactor {
 			form = a.raw
 		}
 		if form == a.form && !(isThaw && a.thaw) {
-			lowerAssumptions[name] = a
+			keep(name, a)
 			continue
 		}
 		nf := compileDefine(a.fn.Name, a.params, a.raw, form)
@@ -860,10 +887,12 @@ func noteRebinding(s *scmSymbol) {
 			// Never run, so there is no code to redirect and no activation to
 			// disturb. Assumptions compileDefine just noted name nf; move them.
 			*a.fn = *nf
+			lowerMu.Lock()
 			if e, ok := lowerAssumptions[name]; ok && e.fn == nf {
 				e.fn = a.fn
 				lowerAssumptions[name] = e
 			}
+			lowerMu.Unlock()
 			continue
 		}
 		a.fn.rc.redirectTo(makeBytecodeObj(nf, nil))

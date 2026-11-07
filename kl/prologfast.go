@@ -1,6 +1,9 @@
 package kl
 
-import "unsafe"
+import (
+	"sync"
+	"unsafe"
+)
 
 // Native Prolog runtime: the kernel's prolog.kl helpers that every compiled
 // defprolog clause and the type checker call, as direct natives. Each is the
@@ -21,6 +24,9 @@ var (
 	symInfs     = MakeSymbol("shen.*infs*")
 	one         = MakeInteger(1)
 
+	// prologMu guards these tables: a rebinding from any goroutine can restore
+	// the group (see vmGuardMu for the same in the VM's guard registry).
+	prologMu      sync.Mutex
 	prologNatives = map[string]Obj{}
 	prologInstall []*scmSymbol
 	prologArmed   []*scmSymbol
@@ -62,6 +68,8 @@ func makeDirect(arity int, fn any) Obj {
 // overrideProlog binds a member of the native Prolog group, remembering the
 // kernel's definition to go back to. InstallKernelFast can run more than once.
 func overrideProlog(name string, arity int, fn any) {
+	prologMu.Lock()
+	defer prologMu.Unlock()
 	s := symCell(name)
 	n, ok := prologNatives[name]
 	if !ok {
@@ -80,6 +88,8 @@ func overrideProlog(name string, arity int, fn any) {
 // the kernel's definitions. It runs last in InstallKernelFast, because install
 // itself rebinds those symbols.
 func armPrologNatives() {
+	prologMu.Lock()
+	defer prologMu.Unlock()
 	for _, s := range prologInstall {
 		s.prologDep = true
 	}
@@ -87,7 +97,9 @@ func armPrologNatives() {
 		symCell(name).prologDep = true
 	}
 	prologArmed, prologInstall = prologInstall, nil
+	lowerMu.Lock()
 	factorArmed = true
+	lowerMu.Unlock()
 }
 
 // forwardDirect makes nf run def, whichever way it is reached.
@@ -122,6 +134,8 @@ func forwardDirect(nf *scmNative, def Obj) {
 }
 
 func restorePrologKernel() {
+	prologMu.Lock()
+	defer prologMu.Unlock()
 	for _, name := range prologDeps {
 		symCell(name).prologDep = false
 	}
