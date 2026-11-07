@@ -732,16 +732,17 @@ func factorDefine(name string, params []Obj, body Obj) (out Obj) {
 	}
 	// No lock is held across the Shen call: shen.factor can reach code that
 	// defines a function and so comes back here (review N1). The gensyms it
-	// uses are given back, so later names match master's, but only by the
-	// outermost factorDefine with no other in flight on any goroutine: another
-	// one's names, or a nested one's, must not be rolled back. A Shen gensym on
-	// another goroutine in that window is not seen, as two goroutines' gensyms
-	// race with each other on master.
+	// uses are given back, so later names match master's, but only when no
+	// other factorDefine, on any goroutine or nested, started or was running
+	// while this one ran: its names must not be rolled back. A plain Shen
+	// gensym on another goroutine in that window is not seen; two goroutines'
+	// gensyms already race with each other on master (known, in the PR body).
 	solo := factorInFlight.Add(1) == 1
+	epoch := factorEpoch.Add(1)
 	gensym := mustSymbol(symGensym)
 	saved := gensym.value
 	defer func() {
-		if solo && factorInFlight.Load() == 1 {
+		if solo && factorEpoch.Load() == epoch {
 			gensym.value = saved
 		}
 		factorInFlight.Add(-1)
@@ -888,10 +889,12 @@ func elidedThaws(form Obj) int {
 
 // lowerMu guards lowerAssumptions, factorBroken and factorArmed, which defines
 // and rebindings from any goroutine share, as the symbol table's lock does for
-// interning. factorInFlight counts factorDefines running on any goroutine.
+// interning. factorInFlight counts factorDefines running on any goroutine, and
+// factorEpoch counts those started.
 var (
 	lowerMu        sync.Mutex
 	factorInFlight atomic.Int32
+	factorEpoch    atomic.Uint64
 )
 
 // factorSym says whether factorised code depends on sym: the tests the
