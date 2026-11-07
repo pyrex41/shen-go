@@ -828,11 +828,13 @@ func compileDefine(name string, params []Obj, raw, form Obj) *BytecodeFunc {
 	// a let-bound freeze used only by thaw (compileLet). On master those come
 	// only from the source as written. Lowering can make more of them, by copy
 	// propagation, by inlining a lambda whose argument or result is a freeze, or
-	// by sinking a freeze into a branch, and the sinker removes thaws itself. So
-	// the result depends on thaw being the kernel's when it elides more thaws
-	// than the form it came from: then it is recorded, to be compiled again if
-	// thaw is rebound, and while thaw is rebound the form is compiled unlowered.
-	if !thaw && lowered != form && elidedThaws(lowered) > elidedThaws(form) {
+	// by sinking a freeze into a branch, and the sinker removes thaws itself.
+	// Counts cannot tell which skipped thaw is new (dropping dead code removes
+	// one while copy propagation adds another), so a lowered form that changed
+	// and skips any thaw at all is recorded, to be compiled again if thaw is
+	// rebound, and while thaw is rebound the form is compiled unlowered. That
+	// costs nothing until thaw is rebound.
+	if !thaw && lowered != form && elidedThaws(lowered) > 0 {
 		thaw = true
 	}
 	if thaw && !thawInlinable() {

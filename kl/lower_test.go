@@ -279,6 +279,10 @@ func TestLowerKLThawShapesHonourRebinding(t *testing.T) {
 		{"i", `(let F (freeze (cons X X)) (let H F (thaw H)))`},
 		{"j", `(let G (lambda Y (cond ((= X 0) 0) (true (thaw Y)))) (G (freeze (cons X X))))`},
 		{"k", `(let F (freeze (cons X X)) (let G (lambda Y (thaw Y)) (if (= X 5) (G F) (G F))))`},
+		// Review F1x: lowering drops a dead lambda that skips a thaw, and copy
+		// propagation creates another, so the count of skipped thaws ties.
+		{"l", `(let G (lambda Y (thaw (freeze Y))) (let F (freeze (cons X X)) ((lambda Z (thaw Z)) F)))`},
+		{"m", `(let G (lambda Y (let K (freeze Y) (thaw K))) (let F (freeze (cons X X)) ((lambda Z (thaw Z)) F)))`},
 	}
 	compile := func(prefix string) []Obj {
 		var fs []Obj
