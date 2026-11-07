@@ -4,6 +4,7 @@ import (
 	"os"
 	"strings"
 	"sync"
+	"sync/atomic"
 )
 
 // LowerKL rewrites a KL expression into an equivalent one that allocates fewer
@@ -696,8 +697,9 @@ func factorDefine(name string, params []Obj, body Obj) (out Obj) {
 	if !isp || p.car != symCond {
 		return body
 	}
-	// A rebound shen.factor must not start running inside the compiler. On
-	// master it is reached only through (factorise +).
+	// A rebound shen.factor, or anything it calls (factorDeps, which sets
+	// factorBroken once ArmFactoriser has run), must not start running inside
+	// the compiler. On master it is reached only through (factorise +).
 	factor := mustSymbol(symFactor).function
 	if factor != stdFactor {
 		return body
@@ -728,12 +730,21 @@ func factorDefine(name string, params []Obj, body Obj) (out Obj) {
 	if ands < 2 {
 		return body
 	}
-	factorMu.Lock()
-	defer factorMu.Unlock()
+	// No lock is held across the Shen call: shen.factor can reach code that
+	// defines a function and so comes back here (review N1). The gensyms it
+	// uses are given back, so later names match master's, but only by the
+	// outermost factorDefine with no other in flight on any goroutine: another
+	// one's names, or a nested one's, must not be rolled back. A Shen gensym on
+	// another goroutine in that window is not seen, as two goroutines' gensyms
+	// race with each other on master.
+	solo := factorInFlight.Add(1) == 1
 	gensym := mustSymbol(symGensym)
 	saved := gensym.value
 	defer func() {
-		gensym.value = saved
+		if solo && factorInFlight.Load() == 1 {
+			gensym.value = saved
+		}
+		factorInFlight.Add(-1)
 		if r := recover(); r != nil {
 			out = body
 		}
@@ -802,10 +813,11 @@ var (
 	// long session does not keep every old body alive. An object of the old
 	// definition still held somewhere then keeps its code.
 	lowerAssumptions = map[string]lowerAssumption{}
-	// factorBroken: a test the factoriser may merge has been rebound since boot,
-	// so nothing is factorised any more. factorArmed is set at the end of boot,
-	// which binds those symbols itself.
-	factorBroken, factorArmed bool
+	// factorBroken: something factorised code or shen.factor depends on has been
+	// rebound since boot, so nothing is factorised any more. factorArmed is set
+	// at the end of InstallKernelFast, which binds thaw and the merged tests
+	// itself; factorDepsArmed by ArmFactoriser, at the end of a host's boot.
+	factorBroken, factorArmed, factorDepsArmed bool
 )
 
 // compileDefine is CompileFunc's work, without the object.
@@ -833,6 +845,19 @@ func compileDefine(name string, params []Obj, raw, form Obj) *BytecodeFunc {
 		lowerMu.Unlock()
 	}
 	return fn
+}
+
+// ArmFactoriser marks the end of boot for the factoriser: from then on,
+// rebinding anything shen.factor can reach (factorDeps) stops factorising and
+// recompiles factorised definitions, so that a rebound kernel function never
+// starts running inside the compiler. Boot itself rebinds some of them (pr, by
+// the stlib loader; shen.expt). cmd/shen calls it before it runs any user
+// code. Without it, as for an embedder that never calls it, only shen.factor
+// itself and the tests it merges are checked.
+func ArmFactoriser() {
+	lowerMu.Lock()
+	factorDepsArmed = true
+	lowerMu.Unlock()
 }
 
 // elidedThaws counts the thaw calls the compiler leaves out of form: each
@@ -872,9 +897,11 @@ func elidedThaws(form Obj) int {
 
 // lowerMu guards lowerAssumptions, factorBroken and factorArmed, which defines
 // and rebindings from any goroutine share, as the symbol table's lock does for
-// interning. factorMu serialises factorDefine's use of shen.factor and its
-// save and restore of shen.*gensym*.
-var lowerMu, factorMu sync.Mutex
+// interning. factorInFlight counts factorDefines running on any goroutine.
+var (
+	lowerMu        sync.Mutex
+	factorInFlight atomic.Int32
+)
 
 // factorSym says whether factorised code depends on sym: the tests the
 // factoriser may merge (see factorableTest), and thaw, which runs the failure
@@ -891,11 +918,11 @@ func factorSym(s *scmSymbol) bool {
 // noteRebinding is called whenever a symbol's function changes.
 func noteRebinding(s *scmSymbol) {
 	isThaw := Obj(&s.scmHead) == symThaw
-	if !isThaw && !factorSym(s) {
+	if !isThaw && !factorSym(s) && !factorDeps[s.str] {
 		return
 	}
 	lowerMu.Lock()
-	isFactor := factorArmed && factorSym(s)
+	isFactor := (factorArmed && factorSym(s)) || (factorDepsArmed && factorDeps[s.str])
 	if !isThaw && !isFactor {
 		lowerMu.Unlock()
 		return

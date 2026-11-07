@@ -281,6 +281,9 @@ func main() {
 		}
 	}
 	loadPrecompiled(&e, precompiled)
+	// Boot is over: rebinding a kernel function the factoriser uses now stops
+	// factorising (kl.ArmFactoriser).
+	kl.ArmFactoriser()
 	if len(launcherArgs) > 0 {
 		runLauncher(&e, launcherArgs)
 		return
