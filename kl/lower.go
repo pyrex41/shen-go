@@ -528,7 +528,19 @@ func (s *sinker) saturated(r Obj) (Obj, bool) {
 
 // bindParam is (let z a b), sharing the variable when a is a variable. A let of
 // one variable to another costs a load and a store and needs neither.
+//
+// A freeze bound this way becomes a let-bound freeze, which compileLet inlines
+// whatever thaw is bound to. On master the lambda receives a closure and calls
+// thaw dynamically, so that is right only while thaw is the kernel's: otherwise
+// the application is kept, and when it is not, the definition is recorded as
+// assuming thaw, to be compiled again if thaw is rebound.
 func (l *lowerer) bindParam(z, a, b Obj) Obj {
+	if ap, ok := isPairP(a); ok && ap.car == symFreeze {
+		if !thawInlinable() {
+			return cons(cons(symLambda, cons(z, cons(b, Nil))), cons(a, Nil))
+		}
+		l.assumesThaw = true
+	}
 	if IsSymbol(a) && IsSymbol(z) && a != z && !isLowerSpecial(z) && !isLowerSpecial(a) && copyPropSafe(z, a, b) {
 		return substVar(b, z, a)
 	}

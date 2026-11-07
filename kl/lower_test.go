@@ -223,3 +223,32 @@ func TestLowerKLAssumptionsDoNotGrow(t *testing.T) {
 		t.Fatalf("%d entries for one name", len(lowerAssumptions))
 	}
 }
+
+// A freeze passed to an inlined lambda becomes a let-bound freeze, which the
+// compiler inlines; a rebound thaw must still be called there, whether the
+// definition was compiled before the rebinding or after (review F1).
+func TestLowerKLLambdaFreezeHonoursThawRebinding(t *testing.T) {
+	thaw := mustSymbol(symThaw)
+	savedStd, savedFn := stdThaw, thaw.function
+	defer func() {
+		stdThaw, thaw.function = savedStd, savedFn
+		vmNoteRebind(thaw)
+		lowerAssumptions = map[string]lowerAssumption{}
+	}()
+	BindSymbolFunc(symThaw, CompileFunc("thaw", []Obj{MakeSymbol("X")}, lowerRead(t, `(X)`)))
+	stdThaw = thaw.function
+	var e ControlFlow
+	evalAll(t, &e, `(set lower-tc 0)`)
+	before := CompileFunc("lower-before", []Obj{MakeSymbol("X")}, lowerRead(t, `(let G (lambda Y (thaw Y)) (G (freeze X)))`))
+	direct := CompileFunc("lower-direct", []Obj{MakeSymbol("X")}, lowerRead(t, `((lambda Y (thaw Y)) (freeze X))`))
+	BindSymbolFunc(symThaw, CompileFunc("thaw", []Obj{MakeSymbol("F")}, lowerRead(t, `(do (set lower-tc (+ 1 (value lower-tc))) (F))`)))
+	after := CompileFunc("lower-after", []Obj{MakeSymbol("X")}, lowerRead(t, `(let G (lambda Y (thaw Y)) (G (freeze X)))`))
+	for _, f := range []Obj{before, direct, after} {
+		if got := ObjString(Call(&e, f, MakeInteger(5))); got != "5" {
+			t.Fatalf("result %s", got)
+		}
+	}
+	if got := evalAll(t, &e, `(value lower-tc)`); got != "3" {
+		t.Fatalf("the rebound thaw ran %s times, want 3", got)
+	}
+}
