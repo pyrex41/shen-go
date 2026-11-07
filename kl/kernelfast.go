@@ -1088,6 +1088,13 @@ func nativeGetRaise(e *ControlFlow, key, attr Obj, noAttrs bool) {
 // the verdicts to kl/equiv.json; adding or removing a rebinding fails that test
 // until the table is regenerated.
 func InstallKernelFast() {
+	// Its own rebindings (thaw, the Prolog group, ...) are boot, not a user
+	// rebinding a factoriser dependency: a second call must not turn
+	// factorising off. armPrologNatives arms it again at the end. A rebinding
+	// that already stopped factorising stays in force (factorBroken).
+	lowerMu.Lock()
+	factorArmed = false
+	lowerMu.Unlock()
 	BindSymbolFunc(symArity, canonicalOrMake("arity", 1, primArityFast))
 	BindSymbolFunc(MakeSymbol("fn"), MakeNative(nativeFn, 1))
 
