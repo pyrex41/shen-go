@@ -41,6 +41,21 @@
        RecordSig
        ))
 
+\\ Preserve declaration checks when precompiling load-equivalent metadata.
+\\ Computed signatures retain declare so their effects happen at runtime.
+(define expand-declare/checked
+  [declare Name Sig]
+  -> (let Abstraction (shen.prolog-abstraction (eval-kl Sig))
+       [shen.declare-with-signature Name Sig [freeze Abstraction]])
+    where (literal-signature? Sig)
+  Expr -> Expr)
+
+(define literal-signature?
+  [protect X] -> (symbol? X)
+  [cons X Y] -> (and (literal-signature? X) (literal-signature? Y))
+  [] -> true
+  X -> (or (symbol? X) (or (number? X) (or (string? X) (boolean? X)))))
+
 (define expand-lambda-entries
   [] -> []
   [F Arity | Rest] -> (append
@@ -57,6 +72,58 @@
                     (= Arity 0) []
                     true [[shen.set-lambda-form-entry
                             [cons F (shen.lambda-function [F] Arity)]]]))
+
+\\ Expand executable KL only; parameter lists, cond clauses, and literal data
+\\ have different structure. Known lists the functions supplied by this build.
+(define expand-initializer
+  Expr Known Opaque? -> (expand-initializer-h Expr [] Known Opaque?))
+
+(define expand-initializer-h
+  Expr _ _ Opaque? -> Expr where (Opaque? Expr)
+  [protect X] _ _ _ -> [protect X]
+  [defun F Params Body] _ Known Opaque?
+  -> [defun F Params (expand-initializer-h Body Params Known Opaque?)]
+  [lambda V Body] Scope Known Opaque?
+  -> [lambda V (expand-initializer-h Body [V | Scope] Known Opaque?)]
+  [let V Value Body] Scope Known Opaque?
+  -> [let V (expand-initializer-h Value Scope Known Opaque?)
+            (expand-initializer-h Body [V | Scope] Known Opaque?)]
+  [cond | Clauses] Scope Known Opaque?
+  -> [cond | (map (/. Clause (expand-initializer-clause Clause Scope Known Opaque?)) Clauses)]
+  [shen.update-lambda-table/precompiled | Args] _ _ _
+  -> [shen.update-lambda-table/precompiled | Args]
+  [declare Name Sig] Scope _ _
+  -> (expand-declare/checked [declare Name Sig])
+    where (and (empty? (intersection [declare shen.declare-with-signature
+                                        is! cons shen.newpv shen.gc] Scope))
+               (literal-in-scope? Sig Scope))
+  [update-lambda-table F N] Scope Known Opaque?
+  -> [shen.update-lambda-table/precompiled F N
+       [freeze (if (= N 0) false (shen.lambda-function [F] N))]
+       [shen.precompiled-function? F]]
+    where (and (and (symbol? F) (element? F Known))
+               (and (integer? N)
+                    (and (>= N 0)
+                         (and (not (element? F Scope))
+                              (and (not (element? update-lambda-table Scope))
+                                   (and (not (element? shen.precompiled-function? Scope))
+                                        (not (element? shen.update-lambda-table/precompiled Scope))))))))
+  [Op | Args] Scope Known Opaque?
+  -> [(expand-initializer-h Op Scope Known Opaque?)
+       | (map (/. Arg (expand-initializer-h Arg Scope Known Opaque?)) Args)]
+  X _ _ _ -> X)
+
+(define expand-initializer-clause
+  [Test Body] Scope Known Opaque?
+  -> [(expand-initializer-h Test Scope Known Opaque?)
+      (expand-initializer-h Body Scope Known Opaque?)])
+
+(define literal-in-scope?
+  [protect X] _ -> (symbol? X)
+  [cons X Y] Scope -> (and (not (element? cons Scope))
+                          (and (literal-in-scope? X Scope)
+                               (literal-in-scope? Y Scope)))
+  X Scope -> (and (literal-signature? X) (not (element? X Scope))))
 
 (define split-defuns-h
   [[defun | Defun] | Exps] (@p Defuns Other)
