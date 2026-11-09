@@ -7,7 +7,7 @@ type klCompiler struct {
 	upvals []upvalInfo // upvalues captured from outer scope
 	outer  *klCompiler // enclosing compiler (for closures)
 	hints  []TypeHint
-	thunks map[int]inlineThunk // local slot -> nonescaping freeze
+	thunks map[int]*inlineThunk // local slot -> nonescaping freeze
 	// maxTarget is the highest code index any patched jump lands on. An
 	// instruction can be fused with the next one only while nothing jumps
 	// between them, i.e. while maxTarget < len(fn.Code).
@@ -19,6 +19,10 @@ type klCompiler struct {
 type inlineThunk struct {
 	body   Obj
 	locals map[Obj]int
+	// tail is set when the let is in tail position: a tail thaw jumps to one
+	// copy of the body, placed after the let's body, instead of copying it.
+	tail  bool
+	jumps []int
 }
 
 type upvalInfo struct {
@@ -42,11 +46,15 @@ const (
 // CompileFunc compiles a KL top-level defun body to a BytecodeFunc object.
 // params is the list of parameter symbols; body is the KL expression.
 func CompileFunc(name string, params []Obj, body Obj) Obj {
+	return makeBytecodeObj(compileDefine(name, params, body, factorDefine(name, params, body)), nil)
+}
+
+func compileFuncBody(name string, params []Obj, body Obj) *BytecodeFunc {
 	c := newCompiler(name, len(params), params, nil)
 	c.compileExpr(body, true)
 	c.fn.TypeHints = append([]TypeHint(nil), c.hints...)
 	c.fn.MaxStack = maxStackDepth(c.fn.Code)
-	return makeBytecodeObj(c.fn, nil)
+	return c.fn
 }
 
 func newCompiler(name string, arity int, params []Obj, outer *klCompiler) *klCompiler {
@@ -422,11 +430,13 @@ func (c *klCompiler) compileLet(x, val, body Obj, tail bool) {
 			oldIdx, hadOld := c.locals[x]
 			slot := int(c.newLocal(x))
 			if c.thunks == nil {
-				c.thunks = make(map[int]inlineThunk)
+				c.thunks = make(map[int]*inlineThunk)
 			}
-			c.thunks[slot] = inlineThunk{body: fb, locals: captured}
+			thunk := &inlineThunk{body: fb, locals: captured, tail: tail && thaws > 1}
+			c.thunks[slot] = thunk
 			c.compileExpr(body, tail)
 			delete(c.thunks, slot)
+			c.placeThunk(thunk)
 			if hadOld {
 				c.locals[x] = oldIdx
 			} else {
@@ -453,19 +463,18 @@ func (c *klCompiler) compileLet(x, val, body Obj, tail bool) {
 }
 
 func (c *klCompiler) compileIf(cond, thenExpr, elseExpr Obj, tail bool) {
-	c.compileExpr(cond, false)
-	// Emit JUMP_FALSE with placeholder; patch after then-branch.
-	jumpFalseIdx := c.emitJumpFalse()
+	// Conditional jumps with placeholders; patch after then-branch.
+	falseJumps := c.compileTest(cond)
 	c.compileExpr(thenExpr, tail)
 	if !tail {
 		// Emit JUMP over else-branch; patch after else.
 		jumpOverIdx := c.emit(OP_JUMP, 0, 0)
-		c.patchJump(jumpFalseIdx)
+		c.patchJumps(falseJumps)
 		c.compileExpr(elseExpr, tail)
 		c.patchJump(jumpOverIdx)
 	} else {
-		// In tail position both branches already emit RETURN; just patch the false jump.
-		c.patchJump(jumpFalseIdx)
+		// In tail position both branches already emit RETURN; just patch the false jumps.
+		c.patchJumps(falseJumps)
 		c.compileExpr(elseExpr, tail)
 	}
 }
@@ -490,16 +499,15 @@ func (c *klCompiler) compileCond(clauses Obj, tail bool) {
 		return
 	}
 
-	c.compileExpr(cond, false)
-	jumpFalseIdx := c.emitJumpFalse()
+	falseJumps := c.compileTest(cond)
 	c.compileExpr(action, tail)
 	if !tail {
 		jumpOverIdx := c.emit(OP_JUMP, 0, 0)
-		c.patchJump(jumpFalseIdx)
+		c.patchJumps(falseJumps)
 		c.compileCond(rest, tail)
 		c.patchJump(jumpOverIdx)
 	} else {
-		c.patchJump(jumpFalseIdx)
+		c.patchJumps(falseJumps)
 		c.compileCond(rest, tail)
 	}
 }
@@ -696,6 +704,7 @@ func (c *klCompiler) compileCall(fn Obj, args Obj, tail bool) {
 	if IsSymbol(fn) {
 		n := guardedPrimitiveArity(fn)
 		if n != 0 && n == nArgs {
+			vmMarkGuarded(fn)
 			if n == 1 && IsSymbol(argList[0]) {
 				if kind, idx := c.resolveVar(argList[0]); kind == varLocal {
 					c.fn.Code = append(c.fn.Code, Instr{Op: OP_GP1_LOCAL, A: int32(idx), B: c.addConst(fn), C: guardedPrimID(fn) + 1})
@@ -725,6 +734,10 @@ func (c *klCompiler) compileCall(fn Obj, args Obj, tail bool) {
 		}
 		if slot, local := c.locals[argList[0]]; local && IsSymbol(argList[0]) {
 			if thunk, ok := c.thunks[slot]; ok {
+				if tail && thunk.tail {
+					thunk.jumps = append(thunk.jumps, c.emit(OP_JUMP, 0, 0))
+					return
+				}
 				locals := c.locals
 				c.locals = thunk.locals
 				c.compileExpr(thunk.body, tail)
@@ -758,6 +771,7 @@ func (c *klCompiler) compileCall(fn Obj, args Obj, tail bool) {
 
 	// ---- 1-arg intrinsics ----
 	if IsSymbol(fn) && nArgs == 1 && fn == symNot && HasCanonicalPrimitiveBinding(fn) {
+		vmMarkGuarded(fn)
 		c.compileExpr(argList[0], false)
 		c.emit(OP_NOT, 0, c.addConst(fn))
 		if tail {
@@ -769,6 +783,7 @@ func (c *klCompiler) compileCall(fn Obj, args Obj, tail bool) {
 	// ---- 2-arg arithmetic intrinsics ----
 	if IsSymbol(fn) && nArgs == 2 && HasCanonicalPrimitiveBinding(fn) {
 		if op := intrinsicOp2(fn); op != 0 {
+			vmMarkGuarded(fn)
 			if folded, ok := foldFixnum2(fn, argList[0], argList[1]); ok {
 				// Keep the original operands and symbol so rebinding after
 				// compilation still takes the dynamic path.

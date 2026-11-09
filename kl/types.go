@@ -7,6 +7,7 @@ import (
 	"strings"
 	"sync"
 	"time"
+	"unicode/utf8"
 	"unsafe"
 )
 
@@ -49,6 +50,12 @@ type scmSymbol struct {
 	// registration (package init / InstallKernelFast, single-threaded boot);
 	// read unlocked like function.
 	canonical Obj
+	// vmGuarded: compiled bytecode specializes this symbol (see vmGuardsOK).
+	vmGuarded bool
+	// kernelDef is the kernel's definition of a function in the native Prolog
+	// group, and prologDep marks the group and what it depends on (prologfast.go).
+	kernelDef Obj
+	prologDep bool
 }
 
 type scmPair struct {
@@ -119,6 +126,9 @@ type scmNative struct {
 	fn       func(*ControlFlow)
 	require  int
 	captured []Obj
+	// direct is the native's direct entry (a Direct<require>), or nil when it
+	// has only fn. See direct.go.
+	direct unsafe.Pointer
 }
 
 func MakeNative(fn func(*ControlFlow), require int, captured ...Obj) Obj {
@@ -205,7 +215,7 @@ func mustString(o Obj) string {
 }
 
 func fixnum(o Obj) int {
-	return int(uintptr(unsafe.Pointer(o))-uintptr(fixnumBaseAddr)) + fixnumMin
+	return int(uintptr(unsafe.Pointer(o))-uintptr(unsafe.Pointer(&addrForFixnum))) + fixnumMin
 }
 
 // narrowToInt converts a Shen number's float64 to a Go int, raising an
@@ -353,9 +363,11 @@ var symAdd, symSub, symMul, symLT, symLE, symGT, symGE, symNumEq, symNot Obj
 
 // Fixnum representation: small integers are encoded as pointers into a dedicated
 // sentinel byte array, costing zero heap allocation. The array's contents are
-// never read or written — only the *addresses* of its bytes are used — so the
-// array is pure virtual address space (BSS): it is never paged in and costs ~0
-// RSS regardless of size, and the GC never scans it (a [N]byte has no pointers).
+// never written, and read only when the VM tests the header of a value without
+// first ruling out a fixnum, so it is virtual address space (BSS) until then. A
+// program that does that across the whole fixnum range pages in at most the
+// whole array, 64 MiB of zeros, once. The GC never scans it (a [N]byte has no
+// pointers).
 //
 // The range is signed and centered, so the byte at offset 0 represents
 // fixnumMin. Widening from the original unsigned [0, 2^20) to a signed
@@ -372,11 +384,10 @@ const (
 	fixnumMax   = 1 << (fixnumBits - 1)    // one past the largest fixnum, i.e. 2^25
 )
 
-var addrForFixnum [fixnumCount]byte
-
-// fixnumBaseAddr is the address representing the integer fixnumMin.
-var fixnumBaseAddr = unsafe.Pointer(&addrForFixnum[0])
-var fixnumEndAddr = unsafe.Add(fixnumBaseAddr, fixnumCount)
+// The padding keeps an 8-byte header read of the last fixnums inside the array
+// (the VM tests a value's header without first ruling out a fixnum; all of these
+// bytes are zero, which is scmHeadNumber, never a pair or vector).
+var addrForFixnum [fixnumCount + 8]byte
 
 // symbolTable interns symbols by name. It used to be a byte trie whose
 // every node held [256]*trieNode (2 KiB) and a symbol of its own, so
@@ -425,6 +436,7 @@ func init() {
 	symAnd = MakeSymbol("and")
 	symOr = MakeSymbol("or")
 	symIf = MakeSymbol("if")
+	symThaw = MakeSymbol("thaw")
 	symCond = MakeSymbol("cond")
 	symTrapError = MakeSymbol("trap-error")
 	symDo = MakeSymbol("do")
@@ -444,17 +456,13 @@ func init() {
 
 func MakeInteger(v int) Obj {
 	if v >= fixnumMin && v < fixnumMax {
-		return Obj(unsafe.Pointer(unsafe.Add(fixnumBaseAddr, v-fixnumMin)))
+		return Obj(unsafe.Pointer(unsafe.Add(unsafe.Pointer(&addrForFixnum), v-fixnumMin)))
 	}
 	return makeInteger(v)
 }
 
 func isFixnum(o Obj) bool {
-	v := uintptr(unsafe.Pointer(o))
-	if v >= uintptr(fixnumBaseAddr) && v < uintptr(fixnumEndAddr) {
-		return true
-	}
-	return false
+	return uintptr(unsafe.Pointer(o))-uintptr(unsafe.Pointer(&addrForFixnum)) < fixnumCount
 }
 
 func makeInteger(v int) Obj {
@@ -529,9 +537,25 @@ func MakeVector(n int) Obj {
 }
 
 func MakeString(s string) Obj {
+	if len(s) == 1 && s[0] < utf8.RuneSelf {
+		return &asciiStrings[s[0]].scmHead
+	}
 	tmp := scmString{scmHeadString, s}
 	return &tmp.scmHead
 }
+
+// asciiStrings holds the one-character ASCII strings, so reading a string a
+// character at a time (pos, n->string, str of a digit) allocates nothing. A
+// string object is immutable and = compares strings by content, so nothing can
+// tell a shared object from a fresh one. It is a variable initializer, not an
+// init function, because other packages' and this package's init functions
+// call MakeString.
+var asciiStrings = func() (t [utf8.RuneSelf]scmString) {
+	for i := range t {
+		t[i] = scmString{scmHeadString, asciiChars[i : i+1]}
+	}
+	return t
+}()
 
 func MakeSymbol(s string) Obj {
 	return &internSymbol(s).scmHead

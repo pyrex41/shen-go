@@ -120,12 +120,32 @@ var equivKeepNative = map[string]bool{"hash": true}
 
 // EquivVocabulary describes the harness-only names a case may use.
 var EquivVocabulary = map[string]string{
-	"equiv.NAME":        "the kernel's own (defun NAME …) loaded as KL bytecode, with every kernel defun its body reaches renamed the same way; hash is the one exception and stays native",
-	"equiv.iota N":      "the list (1 2 … N)",
-	"equiv.note X":      "conses X onto (value equiv.*calls*) and returns X; this is how a case counts and orders the calls made to a function argument",
-	"equiv.native-of F": "the function object currently bound to the symbol F, which for a rebound name is the Go native",
-	"equiv.*calls*":     "the global holding the equiv.note log; setup resets it and observe compares it",
-	"equiv.*pv*":        "the global holding a fresh property dict (shen.dict) for the put, get and unput cases; both sides start from an identical fresh dict, and observe compares it",
+	"equiv.NAME":         "the kernel's own (defun NAME …) loaded as KL bytecode, with every kernel defun its body reaches renamed the same way; hash is the one exception and stays native",
+	"equiv.prolog-setup": "sets equiv.*b* to fresh Prolog bindings of 12 slots with next free slot 7, equiv.*v0* to an unbound variable, equiv.*v1* to one bound to 7, equiv.*v2* to one bound to v1, equiv.*v3* to one bound to a list of v0 and v1, equiv.*v4* to another unbound one, and shen.*infs* to 5",
+	"equiv.iota N":       "the list (1 2 … N)",
+	"equiv.note X":       "conses X onto (value equiv.*calls*) and returns X; this is how a case counts and orders the calls made to a function argument",
+	"equiv.native-of F":  "the function object currently bound to the symbol F, which for a rebound name is the Go native",
+	"equiv.*calls*":      "the global holding the equiv.note log; setup resets it and observe compares it",
+	"equiv.*pv*":         "the global holding a fresh property dict (shen.dict) for the put, get and unput cases; both sides start from an identical fresh dict, and observe compares it",
+}
+
+// prologSetup makes bindings of 12 slots, the next free one being 7, with
+// variables equiv.*v0* unbound (slot 2), equiv.*v1* bound to 7 (slot 3),
+// equiv.*v2* bound to v1 (slot 4), equiv.*v3* bound to a list holding v0 and v1
+// (slot 5), and equiv.*v4* unbound (slot 6).
+var prologSetup = []string{
+	"(set shen.*infs* 5)",
+	"(set equiv.*b* (shen.fillvector (absvector 12) 2 11 shen.-null-))",
+	"(address-> (value equiv.*b*) 0 shen.print-prolog-vector)",
+	"(address-> (value equiv.*b*) 1 7)",
+	"(set equiv.*v0* (address-> (address-> (absvector 2) 0 shen.pvar) 1 2))",
+	"(set equiv.*v1* (address-> (address-> (absvector 2) 0 shen.pvar) 1 3))",
+	"(set equiv.*v2* (address-> (address-> (absvector 2) 0 shen.pvar) 1 4))",
+	"(set equiv.*v3* (address-> (address-> (absvector 2) 0 shen.pvar) 1 5))",
+	"(set equiv.*v4* (address-> (address-> (absvector 2) 0 shen.pvar) 1 6))",
+	"(address-> (value equiv.*b*) 3 7)",
+	"(address-> (value equiv.*b*) 4 (value equiv.*v1*))",
+	"(address-> (value equiv.*b*) 5 (cons (value equiv.*v0*) (cons (value equiv.*v1*) ())))",
 }
 
 // ReadForms parses every top-level form in src.
@@ -331,6 +351,16 @@ func InstallEquivDefinitions(e *ControlFlow, dir string, names []string) ([]stri
 	}
 	BindSymbolFunc(MakeSymbol("equiv.native-of"), MakePrimitive("equiv.native-of", 1, func(f Obj) Obj {
 		return PrimFunc(f)
+	}))
+	BindSymbolFunc(MakeSymbol("equiv.prolog-setup"), MakeNative0(func(c *ControlFlow) Obj {
+		for _, src := range prologSetup {
+			form, err := ReadForm(src)
+			if err != nil {
+				panic(err)
+			}
+			evalExp(c, form, Nil)
+		}
+		return Nil
 	}))
 	BindSymbolFunc(MakeSymbol("equiv.iota"), MakePrimitive("equiv.iota", 1, func(n Obj) Obj {
 		acc := Nil

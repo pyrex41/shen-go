@@ -11,8 +11,9 @@
                         [$let X1 (parse Env Y) (parse (cons X1 Env) (rename-var X1 X Z))])
   Env [trap-error Body Handler] -> [try-catch [$lambda [] (parse Env Body)] (parse Env Handler)]
 
-  Env [or X Y] -> (parse Env [if X true [if Y true false]])
-  Env [and X Y] -> (parse Env [if X [if Y true false] false])
+  \\ The last operand is in tail position and is the result, as on the VM.
+  Env [or X Y] -> (parse Env [if X true Y])
+  Env [and X Y] -> (parse Env [if X Y false])
   Env [cond [true Action]] -> (parse Env Action)
   Env [cond [Case Action]] -> (parse Env [if Case Action [simple-error "no cond match"]])
   Env [cond [Case Action] | More] -> (parse Env [if Case Action [cond | More]])
@@ -116,14 +117,21 @@
 (define codegen
   Input -> (let Ast (parse () Input) (peval0 Ast)))
 
+\\ A file of one form is padded with (), since (do X) is X: the module thunk
+\\ would otherwise be the form itself, and a single defun loaded as a plugin
+\\ failed with "partial apply unsupported". Files of several forms are unchanged.
 (define compile-file
     Fin Fout -> (let Expr (read-file Fin)
-		     Expr1 (macroexpand [do | Expr])
+		     Expr1 (macroexpand [do | (pad-single-form Expr)])
 		     (let BC (codegen Expr1)
 			  Sink (open Fout out)
 			  Write (pr-ir BC Sink)
 			  Close (close Sink)
 			  Fout)))
+
+(define pad-single-form
+    [X] -> [X []]
+    Xs -> Xs)
 
 \\ The IR used to be serialized with (make-string "~R" BC). ~R goes through
 \\ shen.arg->str, whose first clause renders any value equal to (fail) as

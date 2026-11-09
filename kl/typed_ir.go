@@ -4,6 +4,7 @@ import (
 	"os"
 	"strings"
 	"sync/atomic"
+	"unsafe"
 )
 
 // KindSetForAnnotation translates the conventional Shen annotation names to
@@ -182,7 +183,7 @@ func HasCanonicalPrimitiveBinding(sym Obj) bool {
 	if sym == nil || isFixnum(sym) || *sym != scmHeadSymbol {
 		return false
 	}
-	s := mustSymbol(sym)
+	s := (*scmSymbol)(unsafe.Pointer(sym))
 	return s.canonical != nil && s.function == s.canonical
 }
 
@@ -219,4 +220,7 @@ func typedIRModeSlow() bool {
 
 // ResetTypedIRModeForTest clears the cached environment decision. Production
 // callers should set SHEN_GO_TYPED_IR before process startup and never reset it.
-func ResetTypedIRModeForTest() { typedIRMode.Store(0) }
+func ResetTypedIRModeForTest() {
+	typedIRMode.Store(0)
+	vmRefreshGuards()
+}

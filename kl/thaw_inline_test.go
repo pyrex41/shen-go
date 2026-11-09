@@ -21,6 +21,8 @@ func TestLocalThawControlFlow(t *testing.T) {
 		{"shadowed thunk", `(let Go (freeze 9) (+ (thaw Go) (let Go (freeze 2) (thaw Go))))`, 11},
 		{"thaw in shadowing initializer", `(let Go (freeze 9) (let Go (thaw Go) Go))`, 9},
 		{"nested thunk scopes", `(let X 9 (let Go (freeze X) (let X 2 (let Next (freeze (+ X 1)) (+ (thaw Go) (thaw Next))))))`, 12},
+		{"capture shadowed local, two jumps", `(let X 9 (let Go (freeze X) (let X 2 (if (= X 3) (thaw Go) (if (= X 2) (thaw Go) X)))))`, 9},
+		{"shadowed name, two jumps", `(let Go (freeze 9) (let R (let Go (freeze 2) (if true (+ (thaw Go) (thaw Go)) 0)) (if (= R 4) (thaw Go) (thaw Go))))`, 9},
 		{"repeated effects", `(do (set thaw-inline-counter 0) (let Go (freeze (set thaw-inline-counter (+ (value thaw-inline-counter) 1))) (do (thaw Go) (thaw Go))))`, 2},
 	}
 	for _, tt := range tests {
@@ -45,6 +47,10 @@ func TestLocalThawControlFlow(t *testing.T) {
 }
 
 func TestLocalThawRetainsEscapingClosures(t *testing.T) {
+	// This pins compileLet's own decision. LowerKL may legally do more: a
+	// freeze thawed only inside a closure can be copied into that closure.
+	lowerOff = true
+	defer func() { lowerOff = false }()
 	for _, src := range []string{
 		`(let Go (freeze 9) Go)`,
 		`(let thaw true (let Go (freeze 9) (cond (thaw Go))))`,

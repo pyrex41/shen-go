@@ -55,10 +55,14 @@ func parseInstallKernelFast(t *testing.T) []fastBinding {
 	if err != nil {
 		t.Fatal(err)
 	}
+	plf, err := parser.ParseFile(fset, "prologfast.go", nil, 0)
+	if err != nil {
+		t.Fatal(err)
+	}
 	// Where each Go identifier is declared, and its parameter count.
 	declFile := map[string]string{}
 	declArity := map[string]int{}
-	for file, f := range map[string]*ast.File{"kernelfast.go": kf, "primitives.go": pf} {
+	for file, f := range map[string]*ast.File{"kernelfast.go": kf, "primitives.go": pf, "prologfast.go": plf} {
 		for _, d := range f.Decls {
 			fd, ok := d.(*ast.FuncDecl)
 			if !ok || fd.Recv != nil {
@@ -127,7 +131,7 @@ func parseInstallKernelFast(t *testing.T) []fastBinding {
 			continue
 		}
 		switch fn.Name {
-		case "overridePrimitive", "overrideNative":
+		case "overridePrimitive", "overrideNative", "overrideDirect", "overrideProlog":
 			name, ok1 := strLit(c.Args[0])
 			arity, ok2 := intLit(c.Args[1])
 			native := calleeIdent(c.Args[2])
@@ -236,6 +240,11 @@ const (
 	kAlist
 	kNumList
 	kPropKey // key/attr/value position of a property-vector function
+	kUnused  // a parameter the function ignores
+	kPTerm   // a Prolog term over the variables finishCase sets up
+	kBindings
+	kPCont  // a Prolog continuation
+	kTicket // a ticket number: a slot of the bindings, or not
 )
 
 // rowSignature is the argument kinds each rebound function accepts. A name
@@ -300,6 +309,34 @@ var rowSignature = map[string][]kind{
 	"intersection":           {kList, kList},
 	"difference":             {kList, kList},
 	"map":                    {kFunc, kList},
+
+	"shen.lazyderef":            {kPTerm, kBindings},
+	"shen.deref":                {kPTerm, kBindings},
+	"shen.bindv":                {kPTerm, kPTerm, kBindings},
+	"shen.unwind":               {kPTerm, kBindings, kAny},
+	"shen.bind!":                {kPTerm, kPTerm, kBindings, kPCont},
+	"shen.make-prolog-variable": {kTicket},
+	"shen.nextticket":           {kBindings, kTicket},
+	"shen.newpv":                {kBindings},
+	"shen.gc":                   {kBindings, kAny},
+	"shen.ticket-number":        {kBindings},
+	"shen.decrement-ticket":     {kTicket, kBindings},
+	"shen.unlocked?":            {kBindings},
+	"shen.incinfs":              {},
+	"shen.occurs-check?":        {kPTerm, kPTerm},
+	"shen.lzy=":                 {kPTerm, kPTerm, kBindings, kPCont},
+	"shen.lzy=!":                {kPTerm, kPTerm, kBindings, kPCont},
+	"is":                        {kPTerm, kPTerm, kBindings, kUnused, kUnused, kPCont},
+	"is!":                       {kPTerm, kPTerm, kBindings, kUnused, kUnused, kPCont},
+}
+
+// prologRows are the rows that run over Prolog bindings. finishCase gives each
+// case fresh bindings, a set of variables and an observe of the bindings.
+var prologRows = map[string]bool{
+	"shen.lazyderef": true, "shen.deref": true, "shen.bindv": true, "shen.unwind": true, "shen.bind!": true,
+	"shen.make-prolog-variable": true, "shen.nextticket": true, "shen.newpv": true, "shen.gc": true,
+	"shen.ticket-number": true, "shen.decrement-ticket": true, "shen.unlocked?": true, "shen.incinfs": true,
+	"shen.occurs-check?": true, "shen.lzy=": true, "shen.lzy=!": true, "is": true, "is!": true,
 }
 
 // rowEffects lists the globals a native reads or writes, by symbol name.
@@ -348,6 +385,17 @@ var boundary = map[kind][]string{
 		"(cons (cons () 1) ())", "5"},
 	kNumList: {"()", "(cons 1 ())", "(cons 1 (cons 2.5 (cons -3 ())))", `(cons 1 (cons "a" ()))`, "(cons 1000000000000 (cons 1000000000000 ()))", "5", iota10k},
 	kPropKey: {"a", "b", "shen.x", `"str"`, "1", "1.0", "()", "(cons a (cons b ()))", "true", "arity"},
+	kPTerm: {"(value equiv.*v0*)", "(value equiv.*v1*)", "(value equiv.*v2*)", "(value equiv.*v3*)", "(value equiv.*v4*)",
+		"1", "1.0", "1.5", "foo", `"s"`, "()", "true", "false", "(cons 1 ())", "(cons 1 (cons 2 ()))", "(cons (value equiv.*v0*) ())",
+		"(cons 7 (cons (cons (value equiv.*v0*) (value equiv.*v2*)) ()))", "(cons (value equiv.*v0*) (value equiv.*v4*))",
+		"(vector 0)", "(absvector 0)", "(absvector 1)", "(address-> (absvector 1) 0 shen.pvar)",
+		"(address-> (address-> (absvector 2) 0 shen.pvar) 1 100)", "(address-> (address-> (absvector 2) 0 shen.pvar) 1 foo)",
+		"(address-> (absvector 2) 0 shen.pvar)", "(@p 1 2)", "(lambda X X)"},
+	kBindings: {"(value equiv.*b*)", "(absvector 0)", "(absvector 1)", "(vector 1)", "5", "foo", "()"},
+	kPCont: {"(freeze true)", "(freeze false)", "(freeze 1)", "(freeze (equiv.note 1))", `(freeze (simple-error "boom"))`,
+		"(freeze (do (equiv.note 1) false))", "(freeze (<-address (value equiv.*b*) 2))", "5", "foo"},
+	kTicket: {"7", "2", "0", "1", "11", "12", "-1", "1.5", "foo", "()"},
+	kUnused: {"0"},
 }
 
 // typical is the value the other parameters take while one parameter walks its
@@ -355,12 +403,17 @@ var boundary = map[kind][]string{
 var typical = map[kind]string{
 	kAny: "1", kList: "(cons 1 (cons 2 (cons 3 ())))", kString: `"abc"`, kNumber: "48", kSymbol: "foo", kVector: "(vector 3)",
 	kThunk: "(freeze 1)", kFunc: "(lambda X X)", kAlist: "(cons (cons a 1) (cons (cons b 2) ()))", kNumList: "(cons 1 (cons 2 ()))", kPropKey: "a",
+	kPTerm: "(value equiv.*v0*)", kBindings: "(value equiv.*b*)", kPCont: "(freeze true)", kTicket: "7", kUnused: "0",
 }
 
 // explicitCases are the hand-written cases for a row, including the
 // property-vector sequences. For a property row, finishCase appends the vector
 // argument and adds the observe of the vector.
 var explicitCases = map[string][]EquivCase{
+	"shen.lzy=":  unifyCases(nil),
+	"shen.lzy=!": unifyCases(nil),
+	"is":         unifyCases([]string{"0", "0"}),
+	"is!":        unifyCases([]string{"0", "0"}),
 	"reverse": {
 		{Name: "empty", Args: []string{"()"}},
 		{Name: "one", Args: []string{"(cons 1 ())"}},
@@ -465,6 +518,49 @@ var explicitCases = map[string][]EquivCase{
 	},
 }
 
+// unifyCases are unifications of lists: order of binding, failure part way
+// with its unwinding, and terms whose variable occurs in the other side. mid
+// goes between the bindings and the continuation.
+func unifyCases(mid []string) []EquivCase {
+	v0, v1, v3, v4 := "(value equiv.*v0*)", "(value equiv.*v1*)", "(value equiv.*v3*)", "(value equiv.*v4*)"
+	list := func(xs ...string) string {
+		out := "()"
+		for i := len(xs) - 1; i >= 0; i-- {
+			out = "(cons " + xs[i] + " " + out + ")"
+		}
+		return out
+	}
+	pairs := [][2]string{
+		{list(v0, v4), list("1", "2")},
+		{list("1", "2"), list(v0, v4)},
+		{list(v0, v0), list("1", "2")},
+		{list(v0, v0), list("1", "1")},
+		{list(v0, v4, "3"), list("1", "2", "4")},
+		{list(v0, list(v4, "a")), list("1", list("b", "a"))},
+		{list(v0, list(v4, "a")), list("1", list("b", "c"))},
+		{list(v1), list("7")},
+		{list(v1), list("8")},
+		{v3, list("1", "7")},
+		{v3, list(v4, v1)},
+		{v0, list(v0)},
+		{list(v0), list(list(v0))},
+		{v0, list("1", v0)},
+		{"(cons 1 " + v0 + ")", "(cons 1 (cons 2 ()))"},
+		{"(cons 1 2)", "(cons 1 3)"},
+		{list("1"), list("1", "2")},
+		{list(v0, v4), v3},
+	}
+	conts := []string{"(freeze true)", "(freeze false)", "(freeze (equiv.note (value equiv.*b*)))", "(freeze (do (equiv.note (value equiv.*b*)) false))", `(freeze (simple-error "boom"))`}
+	var out []EquivCase
+	for i, p := range pairs {
+		for j, c := range conts {
+			args := append(append([]string{p[0], p[1], "(value equiv.*b*)"}, mid...), c)
+			out = append(out, EquivCase{Name: fmt.Sprintf("list:%d:%d", i, j), Args: args})
+		}
+	}
+	return out
+}
+
 // finishCase adds the bookkeeping every case of a row needs. A property row
 // gets a fresh property dict (shen.dict, as *property-vector* is on the 42.x
 // kernel), unless the case set its own, the dict as its last argument, and the
@@ -483,6 +579,10 @@ func finishCase(row string, c EquivCase) EquivCase {
 		}
 		c.Args = append(append([]string(nil), c.Args...), "(value equiv.*pv*)")
 		c.Observe = append(c.Observe, "(value equiv.*pv*)")
+	}
+	if prologRows[row] {
+		c.Setup = append([]string{"(equiv.prolog-setup)"}, c.Setup...)
+		c.Observe = append(c.Observe, "(value equiv.*b*)", "(value shen.*infs*)")
 	}
 	all := strings.Join(c.Args, " ") + strings.Join(c.Setup, " ")
 	if strings.Contains(all, "equiv.note") {
@@ -531,6 +631,13 @@ func boundaryCases(row string, sig []kind) []EquivCase {
 			bs := boundary[sig[i]]
 			if len(bs) > n {
 				bs = bs[:n]
+			}
+			// Bad bindings raise at once and the boundary walk above has them.
+			switch sig[i] {
+			case kBindings:
+				bs = bs[:1]
+			case kPCont:
+				bs = bs[:3]
 			}
 			for _, b := range bs {
 				cross(i+1, append(acc, b))
@@ -817,6 +924,24 @@ func (g *gen) value(k kind) string {
 		return g.list(g.number, 6)
 	case kPropKey:
 		return g.pick(g.atom(), g.rawName(1, "abcxyz"), g.rawName(1, "abcxyz"))
+	case kPTerm:
+		switch g.r.Intn(4) {
+		case 0:
+			return g.atom()
+		case 1:
+			return "(cons " + g.value(kPTerm) + " " + g.value(kPTerm) + ")"
+		default:
+			return "(value equiv.*v" + strconv.Itoa(g.r.Intn(5)) + "*)"
+		}
+	case kBindings:
+		return "(value equiv.*b*)"
+	case kPCont:
+		return g.pick("(freeze true)", "(freeze false)", "(freeze (equiv.note "+g.atom()+"))", "(freeze (do (equiv.note "+g.atom()+") false))",
+			"(freeze (<-address (value equiv.*b*) "+strconv.Itoa(g.r.Intn(12))+"))")
+	case kTicket:
+		return strconv.Itoa(g.r.Intn(14) - 1)
+	case kUnused:
+		return "0"
 	}
 	return g.any(2)
 }

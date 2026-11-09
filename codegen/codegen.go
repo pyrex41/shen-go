@@ -1,10 +1,10 @@
 // Package codegen translates the bytecode IR emitted by the Shen-side
 // compiler (src/compiler.shen, via compile-file) into Go source that runs on
-// the kl runtime's trampoline. It was extracted from cmd/kl so that other
+// the kl runtime's direct calling convention (kl/direct.go). It was extracted from cmd/kl so that other
 // build tools (cmd/kl's bc->go native, cmd/yggdrasil-build) can share it.
 //
-// The emitted shape is `var <Export> = MakeNative(func(__e *ControlFlow)
-// {...}, 0)` — a 0-arity module thunk that, when Called, defun-binds every
+// The emitted shape is `var <Export> = MakeNative0(func(__e *ControlFlow) Obj
+// {...})` — a 0-arity module thunk that, when Called, defun-binds every
 // function in the compiled file and evaluates its toplevel expressions in
 // source order. The generated code references two package-level vars the
 // host package must define and set before running any thunk:
@@ -38,7 +38,7 @@ type CodeGenerator struct {
 	ScmHead int
 	declare map[kl.Obj]struct{}
 	// Sealed emits direct PrimX calls for KLambda primitives with no
-	// HasCanonicalPrimitiveBinding guard and no PrimFunc fallback. Kernel
+	// guard and no fallback to the symbol's binding. Kernel
 	// and runtime modules should set this: their call graph is a closed
 	// unit (Shen/Scheme's sealed library). User/plugin code must leave it
 	// false so (defun + ...) still reaches generated calls.
@@ -66,7 +66,7 @@ func NewSealed() *CodeGenerator {
 func (cg *CodeGenerator) HandleBody(f io.Reader, export string, out io.Writer) error {
 	fmt.Fprintf(out, "package main\n\n")
 	fmt.Fprintf(out, "import . \"github.com/pyrex41/shen-go/kl\"\n\n")
-	fmt.Fprintf(out, `var %s = MakeNative(func(__e *ControlFlow) {
+	fmt.Fprintf(out, `var %s = MakeNative0(func(__e *ControlFlow) Obj {
 `, export)
 	r := kl.NewSexpReader(f, false)
 	bc, err := r.Read()
@@ -78,7 +78,7 @@ func (cg *CodeGenerator) HandleBody(f io.Reader, export string, out io.Writer) e
 		return err
 	}
 	fmt.Fprintf(out, "\n\n")
-	fmt.Fprintf(out, "}, 0)\n\n")
+	fmt.Fprintf(out, "panic(\"unreachable\")\n})\n\n")
 	return nil
 }
 
@@ -88,13 +88,13 @@ func (cg *CodeGenerator) HandleBody(f io.Reader, export string, out io.Writer) e
 func (cg *CodeGenerator) HandleBodyObj(bc kl.Obj, export string, out io.Writer) error {
 	fmt.Fprintf(out, "package main\n\n")
 	fmt.Fprintf(out, "import . \"github.com/pyrex41/shen-go/kl\"\n\n")
-	fmt.Fprintf(out, `var %s = MakeNative(func(__e *ControlFlow) {
+	fmt.Fprintf(out, `var %s = MakeNative0(func(__e *ControlFlow) Obj {
 `, export)
 	if err := cg.generateExpr(out, bc); err != nil {
 		return err
 	}
 	fmt.Fprintf(out, "\n\n")
-	fmt.Fprintf(out, "}, 0)\n\n")
+	fmt.Fprintf(out, "panic(\"unreachable\")\n})\n\n")
 	return nil
 }
 
@@ -221,7 +221,7 @@ func (cg *CodeGenerator) generateExpr(w io.Writer, sexp kl.Obj) error {
 	case "$global":
 		sym := kl.Car(kl.Cdr(sexp))
 		cg.declare[sym] = struct{}{}
-		fmt.Fprintf(w, "PrimFunc(sym%s)", symbolAsVar(sym))
+		fmt.Fprintf(w, "SymFn(sym%s)", symbolAsVar(sym))
 	case "$const":
 		// (const Number)
 		// (const ())
@@ -235,41 +235,7 @@ func (cg *CodeGenerator) generateExpr(w io.Writer, sexp kl.Obj) error {
 		tmp := kl.Car(kl.Cdr(sexp))
 		args := kl.ListToSlice(tmp)
 		body := kl.Car(kl.Cdr(kl.Cdr(sexp)))
-		fmt.Fprintf(w, "MakeNative(func(__e *ControlFlow) {\n")
-		if hasSelfTail(body, len(args)) {
-			// A defun whose body tail-calls itself: the parameters live in
-			// __selfN, and each iteration re-declares the named variables
-			// from them, so a closure made in one iteration keeps that
-			// iteration's values.
-			fmt.Fprintf(w, "__self := __e.Get(0)\n")
-			for i := range args {
-				fmt.Fprintf(w, "__self%d := __e.Get(%d)\n", i+1, i+1)
-			}
-			fmt.Fprintf(w, "__selftop:\n")
-			for i, arg := range args {
-				fmt.Fprintf(w, "%s := __self%d\n", symbolAsVar(arg), i+1)
-				fmt.Fprintf(w, "_ = %s\n", symbolAsVar(arg))
-			}
-			cg.selfArity = append(cg.selfArity, len(args))
-			err := cg.generateExpr(w, body)
-			cg.selfArity = cg.selfArity[:len(cg.selfArity)-1]
-			if err != nil {
-				return err
-			}
-			fmt.Fprintf(w, "}, %d)", len(args))
-			return nil
-		}
-		cg.selfArity = append(cg.selfArity, -1)
-		for i, arg := range args {
-			fmt.Fprintf(w, "%s := __e.Get(%d)\n", symbolAsVar(arg), i+1)
-			fmt.Fprintf(w, "_ = %s\n", symbolAsVar(arg))
-		}
-		err := cg.generateExpr(w, body)
-		cg.selfArity = cg.selfArity[:len(cg.selfArity)-1]
-		if err != nil {
-			return err
-		}
-		fmt.Fprintf(w, "}, %d)", len(args))
+		return cg.generateLambda(w, args, body)
 	case "selftail":
 		// (selftail F a b ...): a defun's tail call of itself. While F is
 		// still bound to the running code, loop; after a redefinition (or
@@ -288,7 +254,7 @@ func (cg *CodeGenerator) generateExpr(w io.Writer, sexp kl.Obj) error {
 			argStr[i] = b.String()
 		}
 		if n := len(cg.selfArity); n > 0 && cg.selfArity[n-1] == len(args) {
-			fmt.Fprintf(w, "if PrimFunc(sym%s) == __self {\n", symbolAsVar(f))
+			fmt.Fprintf(w, "if SymFn(sym%s) == __self {\n", symbolAsVar(f))
 			if len(args) > 0 {
 				for i := range args {
 					if i > 0 {
@@ -300,11 +266,19 @@ func (cg *CodeGenerator) generateExpr(w io.Writer, sexp kl.Obj) error {
 			}
 			fmt.Fprintf(w, "__e.Tick()\ngoto __selftop\n}\n")
 		}
-		fmt.Fprintf(w, "__e.TailApply(PrimFunc(sym%s)", symbolAsVar(f))
-		for _, a := range argStr {
-			fmt.Fprintf(w, ", %s", a)
+		if len(args) <= maxDirectArity {
+			fmt.Fprintf(w, "return TailCall%d(__e, SymFn(sym%s)", len(args), symbolAsVar(f))
+			for _, a := range argStr {
+				fmt.Fprintf(w, ", %s", a)
+			}
+			fmt.Fprintf(w, ")\n")
+		} else {
+			fmt.Fprintf(w, "__e.TailApply(SymFn(sym%s)", symbolAsVar(f))
+			for _, a := range argStr {
+				fmt.Fprintf(w, ", %s", a)
+			}
+			fmt.Fprintf(w, ")\nreturn nil\n")
 		}
-		fmt.Fprintf(w, ")\nreturn\n")
 	case "if":
 		// (if a b c)
 		a := kl.Cadr(sexp)
@@ -324,9 +298,9 @@ func (cg *CodeGenerator) generateExpr(w io.Writer, sexp kl.Obj) error {
 		fmt.Fprintf(w, "var %s Obj\n", symbolAsVar(sym))
 	case "return":
 		val := kl.Cadr(sexp)
-		fmt.Fprintf(w, "__e.Return(")
+		fmt.Fprintf(w, "return ")
 		cg.generateExpr(w, val)
-		fmt.Fprintf(w, ")\nreturn\n")
+		fmt.Fprintf(w, "\n")
 	case "call":
 		// (call f a b c ...)
 		ok, err := cg.primitiveCallOptimize(w, sexp, false)
@@ -337,8 +311,12 @@ func (cg *CodeGenerator) generateExpr(w io.Writer, sexp kl.Obj) error {
 			return nil
 		}
 
-		fmt.Fprintf(w, "Call(__e, ")
 		args := kl.ListToSlice(kl.Cdr(sexp))
+		if n := len(args) - 1; n <= maxDirectArity {
+			fmt.Fprintf(w, "Call%d(__e, ", n)
+		} else {
+			fmt.Fprintf(w, "Call(__e, ")
+		}
 		for i, arg := range args {
 			if i != 0 {
 				fmt.Fprintf(w, ", ")
@@ -362,8 +340,13 @@ func (cg *CodeGenerator) generateExpr(w io.Writer, sexp kl.Obj) error {
 			return nil
 		}
 
-		fmt.Fprintf(w, "__e.TailApply(")
 		args := kl.ListToSlice(kl.Cdr(sexp))
+		direct := len(args)-1 <= maxDirectArity
+		if direct {
+			fmt.Fprintf(w, "return TailCall%d(__e, ", len(args)-1)
+		} else {
+			fmt.Fprintf(w, "__e.TailApply(")
+		}
 		for i, arg := range args {
 			if i != 0 {
 				fmt.Fprintf(w, ", ")
@@ -376,10 +359,84 @@ func (cg *CodeGenerator) generateExpr(w io.Writer, sexp kl.Obj) error {
 				}
 			}
 		}
-		fmt.Fprintf(w, ")\nreturn\n")
+		if direct {
+			fmt.Fprintf(w, ")\n")
+		} else {
+			fmt.Fprintf(w, ")\nreturn nil\n")
+		}
 	default:
 		return fmt.Errorf("unknown instruct: %s", kind)
 	}
+	return nil
+}
+
+// maxDirectArity is the highest arity with a direct entry (kl.MakeNative<N>,
+// kl.Call<N>, kl.TailCall<N>; see kl/direct.go).
+const maxDirectArity = 6
+
+// generateLambda emits a lambda. Its body always uses the direct convention:
+// `return X`, or `return TailCall<N>(...)` for a tail call. Arities up to
+// maxDirectArity get a direct entry; a higher arity is an old-convention native
+// around the same body.
+//
+// A defun whose body tail-calls itself loops while its symbol is still bound
+// to this native (__self), and otherwise makes a real tail call. The parameters
+// live in __selfN, and each iteration re-declares the named variables from
+// them, so a closure made in one iteration keeps that iteration's values.
+func (cg *CodeGenerator) generateLambda(w io.Writer, args []kl.Obj, body kl.Obj) error {
+	loop := hasSelfTail(body, len(args))
+	direct := len(args) <= maxDirectArity
+	names := make([]string, len(args))
+	for i, arg := range args {
+		if loop {
+			names[i] = fmt.Sprintf("__self%d", i+1)
+		} else {
+			names[i] = symbolAsVar(arg)
+		}
+	}
+	if loop && direct {
+		// A direct entry has no ctl.data[pos] to find itself in.
+		fmt.Fprint(w, "(func() Obj {\nvar __self Obj\n__self = ")
+	}
+	if direct {
+		fmt.Fprintf(w, "MakeNative%d(func(__e *ControlFlow", len(args))
+		if len(args) > 0 {
+			fmt.Fprintf(w, ", %s Obj", strings.Join(names, ", "))
+		}
+		fmt.Fprint(w, ") Obj {\n")
+	} else {
+		fmt.Fprint(w, "MakeNative(func(__e *ControlFlow) {\n")
+		if loop {
+			fmt.Fprint(w, "__self := __e.Get(0)\n")
+		}
+		for i, name := range names {
+			fmt.Fprintf(w, "%s := __e.Get(%d)\n", name, i+1)
+		}
+		fmt.Fprint(w, "__e.ReturnDirect(func() Obj {\n")
+	}
+	if loop {
+		fmt.Fprint(w, "__selftop:\n")
+		for i, arg := range args {
+			fmt.Fprintf(w, "%s := __self%d\n_ = %s\n", symbolAsVar(arg), i+1, symbolAsVar(arg))
+		}
+		cg.selfArity = append(cg.selfArity, len(args))
+	} else {
+		cg.selfArity = append(cg.selfArity, -1)
+	}
+	err := cg.generateExpr(w, body)
+	cg.selfArity = cg.selfArity[:len(cg.selfArity)-1]
+	if err != nil {
+		return err
+	}
+	fmt.Fprint(w, "panic(\"unreachable\")\n")
+	if direct {
+		fmt.Fprint(w, "})")
+		if loop {
+			fmt.Fprint(w, "\nreturn __self\n})()")
+		}
+		return nil
+	}
+	fmt.Fprintf(w, "}())\n}, %d)", len(args))
 	return nil
 }
 
@@ -867,13 +924,16 @@ func (cg *CodeGenerator) primitiveCallOptimize(w io.Writer, sexp kl.Obj, tail bo
 	// fallback. The kernel happens to declare every primitive's symbol
 	// elsewhere; a small plugin that only uses, say, cons? does not.
 	cg.declare[global] = struct{}{}
+	if allAtoms(args) {
+		return cg.emitGuardedAtoms(w, str, primName, global, args, tail)
+	}
 	// Scalar lowering is valid only while the global still has its canonical
 	// primitive binding.  Generated code must retain the dynamic fallback: a
 	// Shen program may redefine a primitive before invoking compiled code.
 	guarded := scalarPrimitive[str]
 	if guarded {
 		if tail {
-			fmt.Fprint(w, "__e.Return(")
+			fmt.Fprint(w, "return ")
 		}
 		fmt.Fprint(w, "(func() Obj {\n")
 		fmt.Fprintf(w, "if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym%s) {\n", symbolAsVar(global))
@@ -951,13 +1011,13 @@ func (cg *CodeGenerator) primitiveCallOptimize(w io.Writer, sexp kl.Obj, tail bo
 			}
 			fmt.Fprintln(w)
 		}
-		fmt.Fprintf(w, "return Call(__e, PrimFunc(sym%s)", symbolAsVar(global))
+		fmt.Fprintf(w, "return Call%s(__e, SymFn(sym%s)", arityDigits(len(args)), symbolAsVar(global))
 		for i := range args {
 			fmt.Fprintf(w, ", __typedArg%d", i)
 		}
 		fmt.Fprint(w, ")\n})()")
 		if tail {
-			fmt.Fprintln(w, ")\nreturn")
+			fmt.Fprintln(w)
 		}
 		return true, nil
 	}
@@ -967,7 +1027,7 @@ func (cg *CodeGenerator) primitiveCallOptimize(w io.Writer, sexp kl.Obj, tail bo
 	// exactly one selected path.
 	if !guarded {
 		if tail {
-			fmt.Fprint(w, "__e.Return(")
+			fmt.Fprint(w, "return ")
 		}
 		fmt.Fprint(w, "(func() Obj {\n")
 		fmt.Fprintf(w, "if TypedIREnabled() && HasCanonicalPrimitiveBinding(sym%s) {\n", symbolAsVar(global))
@@ -992,13 +1052,13 @@ func (cg *CodeGenerator) primitiveCallOptimize(w io.Writer, sexp kl.Obj, tail bo
 			}
 			fmt.Fprintln(w)
 		}
-		fmt.Fprintf(w, "return Call(__e, PrimFunc(sym%s)", symbolAsVar(global))
+		fmt.Fprintf(w, "return Call%s(__e, SymFn(sym%s)", arityDigits(len(args)), symbolAsVar(global))
 		for i := range args {
 			fmt.Fprintf(w, ", __typedArg%d", i)
 		}
 		fmt.Fprint(w, ")\n})()")
 		if tail {
-			fmt.Fprint(w, ")\nreturn\n")
+			fmt.Fprint(w, "\n")
 		}
 		return true, nil
 	}
@@ -1008,7 +1068,7 @@ func (cg *CodeGenerator) primitiveCallOptimize(w io.Writer, sexp kl.Obj, tail bo
 
 func (cg *CodeGenerator) emitDirectPrimitive(w io.Writer, primName string, args []kl.Obj, tail bool) (bool, error) {
 	if tail {
-		fmt.Fprint(w, "__e.Return(")
+		fmt.Fprint(w, "return ")
 	}
 	fmt.Fprintf(w, "%s(", primName)
 	for i, arg := range args {
@@ -1023,7 +1083,64 @@ func (cg *CodeGenerator) emitDirectPrimitive(w io.Writer, primName string, args 
 	}
 	fmt.Fprint(w, ")")
 	if tail {
-		fmt.Fprint(w, ")\nreturn\n")
+		fmt.Fprint(w, "\n")
+	}
+	return true, nil
+}
+
+// allAtoms reports whether every argument is a variable or a constant, so that
+// evaluating them cannot run code and it does not matter that a helper's guard
+// comes after them.
+func allAtoms(args []kl.Obj) bool {
+	for _, a := range args {
+		if kl.IsSymbol(a) {
+			continue
+		}
+		if kl.PrimIsPair(a) != kl.False && kl.Car(a) == symConst {
+			continue
+		}
+		return false
+	}
+	return true
+}
+
+func arityDigits(n int) string {
+	if n <= maxDirectArity {
+		return strconv.Itoa(n)
+	}
+	return ""
+}
+
+// guardedHelper names the kl helper that guards and runs a hot primitive.
+var guardedHelper = map[string]string{
+	"=": "GEq", "hd": "GHd", "tl": "GTl", "cons": "GCons", "cons?": "GConsP", "not": "GNot",
+	"+": "GAdd", "-": "GSub", "*": "GMul", "/": "GDiv",
+	"<": "GLt", "<=": "GLe", ">": "GGt", ">=": "GGe",
+	"<-address": "GVecGet", "address->": "GVecSet", "absvector?": "GVectorP", "value": "GValue",
+}
+
+// emitGuardedAtoms emits a guarded primitive whose arguments are atoms as a
+// call of a kl helper, which holds the guard and the dynamic fallback.
+func (cg *CodeGenerator) emitGuardedAtoms(w io.Writer, name, primName string, global kl.Obj, args []kl.Obj, tail bool) (bool, error) {
+	if tail {
+		fmt.Fprint(w, "return ")
+	}
+	if h, ok := guardedHelper[name]; ok {
+		fmt.Fprintf(w, "%s(__e", h)
+	} else {
+		fmt.Fprintf(w, "PrimGuard%d(__e, sym%s, %s", len(args), symbolAsVar(global), primName)
+	}
+	for _, arg := range args {
+		fmt.Fprint(w, ", ")
+		if kl.IsSymbol(arg) {
+			fmt.Fprint(w, symbolAsVar(arg))
+		} else if err := cg.generateExpr(w, arg); err != nil {
+			return true, err
+		}
+	}
+	fmt.Fprint(w, ")")
+	if tail {
+		fmt.Fprint(w, "\n")
 	}
 	return true, nil
 }

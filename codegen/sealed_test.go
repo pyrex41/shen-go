@@ -15,14 +15,12 @@ func TestSealedPrimitiveCallHasNoDynamicFallback(t *testing.T) {
 	if err := NewSealed().generateExpr(&sealed, form); err != nil {
 		t.Fatal(err)
 	}
-	if !strings.Contains(open.String(), "HasCanonicalPrimitiveBinding") {
+	// GCons holds the guard and the fallback to the symbol's binding (kl/guarded.go).
+	if !strings.Contains(open.String(), "GCons(__e, ") {
 		t.Fatalf("open codegen should guard cons:\n%s", open.String())
 	}
-	if !strings.Contains(open.String(), "Call(__e, PrimFunc") {
-		t.Fatalf("open codegen should fall back to PrimFunc:\n%s", open.String())
-	}
 	s := sealed.String()
-	if strings.Contains(s, "HasCanonicalPrimitiveBinding") || strings.Contains(s, "PrimFunc") {
+	if strings.Contains(s, "GCons") || strings.Contains(s, "HasCanonicalPrimitiveBinding") || strings.Contains(s, "SymFn") {
 		t.Fatalf("sealed cons should be a direct PrimCons with no guard:\n%s", s)
 	}
 	if !strings.Contains(s, "PrimCons(") {
@@ -37,7 +35,7 @@ func TestSealedPlusIsDirectPrimNotCall(t *testing.T) {
 		t.Fatal(err)
 	}
 	s := got.String()
-	if strings.Contains(s, "HasCanonicalPrimitiveBinding") || strings.Contains(s, "PrimFunc") {
+	if strings.Contains(s, "GCons") || strings.Contains(s, "HasCanonicalPrimitiveBinding") || strings.Contains(s, "SymFn") {
 		t.Fatalf("sealed + still has dynamic dispatch:\n%s", s)
 	}
 	if !strings.Contains(s, "PrimNumberAdd(") {
