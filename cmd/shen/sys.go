@@ -3,64 +3,64 @@ package main
 import . "github.com/pyrex41/shen-go/kl"
 
 var SysMain = MakeNative0(func(__e *ControlFlow) Obj {
-tmp1207 := MakeNative1(func(__e *ControlFlow, V3825 Obj) Obj {
-return TailCall0(__e, V3825)
+tmp1210 := MakeNative1(func(__e *ControlFlow, V3830 Obj) Obj {
+return TailCall0(__e, V3830)
 panic("unreachable")
 })
 
-tmp1208 := Call2(__e, ns2_1set, symthaw, tmp1207)
+tmp1211 := Call2(__e, ns2_1set, symthaw, tmp1210)
 
 
-_ = tmp1208
+_ = tmp1211
 
-tmp1209 := MakeNative1(func(__e *ControlFlow, V3826 Obj) Obj {
-tmp1210 := Call1(__e, SymFn(symmacroexpand), V3826)
-
-
-tmp1211 := Call1(__e, SymFn(symshen_4find_1types), V3826)
+tmp1212 := MakeNative1(func(__e *ControlFlow, V3831 Obj) Obj {
+tmp1213 := Call1(__e, SymFn(symmacroexpand), V3831)
 
 
-tmp1212 := Call2(__e, SymFn(symshen_4process_1applications), tmp1210, tmp1211)
+tmp1214 := Call1(__e, SymFn(symshen_4find_1types), V3831)
 
 
-tmp1213 := Call1(__e, SymFn(symshen_4shen_1_6kl), tmp1212)
+tmp1215 := Call2(__e, SymFn(symshen_4process_1applications), tmp1213, tmp1214)
 
 
-return TailCall1(__e, SymFn(symeval_1kl), tmp1213)
+tmp1216 := Call1(__e, SymFn(symshen_4shen_1_6kl), tmp1215)
+
+
+return TailCall1(__e, SymFn(symeval_1kl), tmp1216)
 
 
 panic("unreachable")
 })
 
-tmp1214 := Call2(__e, ns2_1set, symeval, tmp1209)
+tmp1217 := Call2(__e, ns2_1set, symeval, tmp1212)
 
 
-_ = tmp1214
+_ = tmp1217
 
-tmp1215 := MakeNative1(func(__e *ControlFlow, V3827 Obj) Obj {
-tmp1222 := GEq(__e, symnull, V3827)
+tmp1218 := MakeNative1(func(__e *ControlFlow, V3832 Obj) Obj {
+tmp1225 := GEq(__e, symnull, V3832)
 
-if True == tmp1222 {
+if True == tmp1225 {
 return Nil
 } else {
-tmp1216 := MakeNative0(func(__e *ControlFlow) Obj {
-tmp1217 := GValue(__e, sym_dproperty_1vector_d)
+tmp1219 := MakeNative0(func(__e *ControlFlow) Obj {
+tmp1220 := GValue(__e, sym_dproperty_1vector_d)
 
-return TailCall3(__e, SymFn(symget), V3827, symshen_4external_1symbols, tmp1217)
+return TailCall3(__e, SymFn(symget), V3832, symshen_4external_1symbols, tmp1220)
 
 
 panic("unreachable")
 })
 
-tmp1218 := MakeNative1(func(__e *ControlFlow, Z3828 Obj) Obj {
-tmp1219 := Call3(__e, SymFn(symshen_4app), V3827, MakeString(" does not exist.\n;"), symshen_4a)
+tmp1221 := MakeNative1(func(__e *ControlFlow, Z3833 Obj) Obj {
+tmp1222 := Call3(__e, SymFn(symshen_4app), V3832, MakeString(" does not exist.\n;"), symshen_4a)
 
 
 return (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symsimple_1error) {
-return PrimSimpleError(PrimGuard2(__e, symcn, PrimStringConcat, MakeString("package "), tmp1219))
+return PrimSimpleError(PrimGuard2(__e, symcn, PrimStringConcat, MakeString("package "), tmp1222))
 }
-__typedArg0 := PrimGuard2(__e, symcn, PrimStringConcat, MakeString("package "), tmp1219)
+__typedArg0 := PrimGuard2(__e, symcn, PrimStringConcat, MakeString("package "), tmp1222)
 return Call1(__e, SymFn(symsimple_1error), __typedArg0)
 })()
 
@@ -68,7 +68,7 @@ return Call1(__e, SymFn(symsimple_1error), __typedArg0)
 panic("unreachable")
 })
 
-return TailCall2(__e, try_1catch, tmp1216, tmp1218)
+return TailCall2(__e, try_1catch, tmp1219, tmp1221)
 
 
 }
@@ -77,35 +77,35 @@ return TailCall2(__e, try_1catch, tmp1216, tmp1218)
 panic("unreachable")
 })
 
-tmp1223 := Call2(__e, ns2_1set, symexternal, tmp1215)
+tmp1226 := Call2(__e, ns2_1set, symexternal, tmp1218)
 
 
-_ = tmp1223
+_ = tmp1226
 
-tmp1224 := MakeNative1(func(__e *ControlFlow, V3829 Obj) Obj {
-tmp1231 := GEq(__e, symnull, V3829)
+tmp1227 := MakeNative1(func(__e *ControlFlow, V3834 Obj) Obj {
+tmp1234 := GEq(__e, symnull, V3834)
 
-if True == tmp1231 {
+if True == tmp1234 {
 return Nil
 } else {
-tmp1225 := MakeNative0(func(__e *ControlFlow) Obj {
-tmp1226 := GValue(__e, sym_dproperty_1vector_d)
+tmp1228 := MakeNative0(func(__e *ControlFlow) Obj {
+tmp1229 := GValue(__e, sym_dproperty_1vector_d)
 
-return TailCall3(__e, SymFn(symget), V3829, symshen_4internal_1symbols, tmp1226)
+return TailCall3(__e, SymFn(symget), V3834, symshen_4internal_1symbols, tmp1229)
 
 
 panic("unreachable")
 })
 
-tmp1227 := MakeNative1(func(__e *ControlFlow, Z3830 Obj) Obj {
-tmp1228 := Call3(__e, SymFn(symshen_4app), V3829, MakeString(" does not exist.\n;"), symshen_4a)
+tmp1230 := MakeNative1(func(__e *ControlFlow, Z3835 Obj) Obj {
+tmp1231 := Call3(__e, SymFn(symshen_4app), V3834, MakeString(" does not exist.\n;"), symshen_4a)
 
 
 return (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symsimple_1error) {
-return PrimSimpleError(PrimGuard2(__e, symcn, PrimStringConcat, MakeString("package "), tmp1228))
+return PrimSimpleError(PrimGuard2(__e, symcn, PrimStringConcat, MakeString("package "), tmp1231))
 }
-__typedArg0 := PrimGuard2(__e, symcn, PrimStringConcat, MakeString("package "), tmp1228)
+__typedArg0 := PrimGuard2(__e, symcn, PrimStringConcat, MakeString("package "), tmp1231)
 return Call1(__e, SymFn(symsimple_1error), __typedArg0)
 })()
 
@@ -113,7 +113,7 @@ return Call1(__e, SymFn(symsimple_1error), __typedArg0)
 panic("unreachable")
 })
 
-return TailCall2(__e, try_1catch, tmp1225, tmp1227)
+return TailCall2(__e, try_1catch, tmp1228, tmp1230)
 
 
 }
@@ -122,159 +122,159 @@ return TailCall2(__e, try_1catch, tmp1225, tmp1227)
 panic("unreachable")
 })
 
-tmp1232 := Call2(__e, ns2_1set, syminternal, tmp1224)
+tmp1235 := Call2(__e, ns2_1set, syminternal, tmp1227)
 
 
-_ = tmp1232
+_ = tmp1235
 
-tmp1233 := MakeNative2(func(__e *ControlFlow, V3831, V3832 Obj) Obj {
-tmp1235 := Call1(__e, V3831, V3832)
+tmp1236 := MakeNative2(func(__e *ControlFlow, V3836, V3837 Obj) Obj {
+tmp1238 := Call1(__e, V3836, V3837)
 
 
-if True == tmp1235 {
+if True == tmp1238 {
 return TailCall0(__e, SymFn(symfail))
 } else {
-return V3832
+return V3837
 }
 
 
 panic("unreachable")
 })
 
-tmp1236 := Call2(__e, ns2_1set, symfail_1if, tmp1233)
+tmp1239 := Call2(__e, ns2_1set, symfail_1if, tmp1236)
 
 
-_ = tmp1236
+_ = tmp1239
 
-tmp1237 := MakeNative2(func(__e *ControlFlow, V3833, V3834 Obj) Obj {
-return PrimGuard2(__e, symcn, PrimStringConcat, V3833, V3834)
+tmp1240 := MakeNative2(func(__e *ControlFlow, V3838, V3839 Obj) Obj {
+return PrimGuard2(__e, symcn, PrimStringConcat, V3838, V3839)
 panic("unreachable")
 })
 
-tmp1238 := Call2(__e, ns2_1set, sym_8s, tmp1237)
+tmp1241 := Call2(__e, ns2_1set, sym_8s, tmp1240)
 
 
-_ = tmp1238
+_ = tmp1241
 
-tmp1239 := MakeNative0(func(__e *ControlFlow) Obj {
+tmp1242 := MakeNative0(func(__e *ControlFlow) Obj {
 return GValue(__e, symshen_4_dtc_d)
 panic("unreachable")
 })
 
-tmp1240 := Call2(__e, ns2_1set, symtc_2, tmp1239)
+tmp1243 := Call2(__e, ns2_1set, symtc_2, tmp1242)
 
 
-_ = tmp1240
+_ = tmp1243
 
-tmp1241 := MakeNative0(func(__e *ControlFlow) Obj {
+tmp1244 := MakeNative0(func(__e *ControlFlow) Obj {
 return GValue(__e, symshen_4_doccurs_d)
 panic("unreachable")
 })
 
-tmp1242 := Call2(__e, ns2_1set, symoccurs_2, tmp1241)
+tmp1245 := Call2(__e, ns2_1set, symoccurs_2, tmp1244)
 
 
-_ = tmp1242
+_ = tmp1245
 
-tmp1243 := MakeNative0(func(__e *ControlFlow) Obj {
+tmp1246 := MakeNative0(func(__e *ControlFlow) Obj {
 return GValue(__e, symshen_4_dfactorise_2_d)
 panic("unreachable")
 })
 
-tmp1244 := Call2(__e, ns2_1set, symfactorise_2, tmp1243)
+tmp1247 := Call2(__e, ns2_1set, symfactorise_2, tmp1246)
 
 
-_ = tmp1244
+_ = tmp1247
 
-tmp1245 := MakeNative0(func(__e *ControlFlow) Obj {
+tmp1248 := MakeNative0(func(__e *ControlFlow) Obj {
 return GValue(__e, symshen_4_dtracking_d)
 panic("unreachable")
 })
 
-tmp1246 := Call2(__e, ns2_1set, symtracked, tmp1245)
+tmp1249 := Call2(__e, ns2_1set, symtracked, tmp1248)
 
 
-_ = tmp1246
+_ = tmp1249
 
-tmp1247 := MakeNative1(func(__e *ControlFlow, V3835 Obj) Obj {
-tmp1248 := MakeNative0(func(__e *ControlFlow) Obj {
-tmp1249 := GValue(__e, sym_dproperty_1vector_d)
+tmp1250 := MakeNative1(func(__e *ControlFlow, V3840 Obj) Obj {
+tmp1251 := MakeNative0(func(__e *ControlFlow) Obj {
+tmp1252 := GValue(__e, sym_dproperty_1vector_d)
 
-return TailCall3(__e, SymFn(symget), V3835, symshen_4source, tmp1249)
-
-
-panic("unreachable")
-})
-
-tmp1250 := MakeNative1(func(__e *ControlFlow, Z3836 Obj) Obj {
-tmp1251 := Call3(__e, SymFn(symshen_4app), V3835, MakeString(" not found.\n"), symshen_4a)
-
-
-return PrimGuard1(__e, symsimple_1error, PrimSimpleError, tmp1251)
+return TailCall3(__e, SymFn(symget), V3840, symshen_4source, tmp1252)
 
 
 panic("unreachable")
 })
 
-return TailCall2(__e, try_1catch, tmp1248, tmp1250)
+tmp1253 := MakeNative1(func(__e *ControlFlow, Z3841 Obj) Obj {
+tmp1254 := Call3(__e, SymFn(symshen_4app), V3840, MakeString(" not found.\n"), symshen_4a)
+
+
+return PrimGuard1(__e, symsimple_1error, PrimSimpleError, tmp1254)
 
 
 panic("unreachable")
 })
 
-tmp1252 := Call2(__e, ns2_1set, symps, tmp1247)
+return TailCall2(__e, try_1catch, tmp1251, tmp1253)
 
 
-_ = tmp1252
+panic("unreachable")
+})
 
-tmp1253 := MakeNative0(func(__e *ControlFlow) Obj {
+tmp1255 := Call2(__e, ns2_1set, symps, tmp1250)
+
+
+_ = tmp1255
+
+tmp1256 := MakeNative0(func(__e *ControlFlow) Obj {
 return GValue(__e, sym_dstinput_d)
 panic("unreachable")
 })
 
-tmp1254 := Call2(__e, ns2_1set, symstinput, tmp1253)
+tmp1257 := Call2(__e, ns2_1set, symstinput, tmp1256)
 
 
-_ = tmp1254
+_ = tmp1257
 
-tmp1255 := MakeNative1(func(__e *ControlFlow, V3837 Obj) Obj {
-tmp1257 := (func() Obj {
+tmp1258 := MakeNative1(func(__e *ControlFlow, V3842 Obj) Obj {
+tmp1260 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symabsvector) {
-return PrimAbsvector(GAdd(__e, V3837, MakeInteger(1)))
+return PrimAbsvector(GAdd(__e, V3842, MakeInteger(1)))
 }
-__typedArg0 := GAdd(__e, V3837, MakeInteger(1))
+__typedArg0 := GAdd(__e, V3842, MakeInteger(1))
 return Call1(__e, SymFn(symabsvector), __typedArg0)
 })()
 
-let__1164 := tmp1257
+let__1164 := tmp1260
 _ = let__1164
 
-tmp1258 := GVecSet(__e, let__1164, MakeInteger(0), V3837)
+tmp1261 := GVecSet(__e, let__1164, MakeInteger(0), V3842)
 
-let__1165 := tmp1258
+let__1165 := tmp1261
 _ = let__1165
 
-tmp1262 := GEq(__e, V3837, MakeInteger(0))
+tmp1265 := GEq(__e, V3842, MakeInteger(0))
 
-var ifres1259 Obj
+var ifres1262 Obj
 
-if True == tmp1262 {
-ifres1259 = let__1165
+if True == tmp1265 {
+ifres1262 = let__1165
 
 
 } else {
-tmp1260 := Call0(__e, SymFn(symfail))
+tmp1263 := Call0(__e, SymFn(symfail))
 
 
-tmp1261 := Call4(__e, SymFn(symshen_4fillvector), let__1165, MakeInteger(1), V3837, tmp1260)
+tmp1264 := Call4(__e, SymFn(symshen_4fillvector), let__1165, MakeInteger(1), V3842, tmp1263)
 
 
-ifres1259 = tmp1261
+ifres1262 = tmp1264
 
 
 }
 
-let__1166 := ifres1259
+let__1166 := ifres1262
 _ = let__1166
 
 return let__1166
@@ -283,36 +283,36 @@ return let__1166
 panic("unreachable")
 })
 
-tmp1263 := Call2(__e, ns2_1set, symvector, tmp1255)
+tmp1266 := Call2(__e, ns2_1set, symvector, tmp1258)
 
 
-_ = tmp1263
+_ = tmp1266
 
-tmp1264 := (func() Obj {
+tmp1267 := (func() Obj {
 var __self Obj
 __self = MakeNative4(func(__e *ControlFlow, __self1, __self2, __self3, __self4 Obj) Obj {
 __selftop:
-V3842 := __self1
-_ = V3842
-V3843 := __self2
-_ = V3843
-V3844 := __self3
-_ = V3844
-V3845 := __self4
-_ = V3845
-tmp1268 := GEq(__e, V3843, V3844)
+V3847 := __self1
+_ = V3847
+V3848 := __self2
+_ = V3848
+V3849 := __self3
+_ = V3849
+V3850 := __self4
+_ = V3850
+tmp1271 := GEq(__e, V3848, V3849)
 
-if True == tmp1268 {
-return GVecSet(__e, V3842, V3844, V3845)
+if True == tmp1271 {
+return GVecSet(__e, V3847, V3849, V3850)
 } else {
-tmp1265 := GVecSet(__e, V3842, V3843, V3845)
+tmp1268 := GVecSet(__e, V3847, V3848, V3850)
 
 if SymFn(symshen_4fillvector) == __self {
-__self1, __self2, __self3, __self4 = tmp1265, GAdd(__e, MakeInteger(1), V3843), V3844, V3845
+__self1, __self2, __self3, __self4 = tmp1268, GAdd(__e, MakeInteger(1), V3848), V3849, V3850
 __e.Tick()
 goto __selftop
 }
-return TailCall4(__e, SymFn(symshen_4fillvector), tmp1265, GAdd(__e, MakeInteger(1), V3843), V3844, V3845)
+return TailCall4(__e, SymFn(symshen_4fillvector), tmp1268, GAdd(__e, MakeInteger(1), V3848), V3849, V3850)
 
 
 }
@@ -323,34 +323,34 @@ panic("unreachable")
 return __self
 })()
 
-tmp1269 := Call2(__e, ns2_1set, symshen_4fillvector, tmp1264)
+tmp1272 := Call2(__e, ns2_1set, symshen_4fillvector, tmp1267)
 
 
-_ = tmp1269
+_ = tmp1272
 
-tmp1270 := MakeNative1(func(__e *ControlFlow, V3846 Obj) Obj {
-tmp1277 := GVectorP(__e, V3846)
+tmp1273 := MakeNative1(func(__e *ControlFlow, V3851 Obj) Obj {
+tmp1280 := GVectorP(__e, V3851)
 
-if True == tmp1277 {
-tmp1271 := MakeNative0(func(__e *ControlFlow) Obj {
-return GVecGet(__e, V3846, MakeInteger(0))
+if True == tmp1280 {
+tmp1274 := MakeNative0(func(__e *ControlFlow) Obj {
+return GVecGet(__e, V3851, MakeInteger(0))
 panic("unreachable")
 })
 
-tmp1272 := MakeNative1(func(__e *ControlFlow, Z3848 Obj) Obj {
+tmp1275 := MakeNative1(func(__e *ControlFlow, Z3853 Obj) Obj {
 return MakeInteger(-1)
 panic("unreachable")
 })
 
-tmp1273 := Call2(__e, try_1catch, tmp1271, tmp1272)
+tmp1276 := Call2(__e, try_1catch, tmp1274, tmp1275)
 
 
-let__1167 := tmp1273
+let__1167 := tmp1276
 _ = let__1167
 
-tmp1275 := PrimGuard1(__e, symnumber_2, PrimIsNumber, let__1167)
+tmp1278 := PrimGuard1(__e, symnumber_2, PrimIsNumber, let__1167)
 
-if True == tmp1275 {
+if True == tmp1278 {
 return GGe(__e, let__1167, MakeInteger(0))
 } else {
 return False
@@ -365,46 +365,46 @@ return False
 panic("unreachable")
 })
 
-tmp1278 := Call2(__e, ns2_1set, symvector_2, tmp1270)
+tmp1281 := Call2(__e, ns2_1set, symvector_2, tmp1273)
 
 
-_ = tmp1278
+_ = tmp1281
 
-tmp1279 := MakeNative3(func(__e *ControlFlow, V3849, V3850, V3851 Obj) Obj {
-tmp1281 := GEq(__e, V3850, MakeInteger(0))
+tmp1282 := MakeNative3(func(__e *ControlFlow, V3854, V3855, V3856 Obj) Obj {
+tmp1284 := GEq(__e, V3855, MakeInteger(0))
 
-if True == tmp1281 {
+if True == tmp1284 {
 return PrimGuard1(__e, symsimple_1error, PrimSimpleError, MakeString("cannot access 0th element of a vector\n"))
 } else {
-return GVecSet(__e, V3849, V3850, V3851)
+return GVecSet(__e, V3854, V3855, V3856)
 }
 
 
 panic("unreachable")
 })
 
-tmp1282 := Call2(__e, ns2_1set, symvector_1_6, tmp1279)
+tmp1285 := Call2(__e, ns2_1set, symvector_1_6, tmp1282)
 
 
-_ = tmp1282
+_ = tmp1285
 
-tmp1283 := MakeNative2(func(__e *ControlFlow, V3852, V3853 Obj) Obj {
-tmp1289 := GEq(__e, V3853, MakeInteger(0))
+tmp1286 := MakeNative2(func(__e *ControlFlow, V3857, V3858 Obj) Obj {
+tmp1292 := GEq(__e, V3858, MakeInteger(0))
 
-if True == tmp1289 {
+if True == tmp1292 {
 return PrimGuard1(__e, symsimple_1error, PrimSimpleError, MakeString("cannot access 0th element of a vector\n"))
 } else {
-tmp1284 := GVecGet(__e, V3852, V3853)
+tmp1287 := GVecGet(__e, V3857, V3858)
 
-let__1168 := tmp1284
+let__1168 := tmp1287
 _ = let__1168
 
-tmp1286 := Call0(__e, SymFn(symfail))
+tmp1289 := Call0(__e, SymFn(symfail))
 
 
-tmp1287 := GEq(__e, let__1168, tmp1286)
+tmp1290 := GEq(__e, let__1168, tmp1289)
 
-if True == tmp1287 {
+if True == tmp1290 {
 return PrimGuard1(__e, symsimple_1error, PrimSimpleError, MakeString("vector element not found\n"))
 } else {
 return let__1168
@@ -417,16 +417,16 @@ return let__1168
 panic("unreachable")
 })
 
-tmp1290 := Call2(__e, ns2_1set, sym_5_1vector, tmp1283)
+tmp1293 := Call2(__e, ns2_1set, sym_5_1vector, tmp1286)
 
 
-_ = tmp1290
+_ = tmp1293
 
-tmp1291 := MakeNative1(func(__e *ControlFlow, V3855 Obj) Obj {
-tmp1293 := PrimGuard1(__e, syminteger_2, PrimIsInteger, V3855)
+tmp1294 := MakeNative1(func(__e *ControlFlow, V3860 Obj) Obj {
+tmp1296 := PrimGuard1(__e, syminteger_2, PrimIsInteger, V3860)
 
-if True == tmp1293 {
-return GGe(__e, V3855, MakeInteger(0))
+if True == tmp1296 {
+return GGe(__e, V3860, MakeInteger(0))
 } else {
 return False
 }
@@ -435,73 +435,88 @@ return False
 panic("unreachable")
 })
 
-tmp1294 := Call2(__e, ns2_1set, symshen_4posint_2, tmp1291)
+tmp1297 := Call2(__e, ns2_1set, symshen_4posint_2, tmp1294)
 
 
-_ = tmp1294
+_ = tmp1297
 
-tmp1295 := MakeNative1(func(__e *ControlFlow, V3856 Obj) Obj {
-return GVecGet(__e, V3856, MakeInteger(0))
+tmp1298 := MakeNative1(func(__e *ControlFlow, V3861 Obj) Obj {
+return GVecGet(__e, V3861, MakeInteger(0))
 panic("unreachable")
 })
 
-tmp1296 := Call2(__e, ns2_1set, symlimit, tmp1295)
+tmp1299 := Call2(__e, ns2_1set, symlimit, tmp1298)
 
 
-_ = tmp1296
+_ = tmp1299
 
-tmp1297 := MakeNative1(func(__e *ControlFlow, V3857 Obj) Obj {
-tmp1322 := Call1(__e, SymFn(symboolean_2), V3857)
+tmp1300 := MakeNative1(func(__e *ControlFlow, V3862 Obj) Obj {
+tmp1325 := Call1(__e, SymFn(symboolean_2), V3862)
 
-
-var ifres1312 Obj
-
-if True == tmp1322 {
-ifres1312 = True
-
-
-} else {
-tmp1321 := PrimGuard1(__e, symnumber_2, PrimIsNumber, V3857)
-
-var ifres1313 Obj
-
-if True == tmp1321 {
-ifres1313 = True
-
-
-} else {
-tmp1320 := PrimGuard1(__e, symstring_2, PrimIsString, V3857)
-
-var ifres1314 Obj
-
-if True == tmp1320 {
-ifres1314 = True
-
-
-} else {
-tmp1319 := GConsP(__e, V3857)
 
 var ifres1315 Obj
 
-if True == tmp1319 {
+if True == tmp1325 {
 ifres1315 = True
 
 
 } else {
-tmp1318 := Call1(__e, SymFn(symempty_2), V3857)
-
+tmp1324 := PrimGuard1(__e, symnumber_2, PrimIsNumber, V3862)
 
 var ifres1316 Obj
 
-if True == tmp1318 {
+if True == tmp1324 {
 ifres1316 = True
 
 
 } else {
-tmp1317 := Call1(__e, SymFn(symvector_2), V3857)
+tmp1323 := PrimGuard1(__e, symstring_2, PrimIsString, V3862)
+
+var ifres1317 Obj
+
+if True == tmp1323 {
+ifres1317 = True
 
 
-ifres1316 = tmp1317
+} else {
+tmp1322 := GConsP(__e, V3862)
+
+var ifres1318 Obj
+
+if True == tmp1322 {
+ifres1318 = True
+
+
+} else {
+tmp1321 := Call1(__e, SymFn(symempty_2), V3862)
+
+
+var ifres1319 Obj
+
+if True == tmp1321 {
+ifres1319 = True
+
+
+} else {
+tmp1320 := Call1(__e, SymFn(symvector_2), V3862)
+
+
+ifres1319 = tmp1320
+
+
+}
+
+ifres1318 = ifres1319
+
+
+}
+
+ifres1317 = ifres1318
+
+
+}
+
+ifres1316 = ifres1317
 
 
 }
@@ -511,50 +526,35 @@ ifres1315 = ifres1316
 
 }
 
-ifres1314 = ifres1315
-
-
-}
-
-ifres1313 = ifres1314
-
-
-}
-
-ifres1312 = ifres1313
-
-
-}
-
-if True == ifres1312 {
+if True == ifres1315 {
 return False
 } else {
-tmp1302 := PrimGuard1(__e, symintern, PrimIntern, MakeString(":"))
+tmp1305 := PrimGuard1(__e, symintern, PrimIntern, MakeString(":"))
 
-tmp1303 := PrimGuard1(__e, symintern, PrimIntern, MakeString(";"))
+tmp1306 := PrimGuard1(__e, symintern, PrimIntern, MakeString(";"))
 
-tmp1304 := PrimGuard1(__e, symintern, PrimIntern, MakeString(","))
+tmp1307 := PrimGuard1(__e, symintern, PrimIntern, MakeString(","))
 
-tmp1305 := GCons(__e, tmp1304, Nil)
+tmp1308 := GCons(__e, tmp1307, Nil)
 
-tmp1306 := GCons(__e, tmp1303, tmp1305)
+tmp1309 := GCons(__e, tmp1306, tmp1308)
 
-tmp1307 := GCons(__e, tmp1302, tmp1306)
+tmp1310 := GCons(__e, tmp1305, tmp1309)
 
-tmp1308 := GCons(__e, sym_j, tmp1307)
+tmp1311 := GCons(__e, sym_j, tmp1310)
 
-tmp1309 := GCons(__e, sym_i, tmp1308)
+tmp1312 := GCons(__e, sym_i, tmp1311)
 
-tmp1310 := Call2(__e, SymFn(symelement_2), V3857, tmp1309)
+tmp1313 := Call2(__e, SymFn(symelement_2), V3862, tmp1312)
 
 
-if True == tmp1310 {
+if True == tmp1313 {
 return True
 } else {
-tmp1298 := MakeNative0(func(__e *ControlFlow) Obj {
-tmp1299 := PrimGuard1(__e, symstr, PrimStr, V3857)
+tmp1301 := MakeNative0(func(__e *ControlFlow) Obj {
+tmp1302 := PrimGuard1(__e, symstr, PrimStr, V3862)
 
-let__1169 := tmp1299
+let__1169 := tmp1302
 _ = let__1169
 
 return TailCall1(__e, SymFn(symshen_4analyse_1symbol_2), let__1169)
@@ -563,12 +563,12 @@ return TailCall1(__e, SymFn(symshen_4analyse_1symbol_2), let__1169)
 panic("unreachable")
 })
 
-tmp1300 := MakeNative1(func(__e *ControlFlow, Z3859 Obj) Obj {
+tmp1303 := MakeNative1(func(__e *ControlFlow, Z3864 Obj) Obj {
 return False
 panic("unreachable")
 })
 
-return TailCall2(__e, try_1catch, tmp1298, tmp1300)
+return TailCall2(__e, try_1catch, tmp1301, tmp1303)
 
 
 }
@@ -580,26 +580,26 @@ return TailCall2(__e, try_1catch, tmp1298, tmp1300)
 panic("unreachable")
 })
 
-tmp1323 := Call2(__e, ns2_1set, symsymbol_2, tmp1297)
+tmp1326 := Call2(__e, ns2_1set, symsymbol_2, tmp1300)
 
 
-_ = tmp1323
+_ = tmp1326
 
-tmp1324 := MakeNative1(func(__e *ControlFlow, V3862 Obj) Obj {
-tmp1331 := Call1(__e, SymFn(symshen_4_7string_2), V3862)
-
-
-if True == tmp1331 {
-tmp1327 := Call1(__e, SymFn(symhdstr), V3862)
+tmp1327 := MakeNative1(func(__e *ControlFlow, V3867 Obj) Obj {
+tmp1334 := Call1(__e, SymFn(symshen_4_7string_2), V3867)
 
 
-tmp1328 := PrimGuard1(__e, symstring_1_6n, PrimStringToNumber, tmp1327)
+if True == tmp1334 {
+tmp1330 := Call1(__e, SymFn(symhdstr), V3867)
 
-tmp1329 := Call1(__e, SymFn(symshen_4alpha_2), tmp1328)
+
+tmp1331 := PrimGuard1(__e, symstring_1_6n, PrimStringToNumber, tmp1330)
+
+tmp1332 := Call1(__e, SymFn(symshen_4alpha_2), tmp1331)
 
 
-if True == tmp1329 {
-return TailCall1(__e, SymFn(symshen_4alphanums_2), PrimGuard1(__e, symtlstr, PrimTailString, V3862))
+if True == tmp1332 {
+return TailCall1(__e, SymFn(symshen_4alphanums_2), PrimGuard1(__e, symtlstr, PrimTailString, V3867))
 
 
 } else {
@@ -615,59 +615,59 @@ return PrimGuard1(__e, symsimple_1error, PrimSimpleError, MakeString("implementa
 panic("unreachable")
 })
 
-tmp1332 := Call2(__e, ns2_1set, symshen_4analyse_1symbol_2, tmp1324)
+tmp1335 := Call2(__e, ns2_1set, symshen_4analyse_1symbol_2, tmp1327)
 
 
-_ = tmp1332
+_ = tmp1335
 
-tmp1333 := (func() Obj {
+tmp1336 := (func() Obj {
 var __self Obj
 __self = MakeNative1(func(__e *ControlFlow, __self1 Obj) Obj {
 __selftop:
-V3865 := __self1
-_ = V3865
-tmp1344 := GEq(__e, MakeString(""), V3865)
+V3870 := __self1
+_ = V3870
+tmp1347 := GEq(__e, MakeString(""), V3870)
 
-if True == tmp1344 {
+if True == tmp1347 {
 return True
 } else {
-tmp1342 := Call1(__e, SymFn(symshen_4_7string_2), V3865)
+tmp1345 := Call1(__e, SymFn(symshen_4_7string_2), V3870)
 
 
-if True == tmp1342 {
-tmp1334 := Call1(__e, SymFn(symhdstr), V3865)
+if True == tmp1345 {
+tmp1337 := Call1(__e, SymFn(symhdstr), V3870)
 
 
-tmp1335 := PrimGuard1(__e, symstring_1_6n, PrimStringToNumber, tmp1334)
+tmp1338 := PrimGuard1(__e, symstring_1_6n, PrimStringToNumber, tmp1337)
 
-let__1170 := tmp1335
+let__1170 := tmp1338
 _ = let__1170
 
-tmp1340 := Call1(__e, SymFn(symshen_4alpha_2), let__1170)
+tmp1343 := Call1(__e, SymFn(symshen_4alpha_2), let__1170)
 
 
-var ifres1338 Obj
+var ifres1341 Obj
 
-if True == tmp1340 {
-ifres1338 = True
+if True == tmp1343 {
+ifres1341 = True
 
 
 } else {
-tmp1339 := Call1(__e, SymFn(symshen_4digit_2), let__1170)
+tmp1342 := Call1(__e, SymFn(symshen_4digit_2), let__1170)
 
 
-ifres1338 = tmp1339
+ifres1341 = tmp1342
 
 
 }
 
-if True == ifres1338 {
+if True == ifres1341 {
 if SymFn(symshen_4alphanums_2) == __self {
-__self1 = PrimGuard1(__e, symtlstr, PrimTailString, V3865)
+__self1 = PrimGuard1(__e, symtlstr, PrimTailString, V3870)
 __e.Tick()
 goto __selftop
 }
-return TailCall1(__e, SymFn(symshen_4alphanums_2), PrimGuard1(__e, symtlstr, PrimTailString, V3865))
+return TailCall1(__e, SymFn(symshen_4alphanums_2), PrimGuard1(__e, symtlstr, PrimTailString, V3870))
 
 
 } else {
@@ -688,50 +688,50 @@ panic("unreachable")
 return __self
 })()
 
-tmp1345 := Call2(__e, ns2_1set, symshen_4alphanums_2, tmp1333)
+tmp1348 := Call2(__e, ns2_1set, symshen_4alphanums_2, tmp1336)
 
 
-_ = tmp1345
+_ = tmp1348
 
-tmp1346 := MakeNative1(func(__e *ControlFlow, V3867 Obj) Obj {
-tmp1355 := Call1(__e, SymFn(symboolean_2), V3867)
-
-
-var ifres1351 Obj
-
-if True == tmp1355 {
-ifres1351 = True
+tmp1349 := MakeNative1(func(__e *ControlFlow, V3872 Obj) Obj {
+tmp1358 := Call1(__e, SymFn(symboolean_2), V3872)
 
 
-} else {
-tmp1354 := PrimGuard1(__e, symnumber_2, PrimIsNumber, V3867)
+var ifres1354 Obj
 
-var ifres1352 Obj
-
-if True == tmp1354 {
-ifres1352 = True
+if True == tmp1358 {
+ifres1354 = True
 
 
 } else {
-tmp1353 := PrimGuard1(__e, symstring_2, PrimIsString, V3867)
+tmp1357 := PrimGuard1(__e, symnumber_2, PrimIsNumber, V3872)
 
-ifres1352 = tmp1353
+var ifres1355 Obj
+
+if True == tmp1357 {
+ifres1355 = True
+
+
+} else {
+tmp1356 := PrimGuard1(__e, symstring_2, PrimIsString, V3872)
+
+ifres1355 = tmp1356
 
 
 }
 
-ifres1351 = ifres1352
+ifres1354 = ifres1355
 
 
 }
 
-if True == ifres1351 {
+if True == ifres1354 {
 return False
 } else {
-tmp1347 := MakeNative0(func(__e *ControlFlow) Obj {
-tmp1348 := PrimGuard1(__e, symstr, PrimStr, V3867)
+tmp1350 := MakeNative0(func(__e *ControlFlow) Obj {
+tmp1351 := PrimGuard1(__e, symstr, PrimStr, V3872)
 
-let__1171 := tmp1348
+let__1171 := tmp1351
 _ = let__1171
 
 return TailCall1(__e, SymFn(symshen_4analyse_1variable_2), let__1171)
@@ -740,12 +740,12 @@ return TailCall1(__e, SymFn(symshen_4analyse_1variable_2), let__1171)
 panic("unreachable")
 })
 
-tmp1349 := MakeNative1(func(__e *ControlFlow, Z3869 Obj) Obj {
+tmp1352 := MakeNative1(func(__e *ControlFlow, Z3874 Obj) Obj {
 return False
 panic("unreachable")
 })
 
-return TailCall2(__e, try_1catch, tmp1347, tmp1349)
+return TailCall2(__e, try_1catch, tmp1350, tmp1352)
 
 
 }
@@ -754,26 +754,26 @@ return TailCall2(__e, try_1catch, tmp1347, tmp1349)
 panic("unreachable")
 })
 
-tmp1356 := Call2(__e, ns2_1set, symvariable_2, tmp1346)
+tmp1359 := Call2(__e, ns2_1set, symvariable_2, tmp1349)
 
 
-_ = tmp1356
+_ = tmp1359
 
-tmp1357 := MakeNative1(func(__e *ControlFlow, V3872 Obj) Obj {
-tmp1364 := Call1(__e, SymFn(symshen_4_7string_2), V3872)
-
-
-if True == tmp1364 {
-tmp1360 := Call1(__e, SymFn(symhdstr), V3872)
+tmp1360 := MakeNative1(func(__e *ControlFlow, V3877 Obj) Obj {
+tmp1367 := Call1(__e, SymFn(symshen_4_7string_2), V3877)
 
 
-tmp1361 := PrimGuard1(__e, symstring_1_6n, PrimStringToNumber, tmp1360)
+if True == tmp1367 {
+tmp1363 := Call1(__e, SymFn(symhdstr), V3877)
 
-tmp1362 := Call1(__e, SymFn(symshen_4uppercase_2), tmp1361)
+
+tmp1364 := PrimGuard1(__e, symstring_1_6n, PrimStringToNumber, tmp1363)
+
+tmp1365 := Call1(__e, SymFn(symshen_4uppercase_2), tmp1364)
 
 
-if True == tmp1362 {
-return TailCall1(__e, SymFn(symshen_4alphanums_2), PrimGuard1(__e, symtlstr, PrimTailString, V3872))
+if True == tmp1365 {
+return TailCall1(__e, SymFn(symshen_4alphanums_2), PrimGuard1(__e, symtlstr, PrimTailString, V3877))
 
 
 } else {
@@ -789,44 +789,44 @@ return PrimGuard1(__e, symsimple_1error, PrimSimpleError, MakeString("implementa
 panic("unreachable")
 })
 
-tmp1365 := Call2(__e, ns2_1set, symshen_4analyse_1variable_2, tmp1357)
+tmp1368 := Call2(__e, ns2_1set, symshen_4analyse_1variable_2, tmp1360)
 
 
-_ = tmp1365
+_ = tmp1368
 
-tmp1366 := MakeNative1(func(__e *ControlFlow, V3873 Obj) Obj {
-tmp1367 := GValue(__e, symshen_4_dgensym_d)
+tmp1369 := MakeNative1(func(__e *ControlFlow, V3878 Obj) Obj {
+tmp1370 := GValue(__e, symshen_4_dgensym_d)
 
-tmp1369 := (func() Obj {
+tmp1372 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symset) {
-return PrimSet(symshen_4_dgensym_d, GAdd(__e, MakeInteger(1), tmp1367))
+return PrimSet(symshen_4_dgensym_d, GAdd(__e, MakeInteger(1), tmp1370))
 }
 __typedArg0 := symshen_4_dgensym_d
-__typedArg1 := GAdd(__e, MakeInteger(1), tmp1367)
+__typedArg1 := GAdd(__e, MakeInteger(1), tmp1370)
 return Call2(__e, SymFn(symset), __typedArg0, __typedArg1)
 })()
 
-return TailCall2(__e, SymFn(symconcat), V3873, tmp1369)
+return TailCall2(__e, SymFn(symconcat), V3878, tmp1372)
 
 
 panic("unreachable")
 })
 
-tmp1370 := Call2(__e, ns2_1set, symgensym, tmp1366)
+tmp1373 := Call2(__e, ns2_1set, symgensym, tmp1369)
 
 
-_ = tmp1370
+_ = tmp1373
 
-tmp1371 := MakeNative2(func(__e *ControlFlow, V3874, V3875 Obj) Obj {
-tmp1372 := PrimGuard1(__e, symstr, PrimStr, V3874)
+tmp1374 := MakeNative2(func(__e *ControlFlow, V3879, V3880 Obj) Obj {
+tmp1375 := PrimGuard1(__e, symstr, PrimStr, V3879)
 
-tmp1373 := PrimGuard1(__e, symstr, PrimStr, V3875)
+tmp1376 := PrimGuard1(__e, symstr, PrimStr, V3880)
 
 return (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symintern) {
-return PrimIntern(PrimGuard2(__e, symcn, PrimStringConcat, tmp1372, tmp1373))
+return PrimIntern(PrimGuard2(__e, symcn, PrimStringConcat, tmp1375, tmp1376))
 }
-__typedArg0 := PrimGuard2(__e, symcn, PrimStringConcat, tmp1372, tmp1373)
+__typedArg0 := PrimGuard2(__e, symcn, PrimStringConcat, tmp1375, tmp1376)
 return Call1(__e, SymFn(symintern), __typedArg0)
 })()
 
@@ -834,30 +834,30 @@ return Call1(__e, SymFn(symintern), __typedArg0)
 panic("unreachable")
 })
 
-tmp1375 := Call2(__e, ns2_1set, symconcat, tmp1371)
+tmp1378 := Call2(__e, ns2_1set, symconcat, tmp1374)
 
 
-_ = tmp1375
+_ = tmp1378
 
-tmp1376 := MakeNative2(func(__e *ControlFlow, V3876, V3877 Obj) Obj {
-tmp1377 := PrimGuard1(__e, symabsvector, PrimAbsvector, MakeInteger(3))
+tmp1379 := MakeNative2(func(__e *ControlFlow, V3881, V3882 Obj) Obj {
+tmp1380 := PrimGuard1(__e, symabsvector, PrimAbsvector, MakeInteger(3))
 
-let__1172 := tmp1377
+let__1172 := tmp1380
 _ = let__1172
 
-tmp1378 := GVecSet(__e, let__1172, MakeInteger(0), symshen_4tuple)
+tmp1381 := GVecSet(__e, let__1172, MakeInteger(0), symshen_4tuple)
 
-let__1173 := tmp1378
+let__1173 := tmp1381
 _ = let__1173
 
-tmp1379 := GVecSet(__e, let__1172, MakeInteger(1), V3876)
+tmp1382 := GVecSet(__e, let__1172, MakeInteger(1), V3881)
 
-let__1174 := tmp1379
+let__1174 := tmp1382
 _ = let__1174
 
-tmp1380 := GVecSet(__e, let__1172, MakeInteger(2), V3877)
+tmp1383 := GVecSet(__e, let__1172, MakeInteger(2), V3882)
 
-let__1175 := tmp1380
+let__1175 := tmp1383
 _ = let__1175
 
 return let__1172
@@ -866,49 +866,49 @@ return let__1172
 panic("unreachable")
 })
 
-tmp1381 := Call2(__e, ns2_1set, sym_8p, tmp1376)
+tmp1384 := Call2(__e, ns2_1set, sym_8p, tmp1379)
 
 
-_ = tmp1381
+_ = tmp1384
 
-tmp1382 := MakeNative1(func(__e *ControlFlow, V3882 Obj) Obj {
-return GVecGet(__e, V3882, MakeInteger(1))
+tmp1385 := MakeNative1(func(__e *ControlFlow, V3887 Obj) Obj {
+return GVecGet(__e, V3887, MakeInteger(1))
 panic("unreachable")
 })
 
-tmp1383 := Call2(__e, ns2_1set, symfst, tmp1382)
+tmp1386 := Call2(__e, ns2_1set, symfst, tmp1385)
 
 
-_ = tmp1383
+_ = tmp1386
 
-tmp1384 := MakeNative1(func(__e *ControlFlow, V3883 Obj) Obj {
-return GVecGet(__e, V3883, MakeInteger(2))
+tmp1387 := MakeNative1(func(__e *ControlFlow, V3888 Obj) Obj {
+return GVecGet(__e, V3888, MakeInteger(2))
 panic("unreachable")
 })
 
-tmp1385 := Call2(__e, ns2_1set, symsnd, tmp1384)
+tmp1388 := Call2(__e, ns2_1set, symsnd, tmp1387)
 
 
-_ = tmp1385
+_ = tmp1388
 
-tmp1386 := MakeNative1(func(__e *ControlFlow, V3884 Obj) Obj {
-tmp1391 := GVectorP(__e, V3884)
+tmp1389 := MakeNative1(func(__e *ControlFlow, V3889 Obj) Obj {
+tmp1394 := GVectorP(__e, V3889)
 
-if True == tmp1391 {
-tmp1387 := MakeNative0(func(__e *ControlFlow) Obj {
-return GVecGet(__e, V3884, MakeInteger(0))
+if True == tmp1394 {
+tmp1390 := MakeNative0(func(__e *ControlFlow) Obj {
+return GVecGet(__e, V3889, MakeInteger(0))
 panic("unreachable")
 })
 
-tmp1388 := MakeNative1(func(__e *ControlFlow, Z3885 Obj) Obj {
+tmp1391 := MakeNative1(func(__e *ControlFlow, Z3890 Obj) Obj {
 return symshen_4not_1tuple
 panic("unreachable")
 })
 
-tmp1389 := Call2(__e, try_1catch, tmp1387, tmp1388)
+tmp1392 := Call2(__e, try_1catch, tmp1390, tmp1391)
 
 
-return GEq(__e, symshen_4tuple, tmp1389)
+return GEq(__e, symshen_4tuple, tmp1392)
 
 
 } else {
@@ -919,28 +919,28 @@ return False
 panic("unreachable")
 })
 
-tmp1392 := Call2(__e, ns2_1set, symtuple_2, tmp1386)
+tmp1395 := Call2(__e, ns2_1set, symtuple_2, tmp1389)
 
 
-_ = tmp1392
+_ = tmp1395
 
-tmp1393 := MakeNative2(func(__e *ControlFlow, V3890, V3891 Obj) Obj {
-tmp1400 := GEq(__e, Nil, V3890)
+tmp1396 := MakeNative2(func(__e *ControlFlow, V3895, V3896 Obj) Obj {
+tmp1403 := GEq(__e, Nil, V3895)
 
-if True == tmp1400 {
-return V3891
+if True == tmp1403 {
+return V3896
 } else {
-tmp1398 := GConsP(__e, V3890)
+tmp1401 := GConsP(__e, V3895)
 
-if True == tmp1398 {
-tmp1394 := GHd(__e, V3890)
+if True == tmp1401 {
+tmp1397 := GHd(__e, V3895)
 
-tmp1395 := GTl(__e, V3890)
+tmp1398 := GTl(__e, V3895)
 
-tmp1396 := Call2(__e, SymFn(symappend), tmp1395, V3891)
+tmp1399 := Call2(__e, SymFn(symappend), tmp1398, V3896)
 
 
-return GCons(__e, tmp1394, tmp1396)
+return GCons(__e, tmp1397, tmp1399)
 
 
 } else {
@@ -954,77 +954,77 @@ return PrimGuard1(__e, symsimple_1error, PrimSimpleError, MakeString("attempt to
 panic("unreachable")
 })
 
-tmp1401 := Call2(__e, ns2_1set, symappend, tmp1393)
+tmp1404 := Call2(__e, ns2_1set, symappend, tmp1396)
 
 
-_ = tmp1401
+_ = tmp1404
 
-tmp1402 := MakeNative2(func(__e *ControlFlow, V3892, V3893 Obj) Obj {
-tmp1403 := Call1(__e, SymFn(symlimit), V3893)
+tmp1405 := MakeNative2(func(__e *ControlFlow, V3897, V3898 Obj) Obj {
+tmp1406 := Call1(__e, SymFn(symlimit), V3898)
 
 
-let__1176 := tmp1403
+let__1176 := tmp1406
 _ = let__1176
 
-tmp1405 := Call1(__e, SymFn(symvector), GAdd(__e, let__1176, MakeInteger(1)))
+tmp1408 := Call1(__e, SymFn(symvector), GAdd(__e, let__1176, MakeInteger(1)))
 
 
-let__1177 := tmp1405
+let__1177 := tmp1408
 _ = let__1177
 
-tmp1406 := Call3(__e, SymFn(symvector_1_6), let__1177, MakeInteger(1), V3892)
+tmp1409 := Call3(__e, SymFn(symvector_1_6), let__1177, MakeInteger(1), V3897)
 
 
-let__1178 := tmp1406
+let__1178 := tmp1409
 _ = let__1178
 
-tmp1408 := GEq(__e, let__1176, MakeInteger(0))
+tmp1411 := GEq(__e, let__1176, MakeInteger(0))
 
-if True == tmp1408 {
+if True == tmp1411 {
 return let__1178
 } else {
-return TailCall4(__e, SymFn(symshen_4_8v_1help), V3893, MakeInteger(1), let__1176, let__1178)
+return TailCall4(__e, SymFn(symshen_4_8v_1help), V3898, MakeInteger(1), let__1176, let__1178)
 }
 
 
 panic("unreachable")
 })
 
-tmp1409 := Call2(__e, ns2_1set, sym_8v, tmp1402)
+tmp1412 := Call2(__e, ns2_1set, sym_8v, tmp1405)
 
 
-_ = tmp1409
+_ = tmp1412
 
-tmp1410 := (func() Obj {
+tmp1413 := (func() Obj {
 var __self Obj
 __self = MakeNative4(func(__e *ControlFlow, __self1, __self2, __self3, __self4 Obj) Obj {
 __selftop:
-V3898 := __self1
-_ = V3898
-V3899 := __self2
-_ = V3899
-V3900 := __self3
-_ = V3900
-V3901 := __self4
-_ = V3901
-tmp1416 := GEq(__e, V3899, V3900)
+V3903 := __self1
+_ = V3903
+V3904 := __self2
+_ = V3904
+V3905 := __self3
+_ = V3905
+V3906 := __self4
+_ = V3906
+tmp1419 := GEq(__e, V3904, V3905)
 
-if True == tmp1416 {
-return TailCall4(__e, SymFn(symshen_4copyfromvector), V3898, V3901, V3900, GAdd(__e, V3900, MakeInteger(1)))
+if True == tmp1419 {
+return TailCall4(__e, SymFn(symshen_4copyfromvector), V3903, V3906, V3905, GAdd(__e, V3905, MakeInteger(1)))
 
 
 } else {
-tmp1412 := GAdd(__e, V3899, MakeInteger(1))
+tmp1415 := GAdd(__e, V3904, MakeInteger(1))
 
-tmp1414 := Call4(__e, SymFn(symshen_4copyfromvector), V3898, V3901, V3899, GAdd(__e, V3899, MakeInteger(1)))
+tmp1417 := Call4(__e, SymFn(symshen_4copyfromvector), V3903, V3906, V3904, GAdd(__e, V3904, MakeInteger(1)))
 
 
 if SymFn(symshen_4_8v_1help) == __self {
-__self1, __self2, __self3, __self4 = V3898, tmp1412, V3900, tmp1414
+__self1, __self2, __self3, __self4 = V3903, tmp1415, V3905, tmp1417
 __e.Tick()
 goto __selftop
 }
-return TailCall4(__e, SymFn(symshen_4_8v_1help), V3898, tmp1412, V3900, tmp1414)
+return TailCall4(__e, SymFn(symshen_4_8v_1help), V3903, tmp1415, V3905, tmp1417)
 
 
 }
@@ -1035,87 +1035,87 @@ panic("unreachable")
 return __self
 })()
 
-tmp1417 := Call2(__e, ns2_1set, symshen_4_8v_1help, tmp1410)
+tmp1420 := Call2(__e, ns2_1set, symshen_4_8v_1help, tmp1413)
 
 
-_ = tmp1417
+_ = tmp1420
 
-tmp1418 := MakeNative4(func(__e *ControlFlow, V3902, V3903, V3904, V3905 Obj) Obj {
-tmp1419 := MakeNative0(func(__e *ControlFlow) Obj {
-tmp1420 := Call2(__e, SymFn(sym_5_1vector), V3902, V3904)
-
-
-return TailCall3(__e, SymFn(symvector_1_6), V3903, V3905, tmp1420)
+tmp1421 := MakeNative4(func(__e *ControlFlow, V3907, V3908, V3909, V3910 Obj) Obj {
+tmp1422 := MakeNative0(func(__e *ControlFlow) Obj {
+tmp1423 := Call2(__e, SymFn(sym_5_1vector), V3907, V3909)
 
 
-panic("unreachable")
-})
-
-tmp1421 := MakeNative1(func(__e *ControlFlow, Z3906 Obj) Obj {
-return V3903
-panic("unreachable")
-})
-
-return TailCall2(__e, try_1catch, tmp1419, tmp1421)
+return TailCall3(__e, SymFn(symvector_1_6), V3908, V3910, tmp1423)
 
 
 panic("unreachable")
 })
 
-tmp1422 := Call2(__e, ns2_1set, symshen_4copyfromvector, tmp1418)
-
-
-_ = tmp1422
-
-tmp1423 := MakeNative1(func(__e *ControlFlow, V3907 Obj) Obj {
-tmp1424 := MakeNative0(func(__e *ControlFlow) Obj {
-return TailCall2(__e, SymFn(sym_5_1vector), V3907, MakeInteger(1))
+tmp1424 := MakeNative1(func(__e *ControlFlow, Z3911 Obj) Obj {
+return V3908
 panic("unreachable")
 })
 
-tmp1425 := MakeNative1(func(__e *ControlFlow, Z3908 Obj) Obj {
+return TailCall2(__e, try_1catch, tmp1422, tmp1424)
+
+
+panic("unreachable")
+})
+
+tmp1425 := Call2(__e, ns2_1set, symshen_4copyfromvector, tmp1421)
+
+
+_ = tmp1425
+
+tmp1426 := MakeNative1(func(__e *ControlFlow, V3912 Obj) Obj {
+tmp1427 := MakeNative0(func(__e *ControlFlow) Obj {
+return TailCall2(__e, SymFn(sym_5_1vector), V3912, MakeInteger(1))
+panic("unreachable")
+})
+
+tmp1428 := MakeNative1(func(__e *ControlFlow, Z3913 Obj) Obj {
 return PrimGuard1(__e, symsimple_1error, PrimSimpleError, MakeString("hdv needs a non-empty vector as an argument\n"))
 panic("unreachable")
 })
 
-return TailCall2(__e, try_1catch, tmp1424, tmp1425)
+return TailCall2(__e, try_1catch, tmp1427, tmp1428)
 
 
 panic("unreachable")
 })
 
-tmp1426 := Call2(__e, ns2_1set, symhdv, tmp1423)
+tmp1429 := Call2(__e, ns2_1set, symhdv, tmp1426)
 
 
-_ = tmp1426
+_ = tmp1429
 
-tmp1427 := MakeNative1(func(__e *ControlFlow, V3909 Obj) Obj {
-tmp1428 := Call1(__e, SymFn(symlimit), V3909)
+tmp1430 := MakeNative1(func(__e *ControlFlow, V3914 Obj) Obj {
+tmp1431 := Call1(__e, SymFn(symlimit), V3914)
 
 
-let__1179 := tmp1428
+let__1179 := tmp1431
 _ = let__1179
 
-tmp1436 := GEq(__e, let__1179, MakeInteger(0))
+tmp1439 := GEq(__e, let__1179, MakeInteger(0))
 
-if True == tmp1436 {
+if True == tmp1439 {
 return PrimGuard1(__e, symsimple_1error, PrimSimpleError, MakeString("cannot take the tail of the empty vector\n"))
 } else {
-tmp1434 := GEq(__e, let__1179, MakeInteger(1))
+tmp1437 := GEq(__e, let__1179, MakeInteger(1))
 
-if True == tmp1434 {
+if True == tmp1437 {
 return TailCall1(__e, SymFn(symvector), MakeInteger(0))
 } else {
-tmp1430 := Call1(__e, SymFn(symvector), GSub(__e, let__1179, MakeInteger(1)))
+tmp1433 := Call1(__e, SymFn(symvector), GSub(__e, let__1179, MakeInteger(1)))
 
 
-let__1180 := tmp1430
+let__1180 := tmp1433
 _ = let__1180
 
-tmp1432 := Call1(__e, SymFn(symvector), GSub(__e, let__1179, MakeInteger(1)))
+tmp1435 := Call1(__e, SymFn(symvector), GSub(__e, let__1179, MakeInteger(1)))
 
 
-return TailCall4(__e, SymFn(symshen_4tlv_1help), V3909, MakeInteger(2), let__1179, tmp1432)
+return TailCall4(__e, SymFn(symshen_4tlv_1help), V3914, MakeInteger(2), let__1179, tmp1435)
 
 
 }
@@ -1127,41 +1127,41 @@ return TailCall4(__e, SymFn(symshen_4tlv_1help), V3909, MakeInteger(2), let__117
 panic("unreachable")
 })
 
-tmp1437 := Call2(__e, ns2_1set, symtlv, tmp1427)
+tmp1440 := Call2(__e, ns2_1set, symtlv, tmp1430)
 
 
-_ = tmp1437
+_ = tmp1440
 
-tmp1438 := (func() Obj {
+tmp1441 := (func() Obj {
 var __self Obj
 __self = MakeNative4(func(__e *ControlFlow, __self1, __self2, __self3, __self4 Obj) Obj {
 __selftop:
-V3913 := __self1
-_ = V3913
-V3914 := __self2
-_ = V3914
-V3915 := __self3
-_ = V3915
-V3916 := __self4
-_ = V3916
-tmp1444 := GEq(__e, V3914, V3915)
+V3918 := __self1
+_ = V3918
+V3919 := __self2
+_ = V3919
+V3920 := __self3
+_ = V3920
+V3921 := __self4
+_ = V3921
+tmp1447 := GEq(__e, V3919, V3920)
 
-if True == tmp1444 {
-return TailCall4(__e, SymFn(symshen_4copyfromvector), V3913, V3916, V3915, GSub(__e, V3915, MakeInteger(1)))
+if True == tmp1447 {
+return TailCall4(__e, SymFn(symshen_4copyfromvector), V3918, V3921, V3920, GSub(__e, V3920, MakeInteger(1)))
 
 
 } else {
-tmp1440 := GAdd(__e, V3914, MakeInteger(1))
+tmp1443 := GAdd(__e, V3919, MakeInteger(1))
 
-tmp1442 := Call4(__e, SymFn(symshen_4copyfromvector), V3913, V3916, V3914, GSub(__e, V3914, MakeInteger(1)))
+tmp1445 := Call4(__e, SymFn(symshen_4copyfromvector), V3918, V3921, V3919, GSub(__e, V3919, MakeInteger(1)))
 
 
 if SymFn(symshen_4tlv_1help) == __self {
-__self1, __self2, __self3, __self4 = V3913, tmp1440, V3915, tmp1442
+__self1, __self2, __self3, __self4 = V3918, tmp1443, V3920, tmp1445
 __e.Tick()
 goto __selftop
 }
-return TailCall4(__e, SymFn(symshen_4tlv_1help), V3913, tmp1440, V3915, tmp1442)
+return TailCall4(__e, SymFn(symshen_4tlv_1help), V3918, tmp1443, V3920, tmp1445)
 
 
 }
@@ -1172,74 +1172,74 @@ panic("unreachable")
 return __self
 })()
 
-tmp1445 := Call2(__e, ns2_1set, symshen_4tlv_1help, tmp1438)
+tmp1448 := Call2(__e, ns2_1set, symshen_4tlv_1help, tmp1441)
 
 
-_ = tmp1445
+_ = tmp1448
 
-tmp1446 := (func() Obj {
+tmp1449 := (func() Obj {
 var __self Obj
 __self = MakeNative2(func(__e *ControlFlow, __self1, __self2 Obj) Obj {
 __selftop:
-V3928 := __self1
-_ = V3928
-V3929 := __self2
-_ = V3929
-tmp1460 := GEq(__e, Nil, V3929)
+V3933 := __self1
+_ = V3933
+V3934 := __self2
+_ = V3934
+tmp1463 := GEq(__e, Nil, V3934)
 
-if True == tmp1460 {
+if True == tmp1463 {
 return Nil
 } else {
-tmp1458 := GConsP(__e, V3929)
+tmp1461 := GConsP(__e, V3934)
 
-var ifres1451 Obj
+var ifres1454 Obj
 
-if True == tmp1458 {
-tmp1456 := GHd(__e, V3929)
+if True == tmp1461 {
+tmp1459 := GHd(__e, V3934)
 
-tmp1457 := GConsP(__e, tmp1456)
+tmp1460 := GConsP(__e, tmp1459)
 
-var ifres1452 Obj
+var ifres1455 Obj
 
-if True == tmp1457 {
-tmp1453 := GHd(__e, V3929)
+if True == tmp1460 {
+tmp1456 := GHd(__e, V3934)
 
-tmp1454 := GHd(__e, tmp1453)
+tmp1457 := GHd(__e, tmp1456)
 
-tmp1455 := GEq(__e, V3928, tmp1454)
+tmp1458 := GEq(__e, V3933, tmp1457)
 
-ifres1452 = tmp1455
+ifres1455 = tmp1458
 
 
 } else {
-ifres1452 = False
+ifres1455 = False
 
 
 }
 
-ifres1451 = ifres1452
+ifres1454 = ifres1455
 
 
 } else {
-ifres1451 = False
+ifres1454 = False
 
 
 }
 
-if True == ifres1451 {
-return GHd(__e, V3929)
+if True == ifres1454 {
+return GHd(__e, V3934)
 } else {
-tmp1449 := GConsP(__e, V3929)
+tmp1452 := GConsP(__e, V3934)
 
-if True == tmp1449 {
-tmp1447 := GTl(__e, V3929)
+if True == tmp1452 {
+tmp1450 := GTl(__e, V3934)
 
 if SymFn(symassoc) == __self {
-__self1, __self2 = V3928, tmp1447
+__self1, __self2 = V3933, tmp1450
 __e.Tick()
 goto __selftop
 }
-return TailCall2(__e, SymFn(symassoc), V3928, tmp1447)
+return TailCall2(__e, SymFn(symassoc), V3933, tmp1450)
 
 
 } else {
@@ -1258,81 +1258,81 @@ panic("unreachable")
 return __self
 })()
 
-tmp1461 := Call2(__e, ns2_1set, symassoc, tmp1446)
+tmp1464 := Call2(__e, ns2_1set, symassoc, tmp1449)
 
 
-_ = tmp1461
+_ = tmp1464
 
-tmp1462 := MakeNative3(func(__e *ControlFlow, V3933, V3934, V3935 Obj) Obj {
-tmp1483 := GEq(__e, Nil, V3935)
+tmp1465 := MakeNative3(func(__e *ControlFlow, V3938, V3939, V3940 Obj) Obj {
+tmp1486 := GEq(__e, Nil, V3940)
+
+if True == tmp1486 {
+tmp1466 := GCons(__e, V3938, V3939)
+
+return GCons(__e, tmp1466, Nil)
+
+
+} else {
+tmp1484 := GConsP(__e, V3940)
+
+var ifres1477 Obj
+
+if True == tmp1484 {
+tmp1482 := GHd(__e, V3940)
+
+tmp1483 := GConsP(__e, tmp1482)
+
+var ifres1478 Obj
 
 if True == tmp1483 {
-tmp1463 := GCons(__e, V3933, V3934)
+tmp1479 := GHd(__e, V3940)
 
-return GCons(__e, tmp1463, Nil)
+tmp1480 := GHd(__e, tmp1479)
 
+tmp1481 := GEq(__e, V3938, tmp1480)
 
-} else {
-tmp1481 := GConsP(__e, V3935)
-
-var ifres1474 Obj
-
-if True == tmp1481 {
-tmp1479 := GHd(__e, V3935)
-
-tmp1480 := GConsP(__e, tmp1479)
-
-var ifres1475 Obj
-
-if True == tmp1480 {
-tmp1476 := GHd(__e, V3935)
-
-tmp1477 := GHd(__e, tmp1476)
-
-tmp1478 := GEq(__e, V3933, tmp1477)
-
-ifres1475 = tmp1478
+ifres1478 = tmp1481
 
 
 } else {
-ifres1475 = False
+ifres1478 = False
 
 
 }
 
-ifres1474 = ifres1475
+ifres1477 = ifres1478
 
 
 } else {
-ifres1474 = False
+ifres1477 = False
 
 
 }
 
-if True == ifres1474 {
-tmp1464 := GHd(__e, V3935)
+if True == ifres1477 {
+tmp1467 := GHd(__e, V3940)
 
-tmp1465 := GHd(__e, tmp1464)
+tmp1468 := GHd(__e, tmp1467)
 
-tmp1466 := GCons(__e, tmp1465, V3934)
+tmp1469 := GCons(__e, tmp1468, V3939)
 
-tmp1467 := GTl(__e, V3935)
+tmp1470 := GTl(__e, V3940)
 
-return GCons(__e, tmp1466, tmp1467)
+return GCons(__e, tmp1469, tmp1470)
 
 
 } else {
-tmp1472 := GConsP(__e, V3935)
+tmp1475 := GConsP(__e, V3940)
 
-if True == tmp1472 {
-tmp1468 := GHd(__e, V3935)
+if True == tmp1475 {
+tmp1471 := GHd(__e, V3940)
 
-tmp1469 := GTl(__e, V3935)
+tmp1472 := GTl(__e, V3940)
 
-tmp1470 := Call3(__e, SymFn(symshen_4assoc_1set), V3933, V3934, tmp1469)
+tmp1473 := Call3(__e, SymFn(symshen_4assoc_1set), V3938, V3939, tmp1472)
 
 
-return GCons(__e, tmp1468, tmp1470)
+return GCons(__e, tmp1471, tmp1473)
 
 
 } else {
@@ -1349,67 +1349,67 @@ return TailCall1(__e, SymFn(symshen_4f_1error), symshen_4assoc_1set)
 panic("unreachable")
 })
 
-tmp1484 := Call2(__e, ns2_1set, symshen_4assoc_1set, tmp1462)
+tmp1487 := Call2(__e, ns2_1set, symshen_4assoc_1set, tmp1465)
 
 
-_ = tmp1484
+_ = tmp1487
 
-tmp1485 := MakeNative2(func(__e *ControlFlow, V3939, V3940 Obj) Obj {
-tmp1501 := GEq(__e, Nil, V3940)
+tmp1488 := MakeNative2(func(__e *ControlFlow, V3944, V3945 Obj) Obj {
+tmp1504 := GEq(__e, Nil, V3945)
 
-if True == tmp1501 {
+if True == tmp1504 {
 return Nil
 } else {
-tmp1499 := GConsP(__e, V3940)
+tmp1502 := GConsP(__e, V3945)
 
-var ifres1492 Obj
+var ifres1495 Obj
 
-if True == tmp1499 {
-tmp1497 := GHd(__e, V3940)
+if True == tmp1502 {
+tmp1500 := GHd(__e, V3945)
 
-tmp1498 := GConsP(__e, tmp1497)
+tmp1501 := GConsP(__e, tmp1500)
 
-var ifres1493 Obj
+var ifres1496 Obj
 
-if True == tmp1498 {
-tmp1494 := GHd(__e, V3940)
+if True == tmp1501 {
+tmp1497 := GHd(__e, V3945)
 
-tmp1495 := GHd(__e, tmp1494)
+tmp1498 := GHd(__e, tmp1497)
 
-tmp1496 := GEq(__e, V3939, tmp1495)
+tmp1499 := GEq(__e, V3944, tmp1498)
 
-ifres1493 = tmp1496
+ifres1496 = tmp1499
 
 
 } else {
-ifres1493 = False
+ifres1496 = False
 
 
 }
 
-ifres1492 = ifres1493
+ifres1495 = ifres1496
 
 
 } else {
-ifres1492 = False
+ifres1495 = False
 
 
 }
 
-if True == ifres1492 {
-return GTl(__e, V3940)
+if True == ifres1495 {
+return GTl(__e, V3945)
 } else {
-tmp1490 := GConsP(__e, V3940)
+tmp1493 := GConsP(__e, V3945)
 
-if True == tmp1490 {
-tmp1486 := GHd(__e, V3940)
+if True == tmp1493 {
+tmp1489 := GHd(__e, V3945)
 
-tmp1487 := GTl(__e, V3940)
+tmp1490 := GTl(__e, V3945)
 
-tmp1488 := Call2(__e, SymFn(symshen_4assoc_1rm), V3939, tmp1487)
+tmp1491 := Call2(__e, SymFn(symshen_4assoc_1rm), V3944, tmp1490)
 
 
-return GCons(__e, tmp1486, tmp1488)
+return GCons(__e, tmp1489, tmp1491)
 
 
 } else {
@@ -1426,20 +1426,20 @@ return TailCall1(__e, SymFn(symshen_4f_1error), symshen_4assoc_1rm)
 panic("unreachable")
 })
 
-tmp1502 := Call2(__e, ns2_1set, symshen_4assoc_1rm, tmp1485)
+tmp1505 := Call2(__e, ns2_1set, symshen_4assoc_1rm, tmp1488)
 
 
-_ = tmp1502
+_ = tmp1505
 
-tmp1503 := MakeNative1(func(__e *ControlFlow, V3943 Obj) Obj {
-tmp1507 := GEq(__e, True, V3943)
+tmp1506 := MakeNative1(func(__e *ControlFlow, V3948 Obj) Obj {
+tmp1510 := GEq(__e, True, V3948)
 
-if True == tmp1507 {
+if True == tmp1510 {
 return True
 } else {
-tmp1505 := GEq(__e, False, V3943)
+tmp1508 := GEq(__e, False, V3948)
 
-if True == tmp1505 {
+if True == tmp1508 {
 return True
 } else {
 return False
@@ -1452,36 +1452,36 @@ return False
 panic("unreachable")
 })
 
-tmp1508 := Call2(__e, ns2_1set, symboolean_2, tmp1503)
-
-
-_ = tmp1508
-
-tmp1509 := (func() Obj {
-var __self Obj
-__self = MakeNative1(func(__e *ControlFlow, __self1 Obj) Obj {
-__selftop:
-V3944 := __self1
-_ = V3944
-tmp1514 := GEq(__e, MakeInteger(0), V3944)
-
-if True == tmp1514 {
-return MakeInteger(0)
-} else {
-tmp1510 := Call0(__e, SymFn(symstoutput))
-
-
-tmp1511 := Call2(__e, SymFn(sympr), MakeString("\n"), tmp1510)
+tmp1511 := Call2(__e, ns2_1set, symboolean_2, tmp1506)
 
 
 _ = tmp1511
 
+tmp1512 := (func() Obj {
+var __self Obj
+__self = MakeNative1(func(__e *ControlFlow, __self1 Obj) Obj {
+__selftop:
+V3949 := __self1
+_ = V3949
+tmp1517 := GEq(__e, MakeInteger(0), V3949)
+
+if True == tmp1517 {
+return MakeInteger(0)
+} else {
+tmp1513 := Call0(__e, SymFn(symstoutput))
+
+
+tmp1514 := Call2(__e, SymFn(sympr), MakeString("\n"), tmp1513)
+
+
+_ = tmp1514
+
 if SymFn(symnl) == __self {
-__self1 = GSub(__e, V3944, MakeInteger(1))
+__self1 = GSub(__e, V3949, MakeInteger(1))
 __e.Tick()
 goto __selftop
 }
-return TailCall1(__e, SymFn(symnl), GSub(__e, V3944, MakeInteger(1)))
+return TailCall1(__e, SymFn(symnl), GSub(__e, V3949, MakeInteger(1)))
 
 
 }
@@ -1492,52 +1492,52 @@ panic("unreachable")
 return __self
 })()
 
-tmp1515 := Call2(__e, ns2_1set, symnl, tmp1509)
+tmp1518 := Call2(__e, ns2_1set, symnl, tmp1512)
 
 
-_ = tmp1515
+_ = tmp1518
 
-tmp1516 := (func() Obj {
+tmp1519 := (func() Obj {
 var __self Obj
 __self = MakeNative2(func(__e *ControlFlow, __self1, __self2 Obj) Obj {
 __selftop:
-V3951 := __self1
-_ = V3951
-V3952 := __self2
-_ = V3952
-tmp1527 := GEq(__e, Nil, V3951)
+V3956 := __self1
+_ = V3956
+V3957 := __self2
+_ = V3957
+tmp1530 := GEq(__e, Nil, V3956)
 
-if True == tmp1527 {
+if True == tmp1530 {
 return Nil
 } else {
-tmp1525 := GConsP(__e, V3951)
+tmp1528 := GConsP(__e, V3956)
 
-if True == tmp1525 {
-tmp1522 := GHd(__e, V3951)
+if True == tmp1528 {
+tmp1525 := GHd(__e, V3956)
 
-tmp1523 := Call2(__e, SymFn(symelement_2), tmp1522, V3952)
+tmp1526 := Call2(__e, SymFn(symelement_2), tmp1525, V3957)
 
 
-if True == tmp1523 {
-tmp1517 := GTl(__e, V3951)
+if True == tmp1526 {
+tmp1520 := GTl(__e, V3956)
 
 if SymFn(symdifference) == __self {
-__self1, __self2 = tmp1517, V3952
+__self1, __self2 = tmp1520, V3957
 __e.Tick()
 goto __selftop
 }
-return TailCall2(__e, SymFn(symdifference), tmp1517, V3952)
+return TailCall2(__e, SymFn(symdifference), tmp1520, V3957)
 
 
 } else {
-tmp1518 := GHd(__e, V3951)
+tmp1521 := GHd(__e, V3956)
 
-tmp1519 := GTl(__e, V3951)
+tmp1522 := GTl(__e, V3956)
 
-tmp1520 := Call2(__e, SymFn(symdifference), tmp1519, V3952)
+tmp1523 := Call2(__e, SymFn(symdifference), tmp1522, V3957)
 
 
-return GCons(__e, tmp1518, tmp1520)
+return GCons(__e, tmp1521, tmp1523)
 
 
 }
@@ -1556,66 +1556,66 @@ panic("unreachable")
 return __self
 })()
 
-tmp1528 := Call2(__e, ns2_1set, symdifference, tmp1516)
+tmp1531 := Call2(__e, ns2_1set, symdifference, tmp1519)
 
 
-_ = tmp1528
+_ = tmp1531
 
-tmp1529 := MakeNative2(func(__e *ControlFlow, V3953, V3954 Obj) Obj {
-return V3954
+tmp1532 := MakeNative2(func(__e *ControlFlow, V3958, V3959 Obj) Obj {
+return V3959
 panic("unreachable")
 })
 
-tmp1530 := Call2(__e, ns2_1set, symdo, tmp1529)
+tmp1533 := Call2(__e, ns2_1set, symdo, tmp1532)
 
 
-_ = tmp1530
+_ = tmp1533
 
-tmp1531 := (func() Obj {
+tmp1534 := (func() Obj {
 var __self Obj
 __self = MakeNative2(func(__e *ControlFlow, __self1, __self2 Obj) Obj {
 __selftop:
-V3966 := __self1
-_ = V3966
-V3967 := __self2
-_ = V3967
-tmp1541 := GEq(__e, Nil, V3967)
+V3971 := __self1
+_ = V3971
+V3972 := __self2
+_ = V3972
+tmp1544 := GEq(__e, Nil, V3972)
 
-if True == tmp1541 {
+if True == tmp1544 {
 return False
 } else {
-tmp1539 := GConsP(__e, V3967)
+tmp1542 := GConsP(__e, V3972)
 
-var ifres1536 Obj
+var ifres1539 Obj
 
-if True == tmp1539 {
-tmp1537 := GHd(__e, V3967)
+if True == tmp1542 {
+tmp1540 := GHd(__e, V3972)
 
-tmp1538 := GEq(__e, V3966, tmp1537)
+tmp1541 := GEq(__e, V3971, tmp1540)
 
-ifres1536 = tmp1538
+ifres1539 = tmp1541
 
 
 } else {
-ifres1536 = False
+ifres1539 = False
 
 
 }
 
-if True == ifres1536 {
+if True == ifres1539 {
 return True
 } else {
-tmp1534 := GConsP(__e, V3967)
+tmp1537 := GConsP(__e, V3972)
 
-if True == tmp1534 {
-tmp1532 := GTl(__e, V3967)
+if True == tmp1537 {
+tmp1535 := GTl(__e, V3972)
 
 if SymFn(symelement_2) == __self {
-__self1, __self2 = V3966, tmp1532
+__self1, __self2 = V3971, tmp1535
 __e.Tick()
 goto __selftop
 }
-return TailCall2(__e, SymFn(symelement_2), V3966, tmp1532)
+return TailCall2(__e, SymFn(symelement_2), V3971, tmp1535)
 
 
 } else {
@@ -1634,15 +1634,15 @@ panic("unreachable")
 return __self
 })()
 
-tmp1542 := Call2(__e, ns2_1set, symelement_2, tmp1531)
+tmp1545 := Call2(__e, ns2_1set, symelement_2, tmp1534)
 
 
-_ = tmp1542
+_ = tmp1545
 
-tmp1543 := MakeNative1(func(__e *ControlFlow, V3970 Obj) Obj {
-tmp1545 := GEq(__e, Nil, V3970)
+tmp1546 := MakeNative1(func(__e *ControlFlow, V3975 Obj) Obj {
+tmp1548 := GEq(__e, Nil, V3975)
 
-if True == tmp1545 {
+if True == tmp1548 {
 return True
 } else {
 return False
@@ -1652,50 +1652,50 @@ return False
 panic("unreachable")
 })
 
-tmp1546 := Call2(__e, ns2_1set, symempty_2, tmp1543)
+tmp1549 := Call2(__e, ns2_1set, symempty_2, tmp1546)
 
 
-_ = tmp1546
+_ = tmp1549
 
-tmp1547 := MakeNative2(func(__e *ControlFlow, V3971, V3972 Obj) Obj {
-tmp1548 := Call1(__e, V3971, V3972)
+tmp1550 := MakeNative2(func(__e *ControlFlow, V3976, V3977 Obj) Obj {
+tmp1551 := Call1(__e, V3976, V3977)
 
 
-return TailCall3(__e, SymFn(symshen_4fix_1help), V3971, V3972, tmp1548)
+return TailCall3(__e, SymFn(symshen_4fix_1help), V3976, V3977, tmp1551)
 
 
 panic("unreachable")
 })
 
-tmp1549 := Call2(__e, ns2_1set, symfix, tmp1547)
+tmp1552 := Call2(__e, ns2_1set, symfix, tmp1550)
 
 
-_ = tmp1549
+_ = tmp1552
 
-tmp1550 := (func() Obj {
+tmp1553 := (func() Obj {
 var __self Obj
 __self = MakeNative3(func(__e *ControlFlow, __self1, __self2, __self3 Obj) Obj {
 __selftop:
-V3978 := __self1
-_ = V3978
-V3979 := __self2
-_ = V3979
-V3980 := __self3
-_ = V3980
-tmp1553 := GEq(__e, V3979, V3980)
+V3983 := __self1
+_ = V3983
+V3984 := __self2
+_ = V3984
+V3985 := __self3
+_ = V3985
+tmp1556 := GEq(__e, V3984, V3985)
 
-if True == tmp1553 {
-return V3980
+if True == tmp1556 {
+return V3985
 } else {
-tmp1551 := Call1(__e, V3978, V3980)
+tmp1554 := Call1(__e, V3983, V3985)
 
 
 if SymFn(symshen_4fix_1help) == __self {
-__self1, __self2, __self3 = V3978, V3980, tmp1551
+__self1, __self2, __self3 = V3983, V3985, tmp1554
 __e.Tick()
 goto __selftop
 }
-return TailCall3(__e, SymFn(symshen_4fix_1help), V3978, V3980, tmp1551)
+return TailCall3(__e, SymFn(symshen_4fix_1help), V3983, V3985, tmp1554)
 
 
 }
@@ -1706,137 +1706,137 @@ panic("unreachable")
 return __self
 })()
 
-tmp1554 := Call2(__e, ns2_1set, symshen_4fix_1help, tmp1550)
+tmp1557 := Call2(__e, ns2_1set, symshen_4fix_1help, tmp1553)
 
 
-_ = tmp1554
+_ = tmp1557
 
-tmp1555 := MakeNative4(func(__e *ControlFlow, V3981, V3982, V3983, V3984 Obj) Obj {
-tmp1556 := MakeNative0(func(__e *ControlFlow) Obj {
-return TailCall2(__e, SymFn(symshen_4_5_1dict), V3984, V3981)
+tmp1558 := MakeNative4(func(__e *ControlFlow, V3986, V3987, V3988, V3989 Obj) Obj {
+tmp1559 := MakeNative0(func(__e *ControlFlow) Obj {
+return TailCall2(__e, SymFn(symshen_4_5_1dict), V3989, V3986)
 panic("unreachable")
 })
 
-tmp1557 := MakeNative1(func(__e *ControlFlow, Z3986 Obj) Obj {
+tmp1560 := MakeNative1(func(__e *ControlFlow, Z3991 Obj) Obj {
 return Nil
 panic("unreachable")
 })
 
-tmp1558 := Call2(__e, try_1catch, tmp1556, tmp1557)
+tmp1561 := Call2(__e, try_1catch, tmp1559, tmp1560)
 
 
-let__1181 := tmp1558
+let__1181 := tmp1561
 _ = let__1181
 
-tmp1559 := Call3(__e, SymFn(symshen_4assoc_1set), V3982, V3983, let__1181)
+tmp1562 := Call3(__e, SymFn(symshen_4assoc_1set), V3987, V3988, let__1181)
 
 
-let__1182 := tmp1559
+let__1182 := tmp1562
 _ = let__1182
 
-tmp1560 := Call3(__e, SymFn(symshen_4dict_1_6), V3984, V3981, let__1182)
+tmp1563 := Call3(__e, SymFn(symshen_4dict_1_6), V3989, V3986, let__1182)
 
 
-let__1183 := tmp1560
+let__1183 := tmp1563
 _ = let__1183
 
-return V3983
+return V3988
 
 
 panic("unreachable")
 })
 
-tmp1561 := Call2(__e, ns2_1set, symput, tmp1555)
+tmp1564 := Call2(__e, ns2_1set, symput, tmp1558)
 
 
-_ = tmp1561
+_ = tmp1564
 
-tmp1562 := MakeNative3(func(__e *ControlFlow, V3989, V3990, V3991 Obj) Obj {
-tmp1563 := MakeNative0(func(__e *ControlFlow) Obj {
-return TailCall2(__e, SymFn(symshen_4_5_1dict), V3991, V3989)
+tmp1565 := MakeNative3(func(__e *ControlFlow, V3994, V3995, V3996 Obj) Obj {
+tmp1566 := MakeNative0(func(__e *ControlFlow) Obj {
+return TailCall2(__e, SymFn(symshen_4_5_1dict), V3996, V3994)
 panic("unreachable")
 })
 
-tmp1564 := MakeNative1(func(__e *ControlFlow, Z3993 Obj) Obj {
+tmp1567 := MakeNative1(func(__e *ControlFlow, Z3998 Obj) Obj {
 return Nil
 panic("unreachable")
 })
 
-tmp1565 := Call2(__e, try_1catch, tmp1563, tmp1564)
+tmp1568 := Call2(__e, try_1catch, tmp1566, tmp1567)
 
 
-let__1184 := tmp1565
+let__1184 := tmp1568
 _ = let__1184
 
-tmp1566 := Call2(__e, SymFn(symshen_4assoc_1rm), V3990, let__1184)
+tmp1569 := Call2(__e, SymFn(symshen_4assoc_1rm), V3995, let__1184)
 
 
-let__1185 := tmp1566
+let__1185 := tmp1569
 _ = let__1185
 
-tmp1567 := Call3(__e, SymFn(symshen_4dict_1_6), V3991, V3989, let__1185)
+tmp1570 := Call3(__e, SymFn(symshen_4dict_1_6), V3996, V3994, let__1185)
 
 
-let__1186 := tmp1567
+let__1186 := tmp1570
 _ = let__1186
 
-return V3989
+return V3994
 
 
 panic("unreachable")
 })
 
-tmp1568 := Call2(__e, ns2_1set, symunput, tmp1562)
+tmp1571 := Call2(__e, ns2_1set, symunput, tmp1565)
 
 
-_ = tmp1568
+_ = tmp1571
 
-tmp1569 := MakeNative3(func(__e *ControlFlow, V3996, V3997, V3998 Obj) Obj {
-tmp1570 := MakeNative0(func(__e *ControlFlow) Obj {
-return TailCall2(__e, SymFn(symshen_4_5_1dict), V3998, V3996)
+tmp1572 := MakeNative3(func(__e *ControlFlow, V4001, V4002, V4003 Obj) Obj {
+tmp1573 := MakeNative0(func(__e *ControlFlow) Obj {
+return TailCall2(__e, SymFn(symshen_4_5_1dict), V4003, V4001)
 panic("unreachable")
 })
 
-tmp1571 := MakeNative1(func(__e *ControlFlow, Z4000 Obj) Obj {
-tmp1572 := Call3(__e, SymFn(symshen_4app), V3997, MakeString("\n"), symshen_4s)
+tmp1574 := MakeNative1(func(__e *ControlFlow, Z4005 Obj) Obj {
+tmp1575 := Call3(__e, SymFn(symshen_4app), V4002, MakeString("\n"), symshen_4s)
 
 
-tmp1574 := Call3(__e, SymFn(symshen_4app), V3996, PrimGuard2(__e, symcn, PrimStringConcat, MakeString(" has no attributes: "), tmp1572), symshen_4a)
+tmp1577 := Call3(__e, SymFn(symshen_4app), V4001, PrimGuard2(__e, symcn, PrimStringConcat, MakeString(" has no attributes: "), tmp1575), symshen_4a)
 
 
-return PrimGuard1(__e, symsimple_1error, PrimSimpleError, tmp1574)
+return PrimGuard1(__e, symsimple_1error, PrimSimpleError, tmp1577)
 
 
 panic("unreachable")
 })
 
-tmp1575 := Call2(__e, try_1catch, tmp1570, tmp1571)
+tmp1578 := Call2(__e, try_1catch, tmp1573, tmp1574)
 
 
-let__1187 := tmp1575
+let__1187 := tmp1578
 _ = let__1187
 
-tmp1576 := Call2(__e, SymFn(symassoc), V3997, let__1187)
+tmp1579 := Call2(__e, SymFn(symassoc), V4002, let__1187)
 
 
-let__1188 := tmp1576
+let__1188 := tmp1579
 _ = let__1188
 
-tmp1582 := Call1(__e, SymFn(symempty_2), let__1188)
+tmp1585 := Call1(__e, SymFn(symempty_2), let__1188)
 
 
-if True == tmp1582 {
-tmp1577 := Call3(__e, SymFn(symshen_4app), V3996, MakeString("\n"), symshen_4s)
+if True == tmp1585 {
+tmp1580 := Call3(__e, SymFn(symshen_4app), V4001, MakeString("\n"), symshen_4s)
 
 
-tmp1579 := Call3(__e, SymFn(symshen_4app), V3997, PrimGuard2(__e, symcn, PrimStringConcat, MakeString(" not found for "), tmp1577), symshen_4s)
+tmp1582 := Call3(__e, SymFn(symshen_4app), V4002, PrimGuard2(__e, symcn, PrimStringConcat, MakeString(" not found for "), tmp1580), symshen_4s)
 
 
 return (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symsimple_1error) {
-return PrimSimpleError(PrimGuard2(__e, symcn, PrimStringConcat, MakeString("attribute "), tmp1579))
+return PrimSimpleError(PrimGuard2(__e, symcn, PrimStringConcat, MakeString("attribute "), tmp1582))
 }
-__typedArg0 := PrimGuard2(__e, symcn, PrimStringConcat, MakeString("attribute "), tmp1579)
+__typedArg0 := PrimGuard2(__e, symcn, PrimStringConcat, MakeString("attribute "), tmp1582)
 return Call1(__e, SymFn(symsimple_1error), __typedArg0)
 })()
 
@@ -1849,24 +1849,24 @@ return GTl(__e, let__1188)
 panic("unreachable")
 })
 
-tmp1583 := Call2(__e, ns2_1set, symget, tmp1569)
+tmp1586 := Call2(__e, ns2_1set, symget, tmp1572)
 
 
-_ = tmp1583
+_ = tmp1586
 
-tmp1584 := MakeNative2(func(__e *ControlFlow, V4002, V4003 Obj) Obj {
-tmp1585 := Call1(__e, SymFn(symshen_4hashkey), V4002)
-
-
-tmp1586 := Call2(__e, SymFn(symshen_4mod), tmp1585, V4003)
+tmp1587 := MakeNative2(func(__e *ControlFlow, V4007, V4008 Obj) Obj {
+tmp1588 := Call1(__e, SymFn(symshen_4hashkey), V4007)
 
 
-let__1189 := tmp1586
+tmp1589 := Call2(__e, SymFn(symshen_4mod), tmp1588, V4008)
+
+
+let__1189 := tmp1589
 _ = let__1189
 
-tmp1588 := GEq(__e, let__1189, MakeInteger(0))
+tmp1591 := GEq(__e, let__1189, MakeInteger(0))
 
-if True == tmp1588 {
+if True == tmp1591 {
 return MakeInteger(1)
 } else {
 return let__1189
@@ -1876,24 +1876,24 @@ return let__1189
 panic("unreachable")
 })
 
-tmp1589 := Call2(__e, ns2_1set, symhash, tmp1584)
+tmp1592 := Call2(__e, ns2_1set, symhash, tmp1587)
 
 
-_ = tmp1589
+_ = tmp1592
 
-tmp1590 := MakeNative1(func(__e *ControlFlow, V4005 Obj) Obj {
-tmp1591 := MakeNative1(func(__e *ControlFlow, Z4007 Obj) Obj {
-return PrimGuard1(__e, symstring_1_6n, PrimStringToNumber, Z4007)
+tmp1593 := MakeNative1(func(__e *ControlFlow, V4010 Obj) Obj {
+tmp1594 := MakeNative1(func(__e *ControlFlow, Z4012 Obj) Obj {
+return PrimGuard1(__e, symstring_1_6n, PrimStringToNumber, Z4012)
 panic("unreachable")
 })
 
-tmp1592 := Call1(__e, SymFn(symexplode), V4005)
+tmp1595 := Call1(__e, SymFn(symexplode), V4010)
 
 
-tmp1593 := Call2(__e, SymFn(symmap), tmp1591, tmp1592)
+tmp1596 := Call2(__e, SymFn(symmap), tmp1594, tmp1595)
 
 
-let__1190 := tmp1593
+let__1190 := tmp1596
 _ = let__1190
 
 return TailCall2(__e, SymFn(symshen_4prodbutzero), let__1190, MakeInteger(1))
@@ -1902,81 +1902,81 @@ return TailCall2(__e, SymFn(symshen_4prodbutzero), let__1190, MakeInteger(1))
 panic("unreachable")
 })
 
-tmp1594 := Call2(__e, ns2_1set, symshen_4hashkey, tmp1590)
+tmp1597 := Call2(__e, ns2_1set, symshen_4hashkey, tmp1593)
 
 
-_ = tmp1594
+_ = tmp1597
 
-tmp1595 := (func() Obj {
+tmp1598 := (func() Obj {
 var __self Obj
 __self = MakeNative2(func(__e *ControlFlow, __self1, __self2 Obj) Obj {
 __selftop:
-V4008 := __self1
-_ = V4008
-V4009 := __self2
-_ = V4009
-tmp1613 := GEq(__e, Nil, V4008)
+V4013 := __self1
+_ = V4013
+V4014 := __self2
+_ = V4014
+tmp1616 := GEq(__e, Nil, V4013)
 
-if True == tmp1613 {
-return V4009
+if True == tmp1616 {
+return V4014
 } else {
-tmp1611 := GConsP(__e, V4008)
+tmp1614 := GConsP(__e, V4013)
 
-var ifres1608 Obj
+var ifres1611 Obj
 
-if True == tmp1611 {
-tmp1609 := GHd(__e, V4008)
+if True == tmp1614 {
+tmp1612 := GHd(__e, V4013)
 
-tmp1610 := GEq(__e, MakeInteger(0), tmp1609)
+tmp1613 := GEq(__e, MakeInteger(0), tmp1612)
 
-ifres1608 = tmp1610
+ifres1611 = tmp1613
 
 
 } else {
-ifres1608 = False
+ifres1611 = False
 
 
 }
 
-if True == ifres1608 {
-tmp1596 := GTl(__e, V4008)
+if True == ifres1611 {
+tmp1599 := GTl(__e, V4013)
 
 if SymFn(symshen_4prodbutzero) == __self {
-__self1, __self2 = tmp1596, V4009
+__self1, __self2 = tmp1599, V4014
 __e.Tick()
 goto __selftop
 }
-return TailCall2(__e, SymFn(symshen_4prodbutzero), tmp1596, V4009)
+return TailCall2(__e, SymFn(symshen_4prodbutzero), tmp1599, V4014)
 
 
 } else {
-tmp1606 := GConsP(__e, V4008)
+tmp1609 := GConsP(__e, V4013)
 
-if True == tmp1606 {
-if True == GGt(__e, V4009, MakeNumber(1e+10)) {
-tmp1597 := GTl(__e, V4008)
+if True == tmp1609 {
+if True == GGt(__e, V4014, MakeNumber(1e+10)) {
+tmp1600 := GTl(__e, V4013)
 
-tmp1598 := GHd(__e, V4008)
+tmp1601 := GHd(__e, V4013)
 
 if SymFn(symshen_4prodbutzero) == __self {
-__self1, __self2 = tmp1597, GAdd(__e, V4009, tmp1598)
+__self1, __self2 = tmp1600, GAdd(__e, V4014, tmp1601)
 __e.Tick()
 goto __selftop
 }
-return TailCall2(__e, SymFn(symshen_4prodbutzero), tmp1597, GAdd(__e, V4009, tmp1598))
+return TailCall2(__e, SymFn(symshen_4prodbutzero), tmp1600, GAdd(__e, V4014, tmp1601))
 
 
 } else {
-tmp1600 := GTl(__e, V4008)
+tmp1603 := GTl(__e, V4013)
 
-tmp1601 := GHd(__e, V4008)
+tmp1604 := GHd(__e, V4013)
 
 if SymFn(symshen_4prodbutzero) == __self {
-__self1, __self2 = tmp1600, GMul(__e, V4009, tmp1601)
+__self1, __self2 = tmp1603, GMul(__e, V4014, tmp1604)
 __e.Tick()
 goto __selftop
 }
-return TailCall2(__e, SymFn(symshen_4prodbutzero), tmp1600, GMul(__e, V4009, tmp1601))
+return TailCall2(__e, SymFn(symshen_4prodbutzero), tmp1603, GMul(__e, V4014, tmp1604))
 
 
 }
@@ -1998,75 +1998,75 @@ panic("unreachable")
 return __self
 })()
 
-tmp1614 := Call2(__e, ns2_1set, symshen_4prodbutzero, tmp1595)
+tmp1617 := Call2(__e, ns2_1set, symshen_4prodbutzero, tmp1598)
 
 
-_ = tmp1614
+_ = tmp1617
 
-tmp1615 := MakeNative2(func(__e *ControlFlow, V4010, V4011 Obj) Obj {
-tmp1616 := GCons(__e, V4011, Nil)
+tmp1618 := MakeNative2(func(__e *ControlFlow, V4015, V4016 Obj) Obj {
+tmp1619 := GCons(__e, V4016, Nil)
 
-tmp1617 := Call2(__e, SymFn(symshen_4multiples), V4010, tmp1616)
+tmp1620 := Call2(__e, SymFn(symshen_4multiples), V4015, tmp1619)
 
 
-return TailCall2(__e, SymFn(symshen_4modh), V4010, tmp1617)
+return TailCall2(__e, SymFn(symshen_4modh), V4015, tmp1620)
 
 
 panic("unreachable")
 })
 
-tmp1618 := Call2(__e, ns2_1set, symshen_4mod, tmp1615)
+tmp1621 := Call2(__e, ns2_1set, symshen_4mod, tmp1618)
 
 
-_ = tmp1618
+_ = tmp1621
 
-tmp1619 := (func() Obj {
+tmp1622 := (func() Obj {
 var __self Obj
 __self = MakeNative2(func(__e *ControlFlow, __self1, __self2 Obj) Obj {
 __selftop:
-V4016 := __self1
-_ = V4016
-V4017 := __self2
-_ = V4017
-tmp1629 := GConsP(__e, V4017)
+V4021 := __self1
+_ = V4021
+V4022 := __self2
+_ = V4022
+tmp1632 := GConsP(__e, V4022)
 
-var ifres1626 Obj
+var ifres1629 Obj
 
-if True == tmp1629 {
-tmp1627 := GHd(__e, V4017)
+if True == tmp1632 {
+tmp1630 := GHd(__e, V4022)
 
-ifres1626 = GGt(__e, tmp1627, V4016)
+ifres1629 = GGt(__e, tmp1630, V4021)
 
 
 } else {
-ifres1626 = False
+ifres1629 = False
 
 
 }
 
-if True == ifres1626 {
-return GTl(__e, V4017)
+if True == ifres1629 {
+return GTl(__e, V4022)
 } else {
-tmp1624 := GConsP(__e, V4017)
+tmp1627 := GConsP(__e, V4022)
 
-if True == tmp1624 {
-tmp1620 := GHd(__e, V4017)
+if True == tmp1627 {
+tmp1623 := GHd(__e, V4022)
 
-tmp1622 := (func() Obj {
+tmp1625 := (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symcons) {
-return PrimCons(GMul(__e, MakeInteger(2), tmp1620), V4017)
+return PrimCons(GMul(__e, MakeInteger(2), tmp1623), V4022)
 }
-__typedArg0 := GMul(__e, MakeInteger(2), tmp1620)
-__typedArg1 := V4017
+__typedArg0 := GMul(__e, MakeInteger(2), tmp1623)
+__typedArg1 := V4022
 return Call2(__e, SymFn(symcons), __typedArg0, __typedArg1)
 })()
 
 if SymFn(symshen_4multiples) == __self {
-__self1, __self2 = V4016, tmp1622
+__self1, __self2 = V4021, tmp1625
 __e.Tick()
 goto __selftop
 }
-return TailCall2(__e, SymFn(symshen_4multiples), V4016, tmp1622)
+return TailCall2(__e, SymFn(symshen_4multiples), V4021, tmp1625)
 
 
 } else {
@@ -2082,79 +2082,79 @@ panic("unreachable")
 return __self
 })()
 
-tmp1630 := Call2(__e, ns2_1set, symshen_4multiples, tmp1619)
+tmp1633 := Call2(__e, ns2_1set, symshen_4multiples, tmp1622)
 
 
-_ = tmp1630
+_ = tmp1633
 
-tmp1631 := (func() Obj {
+tmp1634 := (func() Obj {
 var __self Obj
 __self = MakeNative2(func(__e *ControlFlow, __self1, __self2 Obj) Obj {
 __selftop:
-V4024 := __self1
-_ = V4024
-V4025 := __self2
-_ = V4025
-tmp1648 := GEq(__e, MakeInteger(0), V4024)
+V4029 := __self1
+_ = V4029
+V4030 := __self2
+_ = V4030
+tmp1651 := GEq(__e, MakeInteger(0), V4029)
 
-if True == tmp1648 {
+if True == tmp1651 {
 return MakeInteger(0)
 } else {
-tmp1646 := GEq(__e, Nil, V4025)
+tmp1649 := GEq(__e, Nil, V4030)
 
-if True == tmp1646 {
-return V4024
+if True == tmp1649 {
+return V4029
 } else {
-tmp1644 := GConsP(__e, V4025)
+tmp1647 := GConsP(__e, V4030)
 
-var ifres1641 Obj
+var ifres1644 Obj
 
-if True == tmp1644 {
-tmp1642 := GHd(__e, V4025)
+if True == tmp1647 {
+tmp1645 := GHd(__e, V4030)
 
-ifres1641 = GGt(__e, tmp1642, V4024)
+ifres1644 = GGt(__e, tmp1645, V4029)
 
 
 } else {
-ifres1641 = False
+ifres1644 = False
 
 
 }
 
-if True == ifres1641 {
-tmp1634 := GTl(__e, V4025)
+if True == ifres1644 {
+tmp1637 := GTl(__e, V4030)
 
-tmp1635 := Call1(__e, SymFn(symempty_2), tmp1634)
+tmp1638 := Call1(__e, SymFn(symempty_2), tmp1637)
 
 
-if True == tmp1635 {
-return V4024
+if True == tmp1638 {
+return V4029
 } else {
-tmp1632 := GTl(__e, V4025)
+tmp1635 := GTl(__e, V4030)
 
 if SymFn(symshen_4modh) == __self {
-__self1, __self2 = V4024, tmp1632
+__self1, __self2 = V4029, tmp1635
 __e.Tick()
 goto __selftop
 }
-return TailCall2(__e, SymFn(symshen_4modh), V4024, tmp1632)
+return TailCall2(__e, SymFn(symshen_4modh), V4029, tmp1635)
 
 
 }
 
 
 } else {
-tmp1639 := GConsP(__e, V4025)
+tmp1642 := GConsP(__e, V4030)
 
-if True == tmp1639 {
-tmp1636 := GHd(__e, V4025)
+if True == tmp1642 {
+tmp1639 := GHd(__e, V4030)
 
 if SymFn(symshen_4modh) == __self {
-__self1, __self2 = GSub(__e, V4024, tmp1636), V4025
+__self1, __self2 = GSub(__e, V4029, tmp1639), V4030
 __e.Tick()
 goto __selftop
 }
-return TailCall2(__e, SymFn(symshen_4modh), GSub(__e, V4024, tmp1636), V4025)
+return TailCall2(__e, SymFn(symshen_4modh), GSub(__e, V4029, tmp1639), V4030)
 
 
 } else {
@@ -2176,28 +2176,28 @@ panic("unreachable")
 return __self
 })()
 
-tmp1649 := Call2(__e, ns2_1set, symshen_4modh, tmp1631)
+tmp1652 := Call2(__e, ns2_1set, symshen_4modh, tmp1634)
 
 
-_ = tmp1649
+_ = tmp1652
 
-tmp1650 := MakeNative1(func(__e *ControlFlow, V4028 Obj) Obj {
-tmp1657 := GEq(__e, Nil, V4028)
+tmp1653 := MakeNative1(func(__e *ControlFlow, V4033 Obj) Obj {
+tmp1660 := GEq(__e, Nil, V4033)
 
-if True == tmp1657 {
+if True == tmp1660 {
 return MakeInteger(0)
 } else {
-tmp1655 := GConsP(__e, V4028)
+tmp1658 := GConsP(__e, V4033)
 
-if True == tmp1655 {
-tmp1651 := GHd(__e, V4028)
+if True == tmp1658 {
+tmp1654 := GHd(__e, V4033)
 
-tmp1652 := GTl(__e, V4028)
+tmp1655 := GTl(__e, V4033)
 
-tmp1653 := Call1(__e, SymFn(symsum), tmp1652)
+tmp1656 := Call1(__e, SymFn(symsum), tmp1655)
 
 
-return GAdd(__e, tmp1651, tmp1653)
+return GAdd(__e, tmp1654, tmp1656)
 
 
 } else {
@@ -2211,16 +2211,16 @@ return PrimGuard1(__e, symsimple_1error, PrimSimpleError, MakeString("attempt to
 panic("unreachable")
 })
 
-tmp1658 := Call2(__e, ns2_1set, symsum, tmp1650)
+tmp1661 := Call2(__e, ns2_1set, symsum, tmp1653)
 
 
-_ = tmp1658
+_ = tmp1661
 
-tmp1659 := MakeNative1(func(__e *ControlFlow, V4033 Obj) Obj {
-tmp1661 := GConsP(__e, V4033)
+tmp1662 := MakeNative1(func(__e *ControlFlow, V4038 Obj) Obj {
+tmp1664 := GConsP(__e, V4038)
 
-if True == tmp1661 {
-return GHd(__e, V4033)
+if True == tmp1664 {
+return GHd(__e, V4038)
 } else {
 return PrimGuard1(__e, symsimple_1error, PrimSimpleError, MakeString("head expects a non-empty list\n"))
 }
@@ -2229,16 +2229,16 @@ return PrimGuard1(__e, symsimple_1error, PrimSimpleError, MakeString("head expec
 panic("unreachable")
 })
 
-tmp1662 := Call2(__e, ns2_1set, symhead, tmp1659)
+tmp1665 := Call2(__e, ns2_1set, symhead, tmp1662)
 
 
-_ = tmp1662
+_ = tmp1665
 
-tmp1663 := MakeNative1(func(__e *ControlFlow, V4038 Obj) Obj {
-tmp1665 := GConsP(__e, V4038)
+tmp1666 := MakeNative1(func(__e *ControlFlow, V4043 Obj) Obj {
+tmp1668 := GConsP(__e, V4043)
 
-if True == tmp1665 {
-return GTl(__e, V4038)
+if True == tmp1668 {
+return GTl(__e, V4043)
 } else {
 return PrimGuard1(__e, symsimple_1error, PrimSimpleError, MakeString("tail expects a non-empty list\n"))
 }
@@ -2247,62 +2247,62 @@ return PrimGuard1(__e, symsimple_1error, PrimSimpleError, MakeString("tail expec
 panic("unreachable")
 })
 
-tmp1666 := Call2(__e, ns2_1set, symtail, tmp1663)
+tmp1669 := Call2(__e, ns2_1set, symtail, tmp1666)
 
 
-_ = tmp1666
+_ = tmp1669
 
-tmp1667 := MakeNative1(func(__e *ControlFlow, V4039 Obj) Obj {
-return PrimGuard2(__e, sympos, PrimPos, V4039, MakeInteger(0))
+tmp1670 := MakeNative1(func(__e *ControlFlow, V4044 Obj) Obj {
+return PrimGuard2(__e, sympos, PrimPos, V4044, MakeInteger(0))
 panic("unreachable")
 })
 
-tmp1668 := Call2(__e, ns2_1set, symhdstr, tmp1667)
+tmp1671 := Call2(__e, ns2_1set, symhdstr, tmp1670)
 
 
-_ = tmp1668
+_ = tmp1671
 
-tmp1669 := (func() Obj {
+tmp1672 := (func() Obj {
 var __self Obj
 __self = MakeNative2(func(__e *ControlFlow, __self1, __self2 Obj) Obj {
 __selftop:
-V4046 := __self1
-_ = V4046
-V4047 := __self2
-_ = V4047
-tmp1680 := GEq(__e, Nil, V4046)
+V4051 := __self1
+_ = V4051
+V4052 := __self2
+_ = V4052
+tmp1683 := GEq(__e, Nil, V4051)
 
-if True == tmp1680 {
+if True == tmp1683 {
 return Nil
 } else {
-tmp1678 := GConsP(__e, V4046)
+tmp1681 := GConsP(__e, V4051)
 
-if True == tmp1678 {
-tmp1675 := GHd(__e, V4046)
+if True == tmp1681 {
+tmp1678 := GHd(__e, V4051)
 
-tmp1676 := Call2(__e, SymFn(symelement_2), tmp1675, V4047)
-
-
-if True == tmp1676 {
-tmp1670 := GHd(__e, V4046)
-
-tmp1671 := GTl(__e, V4046)
-
-tmp1672 := Call2(__e, SymFn(symintersection), tmp1671, V4047)
+tmp1679 := Call2(__e, SymFn(symelement_2), tmp1678, V4052)
 
 
-return GCons(__e, tmp1670, tmp1672)
+if True == tmp1679 {
+tmp1673 := GHd(__e, V4051)
+
+tmp1674 := GTl(__e, V4051)
+
+tmp1675 := Call2(__e, SymFn(symintersection), tmp1674, V4052)
+
+
+return GCons(__e, tmp1673, tmp1675)
 
 
 } else {
-tmp1673 := GTl(__e, V4046)
+tmp1676 := GTl(__e, V4051)
 
 if SymFn(symintersection) == __self {
-__self1, __self2 = tmp1673, V4047
+__self1, __self2 = tmp1676, V4052
 __e.Tick()
 goto __selftop
 }
-return TailCall2(__e, SymFn(symintersection), tmp1673, V4047)
+return TailCall2(__e, SymFn(symintersection), tmp1676, V4052)
 
 
 }
@@ -2321,49 +2321,49 @@ panic("unreachable")
 return __self
 })()
 
-tmp1681 := Call2(__e, ns2_1set, symintersection, tmp1669)
+tmp1684 := Call2(__e, ns2_1set, symintersection, tmp1672)
 
 
-_ = tmp1681
+_ = tmp1684
 
-tmp1682 := MakeNative1(func(__e *ControlFlow, V4048 Obj) Obj {
-return TailCall2(__e, SymFn(symshen_4reverse_1help), V4048, Nil)
+tmp1685 := MakeNative1(func(__e *ControlFlow, V4053 Obj) Obj {
+return TailCall2(__e, SymFn(symshen_4reverse_1help), V4053, Nil)
 panic("unreachable")
 })
 
-tmp1683 := Call2(__e, ns2_1set, symreverse, tmp1682)
+tmp1686 := Call2(__e, ns2_1set, symreverse, tmp1685)
 
 
-_ = tmp1683
+_ = tmp1686
 
-tmp1684 := (func() Obj {
+tmp1687 := (func() Obj {
 var __self Obj
 __self = MakeNative2(func(__e *ControlFlow, __self1, __self2 Obj) Obj {
 __selftop:
-V4053 := __self1
-_ = V4053
-V4054 := __self2
-_ = V4054
-tmp1691 := GEq(__e, Nil, V4053)
+V4058 := __self1
+_ = V4058
+V4059 := __self2
+_ = V4059
+tmp1694 := GEq(__e, Nil, V4058)
 
-if True == tmp1691 {
-return V4054
+if True == tmp1694 {
+return V4059
 } else {
-tmp1689 := GConsP(__e, V4053)
+tmp1692 := GConsP(__e, V4058)
 
-if True == tmp1689 {
-tmp1685 := GTl(__e, V4053)
+if True == tmp1692 {
+tmp1688 := GTl(__e, V4058)
 
-tmp1686 := GHd(__e, V4053)
+tmp1689 := GHd(__e, V4058)
 
-tmp1687 := GCons(__e, tmp1686, V4054)
+tmp1690 := GCons(__e, tmp1689, V4059)
 
 if SymFn(symshen_4reverse_1help) == __self {
-__self1, __self2 = tmp1685, tmp1687
+__self1, __self2 = tmp1688, tmp1690
 __e.Tick()
 goto __selftop
 }
-return TailCall2(__e, SymFn(symshen_4reverse_1help), tmp1685, tmp1687)
+return TailCall2(__e, SymFn(symshen_4reverse_1help), tmp1688, tmp1690)
 
 
 } else {
@@ -2379,52 +2379,52 @@ panic("unreachable")
 return __self
 })()
 
-tmp1692 := Call2(__e, ns2_1set, symshen_4reverse_1help, tmp1684)
+tmp1695 := Call2(__e, ns2_1set, symshen_4reverse_1help, tmp1687)
 
 
-_ = tmp1692
+_ = tmp1695
 
-tmp1693 := (func() Obj {
+tmp1696 := (func() Obj {
 var __self Obj
 __self = MakeNative2(func(__e *ControlFlow, __self1, __self2 Obj) Obj {
 __selftop:
-V4059 := __self1
-_ = V4059
-V4060 := __self2
-_ = V4060
-tmp1704 := GEq(__e, Nil, V4059)
+V4064 := __self1
+_ = V4064
+V4065 := __self2
+_ = V4065
+tmp1707 := GEq(__e, Nil, V4064)
 
-if True == tmp1704 {
-return V4060
+if True == tmp1707 {
+return V4065
 } else {
-tmp1702 := GConsP(__e, V4059)
+tmp1705 := GConsP(__e, V4064)
 
-if True == tmp1702 {
-tmp1699 := GHd(__e, V4059)
+if True == tmp1705 {
+tmp1702 := GHd(__e, V4064)
 
-tmp1700 := Call2(__e, SymFn(symelement_2), tmp1699, V4060)
+tmp1703 := Call2(__e, SymFn(symelement_2), tmp1702, V4065)
 
 
-if True == tmp1700 {
-tmp1694 := GTl(__e, V4059)
+if True == tmp1703 {
+tmp1697 := GTl(__e, V4064)
 
 if SymFn(symunion) == __self {
-__self1, __self2 = tmp1694, V4060
+__self1, __self2 = tmp1697, V4065
 __e.Tick()
 goto __selftop
 }
-return TailCall2(__e, SymFn(symunion), tmp1694, V4060)
+return TailCall2(__e, SymFn(symunion), tmp1697, V4065)
 
 
 } else {
-tmp1695 := GHd(__e, V4059)
+tmp1698 := GHd(__e, V4064)
 
-tmp1696 := GTl(__e, V4059)
+tmp1699 := GTl(__e, V4064)
 
-tmp1697 := Call2(__e, SymFn(symunion), tmp1696, V4060)
+tmp1700 := Call2(__e, SymFn(symunion), tmp1699, V4065)
 
 
-return GCons(__e, tmp1695, tmp1697)
+return GCons(__e, tmp1698, tmp1700)
 
 
 }
@@ -2443,74 +2443,74 @@ panic("unreachable")
 return __self
 })()
 
-tmp1705 := Call2(__e, ns2_1set, symunion, tmp1693)
+tmp1708 := Call2(__e, ns2_1set, symunion, tmp1696)
 
 
-_ = tmp1705
+_ = tmp1708
 
-tmp1706 := (func() Obj {
+tmp1709 := (func() Obj {
 var __self Obj
 __self = MakeNative1(func(__e *ControlFlow, __self1 Obj) Obj {
 __selftop:
-V4061 := __self1
-_ = V4061
-tmp1707 := Call1(__e, SymFn(symshen_4proc_1nl), V4061)
+V4066 := __self1
+_ = V4066
+tmp1710 := Call1(__e, SymFn(symshen_4proc_1nl), V4066)
 
 
-tmp1708 := Call0(__e, SymFn(symstoutput))
+tmp1711 := Call0(__e, SymFn(symstoutput))
 
 
-tmp1709 := Call2(__e, SymFn(sympr), tmp1707, tmp1708)
+tmp1712 := Call2(__e, SymFn(sympr), tmp1710, tmp1711)
 
 
-let__1191 := tmp1709
+let__1191 := tmp1712
 _ = let__1191
 
-tmp1710 := Call0(__e, SymFn(symstoutput))
+tmp1713 := Call0(__e, SymFn(symstoutput))
 
 
-tmp1711 := Call2(__e, SymFn(sympr), MakeString(" (y/n) "), tmp1710)
+tmp1714 := Call2(__e, SymFn(sympr), MakeString(" (y/n) "), tmp1713)
 
 
-let__1192 := tmp1711
+let__1192 := tmp1714
 _ = let__1192
 
-tmp1712 := Call0(__e, SymFn(symstinput))
+tmp1715 := Call0(__e, SymFn(symstinput))
 
 
-tmp1713 := Call1(__e, SymFn(symread), tmp1712)
+tmp1716 := Call1(__e, SymFn(symread), tmp1715)
 
 
-tmp1714 := Call3(__e, SymFn(symshen_4app), tmp1713, MakeString(""), symshen_4s)
+tmp1717 := Call3(__e, SymFn(symshen_4app), tmp1716, MakeString(""), symshen_4s)
 
 
-let__1193 := tmp1714
+let__1193 := tmp1717
 _ = let__1193
 
-tmp1720 := GEq(__e, MakeString("y"), let__1193)
+tmp1723 := GEq(__e, MakeString("y"), let__1193)
 
-if True == tmp1720 {
+if True == tmp1723 {
 return True
 } else {
-tmp1718 := GEq(__e, MakeString("n"), let__1193)
+tmp1721 := GEq(__e, MakeString("n"), let__1193)
 
-if True == tmp1718 {
+if True == tmp1721 {
 return False
 } else {
-tmp1715 := Call0(__e, SymFn(symstoutput))
+tmp1718 := Call0(__e, SymFn(symstoutput))
 
 
-tmp1716 := Call2(__e, SymFn(sympr), MakeString("please answer y or n\n"), tmp1715)
+tmp1719 := Call2(__e, SymFn(sympr), MakeString("please answer y or n\n"), tmp1718)
 
 
-_ = tmp1716
+_ = tmp1719
 
 if SymFn(symy_1or_1n_2) == __self {
-__self1 = V4061
+__self1 = V4066
 __e.Tick()
 goto __selftop
 }
-return TailCall1(__e, SymFn(symy_1or_1n_2), V4061)
+return TailCall1(__e, SymFn(symy_1or_1n_2), V4066)
 
 
 }
@@ -2524,13 +2524,13 @@ panic("unreachable")
 return __self
 })()
 
-tmp1721 := Call2(__e, ns2_1set, symy_1or_1n_2, tmp1706)
+tmp1724 := Call2(__e, ns2_1set, symy_1or_1n_2, tmp1709)
 
 
-_ = tmp1721
+_ = tmp1724
 
-tmp1722 := MakeNative1(func(__e *ControlFlow, V4065 Obj) Obj {
-if True == V4065 {
+tmp1725 := MakeNative1(func(__e *ControlFlow, V4070 Obj) Obj {
+if True == V4070 {
 return False
 } else {
 return True
@@ -2538,45 +2538,45 @@ return True
 panic("unreachable")
 })
 
-tmp1724 := Call2(__e, ns2_1set, symnot, tmp1722)
+tmp1727 := Call2(__e, ns2_1set, symnot, tmp1725)
 
 
-_ = tmp1724
+_ = tmp1727
 
-tmp1725 := MakeNative0(func(__e *ControlFlow) Obj {
+tmp1728 := MakeNative0(func(__e *ControlFlow) Obj {
 return PrimGuard1(__e, symsimple_1error, PrimSimpleError, MakeString(""))
 panic("unreachable")
 })
 
-tmp1726 := Call2(__e, ns2_1set, symabort, tmp1725)
+tmp1729 := Call2(__e, ns2_1set, symabort, tmp1728)
 
 
-_ = tmp1726
+_ = tmp1729
 
-tmp1727 := MakeNative3(func(__e *ControlFlow, V4071, V4072, V4073 Obj) Obj {
-tmp1735 := GEq(__e, V4072, V4073)
+tmp1730 := MakeNative3(func(__e *ControlFlow, V4076, V4077, V4078 Obj) Obj {
+tmp1738 := GEq(__e, V4077, V4078)
 
-if True == tmp1735 {
-return V4071
+if True == tmp1738 {
+return V4076
 } else {
-tmp1733 := GConsP(__e, V4073)
+tmp1736 := GConsP(__e, V4078)
 
-if True == tmp1733 {
-tmp1728 := GHd(__e, V4073)
+if True == tmp1736 {
+tmp1731 := GHd(__e, V4078)
 
-tmp1729 := Call3(__e, SymFn(symsubst), V4071, V4072, tmp1728)
-
-
-tmp1730 := GTl(__e, V4073)
-
-tmp1731 := Call3(__e, SymFn(symsubst), V4071, V4072, tmp1730)
+tmp1732 := Call3(__e, SymFn(symsubst), V4076, V4077, tmp1731)
 
 
-return GCons(__e, tmp1729, tmp1731)
+tmp1733 := GTl(__e, V4078)
+
+tmp1734 := Call3(__e, SymFn(symsubst), V4076, V4077, tmp1733)
+
+
+return GCons(__e, tmp1732, tmp1734)
 
 
 } else {
-return V4073
+return V4078
 }
 
 
@@ -2586,43 +2586,43 @@ return V4073
 panic("unreachable")
 })
 
-tmp1736 := Call2(__e, ns2_1set, symsubst, tmp1727)
-
-
-_ = tmp1736
-
-tmp1737 := MakeNative1(func(__e *ControlFlow, V4074 Obj) Obj {
-tmp1738 := Call3(__e, SymFn(symshen_4app), V4074, MakeString(""), symshen_4a)
-
-
-return TailCall1(__e, SymFn(symshen_4explode_1h), tmp1738)
-
-
-panic("unreachable")
-})
-
-tmp1739 := Call2(__e, ns2_1set, symexplode, tmp1737)
+tmp1739 := Call2(__e, ns2_1set, symsubst, tmp1730)
 
 
 _ = tmp1739
 
-tmp1740 := MakeNative1(func(__e *ControlFlow, V4077 Obj) Obj {
-tmp1747 := GEq(__e, MakeString(""), V4077)
+tmp1740 := MakeNative1(func(__e *ControlFlow, V4079 Obj) Obj {
+tmp1741 := Call3(__e, SymFn(symshen_4app), V4079, MakeString(""), symshen_4a)
 
-if True == tmp1747 {
+
+return TailCall1(__e, SymFn(symshen_4explode_1h), tmp1741)
+
+
+panic("unreachable")
+})
+
+tmp1742 := Call2(__e, ns2_1set, symexplode, tmp1740)
+
+
+_ = tmp1742
+
+tmp1743 := MakeNative1(func(__e *ControlFlow, V4082 Obj) Obj {
+tmp1750 := GEq(__e, MakeString(""), V4082)
+
+if True == tmp1750 {
 return Nil
 } else {
-tmp1745 := Call1(__e, SymFn(symshen_4_7string_2), V4077)
+tmp1748 := Call1(__e, SymFn(symshen_4_7string_2), V4082)
 
 
-if True == tmp1745 {
-tmp1741 := Call1(__e, SymFn(symhdstr), V4077)
+if True == tmp1748 {
+tmp1744 := Call1(__e, SymFn(symhdstr), V4082)
 
 
-tmp1743 := Call1(__e, SymFn(symshen_4explode_1h), PrimGuard1(__e, symtlstr, PrimTailString, V4077))
+tmp1746 := Call1(__e, SymFn(symshen_4explode_1h), PrimGuard1(__e, symtlstr, PrimTailString, V4082))
 
 
-return GCons(__e, tmp1741, tmp1743)
+return GCons(__e, tmp1744, tmp1746)
 
 
 } else {
@@ -2636,72 +2636,72 @@ return PrimGuard1(__e, symsimple_1error, PrimSimpleError, MakeString("implementa
 panic("unreachable")
 })
 
-tmp1748 := Call2(__e, ns2_1set, symshen_4explode_1h, tmp1740)
+tmp1751 := Call2(__e, ns2_1set, symshen_4explode_1h, tmp1743)
 
 
-_ = tmp1748
+_ = tmp1751
 
-tmp1749 := MakeNative1(func(__e *ControlFlow, V4078 Obj) Obj {
-tmp1752 := GEq(__e, V4078, MakeString(""))
+tmp1752 := MakeNative1(func(__e *ControlFlow, V4083 Obj) Obj {
+tmp1755 := GEq(__e, V4083, MakeString(""))
 
-var ifres1750 Obj
+var ifres1753 Obj
 
-if True == tmp1752 {
-ifres1750 = MakeString("")
+if True == tmp1755 {
+ifres1753 = MakeString("")
 
 
 } else {
-tmp1751 := Call3(__e, SymFn(symshen_4app), V4078, MakeString("/"), symshen_4a)
+tmp1754 := Call3(__e, SymFn(symshen_4app), V4083, MakeString("/"), symshen_4a)
 
 
-ifres1750 = tmp1751
+ifres1753 = tmp1754
 
 
 }
 
-return PrimGuard2(__e, symset, PrimSet, sym_dhome_1directory_d, ifres1750)
+return PrimGuard2(__e, symset, PrimSet, sym_dhome_1directory_d, ifres1753)
 
 
 panic("unreachable")
 })
 
-tmp1753 := Call2(__e, ns2_1set, symcd, tmp1749)
+tmp1756 := Call2(__e, ns2_1set, symcd, tmp1752)
 
 
-_ = tmp1753
+_ = tmp1756
 
-tmp1754 := (func() Obj {
+tmp1757 := (func() Obj {
 var __self Obj
 __self = MakeNative2(func(__e *ControlFlow, __self1, __self2 Obj) Obj {
 __selftop:
-V4079 := __self1
-_ = V4079
-V4080 := __self2
-_ = V4080
-tmp1761 := GEq(__e, Nil, V4080)
+V4084 := __self1
+_ = V4084
+V4085 := __self2
+_ = V4085
+tmp1764 := GEq(__e, Nil, V4085)
 
-if True == tmp1761 {
+if True == tmp1764 {
 return True
 } else {
-tmp1759 := GConsP(__e, V4080)
+tmp1762 := GConsP(__e, V4085)
 
-if True == tmp1759 {
-tmp1755 := GHd(__e, V4080)
+if True == tmp1762 {
+tmp1758 := GHd(__e, V4085)
 
-tmp1756 := Call1(__e, V4079, tmp1755)
+tmp1759 := Call1(__e, V4084, tmp1758)
 
 
-let__1194 := tmp1756
+let__1194 := tmp1759
 _ = let__1194
 
-tmp1757 := GTl(__e, V4080)
+tmp1760 := GTl(__e, V4085)
 
 if SymFn(symshen_4for_1each) == __self {
-__self1, __self2 = V4079, tmp1757
+__self1, __self2 = V4084, tmp1760
 __e.Tick()
 goto __selftop
 }
-return TailCall2(__e, SymFn(symshen_4for_1each), V4079, tmp1757)
+return TailCall2(__e, SymFn(symshen_4for_1each), V4084, tmp1760)
 
 
 } else {
@@ -2717,54 +2717,54 @@ panic("unreachable")
 return __self
 })()
 
-tmp1762 := Call2(__e, ns2_1set, symshen_4for_1each, tmp1754)
+tmp1765 := Call2(__e, ns2_1set, symshen_4for_1each, tmp1757)
 
 
-_ = tmp1762
+_ = tmp1765
 
-tmp1763 := MakeNative2(func(__e *ControlFlow, V4082, V4083 Obj) Obj {
-return TailCall3(__e, SymFn(symshen_4map_1h), V4082, V4083, Nil)
+tmp1766 := MakeNative2(func(__e *ControlFlow, V4087, V4088 Obj) Obj {
+return TailCall3(__e, SymFn(symshen_4map_1h), V4087, V4088, Nil)
 panic("unreachable")
 })
 
-tmp1764 := Call2(__e, ns2_1set, symmap, tmp1763)
+tmp1767 := Call2(__e, ns2_1set, symmap, tmp1766)
 
 
-_ = tmp1764
+_ = tmp1767
 
-tmp1765 := (func() Obj {
+tmp1768 := (func() Obj {
 var __self Obj
 __self = MakeNative3(func(__e *ControlFlow, __self1, __self2, __self3 Obj) Obj {
 __selftop:
-V4084 := __self1
-_ = V4084
-V4085 := __self2
-_ = V4085
-V4086 := __self3
-_ = V4086
-tmp1773 := GEq(__e, Nil, V4085)
+V4089 := __self1
+_ = V4089
+V4090 := __self2
+_ = V4090
+V4091 := __self3
+_ = V4091
+tmp1776 := GEq(__e, Nil, V4090)
 
-if True == tmp1773 {
-return TailCall1(__e, SymFn(symreverse), V4086)
+if True == tmp1776 {
+return TailCall1(__e, SymFn(symreverse), V4091)
 } else {
-tmp1771 := GConsP(__e, V4085)
+tmp1774 := GConsP(__e, V4090)
 
-if True == tmp1771 {
-tmp1766 := GTl(__e, V4085)
+if True == tmp1774 {
+tmp1769 := GTl(__e, V4090)
 
-tmp1767 := GHd(__e, V4085)
+tmp1770 := GHd(__e, V4090)
 
-tmp1768 := Call1(__e, V4084, tmp1767)
+tmp1771 := Call1(__e, V4089, tmp1770)
 
 
-tmp1769 := GCons(__e, tmp1768, V4086)
+tmp1772 := GCons(__e, tmp1771, V4091)
 
 if SymFn(symshen_4map_1h) == __self {
-__self1, __self2, __self3 = V4084, tmp1766, tmp1769
+__self1, __self2, __self3 = V4089, tmp1769, tmp1772
 __e.Tick()
 goto __selftop
 }
-return TailCall3(__e, SymFn(symshen_4map_1h), V4084, tmp1766, tmp1769)
+return TailCall3(__e, SymFn(symshen_4map_1h), V4089, tmp1769, tmp1772)
 
 
 } else {
@@ -2780,42 +2780,42 @@ panic("unreachable")
 return __self
 })()
 
-tmp1774 := Call2(__e, ns2_1set, symshen_4map_1h, tmp1765)
+tmp1777 := Call2(__e, ns2_1set, symshen_4map_1h, tmp1768)
 
 
-_ = tmp1774
+_ = tmp1777
 
-tmp1775 := MakeNative1(func(__e *ControlFlow, V4087 Obj) Obj {
-return TailCall2(__e, SymFn(symshen_4length_1h), V4087, MakeInteger(0))
+tmp1778 := MakeNative1(func(__e *ControlFlow, V4092 Obj) Obj {
+return TailCall2(__e, SymFn(symshen_4length_1h), V4092, MakeInteger(0))
 panic("unreachable")
 })
 
-tmp1776 := Call2(__e, ns2_1set, symlength, tmp1775)
+tmp1779 := Call2(__e, ns2_1set, symlength, tmp1778)
 
 
-_ = tmp1776
+_ = tmp1779
 
-tmp1777 := (func() Obj {
+tmp1780 := (func() Obj {
 var __self Obj
 __self = MakeNative2(func(__e *ControlFlow, __self1, __self2 Obj) Obj {
 __selftop:
-V4092 := __self1
-_ = V4092
-V4093 := __self2
-_ = V4093
-tmp1781 := GEq(__e, Nil, V4092)
+V4097 := __self1
+_ = V4097
+V4098 := __self2
+_ = V4098
+tmp1784 := GEq(__e, Nil, V4097)
 
-if True == tmp1781 {
-return V4093
+if True == tmp1784 {
+return V4098
 } else {
-tmp1778 := GTl(__e, V4092)
+tmp1781 := GTl(__e, V4097)
 
 if SymFn(symshen_4length_1h) == __self {
-__self1, __self2 = tmp1778, GAdd(__e, V4093, MakeInteger(1))
+__self1, __self2 = tmp1781, GAdd(__e, V4098, MakeInteger(1))
 __e.Tick()
 goto __selftop
 }
-return TailCall2(__e, SymFn(symshen_4length_1h), tmp1778, GAdd(__e, V4093, MakeInteger(1)))
+return TailCall2(__e, SymFn(symshen_4length_1h), tmp1781, GAdd(__e, V4098, MakeInteger(1)))
 
 
 }
@@ -2826,31 +2826,31 @@ panic("unreachable")
 return __self
 })()
 
-tmp1782 := Call2(__e, ns2_1set, symshen_4length_1h, tmp1777)
+tmp1785 := Call2(__e, ns2_1set, symshen_4length_1h, tmp1780)
 
 
-_ = tmp1782
+_ = tmp1785
 
-tmp1783 := MakeNative2(func(__e *ControlFlow, V4099, V4100 Obj) Obj {
-tmp1791 := GEq(__e, V4099, V4100)
+tmp1786 := MakeNative2(func(__e *ControlFlow, V4104, V4105 Obj) Obj {
+tmp1794 := GEq(__e, V4104, V4105)
 
-if True == tmp1791 {
+if True == tmp1794 {
 return MakeInteger(1)
 } else {
-tmp1789 := GConsP(__e, V4100)
+tmp1792 := GConsP(__e, V4105)
 
-if True == tmp1789 {
-tmp1784 := GHd(__e, V4100)
+if True == tmp1792 {
+tmp1787 := GHd(__e, V4105)
 
-tmp1785 := Call2(__e, SymFn(symoccurrences), V4099, tmp1784)
-
-
-tmp1786 := GTl(__e, V4100)
-
-tmp1787 := Call2(__e, SymFn(symoccurrences), V4099, tmp1786)
+tmp1788 := Call2(__e, SymFn(symoccurrences), V4104, tmp1787)
 
 
-return GAdd(__e, tmp1785, tmp1787)
+tmp1789 := GTl(__e, V4105)
+
+tmp1790 := Call2(__e, SymFn(symoccurrences), V4104, tmp1789)
+
+
+return GAdd(__e, tmp1788, tmp1790)
 
 
 } else {
@@ -2864,65 +2864,65 @@ return MakeInteger(0)
 panic("unreachable")
 })
 
-tmp1792 := Call2(__e, ns2_1set, symoccurrences, tmp1783)
+tmp1795 := Call2(__e, ns2_1set, symoccurrences, tmp1786)
 
 
-_ = tmp1792
+_ = tmp1795
 
-tmp1793 := (func() Obj {
+tmp1796 := (func() Obj {
 var __self Obj
 __self = MakeNative2(func(__e *ControlFlow, __self1, __self2 Obj) Obj {
 __selftop:
-V4105 := __self1
-_ = V4105
-V4106 := __self2
-_ = V4106
-tmp1805 := GEq(__e, MakeInteger(1), V4105)
+V4110 := __self1
+_ = V4110
+V4111 := __self2
+_ = V4111
+tmp1808 := GEq(__e, MakeInteger(1), V4110)
 
-var ifres1803 Obj
+var ifres1806 Obj
 
-if True == tmp1805 {
-tmp1804 := GConsP(__e, V4106)
+if True == tmp1808 {
+tmp1807 := GConsP(__e, V4111)
 
-ifres1803 = tmp1804
+ifres1806 = tmp1807
 
 
 } else {
-ifres1803 = False
+ifres1806 = False
 
 
 }
 
-if True == ifres1803 {
-return GHd(__e, V4106)
+if True == ifres1806 {
+return GHd(__e, V4111)
 } else {
-tmp1801 := GConsP(__e, V4106)
+tmp1804 := GConsP(__e, V4111)
 
-if True == tmp1801 {
-tmp1794 := GSub(__e, V4105, MakeInteger(1))
+if True == tmp1804 {
+tmp1797 := GSub(__e, V4110, MakeInteger(1))
 
-tmp1795 := GTl(__e, V4106)
+tmp1798 := GTl(__e, V4111)
 
 if SymFn(symnth) == __self {
-__self1, __self2 = tmp1794, tmp1795
+__self1, __self2 = tmp1797, tmp1798
 __e.Tick()
 goto __selftop
 }
-return TailCall2(__e, SymFn(symnth), tmp1794, tmp1795)
+return TailCall2(__e, SymFn(symnth), tmp1797, tmp1798)
 
 
 } else {
-tmp1796 := Call3(__e, SymFn(symshen_4app), V4106, MakeString("\n"), symshen_4a)
+tmp1799 := Call3(__e, SymFn(symshen_4app), V4111, MakeString("\n"), symshen_4a)
 
 
-tmp1798 := Call3(__e, SymFn(symshen_4app), V4105, PrimGuard2(__e, symcn, PrimStringConcat, MakeString(", "), tmp1796), symshen_4a)
+tmp1801 := Call3(__e, SymFn(symshen_4app), V4110, PrimGuard2(__e, symcn, PrimStringConcat, MakeString(", "), tmp1799), symshen_4a)
 
 
 return (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symsimple_1error) {
-return PrimSimpleError(PrimGuard2(__e, symcn, PrimStringConcat, MakeString("nth applied to "), tmp1798))
+return PrimSimpleError(PrimGuard2(__e, symcn, PrimStringConcat, MakeString("nth applied to "), tmp1801))
 }
-__typedArg0 := PrimGuard2(__e, symcn, PrimStringConcat, MakeString("nth applied to "), tmp1798)
+__typedArg0 := PrimGuard2(__e, symcn, PrimStringConcat, MakeString("nth applied to "), tmp1801)
 return Call1(__e, SymFn(symsimple_1error), __typedArg0)
 })()
 
@@ -2938,25 +2938,25 @@ panic("unreachable")
 return __self
 })()
 
-tmp1806 := Call2(__e, ns2_1set, symnth, tmp1793)
+tmp1809 := Call2(__e, ns2_1set, symnth, tmp1796)
 
 
-_ = tmp1806
+_ = tmp1809
 
-tmp1807 := MakeNative1(func(__e *ControlFlow, V4107 Obj) Obj {
-tmp1811 := PrimGuard1(__e, symnumber_2, PrimIsNumber, V4107)
+tmp1810 := MakeNative1(func(__e *ControlFlow, V4112 Obj) Obj {
+tmp1814 := PrimGuard1(__e, symnumber_2, PrimIsNumber, V4112)
 
-if True == tmp1811 {
-tmp1808 := Call1(__e, SymFn(symshen_4abs), V4107)
+if True == tmp1814 {
+tmp1811 := Call1(__e, SymFn(symshen_4abs), V4112)
 
 
-let__1195 := tmp1808
+let__1195 := tmp1811
 _ = let__1195
 
-tmp1809 := Call2(__e, SymFn(symshen_4magless), let__1195, MakeInteger(1))
+tmp1812 := Call2(__e, SymFn(symshen_4magless), let__1195, MakeInteger(1))
 
 
-return TailCall2(__e, SymFn(symshen_4integer_1test_2), let__1195, tmp1809)
+return TailCall2(__e, SymFn(symshen_4integer_1test_2), let__1195, tmp1812)
 
 
 } else {
@@ -2967,47 +2967,47 @@ return False
 panic("unreachable")
 })
 
-tmp1812 := Call2(__e, ns2_1set, syminteger_2, tmp1807)
+tmp1815 := Call2(__e, ns2_1set, syminteger_2, tmp1810)
 
 
-_ = tmp1812
+_ = tmp1815
 
-tmp1813 := MakeNative1(func(__e *ControlFlow, V4109 Obj) Obj {
-if True == GGt(__e, V4109, MakeInteger(0)) {
-return V4109
+tmp1816 := MakeNative1(func(__e *ControlFlow, V4114 Obj) Obj {
+if True == GGt(__e, V4114, MakeInteger(0)) {
+return V4114
 } else {
-return GSub(__e, MakeInteger(0), V4109)
+return GSub(__e, MakeInteger(0), V4114)
 }
 
 
 panic("unreachable")
 })
 
-tmp1816 := Call2(__e, ns2_1set, symshen_4abs, tmp1813)
+tmp1819 := Call2(__e, ns2_1set, symshen_4abs, tmp1816)
 
 
-_ = tmp1816
+_ = tmp1819
 
-tmp1817 := (func() Obj {
+tmp1820 := (func() Obj {
 var __self Obj
 __self = MakeNative2(func(__e *ControlFlow, __self1, __self2 Obj) Obj {
 __selftop:
-V4110 := __self1
-_ = V4110
-V4111 := __self2
-_ = V4111
-let__1196 := GMul(__e, V4111, MakeInteger(2))
+V4115 := __self1
+_ = V4115
+V4116 := __self2
+_ = V4116
+let__1196 := GMul(__e, V4116, MakeInteger(2))
 _ = let__1196
 
-if True == GGt(__e, let__1196, V4110) {
-return V4111
+if True == GGt(__e, let__1196, V4115) {
+return V4116
 } else {
 if SymFn(symshen_4magless) == __self {
-__self1, __self2 = V4110, let__1196
+__self1, __self2 = V4115, let__1196
 __e.Tick()
 goto __selftop
 }
-return TailCall2(__e, SymFn(symshen_4magless), V4110, let__1196)
+return TailCall2(__e, SymFn(symshen_4magless), V4115, let__1196)
 }
 
 
@@ -3016,39 +3016,39 @@ panic("unreachable")
 return __self
 })()
 
-tmp1821 := Call2(__e, ns2_1set, symshen_4magless, tmp1817)
+tmp1824 := Call2(__e, ns2_1set, symshen_4magless, tmp1820)
 
 
-_ = tmp1821
+_ = tmp1824
 
-tmp1822 := (func() Obj {
+tmp1825 := (func() Obj {
 var __self Obj
 __self = MakeNative2(func(__e *ControlFlow, __self1, __self2 Obj) Obj {
 __selftop:
-V4116 := __self1
-_ = V4116
-V4117 := __self2
-_ = V4117
-tmp1829 := GEq(__e, MakeInteger(0), V4116)
+V4121 := __self1
+_ = V4121
+V4122 := __self2
+_ = V4122
+tmp1832 := GEq(__e, MakeInteger(0), V4121)
 
-if True == tmp1829 {
+if True == tmp1832 {
 return True
 } else {
-if True == GGt(__e, MakeInteger(1), V4116) {
+if True == GGt(__e, MakeInteger(1), V4121) {
 return False
 } else {
-let__1197 := GSub(__e, V4116, V4117)
+let__1197 := GSub(__e, V4121, V4122)
 _ = let__1197
 
 if True == GGt(__e, MakeInteger(0), let__1197) {
-return PrimGuard1(__e, syminteger_2, PrimIsInteger, V4116)
+return PrimGuard1(__e, syminteger_2, PrimIsInteger, V4121)
 } else {
 if SymFn(symshen_4integer_1test_2) == __self {
-__self1, __self2 = let__1197, V4117
+__self1, __self2 = let__1197, V4122
 __e.Tick()
 goto __selftop
 }
-return TailCall2(__e, SymFn(symshen_4integer_1test_2), let__1197, V4117)
+return TailCall2(__e, SymFn(symshen_4integer_1test_2), let__1197, V4122)
 }
 
 
@@ -3063,31 +3063,31 @@ panic("unreachable")
 return __self
 })()
 
-tmp1830 := Call2(__e, ns2_1set, symshen_4integer_1test_2, tmp1822)
+tmp1833 := Call2(__e, ns2_1set, symshen_4integer_1test_2, tmp1825)
 
 
-_ = tmp1830
+_ = tmp1833
 
-tmp1831 := MakeNative2(func(__e *ControlFlow, V4125, V4126 Obj) Obj {
-tmp1839 := GEq(__e, Nil, V4126)
+tmp1834 := MakeNative2(func(__e *ControlFlow, V4130, V4131 Obj) Obj {
+tmp1842 := GEq(__e, Nil, V4131)
 
-if True == tmp1839 {
+if True == tmp1842 {
 return Nil
 } else {
-tmp1837 := GConsP(__e, V4126)
+tmp1840 := GConsP(__e, V4131)
 
-if True == tmp1837 {
-tmp1832 := GHd(__e, V4126)
+if True == tmp1840 {
+tmp1835 := GHd(__e, V4131)
 
-tmp1833 := Call1(__e, V4125, tmp1832)
-
-
-tmp1834 := GTl(__e, V4126)
-
-tmp1835 := Call2(__e, SymFn(symmapcan), V4125, tmp1834)
+tmp1836 := Call1(__e, V4130, tmp1835)
 
 
-return TailCall2(__e, SymFn(symappend), tmp1833, tmp1835)
+tmp1837 := GTl(__e, V4131)
+
+tmp1838 := Call2(__e, SymFn(symmapcan), V4130, tmp1837)
+
+
+return TailCall2(__e, SymFn(symappend), tmp1836, tmp1838)
 
 
 } else {
@@ -3101,15 +3101,15 @@ return PrimGuard1(__e, symsimple_1error, PrimSimpleError, MakeString("attempt to
 panic("unreachable")
 })
 
-tmp1840 := Call2(__e, ns2_1set, symmapcan, tmp1831)
+tmp1843 := Call2(__e, ns2_1set, symmapcan, tmp1834)
 
 
-_ = tmp1840
+_ = tmp1843
 
-tmp1841 := MakeNative2(func(__e *ControlFlow, V4132, V4133 Obj) Obj {
-tmp1843 := GEq(__e, V4132, V4133)
+tmp1844 := MakeNative2(func(__e *ControlFlow, V4137, V4138 Obj) Obj {
+tmp1846 := GEq(__e, V4137, V4138)
 
-if True == tmp1843 {
+if True == tmp1846 {
 return True
 } else {
 return False
@@ -3119,34 +3119,34 @@ return False
 panic("unreachable")
 })
 
-tmp1844 := Call2(__e, ns2_1set, sym_a_a, tmp1841)
+tmp1847 := Call2(__e, ns2_1set, sym_a_a, tmp1844)
 
 
-_ = tmp1844
+_ = tmp1847
 
-tmp1845 := MakeNative1(func(__e *ControlFlow, V4134 Obj) Obj {
-tmp1852 := PrimGuard1(__e, symsymbol_2, PrimIsSymbol, V4134)
+tmp1848 := MakeNative1(func(__e *ControlFlow, V4139 Obj) Obj {
+tmp1855 := PrimGuard1(__e, symsymbol_2, PrimIsSymbol, V4139)
 
-if True == tmp1852 {
-tmp1846 := MakeNative0(func(__e *ControlFlow) Obj {
-return GValue(__e, V4134)
+if True == tmp1855 {
+tmp1849 := MakeNative0(func(__e *ControlFlow) Obj {
+return GValue(__e, V4139)
 panic("unreachable")
 })
 
-tmp1847 := MakeNative1(func(__e *ControlFlow, Z4136 Obj) Obj {
+tmp1850 := MakeNative1(func(__e *ControlFlow, Z4141 Obj) Obj {
 return symshen_4this_1symbol_1is_1unbound
 panic("unreachable")
 })
 
-tmp1848 := Call2(__e, try_1catch, tmp1846, tmp1847)
+tmp1851 := Call2(__e, try_1catch, tmp1849, tmp1850)
 
 
-let__1198 := tmp1848
+let__1198 := tmp1851
 _ = let__1198
 
-tmp1850 := GEq(__e, let__1198, symshen_4this_1symbol_1is_1unbound)
+tmp1853 := GEq(__e, let__1198, symshen_4this_1symbol_1is_1unbound)
 
-if True == tmp1850 {
+if True == tmp1853 {
 return False
 } else {
 return True
@@ -3161,25 +3161,25 @@ return False
 panic("unreachable")
 })
 
-tmp1853 := Call2(__e, ns2_1set, symbound_2, tmp1845)
+tmp1856 := Call2(__e, ns2_1set, symbound_2, tmp1848)
 
 
-_ = tmp1853
+_ = tmp1856
 
-tmp1854 := MakeNative1(func(__e *ControlFlow, V4137 Obj) Obj {
-tmp1860 := GEq(__e, MakeString(""), V4137)
+tmp1857 := MakeNative1(func(__e *ControlFlow, V4142 Obj) Obj {
+tmp1863 := GEq(__e, MakeString(""), V4142)
 
-if True == tmp1860 {
+if True == tmp1863 {
 return Nil
 } else {
-tmp1855 := PrimGuard2(__e, sympos, PrimPos, V4137, MakeInteger(0))
+tmp1858 := PrimGuard2(__e, sympos, PrimPos, V4142, MakeInteger(0))
 
-tmp1856 := PrimGuard1(__e, symstring_1_6n, PrimStringToNumber, tmp1855)
+tmp1859 := PrimGuard1(__e, symstring_1_6n, PrimStringToNumber, tmp1858)
 
-tmp1858 := Call1(__e, SymFn(symshen_4string_1_6bytes), PrimGuard1(__e, symtlstr, PrimTailString, V4137))
+tmp1861 := Call1(__e, SymFn(symshen_4string_1_6bytes), PrimGuard1(__e, symtlstr, PrimTailString, V4142))
 
 
-return GCons(__e, tmp1856, tmp1858)
+return GCons(__e, tmp1859, tmp1861)
 
 
 }
@@ -3188,19 +3188,19 @@ return GCons(__e, tmp1856, tmp1858)
 panic("unreachable")
 })
 
-tmp1861 := Call2(__e, ns2_1set, symshen_4string_1_6bytes, tmp1854)
+tmp1864 := Call2(__e, ns2_1set, symshen_4string_1_6bytes, tmp1857)
 
 
-_ = tmp1861
+_ = tmp1864
 
-tmp1862 := MakeNative1(func(__e *ControlFlow, V4138 Obj) Obj {
-if True == GLt(__e, V4138, MakeInteger(0)) {
+tmp1865 := MakeNative1(func(__e *ControlFlow, V4143 Obj) Obj {
+if True == GLt(__e, V4143, MakeInteger(0)) {
 return GValue(__e, symshen_4_dmaxinferences_d)
 } else {
-tmp1864 := PrimGuard1(__e, syminteger_2, PrimIsInteger, V4138)
+tmp1867 := PrimGuard1(__e, syminteger_2, PrimIsInteger, V4143)
 
-if True == tmp1864 {
-return PrimGuard2(__e, symset, PrimSet, symshen_4_dmaxinferences_d, V4138)
+if True == tmp1867 {
+return PrimGuard2(__e, symset, PrimSet, symshen_4_dmaxinferences_d, V4143)
 } else {
 return PrimGuard1(__e, symsimple_1error, PrimSimpleError, MakeString("maxinferences expects an integer value\n"))
 }
@@ -3212,70 +3212,70 @@ return PrimGuard1(__e, symsimple_1error, PrimSimpleError, MakeString("maxinferen
 panic("unreachable")
 })
 
-tmp1867 := Call2(__e, ns2_1set, symmaxinferences, tmp1862)
+tmp1870 := Call2(__e, ns2_1set, symmaxinferences, tmp1865)
 
 
-_ = tmp1867
+_ = tmp1870
 
-tmp1868 := MakeNative0(func(__e *ControlFlow) Obj {
+tmp1871 := MakeNative0(func(__e *ControlFlow) Obj {
 return GValue(__e, symshen_4_dinfs_d)
 panic("unreachable")
 })
 
-tmp1869 := Call2(__e, ns2_1set, syminferences, tmp1868)
+tmp1872 := Call2(__e, ns2_1set, syminferences, tmp1871)
 
 
-_ = tmp1869
+_ = tmp1872
 
-tmp1870 := MakeNative1(func(__e *ControlFlow, V4139 Obj) Obj {
-return V4139
+tmp1873 := MakeNative1(func(__e *ControlFlow, V4144 Obj) Obj {
+return V4144
 panic("unreachable")
 })
 
-tmp1871 := Call2(__e, ns2_1set, symprotect, tmp1870)
+tmp1874 := Call2(__e, ns2_1set, symprotect, tmp1873)
 
 
-_ = tmp1871
+_ = tmp1874
 
-tmp1872 := MakeNative0(func(__e *ControlFlow) Obj {
+tmp1875 := MakeNative0(func(__e *ControlFlow) Obj {
 return GValue(__e, sym_dsterror_d)
 panic("unreachable")
 })
 
-tmp1873 := Call2(__e, ns2_1set, symsterror, tmp1872)
+tmp1876 := Call2(__e, ns2_1set, symsterror, tmp1875)
 
 
-_ = tmp1873
+_ = tmp1876
 
-tmp1874 := MakeNative0(func(__e *ControlFlow) Obj {
+tmp1877 := MakeNative0(func(__e *ControlFlow) Obj {
 return GValue(__e, sym_dstoutput_d)
 panic("unreachable")
 })
 
-tmp1875 := Call2(__e, ns2_1set, symstoutput, tmp1874)
+tmp1878 := Call2(__e, ns2_1set, symstoutput, tmp1877)
 
 
-_ = tmp1875
+_ = tmp1878
 
-tmp1876 := MakeNative1(func(__e *ControlFlow, V4140 Obj) Obj {
-tmp1877 := PrimGuard1(__e, symintern, PrimIntern, V4140)
+tmp1879 := MakeNative1(func(__e *ControlFlow, V4145 Obj) Obj {
+tmp1880 := PrimGuard1(__e, symintern, PrimIntern, V4145)
 
-let__1199 := tmp1877
+let__1199 := tmp1880
 _ = let__1199
 
-tmp1881 := PrimGuard1(__e, symsymbol_2, PrimIsSymbol, let__1199)
+tmp1884 := PrimGuard1(__e, symsymbol_2, PrimIsSymbol, let__1199)
 
-if True == tmp1881 {
+if True == tmp1884 {
 return let__1199
 } else {
-tmp1878 := Call3(__e, SymFn(symshen_4app), V4140, MakeString(" to a symbol"), symshen_4s)
+tmp1881 := Call3(__e, SymFn(symshen_4app), V4145, MakeString(" to a symbol"), symshen_4s)
 
 
 return (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symsimple_1error) {
-return PrimSimpleError(PrimGuard2(__e, symcn, PrimStringConcat, MakeString("cannot intern "), tmp1878))
+return PrimSimpleError(PrimGuard2(__e, symcn, PrimStringConcat, MakeString("cannot intern "), tmp1881))
 }
-__typedArg0 := PrimGuard2(__e, symcn, PrimStringConcat, MakeString("cannot intern "), tmp1878)
+__typedArg0 := PrimGuard2(__e, symcn, PrimStringConcat, MakeString("cannot intern "), tmp1881)
 return Call1(__e, SymFn(symsimple_1error), __typedArg0)
 })()
 
@@ -3286,20 +3286,20 @@ return Call1(__e, SymFn(symsimple_1error), __typedArg0)
 panic("unreachable")
 })
 
-tmp1882 := Call2(__e, ns2_1set, symstring_1_6symbol, tmp1876)
+tmp1885 := Call2(__e, ns2_1set, symstring_1_6symbol, tmp1879)
 
 
-_ = tmp1882
+_ = tmp1885
 
-tmp1883 := MakeNative1(func(__e *ControlFlow, V4144 Obj) Obj {
-tmp1887 := GEq(__e, sym_7, V4144)
+tmp1886 := MakeNative1(func(__e *ControlFlow, V4149 Obj) Obj {
+tmp1890 := GEq(__e, sym_7, V4149)
 
-if True == tmp1887 {
+if True == tmp1890 {
 return PrimGuard2(__e, symset, PrimSet, symshen_4_doptimise_d, True)
 } else {
-tmp1885 := GEq(__e, sym_1, V4144)
+tmp1888 := GEq(__e, sym_1, V4149)
 
-if True == tmp1885 {
+if True == tmp1888 {
 return PrimGuard2(__e, symset, PrimSet, symshen_4_doptimise_d, False)
 } else {
 return PrimGuard1(__e, symsimple_1error, PrimSimpleError, MakeString("optimise expects a + or a -.\n"))
@@ -3312,105 +3312,105 @@ return PrimGuard1(__e, symsimple_1error, PrimSimpleError, MakeString("optimise e
 panic("unreachable")
 })
 
-tmp1888 := Call2(__e, ns2_1set, symoptimise, tmp1883)
+tmp1891 := Call2(__e, ns2_1set, symoptimise, tmp1886)
 
 
-_ = tmp1888
+_ = tmp1891
 
-tmp1889 := MakeNative0(func(__e *ControlFlow) Obj {
+tmp1892 := MakeNative0(func(__e *ControlFlow) Obj {
 return GValue(__e, sym_dos_d)
 panic("unreachable")
 })
 
-tmp1890 := Call2(__e, ns2_1set, symos, tmp1889)
+tmp1893 := Call2(__e, ns2_1set, symos, tmp1892)
 
 
-_ = tmp1890
+_ = tmp1893
 
-tmp1891 := MakeNative0(func(__e *ControlFlow) Obj {
+tmp1894 := MakeNative0(func(__e *ControlFlow) Obj {
 return GValue(__e, sym_dlanguage_d)
 panic("unreachable")
 })
 
-tmp1892 := Call2(__e, ns2_1set, symlanguage, tmp1891)
+tmp1895 := Call2(__e, ns2_1set, symlanguage, tmp1894)
 
 
-_ = tmp1892
+_ = tmp1895
 
-tmp1893 := MakeNative0(func(__e *ControlFlow) Obj {
+tmp1896 := MakeNative0(func(__e *ControlFlow) Obj {
 return GValue(__e, sym_dversion_d)
 panic("unreachable")
 })
 
-tmp1894 := Call2(__e, ns2_1set, symversion, tmp1893)
+tmp1897 := Call2(__e, ns2_1set, symversion, tmp1896)
 
 
-_ = tmp1894
+_ = tmp1897
 
-tmp1895 := MakeNative0(func(__e *ControlFlow) Obj {
+tmp1898 := MakeNative0(func(__e *ControlFlow) Obj {
 return GValue(__e, sym_dport_d)
 panic("unreachable")
 })
 
-tmp1896 := Call2(__e, ns2_1set, symport, tmp1895)
+tmp1899 := Call2(__e, ns2_1set, symport, tmp1898)
 
 
-_ = tmp1896
+_ = tmp1899
 
-tmp1897 := MakeNative0(func(__e *ControlFlow) Obj {
+tmp1900 := MakeNative0(func(__e *ControlFlow) Obj {
 return GValue(__e, sym_dporters_d)
 panic("unreachable")
 })
 
-tmp1898 := Call2(__e, ns2_1set, symporters, tmp1897)
+tmp1901 := Call2(__e, ns2_1set, symporters, tmp1900)
 
 
-_ = tmp1898
+_ = tmp1901
 
-tmp1899 := MakeNative0(func(__e *ControlFlow) Obj {
+tmp1902 := MakeNative0(func(__e *ControlFlow) Obj {
 return GValue(__e, sym_dimplementation_d)
 panic("unreachable")
 })
 
-tmp1900 := Call2(__e, ns2_1set, symimplementation, tmp1899)
+tmp1903 := Call2(__e, ns2_1set, symimplementation, tmp1902)
 
 
-_ = tmp1900
+_ = tmp1903
 
-tmp1901 := MakeNative0(func(__e *ControlFlow) Obj {
+tmp1904 := MakeNative0(func(__e *ControlFlow) Obj {
 return GValue(__e, sym_drelease_d)
 panic("unreachable")
 })
 
-tmp1902 := Call2(__e, ns2_1set, symrelease, tmp1901)
-
-
-_ = tmp1902
-
-tmp1903 := MakeNative1(func(__e *ControlFlow, V4145 Obj) Obj {
-tmp1908 := GEq(__e, symnull, V4145)
-
-if True == tmp1908 {
-return True
-} else {
-tmp1904 := MakeNative0(func(__e *ControlFlow) Obj {
-tmp1905 := Call1(__e, SymFn(symexternal), V4145)
+tmp1905 := Call2(__e, ns2_1set, symrelease, tmp1904)
 
 
 _ = tmp1905
 
+tmp1906 := MakeNative1(func(__e *ControlFlow, V4150 Obj) Obj {
+tmp1911 := GEq(__e, symnull, V4150)
+
+if True == tmp1911 {
+return True
+} else {
+tmp1907 := MakeNative0(func(__e *ControlFlow) Obj {
+tmp1908 := Call1(__e, SymFn(symexternal), V4150)
+
+
+_ = tmp1908
+
 return True
 
 
 panic("unreachable")
 })
 
-tmp1906 := MakeNative1(func(__e *ControlFlow, Z4146 Obj) Obj {
+tmp1909 := MakeNative1(func(__e *ControlFlow, Z4151 Obj) Obj {
 return False
 panic("unreachable")
 })
 
-return TailCall2(__e, try_1catch, tmp1904, tmp1906)
+return TailCall2(__e, try_1catch, tmp1907, tmp1909)
 
 
 }
@@ -3419,70 +3419,70 @@ return TailCall2(__e, try_1catch, tmp1904, tmp1906)
 panic("unreachable")
 })
 
-tmp1909 := Call2(__e, ns2_1set, sympackage_2, tmp1903)
+tmp1912 := Call2(__e, ns2_1set, sympackage_2, tmp1906)
 
 
-_ = tmp1909
+_ = tmp1912
 
-tmp1910 := MakeNative0(func(__e *ControlFlow) Obj {
+tmp1913 := MakeNative0(func(__e *ControlFlow) Obj {
 return symshen_4fail_b
 panic("unreachable")
 })
 
-tmp1911 := Call2(__e, ns2_1set, symfail, tmp1910)
+tmp1914 := Call2(__e, ns2_1set, symfail, tmp1913)
 
 
-_ = tmp1911
+_ = tmp1914
 
-tmp1912 := MakeNative0(func(__e *ControlFlow) Obj {
+tmp1915 := MakeNative0(func(__e *ControlFlow) Obj {
 return GValue(__e, symshen_4_duserdefs_d)
 panic("unreachable")
 })
 
-tmp1913 := Call2(__e, ns2_1set, symuserdefs, tmp1912)
+tmp1916 := Call2(__e, ns2_1set, symuserdefs, tmp1915)
 
 
-_ = tmp1913
+_ = tmp1916
 
-tmp1914 := MakeNative0(func(__e *ControlFlow) Obj {
+tmp1917 := MakeNative0(func(__e *ControlFlow) Obj {
 return GValue(__e, symshen_4_doptimise_d)
 panic("unreachable")
 })
 
-tmp1915 := Call2(__e, ns2_1set, symoptimise_2, tmp1914)
+tmp1918 := Call2(__e, ns2_1set, symoptimise_2, tmp1917)
 
 
-_ = tmp1915
+_ = tmp1918
 
-tmp1916 := MakeNative0(func(__e *ControlFlow) Obj {
+tmp1919 := MakeNative0(func(__e *ControlFlow) Obj {
 return GValue(__e, sym_dhush_d)
 panic("unreachable")
 })
 
-tmp1917 := Call2(__e, ns2_1set, symhush_2, tmp1916)
+tmp1920 := Call2(__e, ns2_1set, symhush_2, tmp1919)
 
 
-_ = tmp1917
+_ = tmp1920
 
-tmp1918 := MakeNative0(func(__e *ControlFlow) Obj {
+tmp1921 := MakeNative0(func(__e *ControlFlow) Obj {
 return GValue(__e, symshen_4_dshen_1type_1theory_1enabled_2_d)
 panic("unreachable")
 })
 
-tmp1919 := Call2(__e, ns2_1set, symsystem_1S_2, tmp1918)
+tmp1922 := Call2(__e, ns2_1set, symsystem_1S_2, tmp1921)
 
 
-_ = tmp1919
+_ = tmp1922
 
-tmp1920 := MakeNative1(func(__e *ControlFlow, V4149 Obj) Obj {
-tmp1924 := GEq(__e, sym_7, V4149)
+tmp1923 := MakeNative1(func(__e *ControlFlow, V4154 Obj) Obj {
+tmp1927 := GEq(__e, sym_7, V4154)
 
-if True == tmp1924 {
+if True == tmp1927 {
 return PrimGuard2(__e, symset, PrimSet, symshen_4_dshen_1type_1theory_1enabled_2_d, True)
 } else {
-tmp1922 := GEq(__e, sym_1, V4149)
+tmp1925 := GEq(__e, sym_1, V4154)
 
-if True == tmp1922 {
+if True == tmp1925 {
 return PrimGuard2(__e, symset, PrimSet, symshen_4_dshen_1type_1theory_1enabled_2_d, False)
 } else {
 return PrimGuard1(__e, symsimple_1error, PrimSimpleError, MakeString("enable-type-theory expects a + or a -\n"))
@@ -3495,20 +3495,20 @@ return PrimGuard1(__e, symsimple_1error, PrimSimpleError, MakeString("enable-typ
 panic("unreachable")
 })
 
-tmp1925 := Call2(__e, ns2_1set, symenable_1type_1theory, tmp1920)
+tmp1928 := Call2(__e, ns2_1set, symenable_1type_1theory, tmp1923)
 
 
-_ = tmp1925
+_ = tmp1928
 
-tmp1926 := MakeNative1(func(__e *ControlFlow, V4152 Obj) Obj {
-tmp1930 := GEq(__e, sym_7, V4152)
+tmp1929 := MakeNative1(func(__e *ControlFlow, V4157 Obj) Obj {
+tmp1933 := GEq(__e, sym_7, V4157)
 
-if True == tmp1930 {
+if True == tmp1933 {
 return PrimGuard2(__e, symset, PrimSet, sym_dhush_d, True)
 } else {
-tmp1928 := GEq(__e, sym_1, V4152)
+tmp1931 := GEq(__e, sym_1, V4157)
 
-if True == tmp1928 {
+if True == tmp1931 {
 return PrimGuard2(__e, symset, PrimSet, sym_dhush_d, False)
 } else {
 return PrimGuard1(__e, symsimple_1error, PrimSimpleError, MakeString("hush expects a + or a -\n"))
@@ -3521,20 +3521,20 @@ return PrimGuard1(__e, symsimple_1error, PrimSimpleError, MakeString("hush expec
 panic("unreachable")
 })
 
-tmp1931 := Call2(__e, ns2_1set, symhush, tmp1926)
+tmp1934 := Call2(__e, ns2_1set, symhush, tmp1929)
 
 
-_ = tmp1931
+_ = tmp1934
 
-tmp1932 := MakeNative1(func(__e *ControlFlow, V4155 Obj) Obj {
-tmp1936 := GEq(__e, sym_7, V4155)
+tmp1935 := MakeNative1(func(__e *ControlFlow, V4160 Obj) Obj {
+tmp1939 := GEq(__e, sym_7, V4160)
 
-if True == tmp1936 {
+if True == tmp1939 {
 return PrimGuard2(__e, symset, PrimSet, symshen_4_dtc_d, True)
 } else {
-tmp1934 := GEq(__e, sym_1, V4155)
+tmp1937 := GEq(__e, sym_1, V4160)
 
-if True == tmp1934 {
+if True == tmp1937 {
 return PrimGuard2(__e, symset, PrimSet, symshen_4_dtc_d, False)
 } else {
 return PrimGuard1(__e, symsimple_1error, PrimSimpleError, MakeString("tc expects a + or -"))
@@ -3547,88 +3547,88 @@ return PrimGuard1(__e, symsimple_1error, PrimSimpleError, MakeString("tc expects
 panic("unreachable")
 })
 
-tmp1937 := Call2(__e, ns2_1set, symtc, tmp1932)
+tmp1940 := Call2(__e, ns2_1set, symtc, tmp1935)
 
 
-_ = tmp1937
+_ = tmp1940
 
-tmp1938 := MakeNative1(func(__e *ControlFlow, V4156 Obj) Obj {
-tmp1939 := GValue(__e, symshen_4_dsigf_d)
+tmp1941 := MakeNative1(func(__e *ControlFlow, V4161 Obj) Obj {
+tmp1942 := GValue(__e, symshen_4_dsigf_d)
 
-tmp1940 := Call2(__e, SymFn(symshen_4unassoc), V4156, tmp1939)
+tmp1943 := Call2(__e, SymFn(symshen_4unassoc), V4161, tmp1942)
 
 
-tmp1941 := PrimGuard2(__e, symset, PrimSet, symshen_4_dsigf_d, tmp1940)
+tmp1944 := PrimGuard2(__e, symset, PrimSet, symshen_4_dsigf_d, tmp1943)
 
-_ = tmp1941
+_ = tmp1944
 
-return V4156
+return V4161
 
 
 panic("unreachable")
 })
 
-tmp1942 := Call2(__e, ns2_1set, symdestroy, tmp1938)
+tmp1945 := Call2(__e, ns2_1set, symdestroy, tmp1941)
 
 
-_ = tmp1942
+_ = tmp1945
 
-tmp1943 := MakeNative2(func(__e *ControlFlow, V4166, V4167 Obj) Obj {
-tmp1959 := GEq(__e, Nil, V4167)
+tmp1946 := MakeNative2(func(__e *ControlFlow, V4171, V4172 Obj) Obj {
+tmp1962 := GEq(__e, Nil, V4172)
 
-if True == tmp1959 {
+if True == tmp1962 {
 return Nil
 } else {
-tmp1957 := GConsP(__e, V4167)
+tmp1960 := GConsP(__e, V4172)
 
-var ifres1950 Obj
+var ifres1953 Obj
 
-if True == tmp1957 {
-tmp1955 := GHd(__e, V4167)
+if True == tmp1960 {
+tmp1958 := GHd(__e, V4172)
 
-tmp1956 := GConsP(__e, tmp1955)
+tmp1959 := GConsP(__e, tmp1958)
 
-var ifres1951 Obj
+var ifres1954 Obj
 
-if True == tmp1956 {
-tmp1952 := GHd(__e, V4167)
+if True == tmp1959 {
+tmp1955 := GHd(__e, V4172)
 
-tmp1953 := GHd(__e, tmp1952)
+tmp1956 := GHd(__e, tmp1955)
 
-tmp1954 := GEq(__e, V4166, tmp1953)
+tmp1957 := GEq(__e, V4171, tmp1956)
 
-ifres1951 = tmp1954
+ifres1954 = tmp1957
 
 
 } else {
-ifres1951 = False
+ifres1954 = False
 
 
 }
 
-ifres1950 = ifres1951
+ifres1953 = ifres1954
 
 
 } else {
-ifres1950 = False
+ifres1953 = False
 
 
 }
 
-if True == ifres1950 {
-return GTl(__e, V4167)
+if True == ifres1953 {
+return GTl(__e, V4172)
 } else {
-tmp1948 := GConsP(__e, V4167)
+tmp1951 := GConsP(__e, V4172)
 
-if True == tmp1948 {
-tmp1944 := GHd(__e, V4167)
+if True == tmp1951 {
+tmp1947 := GHd(__e, V4172)
 
-tmp1945 := GTl(__e, V4167)
+tmp1948 := GTl(__e, V4172)
 
-tmp1946 := Call2(__e, SymFn(symshen_4unassoc), V4166, tmp1945)
+tmp1949 := Call2(__e, SymFn(symshen_4unassoc), V4171, tmp1948)
 
 
-return GCons(__e, tmp1944, tmp1946)
+return GCons(__e, tmp1947, tmp1949)
 
 
 } else {
@@ -3645,26 +3645,26 @@ return PrimGuard1(__e, symsimple_1error, PrimSimpleError, MakeString("implementa
 panic("unreachable")
 })
 
-tmp1960 := Call2(__e, ns2_1set, symshen_4unassoc, tmp1943)
+tmp1963 := Call2(__e, ns2_1set, symshen_4unassoc, tmp1946)
 
 
-_ = tmp1960
+_ = tmp1963
 
-tmp1961 := MakeNative1(func(__e *ControlFlow, V4168 Obj) Obj {
-tmp1965 := Call1(__e, SymFn(sympackage_2), V4168)
+tmp1964 := MakeNative1(func(__e *ControlFlow, V4173 Obj) Obj {
+tmp1968 := Call1(__e, SymFn(sympackage_2), V4173)
 
 
-if True == tmp1965 {
-return PrimGuard2(__e, symset, PrimSet, symshen_4_dpackage_d, V4168)
+if True == tmp1968 {
+return PrimGuard2(__e, symset, PrimSet, symshen_4_dpackage_d, V4173)
 } else {
-tmp1962 := Call3(__e, SymFn(symshen_4app), V4168, MakeString(" does not exist\n"), symshen_4a)
+tmp1965 := Call3(__e, SymFn(symshen_4app), V4173, MakeString(" does not exist\n"), symshen_4a)
 
 
 return (func() Obj {
 if TypedIREnabled() && HasCanonicalPrimitiveBinding(symsimple_1error) {
-return PrimSimpleError(PrimGuard2(__e, symcn, PrimStringConcat, MakeString("package "), tmp1962))
+return PrimSimpleError(PrimGuard2(__e, symcn, PrimStringConcat, MakeString("package "), tmp1965))
 }
-__typedArg0 := PrimGuard2(__e, symcn, PrimStringConcat, MakeString("package "), tmp1962)
+__typedArg0 := PrimGuard2(__e, symcn, PrimStringConcat, MakeString("package "), tmp1965)
 return Call1(__e, SymFn(symsimple_1error), __typedArg0)
 })()
 
@@ -3675,114 +3675,47 @@ return Call1(__e, SymFn(symsimple_1error), __typedArg0)
 panic("unreachable")
 })
 
-tmp1966 := Call2(__e, ns2_1set, symin_1package, tmp1961)
+tmp1969 := Call2(__e, ns2_1set, symin_1package, tmp1964)
 
 
-_ = tmp1966
+_ = tmp1969
 
-tmp1967 := MakeNative2(func(__e *ControlFlow, V4169, V4170 Obj) Obj {
-tmp1968 := PrimGuard2(__e, symopen, PrimOpenStream, V4169, symout)
+tmp1970 := MakeNative2(func(__e *ControlFlow, V4174, V4175 Obj) Obj {
+tmp1971 := PrimGuard2(__e, symopen, PrimOpenStream, V4174, symout)
 
-let__1200 := tmp1968
+let__1200 := tmp1971
 _ = let__1200
 
-tmp1971 := PrimGuard1(__e, symstring_2, PrimIsString, V4170)
+tmp1974 := PrimGuard1(__e, symstring_2, PrimIsString, V4175)
 
-var ifres1969 Obj
+var ifres1972 Obj
 
-if True == tmp1971 {
-ifres1969 = V4170
+if True == tmp1974 {
+ifres1972 = V4175
 
 
 } else {
-tmp1970 := Call3(__e, SymFn(symshen_4app), V4170, MakeString(""), symshen_4s)
+tmp1973 := Call3(__e, SymFn(symshen_4app), V4175, MakeString(""), symshen_4s)
 
 
-ifres1969 = tmp1970
+ifres1972 = tmp1973
 
 
 }
 
-let__1201 := ifres1969
+let__1201 := ifres1972
 _ = let__1201
 
-tmp1972 := Call2(__e, SymFn(sympr), let__1201, let__1200)
+tmp1975 := Call2(__e, SymFn(sympr), let__1201, let__1200)
 
 
-let__1202 := tmp1972
+let__1202 := tmp1975
 _ = let__1202
 
-tmp1973 := PrimGuard1(__e, symclose, PrimCloseStream, let__1200)
+tmp1976 := PrimGuard1(__e, symclose, PrimCloseStream, let__1200)
 
-let__1203 := tmp1973
+let__1203 := tmp1976
 _ = let__1203
-
-return V4170
-
-
-panic("unreachable")
-})
-
-tmp1974 := Call2(__e, ns2_1set, symwrite_1to_1file, tmp1967)
-
-
-_ = tmp1974
-
-tmp1975 := MakeNative0(func(__e *ControlFlow) Obj {
-tmp1976 := Call1(__e, SymFn(symgensym), symshen_4t)
-
-
-return TailCall1(__e, SymFn(symshen_4freshterm), tmp1976)
-
-
-panic("unreachable")
-})
-
-tmp1977 := Call2(__e, ns2_1set, symfresh, tmp1975)
-
-
-_ = tmp1977
-
-tmp1978 := MakeNative2(func(__e *ControlFlow, V4175, V4176 Obj) Obj {
-tmp1979 := GValue(__e, sym_dproperty_1vector_d)
-
-tmp1980 := Call4(__e, SymFn(symput), V4175, symarity, V4176, tmp1979)
-
-
-let__1204 := tmp1980
-_ = let__1204
-
-tmp1981 := Call1(__e, SymFn(symshen_4lambda_1entry), V4175)
-
-
-let__1205 := tmp1981
-_ = let__1205
-
-tmp1986 := Call1(__e, SymFn(symempty_2), let__1205)
-
-
-var ifres1982 Obj
-
-if True == tmp1986 {
-tmp1983 := GValue(__e, sym_dproperty_1vector_d)
-
-tmp1984 := Call3(__e, SymFn(symunput), V4175, symshen_4lambda_1form, tmp1983)
-
-
-ifres1982 = tmp1984
-
-
-} else {
-tmp1985 := Call1(__e, SymFn(symshen_4set_1lambda_1form_1entry), let__1205)
-
-
-ifres1982 = tmp1985
-
-
-}
-
-let__1206 := ifres1982
-_ = let__1206
 
 return V4175
 
@@ -3790,84 +3723,218 @@ return V4175
 panic("unreachable")
 })
 
-tmp1987 := Call2(__e, ns2_1set, symupdate_1lambda_1table, tmp1978)
+tmp1977 := Call2(__e, ns2_1set, symwrite_1to_1file, tmp1970)
 
 
-_ = tmp1987
+_ = tmp1977
 
-tmp1988 := MakeNative2(func(__e *ControlFlow, V4182, V4183 Obj) Obj {
-tmp2012 := GEq(__e, MakeInteger(0), V4183)
-
-if True == tmp2012 {
-tmp1989 := GValue(__e, symshen_4_dspecial_d)
-
-tmp1990 := Call2(__e, SymFn(symremove), V4182, tmp1989)
+tmp1978 := MakeNative0(func(__e *ControlFlow) Obj {
+tmp1979 := Call1(__e, SymFn(symgensym), symshen_4t)
 
 
-tmp1991 := PrimGuard2(__e, symset, PrimSet, symshen_4_dspecial_d, tmp1990)
-
-_ = tmp1991
-
-tmp1992 := GValue(__e, symshen_4_dextraspecial_d)
-
-tmp1993 := Call2(__e, SymFn(symremove), V4182, tmp1992)
+return TailCall1(__e, SymFn(symshen_4freshterm), tmp1979)
 
 
-tmp1994 := PrimGuard2(__e, symset, PrimSet, symshen_4_dextraspecial_d, tmp1993)
+panic("unreachable")
+})
 
-_ = tmp1994
-
-return V4182
-
-
-} else {
-tmp2010 := GEq(__e, MakeInteger(1), V4183)
-
-if True == tmp2010 {
-tmp1995 := GValue(__e, symshen_4_dspecial_d)
-
-tmp1996 := Call2(__e, SymFn(symadjoin), V4182, tmp1995)
+tmp1980 := Call2(__e, ns2_1set, symfresh, tmp1978)
 
 
-tmp1997 := PrimGuard2(__e, symset, PrimSet, symshen_4_dspecial_d, tmp1996)
+_ = tmp1980
 
-_ = tmp1997
+tmp1981 := MakeNative2(func(__e *ControlFlow, V4180, V4181 Obj) Obj {
+tmp1982 := GValue(__e, sym_dproperty_1vector_d)
 
-tmp1998 := GValue(__e, symshen_4_dextraspecial_d)
-
-tmp1999 := Call2(__e, SymFn(symremove), V4182, tmp1998)
+tmp1983 := Call4(__e, SymFn(symput), V4180, symarity, V4181, tmp1982)
 
 
-tmp2000 := PrimGuard2(__e, symset, PrimSet, symshen_4_dextraspecial_d, tmp1999)
+let__1204 := tmp1983
+_ = let__1204
 
-_ = tmp2000
+tmp1984 := Call1(__e, SymFn(symshen_4lambda_1entry), V4180)
 
-return V4182
+
+let__1205 := tmp1984
+_ = let__1205
+
+tmp1989 := Call1(__e, SymFn(symempty_2), let__1205)
+
+
+var ifres1985 Obj
+
+if True == tmp1989 {
+tmp1986 := GValue(__e, sym_dproperty_1vector_d)
+
+tmp1987 := Call3(__e, SymFn(symunput), V4180, symshen_4lambda_1form, tmp1986)
+
+
+ifres1985 = tmp1987
 
 
 } else {
-tmp2008 := GEq(__e, MakeInteger(2), V4183)
-
-if True == tmp2008 {
-tmp2001 := GValue(__e, symshen_4_dspecial_d)
-
-tmp2002 := Call2(__e, SymFn(symremove), V4182, tmp2001)
+tmp1988 := Call1(__e, SymFn(symshen_4set_1lambda_1form_1entry), let__1205)
 
 
-tmp2003 := PrimGuard2(__e, symset, PrimSet, symshen_4_dspecial_d, tmp2002)
-
-_ = tmp2003
-
-tmp2004 := GValue(__e, symshen_4_dextraspecial_d)
-
-tmp2005 := Call2(__e, SymFn(symadjoin), V4182, tmp2004)
+ifres1985 = tmp1988
 
 
-tmp2006 := PrimGuard2(__e, symset, PrimSet, symshen_4_dextraspecial_d, tmp2005)
+}
 
-_ = tmp2006
+let__1206 := ifres1985
+_ = let__1206
 
-return V4182
+return V4180
+
+
+panic("unreachable")
+})
+
+tmp1990 := Call2(__e, ns2_1set, symupdate_1lambda_1table, tmp1981)
+
+
+_ = tmp1990
+
+tmp1991 := MakeNative1(func(__e *ControlFlow, V4187 Obj) Obj {
+return False
+panic("unreachable")
+})
+
+tmp1992 := Call2(__e, ns2_1set, symshen_4precompiled_1function_2, tmp1991)
+
+
+_ = tmp1992
+
+tmp1993 := MakeNative4(func(__e *ControlFlow, V4188, V4189, V4190, V4191 Obj) Obj {
+if True == V4191 {
+tmp1994 := GValue(__e, sym_dproperty_1vector_d)
+
+tmp1995 := Call4(__e, SymFn(symput), V4188, symarity, V4189, tmp1994)
+
+
+let__1207 := tmp1995
+_ = let__1207
+
+tmp1996 := Call1(__e, SymFn(symthaw), V4190)
+
+
+let__1208 := tmp1996
+_ = let__1208
+
+tmp2002 := GEq(__e, V4189, MakeInteger(0))
+
+var ifres1997 Obj
+
+if True == tmp2002 {
+tmp1998 := GValue(__e, sym_dproperty_1vector_d)
+
+tmp1999 := Call3(__e, SymFn(symunput), V4188, symshen_4lambda_1form, tmp1998)
+
+
+ifres1997 = tmp1999
+
+
+} else {
+tmp2000 := GCons(__e, V4188, let__1208)
+
+tmp2001 := Call1(__e, SymFn(symshen_4set_1lambda_1form_1entry), tmp2000)
+
+
+ifres1997 = tmp2001
+
+
+}
+
+let__1209 := ifres1997
+_ = let__1209
+
+return V4188
+
+
+} else {
+return TailCall2(__e, SymFn(symupdate_1lambda_1table), V4188, V4189)
+}
+panic("unreachable")
+})
+
+tmp2004 := Call2(__e, ns2_1set, symshen_4update_1lambda_1table_cprecompiled, tmp1993)
+
+
+_ = tmp2004
+
+tmp2005 := MakeNative2(func(__e *ControlFlow, V4197, V4198 Obj) Obj {
+tmp2029 := GEq(__e, MakeInteger(0), V4198)
+
+if True == tmp2029 {
+tmp2006 := GValue(__e, symshen_4_dspecial_d)
+
+tmp2007 := Call2(__e, SymFn(symremove), V4197, tmp2006)
+
+
+tmp2008 := PrimGuard2(__e, symset, PrimSet, symshen_4_dspecial_d, tmp2007)
+
+_ = tmp2008
+
+tmp2009 := GValue(__e, symshen_4_dextraspecial_d)
+
+tmp2010 := Call2(__e, SymFn(symremove), V4197, tmp2009)
+
+
+tmp2011 := PrimGuard2(__e, symset, PrimSet, symshen_4_dextraspecial_d, tmp2010)
+
+_ = tmp2011
+
+return V4197
+
+
+} else {
+tmp2027 := GEq(__e, MakeInteger(1), V4198)
+
+if True == tmp2027 {
+tmp2012 := GValue(__e, symshen_4_dspecial_d)
+
+tmp2013 := Call2(__e, SymFn(symadjoin), V4197, tmp2012)
+
+
+tmp2014 := PrimGuard2(__e, symset, PrimSet, symshen_4_dspecial_d, tmp2013)
+
+_ = tmp2014
+
+tmp2015 := GValue(__e, symshen_4_dextraspecial_d)
+
+tmp2016 := Call2(__e, SymFn(symremove), V4197, tmp2015)
+
+
+tmp2017 := PrimGuard2(__e, symset, PrimSet, symshen_4_dextraspecial_d, tmp2016)
+
+_ = tmp2017
+
+return V4197
+
+
+} else {
+tmp2025 := GEq(__e, MakeInteger(2), V4198)
+
+if True == tmp2025 {
+tmp2018 := GValue(__e, symshen_4_dspecial_d)
+
+tmp2019 := Call2(__e, SymFn(symremove), V4197, tmp2018)
+
+
+tmp2020 := PrimGuard2(__e, symset, PrimSet, symshen_4_dspecial_d, tmp2019)
+
+_ = tmp2020
+
+tmp2021 := GValue(__e, symshen_4_dextraspecial_d)
+
+tmp2022 := Call2(__e, SymFn(symadjoin), V4197, tmp2021)
+
+
+tmp2023 := PrimGuard2(__e, symset, PrimSet, symshen_4_dextraspecial_d, tmp2022)
+
+_ = tmp2023
+
+return V4197
 
 
 } else {
@@ -3884,40 +3951,40 @@ return PrimGuard1(__e, symsimple_1error, PrimSimpleError, MakeString("specialise
 panic("unreachable")
 })
 
-tmp2013 := Call2(__e, ns2_1set, symspecialise, tmp1988)
+tmp2030 := Call2(__e, ns2_1set, symspecialise, tmp2005)
 
 
-_ = tmp2013
+_ = tmp2030
 
-tmp2014 := MakeNative1(func(__e *ControlFlow, V4184 Obj) Obj {
-tmp2015 := GValue(__e, sym_dabsolute_d)
+tmp2031 := MakeNative1(func(__e *ControlFlow, V4199 Obj) Obj {
+tmp2032 := GValue(__e, sym_dabsolute_d)
 
-tmp2016 := GCons(__e, V4184, tmp2015)
+tmp2033 := GCons(__e, V4199, tmp2032)
 
-return PrimGuard2(__e, symset, PrimSet, sym_dabsolute_d, tmp2016)
-
-
-panic("unreachable")
-})
-
-tmp2017 := Call2(__e, ns2_1set, symabsolute, tmp2014)
-
-
-_ = tmp2017
-
-tmp2018 := MakeNative1(func(__e *ControlFlow, V4185 Obj) Obj {
-tmp2019 := GValue(__e, sym_dabsolute_d)
-
-tmp2020 := Call2(__e, SymFn(symremove), V4185, tmp2019)
-
-
-return PrimGuard2(__e, symset, PrimSet, sym_dabsolute_d, tmp2020)
+return PrimGuard2(__e, symset, PrimSet, sym_dabsolute_d, tmp2033)
 
 
 panic("unreachable")
 })
 
-return TailCall2(__e, ns2_1set, symunabsolute, tmp2018)
+tmp2034 := Call2(__e, ns2_1set, symabsolute, tmp2031)
+
+
+_ = tmp2034
+
+tmp2035 := MakeNative1(func(__e *ControlFlow, V4200 Obj) Obj {
+tmp2036 := GValue(__e, sym_dabsolute_d)
+
+tmp2037 := Call2(__e, SymFn(symremove), V4200, tmp2036)
+
+
+return PrimGuard2(__e, symset, PrimSet, sym_dabsolute_d, tmp2037)
+
+
+panic("unreachable")
+})
+
+return TailCall2(__e, ns2_1set, symunabsolute, tmp2035)
 
 
 
