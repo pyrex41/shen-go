@@ -81,7 +81,7 @@ func TestKernelCertification(t *testing.T) {
 }
 
 // TestExtensionCertification runs the kernel's optional extension suite
-// (kernel/tests/extensions, 123 assertions). It reports through its own harness
+// (kernel/tests/extensions, 178 assertions on 43.4). It reports through its own harness
 // and its own "passed ... N / failed ... N" lines, and raises at the end when one
 // fails, so all three are checked: a run that loads less, or stops early, must
 // not pass by having failed nothing. Paths in the suite are relative to kernel/.
@@ -116,8 +116,8 @@ func TestExtensionCertification(t *testing.T) {
 	if strings.Contains(out, "not ok - ") {
 		t.Fatalf("extension suite reported a failure; output tail:\n%s", tail(out, 40))
 	}
-	if !strings.Contains(out, "passed ... 123\n") || !strings.Contains(out, "failed ... 0\n") {
-		t.Fatalf("did not find 'passed ... 123' and 'failed ... 0'; output tail:\n%s", tail(out, 40))
+	if !strings.Contains(out, "passed ... 178\n") || !strings.Contains(out, "failed ... 0\n") {
+		t.Fatalf("did not find 'passed ... 178' and 'failed ... 0'; output tail:\n%s", tail(out, 40))
 	}
 }
 
