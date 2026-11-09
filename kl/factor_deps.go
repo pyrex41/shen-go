@@ -2,13 +2,14 @@ package kl
 
 // factorDeps is every function shen.factor can reach in the kernel, primitives
 // included: the call-position symbols of the defuns reachable from shen.factor
-// in kernel/klambda/*.kl (43.2). From the end of InstallKernelFast, rebinding
+// in kernel/klambda/*.kl (re-derived on 43.4: unchanged from 43.2). From the end of InstallKernelFast, rebinding
 // any of them (but factorHostRebinds) stops factorising and recompiles
 // factorised definitions from their raw form (noteRebinding), so a
 // rebound kernel function never starts running inside the compiler, where on
 // master it would be reached only through (factorise +).
 //
-// Regenerate after a kernel upgrade by walking the defuns from shen.factor:
+// TestFactorDepsMatchKernel re-derives the list from the vendored kernel and
+// fails if it differs. Regenerate after a kernel upgrade by walking the defuns from shen.factor:
 // collect each (sym ...) in call position that is not a special form or a
 // variable, and recurse into those that have a defun. The printer also calls
 // the vector print handlers by the symbol in a vector's slot 0, not in call
