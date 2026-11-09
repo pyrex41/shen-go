@@ -6,6 +6,39 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 
 ## [Unreleased]
 
+## [43.4] - 2026-11-06
+
+### Added
+
+- Share scope-aware initializer expansion and precompiled currying adapters
+  through `expand-dynamic`. Ports can opt in through a conservative binding
+  hook; dynamic and shadowed registrations retain ordinary runtime behavior.
+
+### Changed
+
+- Pre-expand extension initializer signatures and stlib arity registrations,
+  preserving declaration checks and metadata installation order.
+
+## [43.3] - 2026-11-06
+
+### Added
+
+- Add checked declaration expansion to `expand-dynamic`, preserving runtime
+  type validation and declaration results while compiling literal signatures
+  ahead of initialization. Computed signatures keep their runtime behavior.
+
+### Changed
+
+- Pre-expand stlib type declarations through the portable kernel extension,
+  including polymorphic signatures, instead of rebuilding their functions at
+  startup. Ordinary `declare` still constructs its signature after validation.
+
+### Fixed
+
+- Factorise explicit `cond` expressions without a `true` clause, preserving
+  the runtime `condition failure` error when no clause matches.
+  Reported by @pyrex41.
+
 ## [43.2] - 2026-11-04
 
 ### Changed
@@ -754,7 +787,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 - y-or-n? fixed
 - compiler warnings suppressed in CLisp
 
-[Unreleased]: https://github.com/Shen-Language/shen-sources/compare/shen-43.2...HEAD
+[Unreleased]: https://github.com/Shen-Language/shen-sources/compare/shen-43.4...HEAD
+[43.4]: https://github.com/Shen-Language/shen-sources/compare/shen-43.3...shen-43.4
+[43.3]: https://github.com/Shen-Language/shen-sources/compare/shen-43.2...shen-43.3
 [43.2]: https://github.com/Shen-Language/shen-sources/compare/shen-43.1...shen-43.2
 [43.1]: https://github.com/Shen-Language/shen-sources/compare/shen-42.2...shen-43.1
 [42.2]: https://github.com/Shen-Language/shen-sources/compare/shen-42.1...shen-42.2

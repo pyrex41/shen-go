@@ -69,6 +69,9 @@
 (define make-stlib.add-init
   Phase KL
   -> (let Variable (make-stlib.phase-variable Phase)
+          KL (if (= Phase type)
+                 (shen.x.expand-dynamic.expand-declare/checked KL)
+                 KL)
        (set Variable [KL | (value Variable)])))
 
 \\ Public entrypoints.
@@ -477,7 +480,9 @@
   File
   -> (let Defuns (reverse (value make-stlib.*defuns*))
           InitDefuns (make-stlib.initialiser-defuns)
-          KlString (make-stlib.list->string (append Defuns InitDefuns))
+          Known (map (fn make-stlib.defun-name) Defuns)
+          ExpandedInit (map (/. Expr (shen.x.expand-dynamic.expand-initializer Expr Known (/. Ignored false))) InitDefuns)
+          KlString (make-stlib.list->string (append Defuns ExpandedInit))
        (do
          (write-to-file File KlString)
          File)))

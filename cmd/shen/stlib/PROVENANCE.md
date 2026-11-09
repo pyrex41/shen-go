@@ -1,9 +1,9 @@
 # Provenance — Shen standard library (StLib)
 
 These sources are vendored from Mark Tarver's **S42 (2026-08-25 refresh)**
-`Lib/StLib`. The kernel was moved to the community ShenOSKernel (43.2 as of 2026-11)
+`Lib/StLib`. The kernel was moved to the community ShenOSKernel (43.4 as of 2026-11)
 (see `kernel/klambda/PROVENANCE.md`); the StLib was deliberately left on this
-vendoring, so it is no longer the same lineage as the kernel. ShenOSKernel 43.2
+vendoring, so it is no longer the same lineage as the kernel. ShenOSKernel 43.4
 ships its own precompiled `kernel/klambda/stlib.kl` (with `stlib.initialise`,
 loaded by shen-scheme 0.50), which shen-go does not boot.
 

@@ -71,7 +71,7 @@ func TestPipedStdinEOFExitsRepl(t *testing.T) {
 	}
 
 	out := string(output)
-	if !strings.Contains(out, "43.2") {
+	if !strings.Contains(out, "43.4") {
 		t.Fatalf("expected version output, got:\n%s", out)
 	}
 	if strings.Contains(out, "error: empty stream") {
@@ -192,7 +192,7 @@ func TestLauncherVersionAndBadArgs(t *testing.T) {
 	if err != nil {
 		t.Fatalf("shen --version exited with error: %v\n%s", err, out)
 	}
-	if !strings.Contains(out, "43.2") {
+	if !strings.Contains(out, "43.4") {
 		t.Fatalf("expected version string, got:\n%s", out)
 	}
 

@@ -61,8 +61,8 @@ func TestBareEvalLoopBootsKernel(t *testing.T) {
 	if len(lines) < 3 {
 		t.Fatalf("unexpected output:\n%s", got)
 	}
-	if v := lines[len(lines)-1]; !strings.HasSuffix(v, ` "43.2"`) {
-		t.Errorf("(version) line %q should end with \"43.2\"\n%s", v, got)
+	if v := lines[len(lines)-1]; !strings.HasSuffix(v, ` "43.4"`) {
+		t.Errorf("(version) line %q should end with \"43.4\"\n%s", v, got)
 	}
 	for _, l := range lines[len(lines)-3 : len(lines)-1] {
 		if !strings.HasSuffix(l, " 2") {

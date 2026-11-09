@@ -49,3 +49,77 @@ to wrap.
 
 **Output:** The input expressions, converted into a single expression with `do`,
 and wrapped into a defun of the given name.
+
+### shen.x.expand-dynamic.expand-declare/checked
+
+Pre-expand one top-level KLambda declaration while retaining runtime
+validation. This is the path used by the stlib builder.
+
+**Input:** One top-level KLambda expression.
+
+**Output:** A literal `declare` is replaced by a call to the kernel's
+`shen.declare-with-signature`, carrying a factory for the precompiled signature
+function. Other expressions, including computed signatures, are unchanged.
+
+The factory is invoked after the usual type rectification and variancy check.
+The declaration still returns its name. Its generated signature function uses
+the ordinary Prolog allocation and cleanup code, including fresh variables on
+each call. There is no limit on the number of type variables.
+
+Literal signatures are the `cons`/`protect` expressions produced by the
+compiler. Apply this function before wrapping initializer expressions in a
+`defun`; it does not analyze lexical scopes in arbitrary function bodies.
+Rebuild the kernel and stlib together: the checked expansion uses the new
+kernel helper in `types.kl`.
+
+The existing trusted kernel expansion continues to omit runtime validation.
+Use the checked path for metadata that must preserve source-loading checks.
+
+See [precompiled startup signatures](../startup-signatures.md) for the
+stlib integration and rebuild requirements.
+
+### shen.x.expand-dynamic.expand-initializer
+
+Expand one trusted initializer expression or `defun` in standard KLambda.
+
+**Input:** The expression, a list of function names provided by the build,
+and a predicate receiving each expression. Return `true` to leave the whole
+expression untouched, including its contents. The predicate must return a
+Boolean; use `(/. Ignored false)` for ordinary KLambda without host escape syntax.
+
+**Output:** Literal declarations use checked, precompiled signatures. Literal
+`update-lambda-table` calls for known functions carry a precompiled adapter
+factory and a `shen.precompiled-function?` check. Unknown functions and computed
+registrations retain their original path.
+
+The pass tracks `defun`, `lambda`, and `let` bindings and handles `cond` clauses
+as expressions. Protected symbols are preserved. Host syntax, including its
+literal-data forms, is identified by the caller-supplied predicate without
+host-specific names in the shared pass. Declarations with lexical signature
+dependencies or shadowed helper names remain dynamic.
+Apply it before lowering KL into a host language; it is not a walker for
+arbitrary host syntax or a general optimization of user code. Reapplying it to
+an expanded arity registration leaves the registration unchanged.
+
+The kernel and stlib builders use this pass. Port builders can use it for
+port-specific initializer code as well, supplying their own host-syntax
+predicate. This uses the expansion function from the released KLambda;
+ports do not need to regenerate the kernel to supply a predicate.
+
+### Compiled-adapter binding policy
+
+`shen.precompiled-function?` defaults to `false`. This keeps runtime lookup,
+forward references, and function redefinition intact on an unconfigured port.
+A port may override or lower this hook when it can prove that the emitted
+adapter has the same function-binding behavior as ordinary runtime compilation.
+
+For example, a host with immutable imported functions and mutable top-level
+shadows must verify that the visible binding is the original immutable one.
+Hosts whose compiled named calls already follow the required mutable binding
+can opt in for those calls. The hook must return a Boolean; deciding only from
+an arity or a function name is insufficient on hosts that capture bindings.
+
+The portable `shen.update-lambda-table/precompiled` helper installs arity and
+lambda-form metadata when the check succeeds. Otherwise it calls ordinary
+`update-lambda-table` without invoking the supplied adapter factory. Ports do
+not need their own metadata installer or adapter generator.
